@@ -1,4 +1,4 @@
-pkg_DATA = Brasil.rst
+pkg_DATA = Brasil.rst SaoPaulo.rst
 
 pkgdir = $(kde_datadir)/kppp/Rules/Brasil
 
