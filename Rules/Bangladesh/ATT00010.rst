@@ -53,7 +53,7 @@ default=(1, 60)
 #VAT (15%) INCLUDED
 
 on () between (00:00..05:59) use (0.57, 1)
-on () between (06:00..21.59) use (1.15, 1)
+on () between (06:00..21:59) use (1.15, 1)
 on () between (22:00..23:59) use (0.57, 1)
 
 #This RST file is written by sas@startrekmail.com
