@@ -1,0 +1,25 @@
+# KDE Config File
+AutoName=0
+ExDNSDisabled=0
+ScriptArguments=
+AccountingEnabled=0
+Phonenumber=086755666
+IPAddr=0.0.0.0
+Name=Orcon Internet
+Domain=orcon.net.nz
+VolumeAccountingEnabled=0
+pppdArguments=
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=1
+SubnetMask=0.0.0.0
+DNS=210.55.12.1,210.55.12.2,
+AccountingFile=
+DefaultRoute=1
+Username=%USERNAME%
+StorePassword=1
+Gateway=0.0.0.0
+DisconnectCommand=
+

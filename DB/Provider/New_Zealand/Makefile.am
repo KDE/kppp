@@ -1,4 +1,4 @@
-pkg_DATA = .directory Paradise Voyager XTRA
+pkg_DATA = .directory Paradise Voyager XTRA OrconInternet
 
 pkgdir = $(kde_datadir)/kppp/Provider/NewZealand
 
