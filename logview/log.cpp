@@ -18,15 +18,19 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include <qdir.h>
 #include "log.h"
+
 #include <stdlib.h>
 #include <stdio.h>
-#include <kapp.h>
+
 #include <qfileinfo.h>
 #include <qprogressdialog.h>
+#include <qdir.h>
+
+#include <kapp.h>
 #include <klocale.h>
 #include <kstddirs.h>
+#include <kdebug.h>
 
 QList<LogInfo> logList;
 QProgressDialog *dlg;
@@ -37,7 +41,7 @@ int loadLogs() {
   QString logdirname = locateLocal("data", "kppp/Log/");
   QDir logdir(logdirname, "*.log");
 
-  debug("logdirname: %s", logdirname.latin1());
+  kdDebug() << "logdirname: " << logdirname << endl;
   
   // get log file size
   const QFileInfoList *list = logdir.entryInfoList();
@@ -72,7 +76,7 @@ int loadLog(QString fname) {
   FILE *f;
   int warning=0;
 
-  f = fopen(fname.data(), "r");
+  f = fopen(QFile::encodeName(fname), "r");
   if(f == NULL)
     return 1;
 
@@ -97,8 +101,7 @@ int loadLog(QString fname) {
       // check if the connection has been terminated abnormally
       if(li->error() != 3) {
 	warning++;    
-	printf("ERROR IN FILE %s LINE %d \"%s\" (%d)\n", 
-	       fname.data(), lineno, buffer, li->error());
+	kdError() << "ERROR IN FILE " << fname << " LINE " << lineno << "\"" << buffer << "\" (" << li->error() << ")" << endl;
 	delete li;
       } else
 	logList.append(li);

@@ -37,18 +37,18 @@ protected:
 class KGroupBox : public KGroupBoxBase {
   Q_OBJECT
 public:
-  KGroupBox(const char *title, QWidget *parent = 0, const char *name = 0);
+  KGroupBox(const QString &title, QWidget *parent = 0, const char *name = 0);
 
-  void setTitle(const char *title);
+  void setTitle(const QString &title);
 };
 
 
 class KCheckGroupBox : public KGroupBoxBase {
   Q_OBJECT
 public:
-  KCheckGroupBox(const char *title, QWidget *parent = 0, const char *name = 0);
+  KCheckGroupBox(const QString & title, QWidget *parent = 0, const char *name = 0);
 
-  void setTitle(const char *title);
+  void setTitle(const QString & title);
   bool isChecked();
   void setChecked(bool);
 
@@ -66,9 +66,9 @@ private:
 class KRadioGroupBox : public KGroupBoxBase {
   Q_OBJECT
 public:
-  KRadioGroupBox(const char *title, QWidget *parent = 0, const char *name = 0);
+  KRadioGroupBox(const QString & title, QWidget *parent = 0, const char *name = 0);
 
-  void setTitle(const char *title);
+  void setTitle(const QString & title);
   bool isChecked();
 
 private slots:

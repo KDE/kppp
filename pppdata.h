@@ -32,7 +32,7 @@
 #include <sys/types.h>
 
 #include <qstring.h>
-#include <qstrlist.h>
+#include <qstringlist.h>
 #include <qcolor.h>
 
 #include "kpppconfig.h"
@@ -162,11 +162,11 @@ public:
   QString readConfig(const QString &, const QString &, const QString &);
   int readNumConfig(const QString &, const QString &, int);
   bool readListConfig(const QString &, const QString &,
-                      QStrList &, char sep = ',');
+                      QStringList &, char sep = ',');
   void writeConfig(const QString &, const QString &, const QString &);
   void writeConfig(const QString &, const QString &, int);
   void writeListConfig(const QString &, const QString &,
-                       QStrList &, char sep = ',');
+                       QStringList &, char sep = ',');
 
   // return the current account group
   QString currentGroup() { return cgroup; }
@@ -310,7 +310,7 @@ public:
   const QString accname();
   void setAccname(const QString &);
   
-  QStrList &phonenumbers();
+  QStringList &phonenumbers();
   const QString phonenumber();
   void setPhonenumber(const QString &);
 
@@ -371,21 +371,21 @@ public:
   bool defaultroute();
   void setDefaultroute(bool set);
 
-  QStrList &dns();
-  void setDns(QStrList &);
+  QStringList &dns();
+  void setDns(QStringList &);
 
   const QString domain();
   void setDomain(const QString &);
 
-  QStrList &scriptType();
-  void setScriptType(QStrList &);
+  QStringList &scriptType();
+  void setScriptType(QStringList &);
 
-  QStrList &script();
-  void setScript(QStrList &);
+  QStringList &script();
+  void setScript(QStringList &);
 
-  QStrList &pppdArgument();
+  QStringList &pppdArgument();
   void setpppdArgumentDefaults();
-  void setpppdArgument(QStrList &);
+  void setpppdArgument(QStringList &);
 
   //functions to change/set the child pppd process info
   bool pppdRunning() const;
@@ -431,7 +431,7 @@ private:
   int pppderror;                         // error encounterd running pppd
   int pppdVer, pppdMod, pppdPatch;       // pppd version
 
-  QStrList phonelist;
+  QStringList phonelist;
 };
 
 extern PPPData gpppdata;

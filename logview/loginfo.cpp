@@ -29,6 +29,8 @@
 #include <string.h>
 #endif
 
+#include <kdebug.h>
+
 char *mystrsep (char **stringp, const char *delim);
 
 LogInfo::LogInfo(QString data) {
@@ -85,7 +87,7 @@ int LogInfo::error() {
 void LogInfo::parse(QString s) {
   errorfield = 0;
   char *c = (char *)malloc(s.length() + 1), *csep;
-  strcpy(c, s.data());
+  strcpy(c, s.ascii());
 
   // init data
   _from = _until = 0;
@@ -156,21 +158,19 @@ int LogInfo::duration() {
 }
 
 #ifdef MYDEBUG
-#include <stdio.h>
-
 void LogInfo::dump() {
-  printf("LOGINFO %u\n", (unsigned)this);
-  printf("\tconnection name : %s\n", connectionName().data());
-  printf("\tcurrency symbol : %s\n", currency().data());
-  printf("\tbegin           : %s", ctime(&_from));
-  printf("\tend             : %s", ctime(&_until));
-  printf("\tduration        : %d seconds\n", (int)_until - (int)_from);
-  printf("\tsession cost    : %0.2e\n", sessionCosts());
-  printf("\ttotal cost      : %0.2e\n", totalCosts());
-  printf("\tbytes in        : %d\n", bytesIn());
-  printf("\tbytes out       : %d\n", bytesOut());
-  printf("\tbytes total     : %d\n", bytes());
-  printf("\n");
+  kdDebug() << "LOGINFO " << this << endl;
+  kdDebug() << "connection name : " << connectionName() << endl;
+  kdDebug() << "currency symbol : " << currency() << endl;
+  kdDebug() << "begin           : " << ctime(&_from) << endl;
+  kdDebug() << "end             : " << ctime(&_until) << endl;
+  kdDebug() << "duration        : " << (int)_until - (int)_from << " seconds" << endl;
+  kdDebug() << "session cost    : " << sessionCosts() << endl;
+  kdDebug() << "total cost      : " << totalCosts() << endl;
+  kdDebug() << "bytes in        : " << bytesIn() << endl;
+  kdDebug() << "bytes out       : " << bytesOut() << endl;
+  kdDebug() << "bytes total     : " << bytes() << endl;
+  kdDebug() << endl;
 }
 #endif
 

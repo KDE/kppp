@@ -154,7 +154,7 @@ private:
 
 void killpppd();
 void sighandler(int);
-pid_t execute_command(const char *);
+pid_t execute_command(const QString &);
 pid_t create_pidfile();
 bool remove_pidfile();
 void myShutDown();

@@ -181,7 +181,7 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
 
 bool DialWidget::save() {
   //first check to make sure that the account name is unique!
-  if(strlen(connectname_l->text()) == 0 ||
+  if(connectname_l->text().isEmpty() ||
      !gpppdata.isUniqueAccname(connectname_l->text())) {
     return false;
   } else {
@@ -690,7 +690,7 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
 
   // restore data if editing
   if(!isnewaccount) {
-    dnsservers->insertStrList(gpppdata.dns());
+    dnsservers->insertStringList(gpppdata.dns());
     dnsdomain->setText(gpppdata.domain());
   }
 
@@ -725,7 +725,7 @@ void DNSWidget::DNS_Mode_Selected(int mode) {
 
 void DNSWidget::save() {
   gpppdata.setAutoDNS(bg->id(bg->selected()) == 0);
-  QStrList serverlist;
+  QStringList serverlist;
   for(uint i=0; i < dnsservers->count(); i++)
     serverlist.append(dnsservers->text(i));
   gpppdata.setDns(serverlist);
@@ -909,14 +909,12 @@ ScriptWidget::ScriptWidget( QWidget *parent, bool isnewaccount, const char *name
   QHBoxLayout *l12 = new QHBoxLayout(0);
   tl->addLayout(l12);
   stl = new QListBox(peer());
-  stl->setSmoothScrolling(false);
-  stl->setAutoScrollBar(false);
+  stl->setVScrollBarMode( QScrollView::AlwaysOff );
   connect(stl, SIGNAL(highlighted(int)), SLOT(stlhighlighted(int)));
   stl->setMinimumSize(QSize(70, 140));
 
   sl = new QListBox(peer());
-  sl->setSmoothScrolling(false);
-  sl->setAutoScrollBar(false);
+  sl->setVScrollBarMode( QScrollView::AlwaysOff );
   connect(sl, SIGNAL(highlighted(int)), SLOT(slhighlighted(int)));
   sl->setMinimumSize(QSize(150, 140));
 
@@ -930,12 +928,17 @@ ScriptWidget::ScriptWidget( QWidget *parent, bool isnewaccount, const char *name
 
   //load data from gpppdata
   if(!isnewaccount) {
-    QStrList &comlist = gpppdata.scriptType();
-    QStrList &arglist = gpppdata.script();
-    for(char *com = comlist.first(), *arg = arglist.first();
-        com && arg; com = comlist.next(), arg = arglist.next()) {
-      stl->insertItem(com);
-      sl->insertItem(arg);
+    QStringList &comlist = gpppdata.scriptType();
+    QStringList &arglist = gpppdata.script();
+    QStringList::Iterator itcom = comlist.begin();
+    QStringList::Iterator itarg = arglist.begin();
+
+    for ( ;
+          itcom != comlist.end() && itarg != arglist.end();
+          ++itcom, ++itarg )
+    {
+      stl->insertItem(*itcom);
+      sl->insertItem(*itarg);
     }
   }
 
@@ -967,7 +970,7 @@ bool ScriptWidget::check() {
 
 
 void ScriptWidget::save() {
-  QStrList typelist, arglist;
+  QStringList typelist, arglist;
   for(uint i=0; i < sl->count(); i++) {
     typelist.append(stl->text(i));
     arglist.append(sl->text(i));

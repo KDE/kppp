@@ -47,7 +47,7 @@ public:
   virtual double session();
 
   virtual bool running() { return false; };
-  virtual bool loadRuleSet(const char *name) = 0;
+  virtual bool loadRuleSet(const QString & name) = 0;
 
 public slots:
   virtual void slotStart() {};
@@ -67,9 +67,9 @@ protected:
 
   // static members
 public:
-  static void resetCosts(const char *accountname);
-  static void resetVolume(const char *accountname);
-  static QString getCosts(const char* accountname);
+  static void resetCosts(const QString & accountname);
+  static void resetVolume(const QString & accountname);
+  static QString getCosts(const QString & accountname);
   static QString getAccountingFile(const QString &accountname);
 };
 
@@ -87,7 +87,7 @@ public:
   virtual double total();
   virtual double session();
 
-  virtual bool loadRuleSet(const char *name);
+  virtual bool loadRuleSet(const QString & name);
   virtual bool running();
 
 private:
@@ -121,7 +121,7 @@ class ExecutableAccounting : public AccountingBase {
 public:
   ExecutableAccounting(PPPStats *st, QObject *parent = 0);
 
-  virtual bool loadRuleSet(const char *);
+  virtual bool loadRuleSet(const QString & );
   virtual bool running();
 
 public slots:

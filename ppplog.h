@@ -30,10 +30,10 @@
 #ifndef __PPPL__H__
 #define __PPPL__H__
 
-class QStrList;
+class QStringList;
 
-int PPPL_MakeLog(QStrList &list);
-void PPPL_AnalyseLog(QStrList &list, QStrList &result);
+int PPPL_MakeLog(QStringList &list);
+void PPPL_AnalyseLog(QStringList &list, QStringList &result);
 void PPPL_ShowLog();
 
 #endif

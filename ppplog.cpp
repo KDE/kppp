@@ -36,23 +36,24 @@
 #include <ctype.h>
 #include <unistd.h>
 #include <sys/stat.h>
-#include <qstrlist.h>
-#include <qdialog.h>
-#include <kbuttonbox.h>
-#include <kmessagebox.h>
 
+#include <qstringlist.h>
+#include <qdialog.h>
+#include <qregexp.h>
 #include <qglobal.h>
 #include <qmultilinedit.h>
 #include <qlayout.h>
+
+#include <kbuttonbox.h>
+#include <kmessagebox.h>
 #include <kapp.h>
-#include <qregexp.h>
 
 #include "pppdata.h"
 #include "requester.h"
 #include <klocale.h>
 
 
-int PPPL_MakeLog(QStrList &list) {
+int PPPL_MakeLog(QStringList &list) {
   int pid = -1, newpid;
   char buffer[1024], *p;
   const char *pidp;
@@ -92,32 +93,32 @@ int PPPL_MakeLog(QStrList &list) {
     return 2;
 
   /* clear security related info */
-  list.first();
 
   const char *keyword[] = {"name = \"",
 		    "user=\"",
 		    "password=\"",
 		    0};
 
-  while(list.current() != 0) {
+  for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
+  {
+    QCString tmp = (*it).local8Bit();
     for(int j = 0; keyword[j] != 0; j++) {
       char *p;
 
-      if( (p = (char *)strstr(list.current(), keyword[j])) != 0) {
+      if( (p = (char *)strstr(tmp.data(), keyword[j])) != 0) {
 	p += strlen(keyword[j]);
 	while(*p && *p != '"')
 	  *p++ = 'X';
       }
     }
 
-    list.next();
   }
 
   return 0;
 }
 
 
-void PPPL_AnalyseLog(QStrList &list, QStrList &result) {
+void PPPL_AnalyseLog(QStringList &list, QStringList &result) {
   QString msg;
   const char *rmsg = "Remote message: ";
 
@@ -125,8 +126,8 @@ void PPPL_AnalyseLog(QStrList &list, QStrList &result) {
 
   // setup the analysis database
   struct {
-    const char *regexp;
-    const char *answer;
+    const QString regexp;
+    const QString answer;
   } hints[] = {
     {"Receive serial link is not 8-bit clean",
      i18n("You have launched pppd before the remote server " \
@@ -157,9 +158,10 @@ void PPPL_AnalyseLog(QStrList &list, QStrList &result) {
     
 
   // scan the log for keywords and try to offer any help
-  for(char *line = list.first(); line; line = list.next()) {
+  for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
+  {
     // look for remote message      
-    char *p = strstr(line, rmsg);
+    char *p = strstr((*it).data(), rmsg);
     if(p) {
       p += strlen(rmsg);
       if(strlen(p)) {
@@ -173,7 +175,7 @@ void PPPL_AnalyseLog(QStrList &list, QStrList &result) {
     // check in the hint database
     for(uint k = 0; hints[k].regexp != 0; k++) {
       QRegExp rx(hints[k].regexp);
-      QString l(line);
+      QString l(*it);
       if(l.contains(rx)) {
 	result.append(hints[k].answer);
 	break;
@@ -187,13 +189,13 @@ void PPPL_AnalyseLog(QStrList &list, QStrList &result) {
 
 
 void PPPL_ShowLog() {
-  QStrList sl, result;
+  QStringList sl, result;
 
   PPPL_MakeLog(sl);
 
   bool foundLCP = gpppdata.getPPPDebug();
   for(uint i = 0; !foundLCP && i < sl.count(); i++)
-    if(strstr(sl.at(i), "[LCP") != 0)
+    if(strstr((*sl.at(i)).local8Bit(), "[LCP") != 0)
       foundLCP = TRUE;
 
   if(!foundLCP) {
@@ -244,9 +246,9 @@ void PPPL_ShowLog() {
   dlg->setFixedSize(dlg->sizeHint());
 
   for(uint i = 0; i < sl.count(); i++)
-    edit->append(sl.at(i));
+    edit->append(*sl.at(i));
   for(uint i = 0; i < result.count(); i++)
-    diagnosis->append(result.at(i));
+    diagnosis->append(*result.at(i));
   
   dlg->connect(close, SIGNAL(clicked()),
 	       dlg, SLOT(reject()));
@@ -258,9 +260,9 @@ void PPPL_ShowLog() {
     QString s = d.absPath() + "/PPP-logfile";
     int old_umask = umask(0077);
     
-    FILE *f = fopen(s.data(), "w");
+    FILE *f = fopen(QFile::encodeName(s), "w");
     for(uint i = 0; i < sl.count(); i++)
-      fprintf(f, "%s\n", sl.at(i));
+      fprintf(f, "%s\n", (*sl.at(i)).local8Bit().data());
     fclose(f);
     umask(old_umask);
     

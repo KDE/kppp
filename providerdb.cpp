@@ -363,8 +363,8 @@ PDB_UserInfo::PDB_UserInfo(QWidget *parent) : QWidget(parent) {
 
 
 void PDB_UserInfo::textChanged(const QString &) {
-  ProviderDB::wiz->setNextEnabled(this, strlen(_password->text()) > 0 &&
-                      strlen(_username->text()) > 0);
+  ProviderDB::wiz->setNextEnabled(this, !_password->text().isEmpty() &&
+                      !_username->text().isEmpty());
 }
 
 

@@ -118,7 +118,7 @@ void PPPdArguments::removebutton() {
 void PPPdArguments::defaultsbutton() {
   // all of this is a hack
   // save current list
-  QStrList arglist(gpppdata.pppdArgument());
+  QStringList arglist(gpppdata.pppdArgument());
 
   // get defaults
   gpppdata.setpppdArgumentDefaults();
@@ -130,7 +130,7 @@ void PPPdArguments::defaultsbutton() {
 
 
 void PPPdArguments::closebutton() {
-  QStrList arglist;
+  QStringList arglist;
   for(uint i=0; i < arguments->count(); i++)
     arglist.append(arguments->text(i));
   gpppdata.setpppdArgument(arglist);
@@ -143,9 +143,11 @@ void PPPdArguments::init() {
   while(arguments->count())
     arguments->removeItem(0);
 
-  QStrList &arglist = gpppdata.pppdArgument();
-  for(char *arg = arglist.first(); arg; arg = arglist.next())
-    arguments->insertItem(arg);
+  QStringList &arglist = gpppdata.pppdArgument();
+  for ( QStringList::Iterator it = arglist.begin();
+        it != arglist.end();
+        ++it )
+    arguments->insertItem(*it);
 }
 
 

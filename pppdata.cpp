@@ -147,11 +147,11 @@ int PPPData::readNumConfig(const QString &group, const QString &key,
 
 
 bool PPPData::readListConfig(const QString &group, const QString &key,
-                             QStrList &list, char sep) {
+                             QStringList &list, char sep) {
   list.clear();
   if (config) {
     config->setGroup(group);
-    config->readListEntry(key, list, sep);
+    list = config->readListEntry(key, sep);
     return true;
   } else
     return false;
@@ -176,7 +176,7 @@ void PPPData::writeConfig(const QString &group, const QString &key, int value) {
 
 
 void PPPData::writeListConfig(const QString &group, const QString &key,
-                              QStrList &list, char sep) {
+                              QStringList &list, char sep) {
   if (config) {
     config->setGroup(group);
     config->writeEntry(key, list, sep);
@@ -780,7 +780,7 @@ const QString PPPData::accname() {
 }
 
 void PPPData::setAccname(const QString &n) {
-  if(cgroup) {
+  if(!cgroup.isNull()) {
     //change the default account name along with the account name
     if(accname() == defaultAccount())
       setDefaultAccount(n);
@@ -790,7 +790,7 @@ void PPPData::setAccname(const QString &n) {
 
 
 #define SEPARATOR_CHAR ':'
-QStrList &PPPData::phonenumbers() {
+QStringList &PPPData::phonenumbers() {
 
   readListConfig(cgroup, PHONENUMBER_KEY, phonelist, SEPARATOR_CHAR);
   return phonelist;
@@ -990,18 +990,18 @@ bool PPPData::exDNSDisabled() {
 }
 
 
-QStrList &PPPData::dns() {
-  static QStrList dnslist;
+QStringList &PPPData::dns() {
+  static QStringList dnslist;
   
   readListConfig(cgroup, DNS_KEY, dnslist);
   while(dnslist.count() > MAX_DNS_ENTRIES)
-    dnslist.removeLast();
+    dnslist.remove(dnslist.last());
 
   return dnslist;
 }
 
 
-void PPPData::setDns(QStrList &list) {
+void PPPData::setDns(QStringList &list) {
   writeListConfig(cgroup, DNS_KEY, list);
 }
 
@@ -1016,34 +1016,34 @@ void PPPData::setDomain(const QString &n ) {
 }
 
 
-QStrList &PPPData::scriptType() {
-  static QStrList typelist;
+QStringList &PPPData::scriptType() {
+  static QStringList typelist;
   
   readListConfig(cgroup, SCRIPTCOM_KEY, typelist);
   while(typelist.count() > MAX_SCRIPT_ENTRIES)
-    typelist.removeLast();
+    typelist.remove(typelist.last());
 
   return typelist;
 }
 
 
-void PPPData::setScriptType(QStrList &list) {
+void PPPData::setScriptType(QStringList &list) {
   writeListConfig(cgroup, SCRIPTCOM_KEY, list);
 }
 
 
-QStrList &PPPData::script() {
-  static QStrList scriptlist;
+QStringList &PPPData::script() {
+  static QStringList scriptlist;
   
   readListConfig(cgroup, SCRIPTARG_KEY, scriptlist);
   while(scriptlist.count() > MAX_SCRIPT_ENTRIES)
-    scriptlist.removeLast();
+    scriptlist.remove(scriptlist.last());
 
   return scriptlist;
 }
 
 
-void PPPData::setScript(QStrList &list) {
+void PPPData::setScript(QStringList &list) {
   writeListConfig(cgroup, SCRIPTARG_KEY, list);
 }
 
@@ -1077,24 +1077,24 @@ void PPPData::setTotalBytes(int n) {
 }
 
 
-QStrList &PPPData::pppdArgument() {
-  static QStrList arglist;
+QStringList &PPPData::pppdArgument() {
+  static QStringList arglist;
   
   while(arglist.count() > MAX_PPPD_ARGUMENTS)
-    arglist.removeLast();
+    arglist.remove(arglist.last());
   readListConfig(cgroup, PPPDARG_KEY, arglist);
 
   return arglist;
 }
 
 
-void PPPData::setpppdArgument(QStrList &args) {
+void PPPData::setpppdArgument(QStringList &args) {
   writeListConfig(cgroup, PPPDARG_KEY, args);
 }
 
 
 void PPPData::setpppdArgumentDefaults() {
-  QStrList arg;
+  QStringList arg;
   setpppdArgument(arg);
 }
 

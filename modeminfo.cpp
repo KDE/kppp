@@ -187,7 +187,7 @@ void ModemTransfer::do_script() {
     query.sprintf("ATI%d\n", step);
     statusBar->setText(msg);
     progressBar->advance(1);
-    Modem::modem->writeLine(query.data());
+    Modem::modem->writeLine(query.local8Bit());
     break;
 
   default:

@@ -67,7 +67,7 @@ speed_t Modem::modemspeed() {
   // convert the string modem speed int the gpppdata object to a t_speed type
   // to set the modem.  The constants here should all be ifdef'd because
   // other systems may not have them
-  int i = atoi(gpppdata.speed())/100;
+  int i = gpppdata.speed().toInt()/100;
 
   switch(i) {
   case 24:
@@ -331,7 +331,7 @@ bool Modem::hangup() {
     if (data_mode) escape_to_command_mode(); 
 
     // Then hangup command
-    writeLine(gpppdata.modemHangupStr());
+    writeLine(gpppdata.modemHangupStr().local8Bit());
     
     usleep(gpppdata.modemInitDelay() * 10000); // 0.01 - 3.0 sec 
 
@@ -382,7 +382,8 @@ void Modem::escape_to_command_mode() {
 
   // +3 because quiet time must be greater than guard time.
   usleep((gpppdata.modemEscapeGuardTime()+3)*20000);
-  write(modemfd, gpppdata.modemEscapeStr(), strlen(gpppdata.modemEscapeStr()) );  
+  QCString tmp = gpppdata.modemEscapeStr().local8Bit();
+  write(modemfd, tmp.data(), tmp.length());  
   tcflush(modemfd, TCIOFLUSH);
   usleep((gpppdata.modemEscapeGuardTime()+3)*20000);
 
@@ -427,7 +428,7 @@ QString Modem::parseModemSpeed(const QString &s) {
       // find first digit
       QString sub = s.mid(idx, len);
       sub = sub.mid(sub.find(QRegExp("[0-9]")), 255);
-      sscanf(sub.data(), "%d", &result);
+      result = sub.toInt();
       if(result > 0) {
 	rx = result;
 	break;
@@ -441,7 +442,7 @@ QString Modem::parseModemSpeed(const QString &s) {
       // find first digit
       QString sub = s.mid(idx, len);
       sub = sub.mid(sub.find(QRegExp("[0-9]")), 255);
-      sscanf(sub.data(), "%d", &result);
+      result = sub.toInt();
       if(result > 0) {
 	tx = result;
 	break;
@@ -481,8 +482,8 @@ int Modem::lockdevice() {
   QString lockfile = LOCK_DIR"/LCK..";
   lockfile += gpppdata.modemDevice().mid(5); // append everything after /dev/
 
-  if(access(lockfile.data(), F_OK) == 0) {
-    if ((fd = Requester::rq->openLockfile(lockfile.data(), O_RDONLY)) >= 0) {
+  if(access(QFile::encodeName(lockfile), F_OK) == 0) {
+    if ((fd = Requester::rq->openLockfile(QFile::encodeName(lockfile), O_RDONLY)) >= 0) {
       // Mario: it's not necessary to read more than lets say 32 bytes. If
       // file has more than 32 bytes, skip the rest
       char oldlock[33]; // safe

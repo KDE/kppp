@@ -260,10 +260,10 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
 
 
 void ModemCommands::okbutton() {
-  gpppdata.setModemPreInitDelay(atoi(lpreinitslider->text()));
+  gpppdata.setModemPreInitDelay(lpreinitslider->text().toInt());
   gpppdata.setModemInitStr(initstr->text());
   gpppdata.setModemInitResp(initresp->text());
-  gpppdata.setModemInitDelay(atoi(linitslider->text()));
+  gpppdata.setModemInitDelay(linitslider->text().toInt());
 
   gpppdata.setModemDialStr(dialstr->text());
   gpppdata.setModemConnectResp(connectresp->text());
@@ -273,7 +273,7 @@ void ModemCommands::okbutton() {
 
   gpppdata.setModemEscapeStr(escapestr->text());
   gpppdata.setModemEscapeResp(escaperesp->text());
-  gpppdata.setModemEscapeGuardTime(atoi(lslider->text()));
+  gpppdata.setModemEscapeGuardTime(lslider->text().toInt());
   gpppdata.setModemHangupStr(hangupstr->text());
   gpppdata.setModemHangupResp(hangupresp->text());
 

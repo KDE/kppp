@@ -93,14 +93,14 @@ void KGroupBoxBase::setTitleWidget(QWidget *title) {
 }
 
 
-KGroupBox::KGroupBox(const char *title, QWidget *parent, const char *name) :
-  KGroupBoxBase(parent, name)
+KGroupBox::KGroupBox(const QString & title, QWidget *parent, const char *name)
+ : KGroupBoxBase(parent, name)
 {
   setTitle(title);
 }
 
 
-void KGroupBox::setTitle(const char *name) {
+void KGroupBox::setTitle(const QString & name) {
   QLabel *l = new QLabel(name, this);
   l->setMinimumWidth(l->sizeHint().width()+8);
   l->setMinimumHeight(l->sizeHint().height());
@@ -109,15 +109,15 @@ void KGroupBox::setTitle(const char *name) {
 }
 
 
-KCheckGroupBox::KCheckGroupBox(const char *title, QWidget *parent, const char *name) :
+KCheckGroupBox::KCheckGroupBox(const QString & title, QWidget *parent, const char *name) :
   KGroupBoxBase(parent, name)
 {
   setTitle(title);
 }
 
 
-void KCheckGroupBox::setTitle(const char *name) {
-  cbox = new QCheckBox(name, this);
+void KCheckGroupBox::setTitle(const QString & title) {
+  cbox = new QCheckBox(title, this);
   cbox->setMinimumWidth(cbox->sizeHint().width()+8);
   cbox->setMinimumHeight(cbox->sizeHint().height());
   connect(cbox, SIGNAL(toggled(bool)),
@@ -141,14 +141,14 @@ bool KCheckGroupBox::isChecked() {
 }
 
 
-KRadioGroupBox::KRadioGroupBox(const char *title, QWidget *parent, const char *name) :
+KRadioGroupBox::KRadioGroupBox(const QString & title, QWidget *parent, const char *name) :
   KGroupBoxBase(parent, name)
 {
   setTitle(title);
 }
 
 
-void KRadioGroupBox::setTitle(const char *name) {
+void KRadioGroupBox::setTitle(const QString & name) {
   rb = new QRadioButton(name, this);
   rb->setMinimumWidth(rb->sizeHint().width()+8);
   rb->setMinimumHeight(rb->sizeHint().height());

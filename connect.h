@@ -89,8 +89,8 @@ public:
 private:
   int vmain;
   int scriptindex;
-  char *scriptCommand, *scriptArgument;
-  QStrList *comlist, *arglist;
+  QString scriptCommand, scriptArgument;
+  QStringList *comlist, *arglist;
 
   //  static const int maxloopnest=(MAX_SCRIPT_ENTRIES/2);
   int loopnest;
@@ -103,16 +103,16 @@ private:
 
   QTimer *timeout_timer;
   bool execppp();
-  void writeline(const char*);
+  void writeline(const QString &);
   void checkBuffers();
   
-  void setExpect(const char *);
+  void setExpect(const QString &);
   bool expecting;
   QString expectstr;
   
   QString readbuffer;
 
-  void setScan(const char *);
+  void setScan(const QString &);
   QString scanvar;
   QString scanstr;
   QString scanbuffer;
@@ -144,7 +144,7 @@ extern void killppp();
 void adddns();
 void addpeerdns();
 void removedns();
-void add_domain(const char* newdomain);
+void add_domain(const QString & newdomain);
 void auto_hostname();
 
 #endif

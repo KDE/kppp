@@ -26,7 +26,6 @@
 
 #include <config.h>
 
-#include <qfileinfo.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <sys/stat.h>
@@ -39,6 +38,8 @@
 #ifdef HAVE_SYS_PARAM_H
 #include <sys/param.h>
 #endif
+
+#include <qfileinfo.h>
 
 #include <kdebug.h>
 #include <kbuttonbox.h>
@@ -206,7 +207,9 @@ extern "C" {
       unlockdevice();*/
   
     XGetErrorText( dpy, err->error_code, errstr, 256 );
-    fatal( "X Error: %s\n  Major opcode:  %d", errstr, err->request_code );
+    kdFatal() << "X Error: " << errstr << endl;
+    kdFatal() << "Major opcode: " << err->request_code << endl;
+    exit(256);
     return 0;
   }
 
@@ -222,7 +225,8 @@ extern "C" {
       Modem::modem->unlockdevice();
       return 0;
     } else{
-      fatal( "%s: Fatal IO error: client killed", "kppp" );
+      kdFatal() << "Fatal IO error: client killed" << endl;
+      exit(256);
       return 0;
     }
   }
@@ -284,7 +288,7 @@ int main( int argc, char **argv ) {
   atexit(myShutDown);
 
   if(getHomeDir() != 0)
-    setenv("HOME", getHomeDir(), 1); 
+    setenv("HOME", QFile::encodeName(getHomeDir()), 1); 
 
   (void) new Requester(sockets[0]);
 
@@ -329,8 +333,8 @@ int main( int argc, char **argv ) {
   // config file
   QString configFile = KGlobal::dirs()->saveLocation("config")
     + QString(kapp->name()) + "rc";
-  if(access(configFile.data(), F_OK) == 0)
-    chmod(configFile.data(), S_IRUSR | S_IWUSR);
+  if(access(QFile::encodeName(configFile), F_OK) == 0)
+    chmod(QFile::encodeName(configFile), S_IRUSR | S_IWUSR);
 
   // do we really need to generate an empty directory structure here ?
   KGlobal::dirs()->saveLocation("appdata", "Rules");
@@ -360,7 +364,7 @@ int main( int argc, char **argv ) {
 
     QString s = argv[2];
     urlEncode(s);
-    printf("%s\n", s.data());
+    kdDebug() << s << endl;
 
     remove_pidfile();
     return 0;
@@ -1067,7 +1071,7 @@ void KPPPWidget::startAccounting() {
   // volume accounting
   stats->totalbytes = 0;
 
-  debug("AcctEnabled: %d", gpppdata.AcctEnabled());
+  kdDebug() << "AcctEnabled: " << gpppdata.AcctEnabled() << endl;
   
   // load the ruleset
   if(!gpppdata.AcctEnabled())
@@ -1148,8 +1152,9 @@ void KPPPWidget::resetVolume(const QString &s) {
 }
 
 
-pid_t execute_command (const char *command) {
-  if(!command || strlen(command) == 0 || strlen(command) > COMMAND_SIZE)
+pid_t execute_command (const QString & cmd) {
+  QCString command = QFile::encodeName(cmd);
+  if (command.isEmpty() || command.length() > COMMAND_SIZE)
     return (pid_t) -1;
     
   pid_t id;
@@ -1185,10 +1190,10 @@ pid_t create_pidfile() {
   
   pidfile = KGlobal::dirs()->saveLocation("appdata") + "kppp.pid";
 
-  if(access(pidfile.data(), F_OK) == 0) {
+  if(access(QFile::encodeName(pidfile), F_OK) == 0) {
     
-    if((access(pidfile.data(), R_OK) < 0) ||
-       (fd = open(pidfile.data(), O_RDONLY)) < 0)
+    if((access(QFile::encodeName(pidfile), R_OK) < 0) ||
+       (fd = open(QFile::encodeName(pidfile), O_RDONLY)) < 0)
       return -1;
 
     int sz = read(fd, &pidstr, 32);
@@ -1214,7 +1219,7 @@ pid_t create_pidfile() {
     remove_pidfile();
   }
 
-  if((fd = open(pidfile.data(), O_WRONLY | O_CREAT | O_EXCL,
+  if((fd = open(QFile::encodeName(pidfile), O_WRONLY | O_CREAT | O_EXCL,
                 S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) == -1)
     return -1;
 
@@ -1232,9 +1237,9 @@ bool remove_pidfile() {
   struct stat st;
   
   // only remove regular files with user write permissions
-  if(stat(pidfile.data(), &st) == 0 )
-    if(S_ISREG(st.st_mode) && (access(pidfile.data(), W_OK) == 0)) {
-      unlink(pidfile.data());
+  if(stat(QFile::encodeName(pidfile), &st) == 0 )
+    if(S_ISREG(st.st_mode) && (access(QFile::encodeName(pidfile), W_OK) == 0)) {
+      unlink(QFile::encodeName(pidfile));
       return true;
     }
 

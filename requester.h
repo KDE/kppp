@@ -7,15 +7,15 @@ public:
   Requester(int);
   ~Requester();
 
-  int  openModem(const char *dev);
-  int  openLockfile(const char *dev, int flags = 0);
+  int  openModem(const QString & dev);
+  int  openLockfile(const QString & dev, int flags = 0);
   bool removeLockfile();
   int  openResolv(int flags);
   int  openSysLog();
-  bool setSecret(int method, const char *name, const char *password);
+  bool setSecret(int method, const QString & name, const QString & password);
   bool removeSecret(int authMethode);
-  bool setHostname(const char *name);
-  bool execPPPDaemon(const char *arguments);
+  bool setHostname(const QString & name);
+  bool execPPPDaemon(const QString & arguments);
   bool killPPPDaemon();
   bool stop();
 
@@ -26,7 +26,7 @@ private:
   bool sendRequest(struct RequestHeader *request, int len);
   bool recvResponse();
   int  recvFD();
-  int  indexDevice(const char *dev);
+  int  indexDevice(const QString & dev);
   int  socket;
   bool expect_alarm;
 };

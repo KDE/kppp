@@ -12,7 +12,7 @@
 //
 //---------------------------------------------------------------------------
 //  
-//  $Id: $
+//  $Id$
 //
 //---------------------------------------------------------------------------
 // 
@@ -37,29 +37,29 @@
 
 #include <qdialog.h>
 #include <qlistbox.h>
-#include <qstrlist.h>
+#include <qstringlist.h>
 #include <kconfig.h>
 #include <qdict.h>
 #include <qlist.h>
 
-typedef QDict<char> CharDict;
+typedef QDict<QString> CharDict;
 
 class ModemDatabase {
 public:
   ModemDatabase();
   ~ModemDatabase();
 
-  const QStrList *vendors();
-  QStrList *models(QString vendor);
+  const QStringList *vendors();
+  QStringList *models(QString vendor);
 
   void save(KConfig *);
 
 private:
   void load();
-  void loadModem(const char *key, CharDict &dict);
+  void loadModem(const QString & key, CharDict &dict);
   QList<CharDict> modems;
 
-  QStrList *lvendors;
+  QStringList *lvendors;
 
   KConfig *modemDB;
 };

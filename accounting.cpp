@@ -86,7 +86,7 @@ AccountingBase::AccountingBase(QObject *parent) :
   LogFileName = KGlobal::dirs()->saveLocation("appdata", "Log")
     + "/" + LogFileName;
 
-  debug("LogFileName: %s", LogFileName.latin1());
+  kdDebug() << "LogFileName: " << LogFileName << endl;
 }
 
 AccountingBase::~AccountingBase() {
@@ -107,7 +107,7 @@ double AccountingBase::session() {
 
 
 // set costs back to zero ( typically once per month)
-void AccountingBase::resetCosts(const char *accountname){
+void AccountingBase::resetCosts(const QString & accountname){
   QString prev_account = gpppdata.accname();
 
   gpppdata.setAccount(accountname);
@@ -117,7 +117,7 @@ void AccountingBase::resetCosts(const char *accountname){
 }
 
 
-void AccountingBase::resetVolume(const char *accountname){
+void AccountingBase::resetVolume(const QString & accountname){
   QString prev_account = gpppdata.accname();
 
   gpppdata.setAccount(accountname);
@@ -146,7 +146,8 @@ void AccountingBase::logMessage(QString s, bool newline) {
 	f.at(f.size());
     }
 
-    f.writeBlock(s.data(), s.length());
+    QCString tmp = s.local8Bit();
+    f.writeBlock(tmp, tmp.length());
     f.close();
   }
 
@@ -155,7 +156,7 @@ void AccountingBase::logMessage(QString s, bool newline) {
 }
 
 
-QString AccountingBase::getCosts(const char* accountname) {
+QString AccountingBase::getCosts(const QString & accountname) {
   QString prev_account = gpppdata.accname();
 
   gpppdata.setAccount(accountname);
@@ -310,7 +311,7 @@ void Accounting::slotStop() {
 
     QString s;
     s.sprintf(":%s:%0.4e:%0.4e:%u:%u\n",
-	      timet2qstring(time(0)).data(),
+	      timet2qstring(time(0)).utf8().data(),
 	      session(),
 	      total(),
 	      stats->ibytes,
@@ -322,9 +323,9 @@ void Accounting::slotStop() {
 }
 
 
-bool Accounting::loadRuleSet(const char *name) {
+bool Accounting::loadRuleSet(const QString & name) {
 
-  if(strlen(name) == 0) {
+  if (name.isEmpty()) {
     rules.load(""); // delete old rules
     return TRUE;
   }
@@ -333,7 +334,7 @@ bool Accounting::loadRuleSet(const char *name) {
 
   QFileInfo fg(d);
    if(fg.exists()) {
-     int ret = rules.load(d.data());
+     int ret = rules.load(d);
      _name = rules.name();
      return (bool)(ret == 0);
    }
@@ -374,9 +375,9 @@ bool ExecutableAccounting::running() {
 }
 
 
-bool ExecutableAccounting::loadRuleSet(const char *) {
+bool ExecutableAccounting::loadRuleSet(const QString &) {
   QString s = AccountingBase::getAccountingFile(gpppdata.accountingFile());
-  return (access(s.data(), X_OK) == 0);
+  return (access(QFile::encodeName(s), X_OK) == 0);
 }
 
 
@@ -395,7 +396,7 @@ void ExecutableAccounting::gotData(KProcess */*proc*/, char *buffer, int /*bufle
   }
 
   for(int i = 0; i < nFields;i++)
-    fprintf(stderr, "FIELD[%d] = %s\n", i, field[i].data());
+    fprintf(stderr, "FIELD[%d] = %s\n", i, field[i].local8Bit().data());
   
   QString __total, __session;
   QString s(buffer);
@@ -424,8 +425,8 @@ void ExecutableAccounting::gotData(KProcess */*proc*/, char *buffer, int /*bufle
   }
 
   printf("PROVIDER=%s, CURRENCY=%s, TOTAL=%0.3e, SESSION=%0.3e\n", 
-	 provider.data(),
-	 currency.data(),
+	 provider.local8Bit().data(),
+	 currency.local8Bit().data(),
 	 _total,
 	 _session);
 }
@@ -441,7 +442,7 @@ void ExecutableAccounting::slotStart() {
 
   QString s_total;
   s_total.sprintf("%0.8f", total());
-  *proc << s.data() << s_total.data();
+  *proc << s << s_total;
   connect(proc, SIGNAL(receivedStdout(KProcess *, char *, int)),
 	  this, SLOT(gotData(KProcess *, char *, int)));
   proc->start();
@@ -465,7 +466,7 @@ void ExecutableAccounting::slotStop() {
 
     QString s;
     s.sprintf(":%s:%0.4e:%0.4e:%u:%u\n",
-	      timet2qstring(time(0)).data(),
+	      timet2qstring(time(0)).local8Bit().data(),
 	      session(),
 	      total(),
 	      stats->ibytes,

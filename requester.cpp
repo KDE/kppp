@@ -48,6 +48,8 @@ extern "C" unsigned int alarm(unsigned int);
 #endif
 
 #include <kdebug.h>
+#include <qfile.h>
+
 #include "kpppconfig.h"
 #include "auth.h"
 #include "pppdata.h"
@@ -156,7 +158,7 @@ bool Requester::recvResponse() {
   return (response.status == 0);
 }
 
-int Requester::openModem(const char *dev) {
+int Requester::openModem(const QString & dev) {
 
   struct OpenModemRequest req;
   req.header.type = Opener::OpenDevice;
@@ -168,7 +170,7 @@ int Requester::openModem(const char *dev) {
 }
 
 
-int Requester::openLockfile(const char *dev, int flags) {
+int Requester::openLockfile(const QString &dev, int flags) {
 
   struct OpenLockRequest req;
 
@@ -214,7 +216,7 @@ int Requester::openSysLog() {
 }
 
 
-bool Requester::setSecret(int method, const char *name, const char *password) {
+bool Requester::setSecret(int method, const QString &name, const QString &password) {
   assert(name!=0);
   assert(password!=0);
 
@@ -230,9 +232,9 @@ bool Requester::setSecret(int method, const char *name, const char *password) {
   default:
     return false;
   }
-  strncpy(req.username, name, Opener::MaxStrLen);
+  strncpy(req.username, QFile::encodeName(name), Opener::MaxStrLen);
   req.username[Opener::MaxStrLen] = '\0';
-  strncpy(req.password, password, Opener::MaxStrLen);
+  strncpy(req.password, QFile::encodeName(password), Opener::MaxStrLen);
   req.password[Opener::MaxStrLen] = '\0';
   sendRequest((struct RequestHeader *) &req, sizeof(req));
   return recvResponse();
@@ -253,22 +255,22 @@ bool Requester::removeSecret(int authMethod) {
   return recvResponse();
 }
 
-bool Requester::setHostname(const char *name) {
-  if(!name || !strlen(name))
+bool Requester::setHostname(const QString &name) {
+  if (name.isEmpty())
     return false;
   struct SetHostnameRequest req;
   req.header.type = Opener::SetHostname;
-  strncpy(req.name, name, Opener::MaxStrLen);
+  strncpy(req.name, QFile::encodeName(name), Opener::MaxStrLen);
   req.name[Opener::MaxStrLen] = '\0';
   sendRequest((struct RequestHeader *) &req, sizeof(req));
   return recvResponse();
 }
 
 
-bool Requester::execPPPDaemon(const char *arguments) {
+bool Requester::execPPPDaemon(const QString &arguments) {
   struct ExecDaemonRequest req;
   req.header.type = Opener::ExecPPPDaemon;
-  strncpy(req.arguments, arguments, MAX_CMDLEN);
+  strncpy(req.arguments, QFile::encodeName(arguments), MAX_CMDLEN);
   req.arguments[MAX_CMDLEN] = '\0';
   sendRequest((struct RequestHeader *) &req, sizeof(req));
   if(recvResponse()==0) {
@@ -323,12 +325,12 @@ bool Requester::sendRequest(struct RequestHeader *request, int len) {
 }
 
 
-int Requester::indexDevice(const char *dev) {
+int Requester::indexDevice(const QString &dev) {
 
   int index = -1;
 
   for(int i = 0; devices[i]; i++)
-    if(strcmp(dev, devices[i]) == 0)
+    if (dev == devices[i])
       index = i;
   return index;
 }

@@ -92,9 +92,7 @@ ModemSelector::ModemSelector(QWidget *parent) : QDialog(parent, 0, true) {
 	  this, SLOT(selected(int)));
 
   // fill vendor list with life
-  const QStrList *lvendor = db->vendors();
-  for(uint i = 0; i < lvendor->count(); i++)
-    vendor->insertItem(((QStrList *)lvendor)->at(i));
+  vendor->insertStringList(*db->vendors());
 
   vendor->setCurrentItem(0);
 }
@@ -109,10 +107,9 @@ void ModemSelector::vendorSelected(int idx) {
   ok->setEnabled(false);
 
   QString name = vendor->text(idx);
-  QStrList *models = db->models(name);
+  QStringList *models = db->models(name);
   model->clear();
-  for(uint i = 0; i < models->count(); i++)
-    model->insertItem(models->at(i));
+  model->insertStringList(*models);
   
   // FIXME: work around Qt bug
   if(models->count() == 0)
@@ -141,13 +138,13 @@ ModemDatabase::~ModemDatabase() {
 }
 
 
-const QStrList *ModemDatabase::vendors() {
+const QStringList *ModemDatabase::vendors() {
   return lvendors;
 }
 
 
-QStrList *ModemDatabase::models(QString vendor) {
-  QStrList *sl = new QStrList;  
+QStringList *ModemDatabase::models(QString vendor) {
+  QStringList *sl = new QStringList;  
   QString s = i18n("<Generic>");
   if(vendor == s)
     vendor = i18n("<Generic>");
@@ -155,16 +152,17 @@ QStrList *ModemDatabase::models(QString vendor) {
   for(uint i = 0; i < modems.count(); i++) {
     CharDict *dict = modems.at(i);
     if(dict->find("Vendor") != 0) {
-      if(vendor == (*dict)["Vendor"] && (*dict)["Name"][0] != '!')
-	sl->inSort((*dict)["Name"]);
+      if(vendor == *(*dict)["Vendor"] && (*(*dict)["Name"]).at(0) != '!')
+	sl->append(*(*dict)["Name"]);
     }
   }
+  sl->sort();
 
   return sl;
 }
 
 
-void ModemDatabase::loadModem(const char *key, CharDict &dict) {
+void ModemDatabase::loadModem(const QString &key, CharDict &dict) {
   //  KEntryIterator *it = modemDB->entryIterator(key);
   //  KEntryDictEntry *e;
   QMap <QString, QString> map;
@@ -181,35 +179,30 @@ void ModemDatabase::loadModem(const char *key, CharDict &dict) {
   //  e = it->current();
   while(it.key() != QString::null) {
     if(dict.find(it.key()) == 0) {
-      char *value = new char[it.data().length()+1];
-      strcpy(value, it.data());
-      dict.insert(it.key(), value);
+      dict.insert(it.key(), new QString(it.data()));
     }
     it++;
   }
 
   // check name attribute
   if(dict["Name"] == 0 || key[0]=='!') {
-    char *name = new char[strlen(key)+1];
-    strcpy(name, key);
-    dict.replace("Name", name);
+    dict.replace("Name", new QString(key));
   }
 
   // check parent attribute
   if(dict["Parent"] != 0)
-    loadModem(dict["Parent"], dict);
+    loadModem(*dict["Parent"], dict);
   else 
     // inherit common at last
-    if(strcmp(key, "Common") != 0)
+    if (key != "Common")
       loadModem("Common", dict);
 
 }
 
 
 void ModemDatabase::load() {
-  modemDB = new KConfig("DB/modemDB.rc", QString::null);
-  lvendors = new QStrList;
-  lvendors->setAutoDelete(true);
+  modemDB = new KConfig("DB/modemDB.rc", 0);
+  lvendors = new QStringList;
   modems.setAutoDelete(true);
 
   QStringList list = modemDB->groupList();
@@ -218,29 +211,27 @@ void ModemDatabase::load() {
     modemDB->setGroup(*it);
     CharDict *c = new CharDict;
     c->setAutoDelete(true);
-    loadModem((*it).latin1(), *c);
+    loadModem(*it, *c);
 
     //    if(strcmp(it->latin1(), "Common") == 0) {
     if(*it == "Common") {
       QString s = i18n("Hayes(tm) compatible modem");
-      char *name = new char[s.length()+1];
-      strcpy(name, s);
-      c->replace("Name", name);
+      c->replace("Name", new QString (s));
 
       s = i18n("<Generic>");
-      char *vend = new char[s.length()+1];
-      strcpy(vend, s);
-      c->replace("Vendor", vend);
+      c->replace("Vendor", new QString(s));
     }
     modems.append(c);
 
     if(modemDB->hasKey("Vendor")) {
       QString vendor = modemDB->readEntry("Vendor");
-      if(lvendors->find(vendor) == -1)
-	lvendors->inSort(vendor);
+      if(lvendors->findIndex(vendor) == -1)
+	lvendors->append(vendor);
     }
     ++it;
   }
+
+  lvendors->sort();
 
   lvendors->insert(0, i18n("<Generic>"));
 }

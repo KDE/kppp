@@ -101,7 +101,7 @@ int RuleSet::load(const QString &filename) {
   _name = "";
 
   // ignore "No Accounting"
-  if(strlen(filename) == 0)
+  if(filename.isEmpty())
     return 0;
 
   if(!f.exists())
@@ -525,18 +525,18 @@ QTime RuleSet::beforeMidnight() const {
 
 int RuleSet::checkRuleFile(const QString &rulefile) {
   if(rulefile == NULL) {
-    fprintf(stderr, i18n("kppp: no rulefile specified\n"));
+    fprintf(stderr, i18n("kppp: no rulefile specified\n").local8Bit());
     return 1;
   }
 
   QFile fl(rulefile);
   if(!fl.exists()) {
-    fprintf(stderr, i18n("kppp: rulefile \"%s\" not found\n"), rulefile.local8Bit().data());
+    fprintf(stderr, i18n("kppp: rulefile \"%s\" not found\n").local8Bit(), rulefile.local8Bit().data());
     return 1;
   }
 
-  if(QString(rulefile).right(4) != ".rst") {
-    fprintf(stderr, i18n("kppp: rulefiles must have the extension \".rst\"\n"));
+  if(rulefile.right(4) != ".rst") {
+    fprintf(stderr, i18n("kppp: rulefiles must have the extension \".rst\"\n").local8Bit());
     return 1;
   }
 
@@ -545,27 +545,27 @@ int RuleSet::checkRuleFile(const QString &rulefile) {
   fl.close();
 
   if(err == -1) {
-    fprintf(stderr, i18n("kppp: error parsing the ruleset\n"));
+    fprintf(stderr, i18n("kppp: error parsing the ruleset\n").local8Bit());
     return 1;
   }
 
   if(err > 0) {
-    fprintf(stderr, i18n("kppp: parse error in line %d\n"), err);
+    fprintf(stderr, i18n("kppp: parse error in line %d\n").local8Bit(), err);
     return 1;
   }
 
   // check for the existance of a default rule
   if((r.default_costs < 0) || (r.default_len < 0)) {
-    fprintf(stderr, i18n("kppp: rulefile does not contain a default rule\n"));
+    fprintf(stderr, i18n("kppp: rulefile does not contain a default rule\n").local8Bit());
     return 1;
   }
 
   if(r.name().length() == 0) {
-    fprintf(stderr, i18n("kppp: rulefile does not contain a \"name=...\" line\n"));
+    fprintf(stderr, i18n("kppp: rulefile does not contain a \"name=...\" line\n").local8Bit());
     return 1;
   }
 
-  fprintf(stderr, i18n("kppp: rulefile is ok\n"));
+  fprintf(stderr, i18n("kppp: rulefile is ok\n").local8Bit());
   return 0;
 }
 
