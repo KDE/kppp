@@ -7,7 +7,7 @@ manufacturer. Each modem will only have those entries not common to the
 generic Hayes Modem command set. The following entries will be available
 (defaults in brackets):
 
-[Group]:	Can be freely choosen, may not be "Common"
+[Group]:	Can be freely chosen, may not be "Common"
 Vendor:		The modem vendor
 Name:		The name of the modem, without vendor. Needed
 Parent:		All settings of this modem are inherited. Parent works
