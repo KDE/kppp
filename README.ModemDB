@@ -28,7 +28,7 @@ ToneDial:	The command to dial out, number is appended (ATDT)
 PulseDial:	The command to use impulse dialing (ATDP)
 ConnectResponse:The modems answer to "Dial" when connection is established
 BusyResponse:	Response to a busy line (BUSY)
-NoCarrierResponese: Response when carrier was not establ. (NO CARRIER)
+NoCarrierResponse: Response when carrier was not establ. (NO CARRIER)
 NoDialTone:	Response when no dial tone was found (NO DIALTONE)
 SupportsCD:	Modem supports the "Modem asserts CD line" feature (1==yes)
 AutoAnswerOn:   Turn on auto answer (for callback) (ATS0=1)
