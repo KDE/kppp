@@ -93,7 +93,7 @@ int PPPL_MakeLog(QStrList &list) {
   /* clear security related info */
   list.first();
 
-  char *keyword[] = {"name = \"",
+  const char *keyword[] = {"name = \"",
 		    "user=\"",
 		    "password=\"",
 		    0};
