@@ -50,12 +50,6 @@ per_connection=3.32
 minimum_costs=0.0
 
 #
-# Sléttur kostnaður er ekki notaður á Íslandi
-#
-
-flat_init_costs=(0.0,0.0)
-
-#
 # Sjálfgefinn kostnaður - Alla virka daga á daginn.
 # Virka daga bætast 1.56 kr. við á hverjum 60 sekúndum
 # (eða 128 sek. í skrefi)
