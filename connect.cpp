@@ -33,6 +33,7 @@
 #include <kdebug.h>
 #include <klocale.h>
 #include <kmessagebox.h>
+#include <kpushbutton.h>
 
 #include <unistd.h>
 #include <stdlib.h>
@@ -299,8 +300,8 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
     /*
      * FIXME after 3.0: Make it possible to disable ATS11 since it
-     * seems to be incompatible with some ISDN adapters (e.g. DataBox 
-     * Speed Dragon). Even better would be to detect this when doing 
+     * seems to be incompatible with some ISDN adapters (e.g. DataBox
+     * Speed Dragon). Even better would be to detect this when doing
      * a "Modem Query"
      */
     if (MODEM_TONEDURATION != gpppdata.modemToneDuration())
