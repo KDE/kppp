@@ -3,6 +3,7 @@ AC_MSG_CHECKING(if kppp's headers are installed)
 # kppp is not good for this system. It doesn't do anything, but enough
 # to fail ;)
 cat > conftest.C <<EOF
+#include <unistd.h>
 #include <arpa/inet.h>
 #include <net/ppp_defs.h>
 #include <netinet/in.h>
@@ -29,6 +30,8 @@ cat > conftest.C <<EOF
     #include <net/ppp_str.h>
   #endif
 #endif
+
+  int main() { sethostname("", 1); /* never run this program! :*/ }
 EOF
 
 AC_LANG_CPLUSPLUS
