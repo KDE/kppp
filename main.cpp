@@ -36,7 +36,6 @@
 #include <stdlib.h>
 
 #ifdef _XPG4_2
-extern "C" int __xnet_socketpair(int, int, int, int *);
 #define __xnet_connect	connect
 #endif
 

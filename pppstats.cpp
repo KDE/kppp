@@ -81,10 +81,6 @@
 #include <net/if.h>
 #include <sys/sockio.h>
 
-#ifdef _XPG4_2
-extern "C" int __xnet_socket(int domain, int type, int protocol);
-#endif
-
 #endif	/* STREAMS */
 
 #include <qtimer.h>
@@ -145,6 +141,10 @@ bool PPPStats::ifIsUp() {
   bool is_up;
   struct ifreq ifr;
 
+#if defined(__svr4__ )
+  usleep(500000); // Needed for Solaris ?!
+#endif
+
 #ifdef STREAMS
     if ((s = open("/dev/ppp", O_RDONLY)) < 0) {
 	perror("pppstats: Couldn't open /dev/ppp: ");
@@ -163,9 +163,9 @@ bool PPPStats::ifIsUp() {
     strncpy(ifr.ifr_name, unitName, sizeof(ifr.ifr_name));
 
     if(ioctl(s, SIOCGIFFLAGS, (caddr_t) &ifr) < 0) {
-        if (sys_nerr)
+        if (errno)
           fprintf(stderr, "Couldn't find interface %s: %s\n",
-                  unitName, sys_errlist[sys_nerr]);
+                  unitName, strerror(errno));
 	::close(s);
 	s = 0;
 	return 0;
@@ -302,6 +302,7 @@ bool PPPStats::get_ppp_stats( struct ppp_stats *curp){
 	    perror("pppstats: Couldn't get statistics");
 	return false;
     }
+    return true;
 }
 
 bool PPPStats::strioctl(int fd, int cmd, char* ptr, int ilen, int olen){

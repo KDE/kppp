@@ -37,7 +37,7 @@
  * o be paranoid and think twice about everything you change.
  */
 
-#ifdef __osf__
+#if defined(__osf__) || defined(__svr4__)
 #define _POSIX_PII_SOCKET
 extern "C" int sethostname(char *name, int name_len);
 #endif
@@ -641,7 +641,7 @@ int checkForInterface()
 // I don't know if Linux needs more initialization to get the ioctl to
 // work, pppd seems to hint it does.  But BSD doesn't, and the following
 // code should compile.
-#if defined(HAVE_NET_IF_PPP_H) || defined(HAVE_LINUX_IF_PPP_H)
+#if (defined(HAVE_NET_IF_PPP_H) || defined(HAVE_LINUX_IF_PPP_H)) && !defined(__svr4__)
     int s, ok;
     struct ifreq ifr;
     extern char *no_ppp_msg;
