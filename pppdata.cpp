@@ -1202,8 +1202,8 @@ void PPPData::setpppdError(int err) {
 //
 void PPPData::winPosConWin(int& p_x, int& p_y) {
   QRect desk = KGlobalSettings::splashScreenDesktopGeometry();
-  p_x = readNumConfig(WINPOS_GRP, WINPOS_CONWIN_X, desk.width()/2-160);
-  p_y = readNumConfig(WINPOS_GRP, WINPOS_CONWIN_Y, desk.height()/2-55);
+  p_x = readNumConfig(WINPOS_GRP, WINPOS_CONWIN_X, desk.center().x()-160);
+  p_y = readNumConfig(WINPOS_GRP, WINPOS_CONWIN_Y, desk.center().y()-55);
 }
 
 void PPPData::setWinPosConWin(int p_x, int p_y) {
@@ -1213,8 +1213,8 @@ void PPPData::setWinPosConWin(int p_x, int p_y) {
 
 void PPPData::winPosStatWin(int& p_x, int& p_y) {
   QRect desk = KGlobalSettings::splashScreenDesktopGeometry();
-  p_x = readNumConfig(WINPOS_GRP, WINPOS_STATWIN_X, desk.width()/2-160);
-  p_y = readNumConfig(WINPOS_GRP, WINPOS_STATWIN_Y, desk.height()/2-55);
+  p_x = readNumConfig(WINPOS_GRP, WINPOS_STATWIN_X, desk.center().x()-160);
+  p_y = readNumConfig(WINPOS_GRP, WINPOS_STATWIN_Y, desk.center().y()-55);
 }
 
 void PPPData::setWinPosStatWin(int p_x, int p_y) {
