@@ -59,6 +59,7 @@ class KConfig;
 #define MODEM_GRP          "Modem"
 #define ACCOUNT_GRP        "Account"
 #define GRAPH_GRP          "Graph"
+#define WINPOS_GRP         "WindowPosition"
 
 // general
 #define DEFAULTACCOUNT_KEY "DefaultAccount"
@@ -148,6 +149,12 @@ class KConfig;
 // pppd errors
 #define E_IF_TIMEOUT       1
 #define E_PPPD_DIED        2
+
+// window position
+#define WINPOS_CONWIN_X    "WindowPositionConWinX"
+#define WINPOS_CONWIN_Y    "WindowPositionConWinY"
+#define WINPOS_STATWIN_X   "WindowPositionStatWinX"
+#define WINPOS_STATWIN_Y   "WindowPositionStatWinY"
 
 class PPPData {
 public:
@@ -425,6 +432,12 @@ public:
 		       QColor &in,
 		       QColor &out);
   bool graphingEnabled();
+
+  // window positions
+  void winPosConWin(int &, int &);
+  void setWinPosConWin(int, int);
+  void winPosStatWin(int &, int &);
+  void setWinPosStatWin(int, int);
 
 public:
   QString password;

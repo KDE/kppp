@@ -575,10 +575,13 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   con_win = new ConWindow(0, "conw", this, stats);
   KWin::setIcons(con_win->winId(), kapp->icon(), kapp->miniIcon());
+/*
+constructor of con_win reads position from config file
+
   con_win->setGeometry(QApplication::desktop()->width()/2-160,
 		    QApplication::desktop()->height()/2-55,
 		    320,110);
-
+*/
   statdlg = new PPPStatsDlg(0, "stats", this, stats);
   statdlg->hide();
 

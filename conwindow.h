@@ -45,6 +45,7 @@ public:
 
 protected:
   void closeEvent( QCloseEvent *e );
+  bool event( QEvent *e );
 
 private slots:
   void timeclick();

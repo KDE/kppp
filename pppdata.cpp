@@ -1178,3 +1178,27 @@ int PPPData::pppdError() const {
 void PPPData::setpppdError(int err) {
   pppderror = err;
 }
+
+
+//
+// window position
+//
+void PPPData::winPosConWin(int& p_x, int& p_y) {
+  p_x = readNumConfig(WINPOS_GRP, WINPOS_CONWIN_X, QApplication::desktop()->width()/2-160);
+  p_y = readNumConfig(WINPOS_GRP, WINPOS_CONWIN_Y, QApplication::desktop()->height()/2-55);
+}
+
+void PPPData::setWinPosConWin(int p_x, int p_y) {
+  writeConfig(WINPOS_GRP, WINPOS_CONWIN_X, p_x);
+  writeConfig(WINPOS_GRP, WINPOS_CONWIN_Y, p_y);
+}
+
+void PPPData::winPosStatWin(int& p_x, int& p_y) {
+  p_x = readNumConfig(WINPOS_GRP, WINPOS_STATWIN_X, QApplication::desktop()->width()/2-160);
+  p_y = readNumConfig(WINPOS_GRP, WINPOS_STATWIN_Y, QApplication::desktop()->height()/2-55);
+}
+
+void PPPData::setWinPosStatWin(int p_x, int p_y) {
+  writeConfig(WINPOS_GRP, WINPOS_STATWIN_X, p_x);
+  writeConfig(WINPOS_GRP, WINPOS_STATWIN_Y, p_y);
+}

@@ -181,12 +181,28 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
   setFixedSize(sizeHint());
 
   connect(stats, SIGNAL(statsChanged(int)), SLOT(paintIcon(int)));
+
+  // read window position from config file
+  int p_x, p_y;
+  gpppdata.winPosStatWin(p_x, p_y);
+  move(p_x, p_y);
 }
 
 
 PPPStatsDlg::~PPPStatsDlg() {
 }
 
+
+// save window position when window was closed
+bool PPPStatsDlg::event(QEvent *e) {
+  if (e->type() == QEvent::Hide)
+  {
+    gpppdata.setWinPosStatWin(x(), y());
+    return true;
+  }
+  else 
+    return QWidget::event(e);
+}
 
 void PPPStatsDlg::cancel() {
   hide();
@@ -238,10 +254,6 @@ void PPPStatsDlg::paintGraph() {
   int last_h_out =
     pm.height() - (int)((float)bout[idx]/max * (pm.height() - 8))-1;
 
-  // plot scale line
-  p.setPen(text);
-  p.setFont(QFont("fixed", 8));
-
   // plot data
   int last_idx = 0;
   for(x = 1; x < pm.width(); x++) {
@@ -265,6 +277,10 @@ void PPPStatsDlg::paintGraph() {
 
   // take last value
   int last_max = bin[last_idx]>bout[last_idx] ? bin[last_idx] : bout[last_idx];
+
+  // plot scale line
+  p.setPen(text);
+  p.setFont(QFont("fixed", 8));
 
   QRect r;
   QString s = i18n("%1 (max. %2) kb/sec")

@@ -55,6 +55,7 @@ protected:
 
   void closeEvent( QCloseEvent *e );
   void paintEvent (QPaintEvent *e) ;
+  bool event( QEvent *e );
 
 public slots:
 

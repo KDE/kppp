@@ -73,12 +73,27 @@ ConWindow::ConWindow(QWidget *parent, const char *name,QWidget *mainwidget,
 
   clocktimer = new QTimer(this);
   connect(clocktimer, SIGNAL(timeout()), SLOT(timeclick()));
+
+  // read window position from config file
+  int p_x, p_y;
+  gpppdata.winPosConWin(p_x, p_y);
+  setGeometry(p_x, p_y, 320, 110);
 }
 
 ConWindow::~ConWindow() {
   stopClock();
 }
 
+// save window position when window was closed
+bool ConWindow::event(QEvent *e) {
+  if (e->type() == QEvent::Hide)
+  {
+    gpppdata.setWinPosConWin(x(), y());
+    return true;
+  }
+  else 
+    return QWidget::event(e);
+}
 
 void ConWindow::accounting(bool on) {
   // cache accounting settings
@@ -182,10 +197,13 @@ void ConWindow::accounting(bool on) {
   tl1->addSpacing(5);
 
   setFixedSize(sizeHint());
+/*
+  do not overwrite position read from config
   setGeometry((QApplication::desktop()->width() - width()) / 2,
 	      (QApplication::desktop()->height() - height())/2,
 	      width(),
 	      height());
+*/
 }
 
 
