@@ -1,6 +1,5 @@
 [KDE Desktop Entry]
 Encoding=UTF-8
-BinaryPattern=kppplogview;
 Name=KPPP - Log Viewer
 Name[af]=Kppp - Log Aansig
 Name[ar]=معاين سجلات KPPP
@@ -59,9 +58,8 @@ Name[zu]=KPPP - Umboniso Wongeniso
 MimeType=
 Exec=kppplogview
 Icon=kppp
-TerminalOptions=
 Path=
 Type=Application
 Terminal=
 X-DCOP-ServiceType=Multi
-Categories=Qt;KDE;Network;X-KDE-More
+Categories=Qt;KDE;Network;X-KDE-More;
