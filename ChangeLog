@@ -1,3 +1,9 @@
+2004-01-07  Harri Porten  <porten@kde.org>
+
+	* modem.cpp: fix a bug in writing of modem commands. EAGAIN errors
+	were not handled. Thanks to Matteo Croce who helped tracking this
+	down.
+	
 2003-12-13  Harri Porten  <porten@kde.org>
 
 	* edit.cpp: disallow colons in connection name. breaks the loginfo

@@ -310,6 +310,8 @@ bool Modem::writeLine(const char *buf) {
   while(l) {
     int wr = write(modemfd, &b[len-l], l);
     if(wr < 0) {
+      if (errno == EAGAIN)
+        continue;
       // TODO do something meaningful with the error code (or ignore it
       kdError(5002) << "write() in Modem::writeLine failed" << endl;
       delete[] b;
