@@ -33,7 +33,7 @@ QProgressDialog *dlg;
 int loadLogs() {
   int logsize = 0;
 
-  QString logdirname = kapp->localkdedir() + "/share/apps/kppp/Log/";
+  QString logdirname = locateLocal("appdata", "Log/");
   QDir logdir(logdirname, "*.log");
 
   // get log file size
