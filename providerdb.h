@@ -86,7 +86,7 @@ public:
   void activate();
 
 public slots:
-  void textChanged(const char *);
+  void textChanged(const QString &);
 
 private:
   QLineEdit *_username;

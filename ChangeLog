@@ -1,3 +1,8 @@
+1999-03-03  Harri Porten  <porten@kde.org>
+
+	* kdelibs have been switched to Qt 2.0. Replaced a lot of const char *
+	with QString (or QString&) and removed ~100 .data() calls.
+
 1999-02-16  Harri Porten  <porten@kde.org>
 
 	* providerdb.cpp: don't segfault if database can't be located

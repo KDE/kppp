@@ -48,7 +48,7 @@ private slots:
   void removebutton();
   void defaultsbutton();
   void closebutton();
-  void textChanged(const char *);
+  void textChanged(const QString &);
   void itemSelected(int);
 
 private:

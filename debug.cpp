@@ -104,7 +104,7 @@ void DebugWidget::statusLabel(const char *n) {
 
 
 void DebugWidget::statusLabel(QString s) {
-  statusLabel(s.data());
+  statuslabel->setText(s);
 }
 
 

@@ -362,8 +362,8 @@ void Modem::escape_to_command_mode() {
 }
 
 
-char *Modem::modemMessage() {
-  return errmsg.data();
+const QString Modem::modemMessage() {
+  return errmsg;
 }
 
 
@@ -395,7 +395,7 @@ QString Modem::parseModemSpeed(const QString &s) {
 
   for(i = 0; i < RXMAX; i++) {
     int len, idx, result;
-    if((idx = rrx[i].match(s.data(), 0, &len)) > -1) {
+    if((idx = rrx[i].match(s, 0, &len)) > -1) {
       // find first digit
       QString sub = s.mid(idx, len);
       sub = sub.mid(sub.find(QRegExp("[0-9]")), 255);
@@ -409,7 +409,7 @@ QString Modem::parseModemSpeed(const QString &s) {
   
   for(i = 0; i < TXMAX; i++) {
     int len, idx, result;
-    if((idx = trx[i].match(s.data(), 0, &len)) > -1) {
+    if((idx = trx[i].match(s, 0, &len)) > -1) {
       // find first digit
       QString sub = s.mid(idx, len);
       sub = sub.mid(sub.find(QRegExp("[0-9]")), 255);

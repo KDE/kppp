@@ -163,14 +163,14 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
     while(idx != n.length()) {
       if(n[idx] == ':') {
 	if(tmp.length() > 0)
-	  numbers->insertItem(tmp.data());
+	  numbers->insertItem(tmp);
 	tmp = "";
       } else
 	tmp += n[idx];
       idx++;
     }
     if(tmp.length() > 0)
-      numbers->insertItem(tmp.data());
+      numbers->insertItem(tmp);
 
     auth->setCurrentItem(gpppdata.authMethod());
     store_password->setChecked(gpppdata.storePassword());
@@ -199,7 +199,7 @@ bool DialWidget::save() {
       number += numbers->text(i);
     }
 
-    gpppdata.setPhonenumber(number.data());
+    gpppdata.setPhonenumber(number);
     gpppdata.setAuthMethod(auth->currentItem());
     gpppdata.setStorePassword(store_password->isChecked());
     return true;
@@ -224,7 +224,7 @@ void DialWidget::selectionChanged(int) {
 void DialWidget::addNumber() {
   PhoneNumberDialog dlg(this);
   if(dlg.exec()) {
-    numbers->insertItem(dlg.phoneNumber().data());
+    numbers->insertItem(dlg.phoneNumber());
     numbersChanged();
   }
 }
@@ -243,7 +243,7 @@ void DialWidget::upNumber() {
   if(idx != -1) {
     QString item = numbers->text(idx);
     numbers->removeItem(idx);
-    numbers->insertItem(item.data(), idx-1);
+    numbers->insertItem(item, idx-1);
     numbers->setCurrentItem(idx-1);
     numbersChanged();
   }
@@ -255,7 +255,7 @@ void DialWidget::downNumber() {
   if(idx != -1) {
     QString item = numbers->text(idx);
     numbers->removeItem(idx);
-    numbers->insertItem(item.data(), idx+1);
+    numbers->insertItem(item, idx+1);
     numbers->setCurrentItem(idx+1);
     numbersChanged();
   }
@@ -607,8 +607,8 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
   dnsipaddr = new IPLineEdit(peer());
   connect(dnsipaddr, SIGNAL(returnPressed()), 
 	  SLOT(adddns()));
-  connect(dnsipaddr, SIGNAL(textChanged(const char *)), 
-	  SLOT(DNS_Edit_Changed(const char *)));
+  connect(dnsipaddr, SIGNAL(textChanged(const QString &)), 
+	  SLOT(DNS_Edit_Changed(const QString &)));
   FIXED_HEIGHT(dnsipaddr);
   l2->addWidget(dnsipaddr, 1);
   l2->addStretch(1);
@@ -696,10 +696,9 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
   tl->activate();
 }
 
-void DNSWidget::DNS_Edit_Changed(const char *text) {
+void DNSWidget::DNS_Edit_Changed(const QString &text) {
   QRegExp r("[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+");
-  QString s(text);
-  add->setEnabled(s.find(r) != -1);
+  add->setEnabled(text.find(r) != -1);
 }
 
 void DNSWidget::DNS_Entry_Selected(int) {
@@ -1199,8 +1198,8 @@ PhoneNumberDialog::PhoneNumberDialog(QWidget *parent) : QDialog(parent, 0, true)
   l1->addWidget(l);
   le = newLineEdit(14, this);
   l1->addWidget(le);
-  connect(le, SIGNAL(textChanged(const char *)),
-	  this, SLOT(textChanged(const char *)));
+  connect(le, SIGNAL(textChanged(const QString &)),
+	  this, SLOT(textChanged(const QString &)));
 
   tl->addSpacing(5);
   KButtonBox *bbox = new KButtonBox(this);
@@ -1217,7 +1216,7 @@ PhoneNumberDialog::PhoneNumberDialog(QWidget *parent) : QDialog(parent, 0, true)
   tl->freeze();
 
   le->setFocus();
-  textChanged(0);
+  textChanged("");
 }
 
 
@@ -1228,8 +1227,8 @@ QString PhoneNumberDialog::phoneNumber() {
 }
 
 
-void PhoneNumberDialog::textChanged(const char *s) {
-  ok->setEnabled(s != 0 && strlen(s) > 0);
+void PhoneNumberDialog::textChanged(const QString &s) {
+  ok->setEnabled(s.length() > 0);
 }
 
 

@@ -131,9 +131,9 @@ void ConWindow::accounting(bool on) {
   MIN_SIZE(session_bill);
   MIN_SIZE(total_bill);
   MIN_SIZE(volinfo);
-  session_bill->setText(s1.data());
-  total_bill->setText(s2.data());
-  volinfo->setText(s3.data());
+  session_bill->setText(s1);
+  total_bill->setText(s2);
+  volinfo->setText(s3);
 
   l1->addWidget(info1, 0, 0);
   l1->addWidget(info2, 0, 1);
@@ -250,7 +250,7 @@ void ConWindow::timeclick() {
     else
       s.sprintf("%0.1f MB", ((float)totalbytes)/(1024*1024));
 
-    volinfo->setText(s.data());
+    volinfo->setText(s);
   }
 
   seconds++;
@@ -307,8 +307,8 @@ void ConWindow::closeEvent( QCloseEvent *e ){
 
 
 void ConWindow::slotAccounting(QString total, QString session) {
-  total_bill->setText(total.data());
-  session_bill->setText(session.data());
+  total_bill->setText(total);
+  session_bill->setText(session);
 }
 
 #include "conwindow.moc"

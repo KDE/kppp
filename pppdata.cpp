@@ -29,8 +29,6 @@
 #include "kpppconfig.h"
 #include "devices.h"
 
-extern const char *pppdPath();
-
 PPPData gpppdata;
 
 
@@ -52,7 +50,7 @@ PPPData::PPPData() {
 //
 bool PPPData::open() {
   if (kapp->getConfigState() == KApplication::APPCONFIG_NONE) {
-    QMessageBox::warning(0L, kapp->appName().data(),
+    QMessageBox::warning(0L, kapp->appName(),
                        i18n("The application-specific config file could "
                        "not be\nopened neither read-write nor read-only.\n\n"
                        "The superuser might have to change its ownership\n"
@@ -119,19 +117,16 @@ int PPPData::access() {
 
 
 // functions to read/write date to configuration file
-const char* PPPData::readConfig(const char* group, const char* key,
-				const char* defvalue = "") 
+const QString PPPData::readConfig(const char* group, const char* key,
+                                  const char* defvalue = "") 
 {
-  static QString s;
-
   if (config) {
     config->setGroup(group);
     if (!config->hasKey(key))
-      config->writeEntry(key, defvalue);
-    s = config->readEntry(key);
-    return s.data();
+      config->writeEntry(key, QString(defvalue));
+    return config->readEntry(key);
   } else
-    return defvalue;
+    return QString(defvalue);
   
 }
 
@@ -164,12 +159,12 @@ bool PPPData::readListConfig(const char* group, const char* key,
 
 
 void PPPData::writeConfig(const char* group, const char* key,
-			  const char* value) {
+			  const QString &value) {
   if (config) {
     config->setGroup(group);
     config->writeEntry(key, value);
   }
-  }
+}
 
 
 void PPPData::writeConfig(const char* group, const char* key, int value) {
@@ -192,23 +187,22 @@ void PPPData::writeListConfig(const char* group, const char* key,
 //
 // functions to set/return general information
 //
-const char* PPPData::Password() {
-  return password.data();
+const QString PPPData::Password() {
+  return password;
 }
 
 
-void PPPData::setPassword(const char* pw) {
+void PPPData::setPassword(const QString &pw) {
   password = pw;
-  
 }
 
 
-const char* PPPData::defaultAccount() {
+const QString PPPData::defaultAccount() {
   return readConfig(GENERAL_GRP, DEFAULTACCOUNT_KEY);
 }
 
 
-void PPPData::setDefaultAccount(const char *n) {
+void PPPData::setDefaultAccount(const QString &n) {
   writeConfig(GENERAL_GRP, DEFAULTACCOUNT_KEY, n);
     
   //now set the current account index to the default account
@@ -296,47 +290,42 @@ void PPPData::set_dock_into_panel(bool set) {
 }
 
 
-const char* PPPData::pppdPath() {
-  return ::pppdPath();
-}
-
-
-const char* PPPData::pppdTimeout() {
+const QString PPPData::pppdTimeout() {
   return readConfig(GENERAL_GRP, PPPDTIMEOUT_KEY, PPPD_TIMEOUT);
 }
 
 
-void PPPData::setpppdTimeout(const char *n) {
+void PPPData::setpppdTimeout(const QString &n) {
   writeConfig(GENERAL_GRP, PPPDTIMEOUT_KEY, n);
 }
 
 
-const char* PPPData::modemDevice() {
+const QString PPPData::modemDevice() {
   return readConfig (MODEM_GRP, MODEMDEV_KEY, devices[DEV_DEFAULT]);
 }
 
 
-void PPPData::setModemDevice(const char *n) {
+void PPPData::setModemDevice(const QString &n) {
   writeConfig(MODEM_GRP, MODEMDEV_KEY, n);
 }
 
 
-const char* PPPData::flowcontrol() {
+const QString PPPData::flowcontrol() {
   return readConfig(MODEM_GRP, FLOWCONTROL_KEY, "CRTSCTS");
 }
 
 
-void PPPData::setFlowcontrol(const char *n) {
+void PPPData::setFlowcontrol(const QString &n) {
   writeConfig(MODEM_GRP, FLOWCONTROL_KEY, n);
 }
 
 
-const char* PPPData::speed() {
+const QString PPPData::speed() {
   return readConfig(MODEM_GRP, SPEED_KEY);
 }
 
 
-void PPPData::setSpeed( const char *n ) {
+void PPPData::setSpeed(const QString &n) {
   writeConfig(MODEM_GRP, SPEED_KEY, n);
 }
 
@@ -351,22 +340,22 @@ int PPPData::UseCDLine() {
 }
 
 
-const char*  PPPData::modemEscapeStr() {
+const QString  PPPData::modemEscapeStr() {
   return readConfig(MODEM_GRP,ESCAPESTR_KEY,"+++");
 }
 
 
-void PPPData::setModemEscapeStr(const char* n) {
+void PPPData::setModemEscapeStr(const QString &n) {
   writeConfig(MODEM_GRP,ESCAPESTR_KEY,n);
 }
 
 
-const char*  PPPData::modemEscapeResp() {
+const QString  PPPData::modemEscapeResp() {
   return readConfig(MODEM_GRP,ESCAPERESP_KEY,"OK");
 }
 
 
-void PPPData::setModemEscapeResp(const char* n) {
+void PPPData::setModemEscapeResp(const QString &n) {
   writeConfig(MODEM_GRP,ESCAPERESP_KEY,n);
 }
 
@@ -391,22 +380,22 @@ void PPPData::setModemLockFile(bool set) {
 }
 
 
-const char* PPPData::modemTimeout() {
+const QString PPPData::modemTimeout() {
   return readConfig(MODEM_GRP, TIMEOUT_KEY, MODEM_TIMEOUT);
 }
 
 
-void PPPData::setModemTimeout(const char *n) {
+void PPPData::setModemTimeout(const QString &n) {
   writeConfig(MODEM_GRP, TIMEOUT_KEY, n);
 }
 
 
-const char* PPPData::busyWait() {
+const QString PPPData::busyWait() {
   return readConfig(MODEM_GRP, BUSYWAIT_KEY, BUSY_WAIT);
 }
 
 
-void PPPData::setbusyWait(const char *n) {
+void PPPData::setbusyWait(const QString &n) {
   writeConfig(MODEM_GRP, BUSYWAIT_KEY, n);
 }
 
@@ -414,22 +403,22 @@ void PPPData::setbusyWait(const char *n) {
 //
 //Advanced "Modem" dialog
 //
-const char* PPPData::modemInitStr() {
+const QString PPPData::modemInitStr() {
   return readConfig(MODEM_GRP, INITSTR_KEY, "ATZ");
 }
 
 
-void PPPData::setModemInitStr(const char *n) {
+void PPPData::setModemInitStr(const QString &n) {
   writeConfig(MODEM_GRP, INITSTR_KEY, n);
 } 
 
 
-const char* PPPData::modemInitResp() {
+const QString PPPData::modemInitResp() {
   return readConfig(MODEM_GRP, INITRESP_KEY, "OK");
 }
 
 
-void PPPData::setModemInitResp(const char *n) {
+void PPPData::setModemInitResp(const QString &n) {
   writeConfig(MODEM_GRP, INITRESP_KEY, n);
 } 
 
@@ -454,111 +443,111 @@ void PPPData::setModemInitDelay(const int n) {
 }
 
 
-const char* PPPData::modemDialStr() {
+const QString PPPData::modemDialStr() {
   return readConfig(MODEM_GRP, DIALSTR_KEY, "ATDT");
 }
 
 
-void PPPData::setModemDialStr(const char *n) {
+void PPPData::setModemDialStr(const QString &n) {
   writeConfig(MODEM_GRP, DIALSTR_KEY, n);
 } 
 
 
-const char* PPPData::modemConnectResp() {
+const QString PPPData::modemConnectResp() {
   return readConfig(MODEM_GRP, CONNECTRESP_KEY, "CONNECT");
 }
 
 
-void PPPData::setModemConnectResp(const char *n) {
+void PPPData::setModemConnectResp(const QString &n) {
   writeConfig(MODEM_GRP, CONNECTRESP_KEY, n);
 }
 
 
-const char* PPPData::modemBusyResp() {
+const QString PPPData::modemBusyResp() {
   return readConfig(MODEM_GRP, BUSYRESP_KEY, "BUSY");
 }
 
 
-void PPPData::setModemBusyResp(const char *n) {
+void PPPData::setModemBusyResp(const QString &n) {
   writeConfig(MODEM_GRP, BUSYRESP_KEY, n);
 }
 
 
-const char* PPPData::modemNoCarrierResp() {
+const QString PPPData::modemNoCarrierResp() {
   return readConfig(MODEM_GRP, NOCARRIERRESP_KEY, "NO CARRIER");
 }
 
 
-void PPPData::setModemNoCarrierResp(const char *n) {
+void PPPData::setModemNoCarrierResp(const QString &n) {
   writeConfig(MODEM_GRP, NOCARRIERRESP_KEY, n);
 }
 
 
-const char* PPPData::modemNoDialtoneResp() {
+const QString PPPData::modemNoDialtoneResp() {
   return readConfig(MODEM_GRP, NODIALTONERESP_KEY, "NO DIALTONE");
 }
 
 
-void PPPData::setModemNoDialtoneResp(const char *n) {
+void PPPData::setModemNoDialtoneResp(const QString &n) {
   writeConfig(MODEM_GRP, NODIALTONERESP_KEY, n);
 }
 
 
-const char* PPPData::modemHangupStr() {
+const QString PPPData::modemHangupStr() {
   return readConfig(MODEM_GRP, HANGUPSTR_KEY, "+++ATH");
 }
 
-void PPPData::setModemHangupStr(const char *n) {
+void PPPData::setModemHangupStr(const QString &n) {
   writeConfig(MODEM_GRP, HANGUPSTR_KEY, n);
 } 
 
 
-const char* PPPData::modemHangupResp() {
+const QString PPPData::modemHangupResp() {
   return readConfig(MODEM_GRP, HANGUPRESP_KEY, "OK");
 }
 
-void PPPData::setModemHangupResp(const char *n) {
+void PPPData::setModemHangupResp(const QString &n) {
   writeConfig(MODEM_GRP, HANGUPRESP_KEY, n);
 }
 
 
-const char* PPPData::modemAnswerStr() {
+const QString PPPData::modemAnswerStr() {
   return readConfig(MODEM_GRP, ANSWERSTR_KEY, "ATA");
 }
 
 
-const char *PPPData::volumeOff() {
+const QString PPPData::volumeOff() {
   return readConfig(MODEM_GRP, VOLUME_OFF, "M0L0");
 }
 
 
-void PPPData::setVolumeOff(const char *s) {
+void PPPData::setVolumeOff(const QString &s) {
   writeConfig(MODEM_GRP, VOLUME_OFF, s);
 }
 
 
-const char *PPPData::volumeMedium() {
+const QString PPPData::volumeMedium() {
  return readConfig(MODEM_GRP, VOLUME_MEDIUM, "M1L1");
 }
 
 
-void PPPData::setVolumeMedium(const char *s) {
+void PPPData::setVolumeMedium(const QString &s) {
   writeConfig(MODEM_GRP, VOLUME_MEDIUM, s);
 }
 
 
-const char *PPPData::volumeHigh() {
+const QString PPPData::volumeHigh() {
   return readConfig(MODEM_GRP, VOLUME_HIGH, "M1L4");
 }
 
 
-void PPPData::setVolumeHigh(const char *s) {
+void PPPData::setVolumeHigh(const QString &s) {
  writeConfig(MODEM_GRP, VOLUME_HIGH, s);
 }
 
 
-const char *PPPData::volumeInitString() {
-  const char *s;
+const QString PPPData::volumeInitString() {
+  QString s;
 
   switch(volume()) {
   case 0:
@@ -588,37 +577,37 @@ void PPPData::setVolume(int i) {
 }
 
 
-void PPPData::setModemAnswerStr(const char *n) {
+void PPPData::setModemAnswerStr(const QString &n) {
   writeConfig(MODEM_GRP, ANSWERSTR_KEY, n);
 } 
 
 
-const char* PPPData::modemRingResp() {
+const QString PPPData::modemRingResp() {
   return readConfig(MODEM_GRP, RINGRESP_KEY, "RING");
 }
 
 
-void PPPData::setModemRingResp(const char *n) {
+void PPPData::setModemRingResp(const QString &n) {
   writeConfig(MODEM_GRP, RINGRESP_KEY, n);
 }
 
 
-const char* PPPData::modemAnswerResp() {
+const QString PPPData::modemAnswerResp() {
   return readConfig(MODEM_GRP, ANSWERRESP_KEY, "CONNECT");
 }
 
 
-void PPPData::setModemAnswerResp(const char *n) {
+void PPPData::setModemAnswerResp(const QString &n) {
   writeConfig(MODEM_GRP, ANSWERRESP_KEY, n);
 }
 
 
-const char* PPPData::enter() {
+const QString PPPData::enter() {
   return readConfig(MODEM_GRP, ENTER_KEY, "CR/LF");
 }
 
 
-void PPPData::setEnter(const char *n) {
+void PPPData::setEnter(const QString &n) {
   writeConfig(MODEM_GRP, ENTER_KEY, n);
 }
 
@@ -633,7 +622,7 @@ int PPPData::count() {
 }
 
 
-bool PPPData::setAccount( const char *aname ) {
+bool PPPData::setAccount(const QString &aname) {
   for(int i = 0; i <= highcount; i++) {
     setAccountbyIndex(i);
     if(strcmp(accname(), aname) == 0) {
@@ -655,7 +644,7 @@ bool PPPData::setAccountbyIndex(int i) {
 }
 
 
-bool PPPData::isUniqueAccname(const char *n) {
+bool PPPData::isUniqueAccname(const QString &n) {
   int current = caccount;
   for(int i=0; i <= highcount; i++) {
     setAccountbyIndex(i);
@@ -723,7 +712,7 @@ bool PPPData::deleteAccount() {
 } 
 
 
-bool PPPData::deleteAccount( const char *aname ) {
+bool PPPData::deleteAccount(const QString &aname) {
   if(!setAccount(aname))
     return false;
 
@@ -775,11 +764,11 @@ int PPPData::copyaccount(int i) {
 }
 
 
-const char* PPPData::accname() {
+const QString PPPData::accname() {
   return readConfig(cgroup, NAME_KEY);
 }
 
-void PPPData::setAccname( const char *n ) {
+void PPPData::setAccname(const QString &n) {
   if(cgroup) {
     //change the default account name along with the account name
     if(strcmp(accname(), defaultAccount()) == 0)
@@ -798,22 +787,22 @@ QStrList &PPPData::phonenumbers() {
 }
 
 
-const char *PPPData::phonenumber() {
+const QString PPPData::phonenumber() {
   return readConfig(cgroup, PHONENUMBER_KEY);
 }
 
 
-void PPPData::setPhonenumber( const char *n ) {
+void PPPData::setPhonenumber(const QString &n) {
   writeConfig(cgroup, PHONENUMBER_KEY, n);	
 }
 
 
-const char *PPPData::dialPrefix() {
+const QString PPPData::dialPrefix() {
   return readConfig(cgroup, DIAL_PREFIX_KEY, "");
 }
 
 
-void PPPData::setDialPrefix(const char *s) {
+void PPPData::setDialPrefix(const QString &s) {
   writeConfig(cgroup, DIAL_PREFIX_KEY, s);
 }
 
@@ -828,22 +817,22 @@ void PPPData::setAuthMethod(int value) {
 }
 
 
-const char * PPPData::storedUsername() {
+const QString  PPPData::storedUsername() {
   return readConfig(cgroup, STORED_USERNAME_KEY, "");
 }
 
 
-void PPPData::setStoredUsername(const char *b) {
+void PPPData::setStoredUsername(const QString &b) {
   writeConfig(cgroup, STORED_USERNAME_KEY, b);
 }
 
 
-const char * PPPData::storedPassword() {
+const QString  PPPData::storedPassword() {
   return readConfig(cgroup, STORED_PASSWORD_KEY, "");
 }
 
 
-void PPPData::setStoredPassword(const char *b) {
+void PPPData::setStoredPassword(const QString &b) {
   writeConfig(cgroup, STORED_PASSWORD_KEY, b);
 }
 
@@ -853,12 +842,12 @@ const bool PPPData::storePassword() {
 }
 
 
-const char* PPPData::command_before_connect() {
+const QString PPPData::command_before_connect() {
   return readConfig(cgroup, BEFORE_CONNECT_KEY);
 }
 
 
-void PPPData::setCommand_before_connect( const char *n ) {
+void PPPData::setCommand_before_connect(const QString &n) {
   writeConfig(cgroup, BEFORE_CONNECT_KEY, n);
 }
 
@@ -868,52 +857,52 @@ void PPPData::setStorePassword(bool b) {
 }
 
 
-const char* PPPData::command_on_connect() {
+const QString PPPData::command_on_connect() {
   return readConfig(cgroup, COMMAND_KEY);
 }
 
 
-void PPPData::setCommand_on_connect( const char *n ) {
+void PPPData::setCommand_on_connect(const QString &n) {
   writeConfig(cgroup, COMMAND_KEY, n);
 }
 
 
-const char* PPPData::command_on_disconnect() {
+const QString PPPData::command_on_disconnect() {
   return readConfig(cgroup, DISCONNECT_COMMAND_KEY);
 }
 
 
-void PPPData::setCommand_on_disconnect( const char *n ) {
+void PPPData::setCommand_on_disconnect(const QString &n) {
   writeConfig(cgroup, DISCONNECT_COMMAND_KEY, n);
 }
 
 
-const char* PPPData::command_before_disconnect() {
+const QString PPPData::command_before_disconnect() {
   return readConfig(cgroup, BEFORE_DISCONNECT_KEY);
 }
 
 
-void PPPData::setCommand_before_disconnect( const char *n ) {
+void PPPData::setCommand_before_disconnect(const QString &n) {
   writeConfig(cgroup, BEFORE_DISCONNECT_KEY, n);
 }
 
 
-const char* PPPData::ipaddr() {
+const QString PPPData::ipaddr() {
   return readConfig(cgroup, IPADDR_KEY);
 }
 
 
-void PPPData::setIpaddr( const char *n ) {
+void PPPData::setIpaddr(const QString &n) {
   writeConfig(cgroup, IPADDR_KEY, n);
 }
 
 
-const char* PPPData::subnetmask() {
+const QString PPPData::subnetmask() {
   return readConfig(cgroup, SUBNETMASK_KEY);
 }
 
 
-void PPPData::setSubnetmask( const char *n ) {
+void PPPData::setSubnetmask(const QString &n) {
   writeConfig(cgroup, SUBNETMASK_KEY, n);
 }
 
@@ -948,12 +937,12 @@ void PPPData::setVolAcctEnabled(int set) {
 }
 
 
-const char* PPPData::gateway() {
+const QString PPPData::gateway() {
   return readConfig(cgroup, GATEWAY_KEY);
 }
 
 
-void PPPData::setGateway(const char *n ) {
+void PPPData::setGateway(const QString &n ) {
   writeConfig(cgroup, GATEWAY_KEY, n);
 }
 
@@ -995,12 +984,12 @@ void PPPData::setDns(QStrList &list) {
 }
 
 
-const char* PPPData::domain() {
+const QString PPPData::domain() {
   return readConfig(cgroup, DOMAIN_KEY);
 }
 
 
-void PPPData::setDomain(const char *n ) {
+void PPPData::setDomain(const QString &n ) {
   writeConfig(cgroup, DOMAIN_KEY, n);
 }
 
@@ -1037,22 +1026,22 @@ void PPPData::setScript(QStrList &list) {
 }
 
 
-const char *PPPData::accountingFile() {
+const QString PPPData::accountingFile() {
   return readConfig(cgroup, ACCTFILE_KEY);
 }
 
 
-void PPPData::setAccountingFile(const char *n) {
+void PPPData::setAccountingFile(const QString &n) {
   writeConfig(cgroup, ACCTFILE_KEY, n);
 }
 
 
-const char *PPPData::totalCosts() {
+const QString PPPData::totalCosts() {
   return readConfig(cgroup, TOTALCOSTS_KEY);
 }
 
 
-void PPPData::setTotalCosts(const char *n) {
+void PPPData::setTotalCosts(const QString &n) {
   writeConfig(cgroup, TOTALCOSTS_KEY, n);
 }
 

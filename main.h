@@ -88,8 +88,8 @@ private slots:
   void helpbutton();
   void setup();
   void rulesetLoadError();
-  void usernameChanged( const char *);
-  void passwordChanged( const char *);
+  void usernameChanged(const QString &);
+  void passwordChanged(const QString &);
   void enterPressedInID();
   void enterPressedInPW();
 

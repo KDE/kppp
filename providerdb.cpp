@@ -163,7 +163,7 @@ void ProviderDB::loadProviderInfo() {
   fname += "/" + provider; 
   Debug("Providerfile=%s\n", fname.data());
 
-  cfg = new KSimpleConfig(fname.data(), true);
+  cfg = new KSimpleConfig(fname, true);
 }
 
 
@@ -181,12 +181,12 @@ void ProviderDB::accept() {
     if(value.contains(re_password))
       value.replace(re_password, page4->password());
 
-    gpppdata.writeConfig(gpppdata.currentGroup().data(),
+    gpppdata.writeConfig(gpppdata.currentGroup(),
 			 key.data(),
 			 value.data());
 
     if(key == "Name")
-      gpppdata.setAccname(value.data());
+      gpppdata.setAccname(value);
     ++(*it);
   }
 
@@ -316,7 +316,7 @@ void PDB_Provider::setDir(const char *_dir) {
     dir = dir.replace(re1, "_");
     dir1 += dir;
     
-    QDir d(dir1.data());
+    QDir d(dir1);
     d.setFilter(QDir::Files);
     d.setSorting(QDir::Name);
     
@@ -367,19 +367,19 @@ PDB_UserInfo::PDB_UserInfo(QWidget *parent) : QWidget(parent) {
   l = newLabel(i18n("Password:"), this);
   l1->addWidget(l, 1, 0);
   _username = newLineEdit(24, this);
-  connect(_username, SIGNAL(textChanged(const char *)),
-	  this, SLOT(textChanged(const char *)));
+  connect(_username, SIGNAL(textChanged(const QString &)),
+	  this, SLOT(textChanged(const QString &)));
   l1->addWidget(_username, 0, 1);
   _password = newLineEdit(24, this);
   _password->setEchoMode(QLineEdit::Password);
-  connect(_password, SIGNAL(textChanged(const char *)),
-	  this, SLOT(textChanged(const char *)));
+  connect(_password, SIGNAL(textChanged(const QString &)),
+	  this, SLOT(textChanged(const QString &)));
   l1->addWidget(_password, 1, 1);
   tl->activate();
 };
 
 
-void PDB_UserInfo::textChanged(const char *) {
+void PDB_UserInfo::textChanged(const QString &) {
   KWizard *w = (KWizard*)parent();
   w->getNextButton()->setEnabled(strlen(_password->text()) > 0 &&
 				 strlen(_username->text()) > 0);

@@ -56,8 +56,8 @@ PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
   connect(argument, SIGNAL(returnPressed()), 
 	  SLOT(addbutton()));
   l11->addWidget(argument);
-  connect(argument, SIGNAL(textChanged(const char *)),
-	  this, SLOT(textChanged(const char *)));
+  connect(argument, SIGNAL(textChanged(const QString &)),
+	  this, SLOT(textChanged(const QString &)));
 
   arguments = new QListBox(this);
   arguments->setMinimumSize(1, fontMetrics().lineSpacing()*10);
@@ -156,8 +156,8 @@ void PPPdArguments::init() {
 }
 
 
-void PPPdArguments::textChanged(const char *s) {
-  add->setEnabled(strlen(s) > 0);
+void PPPdArguments::textChanged(const QString &s) {
+  add->setEnabled(s.length() > 0);
 }
 
 

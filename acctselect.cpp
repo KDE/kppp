@@ -93,7 +93,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   // load the pmfolder pixmap from KDEdir
   QString fname = KApplication::kde_datadir().copy();
   fname += "/kppp/pics/folder.xpm";
-  pmfolder.load(fname.data());
+  pmfolder.load(fname);
 
   // scale the pixmap
   if(pmfolder.width() > 0) {
@@ -105,7 +105,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   // load the pmfolder pixmap from KDEdir
   fname = KApplication::kde_datadir().copy();
   fname += "/kppp/pics/phone.xpm";
-  pmfile.load(fname.data());
+  pmfile.load(fname);
 
   // scale the pixmap
   if(pmfile.width() > 0) {
@@ -199,7 +199,7 @@ void AccountingSelector::insertDir(QDir d, KTreeListItem *root) {
 
     // check if this is the file we should mark
     QString name = fileNameToName(fi->baseName());
-    KTreeListItem *tli = new KTreeListItem(name.data(), &pmfile);
+    KTreeListItem *tli = new KTreeListItem(name, &pmfile);
 
     // check if this is the item we are searching for
     // (only in "Edit"-mode, not in "New"-mode
@@ -226,7 +226,7 @@ void AccountingSelector::insertDir(QDir d, KTreeListItem *root) {
       // create a new entry
       KTreeListItem *i = findByName(root->getChild(), name);
       if(i == NULL) {
-	KTreeListItem *item = new KTreeListItem(name.data(), &pmfolder);
+	KTreeListItem *item = new KTreeListItem(name, &pmfolder);
 	root->appendChild(item);
 	insertDir(QDir(fi->filePath()), item);
       } else
@@ -263,12 +263,12 @@ void AccountingSelector::setupTreeWidget() {
   QString s = QDir::homeDirPath() + "/";
   s += ACCOUNTING_PATH "/Rules/";
 
-  insertDir(QDir(s.data()), i);
+  insertDir(QDir(s), i);
 
   // look in $KDEDIR/lib/kppp/Accounting
   s = KApplication::kde_datadir().copy();
   s += "/kppp/Rules/";
-  insertDir(QDir(s.data()), i);
+  insertDir(QDir(s), i);
 
   enableItems(FALSE);
 
@@ -299,7 +299,7 @@ void AccountingSelector::enableItems(bool b) {
     s = s.left(s.length()-4);
     if( 0 == (s.find('/')))
 	s = s.right(s.length() -1);
-    selected->setText(s.data());
+    selected->setText(s);
 
   }
 }
@@ -329,7 +329,7 @@ bool AccountingSelector::save() {
   if(isChecked() && (choice != -1)) {
 
     QString s = indexToFileName(choice);
-    gpppdata.setAccountingFile(s.data());
+    gpppdata.setAccountingFile(s);
     gpppdata.setAcctEnabled(TRUE);
   } else {
     gpppdata.setAccountingFile("");

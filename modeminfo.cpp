@@ -185,7 +185,7 @@ void ModemTransfer::do_script() {
     readtty();
     msg.sprintf("ATI %d ...", step);
     query.sprintf("ATI%d\n", step);
-    statusBar->setText(msg.data());
+    statusBar->setText(msg);
     progressBar->advance(1);
     Modem::modem->writeLine(query.data());
     break;
@@ -260,7 +260,7 @@ ModemInfo::ModemInfo(QWidget *parent, const char* name)
     else
       label_text.sprintf("ATI %d:", i );
 
-    ati_label[i] = new QLabel(label_text.data(), this);
+    ati_label[i] = new QLabel(label_text, this);
     MIN_SIZE(ati_label[i]);
     l1->addWidget(ati_label[i], i, 0);
 
@@ -297,7 +297,7 @@ ModemInfo::ModemInfo(QWidget *parent, const char* name)
 
 void ModemInfo::setAtiString(int i, QString s) {
   if(i < NUM_OF_ATI)
-    ati_label_result[i]->setText(s.data());
+    ati_label_result[i]->setText(s);
 }
 
 #include "modeminfo.moc"

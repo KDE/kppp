@@ -308,7 +308,7 @@ void PPPStatsDlg::paintGraph() {
   QRect r;
   QString s;
   s.sprintf(i18n("%0.1f (max. %0.1f) kb/sec"), (float)last_max / 1024.0, (float)max / 1024.0);
-  p.drawText(0, 0, pm.width(), 2*8, AlignRight|AlignVCenter, s.data(), -1, &r);
+  p.drawText(0, 0, pm.width(), 2*8, AlignRight|AlignVCenter, s, -1, &r);
   p.drawLine(0, 8, r.left() - 8, 8);
 
   p.end();

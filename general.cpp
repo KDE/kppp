@@ -62,8 +62,8 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
   pppdtimeout->setMaxLength(TIMEOUT_SIZE);
   pppdtimeout->setMinimumWidth(pppdtimeout->sizeHint().width()/4);
   pppdtimeout->setText(gpppdata.pppdTimeout());
-  connect(pppdtimeout, SIGNAL(textChanged(const char*)),
-	  SLOT(pppdtimeoutchanged(const char*)));
+  connect(pppdtimeout, SIGNAL(textChanged(const QString &)),
+	  SLOT(pppdtimeoutchanged(const QString &)));
   l1->addWidget(pppdtimeout);
   KQuickHelp::add(label6,
   KQuickHelp::add(pppdtimeout, 
@@ -188,7 +188,7 @@ void GeneralWidget::quit_toggled(bool on){
 }
 
 
-void GeneralWidget::pppdtimeoutchanged(const char *n) {
+void GeneralWidget::pppdtimeoutchanged(const QString &n) {
   gpppdata.setpppdTimeout(n);
 
 }
@@ -391,8 +391,8 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   modemtimeout->setMaxLength(TIMEOUT_SIZE);
   modemtimeout->setMinimumWidth(fontMetrics().width('8')*3);
   modemtimeout->setText(gpppdata.modemTimeout());
-  connect(modemtimeout, SIGNAL(textChanged(const char*)),
-	  SLOT(modemtimeoutchanged(const char*)));  
+  connect(modemtimeout, SIGNAL(textChanged(const QString &)),
+	  SLOT(modemtimeoutchanged(const QString &)));  
   l2->addWidget(modemtimeout, 1);
 
   labeltmp = newLabel(i18n("Seconds"), peer());
@@ -449,7 +449,7 @@ void ModemWidget::modemlockfilechanged(bool set) {
 }
 
 
-void ModemWidget::modemtimeoutchanged(const char *n) {
+void ModemWidget::modemtimeoutchanged(const QString &n) {
   gpppdata.setModemTimeout(n);
 }
 
@@ -470,8 +470,8 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
   busywait->setMaxLength(TIMEOUT_SIZE);
   busywait->setText(gpppdata.busyWait());
   busywait->setMinimumWidth(busywait->sizeHint().width()/3);
-  connect(busywait, SIGNAL(textChanged(const char*)),
-	  SLOT(busywaitchanged(const char*)));
+  connect(busywait, SIGNAL(textChanged(const QString &)),
+	  SLOT(busywaitchanged(const QString &)));
   l10->addWidget(busywait);
 
   labeltmp = newLabel(i18n("Seconds"), peer());
@@ -605,7 +605,7 @@ void ModemWidget2::use_cdline_toggled(bool on) {
 }
 
 
-void ModemWidget2::busywaitchanged(const char *n) {
+void ModemWidget2::busywaitchanged(const QString &n) {
   gpppdata.setbusyWait(n);
 }
 

@@ -76,6 +76,9 @@
 // initial effective uid (main.cpp)
 extern uid_t euid;
 
+// secure pppd location (opener.cpp)
+extern const char* pppdPath();
+
 #ifdef linux
 // shamelessly stolen from pppd-2.3.5
 
@@ -391,7 +394,7 @@ int runTests() {
 #endif
 
   // Test 1: search the pppd binary
-  const char *f = gpppdata.pppdPath();
+  const char *f = pppdPath();
 
   if(!f) {
     QMessageBox::warning(0,

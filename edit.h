@@ -155,7 +155,7 @@ public slots:
 protected slots:
   void adddns();
   void removedns();
-  void DNS_Edit_Changed(const char *);
+  void DNS_Edit_Changed(const QString &);
   void DNS_Entry_Selected(int);
 
 private:
@@ -246,7 +246,7 @@ public:
   QString phoneNumber();
 
 private slots:
-  void textChanged(const char *);
+  void textChanged(const QString &);
 
 private: 
   QPushButton *ok, *cancel;

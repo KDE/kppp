@@ -216,34 +216,34 @@ void make_directories() {
   QDir dir;
   QString d = KApplication::localkdedir();
 
-  dir.setPath(d.data());
+  dir.setPath(d);
   if(!dir.exists()){
-    dir.mkdir(d.data());
+    dir.mkdir(d);
     chown(d.data(),getuid(),getgid());
     chmod(d.data(),S_IRUSR | S_IWUSR | S_IXUSR);
   }
 
   d += "/share";
-  dir.setPath(d.data());
+  dir.setPath(d);
   if(!dir.exists()){
-    dir.mkdir(d.data());
+    dir.mkdir(d);
     chown(d.data(),getuid(),getgid());
     chmod(d.data(),S_IRUSR | S_IWUSR | S_IXUSR);
   }
 
   d += "/apps";
-  dir.setPath(d.data());
+  dir.setPath(d);
   if(!dir.exists()){
-    dir.mkdir(d.data());
+    dir.mkdir(d);
     chown(d.data(),getuid(),getgid());
     chmod(d.data(),S_IRUSR | S_IWUSR | S_IXUSR);
   }
 
   d += "/kppp" ;
 
-  dir.setPath(d.data());
+  dir.setPath(d);
   if(!dir.exists()){
-    dir.mkdir(d.data());
+    dir.mkdir(d);
     chown(d.data(),getuid(),getgid());
     chmod(d.data(),S_IRUSR | S_IWUSR | S_IXUSR);
   }
@@ -251,9 +251,9 @@ void make_directories() {
   
   d += "/Rules/";
 
-  dir.setPath(d.data());
+  dir.setPath(d);
   if(!dir.exists()){
-    dir.mkdir(d.data());
+    dir.mkdir(d);
     chown(d.data(),getuid(),getgid());
     chmod(d.data(),S_IRUSR | S_IWUSR | S_IXUSR);
   }
@@ -262,9 +262,9 @@ void make_directories() {
   logdir += "/";
   logdir += ACCOUNTING_PATH "/Log";
 
-  dir.setPath(logdir.data());
+  dir.setPath(logdir);
   if(!dir.exists()){
-    dir.mkdir(logdir.data());
+    dir.mkdir(logdir);
     chown(logdir.data(),getuid(),getgid());
     chmod(logdir.data(),S_IRUSR | S_IWUSR | S_IXUSR);
   }
@@ -406,7 +406,7 @@ int main( int argc, char **argv ) {
   int pid = create_pidfile();
   if(pid < 0) {
     msg.sprintf(i18n("kppp can't create or read from\n%s."), pidfile.data());
-    QMessageBox::warning(0L, i18n("Error"), msg.data());
+    QMessageBox::warning(0L, i18n("Error"), msg);
     shutDown(1);
   }
   
@@ -440,7 +440,7 @@ int main( int argc, char **argv ) {
                      "Make sure that you are not running another "
                      "kppp,\ndelete the pid file, and restart kppp."),
                 pidfile.data(), pid);
-    QMessageBox::warning(0L, i18n("Error"), msg.data(), i18n("Exit"));
+    QMessageBox::warning(0L, i18n("Error"), msg, i18n("Exit"));
     shutDown(1);
   }
   
@@ -693,11 +693,11 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   if(have_cmdl_account){
     bool result;
-    result = gpppdata.setAccount(cmdl_account.data());
+    result = gpppdata.setAccount(cmdl_account);
     if (!result){
       QString string;
       string.sprintf(i18n("No such Account:\n%s"),cmdl_account.data());
-      QMessageBox::warning(this, i18n("Error"), string.data());
+      QMessageBox::warning(this, i18n("Error"), string);
       have_cmdl_account = false;
       this->show();
     } else
@@ -708,16 +708,16 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
 
 bool KPPPWidget::eventFilter(QObject *o, QEvent *e) {
-  if(o == connect_b) {
-    if(e->type() == Event_KeyPress) {      
-      if(connect_b->hasFocus() && ((QKeyEvent *)e)->key() == Key_Return) {
-	beginConnect();
-	return true;
+    if(o == connect_b) {
+      if(e->type() == KeyPress) {
+        if(connect_b->hasFocus() && ((QKeyEvent *)e)->key() == Key_Return) {
+          beginConnect();
+          return true;
+        }
       }
     }
-  }
 
-  return false;
+    return false;
 }
 
 void KPPPWidget::prepareSetupDialog() {
@@ -822,11 +822,11 @@ void KPPPWidget::resetaccounts() {
     }
 
 
-  connect(ID_Edit, SIGNAL(textChanged(const char *)),
- 	  this, SLOT(usernameChanged(const char *)));
+  connect(ID_Edit, SIGNAL(textChanged(const QString &)),
+ 	  this, SLOT(usernameChanged(const QString &)));
 
-  connect(PW_Edit, SIGNAL(textChanged(const char *)),
- 	  this, SLOT(passwordChanged(const char *)));
+  connect(PW_Edit, SIGNAL(textChanged(const QString &)),
+ 	  this, SLOT(passwordChanged(const QString &)));
 }
 
 
@@ -915,10 +915,10 @@ void dieppp(int) {
 
         if(gpppdata.authMethod() == AUTH_PAP)
           Requester::rq->setPAPSecret(gpppdata.storedUsername(),
-                                      gpppdata.password.data());
+                                      gpppdata.password);
         if(gpppdata.authMethod() == AUTH_CHAP)
           Requester::rq->setCHAPSecret(gpppdata.storedUsername(),
-                                       gpppdata.password.data());
+                                       gpppdata.password);
 
 	p_kppp->con_win->hide();
 	p_kppp->con_win->stopClock();
@@ -969,7 +969,7 @@ void KPPPWidget::beginConnect() {
   if(!have_cmdl_account) 
     gpppdata.setAccount(connectto_c->currentText());
 
-  QFileInfo info(gpppdata.pppdPath());
+  QFileInfo info(pppdPath());
 
   if(!info.exists()){
     QMessageBox::warning(this, i18n("Error"),
@@ -987,7 +987,7 @@ void KPPPWidget::beginConnect() {
 		   "pppd is executable."),gpppdata.pppdPath());
     QMessageBox::warning(this, 
 			 i18n("Error"),
-			 string.data());
+			 string);
     return;
 
   }
@@ -997,14 +997,14 @@ void KPPPWidget::beginConnect() {
 
   if(!info2.exists()){
     QString string;   
-    string.sprintf(i18n("kppp can not find:\n %s\nPlease make sure you have setup\n"
+    string.sprintf(i18n("kppp can not find:\n %1\nPlease make sure you have setup\n"
 		   "your modem device properly\n"
 		   "and/or adjust\n the location of the modem device on "
 		   "the modem tab of\n"
-		   "the setup dialog.\n Thank You"),gpppdata.modemDevice());
+		   "the setup dialog.\n Thank You").arg(gpppdata.modemDevice()));
     QMessageBox::warning(this, 
 			 i18n("Error"),
-			 string.data());
+			 string);
     return;
   }
 
@@ -1024,13 +1024,13 @@ void KPPPWidget::beginConnect() {
     } else {
       gpppdata.password = PW_Edit->text();
       if(!Requester::rq->setPAPSecret(gpppdata.storedUsername(),
-                                      gpppdata.password.data())) {
+                                      gpppdata.password)) {
 	QString s;
 	s.sprintf(i18n("Cannot create PAP authentication\n"
 				     "file \"%s\""), PAP_AUTH_FILE);
 	QMessageBox::warning(this,
 			     i18n("Error"),
-			     s.data());
+			     s);
 	return;
       }
     }
@@ -1050,13 +1050,13 @@ void KPPPWidget::beginConnect() {
     } else {
       gpppdata.password = PW_Edit->text();
       if(!Requester::rq->setCHAPSecret(gpppdata.storedUsername(),
-                                       gpppdata.password.data())) {
+                                       gpppdata.password)) {
 	QString s;
 	s.sprintf(i18n("Cannot create CHAP authentication\n"
 				     "file \"%s\""), CHAP_AUTH_FILE);
 	QMessageBox::warning(this,
 			     i18n("Error"),
-			     s.data());
+			     s);
 	return;
       }
     }
@@ -1066,7 +1066,7 @@ void KPPPWidget::beginConnect() {
     QString s;
     s.sprintf(i18n("You must specify a telephone "
 		   "number!"));
-    QMessageBox::warning(this, i18n("Error"), s.data());
+    QMessageBox::warning(this, i18n("Error"), s);
     return;
   }
 
@@ -1173,7 +1173,7 @@ void KPPPWidget::quitbutton() {
 void KPPPWidget::rulesetLoadError() {
   QMessageBox::warning(this, 
 		       i18n("Error"), 
-		       ruleset_load_errmsg.data());
+		       ruleset_load_errmsg);
 }
 
 
@@ -1225,13 +1225,13 @@ void KPPPWidget::stopAccounting() {
 }
 
 
-void KPPPWidget::usernameChanged(const char *) {
+void KPPPWidget::usernameChanged(const QString &) {
   // store username for later use
   gpppdata.setStoredUsername(ID_Edit->text());
 }
 
 
-void KPPPWidget::passwordChanged(const char *) {
+void KPPPWidget::passwordChanged(const QString &) {
     // store the password if so requested
   if(gpppdata.storePassword())
     gpppdata.setStoredPassword(PW_Edit->text());

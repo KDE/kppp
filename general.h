@@ -48,7 +48,7 @@ public:
   GeneralWidget( QWidget *parent=0, const char *name=0 );
 
 private slots:
-  void 	pppdtimeoutchanged(const char *n);
+  void 	pppdtimeoutchanged(const QString &n);
   void 	caption_toggled(bool);
   void  iconify_toggled(bool on); 
   void 	redial_toggled(bool on);
@@ -85,7 +85,7 @@ public:
 private slots:
   void 	setmodemdc(int);
   void 	setflowcontrol(int);
-  void 	modemtimeoutchanged(const char*);
+  void 	modemtimeoutchanged(const QString &);
   void 	modemlockfilechanged(bool);
   void 	setenter(int);
   void  speed_selection(int);
@@ -114,7 +114,7 @@ public:
   ModemWidget2( QWidget *parent=0, const char *name=0 );
 
 private slots:
-  void 	busywaitchanged(const char*);
+  void 	busywaitchanged(const QString &);
   void 	use_cdline_toggled(bool);
   void 	modemcmdsbutton();
   void 	terminal();

@@ -40,12 +40,7 @@
 #include <kbuttonbox.h>
 
 #include <qglobal.h>
-#if QT_VERSION < 140
 #include <qmultilinedit.h>
-#else
-#include <qmultilinedit.h>
-#endif
-
 #include <qlayout.h>
 #include <kapp.h>
 #include <kmsgbox.h>
@@ -170,7 +165,7 @@ void PPPL_AnalyseLog(QStrList &list, QStrList &result) {
         msg.sprintf(i18n("Notice that the remote system has sent the following"
                          " message:\n\"%s\"\nThis may give you a hint why the"
                          " the connection has failed."), p);
-        result.append(msg.data());
+        result.append(msg);
       }
     }
 
@@ -276,7 +271,7 @@ void PPPL_ShowLog() {
     msg.sprintf("The PPP log has been saved\nas \"%s\"!\n\nIf you want to send a bug report or have\nproblems connecting to the internet, please\nattach this file. It will help the maintainers\nto find the bug and to improve KPPP", s.data());
     KMsgBox::message(0,
 		     i18n("Information"),
-		     msg.data(),
+		     msg,
 		     KMsgBox::INFORMATION);
   }
   delete dlg;

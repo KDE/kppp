@@ -175,8 +175,8 @@ void ModemDatabase::loadModem(const char *key, CharDict &dict) {
   e = it->current();
   while((e = it->current()) != 0) {
     if(dict.find(it->currentKey()) == 0) {
-      char *value = new char[strlen(e->aValue.data())+1];
-      strcpy(value, e->aValue.data());
+      char *value = new char[e->aValue.length()+1];
+      strcpy(value, e->aValue);
       dict.insert(it->currentKey(), value);
     }
     ++(*it);
@@ -217,20 +217,20 @@ void ModemDatabase::load() {
     if(strcmp(it->currentKey(), "Common") == 0) {
       QString s = i18n("Hayes(tm) compatible modem");
       char *name = new char[s.length()+1];
-      strcpy(name, s.data());
+      strcpy(name, s);
       c->replace("Name", name);
 
       s = i18n("<Generic>");
       char *vend = new char[s.length()+1];
-      strcpy(vend, s.data());
+      strcpy(vend, s);
       c->replace("Vendor", vend);
     }
     modems.append(c);
 
     if(modemDB->hasKey("Vendor")) {
       QString vendor = modemDB->readEntry("Vendor");
-      if(lvendors->find(vendor.data()) == -1)
-	lvendors->inSort(vendor.data());
+      if(lvendors->find(vendor) == -1)
+	lvendors->inSort(vendor);
     }
     ++(*it);
   }

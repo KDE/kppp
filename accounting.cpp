@@ -80,9 +80,9 @@ AccountingBase::AccountingBase(QObject *parent) :
   _session(0)
 {
   QDate dt = QDate::currentDate();
-  LogFileName.sprintf("%s-%4d.log",
-		      dt.monthName(dt.month()),
-		      dt.year());
+  LogFileName = QString("%1-%2.log")
+    .arg(dt.monthName(dt.month()))
+    .arg(dt.year(), 4);
 
   QString fname = QDir::homeDirPath() + "/";
   fname += ACCOUNTING_PATH;
@@ -133,7 +133,7 @@ void AccountingBase::resetVolume(const char *accountname){
 void AccountingBase::logMessage(QString s, bool newline) {
   int old_umask = umask(0077);
 
-  QFile f(LogFileName.data());
+  QFile f(LogFileName);
 
   bool result = f.open(IO_ReadWrite);
   if(result) {
@@ -343,7 +343,7 @@ bool Accounting::loadRuleSet(const char *name) {
   
   QString d = AccountingBase::getAccountingFile(name);
 
-  QFileInfo fg(d.data());
+  QFileInfo fg(d);
    if(fg.exists()) {
      int ret = rules.load(d.data());
      _name = rules.name();

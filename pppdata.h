@@ -160,10 +160,10 @@ public:
   int  access();       // read/write access
 
   // function to read/write date to configuration file
-  const char* readConfig(const char *, const char *, const char *);
+  const QString readConfig(const char *, const char *, const char *);
   int readNumConfig(const char *, const char *, int);
   bool readListConfig(const char *, const char *, QStrList &, char sep = ',');
-  void writeConfig(const char *, const char *, const char *);
+  void writeConfig(const char *, const char *, const QString &);
   void writeConfig(const char *, const char *, int);
   void writeListConfig(const char *, const char *, QStrList &, char sep = ',');
 
@@ -171,11 +171,11 @@ public:
   QString currentGroup() { return cgroup; }
 
   // functions to set/get general kppp info
-  const char* Password();
-  void setPassword(const char* );
+  const QString Password();
+  void setPassword(const QString &);
 
-  const char* defaultAccount();
-  void setDefaultAccount(const char *);
+  const QString defaultAccount();
+  void setDefaultAccount(const QString &);
 
   void set_xserver_exit_disconnect(bool set);
   const bool get_xserver_exit_disconnect();
@@ -201,16 +201,14 @@ public:
   void set_dock_into_panel(bool set);
   const bool get_dock_into_panel();
 
-  const char* pppdPath();
+  const QString enter();
+  void setEnter(const QString &);
 
-  const char* enter();
-  void setEnter(const char *);
+  const QString pppdTimeout();
+  void setpppdTimeout(const QString &);
 
-  const char * pppdTimeout();
-  void setpppdTimeout(const char *);
-
-  const char * busyWait();
-  void setbusyWait(const char *);
+  const QString busyWait();
+  void setbusyWait(const QString &);
 
   const bool modemLockFile();
   void setModemLockFile(bool set);
@@ -218,41 +216,41 @@ public:
   int modemEscapeGuardTime();
   void setModemEscapeGuardTime(int i);
 
-  void setModemEscapeStr(const char* n);
-  const char* modemEscapeStr();
+  void setModemEscapeStr(const QString &);
+  const QString modemEscapeStr();
 
-  void setModemEscapeResp(const char* n);
-  const char* modemEscapeResp();
+  void setModemEscapeResp(const QString &);
+  const QString modemEscapeResp();
 
-  const char* modemDevice();
-  void setModemDevice(const char *);
+  const QString modemDevice();
+  void setModemDevice(const QString &);
 
-  const char* flowcontrol();
-  void setFlowcontrol(const char *);
+  const QString flowcontrol();
+  void setFlowcontrol(const QString &);
 
-  const char * modemTimeout();
-  void setModemTimeout(const char *);
+  const QString modemTimeout();
+  void setModemTimeout(const QString &);
 
-  const char *volumeOff();
-  void setVolumeOff(const char *);
+  const QString volumeOff();
+  void setVolumeOff(const QString &);
 
-  const char *volumeMedium();
-  void setVolumeMedium(const char *);
+  const QString volumeMedium();
+  void setVolumeMedium(const QString &);
 
-  const char *volumeHigh();
-  void setVolumeHigh(const char *);
+  const QString volumeHigh();
+  void setVolumeHigh(const QString &);
 
-  const char *volumeInitString();
+  const QString volumeInitString();
   int volume();
   void setVolume(int);  
 
 
   // modem command strings/responses
-  const char* modemInitStr();
-  void setModemInitStr(const char *);
+  const QString modemInitStr();
+  void setModemInitStr(const QString &);
 
-  const char* modemInitResp();
-  void setModemInitResp(const char *);
+  const QString modemInitResp();
+  void setModemInitResp(const QString &);
 
   const int modemPreInitDelay();
   void setModemPreInitDelay(int);
@@ -260,93 +258,93 @@ public:
   const int modemInitDelay();
   void setModemInitDelay(int);
 
-  const char* modemDialStr();
-  void setModemDialStr(const char*);
+  const QString modemDialStr();
+  void setModemDialStr(const QString &);
 
-  const char* modemConnectResp();
-  void setModemConnectResp(const char *);
+  const QString modemConnectResp();
+  void setModemConnectResp(const QString &);
 
-  const char* modemBusyResp();
-  void setModemBusyResp(const char *);
+  const QString modemBusyResp();
+  void setModemBusyResp(const QString &);
 
-  const char* modemNoCarrierResp();
-  void setModemNoCarrierResp(const char *);
+  const QString modemNoCarrierResp();
+  void setModemNoCarrierResp(const QString &);
 
-  const char* modemNoDialtoneResp();
-  void setModemNoDialtoneResp(const char *);
+  const QString modemNoDialtoneResp();
+  void setModemNoDialtoneResp(const QString &);
 
-  const char* modemHangupStr();
-  void setModemHangupStr(const char*);
+  const QString modemHangupStr();
+  void setModemHangupStr(const QString &);
 
-  const char* modemHangupResp();
-  void setModemHangupResp(const char*);
+  const QString modemHangupResp();
+  void setModemHangupResp(const QString &);
 
-  const char* modemAnswerStr();
-  void setModemAnswerStr(const char*);
+  const QString modemAnswerStr();
+  void setModemAnswerStr(const QString &);
 
-  const char* modemRingResp();
-  void setModemRingResp(const char*);
+  const QString modemRingResp();
+  void setModemRingResp(const QString &);
 
-  const char* modemAnswerResp();
-  void setModemAnswerResp(const char*);
+  const QString modemAnswerResp();
+  void setModemAnswerResp(const QString &);
 
   void setUseCDLine(const int n);
   int  UseCDLine();
 
   // functions to set/get account information
   int count();
-  bool setAccount(const char *);
+  bool setAccount(const QString &);
   bool setAccountbyIndex(int);
 
-  bool isUniqueAccname(const char*);
+  bool isUniqueAccname(const QString &);
 
   bool deleteAccount();
-  bool deleteAccount(const char *);
+  bool deleteAccount(const QString &);
   int newaccount();       
   int copyaccount(int i);       
 
-  const char* accname();
-  void setAccname(const char *);
+  const QString accname();
+  void setAccname(const QString &);
   
   QStrList &phonenumbers();
-  const char *phonenumber();
-  void setPhonenumber(const char *);
+  const QString phonenumber();
+  void setPhonenumber(const QString &);
 
-  const char *dialPrefix();
-  void setDialPrefix(const char *);
+  const QString dialPrefix();
+  void setDialPrefix(const QString &);
 
   const int authMethod();
   void setAuthMethod(int);
 
-  const char *storedUsername();
-  void setStoredUsername(const char*);
+  const QString storedUsername();
+  void setStoredUsername(const QString &);
 
-  const char *storedPassword();
-  void setStoredPassword(const char*);
+  const QString storedPassword();
+  void setStoredPassword(const QString &);
 
   const bool storePassword();
   void setStorePassword(bool);
 
-  const char* speed();
-  void setSpeed(const char *);
+  const QString speed();
+  void setSpeed(const QString &);
 
-  const char* command_before_connect();
-  void setCommand_before_connect(const char*);
+  const QString command_before_connect();
+  void setCommand_before_connect(const QString &);
 
-  const char* command_on_connect();
-  void setCommand_on_connect(const char*);
+  const QString command_on_connect();
+  void setCommand_on_connect(const QString &);
 
-  const char* command_on_disconnect();
-  void setCommand_on_disconnect(const char*);
+  const QString command_on_disconnect();
+  void setCommand_on_disconnect(const QString &);
 
-  const char* command_before_disconnect();
-  void setCommand_before_disconnect(const char*);
+  const QString command_before_disconnect();
+  void setCommand_before_disconnect(const QString &);
 
-  const char* ipaddr();
-  void setIpaddr(const char *);
+  const QString ipaddr();
+  void setIpaddr(const QString &);
 
-  const char* subnetmask();
-  void setSubnetmask(const char *);
+  const QString subnetmask();
+  void setSubnetmask(const QString &);
 
   const bool AcctEnabled();
   void setAcctEnabled(bool set);
@@ -360,8 +358,8 @@ public:
   const bool autoname();
   void setAutoname(bool set);
 
-  const char* gateway();
-  void setGateway(const char *);
+  const QString gateway();
+  void setGateway(const QString &);
 
   const bool defaultroute();
   void setDefaultroute(bool set);
@@ -369,8 +367,8 @@ public:
   QStrList &dns();
   void setDns(QStrList &);
 
-  const char* domain();
-  void setDomain(const char *);
+  const QString domain();
+  void setDomain(const QString &);
 
   QStrList &scriptType();
   void setScriptType(QStrList &);
@@ -393,11 +391,11 @@ public:
   void setpppdError(int err);
 
   // functions to set/query the accounting info
-  const char *accountingFile();
-  void setAccountingFile(const char *);
+  const QString accountingFile();
+  void setAccountingFile(const QString &);
 
-  const char *totalCosts();
-  void setTotalCosts(const char *);
+  const QString totalCosts();
+  void setTotalCosts(const QString &);
 
   int totalBytes();
   void  setTotalBytes(int);

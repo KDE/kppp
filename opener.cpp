@@ -460,9 +460,9 @@ bool Opener::execpppd(const char *arguments) {
       // be the controlling terminal.
       pgrpid = setsid();
       if(ioctl(ttyfd, TIOCSCTTY, 0)<0)
-      fprintf(stderr, "ioctl() failed.\n");
+        fprintf(stderr, "ioctl() failed.\n");
       if(tcsetpgrp(ttyfd, pgrpid)<0)
-      fprintf(stderr, "tcsetpgrp() failed.\n");
+        fprintf(stderr, "tcsetpgrp() failed.\n");
 
       dup2(ttyfd, 0);
       dup2(ttyfd, 1);

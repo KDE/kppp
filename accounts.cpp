@@ -189,8 +189,8 @@ void AccountWidget::slotListBoxSelect(int idx) {
     vollabel->setEnabled(TRUE);
     voledit->setEnabled(TRUE);
     int bytes = gpppdata.totalBytes();
-    voledit->setText(prettyPrintVolume(bytes).data());
-    gpppdata.setAccount(account.data());
+    voledit->setText(prettyPrintVolume(bytes));
+    gpppdata.setAccount(account);
  } else{
     reset->setEnabled(FALSE);
     costlabel->setEnabled(FALSE);
@@ -321,11 +321,11 @@ void AccountWidget::deleteaccount() {
   QString s;
   s.sprintf(i18n("Are you sure you want to delete\n" 
 			       "the account \"%s\"?"),
-	    accountlist_l->text(accountlist_l->currentItem()));
+	    accountlist_l->text(accountlist_l->currentItem()).data());
 
   if(KMsgBox::yesNo(this, 
 		    i18n("Confirm"), 
-		    s.data(),
+		    s,
 		    KMsgBox::DB_SECOND) != 1)
     return;
 

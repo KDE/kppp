@@ -433,10 +433,10 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	emit debugMessage(bm);
 
 	if(stricmp(scriptArgument, "password") == 0) {
-	  gpppdata.setPassword(scanvar.data());
-	  p_kppp->setPW_Edit(scanvar.data());
+	  gpppdata.setPassword(scanvar);
+	  p_kppp->setPW_Edit(scanvar);
 	  if(gpppdata.storePassword())
-	    gpppdata.setStoredPassword(scanvar.data());
+	    gpppdata.setStoredPassword(scanvar);
 	  firstrunPW = true;
 	}
 
