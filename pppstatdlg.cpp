@@ -351,7 +351,7 @@ void PPPStatsDlg::timeclick() {
 }
 
 
-void PPPStatsDlg::closeEvent( QCloseEvent *e ) {
+void PPPStatsDlg::closeEvent(QCloseEvent *) {
   emit cancel();
 }
 

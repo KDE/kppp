@@ -257,7 +257,7 @@ void AccountingSelector::setupTreeWidget() {
 
   // when mode is "Edit", then hightlight the
   // appropriate item
-  if(!isnewaccount) {
+  if(!isnewaccount && edit_item) {
     tl->setSelected(edit_item, true);
     tl->setOpen(edit_item->parent(), true);
     tl->ensureItemVisible(edit_item);
