@@ -211,7 +211,6 @@ void AccountWidget::viewLogClicked(){
     if(fork() == 0) {
       setgid(getgid());
       setuid(getuid());
-      setpgrp();
       system("kppplogview -kppp");
       _exit(0);
     }
