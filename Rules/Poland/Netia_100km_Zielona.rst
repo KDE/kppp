@@ -14,15 +14,15 @@ minimum_costs=0.0
 default=(0.66, 60)
 
 # taryfa do 100km
-on (monday..friday)  between (8:00..18:00)  use (0.66, 60)
-on (monday..friday)  between (18:00..22:00)  use (0.49, 60)
-on (monday..friday)  between (22:00..8:00)  use (0.33, 60)
-on (saturday..sunday)  between (8:00..22:00)  use (0.49, 60)
-on (saturday..sunday)  between (22:00..8:00)  use (0.33, 60)
+on (monday..friday)  between (8:00..18:00)  use (0.56, 60)
+on (monday..friday)  between (18:00..22:00)  use (0.43, 60)
+on (monday..friday)  between (22:00..8:00)  use (0.28, 60)
+on (saturday..sunday)  between (8:00..22:00)  use (0.43, 60)
+on (saturday..sunday)  between (22:00..8:00)  use (0.28, 60)
 
 # ¦wiêta (taryfa sobotnio-niedzielna)
-on (01/01, easter, easter+1, 05/01, 05/03, 08/15, 11/01, 11/11, 12/25, 12/26) between (8:00..22:00) use (0.49, 60)
-on (01/01, easter, easter+1, 05/01, 05/03, 08/15, 11/01, 11/11, 12/25, 12/26) between (22:00..8:00) use (0.33, 60)
+on (01/01, easter, easter+1, 05/01, 05/03, 08/15, 11/01, 11/11, 12/25, 12/26) between (8:00..22:00) use (0.43, 60)
+on (01/01, easter, easter+1, 05/01, 05/03, 08/15, 11/01, 11/11, 12/25, 12/26) between (22:00..8:00) use (0.28, 60)
 
 #obja¶nienia dni ¶wi±tecznych
 # 01/01		Nowy Rok
