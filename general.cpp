@@ -446,7 +446,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
   connect(waitfordt, SIGNAL(toggled(bool)), SLOT(waitfordtchanged(bool)));
   l1->addWidget(waitfordt);
   QWhatsThis::add(waitfordt,
-		  i18n("Normally the modem waits for a dial tone\n"
+		  i18n("<p>Normally the modem waits for a dial tone\n"
 		       "from your phone line indicating that it can\n"
 		       "start to dial a number. If your modem doesn't\n"
 		       "recognize this sound or your local phone system\n"

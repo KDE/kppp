@@ -32,6 +32,7 @@
 #include <qdir.h>
 
 #include <kstandarddirs.h>
+#include <klocale.h>
 #include <kdebug.h>
 #include <time.h>
 
@@ -153,7 +154,7 @@ QString AccountingBase::getCosts(const QString & accountname) {
   QString prev_account = gpppdata.accname();
 
   gpppdata.setAccount(accountname);
-  QString val = gpppdata.totalCosts();
+  QString val = KGlobal::locale()->formatMoney(gpppdata.totalCosts().toDouble());
 
   gpppdata.setAccount(prev_account);
 
