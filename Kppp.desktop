@@ -1,8 +1,9 @@
-[KDE Desktop Entry]
+[Desktop Entry]
 Comment=Internet dial-up tool
 Comment[ca]=Connexió telefònica a Internet
 Comment[cs]=Program na pøipojení pøes dial-up
 Comment[da]=Program der kobler på internettet via modem
+Comment[de]=Internet-Wählhilfe
 Comment[eo]=Ilo por kontaktiøi kun Interreto (per PPP)
 Comment[es]=Herramienta de conexión a Internet
 Comment[fi]=Internettiin soitto-ohjelma
@@ -26,7 +27,7 @@ Comment[sr]=Alat za povezivanje na Internet
 Comment[sv]=Program för att koppla upp till Internet via modem
 BinaryPattern=kppp;
 Protocols=
-Name=Kppp
+Name=Internet Dialer
 Name[ca]=Accés telefònic
 Name[eo]=Interretkontaktilo
 Name[es]=Conexión a Internet
@@ -39,7 +40,7 @@ Name[ro]=Conectare Internet (PPP)
 Name[sr]=Kpp
 MimeType=
 DocPath=kppp/kppp.html
-Exec=kppp
+Exec=kppp %i %m
 Icon=kppp
 TerminalOptions=
 Path=

@@ -1,9 +1,7 @@
 pkg_DATA =	Swisscom_Local.rst \
 		Swisscom_Remote.rst \
 		Sunrise_Internet.rst \
-		Sunrise_Local.rst \
-		ISP_0840_Standardtarif.rst \
-		0800_und_Lokal_ISP.rst
+		Sunrise_Local.rst
 
 pkgdir = $(kde_datadir)/kppp/Rules/Switzerland
 
