@@ -402,7 +402,7 @@ int main( int argc, char **argv ) {
   QString msg;
   int pid = create_pidfile();
   if(pid < 0) {
-    msg.sprintf(i18n("kppp can't create or read from\n%s."), pidfile.data());
+    msg = i18n("kppp can't create or read from\n%1.").arg(pidfile);
     QMessageBox::warning(0L, i18n("Error"), msg);
     shutDown(1);
   }
@@ -431,12 +431,12 @@ int main( int argc, char **argv ) {
   }
 
   if (pid > 0) {
-    msg.sprintf(i18n("kppp has detected a %s file.\n\n"
+    msg = i18n("kppp has detected a %1 file.\n\n"
                      "Another instance of kppp seems to be "
-                     "running under\nprocess-ID %d.\n\n"
+                     "running under\nprocess-ID %2.\n\n"
                      "Make sure that you are not running another "
-                     "kppp,\ndelete the pid file, and restart kppp."),
-                pidfile.data(), pid);
+                     "kppp,\ndelete the pid file, and restart kppp.")
+                .arg(pidfile).arg(pid);
     QMessageBox::warning(0L, i18n("Error"), msg, i18n("Exit"));
     shutDown(1);
   }
@@ -666,7 +666,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
     result = gpppdata.setAccount(cmdl_account);
     if (!result){
       QString string;
-      string.sprintf(i18n("No such Account:\n%s"),cmdl_account.data());
+      string = i18n("No such Account:\n%1").arg(cmdl_account);
       QMessageBox::warning(this, i18n("Error"), string);
       have_cmdl_account = false;
       this->show();
@@ -950,9 +950,9 @@ void KPPPWidget::beginConnect() {
   if(!info.isExecutable()){
 
     QString string;   
-    string.sprintf(i18n("kppp can not execute:\n %s\nPlease make sure that"
+    string = i18n("kppp can not execute:\n %1\nPlease make sure that"
 		   "you have given kppp setuid permission and that\n"
-		   "pppd is executable."),gpppdata.pppdPath());
+		   "pppd is executable.").arg(gpppdata.pppdPath());
     QMessageBox::warning(this, 
 			 i18n("Error"),
 			 string);
@@ -965,11 +965,11 @@ void KPPPWidget::beginConnect() {
 
   if(!info2.exists()){
     QString string;   
-    string.sprintf(i18n("kppp can not find:\n %1\nPlease make sure you have setup\n"
+    string = i18n("kppp can not find:\n %1\nPlease make sure you have setup\n"
 		   "your modem device properly\n"
 		   "and/or adjust\n the location of the modem device on "
 		   "the modem tab of\n"
-		   "the setup dialog.\n Thank You").arg(gpppdata.modemDevice()));
+		   "the setup dialog.\n Thank You").arg(gpppdata.modemDevice());
     QMessageBox::warning(this, 
 			 i18n("Error"),
 			 string);
@@ -994,8 +994,8 @@ void KPPPWidget::beginConnect() {
       if(!Requester::rq->setPAPSecret(gpppdata.storedUsername(),
                                       gpppdata.password)) {
 	QString s;
-	s.sprintf(i18n("Cannot create PAP authentication\n"
-				     "file \"%s\""), PAP_AUTH_FILE);
+	s = i18n("Cannot create PAP authentication\n"
+				     "file \"%1\"").arg(PAP_AUTH_FILE);
 	QMessageBox::warning(this,
 			     i18n("Error"),
 			     s);
@@ -1020,8 +1020,8 @@ void KPPPWidget::beginConnect() {
       if(!Requester::rq->setCHAPSecret(gpppdata.storedUsername(),
                                        gpppdata.password)) {
 	QString s;
-	s.sprintf(i18n("Cannot create CHAP authentication\n"
-				     "file \"%s\""), CHAP_AUTH_FILE);
+	s = i18n("Cannot create CHAP authentication\n"
+				     "file \"%1\"").arg(CHAP_AUTH_FILE);
 	QMessageBox::warning(this,
 			     i18n("Error"),
 			     s);
@@ -1032,8 +1032,7 @@ void KPPPWidget::beginConnect() {
   
   if (strlen(gpppdata.phonenumber()) == 0) {
     QString s;
-    s.sprintf(i18n("You must specify a telephone "
-		   "number!"));
+    s = i18n("You must specify a telephone number!");
     QMessageBox::warning(this, i18n("Error"), s);
     return;
   }

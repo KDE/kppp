@@ -162,9 +162,9 @@ void PPPL_AnalyseLog(QStrList &list, QStrList &result) {
     if(p) {
       p += strlen(rmsg);
       if(strlen(p)) {
-        msg.sprintf(i18n("Notice that the remote system has sent the following"
-                         " message:\n\"%s\"\nThis may give you a hint why the"
-                         " the connection has failed."), p);
+        msg = i18n("Notice that the remote system has sent the following"
+                         " message:\n\"%1\"\nThis may give you a hint why the"
+                         " the connection has failed.").arg(p);
         result.append(msg);
       }
     }
@@ -267,8 +267,7 @@ void PPPL_ShowLog() {
     fclose(f);
     umask(old_umask);
     
-    QString msg;
-    msg.sprintf("The PPP log has been saved\nas \"%s\"!\n\nIf you want to send a bug report or have\nproblems connecting to the internet, please\nattach this file. It will help the maintainers\nto find the bug and to improve KPPP", s.data());
+    QString msg = i18n("The PPP log has been saved\nas \"%1\"!\n\nIf you want to send a bug report or have\nproblems connecting to the internet, please\nattach this file. It will help the maintainers\nto find the bug and to improve KPPP").arg(s);
     KMsgBox::message(0,
 		     i18n("Information"),
 		     msg,

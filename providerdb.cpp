@@ -464,7 +464,7 @@ void urlDecode(QString &s) {
         + s[i+3].digitValue();
       i += 4;
     } else {
-      s1 += s[i];
+      s1 += s.data()[i];
       i++;
     }
   }
