@@ -76,10 +76,10 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
   del = new QPushButton(i18n("Remove"), peer());
 
   up = new QPushButton(peer());
-  QPixmap pm = KGlobal::iconLoader()->loadIcon("up");
+  QPixmap pm = BarIcon("up");
   up->setPixmap(pm);
   down = new QPushButton(peer());
-  pm = KGlobal::iconLoader()->loadIcon("down");
+  pm = BarIcon("down");
   down->setPixmap(pm);
   lpn1->addWidget(add);
   lpn1->addWidget(del);
