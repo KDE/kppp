@@ -601,6 +601,8 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 			   QApplication::desktop()->height()/2-55,
 			   debugwindow->width(),debugwindow->height());
 
+  move(QApplication::desktop()->width()/2-width()/2,
+       QApplication::desktop()->height()/2-height()/2);
 
   if(have_cmdl_account){
     bool result;
