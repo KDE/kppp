@@ -23,7 +23,7 @@ default=(1.60, 60)
 # 06:00-23:59 vikend i praznici, 0.80 den. za minuta
 #             (za praznici se smetaat samo 1.01 i 2.05)
 # 00:00-05:59 sekoj den vo nedelata, 0.35 den. za minuta
-# Vo cenite ne e presmetan DDV (+19%)
+# Vo cenite ne e presmetan DDV (+18%)
 #############################################################
 
 on (monday..friday) between (6:00..17:59) use (1.60,60)
