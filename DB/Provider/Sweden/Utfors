@@ -1,0 +1,26 @@
+# KDE Config File
+AccountingEnabled=1
+AccountingFile=/Sweden/Utfors.rst
+Authentication=3
+AutoDNS=0
+AutoName=0
+BeforeConnect=
+BeforeDisconnect=
+Command=
+DNS=195.58.103.124,195.58.103.18
+DefaultRoute=1
+DisconnectCommand=
+Domain=utfors.se
+ExDNSDisabled=0
+Gateway=0.0.0.0
+IPAddr=0.0.0.0
+Name=Utfors
+Password=%PASSWORD%
+Phonenumber=0200787878
+ScriptArguments=
+ScriptCommands=
+StorePassword=1
+SubnetMask=0.0.0.0
+Username=%USERNAME%
+VolumeAccountingEnabled=0
+pppdArguments=

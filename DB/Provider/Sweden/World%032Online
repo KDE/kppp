@@ -1,0 +1,26 @@
+# KDE Config File
+AccountingEnabled=1
+AccountingFile=/Sweden/World_Online.rst
+Authentication=1
+AutoDNS=0
+AutoName=0
+BeforeConnect=
+BeforeDisconnect=
+Command=
+DNS=213.204.128.170,213.204.128.171
+DefaultRoute=1
+DisconnectCommand=
+Domain=worldonline.se
+ExDNSDisabled=0
+Gateway=0.0.0.0
+IPAddr=0.0.0.0
+Name=World Online
+Password=%PASSWORD%
+Phonenumber=0200785070
+ScriptArguments=
+ScriptCommands=
+StorePassword=1
+SubnetMask=0.0.0.0
+Username=%USERNAME%
+VolumeAccountingEnabled=0
+pppdArguments=
