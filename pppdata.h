@@ -242,7 +242,7 @@ public:
 	// functions to set/get account information
   int modemCount() const;
   bool setModem(const QString &);
-  bool setModembyIndex(int);
+  bool setModemByIndex(int);
 
 	bool isUniqueModname(const QString &);
 

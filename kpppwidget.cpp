@@ -108,10 +108,10 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   connect(connectto_c, SIGNAL(activated(int)),
 	  SLOT(newdefaultaccount(int)));
   l1->addWidget(connectto_c, 0, 2);
-	
-	label7 = new QLabel(i18n("Use &modem: "), this);
+
+  label7 = new QLabel(i18n("Use &modem: "), this);
   l1->addWidget(label7, 1, 1);
-	modem_c = new QComboBox(false, this);
+  modem_c = new QComboBox(false, this);
   label7->setBuddy(connectto_c);
 
   connect(modem_c, SIGNAL(activated(int)),
@@ -252,7 +252,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   // load up the accounts combo box
 
   resetaccounts();
-	resetmodems();
+  resetmodems();
   con = new ConnectWidget(0, "con", stats);
   KWin::setIcons(con->winId(), kapp->icon(), kapp->miniIcon() );
   connect(this, SIGNAL(begin_connect()),con, SLOT(preinit()));
@@ -319,8 +319,8 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   // attach to the DCOP server, if possible
   if (!kapp->dcopClient()->attach())
     kdDebug(5002) << "Error: Could not connect to the DCOP server" << endl;
-  else 
-    kapp->dcopClient()->registerAs(kapp->name(), true);	
+  else
+    kapp->dcopClient()->registerAs(kapp->name(), true);
 
   // this timer will delay the actual disconnection DISCONNECTION_DELAY ms
   // to give applications time to shutdown, logout, whatever..
@@ -381,10 +381,10 @@ void KPPPWidget::prepareSetupDialog() {
     connect(accounts, SIGNAL(resetVolume(const QString &)),
 	    this, SLOT(resetVolume(const QString &)));
 
-		modems = new ModemsWidget(tabWindow->addPage( i18n("&Modems"), i18n("Modems Setup") ) );
-		connect(modems, SIGNAL(resetmodems()),
+    modems = new ModemsWidget(tabWindow->addPage( i18n("&Modems"), i18n("Modems Setup") ) );
+    connect(modems, SIGNAL(resetmodems()),
 	    this, SLOT(resetmodems()));
-   
+
     graph = new GraphSetup( tabWindow->addPage( i18n("&Graph"), i18n("Throughput Graph" ) ) );
     general = new GeneralWidget( tabWindow->addPage( i18n("M&isc"), i18n("Miscellaneous Settings") ) );
   }
@@ -433,7 +433,7 @@ void KPPPWidget::resetaccounts() {
   // enable/disable controls
   connectto_c->setEnabled(count > 0);
   setButtons();
-	
+
   //load the accounts
   for(int i=0; i < count; i++) {
     gpppdata.setAccountbyIndex(i);
@@ -469,7 +469,7 @@ void KPPPWidget::resetaccounts() {
       ID_Edit->setFocus();
   else if (PW_Edit->text().isEmpty())
       PW_Edit->setFocus();
-			
+
 }
 
 void KPPPWidget::resetmodems() {
@@ -480,10 +480,10 @@ void KPPPWidget::resetmodems() {
   // enable/disable controls
   modem_c->setEnabled(count > 0);
   setButtons();
-	
+
   //load the accounts
   for(int i=0; i < count; i++) {
-    gpppdata.setModembyIndex(i);
+    gpppdata.setModemByIndex(i);
      modem_c->insertItem(gpppdata.modname());
   }
 
@@ -492,7 +492,7 @@ void KPPPWidget::resetmodems() {
     for(int i=0; i < count; i++)
        if(gpppdata.defaultModem() == modem_c->text(i)) {
  	modem_c->setCurrentItem(i);
-	gpppdata.setModembyIndex(i);
+	gpppdata.setModemByIndex(i);
 
     }
   }
@@ -566,10 +566,10 @@ void KPPPWidget::sigPPPDDied() {
       removedns();
       Modem::modem->unlockdevice();
       con->pppdDied();
-      
+
       Requester::rq->pppdExitStatus();
       gpppdata.setWaitCallback(gpppdata.callbackType() && Requester::rq->lastStatus == E_CBCP_WAIT);
-      
+
       if(!gpppdata.automatic_redial() && !gpppdata.waitCallback()) {
 	quit_b->setFocus();
 	show();
@@ -837,7 +837,7 @@ void KPPPWidget::quitbutton() {
       Requester::rq->killPPPDaemon();
 
       // stop the disconnect delay timer
-      disconnectTimer->stop();      
+      disconnectTimer->stop();
 
       // signal other applications that we are disconnected now
       kapp->dcopClient()->emitDCOPSignal("KpppIface", "disconnected()", QByteArray());

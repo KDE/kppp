@@ -78,7 +78,7 @@ bool PPPData::open() {
     accounthighcount = MAX_ACCOUNTS;
 
   if(accounthighcount >= 0 && defaultAccount().isEmpty()) {
-    setAccountbyIndex(0);
+    setAccountByIndex(0);
     setDefaultAccount(accname());
   } else if(!setAccount(defaultAccount()))
     setDefaultAccount(accname());
@@ -112,7 +112,7 @@ bool PPPData::open() {
   }
 
   if(modemhighcount >= 0 && defaultModem().isEmpty()) {
-    setModembyIndex(0);
+    setModemByIndex(0);
     setDefaultModem(modname());
   } else if(!setModem(defaultModem()))
     setDefaultModem(modname());
@@ -382,7 +382,7 @@ int PPPData::modemCount() const {
 
 bool PPPData::setModem(const QString &mname) {
   for(int i = 0; i <= modemhighcount; i++) {
-    setModembyIndex(i);
+    setModemByIndex(i);
     if(modname() == mname) {
       cmodem = i;
       return true;
@@ -392,7 +392,7 @@ bool PPPData::setModem(const QString &mname) {
 }
 
 
-bool PPPData::setModembyIndex(int i) {
+bool PPPData::setModemByIndex(int i) {
   if(i >= 0 && i <= modemhighcount) {
     cmodem = i;
     cmodemgroup.sprintf("%s%i", MODEM_GRP, i);
@@ -405,13 +405,13 @@ bool PPPData::setModembyIndex(int i) {
 bool PPPData::isUniqueModname(const QString &n) {
   int current = cmodem;
   for(int i=0; i <= modemhighcount; i++) {
-    setModembyIndex(i);
+    setModemByIndex(i);
     if(modname() == n && i != current) {
-      setModembyIndex(current);
+      setModemByIndex(current);
       return false;
     }
   }
-  setModembyIndex(current);
+  setModemByIndex(current);
   return true;
 }
 
@@ -433,10 +433,10 @@ bool PPPData::deleteModem() {
 
   // shift the succeeding modems
   for(int i = cmodem+1; i <= modemhighcount; i++) {
-    setModembyIndex(i);
+    setModemByIndex(i);
     map = config->entryMap(cmodemgroup);
     it = map.begin();
-    setModembyIndex(i-1);
+    setModemByIndex(i-1);
     config->setGroup(cmodemgroup);
     while (it != map.end()) {
       config->writeEntry(it.key(), *it);
@@ -445,7 +445,7 @@ bool PPPData::deleteModem() {
   }
 
   // make sure the top modem is cleared
-  setModembyIndex(modemhighcount);
+  setModemByIndex(modemhighcount);
   map = config->entryMap(cmodemgroup);
   it = map.begin();
   config->setGroup(cmodemgroup);
@@ -458,7 +458,7 @@ bool PPPData::deleteModem() {
   if(cmodem > modemhighcount)
     cmodem = modemhighcount;
 
-  setModembyIndex(cmodem);
+  setModemByIndex(cmodem);
 
   return true;
 }
@@ -479,7 +479,7 @@ int PPPData::newmodem() {
     return -1;
 
   modemhighcount++;
-  setModembyIndex(modemhighcount);
+  setModemByIndex(modemhighcount);
 
   setpppdArgumentDefaults();
 
@@ -493,7 +493,7 @@ int PPPData::copymodem(int i) {
   if(modemhighcount >= MAX_MODEMS)
     return -1;
 
-  setModembyIndex(i);
+  setModemByIndex(i);
 
   QMap <QString, QString> map = config->entryMap(cmodemgroup);
   QMap <QString, QString>::ConstIterator it = map.begin();
@@ -908,7 +908,7 @@ int PPPData::accountCount() const {
 
 bool PPPData::setAccount(const QString &aname) {
   for(int i = 0; i <= accounthighcount; i++) {
-    setAccountbyIndex(i);
+    setAccountByIndex(i);
     if(accname() == aname) {
       caccount = i;
       return true;
@@ -918,7 +918,7 @@ bool PPPData::setAccount(const QString &aname) {
 }
 
 
-bool PPPData::setAccountbyIndex(int i) {
+bool PPPData::setAccountByIndex(int i) {
   if(i >= 0 && i <= accounthighcount) {
     caccount = i;
     caccountgroup.sprintf("%s%i", ACCOUNT_GRP, i);
@@ -933,13 +933,13 @@ bool PPPData::isUniqueAccname(const QString &n) {
     return false;
   int current = caccount;
   for(int i=0; i <= accounthighcount; i++) {
-    setAccountbyIndex(i);
+    setAccountByIndex(i);
     if(accname() == n && i != current) {
-      setAccountbyIndex(current);
+      setAccountByIndex(current);
       return false;
     }
   }
-  setAccountbyIndex(current);
+  setAccountByIndex(current);
   return true;
 }
 
@@ -961,10 +961,10 @@ bool PPPData::deleteAccount() {
 
   // shift the succeeding accounts
   for(int i = caccount+1; i <= accounthighcount; i++) {
-    setAccountbyIndex(i);
+    setAccountByIndex(i);
     map = config->entryMap(caccountgroup);
     it = map.begin();
-    setAccountbyIndex(i-1);
+    setAccountByIndex(i-1);
     config->setGroup(caccountgroup);
     while (it != map.end()) {
       config->writeEntry(it.key(), *it);
@@ -973,7 +973,7 @@ bool PPPData::deleteAccount() {
   }
 
   // make sure the top account is cleared
-  setAccountbyIndex(accounthighcount);
+  setAccountByIndex(accounthighcount);
   map = config->entryMap(caccountgroup);
   it = map.begin();
   config->setGroup(caccountgroup);
@@ -986,7 +986,7 @@ bool PPPData::deleteAccount() {
   if(caccount > accounthighcount)
     caccount = accounthighcount;
 
-  setAccountbyIndex(caccount);
+  setAccountByIndex(caccount);
 
   return true;
 }
@@ -1007,7 +1007,7 @@ int PPPData::newaccount() {
     return -1;
 
   accounthighcount++;
-  setAccountbyIndex(accounthighcount);
+  setAccountByIndex(accounthighcount);
 
   setpppdArgumentDefaults();
 
@@ -1021,7 +1021,7 @@ int PPPData::copyaccount(int i) {
   if(accounthighcount >= MAX_ACCOUNTS)
     return -1;
 
-  setAccountbyIndex(i);
+  setAccountByIndex(i);
 
   QMap <QString, QString> map = config->entryMap(caccountgroup);
   QMap <QString, QString>::ConstIterator it = map.begin();
