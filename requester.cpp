@@ -26,6 +26,9 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
+#ifdef __osf__
+#define _XOPEN_SOURCE_EXTENDED
+#endif
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -38,6 +41,11 @@
 #include <assert.h>
 #include <errno.h>
 #include <string.h>
+
+#ifdef __osf__
+#undef accept
+extern "C" unsigned int alarm(unsigned int);
+#endif
 
 #include <kdebug.h>
 #include "kpppconfig.h"

@@ -36,6 +36,10 @@
  * o be paranoid and think twice about everything you change.
  */
 
+#ifdef __osf__
+#define _POSIX_PII_SOCKET
+extern "C" int sethostname(char *name, int name_len); 
+#endif
 
 #include <sys/types.h>
 #include <sys/uio.h>
