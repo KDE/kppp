@@ -122,7 +122,7 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
   tl->addWidget(auth, 3, 1);
   tmp = i18n("<p>Specifies the method used to identify yourself to\n"
 	     "the PPP server. Most universities still use\n"
-	     "<b>Terminal</b>- or <b>Script</b>-based authtentication,\n"
+	     "<b>Terminal</b>- or <b>Script</b>-based authentication,\n"
 	     "while most ISP use <b>PAP</b> and/or <b>CHAP</b>. If\n"
 	     "unsure, contact your ISP.\n"
 	     "\n"
@@ -139,7 +139,7 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
   QWhatsThis::add(store_password,
 		  i18n("<p>When this is turned on, your ISP password\n"
 		       "will be saved in <i>kppp</i>'s config file, so\n"
-		       "you do not need to type it in everytime.\n"
+		       "you do not need to type it in every time.\n"
 		       "\n"
 		       "<b><font color=\"red\">Warning:</font> your password will be stored as\n"
 		       "plain text in the config file, which is\n"
@@ -278,8 +278,8 @@ ExecWidget::ExecWidget(QWidget *parent, bool isnewaccount, const char *name) :
   QLabel *l = new QLabel(\
 i18n("Here you can select commands to run at certain stages of the\n"
      "connection. The commands are run with your real user id, so\n"
-     "you cannot run any commands here requirering root permissions\n"
-     "(except if you are root of course).\n\n"
+     "you cannot run any commands here requiring root permissions\n"
+     "(unless, of course, you are root).\n\n"
      "Make sure to supply the whole path to the program otherwise\n"
      "kppp might be unable to find it!"), peer());
   l->setMinimumHeight(l->sizeHint().height());
@@ -317,7 +317,7 @@ i18n("Here you can select commands to run at certain stages of the\n"
 	     "all preparations for an internet connection are\n"
 	     "finished.\n"
 	     "\n"
-	     "Very usefull for fetching mail and news");
+	     "Very useful for fetching mail and news");
 
   QWhatsThis::add(command_label,tmp);
   QWhatsThis::add(command,tmp);
@@ -391,7 +391,7 @@ IPWidget::IPWidget( QWidget *parent, bool isnewaccount, const char *name )
 
   ipaddress_label = new QLabel(i18n("IP Address:"), peer());
   QString tmp = i18n("If your computer has a permanent internet\n"
-	     "address, you must supply your IP address here");
+	     "address, you must supply your IP address here.");
 
   QWhatsThis::add(ipaddress_label,tmp);
   QWhatsThis::add(ipaddress_l,tmp);
@@ -432,7 +432,7 @@ IPWidget::IPWidget( QWidget *parent, bool isnewaccount, const char *name )
 		       "fixed internet address (IP). Most computers\n"
 		       "don't have this, so you should probably select\n"
 		       "dynamic IP addressing unless you know what you\n"
-		       "are doing"));
+		       "are doing."));
 
   autoname = new QCheckBox(i18n("Auto-configure hostname from this IP"), peer());
   autoname->setChecked(gpppdata.autoname());
@@ -446,7 +446,7 @@ IPWidget::IPWidget( QWidget *parent, bool isnewaccount, const char *name )
 		       "on this information, but it can also cause several\n"
 		       "<a href=\"kppp-7.html#autohostname\">problems</a>.\n"
 		       "\n"
-		       "Don't enable this unless you really need it"));
+		       "Don't enable this unless you really need it."));
 
   //load info from gpppdata
   if(!isnewaccount) {
@@ -530,9 +530,9 @@ void IPWidget::autoname_t(bool on) {
 			      "problems with the X-server and applications\n"
 			      "while kppp is connected. Don't use it until\n"
 			      "you know what you are doing!\n\n"
-			      "For more information take a look into the\n"
+			      "For more information take a look at the\n"
 			      "handbook (or help) in the section \"Frequently\n"
-			      "asked questions\""),
+			      "asked questions\"."),
 			 i18n("Warning"));
     was_warned = true;
   }
@@ -687,7 +687,7 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
 		       "\n"
 		       "Typically, there is no reason to use this\n"
 		       "option, but it may become useful under \n"
-		       "some circumstances"));
+		       "some circumstances."));
 
 
   // restore data if editing
@@ -783,7 +783,7 @@ GatewayWidget::GatewayWidget( QWidget *parent, bool isnewaccount, const char *na
 		       "computer, which will route this packets.\n"
 		       "\n"
 		       "This is the default for most ISPs, so you should\n"
-		       "probably leave this option on"));
+		       "probably leave this option on."));
 
 
   staticgateway = new QRadioButton(peer());
