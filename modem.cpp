@@ -361,7 +361,7 @@ bool Modem::hangup() {
       return false;
     }
 
-#if 0 // drops DTR but doesn't set it afterwards again. not good for init.
+#if 1 // drops DTR but doesn't set it afterwards again. not good for init.
     tcgetattr(modemfd, &temptty);
     cfsetospeed(&temptty, B0);
     cfsetispeed(&temptty, B0);
