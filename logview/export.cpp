@@ -123,7 +123,7 @@ void ExportWizard::getFilename() {
   QString filter = "*." + ExportFormats[i].ext + " *." + ExportFormats[i].ext.upper() + "|" + ExportFormats[i].name +
         " (*." + ExportFormats[i].ext + " *." + ExportFormats[i].ext.upper() + ")";
 
-  filename = KFileDialog::getSaveFileName(date + "." + ExportFormats[i].ext, filter, 0, i18n("Please choose a file"));
+  filename = KFileDialog::getSaveFileName(date + "." + ExportFormats[i].ext, filter, 0, i18n("Please Choose File"));
   if (filename.isEmpty()) // no file selected
     return;
   fnLine->setText(filename);
