@@ -165,8 +165,9 @@ bool PPPStats::ifIsUp() {
     strncpy(ifr.ifr_name, unitName, sizeof(ifr.ifr_name));
 
     if(ioctl(s, SIOCGIFFLAGS, (caddr_t) &ifr) < 0) {
-        fprintf(stderr, "Couldn't find interface %s: %s\n",
-                unitName, sys_errlist[sys_nerr]);
+        if (sys_nerr)
+          fprintf(stderr, "Couldn't find interface %s: %s\n",
+                  unitName, sys_errlist[sys_nerr]);
 	::close(s);
 	s = 0;
 	return 0;
