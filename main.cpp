@@ -986,6 +986,7 @@ void KPPPWidget::connectbutton() {
   // if this is a PAP account, ensure that password and username are
   // supplied
   if(gpppdata.authMethod() == AUTH_PAP) {
+/*
     if(strlen(ID_Edit->text()) == 0 || strlen(PW_Edit->text()) == 0) {
       QMessageBox::warning(this,
 			   i18n("Error"),
@@ -995,6 +996,7 @@ void KPPPWidget::connectbutton() {
 			   "supply a username and a password!"));
       return;
     } else {
+*/
       gpppdata.password = PW_Edit->text();
       if(!Requester::rq->setPAPSecret(gpppdata.storedUsername(),
                                       gpppdata.password.data())) {
@@ -1006,12 +1008,13 @@ void KPPPWidget::connectbutton() {
 			     s.data());
 	return;
       }
-    }
+//    }
   }
 
   // if this is a CHAP account, ensure that password and username are
   // supplied
   if(gpppdata.authMethod() == AUTH_CHAP) {
+/*
     if(strlen(ID_Edit->text()) == 0 || strlen(PW_Edit->text()) == 0) {
       QMessageBox::warning(this,
 			   i18n("Error"),
@@ -1021,6 +1024,7 @@ void KPPPWidget::connectbutton() {
 			   "supply a username and a password!"));
       return;
     } else {
+*/
       gpppdata.password = PW_Edit->text();
       if(!Requester::rq->setCHAPSecret(gpppdata.storedUsername(),
                                        gpppdata.password.data())) {
@@ -1032,7 +1036,7 @@ void KPPPWidget::connectbutton() {
 			     s.data());
 	return;
       }
-    }
+//    }
   }
   
   if (strlen(gpppdata.phonenumber()) == 0) {
