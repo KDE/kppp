@@ -29,6 +29,7 @@
 #include <sys/types.h>
 #include <kapp.h>
 #include <kwm.h>
+#include <khelpmenu.h>
 #include <kiconloader.h>
 #include "pppdata.h"
 #include "modem.h"
@@ -52,7 +53,7 @@ MiniTerm::MiniTerm(QWidget *parent, const char *name)
   m_options = new QPopupMenu;
   m_options->insertItem(i18n("&Reset Modem"),this,SLOT(resetModem()));
   m_help = 
-    kapp->helpMenu(TRUE, 
+    new KHelpMenu(this, 
 		      i18n("MiniTerm - A terminal emulation for KPPP\n\n"
 			   "(c) 1997 Bernd Johannes Wuebben <wuebben@kde.org>\n"
 			   "(c) 1998 Harri Porten <porten@kde.org>\n"
@@ -64,7 +65,7 @@ MiniTerm::MiniTerm(QWidget *parent, const char *name)
   menubar = new QMenuBar( this );
   menubar->insertItem( i18n("&File"), m_file );
   menubar->insertItem( i18n("&Modem"), m_options );
-  menubar->insertItem( i18n("&Help"), m_help);
+  menubar->insertItem( i18n("&Help"), m_help->menu());
   
   statusbar = new QLabel(this);
   statusbar->setFrameStyle(QFrame::Panel | QFrame::Sunken);
@@ -99,8 +100,6 @@ MiniTerm::~MiniTerm() {
 
 void MiniTerm::setupToolbar() {
   toolbar = new KToolBar( this );
-
-  KIconLoader *loader = KGlobal::iconLoader();
 
   QPixmap pixmap;
 

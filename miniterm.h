@@ -40,6 +40,7 @@
 #include <qtooltip.h> 
 
 #include <ktoolbar.h>
+class KHelpMenu;
 
 
 class MyTerm : public QMultiLineEdit {
@@ -86,7 +87,7 @@ protected:
   QPopupMenu  * m_file;
   QPopupMenu  * m_edit;
   QPopupMenu  * m_options;
-  QPopupMenu  * m_help;
+  KHelpMenu  * m_help;
   QLabel      * statusbar;
   QLabel      * statusbar2;
   QPushButton *pb1;
