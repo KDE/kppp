@@ -38,13 +38,13 @@
 #include <kprogress.h>
 #include <kglobal.h>
 #include <kstddirs.h>
+#include <kdebug.h>
 #include <time.h>
 
 #include "accounting.h"
 #include "kpppconfig.h"
 #include "pppdata.h"
 #include "pppstats.h"
-#include "log.h"
 
 // defines the maximum duration until the current costs
 // are saved again (to prevent loss due to "kill")
@@ -247,7 +247,7 @@ void Accounting::timerEvent(QTimerEvent *t) {
     // duration
     if((newCosts != _lastcosts) || (newLen != _lastlen)) {
 
-      Debug("SWITCHING RULES, new costs = %0.2f, new len = %0.2f\n",
+      kdDebug(5002).form("SWITCHING RULES, new costs = %0.2f, new len = %0.2f\n",
 	     newCosts, newLen);
 
       killTimer(acct_timer_id);

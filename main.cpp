@@ -63,7 +63,6 @@
 #include "runtests.h"
 #include "modem.h"
 #include "ppplog.h"
-#include "log.h"
 #include "groupbox.h"
 #include "opener.h"
 #include "requester.h"
@@ -307,7 +306,7 @@ int main( int argc, char **argv ) {
   // open configuration file
   gpppdata.open();
 
-  Debug("helperPid: %i\n", (int) helperPid);
+  kdDebug(5002) << "helperPid: " << (int) helperPid << endl;
 
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
@@ -321,7 +320,7 @@ int main( int argc, char **argv ) {
   
   if(!cmdl_account.isEmpty()) {
     have_cmdl_account = true;
-    Debug("cmdl_account:%s:\n",cmdl_account.data());
+    kdDebug(5002) << "cmdl_account: " << cmdl_account << endl;
   }
 
   // make sure that nobody can read the password from the
@@ -745,7 +744,7 @@ void KPPPWidget::resetaccounts() {
 }
 
 void sighandler(int sig) {
-  Debug("received signal %d\n", sig);
+  //  fprintf(stderr, "received signal %d\n", sig);
   if(sig == SIGINT || sig == SIGCHLD || sig == SIGUSR1) {
     QEvent *e = new SignalEvent(sig);
     // let eventFilter() deal with this when we're back in the loop
@@ -756,7 +755,7 @@ void sighandler(int sig) {
 }
 
 void KPPPWidget::sigInt() {
-  Debug("Received a SIGINT\n");
+  kdDebug(5002) << "Received a SIGINT" << endl;
 
   // interrupt dial up
   if (con->isVisible())
@@ -769,13 +768,13 @@ void KPPPWidget::sigInt() {
 
 
 void KPPPWidget::sigPPPDDied() {
-  Debug("Received a SIGUSR1\n");
+  kdDebug(5002) << "Received a SIGUSR1" << endl;
 
     // if we are not connected pppdpid is -1 so have have to check for that
     // in the followin line to make sure that we don't raise a false alarm
     // such as would be the case when the log file viewer exits.
     if(gpppdata.pppdRunning() || gpppdata.pppdError()) { 
-      Debug("It was pppd that died\n");
+      kdDebug(5002) << "It was pppd that died" << endl;
 
       // when we killpppd() on Cancel in ConnectWidget 
       // we set pppid to -1 so we won't 
@@ -787,7 +786,7 @@ void KPPPWidget::sigPPPDDied() {
 
       gpppdata.setpppdRunning(false);
       
-      Debug("Executing command on disconnect since pppd has died:\n");
+      kdDebug(5002) << "Executing command on disconnect since pppd has died." << endl;
       QApplication::flushX();
       execute_command(gpppdata.command_on_disconnect());
 
@@ -828,7 +827,7 @@ void KPPPWidget::sigPPPDDied() {
 	if(QMessageBox::critical(0, i18n("Error"), msg, i18n("OK"), i18n("Details...")))
 	  PPPL_ShowLog();
       } else { /* reconnect on disconnect */
-	Debug("Trying to reconnect ... \n");
+	kdDebug(5002) << "Trying to reconnect ... " << endl;
 
         if(gpppdata.authMethod() == AUTH_PAP ||
 	   gpppdata.authMethod() == AUTH_CHAP)
@@ -848,11 +847,11 @@ void KPPPWidget::sigPPPDDied() {
 
 
 void KPPPWidget::sigChld() {
-  Debug("sigchld()");
+  kdDebug(5002) << "sigchld()" << endl;
   pid_t id = wait(0L);
 
   if(id == helperPid && helperPid != -1) {
-    Debug("It was the setuid child that died");
+    kdDebug(5002) << "It was the setuid child that died" << endl;
     helperPid = -1;
     QString msg = i18n("Sorry. kppp's helper process just died.\n\n"
                        "Since a further execution would be pointless, "
@@ -1146,7 +1145,7 @@ pid_t execute_command (const char *command) {
     
   pid_t id;
     
-  Debug("Executing command: %s\n", command);
+  kdDebug(5002) << "Executing command: " << command << endl;
 
   QApplication::flushX();
   if((id = fork()) == 0) {
@@ -1189,7 +1188,7 @@ pid_t create_pidfile() {
       return -1;
     pidstr[sz] = '\0';
 
-    Debug("found kppp.pid containing: %s\n", pidstr);
+    kdDebug(5002) << "found kppp.pid containing: " << pidstr << endl;
 
     int oldpid;
     int match = sscanf(pidstr, "%d", &oldpid);
@@ -1202,7 +1201,7 @@ pid_t create_pidfile() {
     if (kill((pid_t)oldpid, 0) == 0 || errno != ESRCH)
       return oldpid;
 
-    Debug("pidfile is stale\n");
+    kdDebug(5002) << "pidfile is stale\n" << endl;
     remove_pidfile();
   }
 
@@ -1239,11 +1238,11 @@ void myShutDown() {
   pid_t pid;
   // don't bother about SIGCHLDs anymore
   signal(SIGCHLD, SIG_IGN);
-  Debug("myShutDown(%i)", status);
+  //  fprintf(stderr, "myShutDown(%i)\n", status);
   pid = helperPid;
   if(pid > 0) {
     helperPid = -1;
-    Debug("killing child process %i", pid);
+    //    fprintf(stderr, "killing child process %i", pid);
     kill(pid, SIGKILL);
   }
 }

@@ -36,10 +36,10 @@
 
 #include "modem.h"
 #include "pppdata.h"
-#include "log.h"
 #include "requester.h"
 #include <klocale.h>
 #include <kmessagebox.h>
+#include <kdebug.h>
 
 #ifndef HAVE_USLEEP
 extern "C" void usleep(); // replacement from kdecore/fakes.cpp
@@ -273,7 +273,7 @@ void Modem::startNotifier() {
     if(sn == 0) {
       sn = new QSocketNotifier(modemfd, QSocketNotifier::Read, this);
       connect(sn, SIGNAL(activated(int)), SLOT(readtty(int)));
-      Debug("QSocketNotifier started!");
+      kdDebug(5002) << "QSocketNotifier started!" << endl;
     } else {
       //    Debug("QSocketNotifier re-enabled!");
       sn->setEnabled(true);
@@ -288,7 +288,7 @@ void Modem::stopNotifier() {
     disconnect(sn);
     delete sn;
     sn = 0;
-    Debug("QSocketNotifier stopped!");
+    kdDebug(5002) << "QSocketNotifier stopped!" << endl;
   }
 }
 
@@ -412,7 +412,7 @@ QString Modem::parseModemSpeed(const QString &s) {
   int i;
   QString result;
 
-  Debug("Modem reported result string: %s", s.data());
+  kdDebug(5002) << "Modem reported result string: " << s << endl;
 
   const int RXMAX = 7;
   const int TXMAX = 2;
@@ -468,7 +468,7 @@ QString Modem::parseModemSpeed(const QString &s) {
   else
     result.sprintf("%d/%d", rx, tx);
 
-  Debug("The parsed result is: %s\n", result.data());
+  kdDebug(5002) << "The parsed result is: " << result << endl;
   
   return result;
 }
@@ -481,7 +481,7 @@ int Modem::lockdevice() {
   char newlock[80]=""; // safe
 
   if(!gpppdata.modemLockFile()) {
-    Debug("The user doesn't want a lockfile.");
+    kdDebug(5002) << "The user doesn't want a lockfile." << endl;
     return 0;
   }
 
@@ -502,7 +502,7 @@ int Modem::lockdevice() {
         return 1;
       oldlock[sz] = '\0';
       
-      Debug("Device is locked by: %s\n", &oldlock);
+      kdDebug(5002) << "Device is locked by: " << &oldlock << endl;
       
       int oldpid;
       int match = sscanf(oldlock, "%d", &oldpid);
@@ -515,7 +515,7 @@ int Modem::lockdevice() {
       if (kill((pid_t)oldpid, 0) == 0 || errno != ESRCH)
         return 1;
       
-      Debug("lockfile is stale\n");
+      kdDebug(5002) << "lockfile is stale" << endl;
     }
   }
 
@@ -523,7 +523,7 @@ int Modem::lockdevice() {
                                    O_WRONLY|O_TRUNC|O_CREAT);
   if(fd >= 0) {
     sprintf(newlock,"%010d\n", getpid());
-    Debug("Locking Device: %s\n",newlock);
+    kdDebug(5002) << "Locking Device: " << newlock << endl;
 
     write(fd, newlock, strlen(newlock));
     close(fd);
@@ -540,14 +540,14 @@ int Modem::lockdevice() {
 // UnLock modem device
 void Modem::unlockdevice() {
   if (modem_is_locked) {
-    Debug("UnLocking Modem Device\n");
+    kdDebug(5002) << "UnLocking Modem Device" << endl;
     Requester::rq->removeLockfile();
     modem_is_locked=false;
   }
 }  
 
 void alarm_handler(int) {
-  Debug("alarm_handler(): Received SIGALRM\n");
+  //  fprintf(stderr, "alarm_handler(): Received SIGALRM\n");
 
   // jump 
   siglongjmp(jmp_buffer, 1);

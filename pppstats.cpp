@@ -89,7 +89,7 @@
 #endif	/* STREAMS */
 
 #include <qtimer.h>
-#include "log.h"
+#include <kdebug.h>
 #include "pppstats.h"
 
 PPPStats::PPPStats() {
@@ -174,13 +174,13 @@ bool PPPStats::ifIsUp() {
 
     if ((ifr.ifr_flags & (IFF_UP|IFF_RUNNING)) != 0) {
 	is_up = true;
-	Debug("Interface is up\n");
+	kdDebug(5002) << "Interface is up" << endl;
     } 
     else{
       is_up = false;
       ::close(s);
       s = 0;
-      Debug("Interface is down\n");
+      kdDebug(5002) << "Interface is down" << endl;
     }
     
     return is_up;
@@ -217,7 +217,7 @@ bool PPPStats::initStats() {
     local_ip_address = inet_ntoa(sinp->sin_addr);	
   else
     local_ip_address = "";
-  Debug("Local IP: %s\n",local_ip_address.data());
+  kdDebug(5002) << "Local IP: " << local_ip_address << endl;
 
   if (ioctl(s, SIOCGIFDSTADDR, &ifr) < 0)
     ;  
@@ -228,7 +228,7 @@ bool PPPStats::initStats() {
     remote_ip_address = inet_ntoa(sinp->sin_addr);	
   else
     remote_ip_address = "";  
-  Debug("Remote IP: %s\n",remote_ip_address.data());    
+  kdDebug(5002) << "Remote IP: " << remote_ip_address << endl;    
 
   return true;
 

@@ -28,7 +28,6 @@
 #include <stdio.h>
 #include <math.h>
 #include "ruleset.h"
-#include "log.h"
 
 #include <qregexp.h>
 #include <qstring.h>
@@ -37,6 +36,7 @@
 #include <kapp.h>
 #include <klocale.h>
 #include <kglobal.h>
+#include <kdebug.h>
 
 RuleSet::RuleSet() {
   default_costs = -1;
@@ -137,7 +137,7 @@ int RuleSet::load(const QString &filename) {
     // parse line
     if(!parseLine(line)) {
       f.close();
-      Debug("ERROR IN LINE %d\n", lineno);
+      kdError(5002) << "ERROR IN LINE " << lineno << endl;
       return lineno;
     }
   }
@@ -147,7 +147,7 @@ int RuleSet::load(const QString &filename) {
   if(_name.length() > 0)
     return 0;
   else {
-    Debug("NO NAME DEFINED\n");
+    kdError(5002) << "NO NAME DEFINED" << endl;
     return -1;
   }
 }

@@ -35,7 +35,6 @@
 #include <qslider.h>
 #include "general.h"
 #include "version.h"
-#include "log.h"
 #include "groupbox.h"
 #include "miniterm.h"
 #include "modeminfo.h"
@@ -43,7 +42,6 @@
 #include "devices.h"
 #include "pppdata.h"
 #include <klocale.h>
-
 
 /////////////////////////////////////////////////////////////////////////////
 //

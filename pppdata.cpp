@@ -554,7 +554,10 @@ void PPPData::setVolumeMedium(const QString &s) {
 
 
 const QString PPPData::volumeHigh() {
-  return readConfig(MODEM_GRP, VOLUME_HIGH, "M1L3");
+  QString tmp = readConfig(MODEM_GRP, VOLUME_HIGH, "M1L3");
+  if(tmp == "M1L4")
+    tmp = "M1L3";
+  return tmp;
 }
 
 

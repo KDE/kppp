@@ -43,10 +43,10 @@
 #include <klocale.h>
 #include <kglobal.h>
 #include <kstddirs.h>
+#include <kdebug.h>
 #include "providerdb.h"
 #include "newwidget.h"
 #include "pppdata.h"
-#include "log.h"
 
 
 #define UNENCODED_CHARS "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_"
@@ -135,7 +135,7 @@ void ProviderDB::loadProviderInfo() {
   QString prov = "kppp/Provider/" + loc;
   prov += "/" + provider;
   QString fname = locate("appdata", prov);
-  Debug("Providerfile=%s\n", fname.data());
+  kdDebug(5002) << "Providerfile=" << fname << endl;
 
   cfg = new KSimpleConfig(fname, true);
 }

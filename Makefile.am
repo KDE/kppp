@@ -54,7 +54,6 @@ kppp_SOURCES	= general.cpp \
 		runtests.cpp \
 		loginterm.cpp \
 		ppplog.cpp \
-		log.cpp \
 		groupbox.cpp \
 		newwidget.cpp \
 		requester.cpp \
@@ -99,7 +98,6 @@ noinst_HEADERS = accounts.h \
 		version.h \
 		macros.h \
 		ppplog.h \
-		log.h \
 		groupbox.h \
 		newwidget.h \
 		modemdb.h \
@@ -144,7 +142,7 @@ install-data-local:
 	@echo "telecom company/country/region. Thanks."
 	@echo ""
 	@echo "We will be maintaining an archive on the kppp page at"
-	@echo "http://devel-home.kde.org/kppp/index.html"
+	@echo "http://devel-home.kde.org/~kppp/index.html"
 	@echo "WARNING: kppp is by default installed with SETUID bit on!"
 	@echo  "If you are concerned about the SETUID bit, create a modem"
 	@echo "group instead."

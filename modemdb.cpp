@@ -39,7 +39,6 @@
 #include <qlayout.h>
 #include <kapp.h>
 #include "modemdb.h"
-#include "log.h"
 #include <klocale.h>
 
 ModemSelector::ModemSelector(QWidget *parent) : QDialog(parent, 0, true) {

@@ -80,7 +80,6 @@
 #include "kpppconfig.h"
 #include "opener.h"
 #include "devices.h"
-#include "log.h"
 
 #ifdef HAVE_RESOLV_H
 #include <resolv.h>
@@ -93,6 +92,14 @@
 #define MY_ASSERT(x)  if (!(x)) { \
         fprintf(stderr, "ASSERT: \"%s\" in %s (%d)\n",#x,__FILE__,__LINE__); \
         exit(1); }
+
+#ifndef MY_DEBUG
+#define Debug(s) ((void)0);
+#define Debug2(s, i) ((void)0);
+#else
+#define Debug(s) fprintf(stderr, (s));
+#define Debug2(s, i) fprintf(stderr, (s), (i));
+#endif
 
 static void sighandler(int);
 static pid_t pppdPid = -1;
@@ -514,7 +521,7 @@ bool Opener::execpppd(const char *arguments) {
       break;
 
     default:
-      Debug("In parent: pppd pid %d\n",pppdPid);
+      Debug2("In parent: pppd pid %d\n",pppdPid);
       close(ttyfd);
       ttyfd = -1;
       return true;
@@ -525,11 +532,11 @@ bool Opener::execpppd(const char *arguments) {
 
 bool Opener::killpppd() {
   if(pppdPid > 0) {
-    Debug("In killpppd(): Sending SIGTERM to %d\n", pppdPid);    
+    Debug2("In killpppd(): Sending SIGTERM to %d\n", pppdPid);    
     if(kill(pppdPid, SIGTERM) < 0) {
-      Debug("Error terminating %d. Sending SIGKILL\n", pppdPid);
+      Debug2("Error terminating %d. Sending SIGKILL\n", pppdPid);
       if(kill(pppdPid, SIGKILL) < 0) {
-        Debug("Error killing %d\n", pppdPid);
+        Debug2("Error killing %d\n", pppdPid);
         return false;
       }
     }
@@ -660,12 +667,12 @@ void sighandler(int) {
       pppdPid = -1;
       if((WIFEXITED(status))) {
 	pppdExitStatus = (WEXITSTATUS(status));
-        Debug("pppd exited with return value %d", pppdExitStatus);
+        Debug2("pppd exited with return value %d", pppdExitStatus);
       } else {
 	pppdExitStatus = 99;
         Debug("pppd exited abnormally.");
       }
-      Debug("Sending %i a SIGUSR1", getppid());
+      Debug2("Sending %i a SIGUSR1", getppid());
       kill(getppid(), SIGUSR1);
     }
   } else

@@ -36,14 +36,15 @@
 #include <sys/un.h>
 #include <fcntl.h>
 #include <assert.h>
+#include <errno.h>
 #include <string.h>
 
+#include <kdebug.h>
 #include "kpppconfig.h"
 #include "auth.h"
 #include "pppdata.h"
 #include "opener.h"
 #include "requester.h"
-#include "log.h"
 #include "devices.h"
 
 Requester *Requester::rq = 0L;
@@ -99,10 +100,10 @@ int Requester::recvFD() {
   signal(SIGALRM, SIG_DFL);
   
   if(len <= 0) {
-    perror("recvmsg failed");
+    kdError(5002) << "recvmsg failed " << strerror(errno) << endl;
     return -1;
   } else if (msg.msg_controllen != cmsglen) {
-    perror("recvmsg: truncated message");
+    kdError(5002) << "recvmsg: truncated message " << strerror(errno) << endl;
     exit(1);
   } else {
 #ifdef CMSG_DATA
@@ -110,7 +111,7 @@ int Requester::recvFD() {
 #else
     fd = *((int *) control.cmsg.cmsg_data);
 #endif
-    Debug("response.status: %i", response.status);
+    kdDebug(5002) << "response.status: " << response.status << endl;
     assert(response.status <= 0);
     if(response.status < 0)
       return response.status;
@@ -135,13 +136,13 @@ bool Requester::recvResponse() {
 
   iov.iov_base = IOV_BASE_CAST &response;
   iov.iov_len = sizeof(struct ResponseHeader);
-  Debug("recvResponse(): waiting for message");
+  kdDebug(5002) << "recvResponse(): waiting for message" << endl;
   len = recvmsg(socket, &msg, flags);
-  Debug("recvResponse(): received message");
+  kdDebug(5002) << "recvResponse(): received message" << endl;
   if (len <= 0) {
     perror("recvmsg failed");
   } else {
-    Debug("response.status: %i", response.status);
+    kdDebug(5002) << "response.status: " << response.status << endl;
   }
 
   return (response.status == 0);
@@ -306,9 +307,9 @@ bool Requester::sendRequest(struct RequestHeader *request, int len) {
   msg.msg_iovlen = 1;
   msg.msg_control = 0L;
   msg.msg_controllen = 0;
-  Debug("sendRequest: trying to send msg type %i", request->type);
+  kdDebug(5002) << "sendRequest: trying to send msg type " << request->type << endl;
   sendmsg(socket, &msg, 0);
-  Debug("sendRequest: sent message");
+  kdDebug(5002) << "sendRequest: sent message" << endl;
 
   return true;
 }
@@ -326,5 +327,5 @@ int Requester::indexDevice(const char *dev) {
 
 
 void recv_timeout(int) {
-  Debug("timeout()");
+  kdDebug(5002) << "timeout()" << endl;
 }
