@@ -1,0 +1,27 @@
+# KDE Config File
+# http://www.plant.nl/instellingen/inbellen/win95/win95.asp
+#
+ExDNSDisabled=0
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=0676044244
+IPAddr=0.0.0.0
+Domain=
+Name=Plant Acces
+VolumeAccountingEnabled=1
+pppdArguments=
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=4
+DNS=
+SubnetMask=0.0.0.0
+AccountingFile=/Netherlands/BelBasis_Regio.rst
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=
+AutoDNS=1

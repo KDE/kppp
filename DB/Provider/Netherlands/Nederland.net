@@ -1,0 +1,28 @@
+# KDE Config File
+# Nederland.net werkt via wirehub
+# http://support.wirehub.net/cgi-bin/page/dialup.cgi?NetNr=*
+# http://support.wirehub.net/pub/dialup/servers
+ExDNSDisabled=0
+AutoDNS=0
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=0676090909
+IPAddr=0.0.0.0
+Domain=
+Name=Nederland.net
+VolumeAccountingEnabled=1
+pppdArguments=
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=4
+DNS=194.165.94.1,194.165.94.5
+SubnetMask=0.0.0.0
+AccountingFile=/Netherlands/BelBasis_Regio.rst
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=

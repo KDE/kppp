@@ -1,10 +1,11 @@
 # KDE Config File
+# http://support.wirehub.net/pub/win98/setuptxt
 ExDNSDisabled=0
 AutoName=0
 ScriptArguments=
 AccountingEnabled=1
 AutoDNS=0
-Phonenumber=8800900
+Phonenumber=0676090909
 IPAddr=0.0.0.0
 Domain=
 Name=WireHub
@@ -17,7 +18,7 @@ ScriptCommands=
 Authentication=1
 DNS=194.165.94.1,194.165.94.5
 SubnetMask=0.0.0.0
-AccountingFile=/Netherlands/BelBasis_Lokaal.rst
+AccountingFile=/Netherlands/BelBasis_Regio.rst
 DefaultRoute=1
 Username=%USERNAME%
 Gateway=0.0.0.0

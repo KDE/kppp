@@ -15,4 +15,4 @@ currency_digits=2
 # connection settings
 ################################################################
 per_connection=0.25
-default=(0.0, 0)
+default=(0.0, 1)

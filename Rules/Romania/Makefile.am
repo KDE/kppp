@@ -1,4 +1,4 @@
-pkg_DATA = RomTelecom.rst
+pkg_DATA = RomTelecom.rst Zapp-Mobile.rst
 
 pkgdir = $(kde_datadir)/kppp/Rules/Romania
 

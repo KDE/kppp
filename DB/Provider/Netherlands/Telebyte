@@ -1,25 +1,26 @@
 # KDE Config File
+# http://home.telebyte.nl/?op=help&sec_id=1
 ExDNSDisabled=0
 AutoName=0
 ScriptArguments=
 AccountingEnabled=1
-AutoDNS=1
-Phonenumber=0676022202
+Phonenumber=
 IPAddr=0.0.0.0
 Domain=
-Name=Wannadoo hometime
+Name=Telebyte Internet
 VolumeAccountingEnabled=1
 pppdArguments=
 BeforeDisconnect=
 Password=%PASSWORD%
 Command=
 ScriptCommands=
-Authentication=1
-DNS=194.134.5.55,194.134.5.5
+Authentication=4
+DNS=213.211.129.21,213.211.129.22
 SubnetMask=0.0.0.0
-AccountingFile=
+AccountingFile=/Netherlands/BelBasis_Regio.rst
 DefaultRoute=1
 Username=%USERNAME%
 Gateway=0.0.0.0
 StorePassword=1
 DisconnectCommand=
+AutoDNS=1
