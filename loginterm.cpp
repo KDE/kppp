@@ -30,6 +30,8 @@
 
 #include <stdio.h>
 #include <klocale.h>
+#include <kpushbutton.h>
+#include <kdialogbase.h>
 
 extern KPPPWidget *p_kppp;
 
