@@ -127,6 +127,7 @@ private:
 };
 
 void showNews() {
+#if 0
   /*
    * Introduce the QuickHelp feature to new users of this version
    */
@@ -187,6 +188,7 @@ void showNews() {
       gpppdata.save();
     }
   }
+#endif
 }
 
 
@@ -378,9 +380,11 @@ int main( int argc, char **argv ) {
   KPPPWidget kppp;
   p_kppp = &kppp;
 
+#if 0
   // keep user informed about recent changes
   if(!have_cmdl_account)
     showNews();
+#endif
 
   a.setMainWidget(&kppp);
   a.setTopWidget(&kppp);

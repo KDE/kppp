@@ -588,7 +588,7 @@ const QString PPPData::volumeInitString() {
 
 
 int PPPData::volume() {
-  return readNumConfig(MODEM_GRP, VOLUME_KEY, 0);
+  return readNumConfig(MODEM_GRP, VOLUME_KEY, 1);
 }
 
 
