@@ -5,7 +5,14 @@ pkg_DATA = .directory 12Move IAE Popin \
            Sonera%032Plaza Cybercomm Interstroom TIP Dataweb \
            IntroWeb%032Hengelo%032e.o. Trefpunt%032Acces Daxis%032Internet \
            IntroWeb%032met%0323-cijferig%032kengetal Wish Freeler \
-           IntroWeb%032met%0324-cijferig%032kengetal Zonnet HetNet Kabelfoon
+           IntroWeb%032met%0324-cijferig%032kengetal Zonnet HetNet Kabelfoon \
+	   Betuwenet Raketnet Euronet%032met%0323-cijferig%032kengetal UwNet  \
+	   Euronet%032met%0324-cijferig%032kengetal \
+	   Wannadoo%032met%0323-cijferig%032kengetal \
+	   Wannadoo%032met%0324-cijferig%032kengetal \
+	   Wirehub%032met%0323-cijferig%032kengetal  \
+	   Luna Wirehub%032met%0324-cijferig%032kengetal \
+	   Planet%032Internet
 
 pkgdir = $(kde_datadir)/kppp/Provider/Netherlands
 
