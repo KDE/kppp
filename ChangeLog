@@ -1,3 +1,7 @@
+1999-02-16  Harri Porten  <porten@kde.org>
+
+	* providerdb.cpp: don't segfault if database can't be located
+
 1999-02-15  Mario Weilguni <mweilguni@kde.org>
 
 	* the phonenumber widget had a german "Abbrechen" button instead

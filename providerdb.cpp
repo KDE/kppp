@@ -246,18 +246,20 @@ PDB_Country::PDB_Country(QWidget *parent) : QWidget(parent) {
 
   // read the list of files
   const QFileInfoList *list = d.entryInfoList();
-  QFileInfoListIterator it( *list );
-  QFileInfo *fi;
+  if(list) {
+    QFileInfoListIterator it( *list );
+    QFileInfo *fi;
 
-  // traverse the list and insert into the widget
-  QRegExp re("_");
-  while((fi = it.current()) != NULL) {
-    QString fname = fi->fileName();
-    if(fname.length() && fname[0] != '.') {
-      fname = fname.replace(re, " ");
-      lb->insertItem(fname);
+    // traverse the list and insert into the widget
+    QRegExp re("_");
+    while((fi = it.current()) != NULL) {
+      QString fname = fi->fileName();
+      if(fname.length() && fname[0] != '.') {
+        fname = fname.replace(re, " ");
+        lb->insertItem(fname);
+      }
+      ++it;
     }
-    ++it;
   }
 
   tl->activate();
