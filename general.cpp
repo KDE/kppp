@@ -56,7 +56,7 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
   pppdtimeout = new KIntNumInput(i18n("pppd Timeout:"), 1, TIMEOUT_SIZE, 30,
                                  gpppdata.pppdTimeout(), i18n("s"), 
 				 10, true, peer(), "pppd_timeout");
-  pppdtimeout->setLabelAlignment(Qt::AlignRight);
+//  pppdtimeout->setLabelAlignment(Qt::AlignLeft);
   connect(pppdtimeout, SIGNAL(valueChanged(int)),
           SLOT(pppdtimeoutchanged(int)));
   tl->addWidget(pppdtimeout);
@@ -375,7 +375,7 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
 				  gpppdata.modemTimeout(),
                                   i18n("s"), 10, true, 
 				  peer(), "modem_timeout");
-  modemtimeout->setLabelAlignment(Qt::AlignRight);
+ // modemtimeout->setLabelAlignment(Qt::AlignRight);
   connect(modemtimeout, SIGNAL(valueChanged(int)), 
 	  SLOT(modemtimeoutchanged(int)));  
   tl->addMultiCellWidget(modemtimeout, 6, 6, 0, 1);
@@ -445,7 +445,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
                               i18n("s"), 10, true, 
 			      peer(), "busy_wait");
   
-  busywait->setLabelAlignment(AlignCenter);
+ // busywait->setLabelAlignment(AlignCenter);
   connect(busywait, SIGNAL(valueChanged(int)), SLOT(busywaitchanged(int)));
   l1->addWidget(busywait);
 
@@ -464,14 +464,14 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 
   QHBoxLayout *hbl = new QHBoxLayout;
   l1->addLayout(hbl);
-  QLabel *volumeLabel = new QLabel(i18n("Modem volume"), peer());
-  volumeLabel->setAlignment(AlignVCenter|AlignRight);
+  QLabel *volumeLabel = new QLabel(i18n("Modem volume:"), peer());
+  volumeLabel->setAlignment(Qt::AlignVCenter);
   hbl->addStretch(1);
   hbl->addWidget(volumeLabel);
   volume = new QSlider(0, 2, 1, gpppdata.volume(), QSlider::Horizontal, peer());
-  volume->setFixedSize(120, 25);  
+  volume->setFixedSize(200, 25);  
   hbl->addWidget(volume);
-  hbl->addStretch(1);
+  hbl->addStretch(4);
   connect(volume, SIGNAL(valueChanged(int)),
 	  this, SLOT(volumeChanged(int)));
   QString tmp = i18n("Most modems have a speaker which makes\n"
