@@ -109,8 +109,6 @@ ExportWizard::ExportWizard(QWidget *parent, const QString &_date)
 
   setNextEnabled( formatPage, false );
   setHelpEnabled( formatPage, false );
-
-
 }
 
 Export * ExportWizard::createExportFilter() {
@@ -142,6 +140,11 @@ void ExportWizard::getFilename() {
     return;
   fnLine->setText(filename);
   setFinishEnabled(filenamePage, true);
+}
+
+void ExportWizard::reject()  {
+    hide();
+    filename = QString::null;
 }
 
 void ExportWizard::accept() {
