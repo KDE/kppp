@@ -9,7 +9,7 @@ static const char *devices[] = {
   "/dev/cuaa1",
   "/dev/cuaa2",
   "/dev/cuaa3",
-#elif defined (__LINUX__)
+#elif defined (__linux__)
   "/dev/modem",
 // Linux from 2.1.x on discourages from using this devices
 #if 1
