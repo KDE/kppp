@@ -143,6 +143,8 @@ void MonthlyWidget::plotMonth() {
   int bin = 0, bout = 0;
   int duration = 0;
   QListViewItem* last = 0;
+  lv->clear();
+  
 
   for(int i = 0; i < (int)logList.count(); i++) {
     LogInfo *li = logList.at(i);
