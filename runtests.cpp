@@ -256,7 +256,7 @@ int runTests() {
   // Test 5: check for existence of /etc/resolv.conf
   if (access(_PATH_RESCONF, R_OK) != 0) {
     QString msgstr = _PATH_RESCONF" ";
-    msgstr += i18n("is missing or can't be read !\n\n"
+    msgstr += i18n("is missing or can't be read!\n\n"
                    "Ask your system administrator to create\n"
                    "this file (can be empty) with appropriate\n"
                    "read and write permissions.");

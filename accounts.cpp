@@ -36,6 +36,7 @@
 #include <kbuttonbox.h>
 #include <kmessagebox.h>
 #include <klocale.h>
+#include <kglobal.h>
 #include "groupbox.h"
 #include "pppdata.h"
 #include "accounts.h"
@@ -417,11 +418,7 @@ QString AccountWidget::prettyPrintVolume(unsigned int n) {
   while(i--)
     n1 = n1 / 1024.0;
 
-  QString s;
-  if(idx==0)
-    s.sprintf("%0.0f ", n1);
-  else
-    s.sprintf("%0.1f ", n1);
+  QString s = KGlobal::locale()->formatNumber( n1, idx==0 ? 0 : 1 );
   s += quant[idx];
   return s;
 }

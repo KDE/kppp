@@ -736,7 +736,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	  return;
 	}
 	cancelbutton();
-	QString msg = i18n("Unknown mode `%1' !\n\n"
+	QString msg = i18n("Unknown mode `%1'!\n\n"
                            "Valid modes are `7bit' and `8bit'.")
                            .arg(scriptArgument);
 	KMessageBox::error(0, msg);
