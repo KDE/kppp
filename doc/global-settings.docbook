@@ -361,7 +361,8 @@ exits and &kppp; terminates.</para>
 <varlistentry>
 <term><guilabel>Quit on Disconnect</guilabel></term>
 <listitem>
-<para></para>
+<para>
+</para>
 </listitem>
 </varlistentry>
 <varlistentry>
