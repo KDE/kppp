@@ -241,7 +241,7 @@ bool RuleSet::parseEntries(QString s, int year,
 			   double costs, double len, double after)
 {
   // special rule: on() is the same as on(monday..sunday)
-  if(s == "")
+  if(s.isEmpty())
     s = "monday..sunday";
 
   while(s.length()) {
