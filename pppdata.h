@@ -28,6 +28,8 @@
 #ifndef _PPPDATA_H_
 #define _PPPDATA_H_
 
+#include <unistd.h>
+
 #include <qstring.h>
 #include <qstrlist.h>
 #include <qcolor.h>
