@@ -20,8 +20,8 @@ apps_DATA = kppplogview.desktop
 EXTRA_DIST = $(apps_DATA)
 
 install-data-local: uninstall.desktop
-	$(mkinstalldirs) $(kde_appsdir)/Internet
-	$(INSTALL_DATA) $(srcdir)/uninstall.desktop $(kde_appsdir)/Internet/kppplogview.desktop
+	$(mkinstalldirs) $(DESTDIR)$(kde_appsdir)/Internet
+	$(INSTALL_DATA) $(srcdir)/uninstall.desktop $(DESTDIR)$(kde_appsdir)/Internet/kppplogview.desktop
 
 # set the include path for X, qt and KDE
 INCLUDES= $(all_includes)
