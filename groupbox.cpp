@@ -23,7 +23,7 @@ KGroupBoxBase::KGroupBoxBase(QWidget *parent, const char *name) :
 
 
 void KGroupBoxBase::show() {
-  QSize s = peer()->minimumSize();
+  QSize s = peer()->sizeHint();
   s += 2*QSize(BORDER_X + INNER_X, BORDER_Y + INNER_Y);
   if(_title != 0)
     s.setHeight(s.height() + _title->sizeHint().height());

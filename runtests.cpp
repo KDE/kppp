@@ -447,40 +447,6 @@ int runTests() {
     }
   }
 
-  // Test 4: check for undesired 'lock' option in /etc/ppp/options
-  QFile opt(SYSOPTIONS);
-  if (opt.open(IO_ReadOnly)) {
-    QTextStream t(&opt);
-    QRegExp r1("^lock");
-    QRegExp r2("\\slock$");   // \s matches white space (9,10,11,12,13,32)
-    QRegExp r3("\\slock\\s");
-    QString s;
-    int lines = 0;
-    bool match = false;
-    
-    while (!t.eof() && lines++ < 100) {
-      s = t.readLine();
-      
-      // truncate comments
-      if (s.find('#') >= 0)
-        s.truncate(s.find('#'));
-
-      if (r1.match(s) >= 0 || r2.match(s) >= 0 || r3.match(s) >= 0)
-        match = true;
-    }
-    opt.close();
-    if (match) {
-      QMessageBox::warning(0,
-                           i18n("Error"),
-                           i18n("kppp has detected a 'lock' option in "
-                                "/etc/ppp/options.\n\nThis option has "
-                                "to be removed since kppp takes care "
-                                "of device locking itself.\n"
-                                "Contact your system administrator."));
-      warning++;
-    }
-  } 
-
   // Test 5: check for existence of /etc/resolv.conf
   int fd;
   if ((fd = open(_PATH_RESCONF, O_RDONLY)) >= 0)
