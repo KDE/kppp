@@ -1,4 +1,4 @@
-pkg_DATA = Paradise Voyager XTRA
+pkg_DATA = .directory Paradise Voyager XTRA
 
 pkgdir = $(kde_datadir)/kppp/Provider/NewZealand
 

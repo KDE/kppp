@@ -1,4 +1,4 @@
-pkg_DATA = Simon%032Media
+pkg_DATA = .directory Simon%032Media
 
 pkgdir = $(kde_datadir)/kppp/Provider/Austria/
 

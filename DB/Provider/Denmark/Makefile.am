@@ -1,4 +1,4 @@
-pkg_DATA = Get2Net
+pkg_DATA = .directory Get2Net
 
 pkgdir = $(kde_datadir)/kppp/Provider/Denmark
 
