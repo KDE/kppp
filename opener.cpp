@@ -34,6 +34,8 @@
  * o be paranoid and think twice about everything you change.
  */
 
+#include <config.h>
+
 #if defined(__osf__) || defined(__svr4__)
 #define _POSIX_PII_SOCKET
 extern "C" int sethostname(char *name, int name_len);
@@ -201,10 +203,8 @@ void Opener::mainLoop() {
 
 	device = deviceByIndex(request.lock.deviceNum);
 	MY_ASSERT(strlen(LOCK_DIR)+strlen(device) < MaxPathLen);
-	strncpy(lockfile, LOCK_DIR"/LCK..", MaxPathLen);
-	strncat(lockfile, strrchr(device, '/') + 1,
-		MaxPathLen - strlen(lockfile));
-	lockfile[MaxPathLen] = '\0';
+	strlcpy(lockfile, LOCK_DIR"/LCK..", MaxPathLen);
+	strlcat(lockfile, strrchr(device, '/') + 1, MaxPathLen );
 	response.status = 0;
 	// TODO:
 	//   struct stat st;
@@ -524,7 +524,7 @@ bool Opener::execpppd(const char *arguments) {
     case 0:
       // let's parse the arguments the user supplied into UNIX suitable form
       // that is a list of pointers each pointing to exactly one word
-      strncpy(buf, arguments, sizeof(buf));
+      strlcpy(buf, arguments, sizeof(buf));
       parseargs(buf, args);
       // become a session leader and let /dev/ttySx
       // be the controlling terminal.
@@ -662,7 +662,7 @@ int checkForInterface()
     if ((s = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
         return 1;               /* can't tell */
 
-    strncpy(ifr.ifr_name, "ppp0", sizeof (ifr.ifr_name));
+    strlcpy(ifr.ifr_name, "ppp0", sizeof (ifr.ifr_name));
     ok = ioctl(s, SIOCGIFFLAGS, (caddr_t) &ifr) >= 0;
     close(s);
 

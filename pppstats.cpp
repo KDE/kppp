@@ -183,7 +183,7 @@ bool PPPStats::ifIsUp() {
 	return false;
     }
 
-    strncpy(ifr.ifr_name, unitName, sizeof(ifr.ifr_name));
+    strlcpy(ifr.ifr_name, unitName, sizeof(ifr.ifr_name));
 
     if(ioctl(s, SIOCGIFFLAGS, (caddr_t) &ifr) < 0) {
         if (errno)
@@ -216,7 +216,7 @@ bool PPPStats::initStats() {
 
   clear();
 
-  strncpy(ifr.ifr_name, unitName, sizeof(ifr.ifr_name));
+  strlcpy(ifr.ifr_name, unitName, sizeof(ifr.ifr_name));
 
   if (ioctl(s, SIOCGIFADDR, &ifr) < 0) {
   }
