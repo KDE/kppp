@@ -126,8 +126,4 @@ extern const char *kppp_syslog[];
 #define __xnet_connect connect
 #endif
 
-#ifdef __osf__
-#define _XOPEN_SOURCE_EXTENDED
-#endif
-
 #endif

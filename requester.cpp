@@ -26,6 +26,10 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
+#ifdef __osf__
+#define _XOPEN_SOURCE_EXTENDED 1
+#endif
+
 #include "kpppconfig.h"
 
 #include <unistd.h>

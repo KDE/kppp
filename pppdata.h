@@ -257,10 +257,10 @@ public:
   void setModemInitResp(const QString &);
 
   const int modemPreInitDelay();
-  void setModemPreInitDelay(int);
+  void setModemPreInitDelay(const int);
 
   const int modemInitDelay();
-  void setModemInitDelay(int);
+  void setModemInitDelay(const int);
 
   const QString modemDialStr();
   void setModemDialStr(const QString &);
