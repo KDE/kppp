@@ -34,7 +34,8 @@ SUBDIRS = Argentina \
 	SouthAfrika \
 	Spain \
 	Sweden \
-	Switzerland
+	Switzerland \
+	Yugoslavia
 
 #	Estonia 
 
