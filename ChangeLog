@@ -1,3 +1,9 @@
+1999-02-08  Harri Porten  <porten@kde.org>
+
+	* removed some doubled and obsolete code. Some simplifications.
+
+	* fixed "cannot find pppd" error message
+
 1999-02-08  Mario Weilguni <mweilguni@sime.com>
 
 	* Changed the tabs "DNS" and "Gateway". Somehow, it feels more
