@@ -83,6 +83,7 @@ extern "C" int sethostname(char *name, int name_len);
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <termios.h>
 
 #include "kpppconfig.h"
 #include "opener.h"
