@@ -51,6 +51,9 @@
 // Define the default modem response timeout
 #define MODEM_TIMEOUT 60
 
+// Define the default modem tone duration (ATS11=)
+#define MODEM_TONEDURATION 70
+
 // Define the default time for pppd to get the interface up
 #define PPPD_TIMEOUT 30
 

@@ -407,6 +407,16 @@ void PPPData::setModemTimeout(int n) {
 }
 
 
+int PPPData::modemToneDuration() {
+  return readNumConfig(MODEM_GRP, TONEDURATION_KEY,MODEM_TONEDURATION);
+}
+
+
+void PPPData::setModemToneDuration(int n) {
+  writeConfig(MODEM_GRP, TONEDURATION_KEY, n);
+}
+
+
 int PPPData::busyWait() {
   return readNumConfig(MODEM_GRP, BUSYWAIT_KEY, BUSY_WAIT);
 }

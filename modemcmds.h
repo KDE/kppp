@@ -69,6 +69,9 @@ private:
   QLabel *linitslider;
   QLabel *label3;
 
+  QLabel *ldurationslider;
+  QLabel *lduration;
+
   QLineEdit *nodetectdialtone;
   QLabel *lnodetectdialtone;
 

@@ -79,6 +79,7 @@ class KConfig;
 #define FLOWCONTROL_KEY    "FlowControl"
 #define SPEED_KEY          "Speed"
 #define TIMEOUT_KEY        "Timeout"
+#define TONEDURATION_KEY   "ToneDuration"
 #define BUSYWAIT_KEY       "BusyWait"
 #define INITSTR_KEY        "InitString"
 #define INITRESP_KEY       "InitResponse"
@@ -245,6 +246,9 @@ public:
 
   int modemTimeout();
   void setModemTimeout(int);
+
+  int modemToneDuration();
+  void setModemToneDuration(int);
 
   QString volumeInitString();
   int volume();

@@ -295,8 +295,21 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
     }
 
     substate++;
-    vmain = 3;
+    vmain = 5;
 
+    return;
+  }
+
+  if (vmain == 5) {
+    if(!expecting) {
+        QString sToneDuration = "ATS11=" + QString::number(gpppdata.modemToneDuration());
+        QString msg = i18n("Setting ") + sToneDuration;
+        messg->setText(msg);
+	emit debugMessage(msg);
+	setExpect(gpppdata.modemInitResp());
+	writeline(sToneDuration);
+      }
+    vmain = 3;
     return;
   }
 
