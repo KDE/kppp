@@ -1,0 +1,24 @@
+# KDE Config File
+ExDNSDisabled=0
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=8805480
+IPAddr=0.0.0.0
+Domain=concepts.nl
+Name=Concepts_ICT
+VolumeAccountingEnabled=1
+pppdArguments=detach,
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=1
+DNS=213.197.28.3,213.197.24.3
+SubnetMask=0.0.0.0
+AccountingFile=/Netherlands/BelBasis_Lokaal.rst
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=

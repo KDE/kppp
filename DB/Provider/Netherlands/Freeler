@@ -1,0 +1,24 @@
+# KDE Config File
+ExDNSDisabled=0
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=8804000
+IPAddr=0.0.0.0
+Domain=concepts.nl
+Name=Freeler
+VolumeAccountingEnabled=1
+pppdArguments=detach,
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=1
+DNS=212.19.218.3,212.19.218.4
+SubnetMask=0.0.0.0
+AccountingFile=/Netherlands/BelBasis_Lokaal.rst
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=
