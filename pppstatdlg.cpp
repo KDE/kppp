@@ -268,11 +268,9 @@ void PPPStatsDlg::paintGraph() {
   int last_max = bin[last_idx]>bout[last_idx] ? bin[last_idx] : bout[last_idx];
 
   QRect r;
-  QString s;
-  s.sprintf(i18n("%0.1f (max. %0.1f) kb/sec"), (float)last_max / 1024.0, (float)max / 1024.0);
-  s = i18n("%1 (max. %2) kb/sec")
-		.arg(QString().setNum((float)last_max / 1024.0, 'f', 1))
-		.arg(QString().setNum((float)max / 1024.0, 'f', 1));
+  QString s = i18n("%1 (max. %2) kb/sec")
+		.arg(KGlobal::locale()->formatNumber((float)last_max / 1024.0, 1))
+		.arg(KGlobal::locale()->formatNumber((float)max / 1024.0, 1));
   p.drawText(0, 0, pm.width(), 2*8, AlignRight|AlignVCenter, s, -1, &r);
   p.drawLine(0, 8, r.left() - 8, 8);
 
@@ -359,16 +357,16 @@ void PPPStatsDlg::closeEvent(QCloseEvent *) {
 void PPPStatsDlg::update_data() {
   timeclick();
 
-  ibytes_string.sprintf("%d", stats.ibytes);
-  ipackets_string.sprintf("%d", stats.ipackets);
-  compressedin_string.sprintf("%d", stats.compressedin);
-  uncompressedin_string.sprintf("%d", stats.uncompressedin);
-  errorin_string.sprintf("%d", stats.errorin);
-  obytes_string.sprintf("%d", stats.obytes);
-  opackets_string.sprintf("%d", stats.opackets);
-  compressed_string.sprintf("%d", stats.compressed);
-  packetsunc_string.sprintf("%d", stats.packetsunc);
-  packetsoutunc_string.sprintf("%d", stats.packetsoutunc);
+  ibytes_string.setNum(stats.ibytes);
+  ipackets_string.setNum(stats.ipackets);
+  compressedin_string.setNum(stats.compressedin);
+  uncompressedin_string.setNum(stats.uncompressedin);
+  errorin_string.setNum(stats.errorin);
+  obytes_string.setNum(stats.obytes);
+  opackets_string.setNum(stats.opackets);
+  compressed_string.setNum(stats.compressed);
+  packetsunc_string.setNum(stats.packetsunc);
+  packetsoutunc_string.setNum(stats.packetsoutunc);
 
   labela2[0]->setText(ibytes_string);
   labela2[1]->setText(ipackets_string);

@@ -462,9 +462,9 @@ QString Modem::parseModemSpeed(const QString &s) {
   if(rx == -1 && tx == -1)
     result = i18n("Unknown speed");
   else if(tx == -1)
-    result.sprintf("%d", rx);
+    result.setNum(rx);
   else if(rx == -1) // should not happen
-    result.sprintf("%d", tx);
+    result.setNum(tx);
   else
     result.sprintf("%d/%d", rx, tx);
 

@@ -28,6 +28,7 @@
 #include "pppdata.h"
 #include "pppstats.h"
 #include <klocale.h>
+#include <kglobal.h>
 
 extern PPPData gpppdata;
 extern PPPStats stats;
@@ -219,11 +220,11 @@ void ConWindow::timeclick() {
   if(gpppdata.VolAcctEnabled()) {
     QString s;
     if(stats.totalbytes < 1024*10)
-      s.sprintf("%d Byte", stats.totalbytes);
+      s = i18n("%1 Byte").arg(stats.totalbytes);
     else if(stats.totalbytes < 1024*1024)
-      s.sprintf("%0.1f KB", ((float)stats.totalbytes)/1024);
+      s = i18n("%1 KB").arg(KGlobal::locale()->formatNumber(((float)stats.totalbytes)/1024.0, 1));
     else
-      s.sprintf("%0.1f MB", ((float)stats.totalbytes)/(1024*1024));
+      s = i18n("%1 MB").arg(KGlobal::locale()->formatNumber(((float)stats.totalbytes)/(1024.0*1024.0), 1));
 
     volinfo->setText(s);
   }
@@ -245,7 +246,6 @@ void ConWindow::timeclick() {
     hours = 0;
   }
 
-  time_string = "";
   time_string.sprintf("%02d:%02d",hours,minutes);
   time_string2 = "";
   if (days)
