@@ -1,47 +1,39 @@
 ################################################################
 #
-# German Freenet accounting rules
-# created 2000-11-24 by thomas holst (tho), holstt@thoserve.de
-# up-to-date 2000-11-01 by volker schlechter, schlecht@selk-stuttgart.de
-# up-to-date 2002-02-11 by Friedemann Schorer, friedemann.schorer@gmx.de
-#
-################################################################
-#
-# name of ruleset
+# kppp ruleset for Arcor-Internet by Call easy accounts
+# created 01/04/01 by Harald Bongartz <Harald@Bongartz.cx>
+# modified 02/01/26 by Alexander Heide <alexander.heide@gmx.net>
 #
 ################################################################
 
-name=Freenet
 
 ################################################################
 #
+# NAME OF THE RULESET. This is NEEDED for accounting purposes.
+#
+################################################################
+name=Arcor-Internet by Call easy
+
+
+################################################################
 # currency settings
-#
 ################################################################
 
 currency_symbol=¤
-currency_position=left
+currency_position=right 
 currency_digits=2
 
+
 ################################################################
-#
 # connection settings
-#
 ################################################################
 
-#per_connection=0.06
-#minimum_costs=0.0
+per_connection=0.0
+minimum_costs=0.0
+default=(0.0148, 60)
+on () between (18:00..08:59) use (0.0097, 60)
+on (saturday..sunday, 01/01, easter-2, easter, easter+1, 05/01, easter+39, easter+49, easter+50, 10/03, 12/25, 12/26) between () use ( 0.0097, 60)
 
-# Default - falls mal was nicht klappt, wird sicherheitshalber
-# der teuerste Tarif genommen
-default=(0.0145,60)
-
-on (monday..sunday) between (22:00..09:00) use (0.0089,60)
-on (monday..sunday) between (09:00..18:00) use (0.0145,60)
-on (monday..sunday) between (18:00..22:00) use (0.0115,60)
-
-
-# on (01/01, easter-2, easter, easter+1, 05/01, easter+39, easter+49, easter+50, 10/03, 12/25, 12/26) between () use (0.025, 60)
 
 # Bundeseinheitliche Feiertage:
 # 01/01     Neujahr
@@ -55,3 +47,6 @@ on (monday..sunday) between (18:00..22:00) use (0.0115,60)
 # 10/03     Tag der Deutschen Einheit
 # 12/25     1. Weihnachtstag
 # 12/26     2. Weihnachtstag
+
+
+

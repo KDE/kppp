@@ -1,65 +1,74 @@
 ################################################################
 #
-# Regles pour P & T Luxembourg
-# Appels locaux
+# KPPP accounting rules for P&T Luxembourg
 #
-# Fichier original par
-# $Id$
-# (C) 1998 Patrick Vande Walle <patrick.vande-walle@cec.be>
+# This rule file applies to local phone calls in the Grand-Duchy
+# of Luxembourg. It can be used for most "free" ISPs.
+#
+# 19.01.2002  19:35
+# Gilles Schintgen <gschintgen@yahoo.com>
+#
+# ##############################################################
+#
+# These are the billing rules from 01.09.2001 (taxes included)
+# (The older rules written by Patrick Vande Walle aren't
+#  applicable any more)
 #
 ################################################################
 
-# Les nouveaux tarifs de P & T Luxembourg sont en vigueur
-# depuis  ???.
-#
-# D'apres P & T Luxembourg, une unite de communication 
-# devrait couter:
-#
-# 5 LUF TVA Comprise.
-#
-# Il y a trois periodes tarifaitaires: 4, 8 ou 16 minutes
-#
-# Il n'y a pas de zones telephoniques au Grand-Duche
+################################################################
+# name of the ruleset
+################################################################
+name=PTLuxembourg
 
-name=Luxembourg_Area
-currency_symbol=LUF
+################################################################
+# currency settings
+################################################################
+currency_symbol=EUR
 currency_position=right
 currency_digits=2
 
 ################################################################
-# Parametres de connection
+# connection settings
 ################################################################
 
-# Ceci est un cout supplementaire eventuel par appel. Si vous
-# n'etes pas concerne, posez le egal à zero ou commentez-le.
+# NOTE: rules are applied from top to bottom - the
+#       LAST matching rule is the one used for the
+#       cost computations.
 
-per_connection=0.0
+# This is charged whenever you connect. If you don't have to
+# pay per-connection, use "0" here or comment it out.
+# per_connection=0.0
 
-# Frais minimum par appel. Si le cout d'un appel est inferieur
-# à cette valeur, alors cette derniere est le cout retenu.
+# Minimum costs per connection. If the costs of a phone
+# call are less than this value, this value is used instead
+# minimum_costs=0.0
 
-minimum_costs=0.0
+# This is what you pay for the first unit.
+# flat_init_costs=(0.0, 0)
 
-# C'est ce que vous payez pour les quatre premieres minutes de
-# connexion, peu importe si l'appel dure 1 ou 480 secondes.
+# This is the default rule which is used when no other rule
+# applies. One unit (60 seconds) accounts for 0.0309 EUR
+# (= 1,25 LUF)
+default=(0.0309, 60)
 
-flat_init_costs=(5,240)
+# Normal Costs
+on (monday..friday) between (00:00..07:59) use (0.0154, 60)
+on (monday..friday) between (08:00..18:59) use (0.0309, 60)
+on (monday..friday) between (19:00..23:59) use (0.0154, 60)
+on (saturday..sunday) between () use (0.0154, 60)
 
-# Ceci est la regle utilisee par defaut lorsqu'aucune autre ne
-# s'applique. Le premier nombre est le prix correspondant à la
-# duree en secondes qui est le second nombre.
+# Legal Holidays
+# these days are billed just as if they were sundays
+on (01/01, easter+1, 05/01, easter+39, easter+50) between () use (0.0154, 60)
+on (06/23, 08/15, 11/01, 12/25) between () use (0.0154, 60)
 
-default=(5, 240)
-
-# Regles tarifaires
-
-on (monday..sunday)   between (23:00..06:00) use (5, 960)
-on (monday..friday)   between (08:00..19:00) use (5, 240)
-on (monday..friday)   between (19:00..23:00) use (5, 480)
-on (monday..friday)   between (06:00..08:00) use (5, 480)
-on (saturday)         between (6:00..23:00) use (5, 480)
-on (sunday)           between (00:00..23:59) use (5, 960)
-
-# Jours feries
-
-on (01/01, easter+1, 05/01, 05/08, easter+38, easter+50, 06/23, 08/15, 11/01, 12/25) between (00:00..23:59) use (5, 960)
+# 01/01:	Nouvel An (New Year)
+# easter+1:	Lundi de Pâques (Easter Monday)
+# 05/01:	Fête du travail (Labor Day)
+# easter+39:	Ascension
+# easter+50:	Lundi de Pentecôte (Whit Monday)
+# 06/23:	Fête nationale (national holiday)
+# 08/15:	Assomption (Assumption)
+# 11/01:	Toussaint (All Saint's Day)
+# 12/25:	Noël (Christmas)
