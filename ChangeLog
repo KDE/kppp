@@ -1,3 +1,20 @@
+1999-02-09  Mario Weilguni <mweilguni@sime.com>
+
+	* fixed a bug in the accounting module. The last character of the
+  	  logfile was overwritten each time a log file was
+	  generated. Strange that nobody complained...
+
+	* reworked the layout of the AccountWidget
+
+	* removed some old, no longer needed variables from edit.h
+
+	* reworked the layout of the ModemWidget
+
+	* reworked the layout of the Modem2Widget. Now all Tab-Widgets are
+	  reworked to use KGroupBox (which adds the title and takes part
+	  of the size managment), which makes adding or deleting widgets
+	  in the tab-dialogs much easier (especially for other people)
+
 1999-02-08  Harri Porten  <porten@kde.org>
 
 	* removed some doubled and obsolete code. Some simplifications.
@@ -7,7 +24,7 @@
 1999-02-08  Mario Weilguni <mweilguni@sime.com>
 
 	* Changed the tabs "DNS" and "Gateway". Somehow, it feels more
-	  logical this way.
+	  natural this way.
 
 	* reworked the layout of the "DNS" widget
 

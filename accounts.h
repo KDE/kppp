@@ -27,14 +27,15 @@
 #ifndef _ACCOUNTS_H_
 #define _ACCOUNTS_H_
 
-#include "acctselect.h"
 #include <qwidget.h>
 #include <qpushbt.h>
 #include <qlistbox.h>
+#include "acctselect.h"
+#include "groupbox.h"
 #include "edit.h"
 
-class AccountWidget : public QWidget {
-Q_OBJECT
+class AccountWidget : public KGroupBox {
+  Q_OBJECT
 public:
   AccountWidget( QWidget *parent=0, const char *name=0 );
   ~AccountWidget() {}
@@ -75,7 +76,6 @@ private:
   QLabel *vollabel;
   QLineEdit *voledit;
 
-  QGroupBox *box;
   QListBox *accountlist_l;
   QPushButton *edit_b;
   QPushButton *copy_b;

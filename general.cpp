@@ -229,28 +229,25 @@ AboutWidget::AboutWidget( QWidget *parent, const char *name)
 
 
 ModemWidget::ModemWidget( QWidget *parent, const char *name)
-  : QWidget(parent, name)
+  : KGroupBox(i18n("Serial device"), parent, name)
 {
   int k;
 
-  QGridLayout *tl = new QGridLayout(this, 11, 4, 10, 10);
-  tl->addRowSpacing(0, fontMetrics().lineSpacing() - 10); // magic
+  QGridLayout *tl = new QGridLayout(peer(), 9, 2, 10, 10);
 
-  box = new QGroupBox(i18n("Serial device"), this);
-  tl->addMultiCellWidget(box, 0, 9, 0, 3);
-
-  label1 = newLabel(i18n("Modem Device:"), this);
-  tl->addWidget(label1, 1, 1);
+  label1 = newLabel(i18n("Modem Device:"), peer());
+  tl->addWidget(label1, 0, 0);
   
-  modemdevice = new QComboBox(false,this);
+  modemdevice = new QComboBox(false, peer());
 
   for(k = 0; devices[k]; k++)
     modemdevice->insertItem(devices[k]);
 
   modemdevice->setMinimumWidth(modemdevice->sizeHint().width());
   modemdevice->setFixedHeight(modemdevice->sizeHint().height());
-  tl->addWidget(modemdevice, 1, 2);
-  connect(modemdevice, SIGNAL(activated(int)), SLOT(setmodemdc(int)));
+  tl->addWidget(modemdevice, 0, 1);
+  connect(modemdevice, SIGNAL(activated(int)), 
+	  SLOT(setmodemdc(int)));
   KQuickHelp::add(label1,
   KQuickHelp::add(modemdevice, 
 		  i18n("This specifies the serial port your modem is attached \n"
@@ -262,37 +259,37 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
 		       "should select one of the /dev/ttyIx devices.")));
 
 
-  label2 = newLabel(i18n("Flow Control:"), this);
-  tl->addWidget(label2, 2, 1);
+  label2 = newLabel(i18n("Flow Control:"), peer());
+  tl->addWidget(label2, 1, 0);
 
-  flowcontrol = new QComboBox(false,this);
+  flowcontrol = new QComboBox(false, peer());
   flowcontrol->insertItem("CRTSCTS");
   flowcontrol->insertItem("XON/XOFF");
   flowcontrol->insertItem(i18n("None"));
   flowcontrol->setMinimumWidth(flowcontrol->sizeHint().width());
   flowcontrol->setFixedHeight(flowcontrol->sizeHint().height());
-  tl->addWidget(flowcontrol, 2, 2);
+  tl->addWidget(flowcontrol, 1, 1);
   connect(flowcontrol, SIGNAL(activated(int)), 
 	  SLOT(setflowcontrol(int)));
 
   KQuickHelp::add(label2,
-  KQuickHelp::add(flowcontrol, 
+  KQuickHelp::add(flowcontrol,
 		  i18n("Specifies how the serial port and modem\n"
 		       "communicate. You should not change this unless\n"
 		       "you know what you are doing.\n"
 		       "\n"
 		       "<b>Default</b>: CRTSCTS")));
 
-  labelenter = newLabel(i18n("Line Termination:"), this);
-  tl->addWidget(labelenter, 3, 1);
+  labelenter = newLabel(i18n("Line Termination:"), peer());
+  tl->addWidget(labelenter, 2, 0);
 
-  enter = new QComboBox(false,this);
+  enter = new QComboBox(false, peer());
   enter->insertItem("CR");
   enter->insertItem("LF");
   enter->insertItem("CR/LF");
   enter->setMinimumWidth(enter->sizeHint().width());
   enter->setFixedHeight(enter->sizeHint().height());
-  tl->addWidget(enter, 3, 2);
+  tl->addWidget(enter, 2, 1);
   connect(enter, SIGNAL(activated(int)), SLOT(setenter(int)));
   KQuickHelp::add(labelenter,
   KQuickHelp::add(enter, 
@@ -304,12 +301,12 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
 		       "\n"
 		       "<b>Default</b>: CR/LF")));
 
-  baud_label = newLabel(i18n("Connection Speed:"), this);
-  tl->addWidget(baud_label, 4, 1);  
+  baud_label = newLabel(i18n("Connection Speed:"), peer());
+  tl->addWidget(baud_label, 3, 0);  
   
   QHBoxLayout *l1 = new QHBoxLayout;
-  tl->addLayout(l1, 4, 2);
-  baud_c = new QComboBox(this);
+  tl->addLayout(l1, 3, 1);
+  baud_c = new QComboBox(peer());
 
   static char *baudrates[] = {
     
@@ -360,15 +357,14 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   }
 
 
-
   //Modem Lock File
-  modemlockfile = newCheckBox(i18n("Use Lock File"), this);
+  modemlockfile = newCheckBox(i18n("Use Lock File"), peer());
 
   modemlockfile->setChecked(gpppdata.modemLockFile());
   connect(modemlockfile, SIGNAL(toggled(bool)),
           SLOT(modemlockfilechanged(bool)));
   QHBoxLayout *l12 = new QHBoxLayout;
-  tl->addLayout(l12, 6, 1);
+  tl->addLayout(l12, 5, 0);
   //  l12->addStretch(1);
   l12->addWidget(modemlockfile);
   //  l12->addStretch(1);
@@ -384,13 +380,13 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
                        "<b>Default</b>: On"));
   
   // Modem Timeout Line Edit Box
-  label3 = newLabel(i18n("Modem Timeout:"), this);
-  tl->addWidget(label3, 7, 1);
+  label3 = newLabel(i18n("Modem Timeout:"), peer());
+  tl->addWidget(label3, 6, 0);
 
   QHBoxLayout *l2 = new QHBoxLayout;
-  tl->addLayout(l2, 7, 2);
+  tl->addLayout(l2, 6, 1);
 
-  modemtimeout = new KIntegerLine(this);
+  modemtimeout = new KIntegerLine(peer());
   modemtimeout->setFixedHeight(modemtimeout->sizeHint().height());
   modemtimeout->setMaxLength(TIMEOUT_SIZE);
   modemtimeout->setMinimumWidth(fontMetrics().width('8')*3);
@@ -399,7 +395,7 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
 	  SLOT(modemtimeoutchanged(const char*)));  
   l2->addWidget(modemtimeout, 1);
 
-  labeltmp = newLabel(i18n("Seconds"), this);
+  labeltmp = newLabel(i18n("Seconds"), peer());
   l2->addWidget(labeltmp, 2);
   KQuickHelp::add(label3,
   KQuickHelp::add(modemtimeout, 
@@ -459,27 +455,17 @@ void ModemWidget::modemtimeoutchanged(const char *n) {
 
 
 ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
-  : QWidget(parent, name)
+  : KGroupBox(i18n("Modem"), parent, name)
 {
-  QGridLayout *tl = new QGridLayout(this, 3, 3, 10, 10);
-  tl->addRowSpacing(0, fontMetrics().lineSpacing() - 10); // magic
-
-  box = new QGroupBox(i18n("Modem"), this);
-  tl->addMultiCellWidget(box, 0, 2, 0, 2);
-
-  QVBoxLayout *l1 = new QVBoxLayout;
-  tl->addLayout(l1, 1, 1);
-  tl->setColStretch(1, 1);
-  tl->setRowStretch(1, 1);
-  l1->addStretch(1);
+  QVBoxLayout *l1 = new QVBoxLayout(peer(), 10, 10);
 
   QHBoxLayout *l10 = new QHBoxLayout;
   l1->addLayout(l10);
-  label4 = newLabel(i18n("Busy Wait:"), this);
+  label4 = newLabel(i18n("Busy Wait:"), peer());
   l10->addStretch(1);
   l10->addWidget(label4);
 
-  busywait = new KIntegerLine(this);
+  busywait = new KIntegerLine(peer());
   busywait->setFixedHeight(busywait->sizeHint().height());
   busywait->setMaxLength(TIMEOUT_SIZE);
   busywait->setText(gpppdata.busyWait());
@@ -488,7 +474,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 	  SLOT(busywaitchanged(const char*)));
   l10->addWidget(busywait);
 
-  labeltmp = newLabel(i18n("Seconds"), this);
+  labeltmp = newLabel(i18n("Seconds"), peer());
   l10->addWidget(labeltmp, 1);
   l10->addStretch(1);
   KQuickHelp::add(label4,
@@ -507,11 +493,11 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 
   QHBoxLayout *hbl = new QHBoxLayout;
   l1->addLayout(hbl);
-  QLabel *volumeLabel = newLabel(i18n("Modem volume"), this);
+  QLabel *volumeLabel = newLabel(i18n("Modem volume"), peer());
   volumeLabel->setAlignment(AlignVCenter|AlignRight);
   hbl->addStretch(1);
   hbl->addWidget(volumeLabel);
-  volume = new KSlider(0, 2, 1, gpppdata.volume(), KSlider::Horizontal, this);
+  volume = new KSlider(0, 2, 1, gpppdata.volume(), KSlider::Horizontal, peer());
   volume->setFixedSize(120, 25);  
   hbl->addWidget(volume);
   hbl->addStretch(1);
@@ -531,7 +517,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
   QHBoxLayout *l12 = new QHBoxLayout;
   l1->addLayout(l12);
   l12->addStretch(1);
-  chkbox1 = newCheckBox(i18n("Modem Asserts CD Line."), this);
+  chkbox1 = newCheckBox(i18n("Modem Asserts CD Line."), peer());
   chkbox1->setChecked(gpppdata.UseCDLine());
   connect(chkbox1,SIGNAL(toggled(bool)),
 	  this,SLOT(use_cdline_toggled(bool)));
@@ -552,12 +538,12 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
   l11->addStretch(1);
   QVBoxLayout *l111 = new QVBoxLayout;
   l11->addLayout(l111);
-  modemcmds = new QPushButton(i18n("Modem Commands"), this);
+  modemcmds = new QPushButton(i18n("Modem Commands"), peer());
   KQuickHelp::add(modemcmds,
 		  i18n("Allows you to change the AT command for\n"
 		       "your modem."));
   
-  modeminfo_button = new QPushButton(i18n("Query Modem"), this);
+  modeminfo_button = new QPushButton(i18n("Query Modem"), peer());
   KQuickHelp::add(modeminfo_button, 
 		  i18n("Most modems support the ATI command set to\n"
 		       "find out vendor and revision of your modem.\n"
@@ -566,7 +552,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 		       "this information.  It can be useful to help\n"
 		       "you setup the modem"));
 
-  terminal_button = new QPushButton(i18n("Terminal"), this);
+  terminal_button = new QPushButton(i18n("Terminal"), peer());
   KQuickHelp::add(terminal_button, 
 		  i18n("Opens the built-in terminal program. You\n"
 		       "can use this if you want to play around\n"
@@ -584,11 +570,14 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
   l11->addStretch(1);
   l1->addStretch(1);
 
-  tl->activate();
+  l1->activate();
 
-  connect(modemcmds, SIGNAL(clicked()), SLOT(modemcmdsbutton()));
-  connect(modeminfo_button, SIGNAL(clicked()), SLOT(query_modem()));
-  connect(terminal_button, SIGNAL(clicked()), SLOT(terminal()));
+  connect(modemcmds, SIGNAL(clicked()), 
+	  SLOT(modemcmdsbutton()));
+  connect(modeminfo_button, SIGNAL(clicked()), 
+	  SLOT(query_modem()));
+  connect(terminal_button, SIGNAL(clicked()), 
+	  SLOT(terminal()));
 }
 
 

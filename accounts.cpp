@@ -39,24 +39,16 @@
 void parseargs(char* buf, char** args);
 
 AccountWidget::AccountWidget( QWidget *parent, const char *name )
-  : QWidget( parent, name )
+  : KGroupBox( i18n("Account Setup"), parent, name )
 {
   int min = 0;
-  QGridLayout *tl = new QGridLayout(this, 3, 3, 10, 10);  
-  tl->addRowSpacing(0, fontMetrics().lineSpacing() - 10); // magic
-  box = new QGroupBox(this,"box");
-  box->setTitle(i18n("Account Setup"));
-  tl->addMultiCellWidget(box, 0, 2, 0, 2);
-
-  // add a vbox in the middle of the grid
-  QVBoxLayout *l1 = new QVBoxLayout;
-  tl->addLayout(l1, 1, 1);
+  QVBoxLayout *l1 = new QVBoxLayout(peer(), 10, 10);
 
   // add a hbox
   QHBoxLayout *l11 = new QHBoxLayout;
   l1->addLayout(l11);
     
-  accountlist_l = new QListBox(this);
+  accountlist_l = new QListBox(peer());
   accountlist_l->setMinimumSize(160, 128);
   connect(accountlist_l, SIGNAL(highlighted(int)),
 	  this, SLOT(slotListBoxSelect(int)));
@@ -66,7 +58,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
 
   QVBoxLayout *l111 = new QVBoxLayout;
   l11->addLayout(l111, 1);  
-  edit_b = new QPushButton(i18n("Edit..."), this);
+  edit_b = new QPushButton(i18n("Edit..."), peer());
   connect(edit_b, SIGNAL(clicked()), SLOT(editaccount()));
   KQuickHelp::add(edit_b, i18n("Allows you to modify the selected account"));
 
@@ -77,14 +69,14 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
 
   l111->addWidget(edit_b);
 
-  new_b = new QPushButton(i18n("New..."), this);
+  new_b = new QPushButton(i18n("New..."), peer());
   connect(new_b, SIGNAL(clicked()), SLOT(newaccount()));
   new_b->setMinimumSize(new_b->sizeHint());
   l111->addWidget(new_b);
   KQuickHelp::add(new_b, i18n("Create a new dialup connection\n"
   			      "to the internet"));
 
-  copy_b = new QPushButton(i18n("Copy"), this);
+  copy_b = new QPushButton(i18n("Copy"), peer());
   connect(copy_b, SIGNAL(clicked()), SLOT(copyaccount()));
   copy_b->setMinimumSize(copy_b->sizeHint());
   l111->addWidget(copy_b);
@@ -94,7 +86,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
 		       "to a new account, that you can modify to fit your\n"
 		       "needs"));
 
-  delete_b = new QPushButton(i18n("Delete"), this);
+  delete_b = new QPushButton(i18n("Delete"), peer());
   connect(delete_b, SIGNAL(clicked()), SLOT(deleteaccount()));
   delete_b->setMinimumSize(delete_b->sizeHint());
   l111->addWidget(delete_b);
@@ -108,12 +100,12 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   QVBoxLayout *l121 = new QVBoxLayout;
   l12->addLayout(l121);
   l121->addStretch(1);
-  costlabel = new QLabel(i18n("Phone Costs:"), this);
+  costlabel = new QLabel(i18n("Phone Costs:"), peer());
   costlabel->setMinimumSize(costlabel->sizeHint());
   costlabel->setEnabled(FALSE);
   l121->addWidget(costlabel);
 
-  costedit = new QLineEdit(this);
+  costedit = new QLineEdit(peer());
   costedit->setFocusPolicy(QWidget::NoFocus);
   costedit->setFixedHeight(costedit->sizeHint().height());
   costedit->setEnabled(FALSE);
@@ -128,12 +120,12 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
 		       "account - beware, this is <b>NOT</b> the sum \n"
 		       "of the phone costs of all your accounts!")));
 
-  vollabel = new QLabel(i18n("Volume:"), this);
+  vollabel = new QLabel(i18n("Volume:"), peer());
   vollabel->setMinimumSize(vollabel->sizeHint());
   vollabel->setEnabled(FALSE);
   l121->addWidget(vollabel);
 
-  voledit = new QLineEdit(this,"voledit");
+  voledit = new QLineEdit(peer(),"voledit");
   voledit->setFocusPolicy(QWidget::NoFocus);
   voledit->setFixedHeight(voledit->sizeHint().height());
   voledit->setEnabled(FALSE);
@@ -152,15 +144,17 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   l12->addLayout(l122);
   
   l122->addStretch(1);
-  reset = new QPushButton(i18n("Reset..."), this);
+  reset = new QPushButton(i18n("Reset..."), peer());
   reset->setMinimumSize(reset->sizeHint());
   reset->setEnabled(FALSE);
-  connect(reset,SIGNAL(clicked()),this,SLOT(resetClicked()));
+  connect(reset, SIGNAL(clicked()),
+	  this, SLOT(resetClicked()));
   l122->addWidget(reset);
 
-  log = new QPushButton(i18n("View Logs"), this);
+  log = new QPushButton(i18n("View Logs"), peer());
   log->setMinimumSize(log->sizeHint());
-  connect(log,SIGNAL(clicked()),this,SLOT(viewLogClicked()));
+  connect(log, SIGNAL(clicked()),
+	  this, SLOT(viewLogClicked()));
   l122->addWidget(log);
   l122->addStretch(1);
 
@@ -174,7 +168,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
 
   slotListBoxSelect(accountlist_l->currentItem());
 
-  tl->activate();
+  l1->activate();
 }
 
 

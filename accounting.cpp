@@ -140,13 +140,13 @@ void AccountingBase::logMessage(QString s, bool newline) {
     // move to eof, and place \n if necessary
     if(f.size() > 0) {
       if(newline) {
-	f.at(f.size() - 1);
+	f.at(f.size());
 	char c = 0;
 	f.readBlock(&c, 1);
 	if(c != '\n')
 	  f.writeBlock("\n", 1);
       } else
-	f.at(f.size() - 1);
+	f.at(f.size());
     }
 
     f.writeBlock(s.data(), s.length());

@@ -77,7 +77,7 @@ private:
 };
 
 
-class ModemWidget : public QWidget {
+class ModemWidget : public KGroupBox {
   Q_OBJECT
 public:
   ModemWidget( QWidget *parent=0, const char *name=0 );
@@ -92,7 +92,6 @@ private slots:
 
 private:
   QComboBox 	*enter;
-  QGroupBox 	*box;
   QLabel 	*label1;
   QLabel 	*label2;
   QLabel 	*label3;
@@ -109,7 +108,7 @@ private:
 };
 
 
-class ModemWidget2 : public QWidget {
+class ModemWidget2 : public KGroupBox {
   Q_OBJECT
 public:
   ModemWidget2( QWidget *parent=0, const char *name=0 );
@@ -126,7 +125,6 @@ private:
   ModemTransfer *modemtrans;
   QLabel 	*label4;
   QLabel 	*labeltmp;
-  QGroupBox 	*box;
   QPushButton 	*modemcmds;
   QPushButton 	*modeminfo_button;
   QPushButton 	*terminal_button;

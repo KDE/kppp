@@ -68,7 +68,6 @@ public slots:
   void downNumber();
   
 private:
-  QGroupBox *box;
   QLineEdit *connectname_l;
   QLabel *connect_label;
   QLabel *number_label;
@@ -126,8 +125,8 @@ protected slots:
 private:
   QLabel *ipaddress_label;
   QLabel *sub_label;
-  QGroupBox *box;
   QGroupBox *box1;
+  QGroupBox *box;
 
   QButtonGroup *rb;
   QRadioButton *dynamicadd_rb;
@@ -156,9 +155,9 @@ protected slots:
   void DNS_Entry_Selected(int);
 
 private:
+  QGroupBox *box;
   QLabel *dns_label;
   QLabel *servers_label;
-  QGroupBox *box;
   IPLineEdit *dnsipaddr;
   QPushButton *add;
   QPushButton *remove;
@@ -184,8 +183,8 @@ private slots:
   void hitGatewaySelect( int );
 
 private:
-  QLabel *gate_label;
   QGroupBox *box;
+  QLabel *gate_label;
   QGroupBox *box1;
   QButtonGroup *rb;
   QRadioButton *defaultgateway;
@@ -219,7 +218,6 @@ private slots:
 
 private:
   void adjustScrollBar();
-  QGroupBox *box;
 
   ScriptEdit *se;
   QPushButton *add;

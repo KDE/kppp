@@ -421,12 +421,6 @@ int main( int argc, char **argv ) {
   if(TESTING) {
     gpppdata.open();
     gpppdata.setAccountbyIndex(0);
-    //ModemSelector *c = new ModemSelector(0);
-    //c->exec();
-
-    QueryReset *c = new QueryReset(0);
-    printf("CHECKED=%d\n", c->exec());
-    
     a.exec();
     remove_pidfile();
     exit(0);
@@ -726,7 +720,7 @@ void KPPPWidget::prepareSetupDialog() {
     tabWindow->setCaption( i18n("kppp Configuration") );
     tabWindow->setOkButton(i18n("OK"));
     tabWindow->setCancelButton(i18n("Cancel"));
-    tabWindow->setFixedSize( 355, 350 ); // this doesn't seem to work in Qt 1.1
+    tabWindow->setFixedSize( 355, 350 );
 
     accounts = new AccountWidget(tabWindow,"accounts");
     connect(accounts, SIGNAL(resetaccounts()),
