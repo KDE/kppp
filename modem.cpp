@@ -327,7 +327,6 @@ bool Modem::hangup() {
   // kppp. If people complain about kppp being stuck, this piece of code
   // is most likely the reason.
   struct termios temptty;
-  int  modemstat;
 
   if(modemfd >= 0) {
 
@@ -365,6 +364,7 @@ bool Modem::hangup() {
     cfsetispeed(&temptty, B0);
     tcsetattr(modemfd, TCSAFLUSH, &temptty);
 #else
+    int modemstat;
     ioctl(modemfd, TIOCMGET, &modemstat);
     modemstat &= ~TIOCM_DTR;
     ioctl(modemfd, TIOCMSET, &modemstat);

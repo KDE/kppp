@@ -43,6 +43,7 @@ class GraphSetup;
 class AboutWidget;
 class PPPStats;
 class KDialogBase;
+class KPushButton;
 
 class SignalEvent : public QEvent {
 public:
@@ -104,7 +105,7 @@ public:
   ConWindow *con_win;
   PPPStatsDlg *statdlg;
   AccountingBase *acct;
-  QPushButton *quit_b;
+  KPushButton *quit_b;
   PPPStats *stats;
 
 private:
@@ -117,8 +118,8 @@ private:
 
   QString ruleset_load_errmsg;
 
-  QPushButton *help_b;
-  QPushButton *setup_b;
+  KPushButton *help_b;
+  KPushButton *setup_b;
   QFrame *fline;
   QFrame *fline1;
   QPushButton *connect_b;
@@ -128,7 +129,7 @@ private:
   QLineEdit *ID_Edit;
   QLineEdit *PW_Edit;
   QLabel *label1;
-  QLabel *label2;  
+  QLabel *label2;
   QLabel *label3;
   QLabel *label4;
   QLabel *label5;

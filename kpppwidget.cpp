@@ -49,6 +49,9 @@
 #include <kseparator.h>
 #include <kstandarddirs.h>
 #include <kwin.h>
+#include <khelpmenu.h>
+#include <kpushbutton.h>
+#include <kguiitem.h>
 
 #include <stdlib.h>
 #include <errno.h>
@@ -170,30 +173,37 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   tl->addLayout(l2);
 
   int minw = 0;
-  quit_b = new QPushButton(i18n("&Quit"), this);
+  quit_b = new KPushButton(i18n("&Quit"), this);
+  quit_b-> setGuiItem (KGuiItem(i18n("&Quit"), "exit" ) );
   connect( quit_b, SIGNAL(clicked()), SLOT(quitbutton()));
   if(quit_b->sizeHint().width() > minw)
-    minw = quit_b->sizeHint().width();
+      minw = quit_b->sizeHint().width();
 
-  setup_b = new QPushButton(i18n("&Setup..."), this);
+  setup_b = new KPushButton(i18n("&Setup..."), this);
+  setup_b->setGuiItem (KGuiItem(i18n("&Setup...")) );
   connect( setup_b, SIGNAL(clicked()), SLOT(expandbutton()));
   if(setup_b->sizeHint().width() > minw)
-    minw = setup_b->sizeHint().width();
+      minw = setup_b->sizeHint().width();
 
   if(gpppdata.access() != KConfig::ReadWrite)
     setup_b->setEnabled(false);
 
-  help_b = new QPushButton(i18n("&Help"), this);
+  help_b = new KPushButton(i18n("&Help"), this);
   connect( help_b, SIGNAL(clicked()), SLOT(helpbutton()));
+
+  KHelpMenu *helpMenu = new KHelpMenu(this, KGlobal::instance()->aboutData(), true);
+  help_b->setPopup((QPopupMenu*)helpMenu->menu());
+  help_b->setGuiItem (KGuiItem(i18n("&Help"), "help" ) );
+
   if(help_b->sizeHint().width() > minw)
-    minw = help_b->sizeHint().width();
+      minw = help_b->sizeHint().width();
 
   connect_b = new QPushButton(i18n("&Connect"), this);
   connect_b->setDefault(true);
   connect_b->setFocus();
   connect(connect_b, SIGNAL(clicked()), SLOT(beginConnect()));
   if(connect_b->sizeHint().width() > minw)
-    minw = connect_b->sizeHint().width();
+      minw = connect_b->sizeHint().width();
 
   quit_b->setFixedWidth(minw);
   setup_b->setFixedWidth(minw);
@@ -218,7 +228,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
 
-  // constructor of con_win reads position from config file  
+  // constructor of con_win reads position from config file
   con_win = new ConWindow(0, "conw", this, stats);
   KWin::setIcons(con_win->winId(), kapp->icon(), kapp->miniIcon());
 
@@ -257,7 +267,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 	  this, SLOT(saveMyself()));
   connect(KApplication::kApplication(), SIGNAL(shutDown()),
 	  this, SLOT(shutDown()));
-	  
+
   debugwindow->setGeometry(desk.center().x()+190, desk.center().y()-55,
 			   debugwindow->width(),debugwindow->height());
 
@@ -333,7 +343,7 @@ bool KPPPWidget::eventFilter(QObject *o, QEvent *e) {
 
 void KPPPWidget::prepareSetupDialog() {
   if(tabWindow == 0) {
-    tabWindow = new KDialogBase( KDialogBase::Tabbed, i18n("KPPP Configuration"), 
+    tabWindow = new KDialogBase( KDialogBase::Tabbed, i18n("KPPP Configuration"),
                                  KDialogBase::Ok|KDialogBase::Cancel, KDialogBase::Ok,
                                  kapp->mainWidget(), 0, true);
 
@@ -849,7 +859,7 @@ void KPPPWidget::setQuitOnDisconnect (bool b)
 }
 
 void KPPPWidget::showNews() {
-#ifdef KPPP_SHOW_NEWS 
+#ifdef KPPP_SHOW_NEWS
   /*
    * Introduce the QuickHelp feature to new users of this version
    */
