@@ -288,10 +288,9 @@ void MonthlyWidget::plotMonth() {
       QString s_lifrom, s_liuntil, s_costs;
       s_lifrom = KGlobal::locale()->formatTime(li->from().time(), false);
       s_liuntil = KGlobal::locale()->formatTime(li->until().time(), false);
-      s_costs.sprintf("%6.2f",
-                      li->sessionCosts());
+      s_costs = KGlobal::locale()->formatMoney(li->sessionCosts());
 
-    	(void) new LogListItem(li, lv, con, day, s_lifrom, s_liuntil, s_duration, s_costs, _bin, _bout);
+      (void) new LogListItem(li, lv, con, day, s_lifrom, s_liuntil, s_duration, s_costs, _bin, _bout);
     }
   }
 
@@ -471,8 +470,7 @@ void MonthlyWidget::exportWizard() {
       QString s_lifrom, s_liuntil, s_costs;
       s_lifrom = KGlobal::locale()->formatTime(li->from().time(), false);
       s_liuntil = KGlobal::locale()->formatTime(li->until().time(), false);
-      s_costs.sprintf("%6.2f",
-                      li->sessionCosts());
+      s_costs = KGlobal::locale()->formatMoney(li->sessionCosts());
 
       // call export method
       exportIFace->addDataline(con, day, s_lifrom, s_liuntil, s_duration,
