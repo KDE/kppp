@@ -1,6 +1,6 @@
 # KDE Config File
-AccountingEnabled=1
-AccountingFile=/Yugoslavia/041Net.rst
+AccountingEnabled=0
+AccountingFile=
 Authentication=1
 AutoName=0
 Command=
@@ -11,13 +11,13 @@ Domain=eunet.yu
 ExDNSDisabled=0
 Gateway=0.0.0.0
 IPAddr=%IPADDR%
-Name=041Net
-Password=net
+Name=EUnet@Kragujevac
+Password=%PASSWORD%
 ScriptArguments=ogin:,%USERNAME%,assword:,%PASSWORD%,
 ScriptCommands=Expect,Send,Expect,Send,
 StorePassword=1
 SubnetMask=0.0.0.0
-Username=041
+Username=%USERNAME%
 VolumeAccountingEnabled=0
 pppdArguments=
-Phonenumber=041910910
+Phonenumber=303777

@@ -1,6 +1,6 @@
 # KDE Config File
-AccountingEnabled=0
-AccountingFile=
+AccountingEnabled=1
+AccountingFile=/Yugoslavia/9819.rst
 Authentication=1
 AutoName=0
 Command=
