@@ -44,16 +44,17 @@
 
 #include <unistd.h>
 #include <stdio.h>
+#include <limits.h>
 
 #include "utils.h"
 #include "kpppconfig.h"
 
 // in case of error, we simply return "0" and hope it's ok :-)
 int pppInterfaceNumber() {
-  char ifname[64];
+  char ifname[PATH_MAX];
 
   for(int i = 0; i < 8; i++) {
-    sprintf(ifname, "%s/ppp%d.pid", PPP_PID_DIR, i);
+    snprintf(ifname, sizeof(ifname), "%s/ppp%d.pid", PPP_PID_DIR, i);
     if(access(ifname, F_OK) == -1)
       return i;
   }
