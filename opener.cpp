@@ -44,14 +44,23 @@
 #include <sys/ioctl.h>
 #include <sys/un.h>
 #include <sys/wait.h>
+#include <sys/param.h>
 
 
 #include <netinet/in.h>
 
 #ifdef __FreeBSD__
-     #include <sys/param.h>
+     // For kldload
      #include <sys/linker.h>
-     #include <net/if_ppp.h>
+#endif
+
+
+#ifdef HAVE_LINUX_IF_PPP_H
+#include <linux/if_ppp.h>
+#endif
+
+#ifdef HAVE_NET_IF_PPP_H
+#include <net/if_ppp.h>
 #endif
 
 #include <errno.h>
@@ -592,7 +601,10 @@ const char* pppdPath() {
 
 int checkForInterface()
 {
-#ifdef __FreeBSD__
+// I don't know if Linux needs more initialization to get the ioctl to
+// work, pppd seems to hint it does.  But BSD doesn't, and the following
+// code should compile.
+#if defined(HAVE_NET_IF_PPP_H) || defined(HAVE_LINUX_IF_PPP_H)
     int s, ok;
     struct ifreq ifr;
     extern char *no_ppp_msg;
@@ -605,13 +617,26 @@ int checkForInterface()
     close(s);
 
     if (ok == -1) {
+// This is ifdef'd FreeBSD, because FreeBSD is the only BSD that supports
+// KLDs, the old LKM interface couldn't handle loading devices
+// dynamically, and thus can't load ppp support on the fly
+#ifdef __FreeBSD__
         // If we failed to load ppp support and don't have it already.
         if (kldload("if_ppp") == -1) {
             return -1;
         }
         return 0;
+#else
+        return -1;
+#endif
     }
     return 0;
+#else
+// We attempt to use the SunOS/SysVr4 method and stat /dev/ppp
+   struct stat buf;
+
+   memset(&buf, 0, sizeof(buf));
+   return stat("/dev/ppp", &buf);
 #endif
 }
 
