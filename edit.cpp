@@ -719,7 +719,7 @@ void DNSWidget::DNS_Mode_Selected(int mode) {
   dnsipaddr->setText("");
   dnsipaddr->setEnabled(on);
   add->setEnabled(false);
-  remove->setEnabled(false);
+  remove->setEnabled(dnsservers->count()>0 && on);
   dnsservers->clearSelection();
   dnsservers->setEnabled(on);
   dnsservers->triggerUpdate(false);
@@ -756,6 +756,7 @@ void DNSWidget::removedns() {
   i = dnsservers->currentItem();
   if(i != -1)
     dnsservers->removeItem(i);
+  remove->setEnabled(dnsservers->count()>0);
 }
 
 
