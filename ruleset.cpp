@@ -122,7 +122,7 @@ int RuleSet::load(const QString &filename) {
       else
 	buffer[br] = 0;
       lineno++;
-      line.append(buffer);
+      line.append( QString::fromLocal8Bit(buffer) );
       backslashed = (line.right(1) == "\\");
     } while(!f.atEnd() && backslashed);
 
