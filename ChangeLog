@@ -1,3 +1,7 @@
+1999-07-07  Mario Weilguni <mweilguni@kde.org>
+
+	* kppp now finds the icons again
+
 1999-07-06  Harri Porten  <porten@kde.org>
 
 	* modem.cpp: adhere to the lock file format described in the

@@ -136,7 +136,7 @@ void ProviderDB::loadProviderInfo() {
   urlEncode(provider);
   QString prov = "kppp/Provider/" + loc;
   prov += "/" + provider;
-  QString fname = locate("data", prov);
+  QString fname = locate("appdata", prov);
   Debug("Providerfile=%s\n", fname.data());
 
   cfg = new KSimpleConfig(fname, true);
@@ -227,7 +227,7 @@ PDB_Country::PDB_Country(QWidget *parent) : QWidget(parent) {
 
     // traverse the list and insert into the widget
     QRegExp re("_");
-    while((fi = it.current()) != NULL) {
+    while((fi = it.current()) != 0) {      
       QString fname = fi->fileName();
       if(fname.length() && fname[0] != '.') {
         fname = fname.replace(re, " ");

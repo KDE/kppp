@@ -91,7 +91,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   l12->addWidget(use_vol);
 
   // load the pmfolder pixmap from KDEdir
-  QString fname = locate("data", "kppp/pics/folder.xpm"); // ????
+  QString fname = locate("appdata", "pics/folder.xpm"); 
   pmfolder.load(fname);
 
   // scale the pixmap
@@ -102,7 +102,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   }
 
   // load the pmfolder pixmap from KDEdir
-  fname = locate("data", "kppp/pics/phone.xpm");
+  fname = locate("appdata", "pics/phone.xpm");
   pmfile.load(fname);
 
   // scale the pixmap
