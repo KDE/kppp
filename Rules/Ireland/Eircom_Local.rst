@@ -35,7 +35,7 @@ name=Ireland_Eircom_Local
 # Define IEP (Irish Pounds) to be used as currency symbol
 # ??? There is no way to define the currency code AND the symbol !!!
 # WARNING this will have to be changed to EUR from 2002-01-01
-currency_symbol=£
+currency_symbol=Â£
 
 # Define the position of the currency symbol.
 # (not absolutely needed, default is "right")
