@@ -52,7 +52,7 @@ extern PPPData gpppdata;
 // Helper functions
 //
 /////////////////////////////////////////////////////////////////////////////
-QString timet2qstring(time_t t) {
+static QString timet2qstring(time_t t) {
   QString s;
 
   s.sprintf("%lu", t);
@@ -89,13 +89,13 @@ AccountingBase::~AccountingBase() {
 }
 
 
-double AccountingBase::total() {
+double AccountingBase::total() const {
   return _total + _session;
 }
 
 
 
-double AccountingBase::session() {
+double AccountingBase::session() const {
   return _session;
 }
 
@@ -221,7 +221,7 @@ Accounting::Accounting(QObject *parent, PPPStats *st) :
 }
 
 
-bool Accounting::running() {
+bool Accounting::running() const {
   return (bool)(acct_timer_id != 0);
 }
 
@@ -339,7 +339,7 @@ bool Accounting::loadRuleSet(const QString & name) {
 }
 
 
-double Accounting::total() {
+double Accounting::total() const {
   if(rules.minimumCosts() <= _session)
     return _total + _session;
   else
@@ -348,7 +348,7 @@ double Accounting::total() {
 
 
 
-double Accounting::session() {
+double Accounting::session() const {
   if(rules.minimumCosts() <= _session)
     return _session;
   else
@@ -366,7 +366,7 @@ ExecutableAccounting::ExecutableAccounting(PPPStats *st, QObject *parent) :
 }
 
 
-bool ExecutableAccounting::running() {
+bool ExecutableAccounting::running() const {
   return (proc != 0) || proc->isRunning();
 }
 

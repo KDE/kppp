@@ -57,7 +57,7 @@ public:
   ~RuleSet() {};
 
   /// returns the name of the ruleset
-  QString name();
+  QString name() const;
 
   /** Load a ruleset from a file. If an error occurs,
    *  returns the linenumber the error was in,
@@ -67,24 +67,24 @@ public:
   int load(const QString &filename);
 
   /// returns the currency symbol
-  QString currencySymbol();
+  QString currencySymbol() const;
 
   /** returns a string representation of the
    *  of a doubleingpoint number using the
    *  currency-settings
    */
-  QString currencyString(double val);
+  QString currencyString(double val) const;
 
   /// sets the start time -- must be called when the connection has bee established
   void setStartTime(QDateTime dt);
 
   /// returns the "per-connection" costs
-  double perConnectionCosts();
+  double perConnectionCosts() const;
 
   /** returns the minimum number of costs (some
    *  phony companies have this
    */
-  double minimumCosts();
+  double minimumCosts() const;
 
   /// returns the currently valid rule settings
   void getActiveRule(QDateTime dt, double connect_time, double &costs, double &len);
@@ -99,7 +99,7 @@ protected:
   int dayNameToInt(const char *s);
 
   /// returns the date of easter-sunday for a year
-  QDate get_easter(int year);
+  static QDate get_easter(int year);
 
   /// add a rule to this ruleset
   void addRule(RULE r);

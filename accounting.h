@@ -43,10 +43,10 @@ public:
   AccountingBase(QObject *parent);
   virtual ~AccountingBase();
 
-  virtual double total();
-  virtual double session();
+  virtual double total() const;
+  virtual double session() const;
 
-  virtual bool running() { return false; };
+  virtual bool running() const { return false; };
   virtual bool loadRuleSet(const QString & name) = 0;
 
 public slots:
@@ -84,11 +84,11 @@ class Accounting : public AccountingBase {
 public:
   Accounting(QObject *parent, PPPStats *st);
 
-  virtual double total();
-  virtual double session();
+  virtual double total() const;
+  virtual double session() const;
 
   virtual bool loadRuleSet(const QString & name);
-  virtual bool running();
+  virtual bool running() const;
 
 private:
   virtual void timerEvent(QTimerEvent *t);
@@ -122,7 +122,7 @@ public:
   ExecutableAccounting(PPPStats *st, QObject *parent = 0);
 
   virtual bool loadRuleSet(const QString & );
-  virtual bool running();
+  virtual bool running() const;
 
 public slots:
   virtual void slotStart();

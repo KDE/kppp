@@ -75,7 +75,7 @@ QDate RuleSet::get_easter(int year) {
 }
 
 int RuleSet::dayNameToInt(const char *s) {
-  const char *name[] = {"monday", "tuesday", "wednesday",
+  const char *const name[] = {"monday", "tuesday", "wednesday",
 			"thursday", "friday", "saturday",
 			"sunday", NULL};
 
@@ -384,10 +384,9 @@ bool RuleSet::parseLine(const QString &s) {
   }
 
   // check currency settings
-  if(s.contains(QRegExp("currency_symbol=.*"))) {
-     _currency_symbol = s.mid(16, s.length()-16);
-
-      return TRUE;
+  if(s.find("currency_symbol=") >= 0) {
+     _currency_symbol = s.mid(16);
+     return TRUE;
   }
 
   if(s.contains(QRegExp("currency_digits=.*"))) {
@@ -485,33 +484,33 @@ void RuleSet::getActiveRule(QDateTime dt, double connect_time, double &costs, do
 }
 
 
-double round(double d, int digits) {
+static double round(double d, int digits) {
   d *= pow(10, digits);
   d = rint(d);
   d /= pow(10, digits);
   return d;
 }
 
-QString RuleSet::currencySymbol() {
+QString RuleSet::currencySymbol() const {
   return _currency_symbol.copy();
 }
 
-QString RuleSet::currencyString(double f) {
+QString RuleSet::currencyString(double f) const {
   return KGlobal::locale()->formatMoney(f, _currency_symbol, _currency_digits);
 }
 
 
-double RuleSet::perConnectionCosts() {
+double RuleSet::perConnectionCosts() const {
   return pcf;
 }
 
 
-QString RuleSet::name() {
+QString RuleSet::name() const {
   return _name;
 }
 
 
-double RuleSet::minimumCosts() {
+double RuleSet::minimumCosts() const {
   return _minimum_costs;
 }
 
