@@ -23,7 +23,7 @@ EXTRA_DIST = $(apps_DATA)
 # set the include path for X, qt and KDE
 INCLUDES= $(all_includes)
 # claim, which subdirectories you want to install
-SUBDIRS = docs pixmaps icons logview Rules DB
+SUBDIRS = pixmaps icons logview Rules DB
 
 # This one gets installed 
 bin_PROGRAMS = 	kppp
