@@ -1,7 +1,7 @@
-data_DATA =	Local.rst \
+rules_DATA =	Local.rst \
 		Long_Distance.rst \
 		Online.rst
 
-datadir = $(kde_datadir)/kppp/Rules/Austria/Minimum
+rulesdir = $(kde_datadir)/kppp/Rules/Austria/Minimum
 
-EXTRA_DIST = $(data_DATA)
+EXTRA_DIST = $(rules_DATA)
