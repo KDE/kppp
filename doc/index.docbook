@@ -1286,7 +1286,7 @@ with the negotiation protocol for initialising a ppp connection with your
 </mediaobject>
 </screenshot>
 
-<para>Here you can set the colours used by the &kppp; graph.  You can set
+<para>Here you can set the colors used by the &kppp; graph.  You can set
 different colors for <guilabel>Background color</guilabel>, <guilabel>Text
 color</guilabel>, <guilabel>Input bytes color</guilabel> and <guilabel>Output
 bytes color</guilabel>.</para>
