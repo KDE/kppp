@@ -49,7 +49,6 @@
 #include <kaboutdata.h>
 #include <kconfig.h>
 #include <kmessagebox.h>
-#include <knotifyclient.h>
 #include <qdir.h>
 #include <qwhatsthis.h>
 #include <qmessagebox.h>
@@ -836,7 +835,7 @@ void KPPPWidget::sigPPPDDied() {
 
         gpppdata.setpppdRunning(false);
 	
-	KNotifyClient::beep();
+	KApplication::beep();
 	QString msg;
 	if (gpppdata.pppdError() == E_IF_TIMEOUT)
 	    msg = i18n("Timeout expired while waiting for the PPP interface "
@@ -866,7 +865,7 @@ void KPPPWidget::sigPPPDDied() {
 	con_win->stopClock();
 	stopAccounting();
 	gpppdata.setpppdRunning(false);
-	KNotifyClient::beep();
+	KApplication::beep();
 	emit cmdl_start();
     }
   }
