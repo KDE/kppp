@@ -25,6 +25,8 @@
  */
 
 #include "iplined.h"
+#include <qvalidator.h>
+#include <qframe.h>
 
 IPLineEdit::IPLineEdit( QWidget *parent, const char *name )
   : KRestrictedLine(parent, name, "0123456789.")

@@ -98,7 +98,10 @@
 
 int	vflag, rflag, cflag, aflag;
 unsigned interval = 5;
+
 int	unit;
+char    unitName[5];
+
 int	s = 0;			/* socket file descriptor */
 int	signalled;		/* set if alarm goes off "early" */
 bool    ppp_stats_available;
@@ -155,7 +158,7 @@ int if_is_up() {
     memset(&ifr,0,sizeof(ifr));
 
     // if you change this you have to change "unit" for 0 to whatever.
-    strncpy(ifr.ifr_name, "ppp0", sizeof(ifr.ifr_name));
+    strncpy(ifr.ifr_name, unitName, sizeof(ifr.ifr_name));
 
 
     if(ioctl(s, SIOCGIFFLAGS, &ifr)<0){
@@ -180,11 +183,9 @@ int if_is_up() {
 }
 
 
-bool init_stats(){
-
-
-  unit = 0; // carefull here this is the zero of ppp0
-
+bool init_stats() {
+  // autodetected now!
+  //  unit = 0; // carefull here this is the zero of ppp0
 
   ibytes = 0;
   ipackets = 0;
@@ -200,7 +201,7 @@ bool init_stats(){
   have_local_address = false;
   tmp_address = "";
 
-  strcpy(ifr.ifr_name, "ppp0"); // if you change this you have to change "unit"
+  strcpy(ifr.ifr_name, unitName); // if you change this you have to change "unit"
     
   if (ioctl(s, SIOCGIFADDR, &ifr) < 0) {	
   }

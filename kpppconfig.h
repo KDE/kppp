@@ -121,5 +121,3 @@ const unsigned int MAX_CMDLEN = 2024;
 #endif
 
 #endif
-
-

@@ -59,7 +59,8 @@ kppp_SOURCES	= accounts.cpp \
 		newwidget.cpp \
 		requester.cpp \
 		opener.cpp \
-		modemdb.cpp
+		modemdb.cpp \
+		utils.cpp
 
 # the library search path
 kppp_LDFLAGS = $(all_libraries) $(KDE_RPATH)
@@ -100,7 +101,8 @@ noinst_HEADERS = accounts.h \
 		log.h \
 		groupbox.h \
 		newwidget.h \
-		modemdb.h
+		modemdb.h \
+		utils.h
 
 METASOURCES = accounting.moc \
 	accounts.moc \
@@ -122,7 +124,7 @@ METASOURCES = accounting.moc \
 	pppdargs.moc \
 	pppstatdlg.moc \
 	pwentry.moc \
-	scriptedit.moc 
+	scriptedit.moc
 
 messages:
 	$(XGETTEXT) -C -ktranslate -ki18n -x $(includedir)/kde.pot $(kppp_SOURCES) && mv messages.po ../po/kppp.pot

@@ -1,4 +1,11 @@
-1999-02-09  Mario Weilguni <mweilguni@sime.com>
+1999-02-10  Mario Weilguni <mweilguni@sime.com>
+
+	* the PPP interface name is now autodetected
+
+	* replaced the "Help" button with a questionmark. Makes the window
+	  much smaller, especially in other languages than english
+
+1999-02-09  Mario Weilguni <mweilguni@sime.com>	
 
 	* fixed a bug in the accounting module. The last character of the
   	  logfile was overwritten each time a log file was

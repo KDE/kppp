@@ -843,6 +843,16 @@ const bool PPPData::storePassword() {
 }
 
 
+const char* PPPData::command_before_connect() {
+  return readConfig(cgroup, BEFORE_CONNECT_KEY);
+}
+
+
+void PPPData::setCommand_before_connect( const char *n ) {
+  writeConfig(cgroup, BEFORE_CONNECT_KEY, n);
+}
+
+
 void PPPData::setStorePassword(bool b) {
   writeConfig(cgroup, STORE_PASSWORD_KEY, (int)b);
 }

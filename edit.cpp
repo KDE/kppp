@@ -23,9 +23,6 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include "edit.h"
-#include "pppdata.h"
-#include "termios.h"
 #include <qlayout.h>
 #include <kquickhelp.h>
 #include <qregexp.h>
@@ -34,8 +31,12 @@
 #include <kbuttonbox.h>
 #include <kwm.h>
 
+#include "edit.h"
+#include "pppdata.h"
+#include "termios.h"
 #include "macros.h"
 #include "newwidget.h"
+#include "iplined.h"
 
 DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
   : KGroupBox(i18n("Dial Setup"), parent, name)
@@ -287,19 +288,35 @@ i18n("Here you can select commands to run at certain stages of the\n"
   tl->addWidget(l);
   tl->addStretch(1);
 
-  QGridLayout *l1 = new QGridLayout(5, 2, 10);
+  QGridLayout *l1 = new QGridLayout(4, 2, 10);
   tl->addLayout(l1);
   l1->setColStretch(0, 0);
   l1->setColStretch(1, 1);  
 
+  before_connect_l = newLabel(i18n("Before connect:"), peer());
+  before_connect_l->setAlignment(AlignVCenter);
+  l1->addWidget(before_connect_l, 0, 0);
+  before_connect = new QLineEdit(peer());
+  before_connect->setMaxLength(COMMAND_SIZE);
+  FIXED_HEIGHT(before_connect);
+  MIN_WIDTH(before_connect);
+  l1->addWidget(before_connect, 0, 1);
+  KQuickHelp::add(before_connect_l,
+  KQuickHelp::add(before_connect,
+		  i18n("Allows you to run a program <b>before</b> a connection\n"
+		       "is established. It is called immediatly before\n"
+		       "dialling is begun.\n\n"
+		       "Might be useful, e.g. to stop HylaFAX blocking the\n"
+		       "modem.")));
+
   command_label = newLabel(i18n("Upon connect:"), peer());
   command_label->setAlignment(AlignVCenter);
-  l1->addWidget(command_label, 0, 0);
+  l1->addWidget(command_label, 1, 0);
   command = new QLineEdit(peer());
   command->setMaxLength(COMMAND_SIZE);
   FIXED_HEIGHT(command);
   MIN_WIDTH(command);
-  l1->addWidget(command, 0, 1);
+  l1->addWidget(command, 1, 1);
   KQuickHelp::add(command_label,
   KQuickHelp::add(command,
 		  i18n("Allows you to run a program <b>after</b> a connection\n"
@@ -327,13 +344,13 @@ i18n("Here you can select commands to run at certain stages of the\n"
   discommand_label = newLabel(i18n("Upon disconnect:"),
 			      peer());
   discommand_label->setAlignment(AlignVCenter);
-  l1->addWidget(discommand_label, 4, 0);
+  l1->addWidget(discommand_label, 3, 0);
 
   discommand = new QLineEdit(peer());
   discommand->setMaxLength(COMMAND_SIZE);
   FIXED_HEIGHT(discommand);
   MIN_WIDTH(discommand);
-  l1->addWidget(discommand, 4, 1);
+  l1->addWidget(discommand, 3, 1);
   KQuickHelp::add(discommand_label,
   KQuickHelp::add(discommand,
 		  i18n("Allows you to run a program <b>after</b> a connection\n"
@@ -348,6 +365,7 @@ i18n("Here you can select commands to run at certain stages of the\n"
 
   // Set defaults if editing an existing connection
   if(!isnewaccount) {
+    before_connect->setText(gpppdata.command_before_connect());
     command->setText(gpppdata.command_on_connect());
     discommand->setText(gpppdata.command_on_disconnect());
     predisconnect->setText(gpppdata.command_before_disconnect());
@@ -356,9 +374,10 @@ i18n("Here you can select commands to run at certain stages of the\n"
 
 
 bool ExecWidget::save() {
+  gpppdata.setCommand_before_connect(before_connect->text());
   gpppdata.setCommand_on_connect(command->text());
   gpppdata.setCommand_before_disconnect(predisconnect->text());
-  gpppdata.setCommand_on_disconnect(discommand->text());
+  gpppdata.setCommand_on_disconnect(discommand->text());  
   return true;
 }
 

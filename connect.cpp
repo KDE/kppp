@@ -57,6 +57,8 @@
 #include "docking.h"
 #include "log.h"
 #include "modem.h"
+#include "utils.h"
+
 
 extern KPPPWidget *p_kppp;
 extern int if_is_up();
@@ -67,6 +69,13 @@ QString old_hostname;
 bool modified_hostname;
 
 extern int totalbytes;
+
+
+// this is for setting the correct interface (ppp0, ppp1...).
+// This stuff is located in pppstats.cpp
+extern int unit;
+extern char unitName[5];
+
 
 ConnectWidget::ConnectWidget(QWidget *parent, const char *name)
   : QWidget(parent, name),
@@ -182,7 +191,7 @@ void ConnectWidget::init() {
 
   p_kppp->con_speed = "";
 
-  quit_on_disconnect = quit_on_disconnect || gpppdata.quit_on_disconnect(); 
+  quit_on_disconnect = quit_on_disconnect || gpppdata.quit_on_disconnect();
 
   comlist = &gpppdata.scriptType();
   arglist = &gpppdata.script();
@@ -192,6 +201,22 @@ void ConnectWidget::init() {
   setCaption(tit);
 
   kapp->processEvents();
+
+  // run the "before-connect" command
+  if(strlen(gpppdata.command_before_connect()) > 0) {
+    messg->setText(i18n("Running pre-startup command..."));
+    emit debugMessage(i18n("Running pre-startup command..."));
+
+    kapp->processEvents();
+    pid_t id = execute_command(gpppdata.command_before_connect());
+    int i, status;
+
+    do {
+      kapp->processEvents();
+      i = waitpid(id, &status, WNOHANG);
+      usleep(100000);
+    } while (i == 0 && errno == 0);
+  }
 
   int lock = Modem::modem->lockdevice();
 
@@ -734,6 +759,11 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       if_timeout_timer->start(atoi(gpppdata.pppdTimeout())*1000);
       Debug("started if timeout timer with %d\n",atoi(gpppdata.pppdTimeout())*1000);
 
+      // find out PPP interface
+      unit = pppInterfaceNumber();
+      sprintf(unitName, "ppp%d", unit);
+      fprintf(stderr, "USING PPP UNIT %s\n", unitName);
+
       kapp->flushX();
       semaphore = true;
       result = execppp();
@@ -748,8 +778,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	// where we wait for the ppp if (interface) to come up.
 
 	emit if_waiting_signal();
-      }
-      else {
+      } else {
 
 	// starting pppd wasn't successful. Error messages were 
 	// handled by execppp();

@@ -45,11 +45,12 @@
 #include <qchkbox.h>
 #include <qlabel.h>
 #include "scriptedit.h"
-#include "iplined.h"
 #include "kpppconfig.h"
 #include "pppdargs.h"
 #include "edit.h"
 #include "groupbox.h"
+
+class IPLineEdit;
 
 class DialWidget : public KGroupBox {
   Q_OBJECT
@@ -96,6 +97,9 @@ public slots:
   bool save();
 
 private:
+  QLineEdit *before_connect;
+  QLabel *before_connect_l;
+
   QLineEdit *command;
   QLabel *command_label;
 

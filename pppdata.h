@@ -112,6 +112,7 @@
 #define STORED_PASSWORD_KEY "Password"
 #define STORED_USERNAME_KEY "Username"
 #define STORE_PASSWORD_KEY "StorePassword"
+#define BEFORE_CONNECT_KEY  "BeforeConnect"
 #define COMMAND_KEY        "Command"
 #define DISCONNECT_COMMAND_KEY "DisconnectCommand"
 #define BEFORE_DISCONNECT_KEY  "BeforeDisconnect"
@@ -321,6 +322,9 @@ public:
 
   const char* speed();
   void setSpeed(const char *);
+
+  const char* command_before_connect();
+  void setCommand_before_connect(const char*);
 
   const char* command_on_connect();
   void setCommand_on_connect(const char*);

@@ -44,6 +44,8 @@
 #include <kbuttonbox.h>
 #include <kiconloader.h>
 
+#include "utils.h"
+
 #include "acctselect.h"
 #include "main.h"
 #include "version.h"
@@ -59,6 +61,7 @@
 #include "opener.h"
 #include "requester.h"
 #include "modemdb.h"
+#include "iplined.h"
 
 #include <X11/Xlib.h>
 
@@ -599,7 +602,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   if(gpppdata.access() != KApplication::APPCONFIG_READWRITE)
     setup_b->setEnabled(false);
 
-  help_b = new QPushButton(i18n("Help"), this);
+  help_b = new QPushButton(i18n("?"), this);
   connect( help_b, SIGNAL(clicked()), SLOT(helpbutton()));
   MIN_HEIGHT(help_b);
   if(help_b->sizeHint().width() > minw)
@@ -617,7 +620,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   //  minw = QMAX(minw,70);
   quit_b->setMinimumWidth(minw);
   setup_b->setMinimumWidth(minw);
-  help_b->setMinimumWidth(minw);
+  help_b->setMinimumWidth(help_b->sizeHint().width());
   connect_b->setMinimumWidth(minw);
 
   l2->addWidget(quit_b);
