@@ -1,0 +1,26 @@
+# KDE Config File
+# http://web.tiscali.nl/servicecentre/content/article.asp?id=571000
+ExDNSDisabled=0
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=0676060000
+IPAddr=0.0.0.0
+Domain=
+Name=Tiscali Compleet
+VolumeAccountingEnabled=1
+pppdArguments=
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=4
+DNS=195.241.162.35,195.241.49.33
+SubnetMask=0.0.0.0
+AccountingFile=/Netherlands/BelBasis_Regio.rst
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=
+AutoDNS=0

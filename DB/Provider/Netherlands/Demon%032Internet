@@ -1,0 +1,27 @@
+# KDE Config File
+# http://www.demon.nl/support/inbelverbinding/inbelnummers.html#nummers
+# http://www.demon.nl/support/inbelverbinding/intro.html
+ExDNSDisabled=0
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=0676033666:0676077666
+IPAddr=0.0.0.0
+Domain=demon.nl
+Name=Demon Internet
+VolumeAccountingEnabled=1
+pppdArguments=
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=4
+DNS=194.159.73.135,194.159.73.136
+SubnetMask=255.255.255.0
+AccountingFile=/Netherlands/BelBasis_Regio.rst
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=194.159.73.222
+StorePassword=1
+DisconnectCommand=
+pppdArguments=-detach,mru 576,mtu 576

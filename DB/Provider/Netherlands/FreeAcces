@@ -1,0 +1,27 @@
+# KDE Config File
+# http://www.freeaccess.nl/informatie-hoe-win95.html
+
+ExDNSDisabled=0
+AutoDNS=1
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=8500000
+IPAddr=0.0.0.0
+Domain=
+Name=Freeacces
+VolumeAccountingEnabled=1
+pppdArguments=
+BeforeDisconnect=
+Password=%USERNAME%
+Command=
+ScriptCommands=
+Authentication=4
+DNS=195.85.130.70,195.85.130.69
+SubnetMask=0.0.0.0
+AccountingFile=/Netherlands/BelBasis_Regio.rst
+DefaultRoute=1
+Username=%PASSWORD%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=
