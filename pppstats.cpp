@@ -52,7 +52,6 @@
 #include <string.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-// #include <net/ppp_defs.h>
 #include <netinet/in.h>
 
 #include "kpppconfig.h"
@@ -64,22 +63,15 @@
 #undef __GLIBC__
 #endif
 #include <sys/socket.h>		/* *BSD, Linux, NeXT, Ultrix etc. */
-#ifndef __linux__
-#include <net/if.h>
-#include <net/ppp_defs.h>
-#include <net/if_ppp.h>
-#else
-/* Linux */
-#if __GLIBC__ >= 2
-#include <asm/types.h>		/* glibc 2 conflicts with linux/types.h */
-#include <net/if.h>
-#else
-#include <linux/types.h>
-#include <linux/if.h>
-#endif
-#include <linux/ppp_defs.h>
+#ifndef HAVE_NET_IF_PPP_H
+#ifdef HAVE_LINUX_IF_PPP_H
 #include <linux/if_ppp.h>
-#endif /* __linux__ */
+#endif
+#else
+#include <net/ppp_defs.h>
+#include <net/if.h>
+#include <net/if_ppp.h>
+#endif                                                                          
 
 #else	/* STREAMS */
 #include <sys/stropts.h>	/* SVR4, Solaris 2, SunOS 4, OSF/1, etc. */

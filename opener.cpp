@@ -63,14 +63,13 @@ extern "C" int sethostname(char *name, int name_len);
 #include <config.h>
 #endif
 
-#include <net/ppp_defs.h>
-#include <net/if.h>
-
 #ifndef HAVE_NET_IF_PPP_H
 #ifdef HAVE_LINUX_IF_PPP_H
 #include <linux/if_ppp.h>
 #endif
 #else
+#include <net/ppp_defs.h>
+#include <net/if.h>
 #include <net/if_ppp.h>
 #endif
 
