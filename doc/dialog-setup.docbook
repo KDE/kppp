@@ -1,0 +1,765 @@
+<chapter id="dialog-setup">
+<title>Setting up a connection with the dialogs</title>
+
+<para>Setting up a connection with the dialog based setup is not too much more
+difficult than using the wizard.</para>
+
+<para>You can reach the setup dialog the same way you did the wizard.  Start
+&kppp; from your <guimenu>K</guimenu> menu, where you will find its entry in the
+<guisubmenu>Internet</guisubmenu> as <guimenuitem>Internet
+Dialler</guimenuitem>.</para>
+
+<para>The following dialog will appear:</para>
+
+<screenshot>
+<screeninfo>The &kppp; dialer startup screen</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="kppp-dialler-tab.png" format="PNG"/>
+</imageobject>
+<textobject><phrase>The &kppp; dialer startup screen</phrase>
+</textobject>
+<caption><para>The &kppp; dialer startup screen</para></caption>
+</mediaobject>
+</screenshot>
+
+<para>It will probably not have any entries to begin with, and that's what we're
+about to do now.</para>
+
+<para>Click the <guibutton>Setup</guibutton> button to begin setting up a new
+Internet connection.</para>
+
+<para>This time, choose <guilabel>Dialog setup</guilabel> and you'll see the
+following Dialog appear:</para>
+
+<screenshot>
+<screeninfo>The <guilabel>New Account</guilabel> Dialog</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="kppp-account-dial-tab.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>The <guilabel>New Account</guilabel> Dialog</phrase>
+</textobject>
+<caption>
+<para>The <guilabel>New Account</guilabel> Dialog</para>
+</caption>
+</mediaobject>
+</screenshot>
+
+<!-- Make a screenshot of the actual new Account Dialog with no entries -->
+
+<para>The <guilabel>New Account</guilabel> dialog contains the following
+sections:</para>
+
+<itemizedlist>
+<listitem>
+<para><link linkend="account-dial"><guilabel>Dial</guilabel></link></para>
+</listitem>
+<listitem>
+<para><link linkend="account-ip"><guilabel>IP</guilabel></link></para>
+</listitem>
+<listitem>
+<para><link linkend="account-gateway"><guilabel>Gateway</guilabel></link></para>
+</listitem>
+<listitem>
+<para><link linkend="account-dns"><guilabel>DNS</guilabel></link></para>
+</listitem>
+<listitem>
+<para><link linkend="account-login-script"><guilabel>Login
+Script</guilabel></link></para>
+</listitem>
+<listitem>
+<para><link linkend="account-execute"><guilabel>Execute</guilabel></link></para>
+</listitem>
+<listitem>
+<para><link
+linkend="account-accounting"><guilabel>Accounting</guilabel></link></para>
+</listitem>
+</itemizedlist>
+
+<para>You normally won't need to fill in all these, although each of them is
+described in the following sections.</para>
+
+<sect1 id="account-dial">
+<title>The <guilabel>Dial</guilabel> tab</title>
+
+<screenshot>
+<screeninfo>The Accounts <guilabel>Dial</guilabel> tab</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="kppp-account-dial-tab.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>The Accounts <guilabel>Dial</guilabel> tab</phrase>
+</textobject>
+<caption><para>The Accounts <guilabel>Dial</guilabel> tab</para>
+</caption>
+</mediaobject>
+</screenshot>
+
+<para>The <guilabel>Dial</guilabel> tab has the following options:</para>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Connection Name:</guilabel></term>
+<listitem>
+<para>You must give the account a name.  This can be anything you like, but if
+you have more than one account, each name must be unique.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Phone Number:</guilabel></term>
+<listitem>
+<para>Specify the phone number to dial.  You can use characters such as
+<quote>-</quote> to make the number more legible.  If you concatenate a series
+of numbers separated by a colon (&eg;
+<userinput>1111111:2222222:3333333</userinput>, &kppp; will try these numbers one
+after the other whenever it receives a busy signal.  You can use the
+<guibutton>Add</guibutton> button to add another number,
+<guibutton>Remove</guibutton> to remove a number from the list, and the
+<guiicon>up</guiicon> and <guiicon>down</guiicon> arrows to change the order of
+the list.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Authentication</guilabel></term>
+<listitem>
+<para>Choose the appropriate method of authentication that &kppp; should use to
+log into the server.  Check with your provider for more information.  Use of
+<acronym>PAP</acronym> and <acronym>CHAP</acronym> are described in the chapter
+<xref linkend="chap-and-pap"/>.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Store password</guilabel></term>
+<listitem>
+<para>Check this option if you want &kppp; to remember your password between
+sessions.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guibutton>Customize pppd arguments...</guibutton></term>
+<listitem>
+<para>This will bring up the <application>pppd</application> arguments dialog.
+You can use this dialog to add any desired options that you want &kppp; to hand
+to <application>pppd</application>.  See the <application>pppd</application> man
+page for a list of available options, but unless you know exactly what you are
+doing, you should probably restrain yourself from tinkering with these.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+<sect1 id="account-ip">
+<title>The <guilabel>IP</guilabel> tab</title>
+
+<screenshot>
+<screeninfo>The Accounts <guilabel>IP</guilabel> tab</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="kppp-account-ip-tab.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>The Accounts <guilabel>IP</guilabel> tab</phrase>
+</textobject>
+<caption><para>The Accounts <guilabel>IP</guilabel> tab</para>
+</caption>
+</mediaobject>
+</screenshot>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Dynamic IP Address</guilabel></term>
+<listitem>
+<para>Check this if your <acronym>ISP</acronym> uses dynamic
+<acronym>IP</acronym> address assignment.  In this case, your
+<acronym>IP</acronym> address will change every time you establish a
+connection.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Static IP Address</guilabel></term>
+<listitem>
+<para>Check this if your <acronym>ISP</acronym> has given you a static
+<acronym>IP</acronym> address. In that case you will also need to fill in that
+address in the <guilabel>IP Address</guilabel> box, and any <guilabel>Subnet
+Mask</guilabel> if applicable. Ask your <acronym>ISP</acronym> if
+unsure.  Dynamically assigned addresses are used in the huge majority if
+<acronym>ISP</acronym>'s and leaving this checked will in most cases be the
+right choice.</para>
+</listitem>
+</varlistentry>
+<varlistentry id="auto-configure-hostname">
+<term><guilabel>Auto-configure hostname from this IP</guilabel></term>
+<listitem>
+<para>Select this option if you want &kppp; to set the hostname and domain for
+your machine after a successful <acronym>ppp</acronym> connection.</para>
+<para>This is done by querying the defined Domain Name Server with the
+<acronym>IP</acronym> assigned for the <acronym>ppp</acronym> link.</para>
+<para>This option is useful for those stand-alone machines which want to use
+protocols such as talk, which require the hostname to be the same as your
+machine is known on the internet.  It overrides the <guilabel>Domain
+Name</guilabel> option in the <guilabel>DNS</guilabel> section, and the machine
+defaults are restored to their original values when you close the
+<acronym>ppp</acronym> connection.</para>
+<para>This option is <emphasis>not</emphasis> useful if you just want to connect
+to the internet and surf, check mail, or chat.  It has the side-effect of
+disallowing any new connections to your X server - in other words, you can't
+open any more <acronym>GUI</acronym> programs.</para>
+<para>Only turn this on if you are absolutely sure you need it.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+<sect1 id="account-gateway">
+<title>The <guilabel>Gateway</guilabel> tab</title>
+
+<screenshot>
+<screeninfo>The Accounts <guilabel>Gateway</guilabel> tab</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="kppp-account-gateway-tab.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>The Accounts <guilabel>Gateway</guilabel> tab</phrase>
+</textobject>
+<caption><para>The Accounts <guilabel>Gateway</guilabel> tab</para>
+</caption>
+</mediaobject>
+</screenshot>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Default Gateway</guilabel></term>
+<listitem>
+<para>Check this if you want <application>pppd</application> to use the default
+Gateway for your machine.  This is the default.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Static Gateway</guilabel></term>
+<listitem>
+<para>Check this if you want to specify the Gateway to be used in place of the
+default.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Assign the Default Route to this Gateway</guilabel></term>
+<listitem>
+<para>You almost certainly will need this to be checked (the default).</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+<sect1 id="account-dns">
+<title>The <guilabel>DNS</guilabel> tab</title>
+
+<screenshot>
+<screeninfo>The Accounts <guilabel>DNS</guilabel> tab</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="kppp-account-dns-tab.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>The Accounts <guilabel>DNS</guilabel> tab</phrase>
+</textobject>
+<caption><para>The Accounts <guilabel>DNS</guilabel> tab</para>
+</caption>
+</mediaobject>
+</screenshot>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Domain Name:</guilabel></term>
+<listitem>
+<para>Specify the domain name for your machine.  As with <acronym>DNS</acronym>
+addresses, it is restored to the original specified in
+<filename>/etc/resolv.conf</filename> when the connection goes down.  If it is
+left blank, no changes are made to the domain name specified in
+<filename>/etc/resolv.conf</filename></para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Configuration:</guilabel></term>
+<listitem>
+<para>Choose between <guilabel>Automatic</guilabel> (the <acronym>ISP</acronym>
+will automatically issue you <acronym>DNS</acronym> server addresses when you
+connect) and <guilabel>Manual</guilabel>.  If you choose manual, the
+<guilabel>DNS IP Address</guilabel> section is then enabled.</para> 
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>DNS IP Address</guilabel></term>
+<listitem>
+<para>This section is only enabled if you chose <guilabel>Manual</guilabel> in
+the previous option.  Add the Domain Name Servers assigned to you by your
+<acronym>ISP</acronym>.  You must specify at least one Domain Name Server for
+your <acronym>OS</acronym> to be able to resolve human readable
+<acronym>IP</acronym> addresses such as
+<systemitem>ftp.kde.org</systemitem>. The <acronym>DNS</acronym> server
+addresses supplied must be in numeric form, &eg;
+<systemitem>128.231.231.233</systemitem>.  These addresses will be added at
+runtime to <filename>/etc/resolv.conf</filename>.</para> 
+<para>Choose the <guibutton>Add</guibutton> button to add each new
+<acronym>DNS</acronym> server address to the list box below.  Choose
+<guibutton>Remove</guibutton> to remove an entry from the list.</para> 
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Disable existing DNS Servers during Connection</guilabel></term>
+<listitem>
+<para>If you check this box, any <acronym>DNS</acronym> servers listed in
+<filename>/etc/resolv.conf</filename> will be disabled while the connection
+remains up.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+<sect1 id="account-login-script">
+<title>The <guilabel>Login Script</guilabel> tab</title>
+
+<screenshot>
+<screeninfo>The Accounts <guilabel>Login Script</guilabel> tab</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="kppp-account-login-script-tab.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>The Accounts <guilabel>Login Script</guilabel> tab</phrase>
+</textobject>
+<caption><para>The Accounts <guilabel>Login Script</guilabel> tab</para>
+</caption>
+</mediaobject>
+</screenshot>
+
+<para>Use this dialog to compose a dial in script for your
+<acronym>ISP</acronym> dialup connection. You can use the mini-terminal and the
+information supplied by your <acronym>ISP</acronym> to find out what sequence of
+actions needs to be executed.</para>
+
+<para>Choose an option from the drop down box on the left, and then add any
+parameters for that action in the edit box on the right.  Use
+<guibutton>Add</guibutton> to add each entry to the <emphasis>bottom</emphasis>
+of the script, which is displayed in the lower part of the dialog.  Use
+<guibutton>Insert</guibutton> to insert an entry anywhere in the script, and use
+<guibutton>Remove</guibutton> to delete a line from the script.</para>
+
+<para>The options available are:</para>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Expect</guilabel></term>
+<listitem>
+<para>&kppp; will wait for the specified string to be received.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Send</guilabel></term>
+<listitem>
+<para>&kppp; will send the specified string.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Scan</guilabel></term>
+<listitem>
+<para>&kppp; will scan the input stream for the specified string, and will
+store any character from the end of the string up to the next newline, in an
+internal buffer.  Trailing and leading whitespace will be stripped off.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Save</guilabel></term>
+<listitem>
+<para>Permanently store the previously scanned string in the specified register.
+Currently the only valid register is <varname>password</varname>.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Pause</guilabel></term>
+<listitem>
+<para>Pause for the specified number of seconds.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Hangup</guilabel></term>
+<listitem>
+<para>&kppp; will send the <command>hangup</command> to the modem.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Answer</guilabel></term>
+<listitem>
+<para>&kppp; will set the modem into answer mode.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Timeout</guilabel></term>
+<listitem>
+<para>Change the default timeout to the specified number of seconds dynamically
+during the script.  You can change the timeout several times during script
+execution if necessary.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Prompt</guilabel></term>
+<listitem>
+<para>Prompt the &kppp; user to enter a string, given the specified string as a
+hint.  The user will see what is typed.  If the specified string includes the
+mark <userinput>##</userinput>, the mark will be replaced with the current
+content of the internal scan buffer, as previously stored with the
+<guilabel>scan</guilabel> command.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>PWPrompt</guilabel></term>
+<listitem>
+<para>Prompt the &kppp; user to enter a string, given the specified string as a
+hint.  An asterisk will be printed for each character the user types.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>ID</guilabel></term>
+<listitem>
+<para>If the <guilabel>Login ID</guilabel> field on &kppp;'s main dialog is filled in,
+send that <acronym>ID</acronym>.  If the <guilabel>Login ID</guilabel> field is not
+filled in, prompt the &kppp; user to enter an <acronym>ID</acronym>, given the
+specified string as a hint.  The user will see what is typed.  On a second pass,
+such as in a loop on a second iteration, or during callback authentication, the
+prompt will be displayed regardless of whether the <guilabel>Login ID</guilabel> field
+is filled in.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Password</guilabel></term>
+<listitem>
+<para>If the <guilabel>Password</guilabel> field on &kppp;'s main dialog is
+filled in, send that password.  If the <guilabel>Password</guilabel> field is
+not filled in, prompt the &kppp; user to enter a password, with the specified
+string as a hint.  An asterisk will be printed for each character typed.  On a
+second pass, such as in a loop on a second iteration, or during callback
+authentication, the prompt will be displayed regardless of whether the
+<guilabel>Password</guilabel> field is filled in.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>LoopStart</guilabel></term>
+<listitem>
+<para>&kppp; will wait for the specified string to be received.  It will save
+the string for use by <varname>LoopEnd</varname>.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>LoopEnd</guilabel></term>
+<listitem>
+<para>&kppp; will wait for the specified string to be received to exit the loop.
+If the string given by the corresponding <varname>LoopStart</varname> is
+received first, it will trigger a jump to the line after
+<varname>LoopStart</varname>, enabling repetition of username/password style
+paired dialogs.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<sect2>
+<title>Example Scripts</title>
+
+<example>
+<title>A simple example login script</title>
+<para>Here is a simple example script I could use to connect to my
+<acronym>ISP</acronym></para>
+
+<screen>
+ Expect      ID:                        <lineannotation># wait for ID:</lineannotation>
+ Send        myid                       <lineannotation># you have to substitute myid with your id</lineannotation>
+ Expect      word:                      <lineannotation># wait for 'password'</lineannotation>
+ Send        4u3fjkl                    <lineannotation># send my password '4u3fjkl'</lineannotation>
+ Expect      granted                    <lineannotation># My ISP send 'Permission granted' on login success.</lineannotation>
+ Send        ppp                        <lineannotation># This starts a ppp connection for 
+                                        # me on the ISP side.</lineannotation>
+</screen>
+
+</example>
+
+<example>
+<title>A login script that prompts for ID and password, and has loops.</title>
+
+<para>Here is a script for the same account with an <acronym>ID</acronym> and
+password prompt.  This script will prompt for <acronym>ID</acronym> and password
+each time, no matter what is typed into the <guilabel>Login ID</guilabel> and
+<guilabel>password</guilabel> fields on &kppp;'s main screen.</para>
+
+<para>This script also illustrates the use of the LoopStart/LoopEnd structure.
+If something goes wrong during the login procedure, for example, I mistype the
+password, my <acronym>ISP</acronym> will print an error message and restart the
+id/password loop by issuing the string <computeroutput>ID:</computeroutput>
+again.  If the string <computeroutput>ID:</computeroutput> is caught before the
+LoopEnd keyword was parsed, &kppp; will start the script again, from the line
+after the LoopStart keyword.</para>
+
+<screen>
+ LoopStart   ID:                        <lineannotation># wait for ID:</lineannotation>
+ Prompt      Enter ID:                  <lineannotation># Prompt me for my ID and send it off.</lineannotation>
+ Expect      word:                      <lineannotation># wait for 'password'</lineannotation>
+ PWPrompt    Enter Password:            <lineannotation># Prompt me for my password and send it off.</lineannotation>
+ LoopEnd     granted                    <lineannotation># My ISP send 'Permission granted' on login success.</lineannotation>
+ Send        ppp                        <lineannotation># This starts a ppp connection for me</lineannotation>
+</screen>
+</example>
+
+<example>
+<title>Prompts for information not filled in on the main dialog.</title>
+
+<para>Here is the script that I actually use to connect to my
+<acronym>ISP</acronym>.  This script will prompt for <acronym>ID</acronym> and
+password only if I haven't filled in the respective fields on &kppp;'s main
+dialog.</para>
+
+<screen>
+ LoopStart   ID:                        <lineannotation># wait for ID:</lineannotation>
+ ID          Enter ID:                  <lineannotation># Prompt me for my ID and send it off.</lineannotation>
+ Expect      word:                      <lineannotation># wait for 'password'</lineannotation>
+ Password    Enter Password             <lineannotation># Prompt me for my password and send it off.</lineannotation>
+ LoopEnd     granted                    <lineannotation># My ISP send 'Permission granted' on login success.</lineannotation>
+ Send        ppp                        <lineannotation># This starts a ppp connection for me</lineannotation>
+                                        <lineannotation># on the ISP side</lineannotation>
+</screen>
+
+</example>
+
+<example>
+<title>A script for an <acronym>ISP</acronym> using challenge/response
+authentication.</title>
+
+<para>Here is a script that I use to connect to an <acronym>ISP</acronym> which
+is using some sort of challenge/response authentication. Usually you got a
+hardware token (a smart card with a display and calculator like keypad) from the
+<acronym>ISP</acronym>. You have to know a password to use the token. After
+dialling in your <acronym>ISP</acronym> displays your challenge. You have to
+type in the challenge to your token and get a dynamic password as a
+response. Then you have to enter that password.</para>
+
+<screen>
+ LoopStart   ID:                        <lineannotation># wait for ID:</lineannotation>
+ ID          Enter ID:                  <lineannotation># Prompt me for my ID and send it off.</lineannotation>
+ Scan        Challenge:                 <lineannotation># Scan for 'Challenge' and store everything behind up to the next newline.</lineannotation>
+ Expect      Password:                  <lineannotation># wait for 'password'</lineannotation>
+ Prompt      Your token is ## - Enter Password  # Prompt me for my password and send it off.
+ LoopEnd     granted                    <lineannotation># My ISP sends 'Permission granted' on login success.</lineannotation>
+ Send        ppp                        <lineannotation># This starts a ppp connection for me
+                                        # on the ISP side</lineannotation>
+</screen>
+</example>
+
+<example>
+<title>Using Scan and Save in scripts</title>
+
+<para>The following log shows the login procedure of a fictitious
+<acronym>ISP</acronym> that provides a new password on each login. The new
+password has to be verified and recorded for the next session. </para>
+
+<screen> University of Lummerland
+ 
+ Login:mylogin
+ Password: 
+ The password for your next session is: YLeLfkZb
+ Please record and enter it for verification.
+ Verification:YLeLfkZb
+ 
+ 1 = telnet
+ 2 = SLIP
+ 3 = PPP
+ 
+ Your choice:
+</screen>
+
+<para>&kppp; can be used to this cumbersome task for you, eliminating the risk
+of losing that little sheet of paper that holds your current password at the
+same time.  The key part of the following script is the combination of Scan/Save
+keywords.</para>
+
+<screen>
+7 Expect      Login:                     <lineannotation># wait for login prompt</lineannotation>
+ ID                                     <lineannotation># send ID</lineannotation>
+ Expect      Password:                  <lineannotation># wait for password prompt</lineannotation>
+ Password                               <lineannotation># send password</lineannotation>
+ Scan        is:                        <lineannotation># wait for '... next session is:' and
+                                        # scan the preceding password</lineannotation>
+ Save        password                   <lineannotation># save the new password for next login</lineannotation>
+ Expect      Verification:              <lineannotation># wait for 'Verification:'</lineannotation>
+ Password                               <lineannotation># send new password</lineannotation>
+ Expect      choice:                    <lineannotation># wait for a prompt that let's you choose</lineannotation>
+                                        <lineannotation># between different options (telnet, SLIP, PPP)</lineannotation>
+ Send        3                          <lineannotation># choose option 3, i.e. PPP</lineannotation>
+</screen>
+</example>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="account-execute">
+<title>The <guilabel>Execute</guilabel> tab</title>
+
+<screenshot>
+<screeninfo>The Accounts <guilabel>Execute</guilabel> tab</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="kppp-account-execute-tab.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>The Accounts <guilabel>Execute</guilabel> tab</phrase>
+</textobject>
+<caption><para>The Accounts <guilabel>Execute</guilabel> tab</para>
+</caption>
+</mediaobject>
+</screenshot>
+
+<para>Here you can select commands to run at certain stages of the connection.
+These commands are run with your real user id, so you cannot run any commands
+here requiring root permissions, unless you are of course dialled in as root (a
+bad thing to do for many reasons!)</para>
+
+<para>Make sure to supply the whole path to the program, otherwise &kppp; may
+not be able to find it.</para>
+
+<para>You can add commands to be run at four distinct times during the
+connection process:</para>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Before Connect</guilabel></term>
+<listitem>
+<para>Run this command before the dialling is initiated, so it is already
+running when you connect to your <acronym>ISP</acronym>.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Upon Connect</guilabel></term>
+<listitem>
+<para>Run this command only after a successful connection is
+made.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Before disconnect</guilabel></term>
+<listitem>
+<para>Run this command while still connected, before hanging up the
+modem.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Upon disconnect</guilabel></term>
+<listitem>
+<para>Run this command after the connection has been closed.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<para>You might for example want to run <application>leafnode</application> as
+soon as you have connected, or check your mail.  You might want to make sure any
+mail in your queue is sent, before you close your connection down.  You might
+want a <quote>clean-up</quote> script to tidy up logs and clear your cache after
+you have disconnected.</para>
+
+</sect1>
+
+<sect1 id="account-accounting">
+<title>The <guilabel>Accounting</guilabel> tab</title>
+
+<screenshot>
+<screeninfo>The Accounts <guilabel>Accounting</guilabel> tab</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="kppp-account-accounting-tab.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>The Accounts <guilabel>Accounting</guilabel> tab</phrase>
+</textobject>
+<caption><para>The Accounts <guilabel>Accounting</guilabel> tab</para>
+</caption>
+</mediaobject>
+</screenshot>
+
+<para>Check the <guilabel>Enable Accounting</guilabel> box to enable or disable
+telephone cost accounting for this account.</para>
+
+<para>Select from the list the applicable rule for your telecoms
+provider.</para>
+
+<para>If you can't find one, you can write one yourself by copying the supplied
+template, which you will find in an <link
+linkend="appendix-accounting-template">appendix</link>.</para>
+
+<para>The final option on this page is <guilabel>Volume Accounting</guilabel>,
+described below.</para>
+
+<sect2>
+<title>Volume Accounting</title>
+
+<sect3>
+<title>What is volume accounting?</title>
+
+<para>Basically, it means to count the number of bytes transmitted to and from
+the Internet.  &kppp; can count incoming bytes, outgoing bytes, or both.  It's
+up to you what you want (or must) use.</para>
+
+</sect3>
+
+<sect3>
+<title>Why should I use volume acounting?</title>
+
+<para>Many Internet Service Providers bill their customers based on the number
+of bytes transferred.  Even more commonly, <acronym>ISP</acronym>'s offer a flat
+rate up to some arbitrary transfer limit, and then charge more for every
+megabyte above this limit.  &kppp; shows you your current volume and can help
+you keep your bills to the minimum.  Of course, even if you're not billed based
+on volume, you can turn on volume accounting just to satisfy your own
+curiosity.</para>
+
+</sect3>
+
+<sect3>
+<title>What type of volume accounting should I select?</title>
+
+<para>That depends mainly on your provider.  Many of them only count how many
+megabytes you download from the Internet,and ignore how much you send.  In that
+case you should choose <guilabel>Bytes In</guilabel>.  If you have to pay for
+both, you should choose <guilabel>Bytes In and Out</guilabel>.  <guilabel>Bytes
+Out</guilabel> is really only here for completeness, as we're not aware of any
+providers using it as a billing basis.  It might be useful to those of you
+running a web or &FTP; server at home though.</para>
+
+</sect3>
+
+<sect3>
+<title>Drawbacks</title>
+
+<para>Unfortunately, there is a drawback on volume accounting.  &kppp; will only
+count the number of bytes, regardless of their origin.  Many providers set their
+limit only for Internet access, and not for data on their own network.  Some
+providers set different limits for data that is on their own network, in the
+same country, and coming from overseas.  So, if you're doing not much
+websurfing, and getting most of your pages from your <acronym>ISP</acronym>'s
+own proxy cache, then your provider is probably not charging you for that data.
+&kppp; will not know these <acronym>IP</acronym> packets are coming from the
+proxy, and so it will count them.  So if you this situation applies to you, or,
+as another example, your provider uses a caching news server such as
+<application>nntpcached</application>, then the volume reported by &kppp; may be
+higher than the amount you are going to be billed for.  On the bright side, at
+least &kppp; will never underestimate your bills.</para>
+
+</sect3>
+
+</sect2>
+
+</sect1>
+
+</chapter>

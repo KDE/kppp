@@ -1,0 +1,191 @@
+<chapter id="chap-and-pap">
+<title><acronym>PAP</acronym> and <acronym>CHAP</acronym></title>
+
+<para>Starting with version 0.9.1, &kppp; has supported directly the most
+commonly used form of <acronym>PAP</acronym> authentication. </para>
+
+<sect1 id="pap-with-kppp">
+<title><acronym>PAP</acronym> with &kppp;</title>
+
+<para>There are two different ways to use <acronym>PAP</acronym>.</para>
+
+<sect2 id="client-side-authentication">
+<title>Client side authentication</title>
+
+<para>This variant is used by many commercial <acronym>ISP</acronym>'s.  It
+basically means that you (or rather, your computer) must authenticate yourself
+to the <acronym>ISP</acronym>'s <acronym>PPP</acronym> server.  The
+<acronym>PPP</acronym> server does not need to authenticate itself to your
+computer.  This is no security issue, as you should know which computer you just
+tried to dial to.</para>
+
+<para>If your <acronym>ISP</acronym> gives you a username and password, and
+tells you to use <acronym>PAP</acronym> authentication, this is the variant you
+should choose.</para>
+
+</sect2>
+
+<sect2 id="two-way-authentication">
+<title>Two way authentication</title>
+
+<para>As above, but in this case your computer requires the
+<acronym>ISP</acronym> <acronym>PPP</acronym> server to authenticate itself.  In
+order to establish a connection, you must chose the authentication method
+<guilabel>Script based</guilabel>, not <guilabel>PAP</guilabel>, and you will
+have to manually edit <filename>/etc/ppp/pap-secrets</filename>.  While &kppp;
+doesn't provide built in support for this variant, it is nevertheless easy to
+establish a connection.</para>
+
+</sect2>
+
+<sect2 id="preparing-kppp-for-pap">
+<title>Preparing &kppp; for <acronym>PAP</acronym></title>
+
+<procedure>
+<step>
+<para>Make sure that the file <filename>/etc/ppp/options</filename> (and
+<filename>&tilde;/.ppprc</filename> if it exists) do <emphasis>not</emphasis>
+contain one of the following arguments:</para>
+
+<itemizedlist>
+<listitem>
+<para><option>+pap</option></para>
+</listitem>
+<listitem>
+<para><option>-pap</option></para>
+</listitem>
+<listitem>
+<para><option>papcrypt</option></para>
+</listitem>
+<listitem>
+<para><option>+chap</option></para>
+</listitem>
+<listitem>
+<para><option>+chap</option></para>
+</listitem>
+<listitem>
+<para><option>+ua</option></para>
+</listitem>
+<listitem>
+<para><option>remotename</option></para>
+</listitem>
+</itemizedlist>
+
+<para>It is very unlikely that any of these options are already there, but just
+to be sure, please check.</para>
+</step>
+<step>
+<para>Start &kppp;</para>
+</step>
+<step>
+<para>Click <guibutton>Setup</guibutton></para>
+</step>
+<step>
+<para>Choose the account you want to use <acronym>PAP</acronym> with and click
+<guibutton>Edit</guibutton></para>
+</step>
+<step>
+<para>Choose the <guilabel>Dial</guilabel> tab</para>
+</step>
+<step>
+<para>Select <acronym>PAP</acronym> in the <guilabel>Authentication</guilabel>
+drop down box.</para>
+</step>
+<step>
+<para>If you do not want to retype the password each time you dial in, select
+<guilabel>Store password</guilabel>.  This will save the password to a file, so
+make sure that nobody else has access to your account.</para>
+</step>
+<step>
+<para>That's it.  Close the dialogs, type in the username and password your
+<acronym>ISP</acronym> supplied, and click
+<guibutton>Connect</guibutton>.</para>
+</step>
+</procedure>
+
+
+</sect2>
+
+</sect1>
+
+<sect1 id="pap-and-chap-alternate-method">
+<title>An alternative method of using <acronym>PAP</acronym> and
+<acronym>CHAP</acronym> with &kppp;</title>
+
+<para>This section is based on an email from Keith Brown
+<email>kbrown@pdq.net</email> and explains how to make &kppp; work with a
+generic <acronym>PAP</acronym> or <acronym>CHAP</acronym> account.  If your
+<acronym>ISP</acronym> just gave you a user id and a password for an account,
+you probably can skip this section, and the instructions in the previous one
+will be all you need.</para>
+
+<para><acronym>PAP</acronym> seems a lot more complicated at first glance than
+it really is.  The server (the machine you are connecting to) basically tells
+the client (your machine) to authenticate using <acronym>PAP</acronym>.  The
+client (<application>pppd</application>) looks in a specific file for an entry
+that contains a matching server name, and a client name for this connection, and
+then sends the password it finds there.  That's about it!</para>
+
+<para>Now here's how to make that happen.  I am assuming a
+<acronym>pppd</acronym> version of 2.2.x or better and a standard installation
+of configuration files under <filename
+class="directory">/etc/ppp</filename>.</para>
+
+<para>For the purposes of illustration, imagine that you have an internet
+account with <systemitem>glob.net</systemitem> with the username
+<systemitem>userbaz</systemitem> and the password
+<literal>foobar</literal></para>
+
+<para>First, you need to add all this to a  file called
+<filename>/etc/ppp/pap-secrets</filename>.  The format of an entry for our
+purposes is:</para>
+
+<screen><userinput>USERNAME    SERVERNAME     PASSWORD</userinput></screen>
+
+<para>So you would add the following line to
+<filename>/etc/ppp/pap-secrets</filename> and then save it :</para>
+
+<screen><userinput>userbaz     glob           foobar</userinput></screen>
+
+<note>
+<para>You can use any name for the server you wish, so long as you use the
+same name in the <application>pppd</application> arguments, as you'll see
+shortly.  Here it's been shortened to <userinput>glob</userinput>, but this name
+is only used to locate the correct password.</para>
+</note>
+
+<para>Next you need to set up the connection in &kppp;.  The basics are the same
+as any other connection, so we won't go into details here, except to say that
+you probably want to make sure that <filename>/etc/ppp/options</filename> is
+empty, and you don't want to create a login script either.</para>
+
+<para>In the &kppp; settings dialog, at the bottom of the
+<guilabel>Dial</guilabel> tab, is a <guibutton>pppd arguments</guibutton>
+button.  This brings up an editing dialog.  Here you can enter values that will
+be sent to <application>pppd</application> as command line arguments, and in the
+case of multiple value arguments, you need to enter each value as a separate
+entry in the listbox, in the correct order.</para>
+
+<para>You can put in any other arguments you want first.  Then add the arguments
+that <application>pppd</application> uses to handle <acronym>PAP</acronym>
+authentication.  In this example, we are going to add
+<userinput>user</userinput>, <userinput>userbaz</userinput>,
+<userinput>remotename</userinput> and <userinput>glob</userinput> in that
+order.</para>
+
+<para>The <option>user</option> tells the <application>pppd</application> what
+user name to look for in the <filename>pap-secrets</filename> file and then to
+send to the server.  The remotename is used by <application>pppd</application>
+to match the entry in the <filename>pap-secrets</filename> file, so again, it
+can be anything you want so long as it is consistent with the entry in the
+<filename>pap-secrets</filename> file.</para>
+
+<para>That's all there is to it, and you should now be able to set up your own
+connection to a server with <acronym>PAP</acronym> authentication.
+<acronym>CHAP</acronym> is not much different.  You can see the &Linux; Network
+Administrators Guide for a <filename>chap-secrets</filename> file format, and
+the <application>pppd</application> arguments used, and the rest should be
+simple.</para>
+
+</sect1>
+</chapter>

@@ -1,0 +1,117 @@
+<chapter id="wizard">
+<title>The &kppp; wizard</title>
+
+<sect1 id="starting-the-wizard">
+<title>Starting the Wizard.</title>
+
+<para>You can start the wizard from &kppp;'s initial screen.  Start &kppp; from
+your <guimenu>K</guimenu> menu, where you will find it's entry in the
+<guisubmenu>Internet</guisubmenu> as <guimenuitem>Internet
+Dialer</guimenuitem>.</para>
+
+<para>The following dialog will appear:</para>
+
+<screenshot>
+<screeninfo>The &kppp; dialer startup screen</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="kppp-dialler-tab.png" format="PNG"/>
+</imageobject>
+<textobject><phrase>The &kppp; dialer startup screen</phrase>
+</textobject>
+<caption><para>The &kppp; dialer startup screen</para></caption>
+</mediaobject>
+</screenshot>
+
+<para>It will probably not have any entries to begin with, and that's what we're
+about to do now.</para>
+
+<para>Click the <guibutton>Setup</guibutton> button to begin setting up a new
+Internet connection.</para>
+
+<para>The wizard will offer you three choices, <guibutton>Wizard</guibutton>,
+<guibutton>Dialog Setup</guibutton> and <guibutton>Cancel</guibutton></para>
+
+<screenshot>
+<screeninfo>The wizard asks you what you want to do...</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="kppp-wizard.png" format="PNG"/>
+</imageobject>
+<textobject><phrase>The wizard asks you what you want to
+do...</phrase></textobject>
+<caption><para>The wizard asks you what you want to do</para></caption>
+</mediaobject>
+</screenshot>
+
+<variablelist>
+<varlistentry>
+<term><guibutton>Cancel</guibutton></term>
+<listitem><para>Choose this if you really don't want to be setting up a new
+account right now. The message box will go away, and you will be left with the
+dialler screen as before.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guibutton>Wizard</guibutton></term>
+<listitem><para>If you have a fairly standard modem, and use one of the larger
+ISP's for your country, the wizard will probably be able to set you up
+immediately with a working Internet Connection. Try this first, before you try
+to set up the connection manually.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guibutton>Dialog Setup</guibutton></term>
+<listitem><para>If you don't succeed with the Wizard, or you just want to do
+things yourself, choose this.  The wizard currently is only useful for a small
+subset of countries and Internet Providers.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<para>For the purposes of this chapter, we'll assume you are choosing
+<guibutton>Wizard</guibutton>, and the dialog based setup will be described in a
+later chapter.</para>
+
+</sect1>
+
+<sect1 id="finishing-the-wizard">
+<title>The Rest of the Wizard</title>
+
+<para>The first screen you see contains just introductory text, explaining the
+things you read about in the first section of this chapter.  Press
+<guibutton>Next</guibutton> to move on.</para>
+
+<para>The second screen asks you to choose the country you live in.  Not all
+countries are represented here, and if the country you live in is not listed,
+you will have to press <guibutton>Cancel</guibutton>, in which case the <link
+linkend="dialog-setup">Dialog based setup</link> will start for you to continue
+with.</para>
+
+<para>On the next screen, you will be given a choice of Internet Providers that
+&kppp; knows about, based on your choice of location in the previous screen.
+Again, if your <acronym>ISP</acronym> is not listed here, you will have to press
+<guibutton>Cancel</guibutton> and do your setup in the <link
+linkend="dialog-setup">Dialog based setup</link></para>
+
+<para>You will now be asked to enter your username and password for your
+internet connection.  Please note, that for some <acronym>ISP</acronym>s this
+differs from your mail account user name and password, so make sure you use the
+right one. Choose <guibutton>Next</guibutton> to continue.</para>
+
+<para>On the next screen, you have a chance to enter any special dial prefixes
+you might have - for example, if you must dial <quote>0</quote> for an outside
+line, or if have a prefix you can dial to turn off call waiting.  Choose
+<guibutton>Next</guibutton> to continue.</para>
+
+<para>And that's all!  If you want to revisit any of your choices, you can use
+the <guibutton>Back</guibutton> and <guibutton>Next</guibutton> buttons to move
+back and forth through the dialogs.  When you're happy, press the
+<guibutton>Finish</guibutton> button, and you're all done.</para>
+
+<para>Of course, any of this information can be edited at a later time, from the
+&kppp; Configuration dialog.</para>
+
+</sect1>
+
+</chapter>

@@ -1,0 +1,386 @@
+<chapter id="global-settings">
+<title>Global &kppp; settings</title>
+
+<para>The changes made here affect all accounts you have set up in &kppp;</para>
+
+<sect1 id="global-accounts">
+<title>The <guilabel>Accounts</guilabel> tab</title>
+
+<screenshot>
+<screeninfo>The <guilabel>Accounts</guilabel> tab</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="kppp-config.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>The <guilabel>Accounts</guilabel> tab</phrase>
+</textobject>
+<caption><para>The <guilabel>Accounts</guilabel> tab</para>
+</caption>
+</mediaobject>
+</screenshot>
+
+<para>In this dialog, you can manage the accounts themselves.  The names of the
+accounts appear in a list on the left of the dialog.</para>
+
+<para>To delete an account, select the <guibutton>Delete</guibutton> button.
+You will be asked to confirm before the account is finally deleted.</para>
+
+<para>You can make a copy of an account with the <guibutton>Copy</guibutton>
+button.  You could use this for example, to separate different users in the
+family, although that would normally be better done by having them be different
+users in the OS as well!  Or perhaps you just have more than one account with
+the same <acronym>ISP</acronym> and wish to use both of them.</para>
+
+<para>Choosing <guibutton>Edit...</guibutton> will take you to the dialog
+described in <link linkend="dialog-setup">Dialog Setup</link>, but with the
+selected accounts details.</para>
+
+<para>Choosing <guibutton>New...</guibutton> will offer you the choice between
+the <link linkend="wizard">Wizard</link> or the <link
+linkend="dialog-setup">Dialog Setup</link> already described.</para>
+
+<para>If you select an account, and you have turned on <link
+linkend="account-accounting">accounting</link> then the accumulated information
+for that account will appear in the two panels labelled <guilabel>Phone
+Costs:</guilabel> and <guilabel>Volume:</guilabel> respectively.</para>
+
+<para>To the left of the accounting display, are two buttons:
+<guibutton>Reset...</guibutton> and <guibutton>View Logs</guibutton>.</para>
+
+<para>Pressing <guibutton>Reset...</guibutton> will reset the <guilabel>Phone
+Costs:</guilabel> and <guilabel>Volume:</guilabel> information to 0.  You would
+typically want to do this once a month or quarter, when you have recieved your
+phone bill and reconciled the telephone costs. You can reset either
+independently, and are offered the choice of which item you want to reset, when
+you press the <guibutton>Reset</guibutton> button.</para>
+
+<para>Pressing <guibutton>View Logs</guibutton> will open another window, where
+a log of all the calls made with &kppp; will be displayed.  If you have kept
+logs, you can move forward and backward, in monthly steps.  This might be useful
+if you have received an abnormally large phone bill and are investigating
+why!</para>
+
+</sect1>
+
+<sect1 id="global-device">
+<title>The <guilabel>Device</guilabel> tab</title>
+
+<screenshot>
+<screeninfo>The <guilabel>Device</guilabel> tab</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="kppp-device-tab.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>The <guilabel>Device</guilabel> tab</phrase>
+</textobject>
+<caption><para>The <guilabel>Device</guilabel> tab</para>
+</caption>
+</mediaobject>
+</screenshot>
+
+<para>Here you can select and configure your modem.</para>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Modem Device</guilabel></term>
+<listitem>
+<para>Choose the device appropriate for your hardware.</para>
+<variablelist>
+<varlistentry>
+<term><filename>/dev/ttys0</filename></term>
+<listitem>
+<para>DOS or &Windows; users will know this as COM1, while COM2 is
+<filename>/dev/ttys1</filename> and so on.  These devices are
+the ones normally used on &Linux; systems.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><filename>/dev/cua0</filename></term>
+<listitem>
+<para>The first serial line (COM1).  COM2 is usually
+<filename>/dev/cua1</filename> and so on.  These devices are commonly used on
+BSD systems, namely FreeBSD, NetBSD and OpenBSD.  Older &Linux; systems may also
+have these, although on &Linux; they were renamed some time ago to <filename>/dev/ttyS<replaceable>x</replaceable></filename>.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><filename>/dev/ttyI0</filename></term>
+<listitem>
+<para>On &Linux; these belong to internal <acronym>ISDN</acronym> cards.  These
+devices emulate a common Hayes compatible modem.
+<filename>/dev/ttyI0</filename> is for the first,
+<filename>/dev/ttyI1</filename> is for the second
+<acronym>ISDN</acronym> card and so on. These devices are only available in the
+&Linux; version.</para> 
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><filename class="symlink">/dev/modem</filename></term>
+<listitem>
+<para>Many &Linux; distributions make a symbolic link from the real modem device
+to <filename class="symlink">/dev/modem</filename>.  <emphasis>You should avoid
+using this one.</emphasis>.  Use the real device that it is pointing to
+instead.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Flow Control</guilabel></term>
+<listitem>
+<para>Select from Hardware (CRTSCTS), Software (XON/XOFF) and no flow control.
+The recommended setting is Hardware flow control.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Line Termination</guilabel></term>
+<listitem>
+<para>Choose the correct <quote>Enter</quote> character sequence for your
+modem.  Most modems will use <quote>CR/LF</quote>, however some modems need a
+different setting.  If you experience trouble while running a login script, play
+with this parameter.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Connection Speed</guilabel></term>
+<listitem><para>Choose from the list of connection speeds supported by your
+serial port.  Note that the serial port supports much higher speeds than your
+modem in most cases. You should probably start with the highest number
+available, and only reduce it if you have connection problems.
+</para></listitem> 
+</varlistentry>
+<varlistentry>
+<term id="lock-files"><guilabel>Use Lock File</guilabel></term>
+<listitem>
+<para>Activate this option if you want &kppp; to create a lockfile. Under
+&Linux; the directory for such a file will be <filename
+class="directory">/var/lock</filename>.  Programs such as
+<application>mgetty</application> depend on the existence of such lock files,
+and &kppp; will not work with <application>mgetty</application> if the lock file
+is not set.  Make sure that you don't use the option <option>lock</option> for
+<application>pppd</application> if you want &kppp; to lock the modem, since the
+<application>pppd</application> option <option>lock</option> will induce
+<application>pppd</application> to try to lock the modem device.  Since &kppp;
+will have already locked the device, <application>pppd</application> will fail,
+and &kppp; will display the error <errorname>pppd died
+unexpectedly</errorname>.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Modem Timeout</guilabel></term>
+<listitem>
+<para>This is the time in seconds that &kppp; will wait for the
+<returnvalue>CONNECT</returnvalue> response from your modem.  A setting of about
+30 seconds should be sufficient for most purposes.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+<sect1 id="global-modem">
+<title>The <guilabel>Modem</guilabel> tab</title>
+
+<screenshot>
+<screeninfo>The <guilabel>Modem</guilabel> tab</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="kppp-modem-tab.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>The <guilabel>Modem</guilabel> tab</phrase>
+</textobject>
+<caption><para>The <guilabel>Modem</guilabel> tab</para>
+</caption>
+</mediaobject>
+</screenshot>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Busy Wait</guilabel></term>
+<listitem>
+<para>This is the length of time the modem should wait before redialling, after
+it has received a busy signal.  Note there are requirements by telecom providers
+in some countries, which ask you to not set this too low.
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Modem volume</guilabel></term>
+<listitem>
+<para>Use the slider to set the modem volume.  Left is low volume, center is
+medium volume, and right is high volume.  On some modems, low volume is the same
+as turning the volume off, and on other modems, medium and high are effectively
+the same thing.</para>
+</listitem>
+</varlistentry>
+<varlistentry id="modem-commands">
+<term><guibutton>Modem Commands</guibutton></term>
+<listitem>
+<para>In this dialog you can fill in any particular commands appropriate for
+your modem.  If you own a Hayes compatible modem, you most likely won't need to
+change any of the defaults, but you are encouraged to read the <link
+linkend="appendix-hayes-commands">Hayes Commands</link> Appendix in this help file.  The
+information supplied there can be very helpful in cases where you experience
+trouble setting up a stable connection with your <acronym>ISP</acronym>'s
+modems.  In particular the two settings for <guilabel>Pre-Init Delay</guilabel>
+and for <guilabel>Post-Init Delay</guilabel> if you are experienceing modem
+lockups.  These settings make &kppp; pause a little just before and just after
+sending the initialization string to your modem.  The <guilabel>Pre-Init
+Delay</guilabel> will by default also send a CR, unless you have set it the
+delay interval to 0.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guibutton>Query Modem</guibutton></term>
+<listitem>
+<para>Pushing this button will make &kppp; ask your modem to identify itself.
+On success, your modems response will be displayed in a dialog.  This may or may
+not prove to be informative, depending on your modem.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guibutton>Terminal</guibutton></term>
+<listitem>
+<para>Pushing the <guibutton>Terminal</guibutton> button will bring up a mini
+terminal. You can use the mini terminal to test your modem and to experiment
+with the negotiation protocol for initialising a ppp connection with your
+<acronym>ISP</acronym>.  You no longer need a terminal program such as
+<application>minicom</application> or <application>Seyon</application>.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+<sect1 id="global-graph">
+<title>The <guilabel>Graph</guilabel> tab</title>
+
+<screenshot>
+<screeninfo>The <guilabel>Graph</guilabel> tab</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="kppp-graph-tab.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>The <guilabel>Graph</guilabel> tab</phrase>
+</textobject>
+<caption><para>The <guilabel>graph</guilabel> tab</para>
+</caption>
+</mediaobject>
+</screenshot>
+
+<para>Here you can set the colors used by the &kppp; graph.  You can set
+different colors for <guilabel>Background color</guilabel>, <guilabel>Text
+color</guilabel>, <guilabel>Input bytes color</guilabel> and <guilabel>Output
+bytes color</guilabel>.</para>
+
+</sect1>
+
+<sect1 id="global-misc">
+<title>The <guilabel>Misc</guilabel> tab</title>
+
+<screenshot>
+<screeninfo>The <guilabel>Misc.</guilabel> tab</screeninfo>
+<mediaobject>
+<imageobject>
+<imagedata fileref="kppp-misc-tab.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>The <guilabel>Misc.</guilabel> tab</phrase>
+</textobject>
+<caption><para>The <guilabel>Misc.</guilabel> tab</para>
+</caption>
+</mediaobject>
+</screenshot>
+
+<para>Here are some options that don't really fit in with other sections, but
+can be very useful nonetheless.</para>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>pppd Version</guilabel></term>
+<listitem>
+<para>
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>pppd Timeout</guilabel></term>
+<listitem>
+<para>&kppp; will wait this amount of time after running the script and starting
+<application>pppd</application> for <application>pppd</application> to establish
+a valid <acronym>ppp</acronym> link before giving up and killing
+<application>pppd</application></para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Dock into Panel on Connect</guilabel></term>
+<listitem>
+
+<para>If this option is chosen, &kppp; will dock into the panel where it will be
+symbolized by a small animated icon.  Use the <mousebutton>left</mousebutton>
+mouse button on this icon to restore &kppp;'s window.  The
+<mousebutton>right</mousebutton> mouse button will open a popup menu that offers
+to restore the window, show transfer statistics, or close the connection.  This
+option overrides <guilabel>Minimize Window on Connect</guilabel>.</para>
+
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Automatic Redial on Disconnect</guilabel></term>
+<listitem>
+<para>Selectintg this will have &kppp; try to reconnect if you are
+disconnected.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Show Clock on Caption</guilabel></term>
+<listitem>
+<para>This will have &kppp; display the time connected on the caption of the
+&kppp; window, while you are online.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Disconnect on X-server shutdown</guilabel></term>
+<listitem>
+<para>Checking this will cause &kppp; to terminate the <acronym>ppp</acronym>
+link, disconnect the modem, and terminate accounting in an orderly fashion, when
+the X-server shuts down.  This is useful if you are prone to forgetting you are
+online, when you shut down the X-server, or if you simply don't want to worry
+about manually disconnecting your session.  If you don't want &kppp; to hang up
+the modem on X-server exit, you should leave this checkbox empty.  Beware that
+if you have accounting enabled, and you leave this option turned off, you will
+have an unterminated accounting entry in your logs, from each time the X-server
+exits and &kppp; terminates.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Quit on Disconnect</guilabel></term>
+<listitem>
+<para></para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Minimize Window on Connect</guilabel></term>
+<listitem>
+<para>If this option is chosen, &kppp; will be minimized after a connection is
+established.  The elapsed connection time will be shown in the taskbar.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect1>
+
+<sect1 id="global-about">
+<title>The <guilabel>About</guilabel> tab</title>
+
+<para>The <guilabel>About</guilabel> tab shows version, license, and author
+information about &kppp;.</para>
+
+</sect1>
+
+</chapter>

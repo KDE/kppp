@@ -1,0 +1,96 @@
+<chapter id="security">
+<title>&kppp; and security issues</title>
+
+<para>This section is mainly for superusers (<systemitem>root</systemitem>)
+people with high security demands, or simply technically interested people.  It
+is not necessary to read this if you only use &Linux; at home for yourself,
+although you may learn a thing or two in any case.</para>
+
+<sect1 id="security-restricting-access">
+<title>Restricting access to &kppp;</title>
+
+<para>A system administrator might want to restrict access as to who is allowed
+to use &kppp;.  There are two ways to accomplish this.</para>
+
+<sect2 id="security-group-permissions">
+<title>Restricting access with group permissions</title>
+
+<para>Create a new group (you might want to name it
+<systemitem>dialout</systemitem> or similar), and put every user that should be
+allowed to use &kppp; into that group.  Then type at the prompt:</para>
+
+<screen><prompt>#</prompt> <userinput><command>chown</command> <option>root.dialout</option> <filename>/opt/kde/bin/kppp</filename></userinput>
+<prompt>#</prompt> <userinput><command>chmod</command> <option>4750</option> <filename>/opt/kde/bin/kppp</filename></userinput>
+</screen>
+
+<para>This assumes that &kde; was installed in <filename class="directory">
+/opt/kde/</filename> and that your new group is named
+<systemitem>dialout</systemitem>.</para>
+
+</sect2>
+
+<sect2 id="security-kppps-way">
+<title>Restricting access &kppp;'s way</title>
+
+<para>Before doing anything, &kppp; checks if there is a file named
+<filename>/etc/kppp.allow</filename>. If such a file exists, only users named in
+this file are allowed to dial out.  This file must be readable by everyone (but
+of course <emphasis>NOT</emphasis> writable.)  Only login names are recognized,
+so you cannot use <acronym>UID</acronym>'s in this file.  Here is a short
+example:</para>
+
+<screen>
+# /etc/kppp.allow
+# comment lines like this are ignored
+# as well as empty lines
+
+fred
+karl
+daisy
+</screen>
+
+<para>In the example above, only the users <systemitem>fred</systemitem>,
+<systemitem>karl</systemitem> and <systemitem>daisy</systemitem> are allowed to
+dial out, as well as every user with a <acronym>UID</acronym> of 0 (so you don't
+have to explicitly list root in the file).</para>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="security-why-suid">
+<title>&kppp; has the <acronym>SUID</acronym> bit on? What about
+security?</title>
+
+<para>It's virtually impossible to write a dialler without the
+<acronym>SUID</acronym> bit that is both safe and easy to use for inexperienced
+users.  &kppp; addresses the security issues with the following strategy.</para>
+
+<itemizedlist>
+<listitem>
+<para>Immediately after the program starts, &kppp; forks.</para>
+</listitem>
+<listitem>
+<para>The master process, which handles all the <acronym>GUI</acronym> stuff
+such as user interaction) drops the <acronym>SUID</acronym> state after the
+fork, and runs with normal user privileges.</para>
+</listitem>
+<listitem>
+<para>The slave process keeps its  privileges, and is responsible for all
+actions that need <systemitem>root</systemitem> privileges.  To
+keep this part safe, no &kde; or &Qt; library calls are used here, just simple
+library calls.  The source code for this process is short (around 500 lines) and
+well documented, so it's easy for you to check it for security holes.</para>
+</listitem>
+<listitem>
+<para>Master and slave processes communicate with standard &UNIX;
+<acronym>IPC</acronym>.</para>
+</listitem>
+</itemizedlist>
+
+<para>Special thanks to Harri Porten for writing this excellent piece of code.
+It was thought to be impossible, but he managed it within a week.</para>
+
+</sect1>
+
+</chapter>

@@ -1,0 +1,175 @@
+<chapter id="modem-tricks">
+<title>Modem Tricks and Hints</title>
+
+<para>This section should get the fearful started on the (not so) arcane art of
+modem tweaking. The commands here are all Hayes AT standard, but all modems are
+not equal, so your mileage may vary.</para>
+
+<sect1 id="modem-sessions">
+<title>Modem Sessions</title>
+
+<para>A Modem session allows you to interact with the modem directly. You type
+commands, and it will respond. To obtain a modem session, when no connection is
+active, go into <guibutton>Setup</guibutton>, then <guilabel>Modem</guilabel>
+<guibutton>Terminal</guibutton> dialog. This will open a window for interactive
+configuration of the modem. Try typing
+<userinput><command>ATZ</command></userinput> (which resets your modem) Your
+should get an OK response. Use
+<menuchoice><guimenu>File</guimenu><guimenuitem>Close</guimenuitem></menuchoice>
+to end the session.</para>
+
+</sect1>
+
+<sect1 id="modem-profiles">
+<title>Modem Profiles</title>
+					
+<para>One reason you might want to send the modem commands directly is if you
+have a set of modem configurations you want to keep, and not have to specify for
+every connection. A good way to do that is via modem profiles. Modems can have
+several stored profiles numbered 0,1,... <command>AT&amp;V</command> can be used to
+view them all. The default profile is usually 0 (this can be changed via
+<command>AT&amp;Y</command>.) The profile currently in use is called the
+<quote>active</quote> profile.</para>
+
+<para>When you change a setting, the active profile is modified. The
+<command>ATZ</command> command will have the modem load the default profile,
+erasing any changes you have made. To save changes, Load the profile you want to
+change via <command>ATZ<replaceable>n</replaceable></command> (where
+<replaceable>n</replaceable> is the profile number). Make the changes you want,
+then save it with <command>AT&amp;W<replaceable>n</replaceable></command>. To
+have kppp use the profile you want, change the modem initialization string
+(<guibutton>Setup</guibutton> <guilabel>Modem</guilabel> <guibutton>Modem
+Commands</guibutton> <guilabel>Initialization String</guilabel>.) For example
+<command>ATZ1</command> will have the kppp reset the modem and use stored
+profile #1.</para>
+
+<para>If you want reset you modem to get back to some known starting point, use
+<command>AT&amp;F&amp;W</command> to set the active profile to the factory
+defaults, and store those settings as the default profile.</para>
+
+<para>Examples of profile changes are in the next section</para>
+
+</sect1>
+
+<sect1 id="modem-hangup">
+<title>Getting the modem to hang up</title>
+
+<para>Sometimes you may find that &kppp; has difficulties hanging up the modem.
+This is likely the result of a mismatch between &kppp; settings and those of the
+modem.  A standard modem uses two methods to decide to hangup: <link
+linkend="hangup-command-method">Command</link>, and <link
+linkend="hangup-dtr-method"><acronym>DTR</acronym></link>.  The Command method involves
+sending an escape sequence to the modem, which puts it in command mode, then
+issuing the hangup command (<command>ATH</command>).</para>
+
+<para>Outside of &kppp;, when configuring the <application>pppd</application>
+package manually, it's often helpful to use the command method, so that one can
+exit a terminal session, and then start <application>pppd</application> without
+having the modem hangup.  In most other situations, the <acronym>DTR</acronym>
+method is preferred, as it is simpler.</para>
+
+<sect2 id="hangup-dtr-method">
+<title><acronym>DTR</acronym> (<command>AT&amp;Dn</command>) method</title>
+
+<para>The <acronym>DTR</acronym> method will have the modem hangup whenever
+&kppp; stops using the modem.  If you obtain a modem session, and query the
+state via <command>AT&amp;V</command>, and you can see among the displayed
+settings for the active profile a <command>&amp;D0</command>, then the
+<acronym>DTR</acronym> hangup method is disabled.  To enable the
+<acronym>DTR</acronym> method, use the <guibutton>Terminal</guibutton> button to
+get a modem session, then:</para>
+
+<screen>
+<userinput><command>ATZ</command></userinput> <lineannotation># reset to default profile</lineannotation>
+<userinput><command>AT&amp;D2</command></userinput>  <lineannotation># Set to hang up on DTR drop</lineannotation>
+<userinput><command>AT&amp;W</command></userinput>  <lineannotation># Write to default profile</lineannotation>
+</screen>
+
+<sect3>
+<title>How the <acronym>DTR</acronym> method works</title>
+
+<para>Whenever the Data Terminal Ready (<acronym>DTR</acronym>) line on the
+serial line between the host computer and the modem goes high, the modem hangs
+up. When &kppp; opens the serial port, the <acronym>DTR</acronym> line is pulled
+low, on an external modem, you can see the <acronym>DTR</acronym> (or
+<acronym>TR</acronym>) light come on when this happens. When the
+<acronym>TR</acronym> light goes out (because &kppp; has closed the serial port,
+or something worse!), the modem will hangup.</para>
+</sect3>
+
+</sect2>
+
+<sect2 id="hangup-command-method">
+<title>Command method</title>
+
+<para>The other way to have a modem hang up when connected (used when
+<command>AT&amp;D<replaceable>n</replaceable></command> where
+<replaceable>n</replaceable> is not <returnvalue>2</returnvalue>) is to have the
+modem accept the command when a session is in progress.  To have it hang up
+properly, get a modem session, and set the guard time to a short interval like
+so:</para>
+
+<screen>
+<userinput><command>ATZ</command></userinput>
+<userinput><command>ATS12=5</command></userinput>
+<userinput><command>AT&amp;W</command></userinput>
+</screen>
+
+<para>Then use the <guilabel>Guard Time</guilabel> slider in the Modem commands
+section to match the register (<varname>S12</varname> to this value
+<returnvalue>5</returnvalue>.  The modem should then hangup properly.</para>
+
+<sect3>
+<title>How the Command Method Works</title>
+
+<para>When the local modem is connected to a remote modem, it is in the
+<quote>connect</quote> state, where it passes all characters it receives to the
+remote modem without interpretation.  To have the modem accept the characters
+as commands for itself, one must put the modem into the command state.  The
+escape code does this.</para>
+
+<para>The escape code is defined as being three intervals of time whose length
+is defined by <varname>S12</varname> in fiftieths of a second.</para>
+
+<itemizedlist>
+<listitem>
+<para>Quiet (must last more than <varname>S12</varname>/50 seconds)</para>
+</listitem>
+<listitem>
+<para>Escape character (defined by the register <varname>S2</varname>, the
+default is <quote>+</quote>), repeated three times (less than
+<varname>S12</varname>/50 seconds between each.</para>
+</listitem>
+<listitem>
+<para>Quiet (must last more than <varname>S12</varname>/50 seconds)</para>
+</listitem>
+</itemizedlist>
+
+<para>Once the modem is in the command state, you can send it commands.  To have
+it hang up, send the command <command>ATH</command>.  The escape codes and the
+hangup string used by &kppp; are shown in the <link
+linkend="modem-commands"><guilabel>Modem Commands</guilabel></link> dialog.
+These should match your modem.</para>
+
+</sect3>
+</sect2>
+</sect1>
+
+<sect1 id="tone-dialling-speedup">
+<title>Make Tone dialling faster</title>
+
+<para>If you can use tone dialling, the amount of time it takes to dial can be
+changed using the <varname>S11</varname> register. It gives the duration (in
+100hundreds of a second) to send each tone while dialling. The default is
+usually 95 (almost a second.) How fast you can dial depends on the phone
+company's switching equipment which handles your line. The minimum duration is
+50, almost twice as fast, and that speed often works. </para>
+
+<screen>
+<userinput><command>ATZ</command></userinput>        <lineannotation># reset to default profile</lineannotation>
+<userinput><command>ATS11=50</command></userinput>   <lineannotation># fastest possible dialling, use a higher number if it doesn't work</lineannotation>
+<userinput><command>AT&amp;W</command></userinput>   <lineannotation># write to default profile</lineannotation>
+</screen>
+
+</sect1>
+</chapter>

@@ -1,0 +1,268 @@
+<chapter id="callback">
+<title>Configuring &kppp; for callback</title>
+
+<para>This chapter is based on material provided by Martin H&auml;fner,
+<email>mh@ap-dec717c.physik.uni-karlsruhe.de</email></para>
+
+<sect1 id="unix-callback-server">
+<title>&UNIX; or &Linux; callback server</title>
+
+<para>This section introduces &UNIX; (&Linux;) callback, and how &kppp; can be
+configured to connect to a &UNIX; callback server, especially to a script based
+&Linux; <link linkend="callback-resources">callback server</link></para>
+
+<sect2>
+<title>An Introduction to callback</title>
+
+<para>There are several reasons to consider using callback.  Some of these are:</para>
+
+<itemizedlist>
+<listitem>
+<para>To increase the security of your local network</para>
+</listitem>
+<listitem>
+<para>To reduce expenses of external co-workers</para>
+</listitem>
+<listitem>
+<para>To control telephone costs where calls are claimed as business
+expenses</para>
+</listitem>
+</itemizedlist>
+
+<para>Think about someone calling the number of your dial in server, and then
+cracking a password.  Why bother to maintain a firewall for your internet
+connection, if access to your network is that easy?.</para>
+
+<para>Callback software generally asks for your name, and then hangs up the
+line.  It then calls you back, usually at a number that is stored
+<emphasis>on the server</emphasis> in a database.  The client then picks up the
+phone line and continues with the dial-in as if nothing had happened.  The
+server now requests your username and password, knowing that you are who you
+said you were when you first dialled in, or at the least, you are where you said
+you were.  The connection is established normally, and the
+<application>pppd</application> is started.</para>
+
+<para>Now the big question is, how to tell the client to pick up the phone, when
+the server calls you back.  Do you need a special program, such as
+<application>mgetty</application>?  The answer is, <emphasis>no</emphasis>, you
+don't need a special client program.  In general, any client can be used for
+callback connections, you could even use an ordinary terminal program such as
+<application>minicom</application> to connect.</para>
+
+<para>The only thing you have to do is tell your modem to
+<command>AutoAnswer</command> the phone when a
+<computeroutput>RING</computeroutput> is detected by the modem.  This is done
+with the following modem command:</para>
+
+<screen>
+<userinput><command>AT&amp;SO=1</command></userinput>
+</screen>
+
+<para>This tells the modem to pick the phone up after one
+<computeroutput>RING</computeroutput>.</para>
+
+<para>Like a lot of other client programs, &kppp; checks to see if the
+connection is closed by the server, and then stops the current session if a
+<computeroutput>NO CARRIER</computeroutput> is detected.  This, then, is the
+real problem when setting up callback.  <computeroutput>NO
+CARRIER</computeroutput> will of course be detected the moment the callback
+server hangs up the line.  Some servers therefore use a special login program.
+So how do you solve this problem?  You tell your modem to show
+<computeroutput>CARRIER UP</computeroutput> at all times (which causes no
+problems if you tell the client to hang up the line.)  You can do this with the
+following modem command:</para>
+
+<screen>
+<userinput><command>AT&amp;C0</command></userinput>
+</screen>
+
+<para>If you want to test this, you can first use an ordinary terminal program
+such as <application>minicom</application>, and call your callback server, to
+see what hapens.</para>
+
+</sect2>
+
+<sect2>
+<title>The &kppp; setup</title>
+
+<para>So, now that you've seen the theory in action, how do you go about setting
+up &kppp; to handle the connection? </para>
+
+<para>The procedure is quite straightforward, as follows.</para>
+
+<procedure>
+<step>
+<para>First tell the modem to accept connections, and to not stop the
+negotiation when the callback server hangs up the line for the first time.  You
+can add both these options in the <guilabel>Modem</guilabel> tab of the &kppp;
+configuration, by adding to the option <guilabel>Dial String</guilabel> the
+string <command>AT&amp;C0S0=1DT</command></para>
+<para>There are no other changes with configuration for &kppp;.  If you meet
+trouble with modem init and reset, check the <link
+linkend="callback-troubleshooting">Troubleshooting</link> section for more
+information.</para>
+</step>
+<step>
+<para>Think about your server for a moment.  Remember that &UNIX;, &Windows; and
+Macintosh operating systems have differing opinions about how to end a line in a
+text file, and therefore, in login procedures too.  If you are connecting to a
+&Windows; server, use <userinput>CR/LF</userinput>, if you are connecting to a
+&UNIX; server, use <userinput>CR</userinput>, and if you are connecting to a
+Macintosh server, use <userinput>LF</userinput>
+
+</para>
+</step>
+<step>
+<para>We are assuming for these instructions that you are calling a &Linux;
+callback package which uses ordinary login (not <acronym>PAP</acronym> or
+such).</para>
+<para>Set the <guilabel>Authentication</guilabel> style in the
+<guilabel>Dial</guilabel> tab of the account configuration to
+<guilabel>Script-based</guilabel></para>
+</step>
+<step>
+<para>Now you have to build the login script.  Editing of login scripts is one
+of the very cool features of &kppp; You can find it in the <guilabel>Login
+Script</guilabel> tab of the <guilabel>Edit Account</guilabel> dialog.</para>
+
+<para>In this example, the user <systemitem>userxyz</systemitem> needs the
+following script to be called.  The callback server already knows the table of
+names and their applicable phone numbers, so you select the phone number to be
+used with an alias, for security purposes.</para>
+
+<para>For each line, choose the criteria from the drop down list on the left of
+the diaog, and type in the action in the text box on it's right.  Choose the
+<guibutton>Add</guibutton> to add each line to the script.  You can use
+<guibutton>Insert</guibutton> to add a line into the middle of the script, and
+<guibutton>Remove</guibutton> to delete a line if you made a mistake.</para>
+
+<para>The entire script should look something like this (without the comments,
+shown here starting with a #)</para>
+
+<screen> 
+Expect       ogin:           <lineannotation># remember, we do ordinary terminal login</lineannotation>
+ID           ""              <lineannotation># kppp sends the id you configured in
+the main dialog</lineannotation>
+Expect       for userxyz:    <lineannotation># a list of available numbers is
+shown, the user should choose one</lineannotation> 
+Send         userxyz-home    <lineannotation># the user wants to be called back
+on their home number</lineannotation>
+Expect       ogin:           <lineannotation># The callback process is now
+running, a new connection, and so a new login.</lineannotation>
+ID
+Expect       assword:        <lineannotation># Now send your password</lineannotation>
+Expect       &gt;            <lineannotation># Wait for the command prompt (the
+prompt may vary)</lineannotation>
+Send         start_ppp       <lineannotation># this command starts the pppd</lineannotation>
+</screen>
+
+<para>After waiting for the login request, the user sends his ID and waits for a
+list of available phone numbers for that username.  Then he tells the server
+which of the numbers offered he would like to be called back on.  &kppp; can
+open a dialog for this, if your location changes often, &eg; you are a sales
+representative and move from hotel to hotel.  Now the server is expecting login
+and password for authentication, but in the meantime, the server hangs up and
+calls the user back.  The authentication information is sent, and &kppp; waits
+for a command prompt, and then starts a small script (here called
+<filename>start_ppp</filename> which fires up <application>pppd</application> on
+the server.</para>
+					      
+<para>The <filename>start_ppp</filename> script might look something like the
+following:</para>
+					      
+<programlisting>
+#!/bin/sh
+stty -echo
+exec /usr/sbin/pppd -detach silent modem
+</programlisting>
+					      
+<para>Of course, setting up a <acronym>PPP</acronym> server is not within the
+scope of this document.  For detailed information, see the
+<application>pppd</application> man pages.  An excellent description of a
+callback server can be found at <ulink
+url="http://ap-dec717c.physik.uni-karlsruhe.de/~mh/callback">
+http://ap-dec717c.physik.uni-karlsruhe.de/~mh/callback</ulink></para>
+</step>
+</procedure>
+
+<para>All other configuration issues, such as <application>pppd</application>
+configuration or <acronym>IP</acronym> settings work as normal, and no special
+software is required to pick up the line.</para>
+
+<note>
+<para>&kppp; callback and other programs such as
+<application>mgetty</application> or any other faxgetty can be run on the same
+serial port.  There are no problems with the dial in, as &kppp; creates a lock
+file which will tell the getty program that another application (in this case,
+&kppp; of course,) is using the line at that time.</para>
+</note>
+
+</sect2>
+
+<sect2 id="callback-troubleshooting">
+<title>Troubleshooting</title>
+
+<para>There are some known problems with &kppp; in callback mode:</para>
+
+<itemizedlist>
+<listitem>
+<para>As you initialize the modem to auto answer, you need to reset the modem
+after your connection is closed.  Otherwise, your modem will continue to pick up
+the line for you, which is not a good idea if the line in question is your main
+phone line.</para>
+</listitem>
+<listitem>
+<para>&kppp; has some small problems when sharing a line with another program,
+such as <application>mgetty</application>.  If <application>mgetty</application>
+is running on the same modem line, &kppp; is not able to initialize the modem
+correctly. <!-- This happens on the second try (does this mean it can initialize -->
+<!-- on the second try, or it fails on the second time? --> </para>
+</listitem>
+<listitem>
+<para>&kppp; is unable to prompt for certain user input during a scripting based
+login.  Unfortunately, when using the example script above, &kppp; also asks for
+the user name the second time the callback server requests it.  You can get rid
+of this by hardcoding your userid into the login script (not very portable or
+nice, but it works.</para>
+</listitem>
+</itemizedlist>
+
+</sect2>
+
+<sect2 id="callback-resources">
+<title>Internet Resources for server software</title>
+
+<para>&Linux; callback server software bundles are available in many
+places.</para>
+
+<para>The well known <application>mgetty</application> is a very powerful
+program, and is also able to handle callback connections.  A description of how
+to set up <application>mgetty</application> for this purpose is maintained at 
+<ulink url="http://www.dyer.demon.co.uk/slug/tipscrip.htm">
+http://www.dyer.demon.co.uk/slug/tipscrip.htm</ulink>, by Colin McKinnon,
+<email>colin@wew.co.uk</email>.</para>
+
+<para>There is also a ready to use package for &Linux; at <ulink
+url="http://www.icce.rug.nl/docs/programs/callback/callback.html">
+http://www.icce.rug.nl/docs/programs/callback/callback.html</ulink>.  This
+package is maintained by Frank B. Brokken, <email>frank@icce.rug.nl</email>.  As
+the setup, although straightforward, is not very easy, I have written a short
+introduction for it at <ulink
+url="http://ap-dec717c.physik.uni-karlsruhe.de/~mh/callback">http://ap-dec717c.physik.uni-karlsruhe.de/~mh/callback/</ulink>,
+which also contains a more general introduction to callback.</para>
+
+</sect2>
+</sect1>
+
+<sect1 id="nt-callback">
+<title>&Windows; NT <acronym>RAS</acronym> callback</title>
+
+<para>&Windows; NT uses a completely different approach than the one described
+above.  NT requires an extension to the <acronym>PPP</acronym> protocol itself,
+called <acronym>CBCP</acronym> (Call Back Control Protocol).
+<application>pppd</application> has support for this protocol, but you must
+recompile <application>pppd</application>.  If anybody has experience with
+successfully connecting to an NT callback server, please let us know.</para>
+
+</sect1>
+</chapter>
