@@ -78,6 +78,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   : DCOPObject( "KpppIface" ), QWidget(parent, name)
   , acct(0)
   , m_bCmdlAccount (false)
+  , m_bCmdlModem (false)
 {
   tabWindow = 0;
 
@@ -287,11 +288,27 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
   m_strCmdlAccount = args->getOption("c");
+  m_strCmdlModem = args->getOption("m");
   m_bQuitOnDisconnect = args->isSet("q");
 
   if(!m_strCmdlAccount.isEmpty()) {
     m_bCmdlAccount = true;
     kdDebug(5002) << "cmdl_account: " << m_bCmdlAccount << endl;
+  }
+
+  if(!m_strCmdlModem.isEmpty()) {
+    m_bCmdlModem = true;
+    kdDebug(5002) << "cmdl_modem: " << m_bCmdlModem << endl;
+  }
+
+  if(m_bCmdlModem){
+    bool result = gpppdata.setModem(m_strCmdlModem);
+    if (!result){
+      QString string;
+      string = i18n("No such Modem:\n%1\nFalling back to default").arg(m_strCmdlModem);
+      KMessageBox::error(this, string);
+      m_bCmdlModem = false;
+    }
   }
 
   if(m_bCmdlAccount){
@@ -704,7 +721,14 @@ void KPPPWidget::beginConnect() {
   }
 #endif
 
-  QFileInfo info2(gpppdata.modemDevice());
+  KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+  QString device = "";
+  if (args->isSet("dev"))
+    device = args->getOption("dev");
+  else
+    device = gpppdata.modemDevice();
+
+  QFileInfo info2(device);
 
   if(!info2.exists()){
     QString string;
@@ -712,7 +736,7 @@ void KPPPWidget::beginConnect() {
 		   "your modem device properly "
 		   "and/or adjust the location of the modem device on "
 		   "the modem tab of "
-		   "the setup dialog.").arg(gpppdata.modemDevice());
+		   "the setup dialog.").arg(device);
     KMessageBox::error(this, string);
     return;
   }

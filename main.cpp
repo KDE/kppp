@@ -68,6 +68,7 @@ static const char description[] =
 static const KCmdLineOptions options[] =
 {
    { "c <account_name>", I18N_NOOP("Connect using 'account_name'"), 0 },
+   { "m <modem_name>", I18N_NOOP("Connect using 'modem_name'"), 0 },
    { "k", I18N_NOOP("Terminate an existing connection"), 0 },
    { "q", I18N_NOOP("Quit after end of connection"), 0 },
    { "r <rule_file>", I18N_NOOP("Check syntax of rule_file"), 0 },

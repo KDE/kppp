@@ -38,6 +38,7 @@
 #include "requester.h"
 #include <klocale.h>
 #include <kdebug.h>
+#include <kcmdlineargs.h>
 #include <config.h>
 
 static sigjmp_buf jmp_buffer;
@@ -52,6 +53,7 @@ Modem::Modem() :
 {
   assert(modem==0);
   modem = this;
+  args = KCmdLineArgs::parsedArgs();
 }
 
 
@@ -112,8 +114,14 @@ speed_t Modem::modemspeed() {
 
 bool Modem::opentty() {
   //  int flags;
+  QString device = "";
+  if (args->isSet("dev"))
+    device = args->getOption("dev");
+  else
+    device = gpppdata.modemDevice();
+  kdDebug() << "Opening Device: " << device << endl;
 
-  if((modemfd = Requester::rq->openModem(gpppdata.modemDevice()))<0) {
+  if((modemfd = Requester::rq->openModem(device))<0) {
     errmsg = i18n("Unable to open modem.");
     return false;
   }
@@ -527,8 +535,14 @@ int Modem::lockdevice() {
   if (modem_is_locked)
     return 1;
 
+  QString device = "";
+  if (args->isSet("dev"))
+    device = args->getOption("dev");
+  else
+    device = gpppdata.modemDevice();
+
   QString lockfile = LOCK_DIR"/LCK..";
-  lockfile += gpppdata.modemDevice().mid(5); // append everything after /dev/
+  lockfile += device.mid(5); // append everything after /dev/
 
   if(access(QFile::encodeName(lockfile), F_OK) == 0) {
     if ((fd = Requester::rq->openLockfile(QFile::encodeName(lockfile), O_RDONLY)) >= 0) {
@@ -558,7 +572,7 @@ int Modem::lockdevice() {
     }
   }
 
-  fd = Requester::rq->openLockfile(gpppdata.modemDevice(),
+  fd = Requester::rq->openLockfile(device,
                                    O_WRONLY|O_TRUNC|O_CREAT);
   if(fd >= 0) {
     sprintf(newlock,"%010d\n", getpid());

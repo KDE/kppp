@@ -159,8 +159,10 @@ private:
 
 
   QString m_strCmdlAccount;
+  QString m_strCmdlModem;
   bool m_bQuitOnDisconnect;
   bool m_bCmdlAccount;
+  bool m_bCmdlModem;
   bool m_bModemCShown;
 
 

@@ -37,6 +37,8 @@
 
 #include <config.h>
 
+class KCmdLineArgs;
+
 void    alarm_handler(int);
 
 class Modem : public QObject {
@@ -75,6 +77,7 @@ private slots:
 
 private:
   void escape_to_command_mode();
+  KCmdLineArgs *args;
 
 private:
   int modemfd;
