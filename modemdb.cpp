@@ -219,7 +219,7 @@ void ModemDatabase::load() {
     modemDB->setGroup(*it);
     CharDict *c = new CharDict;
     c->setAutoDelete(true);
-    loadModem(it->latin1(), *c);
+    loadModem((*it).latin1(), *c);
 
     //    if(strcmp(it->latin1(), "Common") == 0) {
     if(*it == "Common") {
