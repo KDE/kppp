@@ -668,7 +668,7 @@ void KPPPWidget::prepareSetupDialog() {
     tabWindow->setCaption( i18n("kppp Configuration") );
     tabWindow->setOkButton(i18n("OK"));
     tabWindow->setCancelButton(i18n("Cancel"));
-    tabWindow->setFixedSize( 365, 375 );
+    //    tabWindow->setFixedSize( 365, 375 );
 
     accounts = new AccountWidget(tabWindow,"accounts");
     connect(accounts, SIGNAL(resetaccounts()),

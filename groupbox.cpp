@@ -23,17 +23,17 @@ KGroupBoxBase::KGroupBoxBase(QWidget *parent, const char *name) :
 
 
 void KGroupBoxBase::show() {
-  QSize s = peer()->sizeHint();
-  s += 2*QSize(BORDER_X + INNER_X, BORDER_Y + INNER_Y);
-  if(_title != 0)
-    s.setHeight(s.height() + _title->sizeHint().height());
-  setMinimumSize(s);
+  setMinimumSize(sizeHint());
   QFrame::show();
 }
 
 
 QSize KGroupBoxBase::minimumSize() const {
-  return QSize(0, 0);
+  QSize s = peer()->sizeHint();
+  s += 2*QSize(BORDER_X + INNER_X, BORDER_Y + INNER_Y);
+  if(_title != 0)
+    s.setHeight(s.height() + _title->sizeHint().height());
+  return s;
 }
 
 

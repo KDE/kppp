@@ -351,7 +351,7 @@ int AccountWidget::doTab(){
     isnewaccount = false;
   }
 
-  tabWindow->resize( 360, 400 );
+  //  tabWindow->resize( 360, 400 );
   tabWindow->setOKButton(i18n("OK"));
   tabWindow->setCancelButton(i18n("Cancel"));
 
