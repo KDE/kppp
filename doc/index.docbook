@@ -54,7 +54,7 @@ allowing for interactive script generation and network setup.</para>
 <keyword>KDE</keyword>
 <keyword>kppp</keyword>
 <keyword>kdenetwork</keyword>
-<keyword>dialler</keyword>
+<keyword>dialer</keyword>
 <keyword>internet</keyword>
 <keyword>ppp</keyword>
 </keywordset>
@@ -80,7 +80,7 @@ to test and setup your connection.</para>
 <para>&kppp; features elaborate phone cost accounting, which enables you to
 easily track your online costs.</para>
 
-<para>We hope you enjoy this dialler, and that it eases your way onto the
+<para>We hope you enjoy this dialer, and that it eases your way onto the
 internet.</para>
 
 </chapter>
