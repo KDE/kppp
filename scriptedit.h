@@ -71,7 +71,8 @@ public:
 		 LoopEnd = 11, 
 		 Scan = 12,
                  Save = 13,
-		 SendNoEcho = 14		 
+		 Mode = 14,
+		 SendNoEcho = 15		 
   };
 };
 

@@ -59,6 +59,7 @@ public:
   void notify(const QObject *, const char *);
   void stop();
   void flush();
+  void setReadMask(unsigned char);
 
   int     lockdevice();
   void    unlockdevice();
@@ -84,7 +85,7 @@ private:
   QString errmsg;
   struct termios initial_tty;
   struct termios tty;
-
+  unsigned char dataMask;
   bool modem_is_locked;
 };
 
