@@ -9,7 +9,7 @@
 #
 
 name=Telefonica
-currency_position=right 
+currency_position=left
 currency_digits=5
 
 per_connection=0.08571
@@ -17,7 +17,7 @@ per_connection=0.08571
 minimum_costs=0.08571
 default=(0.08571, 240)
 
-on (monday..friday) between (0:00..06:00) use (0.00000, 100)
+on (monday..saturday) between (0:00..06:00) use (0.00000, 100)
 on (saturday) between (14:00..23:59) use (0.00000, 100)
 on (sunday) between () use (0.00000, 100)
 
