@@ -27,7 +27,7 @@
 #ifndef __RULESET__H__
 #define __RULESET__H__
 
-#include <qarray.h>
+#include <qmemarray.h>
 #include <qdatetime.h>
 #include <qstring.h>
 
@@ -140,7 +140,7 @@ protected:
   double flat_init_duration;
   double flat_init_costs;
 
-  QArray<RULE> rules;
+  QMemArray<RULE> rules;
 };
 
 #endif

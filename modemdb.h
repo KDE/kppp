@@ -40,7 +40,7 @@
 #include <qstringlist.h>
 #include <kconfig.h>
 #include <qdict.h>
-#include <qlist.h>
+#include <qptrlist.h>
 
 typedef QDict<QString> CharDict;
 
@@ -57,7 +57,7 @@ public:
 private:
   void load();
   void loadModem(const QString & key, CharDict &dict);
-  QList<CharDict> modems;
+  QPtrList<CharDict> modems;
 
   QStringList *lvendors;
 
