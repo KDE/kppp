@@ -1,4 +1,4 @@
-pkg_DATA = .directory Eircom  UTV  UVT
+pkg_DATA = .directory Eircom  UTV  UVT IOL
 
 pkgdir = $(kde_datadir)/kppp/Provider/Irland
 
