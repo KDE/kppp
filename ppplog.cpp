@@ -140,7 +140,7 @@ void PPPL_AnalyseLog(QStringList &list, QStringList &result) {
      I18N_NOOP("You haven't started the PPP software on the peer system.") },
 
     {"AP authentication failed",
-     I18N_NOOP("Check that you supplied the correct username and password!")} ,
+     I18N_NOOP("Check that you supplied the correct username and password.")} ,
 
     {"is locked by pid",
      I18N_NOOP("You shouldn't pass 'lock' as an argument to pppd. "
@@ -148,7 +148,7 @@ void PPPL_AnalyseLog(QStringList &list, QStringList &result) {
 
     {"CP: timeout sending",
      I18N_NOOP("The remote system does not seem to answer to\n"
-	  "configuration request! Contact your provider!") },
+	  "configuration request. Contact your provider.") },
 
     {"unrecognized option",
      I18N_NOOP("You have passed an invalid option to pppd. See 'man pppd' "

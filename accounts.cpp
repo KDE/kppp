@@ -432,14 +432,14 @@ QueryReset::QueryReset(QWidget *parent) : QDialog(parent, 0, true) {
   costs->setChecked(true);
   l1->addWidget(costs);
   QWhatsThis::add(costs, i18n("Check this to set the phone costs\n"
-			      "to zero. Typically you'll want to\n"
+			      "to zero. Typically you will want to\n"
 			      "do this once a month."));
 
   volume = new QCheckBox(i18n("Reset &volume accounting"), f);
   volume->setChecked(true);
   l1->addWidget(volume);
   QWhatsThis::add(volume, i18n("Check this to set the volume accounting\n"
-			       "to zero. Typically you'll want to do this\n"
+			       "to zero. Typically you will want to do this\n"
 			       "once a month."));
 
   l1->activate();
