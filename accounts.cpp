@@ -26,6 +26,7 @@
 
 #include <qdir.h>
 #include <qlayout.h>
+#include <kapp.h> // TODO: needed for getMiniIcon() only
 #include <kmsgbox.h>
 #include <kquickhelp.h>
 #include <kwm.h>

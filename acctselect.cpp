@@ -37,14 +37,16 @@
 #include <qgroupbox.h>
 #include <qlayout.h>
 #include <qdir.h>
-#include <kapp.h>
 #include <qregexp.h>
 #include <qwmatrix.h>
 #include <stdio.h>
 
+#include <kglobal.h>
+#include <kstddirs.h>
+#include <klocale.h>
 #include "acctselect.h"
 #include "pppdata.h"
-#include <klocale.h>
+
 
 AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, const char *name)
   : KCheckGroupBox(i18n("Enable accounting"), parent, name),
@@ -89,8 +91,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   l12->addWidget(use_vol);
 
   // load the pmfolder pixmap from KDEdir
-  QString fname = KApplication::kde_datadir().copy();
-  fname += "/kppp/pics/folder.xpm";
+  QString fname = locate("data", "kppp/pics/folder.xpm"); // ????
   pmfolder.load(fname);
 
   // scale the pixmap
@@ -101,8 +102,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   }
 
   // load the pmfolder pixmap from KDEdir
-  fname = KApplication::kde_datadir().copy();
-  fname += "/kppp/pics/phone.xpm";
+  fname = locate("data", "kppp/pics/phone.xpm");
   pmfile.load(fname);
 
   // scale the pixmap
@@ -257,16 +257,14 @@ void AccountingSelector::setupTreeWidget() {
   tl->setTreeDrawing(TRUE);
   tl->insertItem(i, -1, FALSE);
 
-
-  QString s = QDir::homeDirPath() + "/";
-  s += ACCOUNTING_PATH "/Rules/";
-
-  insertDir(QDir(s), i);
-
-  // look in $KDEDIR/lib/kppp/Accounting
-  s = KApplication::kde_datadir().copy();
-  s += "/kppp/Rules/";
-  insertDir(QDir(s), i);
+  // look in ~/.kde/share/apps/kppp/Rules and $KDEDIR/share/apps/kppp/Rules
+  QStringList dirs = KGlobal::dirs()->getResourceDirs("data");
+  for (QStringList::ConstIterator it = dirs.begin(); 
+       it != dirs.end(); it++) {
+    QString s = *it;
+    s += "kppp/Rules";
+    insertDir(QDir(s), i);
+  }
 
   enableItems(FALSE);
 

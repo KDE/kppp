@@ -38,11 +38,13 @@
 #include <qlayout.h>
 #include <qlistbox.h>
 #include <qpushbutton.h>
-#include <kwm.h>
 #include <qregexp.h>
-#include <kapp.h>
-#include <klocale.h>
 #include <qlineedit.h>
+#include <kapp.h>
+#include <kwm.h>
+#include <klocale.h>
+#include <kglobal.h>
+#include <kstddirs.h>
 #include "providerdb.h"
 #include "newwidget.h"
 #include "pppdata.h"
@@ -125,9 +127,7 @@ void ProviderDB::pageSelected() {
     loadProviderInfo();
     next = page4->username().length() > 0 &&
       page4->password().length() > 0;
-    //    page4->activate();
-  } // else if(page == page5)
-  //    page5->activate();
+  }
 
   setBackEnabled(page, prev);
   setNextEnabled(page, next);
@@ -143,9 +143,9 @@ void ProviderDB::loadProviderInfo() {
   loc = loc.replace(re, "_");
   QString provider = page3->lb->text(page3->lb->currentItem());
   urlEncode(provider);
-  QString fname = kapp->kde_datadir();
-  fname += "/kppp/Provider/" + loc;
-  fname += "/" + provider; 
+  QString prov = "kppp/Provider/" + loc;
+  prov += "/" + provider;
+  QString fname = locate("data", prov);
   Debug("Providerfile=%s\n", fname.data());
 
   cfg = new KSimpleConfig(fname, true);
@@ -156,13 +156,11 @@ void ProviderDB::accept() {
   QRegExp re_username("%USERNAME%");
   QRegExp re_password("%PASSWORD%");
 
-  QMap <QString, QString> map;
-  QMap <QString, QString>::Iterator it;
-  map = cfg->entryMap("<Default>");
-  it = map.begin();
-  while(it.key() != QString::null) {
+  QMap <QString, QString> map(cfg->entryMap("<Default>"));
+  QMap <QString, QString>::Iterator it(map.begin());
+  while(it != map.end()) {
     QString key = it.key();
-    QString value = it.data();
+    QString value = *it;
     if(value.contains(re_username))
       value.replace(re_username, page4->username());
 

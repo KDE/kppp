@@ -29,6 +29,7 @@
 #include <kbuttonbox.h>
 #include <stdlib.h>
 #include <kwm.h>
+#include <kapp.h> // for getMiniIcon()
 #include "modemcmds.h"
 #include "pppdata.h"
 #include <klocale.h>

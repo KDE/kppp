@@ -35,8 +35,9 @@
 #include <qregexp.h>
 #include <qlabel.h>
 
-#include <kapp.h>
 #include <kprogress.h>
+#include <kglobal.h>
+#include <kstddirs.h>
 #include <time.h>
 
 #include "accounting.h"
@@ -200,25 +201,15 @@ bool AccountingBase::loadCosts() {
 }
 
 
-QString AccountingBase::getAccountingFile(const char* accountname) {
-  // load from home directory if file is found there
-  QString d = QDir::homeDirPath() + "/";
-  d += ACCOUNTING_PATH ;
-  d += "/Rules/";
-  d += accountname;
+QString AccountingBase::getAccountingFile(const QString &accountname) {
+  QString f = "kppp/Rules/";
+  f += accountname;
+  QString d = locate("data", f);
 
-  if(access(d.data(), R_OK) == 0)
+  if(d.isNull())
+    return "";
+  else
     return d;
-
-  // load from KDE directory if file is found there
-  d = KApplication::kde_datadir().copy();
-  d += "/kppp/Rules/";
-  d += accountname;
-  if(access(d.data(), R_OK) == 0)
-    return d;
-
-  d = "";
-  return d;
 }
 
 

@@ -28,8 +28,9 @@
 #include <qdir.h>
 #include <qpoint.h>
 #include <kwm.h>
-#include <kapp.h>
 #include <klocale.h>
+#include <kglobal.h>
+#include <kiconloader.h>
 
 #include "docking.h"
 #include "main.h"
@@ -47,25 +48,11 @@ DockWidget::DockWidget(QWidget *parent, const char *name)
 
   docked = false;
 
-  QString pixdir = KApplication::kde_datadir() + "/kppp/pics/";
-  QString tmp = i18n("Could not load %1 !");
-
-#define PMERROR(pm) \
-  QMessageBox::warning(this, i18n("Error"), tmp.arg(pm));
-
   // load pixmaps
-  if (!dock_none_pixmap.load(pixdir + "dock_none.xpm")){
-    PMERROR("dock_none.xpm");
-  }
-  if (!dock_left_pixmap.load(pixdir + "dock_left.xpm")){
-    PMERROR("dock_left.xpm");
-  }
-  if (!dock_right_pixmap.load(pixdir + "dock_right.xpm")){
-    PMERROR("dock_right.xpm");
-  }
-  if (!dock_both_pixmap.load(pixdir + "dock_both.xpm")){
-    PMERROR("dock_both.xpm");
-  }
+  dock_none_pixmap = ICON("dock_none.xpm");
+  dock_left_pixmap = ICON("dock_left.xpm");
+  dock_right_pixmap = ICON("dock_right.xpm");
+  dock_both_pixmap = ICON("dock_both.xpm");
 
   // popup menu for right mouse button
   popup_m = new QPopupMenu(this);

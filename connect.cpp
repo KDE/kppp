@@ -282,6 +282,11 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
   if(vmain == 3) {
     if(!expecting) {
+      // skip setting the volume if command is empty
+      if(gpppdata.volumeInitString().isEmpty()) {
+        vmain = 1;
+        return;
+      }
       messg->setText(i18n("Setting speaker volume..."));
       emit debugMessage(i18n("Setting speaker volume..."));
 

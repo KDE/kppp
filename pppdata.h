@@ -28,7 +28,6 @@
 #ifndef _PPPDATA_H_
 #define _PPPDATA_H_
 
-#include <kapp.h>
 #include <qstring.h>
 #include <qmessagebox.h>
 #include <qstrlist.h>
@@ -39,6 +38,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <pwd.h>
+#include <kconfig.h>
 
 #include "kpppconfig.h"
 

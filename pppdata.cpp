@@ -29,6 +29,7 @@
 #include "runtests.h"
 #include "kpppconfig.h"
 #include "devices.h"
+#include <kapp.h>
 #include <klocale.h>
 #include <kconfig.h>
 
@@ -673,7 +674,7 @@ bool PPPData::deleteAccount() {
   // set all entries of the current account to "" 
   map = config->entryMap(cgroup);
   it = map.begin();
-  while (it.key() != QString::null) {
+  while (it != map.end()) {
     config->writeEntry(it.key(), "");
     it++;
   }
@@ -685,8 +686,8 @@ bool PPPData::deleteAccount() {
     it = map.begin();
     setAccountbyIndex(i-1);
     config->setGroup(cgroup);
-    while (it.key() != QString::null) {
-      config->writeEntry(it.key(), it.data());
+    while (it != map.end()) {
+      config->writeEntry(it.key(), *it);
       it++;
     }
   }
@@ -749,8 +750,8 @@ int PPPData::copyaccount(int i) {
 
   newaccount();
 
-  while (it.key() != QString::null) {
-    config->writeEntry(it.key(), it.data());
+  while (it != map.end()) {
+    config->writeEntry(it.key(), *it);
     it++;
   }
 

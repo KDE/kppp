@@ -22,6 +22,7 @@
  */
 
 #include <qdir.h>
+#include <qapplication.h>
 #include "conwindow.h"
 #include "docking.h"
 #include "pppdata.h"

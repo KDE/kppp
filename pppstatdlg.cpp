@@ -23,13 +23,13 @@
  */
 
 
-#include <kmsgbox.h>
 #include <qlayout.h>
 #include <qmessagebox.h>
 #include <kapp.h>
 #include <kwm.h>
+#include <kglobal.h>
+#include <kiconloader.h>
 
-#include "macros.h"
 #include "pppdata.h"
 #include "pppstatdlg.h"
 #include "kpppconfig.h"
@@ -67,24 +67,10 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *)
   QHBoxLayout *l111 = new QHBoxLayout;
   l11->addLayout(l111);
 
-  QString pixdir = KApplication::kde_datadir() + "/kppp/pics/";
-  QString tmp = i18n("Could not load %1 !");
-
-#define PMERROR(pm) \
-  QMessageBox::warning(this, i18n("Error"), tmp.arg(pm));
-
-  if ( !big_modem_both_pixmap.load(pixdir + "modemboth.xpm") )
-    PMERROR("modemboth.xpm");
-
-  if ( !big_modem_left_pixmap.load(pixdir + "modemleft.xpm") )
-    PMERROR("modemleft.xpm");
-
-  if ( !big_modem_right_pixmap.load(pixdir + "modemright.xpm") )
-    PMERROR("modemright.xpm"); 
-
-  if ( !big_modem_none_pixmap.load(pixdir + "modemnone.xpm") )
-    PMERROR("modemnone.xpm");
-  
+  big_modem_both_pixmap = ICON("modemboth.xpm");
+  big_modem_left_pixmap = ICON("modemleft.xpm");
+  big_modem_right_pixmap = ICON("modemright.xpm");
+  big_modem_none_pixmap = ICON("modemnone.xpm");
 
   pixmap_l = new QLabel(this);
   pixmap_l->setMinimumSize(big_modem_both_pixmap.size());
@@ -146,8 +132,8 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *)
   for(i = 0; i < 5; i++) {
     labela2[i]->setText("88888888");
     labelb2[i]->setText("88888888");
-    MIN_SIZE(labelb1[i]);
-    MIN_SIZE(labelb2[i]);
+    labela2[i]->setFixedSize(labela2[i]->sizeHint());
+    labelb2[i]->setFixedSize(labelb2[i]->sizeHint());
     labela2[i]->setText("");
     labelb2[i]->setText("");
 
@@ -183,7 +169,7 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *)
   cancelbutton->setText(i18n("Close"));
   cancelbutton->setFocus();
   connect(cancelbutton, SIGNAL(clicked()), this,SLOT(cancel()));
-  FIXED_HEIGHT(cancelbutton);
+  cancelbutton->setFixedHeight(cancelbutton->sizeHint().height());
   cancelbutton->setMinimumWidth(QMAX(cancelbutton->sizeHint().width(), 70));
   l12->addWidget(cancelbutton);
 
