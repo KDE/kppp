@@ -71,8 +71,8 @@ users.  &kppp; addresses the security issues with the following strategy.</para>
 <para>Immediately after the program starts, &kppp; forks.</para>
 </listitem>
 <listitem>
-<para>The master process, which handles all the <acronym>GUI</acronym> stuff
-such as user interaction) drops the <acronym>SUID</acronym> state after the
+<para>The master process, which handles all the <acronym>GUI</acronym> operations
+(such as user interaction), drops the <acronym>SUID</acronym> state after the
 fork, and runs with normal user privileges.</para>
 </listitem>
 <listitem>
