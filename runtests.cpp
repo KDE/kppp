@@ -53,6 +53,7 @@
 #include <sys/utsname.h>
 #include <sys/types.h>
 
+#include <net/ppp_defs.h>
 #if __GLIBC__ >= 2
 #include <net/if.h>
 #include <net/if_arp.h>
@@ -65,7 +66,6 @@
 #include <linux/if_ppp.h>
 #endif
 
-#include <net/ppp_defs.h>
 #include "requester.h"
 #endif // linux
 
