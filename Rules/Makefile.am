@@ -7,7 +7,6 @@ SUBDIRS = Argentina \
 	Croatia \
 	Czechia \
 	Denmark \
-	England \
 	Estonia \
 	Finland \
 	France \
@@ -39,6 +38,8 @@ SUBDIRS = Argentina \
 	Sweden \
 	Switzerland \
 	Turkey \
+	United_Kingdom \
+	Uruguay \
 	Yugoslavia
 
 #	Estonia 
