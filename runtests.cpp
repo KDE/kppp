@@ -181,6 +181,12 @@ bool ppp_available(void)
   int s, ok;
   struct ifreq ifr;
 
+  // we have been accidently exploiting a security hole in kernels prior
+  // to 2.2.13 to make this check work without root permissions.
+  // Additionally the new ppp code 2.3 kernels would require some adaptions.
+  // We'll simply fake success by returning true.
+  return true;
+
   /*
    * Open a socket for doing the ioctl operations.
    */
