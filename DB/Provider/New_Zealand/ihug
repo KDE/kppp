@@ -1,20 +1,20 @@
-# KDE Config File
-AutoName=0
-ExDNSDisabled=0
-ScriptArguments=ogin:,%USERNAME%,word:,%PASSWORD%,ppp,
-AccountingEnabled=1
-Phonenumber=086733322
-IPAddr=0.0.0.0
-Name=ihug
-Domain=ihug.co.nz
-VolumeAccountingEnabled=0
-pppdArguments=-detach,
-Password=%PASSWORD%
-Command=
-ScriptCommands=Expect,Send,Expect,Send,Send,
-Authentication=0
+# KDE Config File 
+AutoName=0 
+ExDNSDisabled=0 
+ScriptArguments=ogin:,%USERNAME%,word:,%PASSWORD%,ppp, 
+AccountingEnabled=1 
+Phonenumber=087300777 
+IPAddr=0.0.0.0 
+Name=ihug 
+Domain=ihug.co.nz 
+VolumeAccountingEnabled=0 
+pppdArguments=-detach, 
+Password=%PASSWORD% 
+Command= 
+ScriptCommands=Expect,Send,Expect,Send,Send, 
+Authentication=0 
 SubnetMask=0.0.0.0
-DNS=203.29.160.2,203.29.160.4,
+DNS=203.109.252.42,203.109.252.43
 AccountingFile=
 DefaultRoute=1
 Username=%USERNAME%

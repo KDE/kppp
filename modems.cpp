@@ -219,10 +219,11 @@ int ModemsWidget::doTab(){
     tabWindow->setCaption(tit);
     isnewmodem = false;
   }
-
   modem1 = new ModemWidget(tabWindow->addPage( i18n("&Device"), i18n("Serial Device")), isnewmodem );
   modem2 = new ModemWidget2(tabWindow->addPage( i18n("&Modem"), i18n("Modem Settings")));
+  connect ( modem1->connectName(), SIGNAL(textChanged ( const QString & )), this, SLOT(modemNameChanged(const QString & )));
 
+  modemNameChanged(modem1->connectName()->text());
   int result = 0;
   bool ok = false;
   while (!ok){
@@ -245,6 +246,10 @@ int ModemsWidget::doTab(){
  return result;
 }
 
+void ModemsWidget::modemNameChanged(const QString & text)
+{
+  tabWindow->enableButtonOK( !text.isEmpty() );
+}
 
 QString ModemsWidget::prettyPrintVolume(unsigned int n) {
   int idx = 0;

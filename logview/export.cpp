@@ -28,7 +28,7 @@
 class Export;
 
 /***** ExportFormats *****/
-struct {
+static struct {
     int id;
     QString name;
     QString desc;
