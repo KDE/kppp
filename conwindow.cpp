@@ -217,6 +217,7 @@ void ConWindow::accounting(bool on) {
   setFixedSize(sizeHint());
 /*
   do not overwrite position read from config
+  // If this gets re-enabled, fix it for Xinerama before committing to CVS.
   setGeometry((QApplication::desktop()->width() - width()) / 2,
 	      (QApplication::desktop()->height() - height())/2,
 	      width(),
