@@ -226,13 +226,6 @@ void ConnectWidget::init() {
     return;
   }
 
-#ifdef linux
-  // re-check PPP support. This will load the kernel module if it was meanwhile unloaded. This will
-  // prevent us from the strange error "This kernel lacks ppp support" a lot of people had, though
-  // PPP support was available as kernel module. I think this is due to a timing problem
-  (void)ppp_available();
-#endif
-
   if(Modem::modem->opentty()) {
     messg->setText(Modem::modem->modemMessage());
     kapp->processEvents();
@@ -1061,7 +1054,7 @@ void ConnectWidget::if_waiting_slot() {
       // we are here if pppd died immediately after starting it.
 
       if_timer->stop();
-      // error message handled in main.cpp: die_ppp()
+      // error message handled in main.cpp: sigPPPDDied()
       return;
     }
 

@@ -83,7 +83,6 @@ QString 	cmdl_account;
 
 bool	have_cmdl_account;
 bool    quit_on_disconnect = false;
-bool    terminate_connection = false;
 
 // for testing purposes
 bool TESTING=0;
@@ -91,11 +90,17 @@ bool TESTING=0;
 // initial effective user id before possible suid status is dropped
 uid_t euid;
 
-static int caughtSignal = -1;
-
 QString local_ip_address;
 QString remote_ip_address;
 QString pidfile;
+
+class SignalEvent : public QEvent {
+public:
+  SignalEvent(int s) : QEvent(User), sig(s) { }
+  int sigType() const { return sig; }
+private:
+  int sig;
+};
 
 void usage(char* progname) {
   fprintf(stderr, "%s -- valid command line options:\n", progname);
@@ -242,7 +247,6 @@ int main( int argc, char **argv ) {
     exit(1);
   }
 
-  QApplication::flushX();
   switch(fpid = fork()) {
   case 0:
     // child process
@@ -288,6 +292,7 @@ int main( int argc, char **argv ) {
   gpppdata.setSuidChildPid(fpid);
   Debug("suidChildPid: %i\n", (int) gpppdata.suidChildPid());
 
+  bool terminate_connection = false;
   int c;
   opterr = 0;
   while ((c = getopt(argc, argv, "c:khvr:qT")) != EOF) {
@@ -638,8 +643,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
 bool KPPPWidget::eventFilter(QObject *o, QEvent *e) {
   if(e->type() == QEvent::User) {
-    printf("caught user event. sig = %d\n", caughtSignal);
-    switch(caughtSignal) {
+    switch(((SignalEvent*)e)->sigType()) {
     case SIGINT:
       sigInt();
       break;
@@ -650,7 +654,6 @@ bool KPPPWidget::eventFilter(QObject *o, QEvent *e) {
       sigPPPDDied();
       break;
     }
-    caughtSignal = -1;
     return true;
   }
 
@@ -767,11 +770,10 @@ void KPPPWidget::resetaccounts() {
 
 void sighandler(int sig) {
   Debug("received signal %d\n", sig);
-  if((sig == SIGINT || sig == SIGCHLD || sig == SIGUSR1)
-     && caughtSignal == -1) {
-    caughtSignal = sig;
+  if(sig == SIGINT || sig == SIGCHLD || sig == SIGUSR1) {
+    QEvent *e = new SignalEvent(sig);
     // let eventFilter() deal with this when we're back in the loop
-    QApplication::postEvent(p_kppp, new QEvent(QEvent::User));
+    QApplication::postEvent(p_kppp, e);
   }
 
   signal(sig, sighandler); // reinstall signal handler
@@ -790,7 +792,6 @@ void KPPPWidget::sigInt() {
 }
 
 
-//Note: this is a friend function of KPPPWidget class (kppp)
 void KPPPWidget::sigPPPDDied() {
   Debug("Received a SIGUSR1\n");
 
