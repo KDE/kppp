@@ -61,7 +61,7 @@ per_connection=0.0
 minimum_costs=0.0
 
 # Therefore the first 180 secs costs this much no matter what.
-flat_init_costs=()
+flat_init_costs=(0,0)
 # A pity there's no peak/offpeak differential for this one.
 
 # All subsequent charging is done per-second, based on the unit
@@ -168,6 +168,6 @@ on (01/03) between (00:00..23:59) use (0.005111,40,900)
 # as well (sorry, guys :-)
 
 # This is where the Esat deal bites:
-on (monday..friday) between (18:00..23:59) use ()
-on (monday..friday) between (00:00..08:00) use ()
-on (saturday..sunday) between (00:00..23:59) use ()
+on (monday..friday) between (18:00..23:59) use (0,0)
+on (monday..friday) between (00:00..08:00) use (0,0)
+on (saturday..sunday) between (00:00..23:59) use (0,0)
