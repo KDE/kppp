@@ -1,21 +1,21 @@
 # KDE Config File
 ExDNSDisabled=0
-AutoDNS=1
+AutoDNS=0
 AutoName=0
 ScriptArguments=
 AccountingEnabled=1
 Phonenumber=
 IPAddr=0.0.0.0
-Domain=zonnet.nl
-Name=Zonnet
+Domain=
+Name=Sonera Plaza
 VolumeAccountingEnabled=1
-pppdArguments=detach,10.1.1.1
+pppdArguments=detach,
 BeforeDisconnect=
 Password=%USERNAME%
 Command=
 ScriptCommands=
-Authentication=1
-DNS=:62.58.50.5,62.58.50.6
+Authentication=3
+DNS=:195.66.14.9,195.66.24.5
 SubnetMask=0.0.0.0
 AccountingFile=/Netherlands/BelBasis_Lokaal.rst
 DefaultRoute=1
