@@ -41,7 +41,7 @@
 #include <qdialog.h>
 #include <qregexp.h>
 #include <qglobal.h>
-#include <qmultilinedit.h>
+#include <qmultilineedit.h>
 #include <qlayout.h>
 
 #include <kbuttonbox.h>

@@ -38,7 +38,7 @@
 #include <qlistbox.h>
 #include <qradiobutton.h>
 #include <qbuttongroup.h>
-#include <qchkbox.h>
+#include <qcheckbox.h>
 #include <qlabel.h>
 #include "scriptedit.h"
 #include "kpppconfig.h"

@@ -27,7 +27,7 @@
 #include <qdialog.h>
 #include <qstring.h>
 #include <qlabel.h>
-#include <qmultilinedit.h>
+#include <qmultilineedit.h>
 #include <qpushbutton.h>
 
 

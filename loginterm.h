@@ -2,7 +2,7 @@
 #define _LOGINTERM_H_
 
 #include <qdialog.h>
-#include <qmultilinedit.h>
+#include <qmultilineedit.h>
 #include <qapplication.h>
 #include <qtimer.h>
 

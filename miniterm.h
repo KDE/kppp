@@ -36,7 +36,7 @@
 #include <qevent.h>
 #include <qtimer.h>
 #include <qframe.h>
-#include <qmultilinedit.h> 
+#include <qmultilineedit.h> 
 #include <qtooltip.h> 
 
 #include <ktoolbar.h>

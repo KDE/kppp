@@ -39,19 +39,19 @@
 #include <sys/wait.h>
 #include <signal.h>
 
-#include <qapp.h>
+#include <qapplication.h>
 #include <qdialog.h>
 #include <qlabel.h>
 #include <qwidget.h>
-#include <qpushbt.h>
-#include <qcombo.h>
+#include <qpushbutton.h>
+#include <qcombobox.h>
 #include <qtimer.h>
-#include <qlcdnum.h>
+#include <qlcdnumber.h>
 #include <qpainter.h>
-#include <qtabdlg.h>
-#include <qradiobt.h>
+#include <qtabdialog.h>
+#include <qradiobutton.h>
 #include <qpixmap.h> 
-#include <qchkbox.h>
+#include <qcheckbox.h>
 
 #include "accounting.h"
 #include "conwindow.h"
