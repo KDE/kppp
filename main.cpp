@@ -83,7 +83,6 @@
 
 #include <X11/Xlib.h>
 #include <kapp.h>
-#include <klocale.h>
 #include <kcmdlineargs.h>
 
 static const char *description =
