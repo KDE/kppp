@@ -29,6 +29,7 @@
 #include "kpppconfig.h"
 #include "devices.h"
 #include <klocale.h>
+#include <kconfig.h>
 
 PPPData gpppdata;
 

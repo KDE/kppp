@@ -29,6 +29,7 @@
 #include <kapp.h>
 #include <unistd.h>
 #include <qmessagebox.h>
+#include <qtextstream.h>
 #include <qregexp.h>
 #include <sys/stat.h>
 #include <stdlib.h>

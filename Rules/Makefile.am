@@ -1,4 +1,4 @@
-SUBDIRS = Slovakia
+SUBDIRS = Germany Slovakia
 
 pkg_DATA = TEMPLATE 
 pkg_SCRIPTS = checkrules
