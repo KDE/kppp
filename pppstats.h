@@ -3,7 +3,7 @@
  *            kPPP: A pppd front end for the KDE project
  *
  * $Id$
- * 
+ *
  * (c) 1997-1998 Bernd Johannes Wuebben <wuebben@kde.org>
  * (c) 1997-1999 Mario Weilguni <mweilguni@kde.org>
  * (c) 1998-1999 Harri Porten <porten@kde.org>
@@ -37,6 +37,7 @@ class PPPStats : public QObject {
 public:
   PPPStats();
   ~PPPStats();
+  void clear();
   bool initStats();
   bool doStats();
   bool ifIsUp();
