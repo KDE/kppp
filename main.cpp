@@ -392,6 +392,8 @@ int main( int argc, char **argv ) {
   KPPPWidget kppp;
   p_kppp = &kppp;
 
+  (void)new DockWidget(p_kppp->con_win, "dockw", p_kppp->stats);
+
 #if 0
   // keep user informed about recent changes
   if(!have_cmdl_account)
@@ -573,7 +575,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   stats = new PPPStats;
 
   KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
-  
+
   con_win = new ConWindow(0, "conw", this, stats);
   KWin::setIcons(con_win->winId(), kapp->icon(), kapp->miniIcon());
   con_win->setGeometry(QApplication::desktop()->width()/2-160,
@@ -582,8 +584,6 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   statdlg = new PPPStatsDlg(0, "stats", this, stats);
   statdlg->hide();
-
-  (void)new DockWidget(this, "dockw", stats);
 
   debugwindow = new DebugWidget(0,"debugwindow");
   KWin::setIcons(debugwindow->winId(), kapp->icon(), kapp->miniIcon());

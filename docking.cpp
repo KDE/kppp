@@ -44,7 +44,7 @@ extern KPPPWidget   *p_kppp;
 DockWidget *DockWidget::dock_widget = 0;
 
 DockWidget::DockWidget(QWidget *parent, const char *name, PPPStats *st)
-  : KSystemTray(0L, name), stats(st) {
+  : KSystemTray(parent, name), stats(st) {
 
   // load pixmaps
   dock_none_pixmap = UserIcon("dock_none");
@@ -56,10 +56,9 @@ DockWidget::DockWidget(QWidget *parent, const char *name, PPPStats *st)
   popup_m = contextMenu();
   toggleID = popup_m->insertItem(i18n("Restore"),
 				 this, SLOT(toggle_window_state()));
-  popup_m->insertItem(i18n("Details"), parent, SLOT(showStats()));
+  popup_m->insertItem(i18n("Details"), p_kppp, SLOT(showStats()));
   popup_m->insertSeparator();
-  popup_m->insertItem(i18n("Disconnect"),
-		      parent, SLOT(disconnect()));
+  popup_m->insertItem(i18n("Disconnect"), p_kppp, SLOT(disconnect()));
   // connect to stats for little modem animation
   connect(stats, SIGNAL(statsChanged(int)), SLOT(paintIcon(int)));
 
