@@ -34,14 +34,16 @@
  * o be paranoid and think twice about everything you change.
  */
 
-#include "kpppconfig.h"
-
 #if defined(__osf__) || defined(__svr4__)
 #define _POSIX_PII_SOCKET
 extern "C" int sethostname(char *name, int name_len);
+#if !defined(__osf__)
 extern "C" int _Psendmsg(int, void*, int);
 extern "C" int _Precvmsg(int, void*, int);
 #endif
+#endif
+
+#include "kpppconfig.h"
 
 #include <sys/types.h>
 #include <sys/uio.h>
