@@ -487,24 +487,19 @@ void KPPPWidget::resetmodems() {
     modem_c->insertItem(gpppdata.modname());
   }
 
-  int newState = -1;
   if (count > 1 && !m_bModemCShown) {
       l1->addWidget(label7, 1, 1);
       l1->addWidget(modem_c, 1, 2);
       m_bModemCShown = true;
-      newState = 1;
   } else if (count <= 1 && m_bModemCShown){
       l1->remove(label7);
       l1->remove(modem_c);
       m_bModemCShown = false;
-      newState = 0;
   }
-  if (newState >= 0) {
-      label7->setShown(newState);
-      modem_c->setShown(newState);
-      layout()->invalidate();
-      setFixedSize(sizeHint());
-  }
+  label7->setShown(m_bModemCShown);
+  modem_c->setShown(m_bModemCShown);     
+  layout()->invalidate();
+  setFixedSize(sizeHint());
 
   //set the default modem
   if(!gpppdata.defaultModem().isEmpty()) {
