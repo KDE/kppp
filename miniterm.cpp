@@ -114,7 +114,7 @@ void MiniTerm::setupToolbar() {
 		      SLOT(help()), TRUE, i18n("Help"));
 
   toolbar->setBarPos( KToolBar::Top );
-  toolbar->enableMoving(false);
+  toolbar->setMovingEnabled(false);
   toolbar->updateRects(true);
 }
 
@@ -220,7 +220,7 @@ void MiniTerm::closeEvent( QCloseEvent *e ) {
 
 
 void MiniTerm::help() {
-  kapp->invokeHTMLHelp("kppp/kppp.html","");
+  kapp->invokeHelp();
 }
 
 
