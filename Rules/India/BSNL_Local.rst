@@ -71,7 +71,7 @@ per_connection=0.0
 
 # minimum costs per connection. If the costs of a phone
 # call are less than this value, this value is used instead
-minimum_costs=0.0
+minimum_costs=1.20
 
 
 # You pay 1.20 for the first 180 seconds ( 3 minutes) no matter
@@ -80,14 +80,14 @@ minimum_costs=0.0
 # over any other rule, in particular the 'default' rule.
 # have a look at costgraphs.gif in the docs directory
 # of the kppp distribution for a graphic illustration.
-flat_init_costs=(1.20, 180)
+# flat_init_costs=(1.20, 180)
 
 # This is the default rule which is used when no other rule
 # applies. The first component "1.20" is the price of one
 # "unit", while "180" is the duration in seconds.
 # Therefore the following rule means: "Every 180 seconds 1.20 
 # Rs. are added to the bill"
-default=(1.20, 180)
+# default=(1.20, 180)
 
 #
 # more complicated rules:
