@@ -143,6 +143,11 @@ void ExportWizard::getFilename() {
   setFinishEnabled(filenamePage, true);
 }
 
+void ExportWizard::reject()  {
+    hide();
+    filename = QString::null;
+}
+
 void ExportWizard::accept() {
   filterID = typeList->currentItem() + 1; // translate to ID-count in ExportFormats
   hide();

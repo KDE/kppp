@@ -52,6 +52,7 @@ public slots:
    void getFilename();
 
    void accept();
+    void reject();
 
 private:
    QWidget  *formatPage;
