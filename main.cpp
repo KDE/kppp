@@ -128,7 +128,7 @@ void showNews() {
   #define QUICKHELP_HINT "Hint_QuickHelp"
   if(gpppdata.readNumConfig(GENERAL_GRP, QUICKHELP_HINT, 0) == 0) {
     QDialog dlg(0, 0, true);
-    dlg.setCaption(i18n("Recent Changes in kppp"));
+    dlg.setCaption(i18n("Recent Changes in KPPP"));
 
     QVBoxLayout *tl = new QVBoxLayout(&dlg, 10, 10);
     QHBoxLayout *l1 = new QHBoxLayout(10);
