@@ -90,7 +90,7 @@ pppd[699]: (None of the available passwords would let it use an IP address.)
 <listitem><para><filename>/etc/ppp/options</filename> contains the
 <option>auth</option> option. Simply put a <prompt>#</prompt> comment in
 front and try again. </para></listitem> <listitem><para>Your system already
-has a default route. Have you set up a local network? In thise case recent
+has a default route. Have you set up a local network? In this case recent
 versions of pppd will behave as if <option>auth</option> had been
 specified. To override this you may add <option>noauth</option> to the pppd
 arguments in kppp' setup dialog. Alternatively you could take down the local
