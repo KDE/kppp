@@ -109,7 +109,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 	  SLOT(newdefaultaccount(int)));
   l1->addWidget(connectto_c, 0, 2);
 	
-	label7 = new QLabel(i18n("Use &Modem: "), this);
+	label7 = new QLabel(i18n("Use &modem: "), this);
   l1->addWidget(label7, 1, 1);
 	modem_c = new QComboBox(false, this);
   label7->setBuddy(connectto_c);
