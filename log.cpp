@@ -27,6 +27,7 @@
 #include "log.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void PRINTDEBUG(const char *file, int line, const char *fmt, ...) {
   va_list ap;
