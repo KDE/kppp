@@ -245,9 +245,19 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   con = new ConnectWidget(0, "con", stats);
   KWin::setIcons(con->winId(), kapp->icon(), kapp->miniIcon() );
   connect(this, SIGNAL(begin_connect()),con, SLOT(preinit()));
-  // Is this the best we can do here?  it's not right.
-  QRect desk = QApplication::desktop()->screenGeometry(
+
+  QRect desk;
+  KConfig gc("kdeglobals", false, false);
+  gc.setGroup("Windows");
+  if (gc.readBoolEntry("XineramaEnabled", true) &&
+      gc.readBoolEntry("XineramaPlacementEnabled", true)) {
+    // Is this the best we can do here?  it's not right.
+    desk = QApplication::desktop()->screenGeometry(
                QApplication::desktop()->screenNumber(topLevelWidget()));
+  } else {
+    desk = QApplication::desktop()->geometry();
+  }
+
   con->setGeometry(desk.center().x()-175, desk.center().y()-55, 350,110);
 
   // connect the ConnectWidgets various signals
