@@ -28,7 +28,7 @@
 #include <termios.h>
 #include <sys/types.h>
 #include <kapp.h>
-#include <kwm.h>
+#include <kwin.h>
 #include <khelpmenu.h>
 #include <kiconloader.h>
 #include "pppdata.h"
@@ -46,7 +46,7 @@ MiniTerm::MiniTerm(QWidget *parent, const char *name)
   : QDialog(parent, name, TRUE)
 {
   setCaption(i18n("Kppp Mini-Terminal"));
-  KWM::setMiniIcon(winId(), kapp->miniIcon());
+  KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
 
   m_file = new QPopupMenu;
   m_file->insertItem( i18n("&Close"),this, SLOT(cancelbutton()) );

@@ -26,7 +26,7 @@
 #include <qlayout.h>
 #include <qpainter.h>
 #include <kapp.h>
-#include <kwm.h>
+#include <kwin.h>
 #include <kglobal.h>
 #include <kiconloader.h>
 
@@ -48,7 +48,7 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
   max = 1024;
 
   setCaption(i18n("kppp Statistics"));
-  KWM::setMiniIcon(winId(), kapp->miniIcon());
+  KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10);
   QGridLayout *l1 = new QGridLayout(4, 4);

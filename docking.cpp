@@ -27,7 +27,7 @@
 #include <qtooltip.h>
 #include <qdir.h>
 #include <qpoint.h>
-#include <kwm.h>
+#include <kwin.h>
 #include <klocale.h>
 #include <kglobal.h>
 #include <kiconloader.h>
@@ -146,7 +146,7 @@ void DockWidget::toggle_window_state() {
       p_kppp->con_win->hide();
     else {
       p_kppp->con_win->show();
-      KWM::activate(p_kppp->con_win->winId());
+      KWin::setActiveWindow(p_kppp->con_win->winId());
     }
   }
 }

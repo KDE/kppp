@@ -27,7 +27,7 @@
 
 #include <qlayout.h>
 #include <kbuttonbox.h>
-#include <kwm.h>
+#include <kwin.h>
 #include <kapp.h>
 #include "pppdargs.h"
 #include "pppdata.h"
@@ -37,7 +37,7 @@ PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
   : QDialog(parent, name, TRUE)
 {
   setCaption(i18n("Customize pppd Arguments"));  
-  KWM::setMiniIcon(winId(), kapp->miniIcon());
+  KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
   QVBoxLayout *l = new QVBoxLayout(this, 10, 10);
   QHBoxLayout *tl = new QHBoxLayout(10);
   l->addLayout(tl);

@@ -32,7 +32,7 @@
 #include <qwhatsthis.h>
 #include <qmessagebox.h>
 
-#include <kapp.h> // TODO: needed for getMiniIcon() only
+#include <kapp.h>
 #include <kbuttonbox.h>
 #include <kmessagebox.h>
 #include <klocale.h>
@@ -42,7 +42,7 @@
 #include "accounting.h"
 #include "providerdb.h"
 #include "edit.h"
-#include <kwm.h>
+#include <kwin.h>
 
 void parseargs(char* buf, char** args);
 
@@ -334,7 +334,7 @@ void AccountWidget::deleteaccount() {
 
 int AccountWidget::doTab(){
   tabWindow = new QTabDialog(0,0,TRUE);
-  KWM::setMiniIcon(tabWindow->winId(), kapp->miniIcon());
+  KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
   bool isnewaccount;
  
   if(gpppdata.accname().isEmpty()) {
@@ -432,7 +432,7 @@ QString AccountWidget::prettyPrintVolume(unsigned int n) {
 //
 /////////////////////////////////////////////////////////////////////////////
 QueryReset::QueryReset(QWidget *parent) : QDialog(parent, 0, true) {
-  KWM::setMiniIcon(winId(), kapp->miniIcon());
+  KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
   setCaption(i18n("Reset accounting"));
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);

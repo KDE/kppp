@@ -32,7 +32,7 @@
 #include <klocale.h>
 #include "modemcmds.h"
 #include "pppdata.h"
-#include <kwm.h>
+#include <kwin.h>
 
 #define ADJUSTEDIT(e) e->setText("XXXXXXXXqy"); e->setMinimumSize(e->sizeHint()); e->setFixedHeight(e->sizeHint().height()); e->setText(""); e->setMaxLength(MODEMSTR_SIZE);
 
@@ -43,7 +43,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   : QDialog(parent, name, TRUE, WStyle_Customize|WStyle_NormalBorder)
 {
   setCaption(i18n("Edit Modem Commands"));
-  KWM::setMiniIcon(winId(), kapp->miniIcon());
+  KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
 
   const int GRIDROWS = 20;
 

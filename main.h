@@ -72,7 +72,7 @@ class KPPPWidget : public QWidget {
 public:
 
   KPPPWidget( QWidget *parent=0, const char *name=0 );
-  ~KPPPWidget() {}
+  ~KPPPWidget();
 
   void setPW_Edit(const QString &);
   virtual bool eventFilter(QObject *, QEvent *);

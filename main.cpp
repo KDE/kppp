@@ -52,7 +52,7 @@
 #include <qdir.h>
 #include <qwhatsthis.h>
 #include <qmessagebox.h>
-#include <kwm.h>
+#include <kwin.h>
 
 #include "providerdb.h"
 
@@ -86,7 +86,7 @@ static const char *version = KPPPVERSION "\n"
   "<wuebben@kde.org>\n"
   "(c) 1997-1999 Mario Weilguni "
   "<mweilguni@kde.org>\n"
-  "(c) 1998-1999 Harri Porten "
+  "(c) 1998-2000 Harri Porten "
   "<porten@kde.org>\n";
 
 static KCmdLineOptions option[] = 
@@ -557,7 +557,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   stats = new PPPStats;
 
   con_win = new ConWindow(0, "conw", this, stats);
-  KWM::setMiniIcon(con_win->winId(), kapp->miniIcon());
+  KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
   con_win->setGeometry(QApplication::desktop()->width()/2-160,
 		    QApplication::desktop()->height()/2-55,
 		    320,110);
@@ -568,14 +568,14 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   (void)new DockWidget(this, "dockw", stats);
 
   debugwindow = new DebugWidget(0,"debugwindow");
-  KWM::setMiniIcon(debugwindow->winId(), kapp->miniIcon());
+  KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
   debugwindow->hide();
 
   // load up the accounts combo box
 
   resetaccounts();
   con = new ConnectWidget(0, "con", stats);
-  KWM::setMiniIcon(con->winId(), kapp->miniIcon());
+  KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
   connect(this, SIGNAL(begin_connect()),con, SLOT(preinit()));
   con->setGeometry(QApplication::desktop()->width()/2-175,
 		    QApplication::desktop()->height()/2-55,
@@ -617,6 +617,10 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
     show();
 }
 
+KPPPWidget::~KPPPWidget()
+{
+  delete stats;
+}
 
 bool KPPPWidget::eventFilter(QObject *o, QEvent *e) {
   if(e->type() == QEvent::User) {
@@ -649,7 +653,7 @@ bool KPPPWidget::eventFilter(QObject *o, QEvent *e) {
 void KPPPWidget::prepareSetupDialog() {
   if(tabWindow == 0) {
     tabWindow = new QTabDialog( 0, 0, TRUE );
-    KWM::setMiniIcon(tabWindow->winId(), kapp->miniIcon());
+    KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
     tabWindow->setCaption( i18n("kppp Configuration") );
     tabWindow->setOkButton(i18n("OK"));
     tabWindow->setCancelButton(i18n("Cancel"));
