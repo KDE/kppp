@@ -32,6 +32,7 @@ extern KPPPWidget *p_kppp;
 myMultiEdit::myMultiEdit(QWidget *parent, const char *name)
   : QMultiLineEdit(parent, name)
 {
+ setReadOnly(true);
 }
 
 void myMultiEdit::insertChar(unsigned char c) {

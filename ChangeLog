@@ -1,3 +1,10 @@
+2002-01-21 Chris Howells <howells@kde.org>
+	* Made the QMultiLineEdit on the  Login Debug Window
+	   read-only
+	* Fixed the bug in the connected window that meant
+	  that the volume valued didn't display when volume
+	  was >~2.5GB
+
 2002-01-21  Per Winkvist  <nd96pwt@student.hig.se>
 
 	* Set focus correctly to ID/PWD on startup if one of the fields
