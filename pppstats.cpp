@@ -38,7 +38,6 @@
  *	- Initial distribution.
  */
 
-#include "pppstats.h"
 
 #include <ctype.h>
 #include <errno.h>
@@ -84,7 +83,6 @@
 
 #include <qtimer.h>
 #include <kdebug.h>
-#include "pppstats.h"
 
 PPPStats::PPPStats() {
   timer = new QTimer;
