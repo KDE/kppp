@@ -91,6 +91,8 @@ bool TESTING=0;
 // initial effective user id before possible suid status is dropped
 uid_t euid;
 
+static int caughtSignal = -1;
+
 QString local_ip_address;
 QString remote_ip_address;
 QString pidfile;
@@ -405,11 +407,11 @@ int main( int argc, char **argv ) {
   // we really don't want to die accidentally, since that would leave the
   // modem connected. If you really really want to kill me you must send 
   // me a SIGKILL.
-  signal(SIGINT, sigint);
+  signal(SIGINT, sighandler);
+  signal(SIGCHLD, sighandler);
+  signal(SIGUSR1, sighandler);
   signal(SIGTERM, SIG_IGN);
   signal(SIGHUP, SIG_IGN);
-  signal(SIGCHLD, sigchld);
-  signal(SIGUSR1, dieppp);
 
   XSetErrorHandler( kppp_x_errhandler );
   XSetIOErrorHandler( kppp_xio_errhandler );
@@ -435,6 +437,8 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   int result = runTests();
   if(result == TEST_CRITICAL)
     myShutDown(4);
+
+  installEventFilter(this);
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
 
@@ -633,6 +637,23 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
 
 bool KPPPWidget::eventFilter(QObject *o, QEvent *e) {
+  if(e->type() == QEvent::User) {
+    printf("caught user event. sig = %d\n", caughtSignal);
+    switch(caughtSignal) {
+    case SIGINT:
+      sigInt();
+      break;
+    case SIGCHLD:
+      sigChld();
+      break;
+    case SIGUSR1:
+      sigPPPDDied();
+      break;
+    }
+    caughtSignal = -1;
+    return true;
+  }
+
     if(o == connect_b) {
       if(e->type() == KeyPress) {
         if(connect_b->hasFocus() && ((QKeyEvent *)e)->key() == Key_Return) {
@@ -744,25 +765,34 @@ void KPPPWidget::resetaccounts() {
  	  this, SLOT(passwordChanged(const QString &)));
 }
 
+void sighandler(int sig) {
+  Debug("received signal %d\n", sig);
+  if((sig == SIGINT || sig == SIGCHLD || sig == SIGUSR1)
+     && caughtSignal == -1) {
+    caughtSignal = sig;
+    // let eventFilter() deal with this when we're back in the loop
+    QApplication::postEvent(p_kppp, new QEvent(QEvent::User));
+  }
 
-void sigint(int) {
+  signal(sig, sighandler); // reinstall signal handler
+}
+
+void KPPPWidget::sigInt() {
   Debug("Received a SIGINT\n");
-  signal(SIGINT, sigint); // reinstall the sig handler
 
   // interrupt dial up
-  if (p_kppp->con->isVisible())
-    emit p_kppp->con->cancelbutton();
+  if (con->isVisible())
+    emit con->cancelbutton();
 
   // disconnect if online
   if (gpppdata.pppdRunning())
-    emit p_kppp->disconnect();
+    emit disconnect();
 }
 
 
 //Note: this is a friend function of KPPPWidget class (kppp)
-void dieppp(int) {
+void KPPPWidget::sigPPPDDied() {
   Debug("Received a SIGUSR1\n");
-  signal(SIGUSR1, dieppp);
 
     // if we are not connected pppdpid is -1 so have have to check for that
     // in the followin line to make sure that we don't raise a false alarm
@@ -784,9 +814,9 @@ void dieppp(int) {
       QApplication::flushX();
       execute_command(gpppdata.command_on_disconnect());
 
-      p_kppp->stopAccounting();
+      stopAccounting();
 
-      p_kppp->con_win->stopClock();
+      con_win->stopClock();
       DockWidget::dock_widget->stop_stats();
       DockWidget::dock_widget->hide();      
 
@@ -796,12 +826,12 @@ void dieppp(int) {
       Modem::modem->unlockdevice();      
       
       if(!gpppdata.automatic_redial()) {
-	p_kppp->quit_b->setFocus();
-	p_kppp->show();
-	p_kppp->con_win->stopClock();
-	p_kppp->stopAccounting();
-	p_kppp->con_win->hide();
-	p_kppp->con->hide();
+	quit_b->setFocus();
+	show();
+	con_win->stopClock();
+	stopAccounting();
+	con_win->hide();
+	con->hide();
 
         gpppdata.setpppdRunning(false);
 	
@@ -828,19 +858,19 @@ void dieppp(int) {
           Requester::rq->setSecret(gpppdata.authMethod(),
 				   gpppdata.storedUsername(),
 				   gpppdata.password);
-	p_kppp->con_win->hide();
-	p_kppp->con_win->stopClock();
-	p_kppp->stopAccounting();
+	con_win->hide();
+	con_win->stopClock();
+	stopAccounting();
 	gpppdata.setpppdRunning(false);
 	KApplication::beep();
-	emit p_kppp->cmdl_start();
+	emit cmdl_start();
     }
   }
   gpppdata.setpppdError(0);
 }
 
 
-void sigchld(int) {
+void KPPPWidget::sigChld() {
   Debug("sigchld()");
   pid_t id = wait(0L);
 

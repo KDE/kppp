@@ -75,10 +75,6 @@ public:
   KPPPWidget( QWidget *parent=0, const char *name=0 );
   ~KPPPWidget() {}
 
-  friend void dieppp(int);              // if the pppd daemon dies...
-  friend void sigint(int);
-  friend void sigchld(int);
-
   void setPW_Edit(const QString &);
   virtual bool eventFilter(QObject *, QEvent *);
 
@@ -122,6 +118,9 @@ public:
 
 private:
   void prepareSetupDialog();
+  void sigInt();
+  void sigChld();
+  void sigPPPDDied();
 
   QString ruleset_load_errmsg;
 
@@ -154,9 +153,7 @@ private:
 };
 
 void killpppd();
-void sigint(int);
-void dieppp(int);
-void sigchld(int);
+void sighandler(int);
 pid_t execute_command(const char *);
 pid_t create_pidfile();
 bool remove_pidfile();

@@ -1,3 +1,9 @@
+1999-11-18  Harri Porten  <porten@kde.org>
+
+	* main.cpp: cleaned up signal handlers by posting a user defined
+	event to Qt's event loop. The real X stuff will be done in member 
+	functions of KPPPWidget now.
+
 1999-11-16  Harri Porten  <porten@kde.org>
 
 	* docking.cpp: ported to make use of new KDockWidget

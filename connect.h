@@ -50,7 +50,6 @@ public:
 public:
   void set_con_speed_string();
   void setMsg(const QString &);
-  friend void sigint(int);
 
 protected:
   void timerEvent(QTimerEvent *);
@@ -59,7 +58,6 @@ protected:
 private slots:
   void readChar(unsigned char);
   void pause();
-  void cancelbutton();
   void debugbutton();
   void if_waiting_slot();
 
@@ -68,6 +66,7 @@ public slots:
   void preinit();
   void script_timed_out();
   void if_waiting_timed_out();
+  void cancelbutton();
 
 signals:
   void if_waiting_signal();
