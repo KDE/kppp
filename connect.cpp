@@ -1271,11 +1271,9 @@ void add_domain(const QString &domain) {
     if ((c != '\n') && (i < MAX_RESOLVCONF_LINES)) i++;
 
     if((fd = Requester::rq->openResolv(O_WRONLY|O_TRUNC)) >= 0) {
-      QCString tmp = domain.local8Bit();
-
-      write(fd, "domain ", 7);
+      QCString tmp = "domain " + domain.local8Bit() +
+		     " \t\t#kppp temp entry\n";
       write(fd, tmp.data(), tmp.length());
-      write(fd, " \t\t#kppp temp entry\n", 20);
 
       for(int j=0; j < i; j++) {
 	if((resolv[j].contains("domain") ||
@@ -1283,16 +1281,13 @@ void add_domain(const QString &domain) {
 		&& !resolv[j].contains("#kppp temp entry")
 		&& gpppdata.exDNSDisabled()))
 	        && !resolv[j].contains("#entry disabled by kppp")) {
-
-          write(fd, "# ", 2);
-          QCString tmp = resolv[j].local8Bit();
+	  QCString tmp = "# " + resolv[j].local8Bit() +
+			 " \t#entry disabled by kppp\n";
 	  write(fd, tmp, tmp.length());
-          write(fd, " \t#entry disabled by kppp\n", 26);
 	}
 	else {
-          QCString tmp = resolv[j].local8Bit();
+	  QCString tmp = resolv[j].local8Bit() + "\n";
 	  write(fd, tmp, tmp.length());
-	  write(fd, "\n", 1);
 	}
       }
     }
@@ -1312,10 +1307,9 @@ void adddns()
           it != dnslist.end();
           ++it )
     {
-      write(fd, "nameserver ", 11);
-      QCString dns = (*it).local8Bit();
+      QCString dns = "nameserver " + (*it).local8Bit() +
+		     " \t#kppp temp entry\n";
       write(fd, dns.data(), dns.length());
-      write(fd, " \t#kppp temp entry\n", 19);
     }
     close(fd);
   }
@@ -1372,9 +1366,8 @@ void removedns() {
 	  write(fd, "\n", 1);
 	}
 	else {
-          QCString tmp = resolv[j].local8Bit();
+	  QCString tmp = resolv[j].local8Bit() + "\n";
 	  write(fd, tmp, tmp.length());
-	  write(fd, "\n", 1);
 	}
       }
     }

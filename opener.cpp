@@ -110,6 +110,7 @@ extern "C" {
         fprintf(stderr, "ASSERT: \"%s\" in %s (%d)\n",#x,__FILE__,__LINE__); \
         exit(1); }
 
+#define MY_DEBUG
 #ifndef MY_DEBUG
 #define Debug(s) ((void)0);
 #define Debug2(s, i) ((void)0);
@@ -711,7 +712,7 @@ void sighandler_child(int) {
 	pppdExitStatus = 99;
         Debug("pppd exited abnormally.");
       }
-      Debug2("Sending %i a SIGUSR1", getppid());
+      Debug2("Sending %i a SIGUSR1\n", getppid());
       kill(getppid(), SIGUSR1);
     }
   } else
