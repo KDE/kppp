@@ -1,0 +1,24 @@
+# KDE Config File
+ExDNSDisabled=0
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=8805140
+IPAddr=0.0.0.0
+Domain=
+Name=Solcon
+VolumeAccountingEnabled=1
+pppdArguments=detach,
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=1
+DNS=212.45.33.3,212.45.32.3.
+SubnetMask=0.0.0.0
+AccountingFile=/Netherlands/BelBasis_Lokaal.rst
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=
