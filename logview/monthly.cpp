@@ -21,6 +21,8 @@
 #include <qpainter.h>
 #include <qcombobox.h>
 #include <qfile.h>
+
+#include <kcalendarsystem.h>
 #include <klocale.h>
 #include <kglobal.h>
 #include <klistview.h>
@@ -202,13 +204,6 @@ int bestlen(QWidget *w, const char *s) {
 }
 
 void MonthlyWidget::plotMonth() {
-  QStringList months;
-  for (int i=1; i<13; i++)
-      months.append(KGlobal::locale()->monthName(i, false/*short*/));
-
-  // current showed month
-  currMonth = months[_month-1];
-
   // name of the current connection
   QString con;
 
@@ -222,7 +217,8 @@ void MonthlyWidget::plotMonth() {
   for(int i = 0; i < (int)logList.count(); i++) {
     LogInfo *li = logList.at(i);
 
-    if(li->from().date().month() == _month && li->from().date().year() == _year) {
+    QDate logDate = li->from().date();
+    if ( periodeFirst() <= logDate && periodeLast() >= logDate ) {
       // get connection name for this line
       con = li->connectionName();
 
@@ -315,17 +311,19 @@ void MonthlyWidget::plotMonth() {
 			   s_duration, s_costs, _bin, _bout);
   }
 
+  const KCalendarSystem * calendar = KGlobal::locale()->calendar();
+  QDate startDate = periodeFirst();
   QString t;
   if(lv->childCount() > 0) {
     exportBttn->setEnabled(true); // export possibility
     t = i18n("Connection log for %1 %2")
-	      .arg(months[_month-1])
-	      .arg(_year);
+	      .arg(calendar->monthName(startDate))
+	      .arg(calendar->year(startDate));
   } else {
     exportBttn->setEnabled(false); // nothing to export
     t = i18n("No connection log for %1 %2 available")
-	      .arg(months[_month-1])
-	      .arg(_year);
+	      .arg(calendar->monthName(startDate))
+	      .arg(calendar->year(startDate));
   }
 
   title->setText(t);
@@ -336,31 +334,30 @@ void MonthlyWidget::slotConnections(int) {
 }
 
 void MonthlyWidget::nextMonth() {
-  _month++;
-  if(_month == 13) {
-    _month = 1;
-    _year++;
-  }
+  m_periodeFirst = KGlobal::locale()->calendar()->addMonths(m_periodeFirst, 1);
+
   plotMonth();
 }
 
 void MonthlyWidget::prevMonth() {
-  _month--;
-  if(_month == 0) {
-    _month = 12;
-    _year--;
-  }
+  m_periodeFirst = KGlobal::locale()->calendar()->addMonths(m_periodeFirst, -1);
+
   plotMonth();
 }
 
 void MonthlyWidget::currentMonth() {
-  _month = QDate::currentDate().month();
-  _year  = QDate::currentDate().year();
+  const KCalendarSystem * calendar = KGlobal::locale()->calendar();
+  QDate dt = QDate::currentDate();
+  calendar->setYMD(m_periodeFirst, calendar->year(dt), calendar->month(dt), 1);
+
   plotMonth();
 }
 
 void MonthlyWidget::exportWizard() {
-  QString date = QString(currMonth+"-%1").arg(_year);  // e.g.: June-2001
+  const KCalendarSystem * calendar = KGlobal::locale()->calendar();
+  QString date = QString::fromLatin1("%1-%2") // e.g.: June-2001
+    .arg(calendar->monthName(periodeFirst()))
+    .arg(calendar->year(periodeFirst()));
 
   ExportWizard *wizard = new ExportWizard(0, date);
   wizard->exec();
@@ -401,7 +398,8 @@ void MonthlyWidget::exportWizard() {
   for(int i = 0; i < (int)logList.count(); i++) {
     LogInfo *li = logList.at(i);
 
-    if(li->from().date().month() == _month && li->from().date().year() == _year) {
+    QDate logDate = li->from().date();
+    if (periodeFirst() <= logDate && periodeLast() >= logDate ) {
       // get connection name for this line
       con = li->connectionName();
 
@@ -509,6 +507,17 @@ void MonthlyWidget::exportWizard() {
   delete exportIFace;
 }
 
+QDate MonthlyWidget::periodeFirst() const
+{
+  return m_periodeFirst;
+}
 
+QDate MonthlyWidget::periodeLast() const
+{
+  const KCalendarSystem * calendar = KGlobal::locale()->calendar();
+
+  // One month minus one day
+  return calendar->addDays(calendar->addMonths(m_periodeFirst, 1), -1);
+}
 
 #include "monthly.moc"

@@ -28,6 +28,8 @@
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qvaluelist.h>
+#include <qdatetime.h>
+
 #include <kbuttonbox.h>
 
 class QListView;
@@ -48,9 +50,18 @@ private slots:
 private:
   void layoutWidget();
   void plotMonth();
-
-  QString currMonth;
-  int _month, _year;
+  
+  /**
+   * Returns the first day in the period
+   */
+  QDate periodeFirst() const;
+  /**
+   * Returns the last day in the period
+   */
+  QDate periodeLast() const;
+  
+  QDate m_periodeFirst; // First day in month
+  //int _month, _year;
 
   QComboBox *cboConnections;  
   KButtonBox *bbox;
