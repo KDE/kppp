@@ -260,6 +260,11 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
     return;
 
   if(vmain == 0) {
+#ifdef DEBUG_WO_DIALING
+    vmain = 10;
+    return;
+#endif
+
     messg->setText(i18n("Initializing Modem..."));
     emit debugMessage(i18n("Initializing Modem..."));
 

@@ -397,6 +397,10 @@ bool RuleSet::parseLine(QString &s) {
     return ok && (_currency_digits >= 0);
   }
 
+  // "currency_position" is deprecated so we'll simply ignore it
+  if(s.contains(QRegExp("currency_position=.*"))) 
+    return TRUE;
+
   // check per connection fee
   if(s.contains(QRegExp("per_connection="))) {
     QString token = s.mid(15, s.length()-15);
