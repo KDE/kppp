@@ -77,7 +77,7 @@
 */
 
 // Define the maximum number of accounts
-#define MAX_ACCOUNTS 30
+#define MAX_ACCOUNTS 100
 
 // Define the mamimum number of script entries
 #define MAX_SCRIPT_ENTRIES 20

@@ -39,6 +39,8 @@
  */
 
 
+#include <config.h>
+
 #include <ctype.h>
 #include <errno.h>
 
@@ -55,6 +57,7 @@
 #include <net/ppp_defs.h>
 
 #include "config.h"
+#include "pppstats.h"
 
 #ifndef STREAMS
  #if defined(__linux__) && defined(__powerpc__) \
@@ -86,9 +89,9 @@
 #include <qtimer.h>
 #include <kdebug.h>
 
-#include "pppstats.h"
-
-PPPStats::PPPStats() {
+PPPStats::PPPStats()
+{
+  clear();
   timer = new QTimer;
   connect(timer, SIGNAL(timeout()), SLOT(timerClick()));
 }
@@ -99,6 +102,23 @@ PPPStats::~PPPStats() {
   delete timer;
 }
 
+
+void PPPStats::clear()
+{
+  ibytes = 0;
+  ipackets = 0;
+  ibytes_last = 0;
+  obytes_last = 0;
+  compressedin = 0;
+  uncompressedin = 0;
+  errorin = 0;
+  obytes = 0;
+  opackets = 0;
+  compressed = 0;
+  packetsunc = 0;
+  packetsoutunc = 0;
+  ioStatus = BytesNone;
+}
 
 void PPPStats::timerClick() {
   enum IOStatus newStatus;
@@ -163,7 +183,7 @@ bool PPPStats::ifIsUp() {
 	return false;
     }
 
-    strncpy(ifr.ifr_name, unitName, sizeof(ifr.ifr_name));
+    strlcpy(ifr.ifr_name, unitName, sizeof(ifr.ifr_name));
 
     if(ioctl(s, SIOCGIFFLAGS, (caddr_t) &ifr) < 0) {
         if (errno)
@@ -194,21 +214,9 @@ bool PPPStats::initStats() {
   struct sockaddr_in *sinp;
   struct ifreq ifr;
 
-  ibytes = 0;
-  ipackets = 0;
-  ibytes_last = 0;
-  obytes_last = 0;
-  compressedin = 0;
-  uncompressedin = 0;
-  errorin = 0;
-  obytes = 0;
-  opackets = 0;
-  compressed = 0;
-  packetsunc = 0;
-  packetsoutunc = 0;
-  ioStatus = BytesNone;
+  clear();
 
-  strcpy(ifr.ifr_name, unitName);
+  strlcpy(ifr.ifr_name, unitName, sizeof(ifr.ifr_name));
 
   if (ioctl(s, SIOCGIFADDR, &ifr) < 0) {
   }
