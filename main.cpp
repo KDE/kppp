@@ -769,12 +769,17 @@ void KPPPWidget::resetaccounts() {
 }
 
 void sighandler(int sig) {
-  //  fprintf(stderr, "received signal %d\n", sig);
-  if(sig == SIGINT || sig == SIGCHLD || sig == SIGUSR1) {
-    QEvent *e = new SignalEvent(sig);
-    // let eventFilter() deal with this when we're back in the loop
+  QEvent *e = 0L;
+  if(sig == SIGCHLD) {
+    pid_t id = wait(0L);
+    if(id >= 0 && id == helperPid) // helper process died
+      e = new SignalEvent(sig);
+  } else if(sig == SIGINT || sig == SIGUSR1)
+    e = new SignalEvent(sig);
+
+  // let eventFilter() deal with this when we're back in the loop
+  if (e)
     QApplication::postEvent(p_kppp, e);
-  }
 
   signal(sig, sighandler); // reinstall signal handler
 }
@@ -874,10 +879,9 @@ void KPPPWidget::sigPPPDDied() {
 
 void KPPPWidget::sigChld() {
   kdDebug(5002) << "sigchld()" << endl;
-  pid_t id = wait(0L);
-
-  if(id == helperPid && helperPid != -1) {
-    kdDebug(5002) << "It was the setuid child that died" << endl;
+  //  pid_t id = wait(0L);
+  //  if(id == helperPid && helperPid != -1) {
+  //    kdDebug(5002) << "It was the setuid child that died" << endl;
     helperPid = -1;
     QString msg = i18n("Sorry. kppp's helper process just died.\n\n"
                        "Since a further execution would be pointless, "
@@ -885,7 +889,7 @@ void KPPPWidget::sigChld() {
     KMessageBox::error(0L, msg);
     remove_pidfile();
     exit(1);
-  }
+    //  }
 }
 
 
