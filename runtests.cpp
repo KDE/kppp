@@ -101,10 +101,12 @@ void pppdVersion(int *version, int *modification, int *patch) {
     return;
 
   // call pppd with --version option
-  if(!(query = new char[strlen(pppd)+16]))
+  if(!(query = new char[strlen(pppd)+25]))
     return;
   strcpy(query, pppd);
-  strcat(query, " --version 2>&1");
+  // had to add a dummy device to prevent a "no device specified
+  // and stdin is not a tty" error from newer pppd versions.
+  strcat(query, " --version /dev/tty 2>&1");
   FILE *output = popen(query, "r");
   delete [] query;
   if(!output)
