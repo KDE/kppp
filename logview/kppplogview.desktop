@@ -1,4 +1,4 @@
-[KDE Desktop Entry]
+[Desktop Entry]
 Encoding=UTF-8
 Name=KPPP - Log Viewer
 Name[af]=Kppp - Log Aansig
@@ -26,6 +26,7 @@ Name[it]=KPPP - Visualizzatore log
 Name[ja]=KPPP - ログビューア
 Name[lt]=KPPP – žurnalo žiūriklis
 Name[lv]=KPPP - Žurnāla Skatītājs
+Name[mk]=Прегледувач на записи во KPPP
 Name[mn]=KPPP - харагч
 Name[ms]=KPPP - Pelihat Log
 Name[mt]=KPPP - Werrej tal-log
