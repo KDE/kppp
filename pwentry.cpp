@@ -26,6 +26,7 @@
 
 
 #include <stdio.h>
+#include <qapplication.h>
 #include "pwentry.h"
 
 PWEntry::PWEntry( QWidget *parent, const char *name )

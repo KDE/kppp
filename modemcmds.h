@@ -35,7 +35,6 @@
 #include <qdialog.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
-#include <qpainter.h>
 #include <qlabel.h>
 
 class ModemCommands : public QDialog {

@@ -29,6 +29,7 @@
 #include <sys/types.h>
 #include <kapp.h>
 #include <kwm.h>
+#include <kiconloader.h>
 #include "pppdata.h"
 #include "modem.h"
 #include "miniterm.h"
@@ -103,17 +104,17 @@ void MiniTerm::setupToolbar() {
 
   QPixmap pixmap;
 
-  pixmap = loader->loadIcon("exit.xpm");
+  pixmap = BarIcon("exit.xpm");
   toolbar->insertButton(pixmap, 0,
 		      SIGNAL(clicked()), this,
 		      SLOT(cancelbutton()), TRUE, i18n("Close MiniTerm"));
 
-  pixmap = loader->loadIcon("back.xpm");
+  pixmap = BarIcon("back.xpm");
   toolbar->insertButton(pixmap, 0,
 		      SIGNAL(clicked()), this,
 		      SLOT(resetModem()), TRUE, i18n("Reset Modem"));
 
-  pixmap = loader->loadIcon("help.xpm");
+  pixmap = BarIcon("help.xpm");
   toolbar->insertButton(pixmap, 0,
 		      SIGNAL(clicked()), this,
 		      SLOT(help()), TRUE, i18n("Help"));

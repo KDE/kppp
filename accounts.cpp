@@ -25,6 +25,7 @@
  */
 
 #include <qdir.h>
+#include <stdlib.h>
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qtabdialog.h>

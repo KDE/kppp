@@ -36,6 +36,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <unistd.h>
+#include <sys/stat.h>
 #include <qstrlist.h>
 #include <qdialog.h>
 #include <kbuttonbox.h>

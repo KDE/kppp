@@ -25,6 +25,9 @@
  */
 
 #include <errno.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <signal.h>
 #include <sys/ioctl.h>
 #include <setjmp.h>
 #include <qregexp.h>

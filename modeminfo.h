@@ -28,26 +28,13 @@
 #ifndef _MODEMINFO_H_
 #define _MODEMINFO_H_
 
-#include <qgroupbox.h> 
 #include <qdialog.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
-#include <qpainter.h>
 #include <qlabel.h>
 #include <qevent.h>
 #include <qtimer.h>
-#include <qsignal.h>
-#include <qregexp.h> 
-#include <qframe.h>
-#include <qrangecontrol.h>
-#include <qfont.h>
 #include <kprogress.h>
-
-#include <unistd.h>
-#include <termios.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 
 const int NUM_OF_ATI = 8;
 

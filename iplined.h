@@ -27,8 +27,6 @@
 #ifndef _IPLINED_H_
 #define _IPLINED_H_
 
-
-#include <qpainter.h>
 #include <krestrictedline.h>
 
 class IPLineEdit : public KRestrictedLine {

@@ -29,24 +29,12 @@
 #ifndef _CONNECT_H_
 #define _CONNECT_H_
 
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <signal.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <termios.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include <qapplication.h>
-#include <qdialog.h>
 #include <qtimer.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
 #include <qevent.h>
 
 #include "kpppconfig.h"
-#include "debug.h"
 #include "pwentry.h"
 #include "docking.h"
 #include "loginterm.h"

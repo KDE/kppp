@@ -39,12 +39,7 @@
 #include <qmultilinedit.h> 
 #include <qtooltip.h> 
 
-#include <unistd.h>
-#include <sys/types.h>
-
 #include <ktoolbar.h>
-#include <kmenubar.h>
-#include <kiconloader.h>
 
 
 class MyTerm : public QMultiLineEdit {

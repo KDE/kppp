@@ -75,7 +75,7 @@ bool PPPData::open() {
     highcount = MAX_ACCOUNTS;
 
   if(highcount >= 0) {
-    if(strcmp(defaultAccount(), "") == 0) {
+    if(defaultAccount().isEmpty()) == 0) {
       setAccountbyIndex(0);
       setDefaultAccount(accname());
     }
@@ -637,7 +637,7 @@ int PPPData::count() const {
 bool PPPData::setAccount(const QString &aname) {
   for(int i = 0; i <= highcount; i++) {
     setAccountbyIndex(i);
-    if(strcmp(accname(), aname) == 0) {
+    if(accname() == aname) {
       caccount = i;
       return true;
     }
@@ -660,7 +660,7 @@ bool PPPData::isUniqueAccname(const QString &n) {
   int current = caccount;
   for(int i=0; i <= highcount; i++) {
     setAccountbyIndex(i);
-    if(strcmp(accname(), n) == 0  && i != current) {
+    if(accname() == n && i != current) {
       setAccountbyIndex(current);
       return false;
     }
@@ -767,14 +767,14 @@ int PPPData::copyaccount(int i) {
 }
 
 
-const QString PPPData::accname() {
+QString PPPData::accname() {
   return readConfig(cgroup, NAME_KEY);
 }
 
 void PPPData::setAccname(const QString &n) {
   if(cgroup) {
     //change the default account name along with the account name
-    if(strcmp(accname(), defaultAccount()) == 0)
+    if(accname == defaultAccount)
       setDefaultAccount(n);
     writeConfig(cgroup, NAME_KEY, n);
   }

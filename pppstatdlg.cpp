@@ -24,6 +24,7 @@
 
 
 #include <qlayout.h>
+#include <qpainter.h>
 #include <kapp.h>
 #include <kwm.h>
 #include <kglobal.h>
@@ -66,10 +67,10 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *)
   QHBoxLayout *l111 = new QHBoxLayout;
   l11->addLayout(l111);
 
-  big_modem_both_pixmap = ICON("modemboth.xpm");
-  big_modem_left_pixmap = ICON("modemleft.xpm");
-  big_modem_right_pixmap = ICON("modemright.xpm");
-  big_modem_none_pixmap = ICON("modemnone.xpm");
+  big_modem_both_pixmap = BarIcon("modemboth.xpm");
+  big_modem_left_pixmap = BarIcon("modemleft.xpm");
+  big_modem_right_pixmap = BarIcon("modemright.xpm");
+  big_modem_none_pixmap = BarIcon("modemnone.xpm");
 
   pixmap_l = new QLabel(this);
   pixmap_l->setMinimumSize(big_modem_both_pixmap.size());

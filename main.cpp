@@ -29,6 +29,7 @@
 #include <qfileinfo.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <sys/stat.h>
 #include <sys/socket.h>
 #include <locale.h>
 #include <errno.h>
@@ -129,7 +130,7 @@ void showNews() {
     tl->addLayout(l1);
 
     QLabel *icon = new QLabel(&dlg);
-    icon->setPixmap(ICON("exclamation.xpm"));
+    icon->setPixmap(BarIcon("exclamation.xpm"));
     icon->setFixedSize(icon->sizeHint());
     l1->addWidget(icon);
     l1->addLayout(l2);

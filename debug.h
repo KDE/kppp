@@ -24,13 +24,8 @@
 #ifndef _DEBUGWIDGET_
 #define _DEBUGWIDGET_
 
-#include <stdlib.h>
-
 #include <qdialog.h>
-#include <qfont.h>
 #include <qstring.h>
-#include <qpainter.h>
-#include <qpixmap.h>
 #include <qlabel.h>
 #include <qmultilinedit.h>
 #include <qpushbutton.h>

@@ -28,10 +28,7 @@
 #ifndef _PPPDARGS_H_
 #define _PPPDARGS_H_
 
-#include<string.h>
-
 #include <qdialog.h>
-#include <qpainter.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
 #include <qlistbox.h>

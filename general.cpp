@@ -25,6 +25,7 @@
  */
 
 #include <qdir.h>
+#include <string.h>
 #include <kapp.h>
 #include <qlayout.h>
 #include <qwhatsthis.h>

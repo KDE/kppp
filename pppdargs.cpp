@@ -102,8 +102,7 @@ PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
 
 
 void PPPdArguments::addbutton() {
-  if(strcmp(argument->text(), "") != 0 &&
-     arguments->count() < MAX_PPPD_ARGUMENTS) {
+  if(!argument->text().isEmpty() && arguments->count() < MAX_PPPD_ARGUMENTS) {
     arguments->insertItem(argument->text());
     argument->setText("");
   }

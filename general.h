@@ -26,13 +26,11 @@
 #ifndef _GENERAL_H_
 #define _GENERAL_H_
 
-#include <string.h>
 #include <qwidget.h>
 #include <qpainter.h>
 #include <qcombobox.h>
 #include <qlabel.h>
 #include <qcheckbox.h>
-#include <qradiobutton.h>
 #include <qgroupbox.h>
 #include <kcolorbtn.h>
 
