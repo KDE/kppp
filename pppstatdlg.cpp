@@ -42,7 +42,8 @@ extern PPPData gpppdata;
 PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
 			 PPPStats *st)
   : QWidget(parent, name, 0),
-    stats(st)
+    stats(st),
+    status(PPPStats::Invalid)
 {
   int i;
   max = 1024;
@@ -294,15 +295,19 @@ void PPPStatsDlg::updateGraph() {
 
 
 void PPPStatsDlg::paintEvent (QPaintEvent *) {
-  paintIcon(PPPStats::BytesNone); // correct ?
+  paintIcon(status);
   if(gpppdata.graphingEnabled())
     paintGraph();
 }
 
 
-void PPPStatsDlg::paintIcon(int status) {
+void PPPStatsDlg::paintIcon(int newStatus) {
 
   const QPixmap *pixmap;
+
+  if (newStatus == status)
+      return;
+  status = newStatus;
 
   switch(status)
     {

@@ -63,7 +63,7 @@ public:
   QString local_ip_address;
   QString remote_ip_address;
 
-  enum IOStatus { BytesNone = 0, BytesIn, BytesOut, BytesBoth };
+  enum IOStatus { Invalid, BytesNone, BytesIn, BytesOut, BytesBoth };
 
 private:
   bool get_ppp_stats(struct ppp_stats *curp);

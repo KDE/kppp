@@ -28,13 +28,6 @@ static const char *devices[] = {
   "/dev/dtyU3",
 #elif defined (__linux__)
   "/dev/modem",
-// Linux from 2.1.x on discourages from using this devices
-#if 1
-  "/dev/cua0",
-  "/dev/cua1",
-  "/dev/cua2",
-  "/dev/cua3",
-#endif
   "/dev/ttyS0",
   "/dev/ttyS1",
   "/dev/ttyS2",

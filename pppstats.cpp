@@ -112,7 +112,7 @@ void PPPStats::timerClick() {
   else
     newStatus = BytesNone;
 
-  if(newStatus != ioStatus)
+  if(newStatus != BytesNone || newStatus != ioStatus)
     emit statsChanged(ioStatus = newStatus);
 
   ibytes_last = ibytes;
@@ -204,7 +204,7 @@ bool PPPStats::initStats() {
   compressed = 0;
   packetsunc = 0;
   packetsoutunc = 0;
-  ioStatus = BytesNone;
+  ioStatus = Invalid;
 
   strcpy(ifr.ifr_name, unitName);
 
