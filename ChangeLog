@@ -4,6 +4,7 @@
 	* pppstats.cpp: bundled statistic in a module. Removed unused
 	get_ppp_cstats() and some variables. The modem animations are triggered
 	by signals from the PPPStats object.
+	* logview/main.cpp: had to replace QTabDialog with QTabWidget
 	
 1999-04-25  Harri Porten  <porten@kde.org>
 

@@ -34,16 +34,14 @@
 PPPData gpppdata;
 
 
-PPPData::PPPData() {
-  //initialize variables
-  config = 0L;
-  highcount = -1;      // start out with no entries
-  caccount = -1;       // set the current account index also
-  cgroup = 0L;         // current group for config file
-
-  suidprocessid = -1;  // process ID of setuid child 
-  pppdisrunning = false;
-  pppderror = 0;       
+PPPData::PPPData()
+  :  config(0L),
+     highcount(-1),        // start out with no entries
+     caccount(-1),         // set the current account index also
+     suidprocessid(-1),    // process ID of setuid child 
+     pppdisrunning(false),
+     pppderror(0)       
+{
 }
 
 
