@@ -303,7 +303,7 @@ int main( int argc, char **argv ) {
 
   KAboutData aboutData("kppp", I18N_NOOP("KPPP"),
     KPPPVERSION, description, KAboutData::License_GPL,
-    "(c) 1999-2000, The KPPP Developers");
+    I18N_NOOP("(c) 1999-2000, The KPPP Developers"));
   aboutData.addAuthor("Bernd Wuebben",0, "wuebben@kde.org");
   aboutData.addAuthor("Mario Weilguni",0, "");
   aboutData.addAuthor("Harri Porten",0, "porten@kde.org");
