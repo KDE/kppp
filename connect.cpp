@@ -1104,8 +1104,7 @@ bool ConnectWidget::execppp() {
   //  command += " ";
   //  command += gpppdata.modemDevice();
 
-  command += " " ;
-  command += gpppdata.speed();
+  command += " " + gpppdata.speed();
 
   command += " -detach";
 
@@ -1125,29 +1124,18 @@ bool ConnectWidget::execppp() {
       command += gpppdata.gateway();
   }
 
-  if(gpppdata.subnetmask() != "0.0.0.0") {
-    command += " ";
-    command += "netmask";
-    command += " ";
-    command += gpppdata.subnetmask();
-
-  }
+  if(gpppdata.subnetmask() != "0.0.0.0")
+    command += " netmask " + gpppdata.subnetmask();
 
   if(gpppdata.flowcontrol() != "None") {
-    if(gpppdata.flowcontrol() == "CRTSCTS") {
-      command += " ";
-      command +=  "crtscts";
-    }
-    else {
-      command += " ";
-      command += "xonxoff";
-    }
+    if(gpppdata.flowcontrol() == "CRTSCTS")
+      command += " crtscts";
+    else
+      command += " xonxoff";
   }
 
-  if(gpppdata.defaultroute()) {
-    command += " ";
-    command +=  "defaultroute";
-  }
+  if(gpppdata.defaultroute())
+    command += " defaultroute";
 
   if(gpppdata.autoDNS())
     command += " usepeerdns";
@@ -1157,8 +1145,7 @@ bool ConnectWidget::execppp() {
         it != arglist.end();
         ++it )
   {
-    command += " ";
-    command += *it;
+    command += " " + *it;
   }
 
   // PAP settings

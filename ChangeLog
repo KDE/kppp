@@ -1,3 +1,13 @@
+2001-04-08  Harri Porten  <porten@kde.org>
+
+	* Solaris fixes: added missing include, less restrictive compile check
+	* main.cpp: deactivated KNotify::beep() in pppd-died signal handler,
+	  due to appearant race conditions when working remote
+	* ppplog.cpp: hardcoded list of syslog files, including my Debian one
+	* pppdata.cpp: i18n'ed name of account copy
+	* ...
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>> KDE 2.1.0 released <<<<<<<<<<<<<<<<<<<<<<<<<<<	
 2001-01-05  Harri Porten  <porten@kde.org>
 
 	* Solaris patches by Keith Refson <Keith.Refson@earth.ox.ac.uk>
@@ -7,7 +17,6 @@
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>> KDE 2.0.1 released <<<<<<<<<<<<<<<<<<<<<<<<<<<
 	
->>>>>>> 1.219
 2000-11-27  Harri Porten  <harri@trolltech.com>
 
 	* applied 7 bit fix from KDE 1.x for CompuServe users.
