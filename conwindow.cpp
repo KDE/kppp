@@ -99,7 +99,7 @@ QString ConWindow::prettyPrintVolume(unsigned int n) {
 		   i18n("MB"), i18n("GB"), QString::null};
 
   float n1 = n;
-  while(n >= 1024 && quant[idx] != QString::null) {
+  while(n >= 1024 && !quant[idx].isNull()) {
     idx++;
     n /= 1024;
   }

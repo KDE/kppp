@@ -742,7 +742,7 @@ bool PPPData::deleteAccount() {
   map = config->entryMap(cgroup);
   it = map.begin();
   config->setGroup(cgroup);
-  while (it.key() != QString::null) {
+  while (!it.key().isNull()) {
     config->writeEntry(it.key(), "");
     it++;
   }
