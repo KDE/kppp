@@ -404,7 +404,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
     if(readbuffer.contains(gpppdata.modemBusyResp())) {
       timeout_timer->stop();
-      timeout_timer->start(gpppdata.modemTimeout()*10000);
+      timeout_timer->start(gpppdata.modemTimeout()*1000);
 
       messg->setText(i18n("Line busy. Hanging up..."));
       emit debugPutChar('\n');
