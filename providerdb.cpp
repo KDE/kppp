@@ -95,8 +95,7 @@ ProviderDB::ProviderDB(QWidget *parent) :
 
 
 ProviderDB::~ProviderDB() {
-  if(cfg)
-    delete cfg;
+  delete cfg;
 }
 
 
@@ -122,8 +121,7 @@ void ProviderDB::pageSelected() {
 
 
 void ProviderDB::loadProviderInfo() {
-  if(cfg)
-    delete cfg;
+  delete cfg;
 
   QString loc = *page2->list->at(page2->lb->currentItem());
   QString provider = page3->lb->text(page3->lb->currentItem());

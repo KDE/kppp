@@ -312,10 +312,12 @@ bool Modem::writeLine(const char *buf) {
     if(wr < 0) {
       // TODO do something meaningful with the error code (or ignore it
       kdError(5002) << "write() in Modem::writeLine failed" << endl;
+      delete[] b;
       return false;
     }
     l -= wr;
   }
+  delete[] b;
   return true;
 }
 
