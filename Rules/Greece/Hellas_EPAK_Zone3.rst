@@ -1,6 +1,9 @@
 ################################################################
 # NOTES: 
-# This rules apply to you if you are accessing an ISP using an EPAK or PEAK
+# These rules were made at December 4th, 1999 (4/12/99)
+# These rules are valid since November 22nd, 1999 (22/11/99)
+# You can check for changes in prices at http://www.ote.gr/
+# These rules apply to you if you are accessing an ISP using an EPAK or PEAK
 # number (0965-) in a city that is more than 80 km from your own and not in the same perfecture.
 # The costs for an EPAK Zone 1 long distance phone-call are:
 # 1 Unit (7.0+18%VAT=8.26Drs) every 6.77secs.
@@ -12,6 +15,11 @@
 #           Webpage: http://www.cc.ece.ntua.gr/~akots/
 #           E-mail : mailto:achille@freemail.gr IRCnick: Achille
 #           PGP Key: http://www.cc.ece.ntua.gr/~akots/pgp.txt
+################################################################
+#                    Koussouris Sotiris a.k.a Broxopoios
+# Electrical and Computer Engineering, National Technical University of Athens
+# root@sound.gr
+# http://broxopoios.cjb.net/
 ################################################################
 # NAME OF THE RULESET. This is NEEDED for accounting purposes.
 ################################################################

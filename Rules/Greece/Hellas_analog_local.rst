@@ -3,11 +3,10 @@
 # These rules were made at December 4th, 1999 (4/12/99)
 # These rules are valid since November 22nd, 1999 (22/11/99)
 # You can check for changes in prices at http://www.ote.gr/
-# These rules apply to you if you are accessing an ISP using an EPAK or PEAK
-# number (0965-) in the same city as you.
-# The costs for an EPAK local phone-call are:
-# 1 Unit (7.0+18%VAT=8.26Drs) every 3.5 minutes (210secs).
-# Exception: 22:00 - 08:00 :1 Unit every 7 minutes (420secs).
+# These rules apply to you if you are accessing an ISP without using an EPAK or PEAK
+# number (0965-) in the same city as you, from an analog phone.
+# The costs for an analog local phone-call are:
+# 1 Unit (7.0+18%VAT=8.26Drs) per connection.
 ################################################################
 #                             Achilleas Kotsis 
 # Electrical and Computer Engineering, National Technical University of Athens
@@ -22,7 +21,7 @@
 ################################################################
 # NAME OF THE RULESET. This is NEEDED for accounting purposes.
 ################################################################
-name=Hellas_EPAK_local.rts
+name=Hellas_analog_local.rts
 
 ################################################################
 # currency settings
@@ -48,18 +47,14 @@ currency_digits=2
 #       LAST matching rule is the one used for the
 #       cost computations.
 
+# This is charged whenever you connect. If you don't have to
+# pay per-connection, use "0" here or comment it out.
+per_connection=8.26
 
 # This is the default rule which is used when no other rule
 # applies. The first component "8.26" is the price of one
-# "unit", while "210" is the duration in seconds.
+# "unit", while "60" is the duration in seconds.
 # Therefore the following rule means: "Every 210 seconds 8.26
 # DRS are added to the bill"
-default=(8.26, 210)
 
-#
-# more complicated rules:
-#
-
-# "on monday until sunday from 22:00 until 08:00 the costs
-# are 8.26 each 420 seconds"
-on (monday..sunday) between (22:00..08:00) use (8.26, 420)
+default=(0.0, 0)
