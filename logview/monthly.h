@@ -27,9 +27,10 @@
 #include <kapp.h>
 #include <qlayout.h>
 #include <qlabel.h>
-#include <ktablistbox.h>
 #include <qpushbutton.h>
 #include <kbuttonbox.h>
+
+class QListView;
 
 class MonthlyWidget : public QWidget {
   Q_OBJECT
@@ -48,7 +49,7 @@ private:
   int _month, _year;
 
   KButtonBox *bbox;
-  KTabListBox *lb;
+  QListView *lv;
   QLabel *title;
   QPushButton *next, *prev, *today;
 

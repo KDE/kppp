@@ -19,7 +19,9 @@
  */
 
 #include "monthly.h"
+
 #include <klocale.h>
+#include <klistview.h>
 
 static void formatBytes(int bytes, QString &result) {
   if(bytes < 1024)
@@ -44,9 +46,9 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
 {
   tl = 0;
 
-  lb = new KTabListBox(this);
-  lb->setMinimumWidth(320);
-  lb->setMinimumHeight(200);
+  lv = new KListView(this);
+  lv->setMinimumWidth(320);
+  lv->setMinimumHeight(200);
 
   title = new QLabel("X", this);
   QFont f = title->font();
@@ -57,7 +59,7 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
 
   bbox = new KButtonBox(this, KButtonBox::VERTICAL);
   prev = bbox->addButton(i18n("Prev month"));
-  next = bbox->addButton(i18n("Next month"));  
+  next = bbox->addButton(i18n("Next month"));
   bbox->addStretch(1);
   today = bbox->addButton(i18n("Current month"));
 
@@ -69,7 +71,7 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
 	  this, SLOT(currentMonth()));
 
   bbox->addStretch(8);
-  bbox->layout();  
+  bbox->layout();
 
   currentMonth();
   layoutWidget();
@@ -83,7 +85,7 @@ void MonthlyWidget::layoutWidget() {
 
   QHBoxLayout *l1 = new QHBoxLayout;
   tl->addLayout(l1, 1);
-  l1->addWidget(lb, 1);
+  l1->addWidget(lv, 1);
   l1->addWidget(bbox);
 
   tl->activate();
@@ -106,21 +108,15 @@ void MonthlyWidget::plotMonth() {
 		      i18n("October"),
 		      i18n("November"),
 		      i18n("December")};
-  lb->clear();
-  lb->setNumCols(9);
-  lb->setSeparator('\t');
 
-#define TITLE(x, y) x, QMAX(lb->fontMetrics().boundingRect(i18n(x)).width() + 8, \
-			       lb->fontMetrics().boundingRect(y).width())
-  lb->setColumn(0, TITLE(i18n("Connection"), "XXXXXXXXXXXXXXXX"));
-  lb->setColumn(1, TITLE(i18n("Day"), "XX"));
-  lb->setColumn(2, TITLE(i18n("From"), "XX:XX"));
-  lb->setColumn(3, TITLE(i18n("Until"), "XX:XX"));
-  lb->setColumn(4, TITLE(i18n("Seconds"), "XXXXX"));
-  lb->setColumn(5, TITLE(i18n("Costs"), "XXXX.XX"));
-  lb->setColumn(6, TITLE(i18n("Bytes in"), "888888888"));
-  lb->setColumn(7, TITLE(i18n("Bytes out"), "888888888"));
-  lb->setColumn(8, TITLE(i18n("Bytes"), "888888888"));
+  lv->addColumn(i18n("Connection"));
+  lv->addColumn(i18n("Day"));
+  lv->addColumn(i18n("From"));
+  lv->addColumn(i18n("Until"));
+  lv->addColumn(i18n("Seconds"));
+  lv->addColumn(i18n("Costs"));
+  lv->addColumn(i18n("Bytes in"));
+  lv->addColumn(i18n("Bytes out"));
 
   // search the entries for this month
   QString s;
@@ -131,9 +127,9 @@ void MonthlyWidget::plotMonth() {
   int count = 0;
   double costs = 0;
   int bin = 0, bout = 0;
-  int duration = 0;  
+  int duration = 0;
+  QListViewItem* last = 0;
 
-  lb->setAutoUpdate(FALSE);
   for(int i = 0; i < (int)logList.count(); i++) {
     LogInfo *li = logList.at(i);
 
@@ -142,73 +138,78 @@ void MonthlyWidget::plotMonth() {
       count++;
       costs += li->sessionCosts();
       if(bin >= 0) {
-	if(li->bytesIn() < 0)
-	  bin = -1;
-	else
-	  bin += li->bytesIn();
+        if(li->bytesIn() < 0)
+          bin = -1;
+        else
+          bin += li->bytesIn();
       }
 
       if(bout >= 0) {
-	if(li->bytesOut() < 0)
-	  bout = -1;
-	else
-	  bout += li->bytesOut();
+        if(li->bytesOut() < 0)
+          bout = -1;
+        else
+          bout += li->bytesOut();
       }
-      
-      duration += li->from().secsTo(li->until());      
+
+      duration += li->from().secsTo(li->until());
 
       QString bin, bout, b;
       if(li->bytesIn() >= 0)
-	formatBytes(li->bytesIn(), bin);
+        formatBytes(li->bytesIn(), bin);
       else
-	bin = i18n("n/a");
+        bin = i18n("n/a");
 
       if(li->bytesOut() >= 0)
-	formatBytes(li->bytesOut(), bout);
+        formatBytes(li->bytesOut(), bout);
       else
-	bout = i18n("n/a");
+        bout = i18n("n/a");
 
       if(li->bytes() > 0)
-	formatBytes(li->bytes(), b);
+        formatBytes(li->bytes(), b);
       else
-	b = i18n("n/a");
+        b = i18n("n/a");
 
       QString day;
       QString con;
       if(li->from().date().day() != lastday) {
-	day.setNum(li->from().date().day());
-	lastday = li->from().date().day();
+        day.setNum(li->from().date().day());
+        lastday = li->from().date().day();
       } else
-	day = " ";
+        day = " ";
 
       if(li->connectionName() != lastConn) {
-	con = li->connectionName();
-	lastConn = li->connectionName();
+        con = li->connectionName();
+        lastConn = li->connectionName();
       } else
-	con = " ";
+        con = " ";
 
       QString s_duration;
       formatDuration(li->from().secsTo(li->until()),
-		     s_duration);
-      s.sprintf("%s\t%s\t%02d:%02d\t%02d:%02d\t%s\t%6.2f\t%s\t%s\t%s",
-		con.data(),
-		day.data(),
-		li->from().time().hour(), li->from().time().minute(),
-		li->until().time().hour(), li->until().time().minute(),
-		s_duration.data(),
-		li->sessionCosts(),
-		bin.data(),
-		bout.data(),
-		b.data()
-		);
-      lb->appendItem(s.data());
+                     s_duration);
+
+      QString s_lifrom, s_liuntil, s_costs;
+      s_lifrom.sprintf("%02d:%02d",
+                       li->from().time().hour(), li->from().time().minute());
+      s_liuntil.sprintf("%02d:%02d",
+                        li->until().time().hour(), li->until().time().minute());
+      s_costs.sprintf("%6.2f",
+                      li->sessionCosts());
+
+      last = new QListViewItem(lv,
+                               QString::fromLocal8Bit(con.data()),
+                               QString::fromLocal8Bit(day.data()),
+                               s_lifrom, s_liuntil,
+                               QString::fromLocal8Bit(s_duration.data()),
+                               s_costs,
+                               QString::fromLocal8Bit(bin.data()),
+                               QString::fromLocal8Bit(bout.data()));
     }
   }
 
   if(count) {
     QString s;
     QString _bin, _bout, _b;
-    
+
     if(bin < 0)
       _bin = i18n("n/a");
     else
@@ -226,40 +227,46 @@ void MonthlyWidget::plotMonth() {
 
     QString s_duration;
     formatDuration(duration,
-		   s_duration);
+                   s_duration);
 
 
     s.sprintf(i18n("%d connections\t%s\t%s\t%s\t%s\t%6.2f\t%s\t%s\t%s"),
-	      count,
-	      " ",
-	      " ",
-	      " ",
-	      s_duration.data(),
-	      costs,
-	      _bin.data(),
-	      _bout.data(),
-	      _b.data());
+              count,
+              " ",
+              " ",
+              " ",
+              s_duration.data(),
+              costs,
+              _bin.data(),
+              _bout.data(),
+              _b.data());
 
-    lb->appendItem(""
-		   "===================================\t"
-		   "===================================\t"
-		   "===================================\t"
-		   "===================================\t"
-		   "===================================\t"
-		   "===================================\t"
-		   "===================================\t"
-		   "===================================\t"
-		   "===================================");
-    
-    lb->appendItem(s.data());
-    lb->appendItem("");
+    last = new QListViewItem(lv, last,
+                             QString::fromLocal8Bit("==================================="),
+                             QString::fromLocal8Bit("==================================="),
+                             QString::fromLocal8Bit("==================================="),
+                             QString::fromLocal8Bit("==================================="),
+                             QString::fromLocal8Bit("==================================="),
+                             QString::fromLocal8Bit("==================================="),
+                             QString::fromLocal8Bit("==================================="),
+                             QString::fromLocal8Bit("==================================="));
+
+    QString s_costs;
+    s.sprintf("%6.2f", costs);
+
+    last = new QListViewItem(lv, last,
+                             i18n("%d connections"),
+                             " ",
+                             " ",
+                             " ",
+                             QString::fromLocal8Bit(s_duration.data()),
+                             s_costs,
+                             QString::fromLocal8Bit(_bin.data()),
+                             QString::fromLocal8Bit(_bout.data()));
   }
 
-  lb->setAutoUpdate(TRUE);
-  lb->repaint();
-
   QString t;
-  if(lb->count() > 0)
+  if(lv->childCount() > 0)
     t.sprintf(i18n("Connection log for %s %d"),
 	      months[_month-1].data(),
 	      _year);
@@ -267,7 +274,7 @@ void MonthlyWidget::plotMonth() {
     t.sprintf(i18n("No connection log for %s %d available"),
 	      months[_month-1].data(),
 	      _year);
-    
+
   title->setText(t.data());
 }
 
