@@ -73,8 +73,8 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
   lpn->addWidget(numbers);
   QVBoxLayout *lpn1 = new QVBoxLayout;
   lpn->addLayout(lpn1);
-  add = new QPushButton(i18n("Add"), peer());
-  del = new QPushButton(i18n("Remove"), peer());
+  add = new QPushButton(i18n("&Add"), peer());
+  del = new QPushButton(i18n("&Remove"), peer());
 
   up = new QPushButton(peer());
   QPixmap pm = BarIcon("up");

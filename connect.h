@@ -61,7 +61,6 @@ protected:
 private slots:
   void readChar(unsigned char);
   void pause();
-  void debugbutton();
   void if_waiting_slot();
 
 public slots:

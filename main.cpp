@@ -982,8 +982,7 @@ void KPPPWidget::beginConnect() {
   }
 
   if (gpppdata.phonenumber().isEmpty()) {
-    QString s;
-    s = i18n("You must specify a telephone number!");
+    QString s = i18n("You must specify a telephone number!");
     KMessageBox::error(this, s);
     return;
   }
@@ -1002,7 +1001,6 @@ void KPPPWidget::beginConnect() {
   else {
     debugwindow->show();
     con->raise();
-    con->debug->setText(i18n("Log")); // set Log/Hide button text to Hide
   }
 
   emit begin_connect();

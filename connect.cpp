@@ -4,7 +4,7 @@
  *
  *            Copyright (C) 1997 Bernd Johannes Wuebben
  *                   wuebben@math.cornell.edu
- *            Copyright (C) 1998-2000 Harri Porten <porten@kde.org>
+ *            Copyright (C) 1998-2001 Harri Porten <porten@kde.org>
  *
  * based on EzPPP:
  * Copyright (C) 1997  Jay Painter
@@ -122,7 +122,7 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   l1->addStretch(1);
 
   debug = new QPushButton(i18n("Log"), this);
-  connect(debug, SIGNAL(clicked()), SLOT(debugbutton()));
+  connect(debug, SIGNAL(clicked()), SIGNAL(toggleDebugWindow()));
 
   cancel = new QPushButton(i18n("Cancel"), this);
   cancel->setFocus();
@@ -975,11 +975,6 @@ void ConnectWidget::script_timed_out() {
   p_kppp->con_win->stopClock();
 
   vmain = 0; // let's try again.
-}
-
-
-void ConnectWidget::debugbutton() {
-  emit toggleDebugWindow();
 }
 
 
