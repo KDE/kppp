@@ -57,6 +57,7 @@ public slots:
   bool save();
   void pppdargsbutton();
   void numbersChanged();
+  void cbtypeChanged(int);
   void selectionChanged(int);
   void addNumber();
   void delNumber();
@@ -72,6 +73,11 @@ private:
   QLabel *auth_l;
   QCheckBox *store_password;
 
+  // callback support
+  QComboBox *cbtype;
+  QLabel *cbtype_l;
+  QLineEdit *cbphone;
+  QLabel *cbphone_l;
   // for the phonenumber selection
   QPushButton *add, *del, *up, *down;
   QListBox *numbers;

@@ -43,7 +43,8 @@ PPPData::PPPData()
      caccount(-1),         // set the current account index also
      suidprocessid(-1),    // process ID of setuid child
      pppdisrunning(false),
-     pppderror(0)
+     pppderror(0),
+     waitcallback(false)
 {
 }
 
@@ -905,6 +906,29 @@ bool PPPData::storePassword() {
   return (bool)readNumConfig(cgroup, STORE_PASSWORD_KEY, 1);
 }
 
+int PPPData::callbackType() {
+  return readNumConfig(cgroup, CALLBACK_TYPE_KEY, 0);
+}
+
+void PPPData::setCallbackType(int value) {
+  writeConfig(cgroup, CALLBACK_TYPE_KEY, value);
+}
+
+QString PPPData::callbackPhone() {
+  return readConfig(cgroup, CALLBACK_PHONE_KEY, "");
+}
+
+void PPPData::setCallbackPhone(const QString &b) {
+  writeConfig(cgroup, CALLBACK_PHONE_KEY, b);
+}
+
+bool PPPData::waitCallback() {
+  return waitcallback;
+}
+
+void PPPData::setWaitCallback(bool value) {
+  waitcallback = value;
+}
 
 const QString PPPData::command_before_connect() {
   return readConfig(cgroup, BEFORE_CONNECT_KEY);

@@ -117,6 +117,8 @@ class KConfig;
 #define STORED_PASSWORD_KEY "Password"
 #define STORED_USERNAME_KEY "Username"
 #define STORE_PASSWORD_KEY "StorePassword"
+#define CALLBACK_TYPE_KEY  "CallbackType"
+#define CALLBACK_PHONE_KEY "CallbackPhone"
 #define BEFORE_CONNECT_KEY  "BeforeConnect"
 #define COMMAND_KEY        "Command"
 #define DISCONNECT_COMMAND_KEY "DisconnectCommand"
@@ -152,6 +154,7 @@ class KConfig;
 // pppd errors
 #define E_IF_TIMEOUT       1
 #define E_PPPD_DIED        2
+#define E_CBCP_WAIT       14
 
 // window position
 #define WINPOS_CONWIN_X    "WindowPositionConWinX"
@@ -359,6 +362,15 @@ public:
   bool storePassword();
   void setStorePassword(bool);
 
+  int callbackType();
+  void setCallbackType(int);
+
+  QString callbackPhone();
+  void setCallbackPhone(const QString &);
+
+  bool waitCallback();
+  void setWaitCallback(bool);
+
   const QString speed();
   void setSpeed(const QString &);
 
@@ -464,6 +476,7 @@ private:
                                          // daemon
   int pppderror;                         // error encounterd running pppd
   int pppdVer, pppdMod, pppdPatch;       // pppd version
+  bool waitcallback;			 // callback waiting flag
 
   QStringList phonelist;
 };

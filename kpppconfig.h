@@ -129,4 +129,8 @@ extern const char * const kppp_syslog[];
 #define __xnet_connect connect
 #endif
 
+#define CBTYPE_NONE     0
+#define CBTYPE_ADMIN    1
+#define CBTYPE_USER     2
+
 #endif

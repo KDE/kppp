@@ -367,7 +367,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
   if(vmain == 4) {
     if(!expecting) {
-      if(!gpppdata.waitForDialTone()) {
+      if(!gpppdata.waitForDialTone() || gpppdata.waitCallback()) {
 	QString msg = i18n("Turning off dial tone waiting...");
 	messg->setText(msg);
 	emit debugMessage(msg);
@@ -385,6 +385,15 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
       timeout_timer->stop();
       timeout_timer->start(gpppdata.modemTimeout()*1000);
+
+      if(gpppdata.waitCallback()) {
+        QString msg = i18n("Waiting for callback...");
+        messg->setText(msg);
+        emit debugMessage(msg);
+        setExpect(gpppdata.modemRingResp());
+        vmain = 102;
+        return;
+      }
 
       QStringList &plist = gpppdata.phonenumbers();
       QString bmarg= gpppdata.dialPrefix();
@@ -438,6 +447,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       Modem::modem->setDataMode(false);
       vmain = 0;
       substate = -1;
+      gpppdata.setWaitCallback(false);
       return;
     }
 
@@ -447,6 +457,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       messg->setText(i18n("No Dial Tone"));
       vmain = 20;
       Modem::modem->unlockdevice();
+      gpppdata.setWaitCallback(false);
       return;
     }
 
@@ -476,6 +487,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
         messg->setText(i18n("No Carrier"));
         vmain = 20;
         Modem::modem->unlockdevice();
+        gpppdata.setWaitCallback(false);
       }
       return;
     }
@@ -493,6 +505,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
                               "Do NOT connect this modem to a digital phone "
 			      "line or the modem could get permanently "
 			      "damaged"));
+      gpppdata.setWaitCallback(false);
       return;
     }
 
@@ -509,6 +522,16 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
       vmain = 2;
       scriptTimeout=gpppdata.modemTimeout()*1000;
+      return;
+    }
+  }
+
+  // send answer on callback phase
+  if(vmain == 102) {
+    if(!expecting) {
+      writeline(gpppdata.modemAnswerStr());
+      setExpect(gpppdata.modemConnectResp());
+      vmain = 100;
       return;
     }
   }
@@ -912,6 +935,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	// starting pppd wasn't successful. Error messages were
 	// handled by execppp();
 	if_timeout_timer->stop();
+
 	this->hide();
 	messg->setText("");
 	p_kppp->quit_b->setFocus();
@@ -932,6 +956,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
   // this is a "wait until cancel" entry
 
   if(vmain == 20) {
+    gpppdata.setWaitCallback(false);
   }
 }
 
@@ -1020,6 +1045,7 @@ void ConnectWidget::pause() {
 
 
 void ConnectWidget::cancelbutton() {
+  gpppdata.setWaitCallback(false);
   Modem::modem->stop();
   killTimer(main_timer_ID);
   timeout_timer->stop();
@@ -1267,6 +1293,20 @@ bool ConnectWidget::execppp() {
   {
     command += " " + *it;
   }
+
+  // Callback settings
+  if(gpppdata.callbackType() && !gpppdata.waitCallback()) {
+    if(!gpppdata.pppdVersionMin(2, 4, 2)) {
+      command += " +callback";
+      if(gpppdata.callbackType() == CBTYPE_USER)
+        command += " callback " + gpppdata.callbackPhone();
+    } else {
+      command += " callback ";
+      command += gpppdata.callbackType() == CBTYPE_ADMIN ?
+                 QString("0") : gpppdata.callbackPhone();
+    }
+  } else
+    gpppdata.setWaitCallback(false);
 
   // PAP settings
   if(gpppdata.authMethod() == AUTH_PAP) {

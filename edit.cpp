@@ -47,7 +47,7 @@
 DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
   : QWidget(parent, name)
 {
-  const int GRIDROWS = 6;
+  const int GRIDROWS = 8;
 
   QGridLayout *tl = new QGridLayout(parent, GRIDROWS, 2, 0, KDialog::spacingHint());
 
@@ -151,9 +151,37 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
 		       "readable only to you. Make sure nobody\n"
 		       "gains access to this file!"));
 
+  cbtype_l = new QLabel(i18n("&Callback type:"), parent);
+  tl->addWidget(cbtype_l, 5, 0);
+
+  cbtype = new QComboBox(parent);
+  cbtype_l->setBuddy(cbtype);
+  cbtype->insertItem(i18n("None"));
+  cbtype->insertItem(i18n("Administrator-defined"));
+  cbtype->insertItem(i18n("User-defined"));
+  connect(cbtype, SIGNAL(highlighted(int)),
+	  this, SLOT(cbtypeChanged(int)));
+  tl->addWidget(cbtype, 5, 1);
+  tmp = i18n("Callback type");
+
+  QWhatsThis::add(cbtype_l,tmp);
+  QWhatsThis::add(cbtype,tmp);
+
+  cbphone_l = new QLabel(i18n("Call&back number:"), parent);
+  tl->addWidget(cbphone_l, 6, 0);
+
+  cbphone = new QLineEdit(parent);
+  cbphone_l->setBuddy(cbphone);
+  cbphone->setMaxLength(14);
+  tl->addWidget(cbphone, 6, 1);
+  tmp = i18n("Callback phone number");
+
+  QWhatsThis::add(cbphone_l,tmp);
+  QWhatsThis::add(cbphone,tmp);
+
   pppdargs = new QPushButton(i18n("Customize &pppd Arguments..."), parent);
   connect(pppdargs, SIGNAL(clicked()), SLOT(pppdargsbutton()));
-  tl->addMultiCellWidget(pppdargs, 5, 5, 0, 1, AlignCenter);
+  tl->addMultiCellWidget(pppdargs, 7, 7, 0, 1, AlignCenter);
 
   // Set defaults if editing an existing connection
   if(!isnewaccount) {
@@ -177,11 +205,16 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
 
     auth->setCurrentItem(gpppdata.authMethod());
     store_password->setChecked(gpppdata.storePassword());
+    cbtype->setCurrentItem(gpppdata.callbackType());
+    cbphone->setText(gpppdata.callbackPhone());
   } else {
     // select PAP/CHAP as default
     auth->setCurrentItem(AUTH_PAPCHAP);
+    // select NONE as default
+    cbtype->setCurrentItem(CBTYPE_NONE);
   }
 
+  emit cbtypeChanged(cbtype->currentItem());
   numbersChanged();
   tl->activate();
 }
@@ -205,6 +238,8 @@ bool DialWidget::save() {
     gpppdata.setPhonenumber(number);
     gpppdata.setAuthMethod(auth->currentItem());
     gpppdata.setStorePassword(store_password->isChecked());
+    gpppdata.setCallbackType(cbtype->currentItem());
+    gpppdata.setCallbackPhone(cbphone->text());
     return true;
   }
 }
@@ -218,6 +253,10 @@ void DialWidget::numbersChanged() {
   down->setEnabled(sel != -1 && sel != (int)numbers->count()-1);
 }
 
+void DialWidget::cbtypeChanged(int value) {
+  cbphone_l->setEnabled(value == CBTYPE_USER);
+  cbphone->setEnabled(value == CBTYPE_USER);
+}
 
 void DialWidget::selectionChanged(int) {
   numbersChanged();

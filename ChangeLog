@@ -3,6 +3,9 @@
 	* connect.cpp: added patch by Dmitri that allows automatic redials
 	on NO CARRIER.
 
+	* provide automatic CBCP (Windows) callback support. Patch by Nick
+	Shafff.
+
 2004-04-12  Gerardo Puga  <gpuga@gioia.ing.unlp.edu.ar>
 
 	* Now kppp will notify other applications using DCOP about 

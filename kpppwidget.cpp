@@ -511,8 +511,11 @@ void KPPPWidget::sigPPPDDied() {
       removedns();
       Modem::modem->unlockdevice();
       con->pppdDied();
-
-      if(!gpppdata.automatic_redial()) {
+      
+      Requester::rq->pppdExitStatus();
+      gpppdata.setWaitCallback(gpppdata.callbackType() && Requester::rq->lastStatus == E_CBCP_WAIT);
+      
+      if(!gpppdata.automatic_redial() && !gpppdata.waitCallback()) {
 	quit_b->setFocus();
 	show();
 	con_win->stopClock();
@@ -541,7 +544,10 @@ void KPPPWidget::sigPPPDDied() {
 	if(KMessageBox::warningYesNo(0, msg, i18n("Error"), KStdGuiItem::ok(), i18n("&Details...")) == KMessageBox::No)
 	  PPPL_ShowLog();
       } else { /* reconnect on disconnect */
-	kdDebug(5002) << "Trying to reconnect... " << endl;
+        if(gpppdata.waitCallback())
+          kdDebug(5002) << "Waiting for callback... " << endl;
+        else
+          kdDebug(5002) << "Trying to reconnect... " << endl;
 
         if(gpppdata.authMethod() == AUTH_PAP ||
 	   gpppdata.authMethod() == AUTH_CHAP ||
@@ -554,7 +560,7 @@ void KPPPWidget::sigPPPDDied() {
 	con_win->stopClock();
 	stopAccounting();
 	gpppdata.setpppdRunning(false);
-	// not in a signal handler !!!	KNotifyClient::beep();
+	// not in a signal handler !!!  KNotifyClient::beep();
 	emit cmdl_start();
     }
   }
