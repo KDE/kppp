@@ -37,7 +37,7 @@ mandir = @mandir@
 includedir = @includedir@
 oldincludedir = /usr/include
 
-# use 'DESTDIR' from environment!
+DESTDIR =
 
 pkgdatadir = $(datadir)/@PACKAGE@
 pkglibdir = $(libdir)/@PACKAGE@
@@ -68,6 +68,7 @@ host_alias = @host_alias@
 host_triplet = @host@
 target_alias = @target_alias@
 target_triplet = @target@
+ARTSCCONFIG = @ARTSCCONFIG@
 AS = @AS@
 AUTODIRS = @AUTODIRS@
 CC = @CC@
@@ -81,6 +82,8 @@ DLLTOOL = @DLLTOOL@
 DPMSINC = @DPMSINC@
 DPMSLIB = @DPMSLIB@
 EXEEXT = @EXEEXT@
+GCJ = @GCJ@
+GCJFLAGS = @GCJFLAGS@
 GLINC = @GLINC@
 GLLIB = @GLLIB@
 GMSGFMT = @GMSGFMT@
@@ -154,6 +157,7 @@ RANLIB = @RANLIB@
 REPO = @REPO@
 STRIP = @STRIP@
 TOPSUBDIRS = @TOPSUBDIRS@
+UIC = @UIC@
 USER_INCLUDES = @USER_INCLUDES@
 USER_LDFLAGS = @USER_LDFLAGS@
 USE_EXCEPTIONS = @USE_EXCEPTIONS@
