@@ -30,7 +30,6 @@
 #include "ruleset.h"
 
 #include <qregexp.h>
-#include <qstring.h>
 #include <qfile.h>
 
 #include <klocale.h>

@@ -26,14 +26,12 @@
 #include <qlayout.h>
 #include <qpainter.h>
 #include <kwin.h>
-#include <kglobal.h>
 #include <kiconloader.h>
 #include <kapplication.h>
 #include <klocale.h>
 
 #include "pppdata.h"
 #include "pppstatdlg.h"
-#include "kpppconfig.h"
 #include "iplined.h"
 #include "pppstats.h"
 

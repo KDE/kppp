@@ -33,9 +33,7 @@
 //---------------------------------------------------------------------------
 
 
-#include <qcheckbox.h>
 #include <qcombobox.h>
-#include <qgroupbox.h>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qlistview.h>
@@ -44,7 +42,6 @@
 #include <qwmatrix.h>
 #include <stdio.h>
 
-#include <kglobal.h>
 #include <kstandarddirs.h>
 #include <klocale.h>
 #include <kiconloader.h>

@@ -31,14 +31,12 @@
 #include <sys/ioctl.h>
 #include <setjmp.h>
 #include <qregexp.h>
-#include <qtimer.h>
 #include <assert.h>
 
 #include "modem.h"
 #include "pppdata.h"
 #include "requester.h"
 #include <klocale.h>
-#include <kmessagebox.h>
 #include <kdebug.h>
 #include <config.h>
 

@@ -30,7 +30,6 @@
 #include <qlabel.h>
 #include <qdir.h>
 #include <qpushbutton.h>
-#include <qstring.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -38,10 +37,8 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
-#include <qstringlist.h>
 #include <qdialog.h>
 #include <qregexp.h>
-#include <qglobal.h>
 #include <qmultilineedit.h>
 #include <qlayout.h>
 

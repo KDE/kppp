@@ -30,19 +30,12 @@
 #include <sys/types.h>
 
 #include <qdir.h>
-#include <qfile.h>
-#include <qdatetime.h>
-#include <qregexp.h>
-#include <qlabel.h>
 
-#include <kprogress.h>
-#include <kglobal.h>
 #include <kstandarddirs.h>
 #include <kdebug.h>
 #include <time.h>
 
 #include "accounting.h"
-#include "kpppconfig.h"
 #include "pppdata.h"
 #include "pppstats.h"
 

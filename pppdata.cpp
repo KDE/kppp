@@ -24,10 +24,8 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include <qmap.h>
 #include "pppdata.h"
 #include "runtests.h"
-#include "kpppconfig.h"
 #include "devices.h"
 #include <klocale.h>
 #include <kconfig.h>

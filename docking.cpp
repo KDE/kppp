@@ -24,18 +24,13 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include <qtooltip.h>
-#include <qdir.h>
-#include <qpoint.h>
 #include <kwin.h>
 #include <klocale.h>
-#include <kglobal.h>
 #include <kiconloader.h>
 #include <kpopupmenu.h>
 
 #include "docking.h"
 #include "main.h"
-#include "kpppconfig.h"
 #include "pppstats.h"
 
 extern KPPPWidget   *p_kppp;

@@ -43,19 +43,13 @@
 #include <sys/param.h>
 #endif
 
-#include <qfileinfo.h>
 #include <qregexp.h>
 
 #include <kdebug.h>
-#include <kbuttonbox.h>
-#include <kiconloader.h>
 #include <klocale.h>
 #include <kstandarddirs.h>
-#include <kglobal.h>
 #include <kaboutdata.h>
-#include <kconfig.h>
 #include <kmessagebox.h>
-#include <knotifyclient.h>
 #include <kseparator.h>
 #include <qdir.h>
 #include <qwhatsthis.h>

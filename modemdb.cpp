@@ -33,8 +33,6 @@
 //---------------------------------------------------------------------------
 
 #include <qlabel.h>
-#include <qlistbox.h>
-#include <qstringlist.h>
 #include <kbuttonbox.h>
 #include <qlayout.h>
 #include "modemdb.h"

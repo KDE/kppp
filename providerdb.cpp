@@ -36,12 +36,8 @@
 #include <qdir.h>
 #include <qlabel.h>
 #include <qlayout.h>
-#include <qlistbox.h>
-#include <qpushbutton.h>
 #include <qregexp.h>
-#include <qlineedit.h>
 #include <klocale.h>
-#include <kglobal.h>
 #include <kstandarddirs.h>
 #include <kdebug.h>
 #include "providerdb.h"

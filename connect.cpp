@@ -26,7 +26,6 @@
 
 #include <config.h>
 
-#include <qdir.h>
 #include <qregexp.h>
 #include <klocale.h>
 #include <kmessagebox.h>
@@ -62,7 +61,6 @@
 #include "requester.h"
 #include "connect.h"
 #include "main.h"
-#include "kpppconfig.h"
 #include "pppdata.h"
 #include "docking.h"
 #include "modem.h"

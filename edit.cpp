@@ -30,11 +30,9 @@
 #include <qwhatsthis.h>
 #include <qregexp.h>
 #include <kapplication.h>
-#include <kglobal.h>
 #include <kiconloader.h>
 #include <kbuttonbox.h>
 #include <klocale.h>
-#include <kconfig.h>
 #include <kwin.h>
 
 #include "edit.h"

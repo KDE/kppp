@@ -22,7 +22,6 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include <qdir.h>
 #include <unistd.h>
 #include <sys/ioctl.h>
 #include <termios.h>
@@ -34,7 +33,6 @@
 #include "modem.h"
 #include "miniterm.h"
 #include <klocale.h>
-#include <kglobal.h>
 #include <kpopupmenu.h>
 #include <kapplication.h>
 

@@ -21,9 +21,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <kapplication.h>
-#include <qkeycode.h>
-#include <qlayout.h>
-#include <qpushbutton.h>
 #include "log.h"
 #include "monthly.h"
 #include "main.h"

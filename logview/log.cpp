@@ -23,7 +23,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include <qfileinfo.h>
 #include <qprogressdialog.h>
 #include <qdir.h>
 

@@ -24,10 +24,8 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include <qdir.h>
 #include <termios.h>
 #include <string.h>
-#include <qlayout.h>
 #include <qwhatsthis.h>
 
 #include <knuminput.h>
