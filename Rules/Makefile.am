@@ -12,8 +12,10 @@ SUBDIRS = Argentina \
 	Greece \
 	HongKong \
 	Hungary \
+	Iceland \
 	India \
 	Indonesia \
+	Ireland \
 	Italy \
 	Jamaica \
 	Japan \
