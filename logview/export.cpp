@@ -53,7 +53,7 @@ ExportWizard::ExportWizard(QWidget *parent, const QString &_date)
 
   filterID = 0;
 
-  setCaption(i18n("Export Wizard for kPPP logs"));
+  setCaption(i18n("Export Wizard for kPPP Logs"));
 
   /* format-page */
   formatPage = new QWidget();
@@ -78,7 +78,7 @@ ExportWizard::ExportWizard(QWidget *parent, const QString &_date)
   typeInfo->setMinimumSize(350, 200);
   formatLayout->addWidget(typeInfo);
 
-  addPage(formatPage, i18n("Selection of filetype"));
+  addPage(formatPage, i18n("Selection of Filetype"));
   setNextEnabled( formatPage, false );
   setHelpEnabled( formatPage, false );
 
@@ -105,7 +105,7 @@ ExportWizard::ExportWizard(QWidget *parent, const QString &_date)
   connect(fnGet, SIGNAL(clicked()), SLOT(getFilename()));
   filenameLayout->addStretch(2);
 
-  addPage(filenamePage, i18n("Selection of filename"));
+  addPage(filenamePage, i18n("Selection of Filename"));
   setNextEnabled( filenamePage, false );
   setHelpEnabled( filenamePage, false );
 }

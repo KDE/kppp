@@ -235,7 +235,7 @@ void PPPL_ShowLog() {
 
   QDialog *dlg = new QDialog(0, "", TRUE);
 
-  dlg->setCaption(i18n("PPP log"));
+  dlg->setCaption(i18n("PPP Log"));
   QVBoxLayout *tl = new QVBoxLayout(dlg, 10, 10);
   QMultiLineEdit *edit = new QMultiLineEdit(dlg);
   edit->setReadOnly(TRUE);

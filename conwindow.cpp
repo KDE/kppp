@@ -53,9 +53,9 @@ ConWindow::ConWindow(QWidget *parent, const char *name,QWidget *mainwidget,
   volinfo  = new QLabel("", this);
 
   // now the stuff for accounting
-  session_bill_l = new QLabel(i18n("Session Bill:"), this);
+  session_bill_l = new QLabel(i18n("Session bill:"), this);
   session_bill = new QLabel("", this);
-  total_bill_l = new QLabel(i18n("Total Bill:"), this);
+  total_bill_l = new QLabel(i18n("Total bill:"), this);
   total_bill = new QLabel("", this);
 
   this->setCaption("kppp");
