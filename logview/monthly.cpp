@@ -30,6 +30,7 @@
 
 #include "monthly.h"
 #include "export.h"
+#include <qstringlist.h>
 
 static void formatBytes(int bytes, QString &result) {
   if(bytes < 1024)
@@ -202,18 +203,9 @@ int bestlen(QWidget *w, const char *s) {
 }
 
 void MonthlyWidget::plotMonth() {
-  QString months[] = {i18n("January"),
-		      i18n("February"),
-		      i18n("March"),
-		      i18n("April"),
-		      i18n("May"),
-		      i18n("June"),
-		      i18n("July"),
-		      i18n("August"),
-		      i18n("September"),
-		      i18n("October"),
-		      i18n("November"),
-		      i18n("December")};
+  QStringList months;
+  for (int i=1; i<13; i++)
+      months.append(KGlobal::locale()->monthName(i, false/*short*/));
 
   // current showed month
   currMonth = months[_month-1];
@@ -316,11 +308,10 @@ void MonthlyWidget::plotMonth() {
     formatDuration(duration,
                    s_duration);
 
-    QString s_costs;
-    s_costs.sprintf("%6.2f", costs);
+    QString s_costs(KGlobal::locale()->formatMoney(costs, QString::null, 2));
 
     (void) new LogListItem(0, lv,
-			   i18n("%1 connections").arg(count),
+			   i18n("%n connection", "%n connections", count),
 			   QString::null, QString::null, QString::null,
 			   s_duration, s_costs, _bin, _bout);
   }
@@ -500,12 +491,11 @@ void MonthlyWidget::exportWizard() {
     formatDuration(duration,
                    s_duration);
 
-    QString s_costs;
-    s_costs.sprintf("%6.2f", costs);
+    QString s_costs(KGlobal::locale()->formatMoney(costs, QString::null, 2));
 
     // call export methods
     exportIFace->addEmptyLine();
-    exportIFace->addDataline(i18n("%1 connections").arg(count), QString::null, QString::null, QString::null, s_duration,
+    exportIFace->addDataline(i18n("%n connection", "%n connections", count), QString::null, QString::null, QString::null, s_duration,
 			     s_costs, _bin, _bout);
     exportIFace->setFinishCode();
 
