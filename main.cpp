@@ -1053,7 +1053,7 @@ void KPPPWidget::disconnect() {
 
 
 void KPPPWidget::helpbutton() {
-  kapp->invokeHTMLHelp("kppp/kppp.html","");
+  kapp->invokeHelp();
 }             
 
 
