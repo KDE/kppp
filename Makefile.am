@@ -131,7 +131,7 @@ METASOURCES = accounting.moc \
 	providerdb.moc
 
 messages:
-	$(XGETTEXT) -C -kI18N_NOOP -ki18n -x $(includedir)/kde.pot $(kppp_SOURCES) && mv messages.po $(podir)/kppp.pot
+	$(XGETTEXT) $(kppp_SOURCES) -o $(podir)/kppp.pot
 	(cd logview && make -f Makefile.am XGETTEXT=$(XGETTEXT) includedir=$(includedir) messages)
 
 # just install datas here. Use install-exec-data for scripts and etc.

@@ -43,4 +43,4 @@ noinst_HEADERS = loginfo.h log.h monthly.h main.h
 METASOURCES = main.moc monthly.moc
 
 messages:
-	$(XGETTEXT) -C -ki18n -x $(includedir)/kde.pot *.cpp *.h && mv messages.po $(podir)/kppplogview.pot
+	$(XGETTEXT) *.cpp *.h -o $(podir)/kppplogview.pot
