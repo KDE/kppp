@@ -1,3 +1,74 @@
+1999-04-24  Harri Porten  <porten@kde.org>
+
+	* runtests.cpp: test for `lock' in /etc/ppp/options is not needed any-
+	more, thanks to a hint from Paul Mackeras (pppd). Leaving away ttySx
+	(99/04/10) from the command line and binding stdin/stdout to the
+	device (99/01/12) stops pppd from trying to lock the device itself.
+
+1999-04-10  Harri Porten  <porten@kde.org>
+
+	* connect.cpp: solved problems with pppd 2.3.6 and 2.3.7
+	* pppdata.cpp: PPPDebug() defaults to `false'.
+	* opener.cpp: introduced MY_ASSERT macro. We don't want to see our
+	security checks disabled by the NDEBUG flag.
+
+1999-04-09  Harri Porten  <porten@kde.org>
+
+	* modem.cpp: improved protection against socket notifier zombie as
+	suggested by Brian Fisher <fisherb@hotdog.ccs.queensu.ca>.
+
+
+1999-04-06  Harri Porten  <porten@kde.org>
+	* modem.cpp: set modemfd to -1 in closetty().
+	* modem.cpp: block attempts to start the socket notfier if modemfd < 0.
+	* connect.cpp: call closetty() _before_ execppp(). This should solve
+	some of the reported timeout errors and the observed memory hogging.
+	* modem.cpp: added stop() in closetty() (just to be sure)
+	(all fixes above were proposed by Ian Gordon <ig@cs.strath.ac.uk>)
+	* requester.cpp: setpppdRunning(false) _before_ killing the pppd.
+
+1999-03-26  Harri Porten  <porten@kde.org>
+
+	* main.cpp: added flushX() before every command_execute()
+	* increased maximum modem string size
+	* store child pid in helper_pid instead of gpppdata.* (safer) 
+
+1999-03-20  Harri Porten  <porten@kde.org>
+
+	* connect.cpp: fixed "unknown speed" bug introduced in previous version
+
+1999-03-15  Harri Porten  <porten@kde.org>
+
+	* opener.cpp: replaced regex library calls with self-written matching
+	algorithm. This hopefully prevents the segfaults reported with SuSE
+	and Caldera binaries. (Update: identified the assert() around regcomp()
+	as the bug. It was left out when compiling with NODEBUG) 
+	* connect.cpp: fixed bugs of internal scripting loop. Possible
+	symptoms: broken 'Expect' command and incorrectly parsed modem speed.
+
+1999-03-10  Harri Porten  <porten@kde.org>
+
+	* modem.cpp: dropped ISTRIP option and made everything else "8-bit
+	clean" by using unsigned char and removing 0x7F AND'ing. Characters
+	like [§´°äöü] will work now.
+	* conwindow.cpp (ConWindow): initialise volinfo after discovering that
+	this prevents a segfault with Qt2.0 (turned out to be a beta bug only)
+
+1999-03-09  Harri Porten  <porten@kde.org>
+
+	* opener.cpp: utilize CMSG_LEN macro if present
+	* opener.cpp: insert LF if missing at end of *-secrets file
+	* opener.cpp: supply REG_NOSUB flag to regcomp
+
+1999-03-05  Harri Porten  <porten@kde.org>
+
+	* requester.cpp: relaxed check for msg_controllen due to alignment
+	problems on different hardware architectures (eg. Alphas). Proposed
+	by Martin Ostermann <ost@comnets.rwth-aachen.de>
+	* removed unused or doubled code
+
+=========================== KDE 1.1 released ==============================
+	
 1999-02-04  Harri Porten  <porten@kde.org>
 
 	* main.cpp: remove stale pidfile before creating new the

@@ -47,10 +47,8 @@
 #include <sys/ioctl.h>
 #include <sys/un.h>
 #include <fcntl.h>
-#include <assert.h>
 #include <string.h>
 #include <errno.h>
-#include <regex.h>
 #include <netinet/in.h>
 #include <signal.h>
 #include <sys/wait.h>
@@ -67,6 +65,10 @@
 #ifndef _PATH_RESCONF
 #define _PATH_RESCONF "/etc/resolv.conf"
 #endif
+
+#define MY_ASSERT(x)  if (!(x)) { \
+        fprintf(stderr, "ASSERT: \"%s\" in %s (%d)\n",#x,__FILE__,__LINE__); \
+        exit(1); }
 
 static void sighandler(int);
 static pid_t pppdPid = -1;
@@ -118,7 +120,7 @@ void Opener::mainLoop() {
 
       case OpenDevice:
 	Debug("Opener: received OpenDevice");
-	assert(len == sizeof(struct OpenModemRequest));
+	MY_ASSERT(len == sizeof(struct OpenModemRequest));
 	close(ttyfd);
 	device = deviceByIndex(request.modem.deviceNum);
 	response.status = 0;
@@ -134,16 +136,16 @@ void Opener::mainLoop() {
 
       case OpenLock:
 	Debug("Opener: received OpenLock\n");
-	assert(len == sizeof(struct OpenLockRequest));
+	MY_ASSERT(len == sizeof(struct OpenLockRequest));
 	flags = request.lock.flags;
-	assert(flags == O_RDONLY || flags == O_WRONLY|O_TRUNC|O_CREAT); 
+	MY_ASSERT(flags == O_RDONLY || flags == O_WRONLY|O_TRUNC|O_CREAT); 
 	if(flags == O_WRONLY|O_TRUNC|O_CREAT)
 	  mode = 0644;
 	else
 	  mode = 0;
 
 	device = deviceByIndex(request.lock.deviceNum);
-	assert(strlen(LOCK_DIR)+strlen(device) < MaxPathLen);
+	MY_ASSERT(strlen(LOCK_DIR)+strlen(device) < MaxPathLen);
 	strncpy(lockfile, LOCK_DIR"/LCK..", MaxPathLen);
 	strncat(lockfile, device + strlen("/dev/"),
 		MaxPathLen - strlen(lockfile));
@@ -164,17 +166,15 @@ void Opener::mainLoop() {
 	  lockfile[0] = '\0';
 	  fd = open(DEVNULL, O_RDONLY);
 	  response.status = -errno;
-	  sendFD(fd, &response);
-	} else {
+	} else
 	  fchown(fd, 0, 0);
-	  sendFD(fd, &response);
-	}
+        sendFD(fd, &response);
 	close(fd);
 	break;
 
       case RemoveLock:
 	Debug("Opener: received RemoveLock");
-	assert(len == sizeof(struct RemoveLockRequest));
+	MY_ASSERT(len == sizeof(struct RemoveLockRequest));
 	close(ttyfd);
 	ttyfd = -1;
 	response.status = unlink(lockfile);
@@ -184,39 +184,36 @@ void Opener::mainLoop() {
 
       case OpenResolv:
 	Debug("Opener: received OpenResolv");
-	assert(len == sizeof(struct OpenResolvRequest));
+	MY_ASSERT(len == sizeof(struct OpenResolvRequest));
 	flags = request.resolv.flags;
 	response.status = 0;
 	if ((fd = open(_PATH_RESCONF, flags)) == -1) {
 	  Debug("error opening resolv.conf!");
 	  fd = open(DEVNULL, O_RDONLY);
 	  response.status = -errno;
-	  sendFD(fd, &response);
-	} else
-	  sendFD(fd, &response);
+	}
+        sendFD(fd, &response);
 	close(fd);
 	break;
 
       case OpenSysLog:
 	Debug("Opener: received OpenSysLog");
-	assert(len == sizeof(struct OpenLogRequest));
+	MY_ASSERT(len == sizeof(struct OpenLogRequest));
 	response.status = 0;
 	if ((fd = open("/var/log/messages", O_RDONLY)) == -1) {
 	  if ((fd = open("/var/log/syslog.ppp", O_RDONLY)) == -1) {
 	    Debug("error opening syslog file !");
 	    fd = open(DEVNULL, O_RDONLY);
 	    response.status = -errno;
-	    sendFD(fd, &response);
-	  } else
-	    sendFD(fd, &response);
-	} else
-	  sendFD(fd, &response);
+	  }
+        }
+        sendFD(fd, &response);
 	close(fd);
 	break;
 
       case SetSecret:
 	Debug("Opener: received SetSecret");
-	assert(len == sizeof(struct SetSecretRequest));
+	MY_ASSERT(len == sizeof(struct SetSecretRequest));
 	response.status = !createAuthFile(request.secret.authMethod,
 					  request.secret.username,
 					  request.secret.password);
@@ -225,14 +222,14 @@ void Opener::mainLoop() {
 
       case RemoveSecret:
 	Debug("Opener: received RemoveSecret");
-	assert(len == sizeof(struct RemoveSecretRequest));
+	MY_ASSERT(len == sizeof(struct RemoveSecretRequest));
 	response.status = !removeAuthFile(request.remove.authMethod);
 	sendResponse(&response);
 	break;
 
       case SetHostname:
 	Debug("Opener: received SetHostname");
-	assert(len == sizeof(struct SetHostnameRequest));
+	MY_ASSERT(len == sizeof(struct SetHostnameRequest));
 	response.status = 0;
 	if(sethostname(request.host.name, strlen(request.host.name)))
 	  response.status = -errno;
@@ -241,14 +238,14 @@ void Opener::mainLoop() {
 
       case ExecPPPDaemon:
 	Debug("Opener: received ExecPPPDaemon");
-	assert(len == sizeof(struct ExecDaemonRequest));
+	MY_ASSERT(len == sizeof(struct ExecDaemonRequest));
 	response.status = execpppd(request.daemon.arguments);
 	sendResponse(&response);
 	break;
 
       case KillPPPDaemon:
 	Debug("Opener: received KillPPPDaemon");
-	assert(len == sizeof(struct KillDaemonRequest));
+	MY_ASSERT(len == sizeof(struct KillDaemonRequest));
 	response.status = killpppd();
 	sendResponse(&response);
 	break;
@@ -275,6 +272,7 @@ int Opener::sendFD(int fd, struct ResponseHeader *response) {
   struct { struct cmsghdr cmsg; int fd; } control;
   struct msghdr	msg;
   struct iovec iov;
+  size_t cmsglen;
 
   msg.msg_name = 0L;
   msg.msg_namelen = 0;
@@ -285,13 +283,19 @@ int Opener::sendFD(int fd, struct ResponseHeader *response) {
   iov.iov_base = IOV_BASE_CAST response;
   iov.iov_len = sizeof(struct ResponseHeader);
 
-  // Send a (duplicate of) the file descriptor
-  control.cmsg.cmsg_len = sizeof(struct cmsghdr) + sizeof(int);
+#ifdef CMSG_LEN
+  cmsglen = CMSG_LEN(sizeof(int));
+#else
+  cmsglen = sizeof(struct cmsghdr) + sizeof(int);
+#endif
+
+  // Send the file descriptor
+  control.cmsg.cmsg_len = cmsglen;
   control.cmsg.cmsg_level = SOL_SOCKET;
   control.cmsg.cmsg_type = MY_SCM_RIGHTS;
 
   msg.msg_control = (char *) &control;
-  msg.msg_controllen = control.cmsg.cmsg_len;
+  msg.msg_controllen = cmsglen;
 
 #ifdef CMSG_DATA
   *((int *)CMSG_DATA(&control.cmsg)) = fd;
@@ -338,27 +342,20 @@ const char* Opener::deviceByIndex(int idx) {
   for(int i = 0; devices[i]; i++)
     if(i == idx)
       device = devices[i];
-  assert(device);
+  MY_ASSERT(device);
   return device;
 }
 
-bool Opener::createAuthFile(int authMethod, char *username, char *password) {
+bool Opener::createAuthFile(int authMethod, const char *username,
+                            const char *password) {
   const char *authfile, *oldName, *newName;
   char line[100];
-  char regexp[2*MaxStrLen+30];
-  regex_t preg;
 
   if(!(authfile = authFile(authMethod)))
     return false;
 
   if(!(newName = authFile(authMethod, New)))
     return false;
-
-  // look for username, "username" or 'username'
-  // if you modify this RE you have to adapt regexp's size above
-  sprintf(regexp, "^[ \t]*%s[ \t]\\|^[ \t]*[\"\']%s[\"\']",
-          username,username);
-  assert(regcomp(&preg, regexp, 0) == 0);
 
   // copy to new file pap- or chap-secrets
   int old_umask = umask(0077);
@@ -368,9 +365,13 @@ bool Opener::createAuthFile(int authMethod, char *username, char *password) {
     FILE *fin = fopen(authfile, "r");
     if(fin) {
       while(fgets(line, sizeof(line), fin)) {
-        if(regexec(&preg, line, 0, 0L, 0) == 0)
-           continue;
+        // look for username, "username" or 'username'
+        if(matchUser(line, username))
+          continue;
         fputs(line, fout);
+        // in case LF is missing at EOF
+        if(line[strlen(line)-1] != '\n')
+          putc('\n', fout);
       }
       fclose(fin);    
     }
@@ -382,9 +383,6 @@ bool Opener::createAuthFile(int authMethod, char *username, char *password) {
 
   // restore umask
   umask(old_umask);
-
-  // free memory allocated by regcomp
-  regfree(&preg);
 
   if(!(oldName = authFile(authMethod, Old)))
     return false;
@@ -539,6 +537,29 @@ void Opener::parseargs(char* buf, char** args) {
   }
  
   *args = 0L;
+}
+
+
+bool Opener::matchUser(const char *line, const char *user) {
+  int quote = 0;
+  const char *p = line;
+
+  // skip leading space and tabs
+  while(*p == ' ' || *p == '\t')
+    p++;
+  // quoted username ?
+  if(*p == '"' || *p == '\'')
+    quote = *p++;
+  // compare usernames
+  if(strncmp(user, p, strlen(user)) != 0)
+    return false;
+  // check for proper termination (closing quote or whitespace)
+  p += strlen(user);
+  if((quote && *p != quote) ||
+     (!quote && *p != ' ' && *p != '\t' && *p != '\0' && *p != '\n'))
+    return false;
+
+  return true;
 }
 
 

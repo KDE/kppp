@@ -109,6 +109,12 @@ speed_t Modem::modemspeed() {
 bool Modem::opentty() {
   int flags;
 
+  if(modemfd>=0) {
+    fprintf(stderr, "kppp warning: closing old modem fd\n");
+    ::close(modemfd);
+    modemfd = -1;
+  }
+
   if((modemfd = Requester::rq->openModem(gpppdata.modemDevice()))<0) {
     errmsg = i18n("Sorry, can't open modem.");
     return false;
@@ -151,7 +157,7 @@ bool Modem::opentty() {
   tty.c_cflag &= ~(CSIZE | CSTOPB | PARENB);  
   tty.c_cflag |= CS8 | CREAD;
   tty.c_cflag |= CLOCAL;                   // ignore modem status lines      
-  tty.c_iflag = IGNBRK | IGNPAR | ISTRIP;  // added ISTRIP
+  tty.c_iflag = IGNBRK | IGNPAR /* | ISTRIP */ ;
   tty.c_lflag &= ~ICANON;                  // non-canonical mode
   tty.c_lflag &= ~(ECHO|ECHOE|ECHOK|ECHOKE);
 
@@ -190,22 +196,25 @@ bool Modem::opentty() {
 
 bool Modem::closetty() {
   if(modemfd >=0 ) {
+    stop();
     /* discard data not read or transmitted */
     tcflush(modemfd, TCIOFLUSH);
     
     if(tcsetattr(modemfd, TCSANOW, &initial_tty) < 0){
       errmsg = i18n("Can't restore tty settings: tcsetattr()\n");
       ::close(modemfd);
+      modemfd = -1;
       return false;
     }
     ::close(modemfd);
+    modemfd = -1;
   }
 
   return true;
 }
 
 void Modem::readtty(int) {
-  char c;
+  unsigned char c;
 
   if(read(modemfd, &c, 1) == 1) {
     emit charWaiting(c);
@@ -214,32 +223,34 @@ void Modem::readtty(int) {
     if(sn != 0 && (c == '\n' || c == '\r')) {
       sn->setEnabled(false);
       //      Debug("QSocketNotifier disabled!");
-      QTimer::singleShot(20, this, SLOT(startNotifier()));
+      QTimer::singleShot(20, this, SLOT(resumeNotifier()));
     }
   }
 }
 
 
 void Modem::notify(const QObject *receiver, const char *member) {
-  connect(this, SIGNAL(charWaiting(char)), receiver, member);
+  connect(this, SIGNAL(charWaiting(unsigned char)), receiver, member);
   startNotifier();
 }
 
 
 void Modem::stop() {
-  disconnect(SIGNAL(charWaiting(char)));
+  disconnect(SIGNAL(charWaiting(unsigned char)));
   stopNotifier();
 }
 
 
 void Modem::startNotifier() {
-  if(sn == 0) {
-    sn = new QSocketNotifier(modemfd, QSocketNotifier::Read, this);
-    connect(sn, SIGNAL(activated(int)), SLOT(readtty(int)));
-    Debug("QSocketNotifier started!");
-  } else {
-    //    Debug("QSocketNotifier re-enabled!");
-    sn->setEnabled(true);
+  if(modemfd >= 0) {
+    if(sn == 0) {
+      sn = new QSocketNotifier(modemfd, QSocketNotifier::Read, this);
+      connect(sn, SIGNAL(activated(int)), SLOT(readtty(int)));
+      Debug("QSocketNotifier started!");
+    } else {
+      //    Debug("QSocketNotifier re-enabled!");
+      sn->setEnabled(true);
+    }
   }
 }
 
@@ -255,13 +266,23 @@ void Modem::stopNotifier() {
 }
 
 
+void Modem::resumeNotifier() {
+  if(modemfd >= 0) {
+    if(sn != 0) {
+      sn->setEnabled(true);
+      Debug("QSocketNotifier resumed operation.");
+    }
+  }
+}
+
+
 void Modem::flush() {
   char c;
   while(read(modemfd, &c, 1) == 1);
 }
 
 
-bool Modem::writeChar(char c) {
+bool Modem::writeChar(unsigned char c) {
   return write(modemfd, &c, 1) == 1;
 }
 
@@ -362,7 +383,7 @@ void Modem::escape_to_command_mode() {
 }
 
 
-char *Modem::modemMessage() {
+const char *Modem::modemMessage() const {
   return errmsg.data();
 }
 
