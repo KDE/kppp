@@ -1,4 +1,4 @@
-1999-02-15  Harri Porten  <porten@kde.org>
+1999-02-15  Mario Weilguni <mweilguni@kde.org>
 
 	* the phonenumber widget had a german "Abbrechen" button instead
 	  of a "Cancel" button
@@ -12,6 +12,9 @@
 
 	* if a script argument contains %PASSWORD% or %USERNAME%, it is
 	  replaced by the corresponding value
+
+	* fixed a bug in ChangeLog (don't laugh, that happens). I
+	  commited all the changes above as Harri Porten :-)
 
 1999-02-13  Harri Porten  <porten@kde.org>
 

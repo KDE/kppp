@@ -452,8 +452,8 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	QString arg = scriptArgument;
 	QRegExp re1("%USERNAME%");
 	QRegExp re2("%PASSWORD%");
-	arg = arg.replace(re1, gpppdata.Username());
-	arg = arg.replace(re2, gpppdata.Password());
+	arg = arg.replace(re1, gpppdata.storedUsername());
+	arg = arg.replace(re2, gpppdata.storedPassword());
 
 	if(strcmp(scriptCommand, "Send") == 0)
 	  bm += scriptArgument;
