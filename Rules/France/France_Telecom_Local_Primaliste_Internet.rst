@@ -1,31 +1,29 @@
 ################################################################
 #
 # Règles pour France Télécom
-# Appels locaux
+# Appels locaux et abonnement spécial "Primaliste Internet"
 #
-# Fichier original par
+# Fichier original (je pense...) par
 # $Id$
 # (C) 1997 Czo <sirol@asim.lip6.fr>
 #
-# Modifié par Fabrice Eudes <eudes@gat.univ-lille1.fr>
-# le 21 Decembre 1997.
-# Modifié par Yann Cointepas <yann.cointepas@enst.fr>
-# le 28 aout 1999
+# Modifié par Pascal Benito <pascal.benito@free.fr> 
+# le 11 Août 2000.
 #
 ################################################################
 
 # Les nouveaux tarifs de France Télécom sont en vigueur
-# depuis le 1er Octobre 1997.
+# depuis le 1er Septembre 1999
 #
 # Pour les appels locaux, France Télécom indique qu'une minute
 # de communication devrait coûter:
-# ( A mon avis, ceci ne tient pas compte des arrondis )
+# ( ceci ne doit pas tenir compte des arrondis )
 #
 # 0.14 F TTC en tarif réduit
 # 0.28 F TTC in tarif normal
 #
 
-name=France_Local_Area
+name=France_Telecom_Local_Primaliste_Internet
 currency_symbol=F
 currency_position=right
 currency_digits=2
@@ -56,15 +54,18 @@ flat_init_costs=(0.74,180)
 # s'applique. Le premier nombre est le prix correspondant à la
 # durée en secondes qui est le second nombre.
 default=(0.28, 60)
-# Ceci n'engage que moi, mais si toutes les heures de la semaine
-# sont incluses dans les règles ci-dessous; quelle est l'utilité
-# de ce paramètre ?!?!
+# (quelle est l'utilité de ce paramètre ?!?!)
 
-on (monday..friday)   between (00:00..07:59) use (0.14, 60)
-on (monday..friday)   between (08:00..18:59) use (0.28, 60)
-on (monday..friday)   between (19:00..23:59) use (0.14, 60)
-on (saturday..sunday) between (00:00..23:59) use (0.14, 60)
+on (monday..friday)	between (00:00..07:59) use (0.07, 60)
+on (monday..friday)	between	(08:00..18:59) use (0.28, 60)
+on (monday..friday)	between (19:00..21:59) use (0.14, 60)
+on (monday..friday)	between (22:00..23:59) use (0.07, 60)
+
+on (saturday..sunday)	between (00:00..07:59) use (0.07, 60)
+on (saturday..sunday)	between (08:00..21:59) use (0.14, 60)
+on (saturday..sunday)	between (22:00..23:59) use (0.07, 60)
 
 # Jours fériés :-))
-on (01/01, easter+1, 05/01, 05/08, easter+38, easter+50, 07/14, 08/15, 11/01, 11/11, 12/25) between (00:00..23:59) use (0.14, 60)
-
+on (01/01, easter+1, 05/01, 05/08, easter+38, easter+50, 07/14, 08/15, 11/01, 11/11, 12/25) between (00:00..07:59) use (0.07, 60)
+on (01/01, easter+1, 05/01, 05/08, easter+38, easter+50, 07/14, 08/15, 11/01, 11/11, 12/25) between (08:00..21:59) use (0.14, 60)
+on (01/01, easter+1, 05/01, 05/08, easter+38, easter+50, 07/14, 08/15, 11/01, 11/11, 12/25) between (22:00..23:59) use (0.07, 60)
