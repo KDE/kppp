@@ -28,7 +28,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void PRINTDEBUG(char *file, int line, const char *fmt, ...) {
+void PRINTDEBUG(const char *file, int line, const char *fmt, ...) {
   va_list ap;
   va_start(ap, fmt);
   

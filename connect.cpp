@@ -1112,7 +1112,7 @@ void ConnectWidget::if_waiting_slot() {
     p_kppp->con_win->accounting(false);
 
   if (gpppdata.get_dock_into_panel()) {
-    DockWidget::dock_widget->dock();
+    DockWidget::dock_widget->show();
     DockWidget::dock_widget->take_stats();
     this->hide();
   } 

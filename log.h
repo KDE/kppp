@@ -30,7 +30,7 @@
 #include <assert.h>
 #include <stdarg.h>
 
-extern void PRINTDEBUG(char *, int, const char *, ...);
+extern void PRINTDEBUG(const char *, int, const char *, ...);
 
 #define Fatal(fmt, args...) { PRINTDEBUG(__FILE__, __LINE__, fmt, ##args); exit(1); }
 

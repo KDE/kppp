@@ -788,7 +788,7 @@ void dieppp(int) {
 
       p_kppp->con_win->stopClock();
       DockWidget::dock_widget->stop_stats();
-      DockWidget::dock_widget->undock();      
+      DockWidget::dock_widget->hide();      
 
       if(!gpppdata.pppdError())
         gpppdata.setpppdError(E_PPPD_DIED);
@@ -1004,10 +1004,8 @@ void KPPPWidget::disconnect() {
   p_kppp->stopAccounting();
   con_win->hide();
   
-  if (DockWidget::dock_widget->isDocked()) {
-    DockWidget::dock_widget->stop_stats();
-    DockWidget::dock_widget->undock();
-  }
+  DockWidget::dock_widget->stop_stats();
+  DockWidget::dock_widget->hide();
 
   if(quit_on_disconnect)
     kapp->exit(0);

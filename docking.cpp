@@ -31,6 +31,7 @@
 #include <klocale.h>
 #include <kglobal.h>
 #include <kiconloader.h>
+#include <kpopmenu.h>
 
 #include "docking.h"
 #include "main.h"
@@ -44,9 +45,7 @@ extern PPPStats      stats;
 DockWidget *DockWidget::dock_widget = 0;
 
 DockWidget::DockWidget(QWidget *parent, const char *name)
-  : QWidget(0, name, 0) {
-
-  docked = false;
+  : KDockWindow(0L, name) {
 
   // load pixmaps
   dock_none_pixmap = BarIcon("dock_none");
@@ -55,14 +54,13 @@ DockWidget::DockWidget(QWidget *parent, const char *name)
   dock_both_pixmap = BarIcon("dock_both");
 
   // popup menu for right mouse button
-  popup_m = new QPopupMenu(this);
+  popup_m = contextMenu();
   toggleID = popup_m->insertItem(i18n("Restore"),
 				 this, SLOT(toggle_window_state()));
   popup_m->insertItem(i18n("Details"), parent, SLOT(showStats()));
   popup_m->insertSeparator();
   popup_m->insertItem(i18n("Disconnect"),
 		      parent, SLOT(disconnect()));
-
   // connect to stats for little modem animation
   connect(&stats, SIGNAL(statsChanged(int)), SLOT(paintIcon(int)));
 
@@ -72,43 +70,6 @@ DockWidget::DockWidget(QWidget *parent, const char *name)
 
 DockWidget::~DockWidget() {
   DockWidget::dock_widget = 0;
-}
-
-
-void DockWidget::dock() {
-  if (!docked) {
-    // prepare panel to accept this widget
-    KWM::setDockWindow (this->winId());
-
-    // that's all the space there is
-    this->setFixedSize(24, 24);
-
-    // finally dock the widget
-    this->show();
-
-    docked = true;
-  }
-}
-
-
-void DockWidget::undock() {
-  if (docked) {
-    // the widget's window has to be destroyed in order
-    // to undock from the panel. Simply using hide() is
-    // not enough (seems to be necessary though).
-    hide();
-    destroy(true, true);
-
-    // recreate window for further dockings
-    this->create(0, true, false);
-
-    docked = false;
-  }
-}
-
-
-const bool DockWidget::isDocked() {
-  return docked;
 }
 
 
@@ -146,7 +107,7 @@ void DockWidget::paintIcon (int status) {
 
 
 void DockWidget::take_stats() {
-  if (docked) {
+  if (isVisible()) {
     stats.initStats();
     stats.start();
   }
@@ -166,9 +127,6 @@ void DockWidget::mousePressEvent(QMouseEvent *e) {
 
   // open popup menu on left mouse button
   if ( e->button() == RightButton ) {
-    int x = e->x() + this->x();
-    int y = e->y() + this->y();
-
     QString text;
     if(p_kppp->con_win->isVisible())
       text = i18n("Minimize");
@@ -176,10 +134,9 @@ void DockWidget::mousePressEvent(QMouseEvent *e) {
       text = i18n("Restore");
 
     popup_m->changeItem(text, toggleID);
-    popup_m->popup(QPoint(x, y));
+    popup_m->popup(e->globalPos());
     popup_m->exec();
   }
-
 }
 
 

@@ -28,11 +28,10 @@
 #ifndef _DOCKING_H_
 #define _DOCKING_H_
 
-#include <qwidget.h>
 #include <qpixmap.h>
-#include <qpopupmenu.h>
+#include <kdockwindow.h>
 
-class DockWidget : public QWidget {
+class DockWidget : public KDockWindow {
   Q_OBJECT
 public:
   DockWidget(QWidget * parent, const char *name=0);
@@ -40,27 +39,24 @@ public:
 
 protected:
   void paintEvent(QPaintEvent *e);
+  void showEvent(QShowEvent *) { }
 
 private slots:
   void toggle_window_state();
   void mousePressEvent(QMouseEvent *e);
 
 public slots:
-  void dock();
-  void undock();
   void paintIcon(int);
   void take_stats();
   void stop_stats();
 
 public:
-  const bool isDocked();
   static DockWidget *dock_widget;
 
 private:
-  bool docked;
   int toggleID;
 
-  QPopupMenu *popup_m;
+  KPopupMenu *popup_m;
 
   QPixmap dock_none_pixmap;
   QPixmap dock_left_pixmap;

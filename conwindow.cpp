@@ -181,7 +181,7 @@ void ConWindow::accounting(bool on) {
 
 
 void ConWindow::dock() {
-  DockWidget::dock_widget->dock();
+  DockWidget::dock_widget->show();
   this->hide();
 }
 
