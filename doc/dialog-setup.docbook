@@ -714,7 +714,7 @@ up to you what you want (or must) use.</para>
 </sect3>
 
 <sect3>
-<title>Why should I use volume acounting?</title>
+<title>Why should I use volume accounting?</title>
 
 <para>Many Internet Service Providers bill their customers based on the number
 of bytes transferred.  Even more commonly, <acronym>ISP</acronym>'s offer a flat
