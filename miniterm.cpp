@@ -93,20 +93,15 @@ MiniTerm::~MiniTerm() {
 void MiniTerm::setupToolbar() {
   toolbar = new KToolBar( this );
 
-  QPixmap pixmap;
-
-  pixmap = BarIcon("exit");
-  toolbar->insertButton(pixmap, 0,
+  toolbar->insertButton("exit", 0,
 		      SIGNAL(clicked()), this,
 		      SLOT(cancelbutton()), TRUE, i18n("Close MiniTerm"));
 
-  pixmap = BarIcon("back");
-  toolbar->insertButton(pixmap, 0,
+  toolbar->insertButton("back", 0,
 		      SIGNAL(clicked()), this,
 		      SLOT(resetModem()), TRUE, i18n("Reset Modem"));
 
-  pixmap = BarIcon("help");
-  toolbar->insertButton(pixmap, 0,
+  toolbar->insertButton("help", 0,
 		      SIGNAL(clicked()), this,
 		      SLOT(help()), TRUE, i18n("Help"));
 
