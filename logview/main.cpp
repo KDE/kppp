@@ -21,6 +21,8 @@
 #include <stdio.h>
 #include <kapp.h>
 #include <qkeycode.h>
+#include <qlayout.h>
+#include <qpushbutton.h>
 #include "log.h"
 #include "monthly.h"
 #include "main.h"
@@ -37,12 +39,17 @@ TopWidget::TopWidget() : KTMainWindow("") {
 
   setCaption(i18n("kPPP log viewer"));
 
-  td = new QTabDialog(this, "", FALSE);
+  w = new QWidget(this);
+
+  QBoxLayout *l = new QVBoxLayout(w, 5);
+
+  td = new QTabWidget(w, "");
+  mw = new MonthlyWidget(td);
+  td->addTab(mw, i18n("Monthly log"));
+  l->addWidget(td);
 
   // remove buttons
   if(!kpppmode) {
-    td->setOkButton(QString::null);
-    
     // create menu 
     mb = new KMenuBar(this);
     QPopupMenu *fm = new QPopupMenu;
@@ -55,18 +62,19 @@ TopWidget::TopWidget() : KTMainWindow("") {
 	    this, SLOT(menuCallback(int)));
   } else {
     mb = 0;
-    td->setOkButton(i18n("Close"));
-    td->setCancelButton(QString::null);
-    connect(td, SIGNAL(applyButtonPressed()),
+    QPushButton *but = new QPushButton(w);
+    but->setText(i18n("Close"));
+    QHBoxLayout *lh = new QHBoxLayout(l);
+    lh->addStretch(10);
+    lh->addWidget(but);
+
+    connect(but, SIGNAL(clicked()),
 	    kapp, SLOT(quit()));
   }
 
-  mw = new MonthlyWidget(td);
-  td->addTab(mw, i18n("Monthly log"));
-  setMinimumSize(mw->sizeHint().width(), 
+  setMinimumSize(mw->sizeHint().width() + 15, 
                  mw->sizeHint().height() + 120);
-  td->show();
-  setView(td);
+  setView(w);
 }
 
 TopWidget::~TopWidget() {
@@ -75,12 +83,8 @@ TopWidget::~TopWidget() {
 void TopWidget::menuCallback(int id) {
   switch(id) {
   case F_EXIT:
-    delete td;
-    delete mb;
-    delete this;
     exit(0);
     break;
-
   }
 }
 

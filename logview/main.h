@@ -22,7 +22,7 @@
 #define __MAIN__H__
 
 #include <ktmainwindow.h>
-#include <qtabdialog.h>
+#include <qtabwidget.h>
 #include <kmenubar.h>
 #include "monthly.h"
 
@@ -38,7 +38,8 @@ private slots:
 private:
   MonthlyWidget *mw;
   KMenuBar *mb;
-  QTabDialog *td;
+  QWidget *w;
+  QTabWidget *td;
 };
 
 #endif

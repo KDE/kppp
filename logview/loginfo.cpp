@@ -20,6 +20,7 @@
 
 #include "loginfo.h"
 #include <stdlib.h>
+#include <string.h>
 
 LogInfo::LogInfo(QString data) {
   parse(data);
