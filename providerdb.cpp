@@ -286,7 +286,7 @@ void PDB_Provider::selectionChanged(int idx) {
 }
 
 
-void PDB_Provider::setDir(const char *_dir) {
+void PDB_Provider::setDir(const QString &_dir) {
   if(dir != _dir) {
     lb->clear();
     
@@ -325,8 +325,8 @@ void PDB_Provider::setDir(const char *_dir) {
 }
 
 
-const char *PDB_Provider::getDir() {
-  return dir.data();
+QString PDB_Provider::getDir() {
+  return dir;
 }
 
 

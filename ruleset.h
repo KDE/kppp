@@ -64,7 +64,7 @@ public:
    *  otherwise 0. If the file could not be opened,
    *  returns -1
    */
-  int load(const char *filename);
+  int load(const QString &filename);
 
   /// returns the currency symbol
   QString currencySymbol();
@@ -90,7 +90,7 @@ public:
   void getActiveRule(QDateTime dt, double connect_time, double &costs, double &len);
 
   /// checks if a rulefile is ok (no parse errors...)
-  static int checkRuleFile(const char *);
+  static int checkRuleFile(const QString &);
 
 protected:
   /** converts an english name of a day to integer,

@@ -36,7 +36,7 @@ const int TEST_CRITICAL = 3;
 
 // Various tests to be run at starttime
 int runTests();
-const char *getHomeDir();
+QString getHomeDir();
 void pppdVersion(int *version, int *modification, int *patch);
 
 #ifdef linux

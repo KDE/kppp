@@ -88,7 +88,7 @@ int RuleSet::dayNameToInt(const char *s) {
   return -1;
 }
 
-int RuleSet::load(const char *filename) {
+int RuleSet::load(const QString &filename) {
 
   flat_init_costs = 0.0;
   flat_init_duration = 0;
@@ -519,7 +519,7 @@ QTime RuleSet::beforeMidnight() const {
   return QTime(23,59,59,999);
 }
 
-int RuleSet::checkRuleFile(const char *rulefile) {
+int RuleSet::checkRuleFile(const QString &rulefile) {
   if(rulefile == NULL) {
     fprintf(stderr, i18n("kppp: no rulefile specified\n"));
     return 1;

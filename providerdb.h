@@ -66,8 +66,8 @@ class PDB_Provider : public QWidget {
 public:
   PDB_Provider(QWidget *parent);
 
-  void setDir(const char *d);
-  const char *getDir();
+  void setDir(const QString &d);
+  QString getDir();
 
   QListBox *lb;
 
