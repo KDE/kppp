@@ -25,8 +25,8 @@ on (01/01, easter+1, 05/01, 05/08, 07/05, 07/06, 10/28, 12/24, 12/25, 12/26) bet
 
 # Nejlevnejsi tarif:
 
-on (monday..friday)   between (21:00..7:00) use (2.60, 290)
-on (monday..friday)   between (21:00..7:00) use (2.60, 750, 290)
+on (monday..friday)   between (19:00..7:00) use (2.60, 290)
+on (monday..friday)   between (19:00..7:00) use (2.60, 750, 290)
 on (saturday..sunday) between ()            use (2.60, 290)
 on (saturday..sunday) between ()            use (2.60, 750, 290)
 
@@ -42,5 +42,5 @@ on (monday..friday)   between (17:00..19:00) use (2.60, 390, 120)
 
 # Slabe II:
 
-on (monday..friday)   between (19:00..21:00) use (2.60, 290)
-on (monday..friday)   between (19:00..21:00) use (2.60, 390, 290)
+#on (monday..friday)   between (19:00..21:00) use (2.60, 290)
+#on (monday..friday)   between (19:00..21:00) use (2.60, 390, 290)
