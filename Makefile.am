@@ -47,6 +47,7 @@ kppp_SOURCES	= kpppwidget.cpp \
 		modemdb.cpp \
 		utils.cpp \
 		providerdb.cpp \
+		modems.cpp \
 		KPPPIface.skel
 
 # the library search path
@@ -90,6 +91,7 @@ noinst_HEADERS = kpppwidget.h \
 		modemdb.h \
 		utils.h \
 		providerdb.h \
+		modems.h \
 		KPPPIface.h
 
 METASOURCES = accounting.moc \
@@ -113,7 +115,8 @@ METASOURCES = accounting.moc \
 	pppstats.moc \
 	pwentry.moc \
 	scriptedit.moc \
-	providerdb.moc
+	providerdb.moc \
+	modems.moc
 
 messages: 
 	$(XGETTEXT) *.cpp -o $(podir)/kppp.pot

@@ -72,6 +72,7 @@ static const KCmdLineOptions options[] =
    { "q", I18N_NOOP("Quit after end of connection"), 0 },
    { "r <rule_file>", I18N_NOOP("Check syntax of rule_file"), 0 },
    { "T", I18N_NOOP("Enable test-mode"), 0 },
+   { "dev <device_name>", I18N_NOOP("Use the specified device"), 0 },
    KCmdLineLastOption
 };
 

@@ -65,12 +65,15 @@ private:
   QLineEdit *initresp;
   QLabel *label2;
 
+  QSlider *preinitslider;
   QLabel *lpreinitslider;
   QLabel *lpreinit;
 
+  QSlider *initslider;
   QLabel *linitslider;
   QLabel *label3;
 
+  QSlider *durationslider;
   QLabel *ldurationslider;
   QLabel *lduration;
 
@@ -116,6 +119,7 @@ private:
 
   QLabel *label15;
 
+  QSlider *slider;
   QLabel *lslider;
   QLabel *label16;
 

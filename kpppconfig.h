@@ -79,6 +79,9 @@
 // Define the maximum number of accounts
 #define MAX_ACCOUNTS 100
 
+// Define the maximum number of modems
+#define MAX_MODEMS 100
+
 // Define the mamimum number of script entries
 #define MAX_SCRIPT_ENTRIES 20
 

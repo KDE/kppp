@@ -149,14 +149,14 @@ void ProviderDB::accept() {
     if(value.contains(re_password))
       value.replace(re_password, page4->password());
 
-    gpppdata.writeConfig(gpppdata.currentGroup(), key, value);
+    gpppdata.writeConfig(gpppdata.currentAccountGroup(), key, value);
 
     if(key == "Name")
       gpppdata.setAccname(value);
     ++it;
   }
 
-  gpppdata.writeConfig(gpppdata.currentGroup(), "DialPrefix", page5->prefix());
+  gpppdata.writeConfig(gpppdata.currentAccountGroup(), "DialPrefix", page5->prefix());
   done(Accepted);
 }
 

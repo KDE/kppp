@@ -160,6 +160,7 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
 		       "connection is established"));
 
   tl->addStretch();
+
 }
 
 
@@ -202,15 +203,28 @@ void GeneralWidget::pppdtimeoutchanged(int n) {
 }
 
 
-ModemWidget::ModemWidget( QWidget *parent, const char *name)
+ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem, const char *name)
   : QWidget(parent, name)
 {
   int k;
 
-  QGridLayout *tl = new QGridLayout(parent, 8, 2, 0, KDialog::spacingHint());
+  QGridLayout *tl = new QGridLayout(parent, 9, 2, 0, KDialog::spacingHint());
+
+	connect_label = new QLabel(i18n("Connection &name:"), parent);
+  tl->addWidget(connect_label, 0, 0);
+
+	connectname_l = new QLineEdit(parent);
+  connectname_l->setMaxLength(ACCNAME_SIZE);
+  connect_label->setBuddy(connectname_l);
+
+  tl->addWidget(connectname_l, 0, 1);
+  QString tmp = i18n("Type in a unique name for this connection");
+
+  QWhatsThis::add(connect_label,tmp);
+  QWhatsThis::add(connectname_l,tmp);
 
   label1 = new QLabel(i18n("Modem de&vice:"), parent);
-  tl->addWidget(label1, 0, 0);
+  tl->addWidget(label1, 1, 0);
 
   modemdevice = new QComboBox(true, parent);
   label1->setBuddy(modemdevice);
@@ -224,10 +238,10 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   if ( !deviceExist )
       modemdevice->insertItem(gpppdata.modemDevice());
 
-  tl->addWidget(modemdevice, 0, 1);
-  connect(modemdevice, SIGNAL(activated(int)),
-	  SLOT(setmodemdc(int)));
-  QString tmp = i18n("This specifies the serial port your modem is attached \n"
+  tl->addWidget(modemdevice, 1, 1);
+/*  connect(modemdevice, SIGNAL(activated(int)),
+	  SLOT(setmodemdc(int)));*/
+   tmp = i18n("This specifies the serial port your modem is attached \n"
 		     "to. On Linux/x86, typically this is either /dev/ttyS0 \n"
 		     "(COM1 under DOS) or /dev/ttyS1 (COM2 under DOS).\n"
 		     "\n"
@@ -240,16 +254,16 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
 
 
   label2 = new QLabel(i18n("&Flow control:"), parent);
-  tl->addWidget(label2, 1, 0);
+  tl->addWidget(label2, 2, 0);
 
   flowcontrol = new QComboBox(false, parent);
   label2->setBuddy(flowcontrol);
   flowcontrol->insertItem(i18n("Hardware [CRTSCTS]"));
   flowcontrol->insertItem(i18n("Software [XON/XOFF]"));
   flowcontrol->insertItem(i18n("None"));
-  tl->addWidget(flowcontrol, 1, 1);
-  connect(flowcontrol, SIGNAL(activated(int)),
-	  SLOT(setflowcontrol(int)));
+  tl->addWidget(flowcontrol, 2, 1);
+  /*connect(flowcontrol, SIGNAL(activated(int)),
+	  SLOT(setflowcontrol(int)));*/
 
   tmp = i18n("<p>Specifies how the serial port and modem\n"
 	     "communicate. You should not change this unless\n"
@@ -261,15 +275,15 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   QWhatsThis::add(flowcontrol,tmp);
 
   labelenter = new QLabel(i18n("&Line termination:"), parent);
-  tl->addWidget(labelenter, 2, 0);
+  tl->addWidget(labelenter, 3, 0);
 
   enter = new QComboBox(false, parent);
   labelenter->setBuddy(enter);
   enter->insertItem("CR");
   enter->insertItem("LF");
   enter->insertItem("CR/LF");
-  tl->addWidget(enter, 2, 1);
-  connect(enter, SIGNAL(activated(int)), SLOT(setenter(int)));
+  tl->addWidget(enter, 3, 1);
+ /* connect(enter, SIGNAL(activated(int)), SLOT(setenter(int)));*/
   tmp = i18n("<p>Specifies how AT commands are sent to your\n"
 	     "modem. Most modems will work fine with the\n"
 	     "default <i>CR/LF</i>. If your modem does not react\n"
@@ -282,7 +296,7 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   QWhatsThis::add(enter, tmp);
 
   baud_label = new QLabel(i18n("Co&nnection speed:"), parent);
-  tl->addWidget(baud_label, 3, 0);
+  tl->addWidget(baud_label, 4, 0);
   baud_c = new QComboBox(parent);
   baud_label->setBuddy(baud_c);
 
@@ -314,9 +328,9 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
     baud_c->insertItem(baudrates[k]);
 
   baud_c->setCurrentItem(3);
-  connect(baud_c, SIGNAL(activated(int)),
-	  this, SLOT(speed_selection(int)));
-  tl->addWidget(baud_c, 3, 1);
+  /*connect(baud_c, SIGNAL(activated(int)),
+	  this, SLOT(speed_selection(int)));*/
+  tl->addWidget(baud_c, 4, 1);
 
   tmp = i18n("Specifies the speed your modem and the serial\n"
 	     "port talk to each other. You should begin with\n"
@@ -339,8 +353,8 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   modemlockfile = new QCheckBox(i18n("&Use lock file"), parent);
 
   modemlockfile->setChecked(gpppdata.modemLockFile());
-  connect(modemlockfile, SIGNAL(toggled(bool)),
-          SLOT(modemlockfilechanged(bool)));
+/*  connect(modemlockfile, SIGNAL(toggled(bool)),
+          SLOT(modemlockfilechanged(bool)));*/
   tl->addMultiCellWidget(modemlockfile, 5, 5, 0, 1);
   //  l12->addStretch(1);
   QWhatsThis::add(modemlockfile,
@@ -360,8 +374,8 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   modemtimeout->setLabel(i18n("Modem &timeout:"));
   modemtimeout->setRange(1, 120, 1);
   modemtimeout->setSuffix(i18n(" sec"));
-  connect(modemtimeout, SIGNAL(valueChanged(int)),
-	  SLOT(modemtimeoutchanged(int)));
+/*  connect(modemtimeout, SIGNAL(valueChanged(int)),
+	  SLOT(modemtimeoutchanged(int)));*/
   tl->addMultiCellWidget(modemtimeout, 6, 6, 0, 1);
 
   QWhatsThis::add(modemtimeout,
@@ -369,6 +383,10 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
                        "<i>CONNECT</i> response from your modem. The\n"
                        "recommended value is 30 seconds."));
 
+// Set defaults if editing an existing connection
+  if(!isnewmodem) {
+    connectname_l->setText(gpppdata.modname());
+  
   //set stuff from gpppdata
   for(int i=0; i <= enter->count()-1; i++) {
     if(gpppdata.enter() == enter->text(i))
@@ -383,48 +401,43 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   for(int i=0; i <= flowcontrol->count()-1; i++) {
     if(gpppdata.flowcontrol() == flowcontrol->text(i))
       flowcontrol->setCurrentItem(i);
-  }
-
-  //set the modem speed
+			
+	//set the modem speed
   for(int i=0; i < baud_c->count(); i++)
     if(baud_c->text(i) == gpppdata.speed())
-      baud_c->setCurrentItem(i);
+      baud_c->setCurrentItem(i);			
+  }
+	} else {
+	//Set the standard Items
+		enter->setCurrentItem(0);
+		modemdevice->setCurrentItem(0);
+		flowcontrol->setCurrentItem(0);
+		baud_c->setCurrentItem(0);			
+	}
+	
+  tl->setRowStretch(7, 1); 
+}
 
-  tl->setRowStretch(7, 1);
+bool ModemWidget::save()
+{
+  //first check to make sure that the modem name is unique!
+  if(connectname_l->text().isEmpty() ||
+    !gpppdata.isUniqueModname(connectname_l->text())) {
+    return false;
+  } else {
+    gpppdata.setModname(connectname_l->text());
+    gpppdata.setSpeed(baud_c->text(baud_c->currentItem()));
+    gpppdata.setEnter(enter->text(enter->currentItem()));
+    gpppdata.setModemDevice(modemdevice->text(modemdevice->currentItem()));
+    gpppdata.setFlowcontrol(flowcontrol->text(flowcontrol->currentItem()));
+    gpppdata.setModemLockFile(modemlockfile->isOn());
+    gpppdata.setModemTimeout(modemtimeout->value());
+    return true;
+   }
 }
 
 
-void ModemWidget::speed_selection(int) {
-  gpppdata.setSpeed(baud_c->text(baud_c->currentItem()));
-}
-
-
-void ModemWidget::setenter(int ) {
-  gpppdata.setEnter(enter->text(enter->currentItem()));
-}
-
-
-void ModemWidget::setmodemdc(int i) {
-  gpppdata.setModemDevice(modemdevice->text(i));
-}
-
-
-void ModemWidget::setflowcontrol(int i) {
-  gpppdata.setFlowcontrol(flowcontrol->text(i));
-}
-
-
-void ModemWidget::modemlockfilechanged(bool set) {
-  gpppdata.setModemLockFile(set);
-}
-
-
-void ModemWidget::modemtimeoutchanged(int n) {
-  gpppdata.setModemTimeout(n);
-}
-
-
-ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
+ModemWidget2::ModemWidget2(QWidget *parent, bool isnewmodem, const char *name)
   : QWidget(parent, name)
 {
   QVBoxLayout *l1 = new QVBoxLayout(parent, 0, KDialog::spacingHint());
@@ -432,7 +445,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 
   waitfordt = new QCheckBox(i18n("&Wait for dial tone before dialing"), parent);
   waitfordt->setChecked(gpppdata.waitForDialTone());
-  connect(waitfordt, SIGNAL(toggled(bool)), SLOT(waitfordtchanged(bool)));
+ // connect(waitfordt, SIGNAL(toggled(bool)), SLOT(waitfordtchanged(bool)));
   l1->addWidget(waitfordt);
   QWhatsThis::add(waitfordt,
 		  i18n("<p>Normally the modem waits for a dial tone\n"
@@ -447,7 +460,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
   busywait->setLabel(i18n("B&usy wait:"));
   busywait->setRange(0, 300, 5, true);
   busywait->setSuffix(i18n(" sec"));
-  connect(busywait, SIGNAL(valueChanged(int)), SLOT(busywaitchanged(int)));
+ // connect(busywait, SIGNAL(valueChanged(int)), SLOT(busywaitchanged(int)));
   l1->addWidget(busywait);
 
   QWhatsThis::add(busywait,
@@ -473,8 +486,8 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 
   l1->addLayout(hbl);
 
-  connect(volume, SIGNAL(valueChanged(int)),
-	  this, SLOT(volumeChanged(int)));
+ /* connect(volume, SIGNAL(valueChanged(int)),
+	  this, SLOT(volumeChanged(int)));*/
   QString tmp = i18n("Most modems have a speaker which makes\n"
 	     "a lot of noise when dialing. Here you can\n"
 	     "either turn this completely off or select a\n"
@@ -543,12 +556,14 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 	  SLOT(query_modem()));
   connect(terminal_button, SIGNAL(clicked()),
 	  SLOT(terminal()));
+		
+		// Create the Modem Command so if the window is not opened they are autosaved anyway
+	mc = new ModemCommands(this);
 }
 
 
 void ModemWidget2::modemcmdsbutton() {
-  ModemCommands mc(this);
-  mc.exec();
+  mc->exec();
 }
 
 
@@ -570,17 +585,11 @@ void ModemWidget2::use_cdline_toggled(bool on) {
 }
 #endif
 
-void ModemWidget2::waitfordtchanged(bool b) {
-  gpppdata.setWaitForDialTone((int)b);
-}
-
-void ModemWidget2::busywaitchanged(int n) {
-  gpppdata.setbusyWait(n);
-}
-
-
-void ModemWidget2::volumeChanged(int v) {
-  gpppdata.setVolume(v);
+bool ModemWidget2::save()
+{
+  gpppdata.setWaitForDialTone(waitfordt->isOn());
+  gpppdata.setbusyWait(busywait->value());
+  gpppdata.setVolume(volume->value());
 }
 
 

@@ -41,6 +41,7 @@
 #include "KPPPIface.h"
 
 class GeneralWidget;
+class ModemsWidget;
 class ModemWidget;
 class ModemWidget2;
 class GraphSetup;
@@ -73,6 +74,7 @@ public:
 
 private slots:
   void newdefaultaccount(int);
+	void newdefaultmodem(int);
   void expandbutton();
   void beginConnect();
   void quitbutton();
@@ -90,6 +92,7 @@ private slots:
 
 public slots:
   void resetaccounts();
+	void resetmodems();
   void resetCosts(const QString &);
   void resetVolume(const QString &);
   void disconnect();
@@ -121,6 +124,7 @@ private:
   void sigPPPDDied();
   QString encodeWord(const QString &s);
   void showNews ();
+	void setButtons();
 
   QString ruleset_load_errmsg;
 
@@ -130,7 +134,8 @@ private:
   QFrame *fline1;
   QPushButton *connect_b;
   QComboBox *connectto_c;
-  QLabel *ID_Label;
+  QComboBox *modem_c;
+	QLabel *ID_Label;
   QLabel *PW_Label;
   QLineEdit *ID_Edit;
   QLineEdit *PW_Edit;
@@ -140,14 +145,14 @@ private:
   QLabel *label4;
   QLabel *label5;
   QLabel *label6;
+	QLabel *label7;
   QLabel *radio_label;
 
 
   KDialogBase *tabWindow;
   AccountWidget *accounts;
   GeneralWidget *general;
-  ModemWidget *modem1;
-  ModemWidget2 *modem2;
+	ModemsWidget *modems;
   GraphSetup *graph;
   AboutWidget *about;
 

@@ -68,6 +68,7 @@
 #include "pppstats.h"
 #include "pppdata.h"
 #include "general.h"
+#include "modems.h"
 
 // delay disconnection for a second
 #define DISCONNECT_DELAY 1000
@@ -91,7 +92,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
 
-  QGridLayout *l1 = new QGridLayout(3, 4);
+  QGridLayout *l1 = new QGridLayout(4, 4);
   tl->addLayout(l1);
   l1->addColSpacing(0, 10);
   l1->addColSpacing(3, 10);
@@ -107,14 +108,23 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   connect(connectto_c, SIGNAL(activated(int)),
 	  SLOT(newdefaultaccount(int)));
   l1->addWidget(connectto_c, 0, 2);
+	
+	label7 = new QLabel(i18n("Use &Modem: "), this);
+  l1->addWidget(label7, 1, 1);
+	modem_c = new QComboBox(false, this);
+  label7->setBuddy(connectto_c);
+
+  connect(modem_c, SIGNAL(activated(int)),
+	  SLOT(newdefaultmodem(int)));
+  l1->addWidget(modem_c, 1, 2);
 
   ID_Label = new QLabel(i18n("&Login ID:"), this);
-  l1->addWidget(ID_Label, 1, 1);
+  l1->addWidget(ID_Label, 2, 1);
 
   // the entry line for usernames
   ID_Edit = new QLineEdit(this);
   ID_Label->setBuddy(ID_Edit);
-  l1->addWidget(ID_Edit, 1, 2);
+  l1->addWidget(ID_Edit, 2, 2);
   connect(ID_Edit, SIGNAL(returnPressed()),
 	  this, SLOT(enterPressedInID()));
   QString tmp = i18n("<p>Type in the username that you got from your\n"
@@ -129,12 +139,12 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   QWhatsThis::add(ID_Edit,tmp);
 
   PW_Label = new QLabel(i18n("&Password:"), this);
-  l1->addWidget(PW_Label, 2, 1);
+  l1->addWidget(PW_Label, 3, 1);
 
   PW_Edit= new QLineEdit(this);
   PW_Label->setBuddy(PW_Edit);
   PW_Edit->setEchoMode(QLineEdit::Password);
-  l1->addWidget(PW_Edit, 2, 2);
+  l1->addWidget(PW_Edit, 3, 2);
   connect(PW_Edit, SIGNAL(returnPressed()),
 	  this, SLOT(enterPressedInPW()));
 
@@ -242,6 +252,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   // load up the accounts combo box
 
   resetaccounts();
+	resetmodems();
   con = new ConnectWidget(0, "con", stats);
   KWin::setIcons(con->winId(), kapp->icon(), kapp->miniIcon() );
   connect(this, SIGNAL(begin_connect()),con, SLOT(preinit()));
@@ -370,8 +381,10 @@ void KPPPWidget::prepareSetupDialog() {
     connect(accounts, SIGNAL(resetVolume(const QString &)),
 	    this, SLOT(resetVolume(const QString &)));
 
-    modem1 = new ModemWidget( tabWindow->addPage( i18n("&Device"), i18n("Serial Device") ) );
-    modem2 = new ModemWidget2( tabWindow->addPage( i18n("&Modem"), i18n("Modem Settings") ) );
+		modems = new ModemsWidget(tabWindow->addPage( i18n("&Modems"), i18n("Modems Setup") ) );
+		connect(modems, SIGNAL(resetmodems()),
+	    this, SLOT(resetmodems()));
+   
     graph = new GraphSetup( tabWindow->addPage( i18n("&Graph"), i18n("Throughput Graph" ) ) );
     general = new GeneralWidget( tabWindow->addPage( i18n("M&isc"), i18n("Miscellaneous Settings") ) );
   }
@@ -415,15 +428,12 @@ void KPPPWidget::setup() {
 void KPPPWidget::resetaccounts() {
   connectto_c->clear();
 
-  int count = gpppdata.count();
+  int count = gpppdata.accountCount();
 
   // enable/disable controls
   connectto_c->setEnabled(count > 0);
-  connect_b->setEnabled(count > 0);
-  log->setEnabled(count > 0);
-  ID_Edit->setEnabled(count > 0);
-  PW_Edit->setEnabled(count > 0);
-
+  setButtons();
+	
   //load the accounts
   for(int i=0; i < count; i++) {
     gpppdata.setAccountbyIndex(i);
@@ -459,6 +469,51 @@ void KPPPWidget::resetaccounts() {
       ID_Edit->setFocus();
   else if (PW_Edit->text().isEmpty())
       PW_Edit->setFocus();
+			
+}
+
+void KPPPWidget::resetmodems() {
+  modem_c->clear();
+
+  int count = gpppdata.modemCount();
+
+  // enable/disable controls
+  modem_c->setEnabled(count > 0);
+  setButtons();
+	
+  //load the accounts
+  for(int i=0; i < count; i++) {
+    gpppdata.setModembyIndex(i);
+     modem_c->insertItem(gpppdata.modname());
+  }
+
+  //set the default account
+  if(!gpppdata.defaultModem().isEmpty()) {
+    for(int i=0; i < count; i++)
+       if(gpppdata.defaultModem() == modem_c->text(i)) {
+ 	modem_c->setCurrentItem(i);
+	gpppdata.setModembyIndex(i);
+
+    }
+  }
+  else
+    if(count > 0) {
+       gpppdata.setDefaultModem(modem_c->text(0));
+        gpppdata.save();
+    }
+}
+
+void KPPPWidget::setButtons()
+{
+	int acccount = gpppdata.accountCount();
+	int modcount = gpppdata.modemCount();
+
+  // enable/disable controls
+  connect_b->setEnabled(acccount > 0 && modcount > 0);
+  log->setEnabled(acccount > 0 && modcount > 0);
+  ID_Edit->setEnabled(acccount > 0 && modcount > 0);
+  PW_Edit->setEnabled(acccount > 0 && modcount > 0);
+
 }
 
 
@@ -590,6 +645,12 @@ void KPPPWidget::newdefaultaccount(int i) {
   ID_Edit->setText(gpppdata.storedUsername());
   PW_Edit->setText(gpppdata.storedPassword());
 }
+
+void KPPPWidget::newdefaultmodem(int i) {
+  gpppdata.setDefaultModem(modem_c->text(i));
+  gpppdata.save();
+}
+
 
 
 void KPPPWidget::expandbutton() {

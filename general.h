@@ -36,6 +36,7 @@
 
 class QSlider;
 class KIntNumInput;
+class ModemCommands;
 
 class GeneralWidget : public QWidget {
   Q_OBJECT
@@ -58,17 +59,15 @@ private slots:
 class ModemWidget : public QWidget {
   Q_OBJECT
 public:
-  ModemWidget( QWidget *parent=0, const char *name=0 );
+  ModemWidget(QWidget *parent=0, bool isnewmodem=true, const char *name=0);
+	bool save();
 
 private slots:
-  void 	setmodemdc(int);
-  void 	setflowcontrol(int);
-  void 	modemtimeoutchanged(int);
-  void 	modemlockfilechanged(bool);
-  void 	setenter(int);
-  void  speed_selection(int);
 
 private:
+	QLineEdit *connectname_l;
+  QLabel *connect_label;
+
   QComboBox 	*enter;
   QLabel 	*label1;
   QLabel 	*label2;
@@ -88,17 +87,15 @@ private:
 class ModemWidget2 : public QWidget {
   Q_OBJECT
 public:
-  ModemWidget2( QWidget *parent=0, const char *name=0 );
+  ModemWidget2(QWidget *parent=0, bool isnewmodem=true, const char *name=0);
+	bool save();
 
 private slots:
-  void  waitfordtchanged(bool);
-  void 	busywaitchanged(int);
 //  void 	use_cdline_toggled(bool);
   void 	modemcmdsbutton();
   void 	terminal();
   void 	query_modem();
-  void  volumeChanged(int);
-
+ 
 private:
   QLabel 	*labeltmp;
   QPushButton 	*modemcmds;
@@ -109,6 +106,8 @@ private:
   KIntNumInput 	*busywait;
   QCheckBox 	*chkbox1;
   QSlider       *volume;
+	
+	ModemCommands* mc;
 };
 
 class GraphSetup : public QWidget {

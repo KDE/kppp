@@ -164,8 +164,8 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   l122->addStretch(1);
 
   //load up account list from gppdata to the list box
-  if(gpppdata.count() > 0) {
-    for(int i=0; i <= gpppdata.count()-1; i++) {
+  if(gpppdata.accountCount() > 0) {
+    for(int i=0; i <= gpppdata.accountCount()-1; i++) {
       gpppdata.setAccountbyIndex(i);
       accountlist_l->insertItem(gpppdata.accname());
     }

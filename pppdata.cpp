@@ -39,8 +39,10 @@ PPPData gpppdata;
 
 PPPData::PPPData()
   :  config(0L),
-     highcount(-1),        // start out with no entries
+     accounthighcount(-1),        // start out with no account entries
      caccount(-1),         // set the current account index also
+     modemhighcount(-1),        // start out with no modem entries
+     cmodem(-1),         // set the current modem index also
      suidprocessid(-1),    // process ID of setuid child
      pppdisrunning(false),
      pppderror(0),
@@ -70,17 +72,52 @@ bool PPPData::open() {
   // don't expand shell variables
   config->setDollarExpansion(false);
 
-  highcount = readNumConfig(GENERAL_GRP, NUMACCOUNTS_KEY, 0) - 1;
+  accounthighcount = readNumConfig(GENERAL_GRP, NUMACCOUNTS_KEY, 0) - 1;
 
-  if (highcount > MAX_ACCOUNTS)
-    highcount = MAX_ACCOUNTS;
+  if (accounthighcount > MAX_ACCOUNTS)
+    accounthighcount = MAX_ACCOUNTS;
 
-  if(highcount >= 0 && defaultAccount().isEmpty()) {
+  if(accounthighcount >= 0 && defaultAccount().isEmpty()) {
     setAccountbyIndex(0);
     setDefaultAccount(accname());
   } else if(!setAccount(defaultAccount()))
     setDefaultAccount(accname());
 
+  modemhighcount = readNumConfig(GENERAL_GRP, NUMMODEMS_KEY, 0) - 1;
+
+  if (modemhighcount > MAX_MODEMS)
+    modemhighcount = MAX_MODEMS;
+
+  // if there aren't no ModemX setted and exists the [Modem] group, 
+  // probably it's the first time we are using this new version
+  // with multiple modem profiles.
+  // So we copy the old [Modem] to the new [Modem0]
+  if(modemhighcount < 0 && defaultModem().isEmpty() && config->hasGroup("Modem"))
+  {
+  	config->setGroup("Modem");
+
+    QMap <QString, QString> map = config->entryMap("Modem");
+    QMap <QString, QString>::ConstIterator it = map.begin();
+
+    newmodem();
+
+    while (it != map.end()) {
+	  config->setGroup(cmodemgroup);
+      config->writeEntry(it.key(), *it);
+      it++;
+    }
+	
+	QString newname("Modem0");
+    setModname(newname);
+  }
+	
+  if(modemhighcount >= 0 && defaultModem().isEmpty()) {
+    setModembyIndex(0);
+    setDefaultModem(modname());
+  } else if(!setModem(defaultModem()))
+    setDefaultModem(modname());
+    
+    
   // start out with internal debugging disabled
   // the user is still free to specify `debug' on his own
   setPPPDebug(false);
@@ -97,7 +134,8 @@ bool PPPData::open() {
 void PPPData::save() {
 
   if (config) {
-    writeConfig(GENERAL_GRP, NUMACCOUNTS_KEY, count());
+    writeConfig(GENERAL_GRP, NUMACCOUNTS_KEY, accountCount());
+    writeConfig(GENERAL_GRP, NUMMODEMS_KEY, modemCount());
     config->sync();
   }
 
@@ -211,6 +249,18 @@ void PPPData::setDefaultAccount(const QString &n) {
 }
 
 
+const QString PPPData::defaultModem() {
+  return readConfig(GENERAL_GRP, DEFAULTMODEM_KEY);
+}
+
+
+void PPPData::setDefaultModem(const QString &n) {
+  writeConfig(GENERAL_GRP, DEFAULTMODEM_KEY, n);
+
+  //now set the current modem index to the default modem
+  setModem(defaultModem());
+}
+
 bool PPPData::get_show_clock_on_caption() {
   return (bool) readNumConfig(GENERAL_GRP, SHOWCLOCK_KEY, true);
 }
@@ -319,29 +369,190 @@ void PPPData::setpppdTimeout(int n) {
   writeConfig(GENERAL_GRP, PPPDTIMEOUT_KEY, n);
 }
 
+//
+// functions to set/return modem information
+//
+
+
+//returns number of modems
+int PPPData::modemCount() const {
+  return modemhighcount + 1;
+}
+
+
+bool PPPData::setModem(const QString &mname) {
+  for(int i = 0; i <= modemhighcount; i++) {
+    setModembyIndex(i);
+    if(modname() == mname) {
+      cmodem = i;
+      return true;
+    }
+  }
+  return false;
+}
+
+
+bool PPPData::setModembyIndex(int i) {
+  if(i >= 0 && i <= modemhighcount) {
+    cmodem = i;
+    cmodemgroup.sprintf("%s%i", MODEM_GRP, i);
+    return true;
+  }
+  return false;
+}
+
+
+bool PPPData::isUniqueModname(const QString &n) {
+  int current = cmodem;
+  for(int i=0; i <= modemhighcount; i++) {
+    setModembyIndex(i);
+    if(modname() == n && i != current) {
+      setModembyIndex(current);
+      return false;
+    }
+  }
+  setModembyIndex(current);
+  return true;
+}
+
+
+bool PPPData::deleteModem() {
+  if(cmodem < 0)
+    return false;
+
+  QMap <QString, QString> map;
+  QMap <QString, QString>::Iterator it;
+
+  // set all entries of the current modem to ""
+  map = config->entryMap(cmodemgroup);
+  it = map.begin();
+  while (it != map.end()) {
+    config->writeEntry(it.key(), "");
+    it++;
+  }
+
+  // shift the succeeding modems
+  for(int i = cmodem+1; i <= modemhighcount; i++) {
+    setModembyIndex(i);
+    map = config->entryMap(cmodemgroup);
+    it = map.begin();
+    setModembyIndex(i-1);
+    config->setGroup(cmodemgroup);
+    while (it != map.end()) {
+      config->writeEntry(it.key(), *it);
+      it++;
+    }
+  }
+
+  // make sure the top modem is cleared
+  setModembyIndex(modemhighcount);
+  map = config->entryMap(cmodemgroup);
+  it = map.begin();
+  config->setGroup(cmodemgroup);
+  while (!it.key().isNull()) {
+    config->writeEntry(it.key(), "");
+    it++;
+  }
+
+  modemhighcount--;
+  if(cmodem > modemhighcount)
+    cmodem = modemhighcount;
+
+  setModembyIndex(cmodem);
+
+  return true;
+}
+
+bool PPPData::deleteModem(const QString &mname) {
+  if(!setModem(mname))
+    return false;
+
+  deleteModem();
+
+  return true;
+}
+
+
+int PPPData::newmodem() {
+
+  if(!config || modemhighcount >= MAX_MODEMS)
+    return -1;
+
+  modemhighcount++;
+  setModembyIndex(modemhighcount);
+
+  setpppdArgumentDefaults();
+
+  return cmodem;
+}
+
+int PPPData::copymodem(int i) {
+
+  config->setGroup(cmodemgroup);
+
+  if(modemhighcount >= MAX_MODEMS)
+    return -1;
+
+  setModembyIndex(i);
+
+  QMap <QString, QString> map = config->entryMap(cmodemgroup);
+  QMap <QString, QString>::ConstIterator it = map.begin();
+
+  QString newname = i18n("%1_copy").arg(modname());
+
+  newmodem();
+
+  while (it != map.end()) {
+	config->setGroup(cmodemgroup);
+    config->writeEntry(it.key(), *it);
+    it++;
+  }
+
+  setModname(newname);
+
+  return cmodem;
+}
+
+
+const QString PPPData::modname() {
+  return readConfig(cmodemgroup, MOD_NAME_KEY);
+}
+
+void PPPData::setModname(const QString &n) {
+  if(!cmodemgroup.isNull()) {
+    // are we manipulating the default modem's name ? then change it, too.
+    bool def = modname() == defaultModem();
+    writeConfig(cmodemgroup, MOD_NAME_KEY, n);
+    if (def)
+      setDefaultModem(n);
+  }
+}
+
+
+
 
 const QString PPPData::modemDevice() {
-  return readConfig (MODEM_GRP, MODEMDEV_KEY, devices[DEV_DEFAULT]);
+  return readConfig (cmodemgroup, MODEMDEV_KEY, devices[DEV_DEFAULT]);
 }
 
 
 void PPPData::setModemDevice(const QString &n) {
-  writeConfig(MODEM_GRP, MODEMDEV_KEY, n);
+  writeConfig(cmodemgroup, MODEMDEV_KEY, n);
 }
 
 
 const QString PPPData::flowcontrol() {
-  return readConfig(MODEM_GRP, FLOWCONTROL_KEY, "CRTSCTS");
+  return readConfig(cmodemgroup, FLOWCONTROL_KEY, "CRTSCTS");
 }
 
 
 void PPPData::setFlowcontrol(const QString &n) {
-  writeConfig(MODEM_GRP, FLOWCONTROL_KEY, n);
+  writeConfig(cmodemgroup, FLOWCONTROL_KEY, n);
 }
 
 
 const QString PPPData::speed() {
-  QString s = readConfig(MODEM_GRP, SPEED_KEY, "57600");
+  QString s = readConfig(cmodemgroup, SPEED_KEY, "57600");
   // undo the damage of a bug in former versions. It left an empty Speed=
   // entry in kppprc. kppp did set the serial port to 57600 as default but
   // pppd wouldn't receive the speed via the command line.
@@ -352,88 +563,88 @@ const QString PPPData::speed() {
 
 
 void PPPData::setSpeed(const QString &n) {
-  writeConfig(MODEM_GRP, SPEED_KEY, n);
+  writeConfig(cmodemgroup, SPEED_KEY, n);
 }
 
 
 #if 0
 void PPPData::setUseCDLine(const int n) {
-  writeConfig(MODEM_GRP,USECDLINE_KEY,n);
+  writeConfig(cmodemgroup,USECDLINE_KEY,n);
 }
 
 
 int PPPData::UseCDLine() {
-  return  readNumConfig(MODEM_GRP,USECDLINE_KEY,0);
+  return  readNumConfig(cmodemgroup,USECDLINE_KEY,0);
 }
 #endif
 
 const QString  PPPData::modemEscapeStr() {
-  return readConfig(MODEM_GRP,ESCAPESTR_KEY,"+++");
+  return readConfig(cmodemgroup,ESCAPESTR_KEY,"+++");
 }
 
 
 void PPPData::setModemEscapeStr(const QString &n) {
-  writeConfig(MODEM_GRP,ESCAPESTR_KEY,n);
+  writeConfig(cmodemgroup,ESCAPESTR_KEY,n);
 }
 
 
 const QString  PPPData::modemEscapeResp() {
-  return readConfig(MODEM_GRP,ESCAPERESP_KEY,"OK");
+  return readConfig(cmodemgroup,ESCAPERESP_KEY,"OK");
 }
 
 
 void PPPData::setModemEscapeResp(const QString &n) {
-  writeConfig(MODEM_GRP,ESCAPERESP_KEY,n);
+  writeConfig(cmodemgroup,ESCAPERESP_KEY,n);
 }
 
 
 int  PPPData::modemEscapeGuardTime() {
-  return readNumConfig(MODEM_GRP,ESCAPEGUARDTIME_KEY,50);
+  return readNumConfig(cmodemgroup,ESCAPEGUARDTIME_KEY,50);
 }
 
 
 void PPPData::setModemEscapeGuardTime(int n) {
-  writeConfig(MODEM_GRP,ESCAPEGUARDTIME_KEY,n);
+  writeConfig(cmodemgroup,ESCAPEGUARDTIME_KEY,n);
 }
 
 
 bool PPPData::modemLockFile() {
-  return readNumConfig(MODEM_GRP, LOCKFILE_KEY, 1);
+  return readNumConfig(cmodemgroup, LOCKFILE_KEY, 1);
 }
 
 
 void PPPData::setModemLockFile(bool set) {
-  writeConfig(MODEM_GRP, LOCKFILE_KEY, set);
+  writeConfig(cmodemgroup, LOCKFILE_KEY, set);
 }
 
 
 int PPPData::modemTimeout() {
-  return readNumConfig(MODEM_GRP, TIMEOUT_KEY, MODEM_TIMEOUT);
+  return readNumConfig(cmodemgroup, TIMEOUT_KEY, MODEM_TIMEOUT);
 }
 
 
 void PPPData::setModemTimeout(int n) {
-  writeConfig(MODEM_GRP, TIMEOUT_KEY, n);
+  writeConfig(cmodemgroup, TIMEOUT_KEY, n);
 }
 
 
 int PPPData::modemToneDuration() {
-  return readNumConfig(MODEM_GRP, TONEDURATION_KEY,MODEM_TONEDURATION);
+  return readNumConfig(cmodemgroup, TONEDURATION_KEY,MODEM_TONEDURATION);
 }
 
 
 void PPPData::setModemToneDuration(int n) {
-  writeConfig(MODEM_GRP, TONEDURATION_KEY, n);
+  writeConfig(cmodemgroup, TONEDURATION_KEY, n);
 }
 
 
 int PPPData::busyWait() {
-  return readNumConfig(MODEM_GRP, BUSYWAIT_KEY, BUSY_WAIT);
+  return readNumConfig(cmodemgroup, BUSYWAIT_KEY, BUSY_WAIT);
 }
 
 
 void PPPData::setbusyWait(int n) {
-  writeConfig(MODEM_GRP, BUSYWAIT_KEY, n);
+  writeConfig(cmodemgroup, BUSYWAIT_KEY, n);
 }
 
 
@@ -444,162 +655,162 @@ void PPPData::setbusyWait(int n) {
 const QString PPPData::modemInitStr(int i) {
   assert(i >= 0 && i < NumInitStrings);
   if(i == 0)
-    return readConfig(MODEM_GRP, INITSTR_KEY, "ATZ");
+    return readConfig(cmodemgroup, INITSTR_KEY, "ATZ");
   else
-    return readConfig(MODEM_GRP, INITSTR_KEY + QString::number(i), "");
+    return readConfig(cmodemgroup, INITSTR_KEY + QString::number(i), "");
 }
 
 
 void PPPData::setModemInitStr(int i, const QString &n) {
   assert(i >= 0 && i < NumInitStrings);
   QString k = INITSTR_KEY + (i > 0 ? QString::number(i) : "");
-  writeConfig(MODEM_GRP, k, n);
+  writeConfig(cmodemgroup, k, n);
 }
 
 
 const QString PPPData::modemInitResp() {
-  return readConfig(MODEM_GRP, INITRESP_KEY, "OK");
+  return readConfig(cmodemgroup, INITRESP_KEY, "OK");
 }
 
 
 void PPPData::setModemInitResp(const QString &n) {
-  writeConfig(MODEM_GRP, INITRESP_KEY, n);
+  writeConfig(cmodemgroup, INITRESP_KEY, n);
 }
 
 
 int PPPData::modemPreInitDelay() {
-  return readNumConfig(MODEM_GRP, PREINITDELAY_KEY, 50);
+  return readNumConfig(cmodemgroup, PREINITDELAY_KEY, 50);
 }
 
 
 void PPPData::setModemPreInitDelay(int n) {
-  writeConfig(MODEM_GRP, PREINITDELAY_KEY, n);
+  writeConfig(cmodemgroup, PREINITDELAY_KEY, n);
 }
 
 
 int PPPData::modemInitDelay() {
-  return readNumConfig(MODEM_GRP, INITDELAY_KEY, 50);
+  return readNumConfig(cmodemgroup, INITDELAY_KEY, 50);
 }
 
 
 void PPPData::setModemInitDelay(int n) {
-  writeConfig(MODEM_GRP, INITDELAY_KEY, n);
+  writeConfig(cmodemgroup, INITDELAY_KEY, n);
 }
 
 QString PPPData::modemNoDialToneDetectionStr() {
-  return readConfig(MODEM_GRP, NODTDETECT_KEY, "ATX3");
+  return readConfig(cmodemgroup, NODTDETECT_KEY, "ATX3");
 }
 
 void PPPData::setModemNoDialToneDetectionStr(const QString &n) {
-  writeConfig(MODEM_GRP, NODTDETECT_KEY, n);
+  writeConfig(cmodemgroup, NODTDETECT_KEY, n);
 }
 
 const QString PPPData::modemDialStr() {
-  return readConfig(MODEM_GRP, DIALSTR_KEY, "ATDT");
+  return readConfig(cmodemgroup, DIALSTR_KEY, "ATDT");
 }
 
 
 void PPPData::setModemDialStr(const QString &n) {
-  writeConfig(MODEM_GRP, DIALSTR_KEY, n);
+  writeConfig(cmodemgroup, DIALSTR_KEY, n);
 }
 
 
 const QString PPPData::modemConnectResp() {
-  return readConfig(MODEM_GRP, CONNECTRESP_KEY, "CONNECT");
+  return readConfig(cmodemgroup, CONNECTRESP_KEY, "CONNECT");
 }
 
 
 void PPPData::setModemConnectResp(const QString &n) {
-  writeConfig(MODEM_GRP, CONNECTRESP_KEY, n);
+  writeConfig(cmodemgroup, CONNECTRESP_KEY, n);
 }
 
 
 const QString PPPData::modemBusyResp() {
-  return readConfig(MODEM_GRP, BUSYRESP_KEY, "BUSY");
+  return readConfig(cmodemgroup, BUSYRESP_KEY, "BUSY");
 }
 
 
 void PPPData::setModemBusyResp(const QString &n) {
-  writeConfig(MODEM_GRP, BUSYRESP_KEY, n);
+  writeConfig(cmodemgroup, BUSYRESP_KEY, n);
 }
 
 
 const QString PPPData::modemNoCarrierResp() {
-  return readConfig(MODEM_GRP, NOCARRIERRESP_KEY, "NO CARRIER");
+  return readConfig(cmodemgroup, NOCARRIERRESP_KEY, "NO CARRIER");
 }
 
 
 void PPPData::setModemNoCarrierResp(const QString &n) {
-  writeConfig(MODEM_GRP, NOCARRIERRESP_KEY, n);
+  writeConfig(cmodemgroup, NOCARRIERRESP_KEY, n);
 }
 
 
 const QString PPPData::modemNoDialtoneResp() {
-  return readConfig(MODEM_GRP, NODIALTONERESP_KEY, "NO DIALTONE");
+  return readConfig(cmodemgroup, NODIALTONERESP_KEY, "NO DIALTONE");
 }
 
 
 void PPPData::setModemNoDialtoneResp(const QString &n) {
-  writeConfig(MODEM_GRP, NODIALTONERESP_KEY, n);
+  writeConfig(cmodemgroup, NODIALTONERESP_KEY, n);
 }
 
 
 const QString PPPData::modemHangupStr() {
-  return readConfig(MODEM_GRP, HANGUPSTR_KEY, "+++ATH");
+  return readConfig(cmodemgroup, HANGUPSTR_KEY, "+++ATH");
 }
 
 void PPPData::setModemHangupStr(const QString &n) {
-  writeConfig(MODEM_GRP, HANGUPSTR_KEY, n);
+  writeConfig(cmodemgroup, HANGUPSTR_KEY, n);
 }
 
 
 const QString PPPData::modemHangupResp() {
-  return readConfig(MODEM_GRP, HANGUPRESP_KEY, "OK");
+  return readConfig(cmodemgroup, HANGUPRESP_KEY, "OK");
 }
 
 void PPPData::setModemHangupResp(const QString &n) {
-  writeConfig(MODEM_GRP, HANGUPRESP_KEY, n);
+  writeConfig(cmodemgroup, HANGUPRESP_KEY, n);
 }
 
 
 QString PPPData::modemDLPResp() {
-  return readConfig(MODEM_GRP, DLPRESP_KEY, "DIGITAL LINE DETECTED");
+  return readConfig(cmodemgroup, DLPRESP_KEY, "DIGITAL LINE DETECTED");
 }
 
 void PPPData::setModemDLPResp(const QString &n) {
-  writeConfig(MODEM_GRP, DLPRESP_KEY, n);
+  writeConfig(cmodemgroup, DLPRESP_KEY, n);
 }
 
 
 
 
 const QString PPPData::modemAnswerStr() {
-  return readConfig(MODEM_GRP, ANSWERSTR_KEY, "ATA");
+  return readConfig(cmodemgroup, ANSWERSTR_KEY, "ATA");
 }
 
 
 QString PPPData::volumeOff() {
-  return readConfig(MODEM_GRP, VOLUME_OFF, "M0L0");
+  return readConfig(cmodemgroup, VOLUME_OFF, "M0L0");
 }
 
 
 void PPPData::setVolumeOff(const QString &s) {
-  writeConfig(MODEM_GRP, VOLUME_OFF, s);
+  writeConfig(cmodemgroup, VOLUME_OFF, s);
 }
 
 
 QString PPPData::volumeMedium() {
- return readConfig(MODEM_GRP, VOLUME_MEDIUM, "M1L1");
+ return readConfig(cmodemgroup, VOLUME_MEDIUM, "M1L1");
 }
 
 
 void PPPData::setVolumeMedium(const QString &s) {
-  writeConfig(MODEM_GRP, VOLUME_MEDIUM, s);
+  writeConfig(cmodemgroup, VOLUME_MEDIUM, s);
 }
 
 
 QString PPPData::volumeHigh() {
-  QString tmp = readConfig(MODEM_GRP, VOLUME_HIGH, "M1L3");
+  QString tmp = readConfig(cmodemgroup, VOLUME_HIGH, "M1L3");
   if(tmp == "M1L4")
     tmp = "M1L3";
   return tmp;
@@ -607,7 +818,7 @@ QString PPPData::volumeHigh() {
 
 
 void PPPData::setVolumeHigh(const QString &s) {
- writeConfig(MODEM_GRP, VOLUME_HIGH, s);
+ writeConfig(cmodemgroup, VOLUME_HIGH, s);
 }
 
 
@@ -633,54 +844,54 @@ QString PPPData::volumeInitString() {
 
 
 int PPPData::volume() {
-  return readNumConfig(MODEM_GRP, VOLUME_KEY, 1);
+  return readNumConfig(cmodemgroup, VOLUME_KEY, 1);
 }
 
 
 void PPPData::setVolume(int i) {
-  writeConfig(MODEM_GRP, VOLUME_KEY, i);
+  writeConfig(cmodemgroup, VOLUME_KEY, i);
 }
 
 int PPPData::waitForDialTone() {
-  return readNumConfig(MODEM_GRP, DIALTONEWAIT_KEY, 1);
+  return readNumConfig(cmodemgroup, DIALTONEWAIT_KEY, 1);
 }
 
 void PPPData::setWaitForDialTone(int i) {
-  writeConfig(MODEM_GRP, DIALTONEWAIT_KEY, i);
+  writeConfig(cmodemgroup, DIALTONEWAIT_KEY, i);
 }
 
 void PPPData::setModemAnswerStr(const QString &n) {
-  writeConfig(MODEM_GRP, ANSWERSTR_KEY, n);
+  writeConfig(cmodemgroup, ANSWERSTR_KEY, n);
 }
 
 
 const QString PPPData::modemRingResp() {
-  return readConfig(MODEM_GRP, RINGRESP_KEY, "RING");
+  return readConfig(cmodemgroup, RINGRESP_KEY, "RING");
 }
 
 
 void PPPData::setModemRingResp(const QString &n) {
-  writeConfig(MODEM_GRP, RINGRESP_KEY, n);
+  writeConfig(cmodemgroup, RINGRESP_KEY, n);
 }
 
 
 const QString PPPData::modemAnswerResp() {
-  return readConfig(MODEM_GRP, ANSWERRESP_KEY, "CONNECT");
+  return readConfig(cmodemgroup, ANSWERRESP_KEY, "CONNECT");
 }
 
 
 void PPPData::setModemAnswerResp(const QString &n) {
-  writeConfig(MODEM_GRP, ANSWERRESP_KEY, n);
+  writeConfig(cmodemgroup, ANSWERRESP_KEY, n);
 }
 
 
 const QString PPPData::enter() {
-  return readConfig(MODEM_GRP, ENTER_KEY, "CR");
+  return readConfig(cmodemgroup, ENTER_KEY, "CR");
 }
 
 
 void PPPData::setEnter(const QString &n) {
-  writeConfig(MODEM_GRP, ENTER_KEY, n);
+  writeConfig(cmodemgroup, ENTER_KEY, n);
 }
 
 
@@ -689,13 +900,13 @@ void PPPData::setEnter(const QString &n) {
 //
 
 //returns number of accounts
-int PPPData::count() const {
-  return highcount + 1;
+int PPPData::accountCount() const {
+  return accounthighcount + 1;
 }
 
 
 bool PPPData::setAccount(const QString &aname) {
-  for(int i = 0; i <= highcount; i++) {
+  for(int i = 0; i <= accounthighcount; i++) {
     setAccountbyIndex(i);
     if(accname() == aname) {
       caccount = i;
@@ -707,9 +918,9 @@ bool PPPData::setAccount(const QString &aname) {
 
 
 bool PPPData::setAccountbyIndex(int i) {
-  if(i >= 0 && i <= highcount) {
+  if(i >= 0 && i <= accounthighcount) {
     caccount = i;
-    cgroup.sprintf("%s%i", ACCOUNT_GRP, i);
+    caccountgroup.sprintf("%s%i", ACCOUNT_GRP, i);
     return true;
   }
   return false;
@@ -720,7 +931,7 @@ bool PPPData::isUniqueAccname(const QString &n) {
   if(n.contains(':'))
     return false;
   int current = caccount;
-  for(int i=0; i <= highcount; i++) {
+  for(int i=0; i <= accounthighcount; i++) {
     setAccountbyIndex(i);
     if(accname() == n && i != current) {
       setAccountbyIndex(current);
@@ -740,7 +951,7 @@ bool PPPData::deleteAccount() {
   QMap <QString, QString>::Iterator it;
 
   // set all entries of the current account to ""
-  map = config->entryMap(cgroup);
+  map = config->entryMap(caccountgroup);
   it = map.begin();
   while (it != map.end()) {
     config->writeEntry(it.key(), "");
@@ -748,12 +959,12 @@ bool PPPData::deleteAccount() {
   }
 
   // shift the succeeding accounts
-  for(int i = caccount+1; i <= highcount; i++) {
+  for(int i = caccount+1; i <= accounthighcount; i++) {
     setAccountbyIndex(i);
-    map = config->entryMap(cgroup);
+    map = config->entryMap(caccountgroup);
     it = map.begin();
     setAccountbyIndex(i-1);
-    config->setGroup(cgroup);
+    config->setGroup(caccountgroup);
     while (it != map.end()) {
       config->writeEntry(it.key(), *it);
       it++;
@@ -761,24 +972,23 @@ bool PPPData::deleteAccount() {
   }
 
   // make sure the top account is cleared
-  setAccountbyIndex(highcount);
-  map = config->entryMap(cgroup);
+  setAccountbyIndex(accounthighcount);
+  map = config->entryMap(caccountgroup);
   it = map.begin();
-  config->setGroup(cgroup);
+  config->setGroup(caccountgroup);
   while (!it.key().isNull()) {
     config->writeEntry(it.key(), "");
     it++;
   }
 
-  highcount--;
-  if(caccount > highcount)
-    caccount = highcount;
+  accounthighcount--;
+  if(caccount > accounthighcount)
+    caccount = accounthighcount;
 
   setAccountbyIndex(caccount);
 
   return true;
 }
-
 
 bool PPPData::deleteAccount(const QString &aname) {
   if(!setAccount(aname))
@@ -792,11 +1002,11 @@ bool PPPData::deleteAccount(const QString &aname) {
 
 int PPPData::newaccount() {
 
-  if(!config || highcount >= MAX_ACCOUNTS)
+  if(!config || accounthighcount >= MAX_ACCOUNTS)
     return -1;
 
-  highcount++;
-  setAccountbyIndex(highcount);
+  accounthighcount++;
+  setAccountbyIndex(accounthighcount);
 
   setpppdArgumentDefaults();
 
@@ -805,12 +1015,14 @@ int PPPData::newaccount() {
 
 int PPPData::copyaccount(int i) {
 
-  if(highcount >= MAX_ACCOUNTS)
+  config->setGroup(caccountgroup);
+
+  if(accounthighcount >= MAX_ACCOUNTS)
     return -1;
 
   setAccountbyIndex(i);
 
-  QMap <QString, QString> map = config->entryMap(cgroup);
+  QMap <QString, QString> map = config->entryMap(caccountgroup);
   QMap <QString, QString>::ConstIterator it = map.begin();
 
   QString newname = i18n("%1_copy").arg(accname());
@@ -818,6 +1030,7 @@ int PPPData::copyaccount(int i) {
   newaccount();
 
   while (it != map.end()) {
+    config->setGroup(caccountgroup);
     config->writeEntry(it.key(), *it);
     it++;
   }
@@ -829,14 +1042,14 @@ int PPPData::copyaccount(int i) {
 
 
 const QString PPPData::accname() {
-  return readConfig(cgroup, NAME_KEY);
+  return readConfig(caccountgroup, ACC_NAME_KEY);
 }
 
 void PPPData::setAccname(const QString &n) {
-  if(!cgroup.isNull()) {
+  if(!caccountgroup.isNull()) {
     // are we manipulating the default account's name ? then change it, too.
     bool def = accname() == defaultAccount();
-    writeConfig(cgroup, NAME_KEY, n);
+    writeConfig(caccountgroup, ACC_NAME_KEY, n);
     if (def)
       setDefaultAccount(n);
   }
@@ -846,80 +1059,80 @@ void PPPData::setAccname(const QString &n) {
 #define SEPARATOR_CHAR ':'
 QStringList &PPPData::phonenumbers() {
 
-  readListConfig(cgroup, PHONENUMBER_KEY, phonelist, SEPARATOR_CHAR);
+  readListConfig(caccountgroup, PHONENUMBER_KEY, phonelist, SEPARATOR_CHAR);
   return phonelist;
 
 }
 
 
 const QString PPPData::phonenumber() {
-  return readConfig(cgroup, PHONENUMBER_KEY);
+  return readConfig(caccountgroup, PHONENUMBER_KEY);
 }
 
 
 void PPPData::setPhonenumber(const QString &n) {
-  writeConfig(cgroup, PHONENUMBER_KEY, n);
+  writeConfig(caccountgroup, PHONENUMBER_KEY, n);
 }
 
 
 const QString PPPData::dialPrefix() {
-  return readConfig(cgroup, DIAL_PREFIX_KEY, "");
+  return readConfig(caccountgroup, DIAL_PREFIX_KEY, "");
 }
 
 
 void PPPData::setDialPrefix(const QString &s) {
-  writeConfig(cgroup, DIAL_PREFIX_KEY, s);
+  writeConfig(caccountgroup, DIAL_PREFIX_KEY, s);
 }
 
 
 int PPPData::authMethod() {
-    return readNumConfig(cgroup, AUTH_KEY, 0);
+    return readNumConfig(caccountgroup, AUTH_KEY, 0);
 }
 
 
 void PPPData::setAuthMethod(int value) {
-  writeConfig(cgroup, AUTH_KEY, value);
+  writeConfig(caccountgroup, AUTH_KEY, value);
 }
 
 
 const QString  PPPData::storedUsername() {
-  return readConfig(cgroup, STORED_USERNAME_KEY, "");
+  return readConfig(caccountgroup, STORED_USERNAME_KEY, "");
 }
 
 
 void PPPData::setStoredUsername(const QString &b) {
-  writeConfig(cgroup, STORED_USERNAME_KEY, b);
+  writeConfig(caccountgroup, STORED_USERNAME_KEY, b);
 }
 
 
 const QString  PPPData::storedPassword() {
-  return readConfig(cgroup, STORED_PASSWORD_KEY, "");
+  return readConfig(caccountgroup, STORED_PASSWORD_KEY, "");
 }
 
 
 void PPPData::setStoredPassword(const QString &b) {
-  writeConfig(cgroup, STORED_PASSWORD_KEY, b);
+  writeConfig(caccountgroup, STORED_PASSWORD_KEY, b);
 }
 
 
 bool PPPData::storePassword() {
-  return (bool)readNumConfig(cgroup, STORE_PASSWORD_KEY, 1);
+  return (bool)readNumConfig(caccountgroup, STORE_PASSWORD_KEY, 1);
 }
 
 int PPPData::callbackType() {
-  return readNumConfig(cgroup, CALLBACK_TYPE_KEY, 0);
+  return readNumConfig(caccountgroup, CALLBACK_TYPE_KEY, 0);
 }
 
 void PPPData::setCallbackType(int value) {
-  writeConfig(cgroup, CALLBACK_TYPE_KEY, value);
+  writeConfig(caccountgroup, CALLBACK_TYPE_KEY, value);
 }
 
 QString PPPData::callbackPhone() {
-  return readConfig(cgroup, CALLBACK_PHONE_KEY, "");
+  return readConfig(caccountgroup, CALLBACK_PHONE_KEY, "");
 }
 
 void PPPData::setCallbackPhone(const QString &b) {
-  writeConfig(cgroup, CALLBACK_PHONE_KEY, b);
+  writeConfig(caccountgroup, CALLBACK_PHONE_KEY, b);
 }
 
 bool PPPData::waitCallback() {
@@ -931,146 +1144,146 @@ void PPPData::setWaitCallback(bool value) {
 }
 
 const QString PPPData::command_before_connect() {
-  return readConfig(cgroup, BEFORE_CONNECT_KEY);
+  return readConfig(caccountgroup, BEFORE_CONNECT_KEY);
 }
 
 
 void PPPData::setCommand_before_connect(const QString &n) {
-  writeConfig(cgroup, BEFORE_CONNECT_KEY, n);
+  writeConfig(caccountgroup, BEFORE_CONNECT_KEY, n);
 }
 
 
 void PPPData::setStorePassword(bool b) {
-  writeConfig(cgroup, STORE_PASSWORD_KEY, (int)b);
+  writeConfig(caccountgroup, STORE_PASSWORD_KEY, (int)b);
 }
 
 
 const QString PPPData::command_on_connect() {
-  return readConfig(cgroup, COMMAND_KEY);
+  return readConfig(caccountgroup, COMMAND_KEY);
 }
 
 
 void PPPData::setCommand_on_connect(const QString &n) {
-  writeConfig(cgroup, COMMAND_KEY, n);
+  writeConfig(caccountgroup, COMMAND_KEY, n);
 }
 
 
 const QString PPPData::command_on_disconnect() {
-  return readConfig(cgroup, DISCONNECT_COMMAND_KEY);
+  return readConfig(caccountgroup, DISCONNECT_COMMAND_KEY);
 }
 
 
 void PPPData::setCommand_on_disconnect(const QString &n) {
-  writeConfig(cgroup, DISCONNECT_COMMAND_KEY, n);
+  writeConfig(caccountgroup, DISCONNECT_COMMAND_KEY, n);
 }
 
 
 const QString PPPData::command_before_disconnect() {
-  return readConfig(cgroup, BEFORE_DISCONNECT_KEY);
+  return readConfig(caccountgroup, BEFORE_DISCONNECT_KEY);
 }
 
 
 void PPPData::setCommand_before_disconnect(const QString &n) {
-  writeConfig(cgroup, BEFORE_DISCONNECT_KEY, n);
+  writeConfig(caccountgroup, BEFORE_DISCONNECT_KEY, n);
 }
 
 
 const QString PPPData::ipaddr() {
-  return readConfig(cgroup, IPADDR_KEY);
+  return readConfig(caccountgroup, IPADDR_KEY);
 }
 
 
 void PPPData::setIpaddr(const QString &n) {
-  writeConfig(cgroup, IPADDR_KEY, n);
+  writeConfig(caccountgroup, IPADDR_KEY, n);
 }
 
 
 const QString PPPData::subnetmask() {
-  return readConfig(cgroup, SUBNETMASK_KEY);
+  return readConfig(caccountgroup, SUBNETMASK_KEY);
 }
 
 
 void PPPData::setSubnetmask(const QString &n) {
-  writeConfig(cgroup, SUBNETMASK_KEY, n);
+  writeConfig(caccountgroup, SUBNETMASK_KEY, n);
 }
 
 
 bool PPPData::autoname() {
-  return (bool) readNumConfig(cgroup, AUTONAME_KEY, false);
+  return (bool) readNumConfig(caccountgroup, AUTONAME_KEY, false);
 }
 
 
 void PPPData::setAutoname(bool set) {
-  writeConfig(cgroup, AUTONAME_KEY, (int) set);
+  writeConfig(caccountgroup, AUTONAME_KEY, (int) set);
 }
 
 
 bool PPPData::AcctEnabled() {
-  return (bool) readNumConfig(cgroup, ACCTENABLED_KEY, false);
+  return (bool) readNumConfig(caccountgroup, ACCTENABLED_KEY, false);
 }
 
 
 void PPPData::setAcctEnabled(bool set) {
-  writeConfig(cgroup, ACCTENABLED_KEY, (int) set);
+  writeConfig(caccountgroup, ACCTENABLED_KEY, (int) set);
 }
 
 
 int PPPData::VolAcctEnabled() {
-  return readNumConfig(cgroup, VOLACCTENABLED_KEY, 0);
+  return readNumConfig(caccountgroup, VOLACCTENABLED_KEY, 0);
 }
 
 
 void PPPData::setVolAcctEnabled(int set) {
-  writeConfig(cgroup, VOLACCTENABLED_KEY, set);
+  writeConfig(caccountgroup, VOLACCTENABLED_KEY, set);
 }
 
 
 const QString PPPData::gateway() {
-  return readConfig(cgroup, GATEWAY_KEY);
+  return readConfig(caccountgroup, GATEWAY_KEY);
 }
 
 
 void PPPData::setGateway(const QString &n ) {
-  writeConfig(cgroup, GATEWAY_KEY, n);
+  writeConfig(caccountgroup, GATEWAY_KEY, n);
 }
 
 
 bool PPPData::defaultroute() {
   // default route is by default 'on'.
-  return (bool) readNumConfig(cgroup, DEFAULTROUTE_KEY, true);
+  return (bool) readNumConfig(caccountgroup, DEFAULTROUTE_KEY, true);
 }
 
 
 void PPPData::setDefaultroute(bool set) {
-  writeConfig(cgroup, DEFAULTROUTE_KEY, (int) set);
+  writeConfig(caccountgroup, DEFAULTROUTE_KEY, (int) set);
 }
 
 
 bool PPPData::autoDNS() {
-  bool set = (bool) readNumConfig(cgroup, AUTODNS_KEY, true);
+  bool set = (bool) readNumConfig(caccountgroup, AUTODNS_KEY, true);
   return (set && gpppdata.pppdVersionMin(2, 3, 7));
 }
 
 
 void PPPData::setAutoDNS(bool set) {
-  writeConfig(cgroup, AUTODNS_KEY, (int) set);
+  writeConfig(caccountgroup, AUTODNS_KEY, (int) set);
 }
 
 
 void PPPData::setExDNSDisabled(bool set) {
-  writeConfig(cgroup, EXDNSDISABLED_KEY, (int) set);
+  writeConfig(caccountgroup, EXDNSDISABLED_KEY, (int) set);
 }
 
 
 bool PPPData::exDNSDisabled() {
-  return (bool) readNumConfig(cgroup, EXDNSDISABLED_KEY,0);
+  return (bool) readNumConfig(caccountgroup, EXDNSDISABLED_KEY,0);
 }
 
 
 QStringList &PPPData::dns() {
   static QStringList dnslist;
 
-  readListConfig(cgroup, DNS_KEY, dnslist);
+  readListConfig(caccountgroup, DNS_KEY, dnslist);
   while(dnslist.count() > MAX_DNS_ENTRIES)
     dnslist.remove(dnslist.last());
 
@@ -1079,24 +1292,24 @@ QStringList &PPPData::dns() {
 
 
 void PPPData::setDns(QStringList &list) {
-  writeListConfig(cgroup, DNS_KEY, list);
+  writeListConfig(caccountgroup, DNS_KEY, list);
 }
 
 
 const QString PPPData::domain() {
-  return readConfig(cgroup, DOMAIN_KEY);
+  return readConfig(caccountgroup, DOMAIN_KEY);
 }
 
 
 void PPPData::setDomain(const QString &n ) {
-  writeConfig(cgroup, DOMAIN_KEY, n);
+  writeConfig(caccountgroup, DOMAIN_KEY, n);
 }
 
 
 QStringList &PPPData::scriptType() {
   static QStringList typelist;
 
-  readListConfig(cgroup, SCRIPTCOM_KEY, typelist);
+  readListConfig(caccountgroup, SCRIPTCOM_KEY, typelist);
   while(typelist.count() > MAX_SCRIPT_ENTRIES)
     typelist.remove(typelist.last());
 
@@ -1105,14 +1318,14 @@ QStringList &PPPData::scriptType() {
 
 
 void PPPData::setScriptType(QStringList &list) {
-  writeListConfig(cgroup, SCRIPTCOM_KEY, list);
+  writeListConfig(caccountgroup, SCRIPTCOM_KEY, list);
 }
 
 
 QStringList &PPPData::script() {
   static QStringList scriptlist;
 
-  readListConfig(cgroup, SCRIPTARG_KEY, scriptlist);
+  readListConfig(caccountgroup, SCRIPTARG_KEY, scriptlist);
   while(scriptlist.count() > MAX_SCRIPT_ENTRIES)
     scriptlist.remove(scriptlist.last());
 
@@ -1121,36 +1334,36 @@ QStringList &PPPData::script() {
 
 
 void PPPData::setScript(QStringList &list) {
-  writeListConfig(cgroup, SCRIPTARG_KEY, list);
+  writeListConfig(caccountgroup, SCRIPTARG_KEY, list);
 }
 
 
 const QString PPPData::accountingFile() {
-  return readConfig(cgroup, ACCTFILE_KEY);
+  return readConfig(caccountgroup, ACCTFILE_KEY);
 }
 
 
 void PPPData::setAccountingFile(const QString &n) {
-  writeConfig(cgroup, ACCTFILE_KEY, n);
+  writeConfig(caccountgroup, ACCTFILE_KEY, n);
 }
 
 
 const QString PPPData::totalCosts() {
-  return readConfig(cgroup, TOTALCOSTS_KEY);
+  return readConfig(caccountgroup, TOTALCOSTS_KEY);
 }
 
 
 void PPPData::setTotalCosts(const QString &n) {
-  writeConfig(cgroup, TOTALCOSTS_KEY, n);
+  writeConfig(caccountgroup, TOTALCOSTS_KEY, n);
 }
 
 
 int PPPData::totalBytes() {
-  return readNumConfig(cgroup, TOTALBYTES_KEY, 0);
+  return readNumConfig(caccountgroup, TOTALBYTES_KEY, 0);
 }
 
 void PPPData::setTotalBytes(int n) {
-  writeConfig(cgroup, TOTALBYTES_KEY, n);
+  writeConfig(caccountgroup, TOTALBYTES_KEY, n);
 }
 
 
@@ -1159,14 +1372,14 @@ QStringList &PPPData::pppdArgument() {
 
   while(arglist.count() > MAX_PPPD_ARGUMENTS)
     arglist.remove(arglist.last());
-  readListConfig(cgroup, PPPDARG_KEY, arglist);
+  readListConfig(caccountgroup, PPPDARG_KEY, arglist);
 
   return arglist;
 }
 
 
 void PPPData::setpppdArgument(QStringList &args) {
-  writeListConfig(cgroup, PPPDARG_KEY, args);
+  writeListConfig(caccountgroup, PPPDARG_KEY, args);
 }
 
 

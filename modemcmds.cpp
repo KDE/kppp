@@ -70,7 +70,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   lpreinitslider = new QLabel("MMMM", dummyWidget);
   FORMATSLIDERLABEL(lpreinitslider);
 
-  QSlider *preinitslider = new QSlider(0, 300, 1, 0,
+  preinitslider = new QSlider(0, 300, 1, 0,
                                        QSlider::Horizontal, dummyWidget);
   preinitslider->setFixedHeight(preinitslider->sizeHint().height());
   connect(preinitslider, SIGNAL(valueChanged(int)),
@@ -94,7 +94,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   l1->addLayout(l3, row, 2);
   linitslider = new QLabel("MMMM", dummyWidget);
   FORMATSLIDERLABEL(linitslider);
-  QSlider *initslider = new QSlider(1, 300, 1, 0,
+  initslider = new QSlider(1, 300, 1, 0,
 				QSlider::Horizontal, dummyWidget);
   initslider->setFixedHeight(initslider->sizeHint().height());
   connect(initslider, SIGNAL(valueChanged(int)),
@@ -110,7 +110,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   l1->addLayout(l4, row, 2);
   ldurationslider = new QLabel("MMMM", dummyWidget);
   FORMATSLIDERLABEL(ldurationslider);
-  QSlider *durationslider = new QSlider(1, 255, 1, 0,
+  durationslider = new QSlider(1, 255, 1, 0,
 				QSlider::Horizontal, dummyWidget);
   durationslider->setFixedHeight(durationslider->sizeHint().height());
   connect(durationslider, SIGNAL(valueChanged(int)),
@@ -226,7 +226,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   lslider = new QLabel("MMMM", dummyWidget);
   FORMATSLIDERLABEL(lslider);
 
-  QSlider *slider = new QSlider(0, 255, 1, 0,
+  slider = new QSlider(0, 255, 1, 0,
 				QSlider::Horizontal, dummyWidget);
   slider->setFixedHeight(slider->sizeHint().height());
   connect(slider, SIGNAL(valueChanged(int)),
@@ -298,6 +298,9 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   volume_off->setText(gpppdata.volumeOff());
   volume_medium->setText(gpppdata.volumeMedium());
   volume_high->setText(gpppdata.volumeHigh());
+	
+	// Save the data, so if it not exist we save the default
+	gpppdata.save();
 }
 
 
@@ -338,6 +341,43 @@ void ModemCommands::slotOk() {
 
 
 void ModemCommands::slotCancel() {
+    //set stuff from gpppdata
+  preinitslider->setValue(gpppdata.modemPreInitDelay());
+  lpreinitslider->setNum(gpppdata.modemPreInitDelay());
+  for(int i = 0; i < PPPData::NumInitStrings; i++)
+      initstr[i]->setText(gpppdata.modemInitStr(i));
+  initslider->setValue(gpppdata.modemInitDelay());
+  linitslider->setNum(gpppdata.modemInitDelay());
+  initresp->setText(gpppdata.modemInitResp());
+
+  durationslider->setValue(gpppdata.modemToneDuration());
+  ldurationslider->setNum(gpppdata.modemToneDuration());
+
+  nodetectdialtone->setText(gpppdata.modemNoDialToneDetectionStr());
+  dialstr->setText(gpppdata.modemDialStr());
+  dlpresp->setText(gpppdata.modemDLPResp());
+
+  connectresp->setText(gpppdata.modemConnectResp());
+  busyresp->setText(gpppdata.modemBusyResp());
+  nocarrierresp->setText(gpppdata.modemNoCarrierResp());
+  nodialtoneresp->setText(gpppdata.modemNoDialtoneResp());
+
+  escapestr->setText(gpppdata.modemEscapeStr());
+  escaperesp->setText(gpppdata.modemEscapeResp());
+
+  hangupstr->setText(gpppdata.modemHangupStr());
+  hangupresp->setText(gpppdata.modemHangupResp());
+
+  answerstr->setText(gpppdata.modemAnswerStr());
+  ringresp->setText(gpppdata.modemRingResp());
+  answerresp->setText(gpppdata.modemAnswerResp());
+
+  slider->setValue(gpppdata.modemEscapeGuardTime());
+  lslider->setNum(gpppdata.modemEscapeGuardTime());
+
+  volume_off->setText(gpppdata.volumeOff());
+  volume_medium->setText(gpppdata.volumeMedium());
+  volume_high->setText(gpppdata.volumeHigh());
   reject();
 }
 

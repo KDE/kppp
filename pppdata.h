@@ -63,6 +63,7 @@ class KConfig;
 
 // general
 #define DEFAULTACCOUNT_KEY "DefaultAccount"
+#define DEFAULTMODEM_KEY   "DefaultModem"
 #define PPPDVERSION_KEY    "pppdVersion"
 #define PPPDTIMEOUT_KEY    "pppdTimeout"
 #define SHOWCLOCK_KEY      "ShowClock"
@@ -71,10 +72,12 @@ class KConfig;
 #define DISCONNECT_KEY     "DisconnectOnXServerExit"
 #define QUITONDISCONNECT_KEY "QuitOnDisconnect"
 #define NUMACCOUNTS_KEY    "NumberOfAccounts"
+#define NUMMODEMS_KEY      "NumberOfModems"
 #define REDIALONNOCARR_KEY "RedialOnNoCarrier"
 #define ID_KEY		   "ID"
 
 // modem
+#define MOD_NAME_KEY       "Name"
 #define MODEMDEV_KEY       "Device"
 #define LOCKFILE_KEY       "UseLockFile"
 #define FLOWCONTROL_KEY    "FlowControl"
@@ -110,7 +113,7 @@ class KConfig;
 #define VOLUME_KEY         "Volume"
 
 // account
-#define NAME_KEY           "Name"
+#define ACC_NAME_KEY       "Name"
 #define PHONENUMBER_KEY    "Phonenumber"
 #define DIAL_PREFIX_KEY    "DialPrefix"
 #define AUTH_KEY           "Authentication"
@@ -186,7 +189,9 @@ public:
                        QStringList &, char sep = ',');
 
   // return the current account group
-  QString currentGroup() { return cgroup; }
+  QString currentAccountGroup() { return caccountgroup; }
+  // return the current modem group
+  QString currentModemGroup() { return cmodemgroup; }
 
   // functions to set/get general kppp info
   QString password() const;
@@ -194,6 +199,9 @@ public:
 
   const QString defaultAccount();
   void setDefaultAccount(const QString &);
+
+	const QString defaultModem();
+  void setDefaultModem(const QString &);
 
   void set_xserver_exit_disconnect(bool set);
   bool get_xserver_exit_disconnect();
@@ -230,6 +238,22 @@ public:
 
   int pppdTimeout();
   void setpppdTimeout(int);
+
+	// functions to set/get account information
+  int modemCount() const;
+  bool setModem(const QString &);
+  bool setModembyIndex(int);
+
+	bool isUniqueModname(const QString &);
+
+  bool deleteModem();
+  bool deleteModem(const QString &);
+  int newmodem();
+  int copymodem(int i);
+
+  const QString modname();
+  void setModname(const QString &);
+
 
   int busyWait();
   void setbusyWait(int);
@@ -329,7 +353,7 @@ public:
 #endif
 
   // functions to set/get account information
-  int count() const;
+  int accountCount() const;
   bool setAccount(const QString &);
   bool setAccountbyIndex(int);
 
@@ -468,9 +492,12 @@ public:
 private:
   QString passwd;
   KConfig* config;                       // configuration object
-  int highcount;                         // index of highest account
+  int accounthighcount;                  // index of highest account
   int caccount;                          // index of the current account
-  QString cgroup;                        // name of current config group
+	int modemhighcount;                    // index of highest modem
+  int cmodem;                            // index of the current modem
+  QString cmodemgroup;                   // name of current modem group
+  QString caccountgroup;                 // name of current account group
   pid_t suidprocessid;                   // process ID of setuid child
   bool pppdisrunning;                    // pppd process
                                          // daemon
