@@ -11,21 +11,21 @@
 // derived from Jay Painters "ezppp"
 //
 //---------------------------------------------------------------------------
-//  
+//
 //  $Id$
 //
 //---------------------------------------------------------------------------
-// 
+//
 //  This program is free software; you can redistribute it and-or
 //  modify it under the terms of the GNU Library General Public
 //  License as published by the Free Software Foundation; either
 //  version 2 of the License, or (at your option) any later version.
-// 
+//
 //  This program is distributed in the hope that it will be useful,
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 //  Library General Public License for more details.
-// 
+//
 //  You should have received a copy of the GNU Library General Public
 //  License along with this program; if not, write to the Free
 //  Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
@@ -61,12 +61,16 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
 
   // insert the tree widget
   tl = new QListView(peer(), "treewidget");
-  
+
   connect(tl, SIGNAL(selectionChanged(QListViewItem*)), this,
           SLOT(slotSelectionChanged(QListViewItem*)));
   tl->setMinimumSize(220, 200);
   l1->addWidget(tl, 1);
-  
+
+  QString ups(i18n("<i>Look for updates on<br/>%1</i>")
+		   .arg("http://devel-home.kde.org/~kppp/rules.html</i>"));
+  QLabel *up = new QLabel(ups, peer());
+  l1->addWidget(up, 1);
 
   // label to display the currently selected ruleset
   QHBoxLayout *l11 = new QHBoxLayout;
@@ -96,7 +100,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   l12->addWidget(use_vol);
 
   // load the pmfolder pixmap from KDEdir
-  pmfolder = UserIcon("folder"); 
+  pmfolder = UserIcon("folder");
 
   // scale the pixmap
   if(pmfolder.width() > 0) {
@@ -114,9 +118,9 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
     wm.scale(16.0/pmfile.width(), 16.0/pmfile.width());
     pmfile = pmfile.xForm(wm);
   }
-  
+
   setChecked(gpppdata.AcctEnabled());
-  
+
   setupTreeWidget();
 
   l1->activate();
@@ -153,7 +157,7 @@ QListViewItem *AccountingSelector::findByName(QString name)
 void AccountingSelector::insertDir(QDir d, QListViewItem *root) {
 
   QListViewItem* tli = 0;
-    
+
   // sanity check
   if(!d.exists() || !d.isReadable())
     return;
@@ -174,7 +178,7 @@ void AccountingSelector::insertDir(QDir d, QListViewItem *root) {
     ++it;
 
     QString samename = fi->fileName();
-    
+
     QListViewItem *i = findByName(samename);
 
     // skip this file if already in tree
@@ -187,7 +191,7 @@ void AccountingSelector::insertDir(QDir d, QListViewItem *root) {
       tli = new QListViewItem(root, name);
     else
       tli = new QListViewItem(tl, name);
-    
+
     tli->setPixmap(0, pmfile);
 
     // check if this is the item we are searching for
@@ -203,7 +207,7 @@ void AccountingSelector::insertDir(QDir d, QListViewItem *root) {
   d.setNameFilter("*");
   const QFileInfoList *dlist = d.entryInfoList();
   QFileInfoListIterator dit(*dlist);
-  
+
   while((fi = dit.current())) {
     // skip "." and ".." directories
     if(fi->fileName().left(1) != ".") {
@@ -216,14 +220,14 @@ void AccountingSelector::insertDir(QDir d, QListViewItem *root) {
       QListViewItem *i = findByName(name);
       if(!i) {
         QListViewItem* item;
-        
+
         if(root)
           item = new QListViewItem(root, name);
         else
           item = new QListViewItem(tl, name);
 
         item->setPixmap(0, pmfolder);
-        
+
 	insertDir(QDir(fi->filePath()), item);
       } else
 	insertDir(QDir(fi->filePath()), i);
@@ -245,10 +249,10 @@ void AccountingSelector::setupTreeWidget() {
   tl->addColumn( i18n("Available rules") );
   tl->setColumnWidth(0, 205);
   tl->setRootIsDecorated(true);
-  
+
   // look in ~/.kde/share/apps/kppp/Rules and $KDEDIR/share/apps/kppp/Rules
   QStringList dirs = KGlobal::dirs()->resourceDirs("appdata");
-  for (QStringList::ConstIterator it = dirs.begin(); 
+  for (QStringList::ConstIterator it = dirs.begin();
        it != dirs.end(); it++) {
     insertDir(QDir((*it) + "Rules"), 0);
   }
@@ -260,7 +264,7 @@ void AccountingSelector::setupTreeWidget() {
     tl->setOpen(edit_item->parent(), true);
     tl->ensureItemVisible(edit_item);
   }
-  
+
   enableItems(isChecked());
 }
 
@@ -279,7 +283,7 @@ void AccountingSelector::enableItems(bool enabled) {
       i = i->parent();
     }
     selected->setText(s.mid(1));
-    
+
     s += ".rst";
     edit_s = nameToFileName(s);
   }
@@ -287,13 +291,13 @@ void AccountingSelector::enableItems(bool enabled) {
 
 
 void AccountingSelector::slotSelectionChanged(QListViewItem* i) {
-  
+
   if(!i || i->childCount())
     return;
 
   if(!isChecked())
     return;
-  
+
   enableItems(true);
 }
 
