@@ -527,7 +527,7 @@ int RuleSet::checkRuleFile(const QString &rulefile) {
 
   QFile fl(rulefile);
   if(!fl.exists()) {
-    fprintf(stderr, i18n("kppp: rulefile \"%s\" not found\n"), rulefile);
+    fprintf(stderr, i18n("kppp: rulefile \"%s\" not found\n"), rulefile.local8Bit().data());
     return 1;
   }
 
