@@ -1,4 +1,4 @@
-pkg_DATA = .directory Volny
+pkg_DATA = .directory Volny Contactel
 
 pkgdir = $(kde_datadir)/kppp/Provider/Czech_Republic
 
