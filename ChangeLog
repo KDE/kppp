@@ -1,3 +1,8 @@
+2001-04-13  Harri Porten  <porten@kde.org>
+
+	* runtests.cpp: fixed startup crash if 'pppd --version' failed
+	* combined PAP/CHAP patch by Ingo Heeskens <ingo@fivemile.org>
+	
 2001-04-08  Harri Porten  <porten@kde.org>
 
 	* option for turning off dial tone detection. Modem string
