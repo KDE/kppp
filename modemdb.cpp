@@ -40,6 +40,7 @@
 #include <kapp.h>
 #include "modemdb.h"
 #include <klocale.h>
+#include <qpushbutton.h>
 
 ModemSelector::ModemSelector(QWidget *parent) : QDialog(parent, 0, true) {
   // set up widgets and such

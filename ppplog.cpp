@@ -29,6 +29,7 @@
 
 #include <qlabel.h>
 #include <qdir.h>
+#include <qpushbutton.h>
 #include <qstring.h>
 #include <stdio.h>
 #include <stdlib.h>
