@@ -24,7 +24,6 @@
 #include <klocale.h>
 #include <kglobal.h>
 #include <klistview.h>
-#include <qcombobox.h>
 #include <kdebug.h>
 #include <kmessagebox.h>
 
