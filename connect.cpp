@@ -41,6 +41,7 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <sys/ioctl.h>
+#include <assert.h>
 
 #ifdef _XPG4_2
 #define __xnet_connect	connect
