@@ -24,6 +24,7 @@
  */
 
 #include <qlayout.h>
+#include <qmessagebox.h>
 #include <qwhatsthis.h>
 #include <qregexp.h>
 #include <kapp.h>

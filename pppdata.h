@@ -29,8 +29,8 @@
 #define _PPPDATA_H_
 
 #include <qstring.h>
-#include <qmessagebox.h>
 #include <qstrlist.h>
+#include <qcolor.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>

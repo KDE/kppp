@@ -29,6 +29,7 @@
 #include <qdir.h>
 #include <qregexp.h> 
 #include <klocale.h>
+#include <kmessagebox.h>
 
 #include <netdb.h>
 #include <sys/types.h>
@@ -683,9 +684,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 		vmain=20;
 		scriptindex++;
 		cancelbutton();
-	        QMessageBox::warning( 0, i18n("Error"),
-				      i18n("Loops nested too deeply!"),
-				      i18n("OK"));
+	        KMessageBox::error(0, i18n("Loops nested too deeply!"));
 	} else {
         	setExpect(scriptArgument);
 		loopstartindex[loopnest] = scriptindex + 1;
@@ -707,7 +706,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 		vmain=20;
 		scriptindex++;
 		cancelbutton();
-	        QMessageBox::warning( 0, i18n("Error"), bm, i18n("OK"));
+	        KMessageBox::error(0, bm);
 		return;
 	} else {
         	setExpect(scriptArgument);
@@ -739,7 +738,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	QString msg = i18n("Unknown mode `%1' !\n\n"
                            "Valid modes are `7bit' and `8bit'.")
                            .arg(scriptArgument);
-	QMessageBox::warning( 0, i18n("Error"), msg, i18n("OK"));
+	KMessageBox::error(0, msg);
         return;
       }
     }
@@ -1202,14 +1201,11 @@ bool ConnectWidget::execppp() {
     command += " debug";
 
   if (command.length() > MAX_CMDLEN) {
-    QMessageBox::warning(this, 
-			 i18n("Error"), 
-			 i18n(
+    KMessageBox::error(this, i18n(
 			      "pppd command + command-line arguments exeed\n"
 			      "2024 characters in length. What are you doing?"
-			      ),
-			 i18n("OK")
-			 );	
+			      ));
+
     return false; // nonsensically long command which would bust my buffer buf.
   }
 

@@ -39,6 +39,7 @@
 #include <qstrlist.h>
 #include <qdialog.h>
 #include <kbuttonbox.h>
+#include <kmessagebox.h>
 
 #include <qglobal.h>
 #include <qmultilinedit.h>
@@ -196,22 +197,20 @@ void PPPL_ShowLog() {
       foundLCP = TRUE;
 
   if(!foundLCP) {
-    int result = QMessageBox::warning(0,
-				i18n("Warning"),
+    int result = KMessageBox::warningYesNo(0,
 				i18n("KPPP could not prepare a PPP log. It´s very likely\n"
 				     "that pppd was started without the \"debug\" option.\n\n"
 				     "Without this option it´s difficult to find out PPP\n"
 				     "problems, so you should turn on the debug option.\n\n"
-				     "Shall I turn it on now?"), i18n("Yes"), i18n("No"));
+				     "Shall I turn it on now?"));
 
     if(result == 0) {
       gpppdata.setPPPDebug(TRUE);
-      QMessageBox::information(0,
-		       i18n("Information"),
+      KMessageBox::information(0,
 		       i18n("The \"debug\" option has been added. You\n"
 			    "should now try to reconnect. If that fails\n"
 			    "again, you will get a PPP log that may help\n"
-					"you to track down the connection problem."), i18n("OK"));
+					"you to track down the connection problem."));
       //      return;
     }
     
@@ -266,9 +265,7 @@ void PPPL_ShowLog() {
     umask(old_umask);
     
     QString msg = i18n("The PPP log has been saved\nas \"%1\"!\n\nIf you want to send a bug report or have\nproblems connecting to the internet, please\nattach this file. It will help the maintainers\nto find the bug and to improve KPPP").arg(s);
-    QMessageBox::information(0,
-		     i18n("Information"),
-		     msg, i18n("Ok"));
+    KMessageBox::information(0, msg);
   }
   delete dlg;
 }

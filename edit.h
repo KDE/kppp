@@ -39,7 +39,6 @@
 #include <qradiobutton.h>
 #include <qbuttongroup.h>
 #include <qpainter.h>
-#include <qmessagebox.h>
 #include <qtabdialog.h>
 #include <string.h>
 #include <qchkbox.h>

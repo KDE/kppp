@@ -27,7 +27,7 @@
 #include <qdir.h>
 #include "runtests.h"
 #include <unistd.h>
-#include <qmessagebox.h>
+#include <kmessagebox.h>
 #include <sys/stat.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -363,11 +363,9 @@ int runTests() {
     }
 
     if(!access) {
-      QMessageBox::warning(0,
-		 i18n("Error"),
+      KMessageBox::error(0,
 		 i18n("You´re not allowed to dial out with "
-				    "kppp.\nContact your system administrator."),
-		 i18n("OK"));
+		      "kppp.\nContact your system administrator."));
       return TEST_CRITICAL;
     }
   }
@@ -380,9 +378,7 @@ int runTests() {
     int fd = Requester::rq->openModem(gpppdata.modemDevice());
     if(fd>0) {
       close(fd);
-      QMessageBox::warning(0,
-			   i18n("Error"),
-			   i18n("This kernel has no PPP support, neither\n"
+      KMessageBox::error(0, i18n("This kernel has no PPP support, neither\n"
 				"compiled in nor via the kernel module\n"
 				"loader.\n"
 				"\n"
@@ -399,12 +395,10 @@ int runTests() {
   const char *f = pppdPath();
 
   if(!f) {
-    QMessageBox::warning(0,
-		 i18n("Error"),
+    KMessageBox::error(0,
 		 i18n("Cannot find the PPP daemon!\n\n"
                       "Make sure that pppd is installed and\n"
-                      "you have entered the correct path."),
-		 i18n("OK"));
+                      "you have entered the correct path."));
     warning++;
   }
 
@@ -412,8 +406,7 @@ int runTests() {
   if(f) {
 #if 0
     if(access(f, X_OK) != 0 /* && geteuid() != 0 */) {
-      QMessageBox::critical(0,
-		   i18n("Error"),
+      KMessageBox::error(0,
 		   i18n("You do not have the permission\n"
 			"to start pppd!\n\n"
 			"Contact your system administrator\n"
@@ -426,13 +419,11 @@ int runTests() {
       struct stat st;
       stat(f, &st);
       if(st.st_uid != 0 || (st.st_mode & S_ISUID) == 0) {
-	QMessageBox::warning(0,
-		     i18n("Error"),
+	KMessageBox::error(0,
                      i18n("You don't have sufficient permission to run\n"
                           "\n%1\n\n"
                           "Please make sure that kppp is owned by root\n"
-                          "and has the SUID bit set.\n").arg(f),
-		     i18n("OK"));
+                          "and has the SUID bit set.\n").arg(f));
         warning++;
       }
     }
@@ -445,7 +436,7 @@ int runTests() {
                    "Ask your system administrator to create\n"
                    "this file (can be empty) with appropriate\n"
                    "read and write permissions.");
-    QMessageBox::warning(0, i18n("Error"), msgstr, i18n("OK"));
+    KMessageBox::error(0, msgstr);
     warning ++;
   }
 

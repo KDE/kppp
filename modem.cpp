@@ -36,6 +36,7 @@
 #include "log.h"
 #include "requester.h"
 #include <klocale.h>
+#include <kmessagebox.h>
 
 #ifndef HAVE_USLEEP
 extern "C" void usleep(); // replacement from kdecore/fakes.cpp
@@ -150,11 +151,11 @@ bool Modem::opentty() {
     }
     // Ask for success stories since we don't know if the tcsendbreak()
     // makes any difference. No serious need for a translation.
-    QMessageBox::warning(0L, "Warning", 
+    KMessageBox::information(0L,
 			 "kppp had to resort to an experimental method to get "
 			 "the terminal attributes.\n\nPlease send me "
 			 "(porten@kde.org) a short note so we can make this "
-			 "fix\npermanent in the next release. Thanks.", i18n("OK"));
+			 "fix\npermanent in the next release. Thanks.");
   }
 
   memset(&initial_tty,'\0',sizeof(initial_tty));

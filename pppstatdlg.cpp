@@ -24,7 +24,6 @@
 
 
 #include <qlayout.h>
-#include <qmessagebox.h>
 #include <kapp.h>
 #include <kwm.h>
 #include <kglobal.h>

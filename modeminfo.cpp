@@ -30,6 +30,7 @@
 #include <qlayout.h>
 #include <kapp.h> 
 #include <kwm.h>
+#include <kmessagebox.h>
 #include "modeminfo.h"
 #include "modem.h"
 #include <klocale.h>
@@ -113,9 +114,7 @@ void ModemTransfer::time_out_slot() {
   timeout_timer->stop();
   scripttimer->stop();
 
-  QMessageBox::warning(this, 
-		       i18n("Error"),
-		       i18n("Modem Query timed out."), i18n("OK"));
+  KMessageBox::error(this, i18n("Modem Query timed out."));
   reject();
 }
 

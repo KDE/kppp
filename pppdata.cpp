@@ -32,6 +32,7 @@
 #include <kapp.h>
 #include <klocale.h>
 #include <kconfig.h>
+#include <kmessagebox.h>
 
 PPPData gpppdata;
 
@@ -55,13 +56,13 @@ bool PPPData::open() {
   config = kapp->getConfig();
 
   if (config->getConfigState() == KConfig::NoAccess) {
-    QMessageBox::warning(0L, kapp->name(),
+    KMessageBox::error(0L,
                        i18n("The application-specific config file could "
                        "not be\nopened neither read-write nor read-only.\n\n"
                        "The superuser might have to change its ownership\n"
                        "by issuing the following command in your home directory:\n\n"
                        "chown {YourUsername} .kde/share/config/kppprc"),
-		       i18n("OK"));
+			 kapp->name());
     return false;
   }
 

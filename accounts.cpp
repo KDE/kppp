@@ -26,16 +26,21 @@
 
 #include <qdir.h>
 #include <qlayout.h>
+#include <qlabel.h>
+#include <qtabdialog.h>
 #include <qwhatsthis.h>
+#include <qmessagebox.h>
 
 #include <kapp.h> // TODO: needed for getMiniIcon() only
 #include <kbuttonbox.h>
+#include <kmessagebox.h>
 #include <klocale.h>
 #include "groupbox.h"
 #include "pppdata.h"
 #include "accounts.h"
 #include "accounting.h"
 #include "providerdb.h"
+#include "edit.h"
 #include <kwm.h>
 
 void parseargs(char* buf, char** args);
@@ -246,9 +251,7 @@ void AccountWidget::editaccount() {
 
 void AccountWidget::newaccount() {
   if(accountlist_l->count() == MAX_ACCOUNTS) {   
-      QMessageBox::information(this,i18n("Sorry"),
-			       i18n("Maximum number of accounts reached."),
-			       i18n("OK"));
+      KMessageBox::sorry(this, i18n("Maximum number of accounts reached."));
     return;
   }
 
@@ -290,16 +293,12 @@ void AccountWidget::newaccount() {
 
 void AccountWidget::copyaccount() {
   if(accountlist_l->count() == MAX_ACCOUNTS) {
-    QMessageBox::information(this,i18n("Sorry"),
-			     i18n("Maximum number of accounts reached."),
-			     i18n("OK"));
+    KMessageBox::sorry(this, i18n("Maximum number of accounts reached."));
     return;
   }
 
   if(accountlist_l->currentItem()<0) {
-    QMessageBox::information(this,i18n("Sorry"),
-			     i18n("No account selected."),
-			     i18n("OK"));
+    KMessageBox::sorry(this, i18n("No account selected."));
     return;
   }
 
@@ -316,10 +315,7 @@ void AccountWidget::deleteaccount() {
   QString s = i18n("Are you sure you want to delete\nthe account \"%1\"?")
     .arg(accountlist_l->text(accountlist_l->currentItem()));
 
-  if(QMessageBox::information(this, 
-		    i18n("Confirm"), 
-		    s,
-		    i18n("Yes"), i18n("No")) != 0)
+  if(KMessageBox::warningYesNo(this, s, i18n("Confirm")) != 0)
     return;
 
   if(gpppdata.deleteAccount(accountlist_l->text(accountlist_l->currentItem())))
@@ -385,15 +381,13 @@ int AccountWidget::doTab(){
 		exec_w->save();
 		acct->save();
          } else {
-	     QMessageBox::warning(this, i18n("Error"), 
-				     i18n( "You must enter an unique\naccount name"),
-				     i18n("OK"));
+	     KMessageBox::error(this, i18n( "You must enter an unique\n"
+					    "account name"));
 		ok = false;
 	 }
       } else {
-	      QMessageBox::warning(this, i18n("Error"), 
-				   i18n("Login script has unbalanced loop Start/End"),
-				   i18n("OK"));
+	      KMessageBox::error(this, i18n("Login script has unbalanced "
+					    "loop Start/End"));
 	      ok = false;
       }
     }

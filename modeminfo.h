@@ -39,7 +39,6 @@
 #include <qsignal.h>
 #include <qregexp.h> 
 #include <qframe.h>
-#include <qmessagebox.h>
 #include <qrangecontrol.h>
 #include <qfont.h>
 #include <kprogress.h>

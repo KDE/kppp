@@ -32,7 +32,14 @@
 #include <qlistbox.h>
 #include "acctselect.h"
 #include "groupbox.h"
-#include "edit.h"
+
+class QLineEdit;
+class QTabDialog;
+class DialWidget;
+class ScriptWidget;
+class IPWidget;
+class DNSWidget;
+class GatewayWidget;
 
 class AccountWidget : public KGroupBox {
   Q_OBJECT
