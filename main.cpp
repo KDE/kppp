@@ -5,7 +5,7 @@
  *
  *            Copyright (C) 1997 Bernd Johannes Wuebben
  *                   wuebben@math.cornell.edu
- *            Copyright (C) 1998-2002 Harri Porten <porten@kde.org> 
+ *            Copyright (C) 1998-2002 Harri Porten <porten@kde.org>
  *
  * based on EzPPP:
  * Copyright (C) 1997  Jay Painter
@@ -233,9 +233,9 @@ int main( int argc, char **argv ) {
   // do we really need to generate an empty directory structure here ?
   KGlobal::dirs()->saveLocation("appdata", "Rules");
 
+  int pid = create_pidfile();
   QString err_msg = i18n("kppp can't create or read from\n%1.").arg(pidfile);
 
-  int pid = create_pidfile();
   if(pid < 0) {
     KMessageBox::error(0L, err_msg);
     return 1;
