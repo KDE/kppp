@@ -73,6 +73,7 @@
 
 static void sighandler(int);
 static pid_t pppdPid = -1;
+static int pppdExitStatus = -1;
 
 Opener::Opener(int s) : socket(s), ttyfd(-1) {
   lockfile[0] = '\0';
@@ -447,6 +448,8 @@ bool Opener::execpppd(const char *arguments) {
   if(ttyfd<0)
     return false;
 
+  pppdExitStatus = -1;
+
   switch(pppdPid = fork())
     {
     case -1:
@@ -568,15 +571,23 @@ const char* pppdPath() {
 
 void sighandler(int) {
   pid_t pid;
+  int status;
 
   signal(SIGCHLD, sighandler);
   if(pppdPid>0) {
-    pid = waitpid(pppdPid, 0L, WNOHANG);
+    pid = waitpid(pppdPid, &status, WNOHANG);
     if(pid != pppdPid) {
       fprintf(stderr, "received SIGCHLD from unknown origin.\n");
     } else {
       Debug("It was pppd that died");
       pppdPid = -1;
+      if((WIFEXITED(status))) {
+	pppdExitStatus = (WEXITSTATUS(status));
+        Debug("pppd exited with return value %d", pppdExitStatus);
+      } else {
+	pppdExitStatus = 99;
+        Debug("pppd exited abnormally.");
+      }
       Debug("Sending %i a SIGUSR1", getppid());
       kill(getppid(), SIGUSR1);
     }
