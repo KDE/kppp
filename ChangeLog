@@ -1,3 +1,7 @@
+2004-11-15  Harri Porten  <porten@kde.org>
+
+	* edit.cpp (DialWidget): increased max length of callback number
+
 2004-07-11  Harri Porten  <porten@kde.org>
 
 	* kpppwidget.cpp: to save some screen space: show the modem combo
