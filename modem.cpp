@@ -154,7 +154,7 @@ bool Modem::opentty() {
 			 "kppp had to resort to an experimental method to get "
 			 "the terminal attributes.\n\nPlease send me "
 			 "(porten@kde.org) a short note so we can make this "
-			 "fix\npermanent in the next release. Thanks.");
+			 "fix\npermanent in the next release. Thanks.", i18n("OK"));
   }
 
   memset(&initial_tty,'\0',sizeof(initial_tty));

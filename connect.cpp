@@ -736,10 +736,10 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	  return;
 	}
 	cancelbutton();
-	QString msg;
-	msg.sprintf("Unknown mode `%s' !\n\n", scriptArgument); // i18n
-	msg += "Valid modes are `7bit' and `8bit'.";
-	QMessageBox::warning( 0, i18n("Error"), msg.data());
+	QString msg = i18n("Unknown mode `%1' !\n\n"
+                           "Valid modes are `7bit' and `8bit'.")
+                           .arg(scriptArgument);
+	QMessageBox::warning( 0, i18n("Error"), msg, i18n("OK"));
         return;
       }
     }
