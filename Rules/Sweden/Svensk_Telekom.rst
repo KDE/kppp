@@ -1,12 +1,12 @@
 ##############################################################
-# Swedish rate ruleset for calls with Nemtel
+# Swedish rate ruleset for calls with Svensk Telekom
 # Created 2000-Aug-01 by Fredrik Ismyren  <myrn@despammed.com>
 # Updated 2000-Aug-30 by Fredrik Ismyren
 # May be distributed freely. I take no responsibility for
 # the correctness of the information in this file.
 ##############################################################
 
-name=Nemtel_Nationellt
+name=Svensk_Telekom_Nationellt
 currency_symbol=SEK
 currency_position=right 
 currency_digits=2
@@ -31,8 +31,8 @@ currency_digits=2
 per_connection=0.50
 minimum_costs=0.0
 
-# Hög taxa: 20 öre/min måndag-fredag 8-18
-on (monday..friday) between (8:00..17:59) use (0.0033333333333, 1)
+# Hög taxa: 19 öre/min måndag-fredag 8-18
+on (monday..friday) between (8:00..17:59) use (0.0031666666667, 1)
 
 # Låg taxa: 10 öre/min (räknat per sekund)
 default=(0.0016666666667, 1)

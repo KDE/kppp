@@ -1,12 +1,12 @@
 ##############################################################
-# Swedish rate ruleset for calls with Nemtel
+# Swedish rate ruleset for calls with Teleman.com
 # Created 2000-Aug-01 by Fredrik Ismyren  <myrn@despammed.com>
 # Updated 2000-Aug-30 by Fredrik Ismyren
 # May be distributed freely. I take no responsibility for
 # the correctness of the information in this file.
 ##############################################################
 
-name=Nemtel_Nationellt
+name=Teleman_Nationellt
 currency_symbol=SEK
 currency_position=right 
 currency_digits=2
@@ -27,8 +27,8 @@ currency_digits=2
 #   att "aftnar" typ julafton och nyårsafton inte räknas som vardagar.
 
 
-# Öppningsavgift: 50 öre
-per_connection=0.50
+# Öppningsavgift: 35 öre
+per_connection=0.35
 minimum_costs=0.0
 
 # Hög taxa: 20 öre/min måndag-fredag 8-18

@@ -1,12 +1,12 @@
 ##############################################################
-# Swedish rate ruleset for calls with Nemtel
+# Swedish rate ruleset for calls with Abonnera.com                           
 # Created 2000-Aug-01 by Fredrik Ismyren  <myrn@despammed.com>
 # Updated 2000-Aug-30 by Fredrik Ismyren
 # May be distributed freely. I take no responsibility for
 # the correctness of the information in this file.
 ##############################################################
 
-name=Nemtel_Nationellt
+name=Abonnera_Nationellt
 currency_symbol=SEK
 currency_position=right 
 currency_digits=2
@@ -27,40 +27,43 @@ currency_digits=2
 #   att "aftnar" typ julafton och nyårsafton inte räknas som vardagar.
 
 
-# Öppningsavgift: 50 öre
-per_connection=0.50
+# Öppningsavgift: 48 öre
+per_connection=0.48
 minimum_costs=0.0
 
 # Hög taxa: 20 öre/min måndag-fredag 8-18
 on (monday..friday) between (8:00..17:59) use (0.0033333333333, 1)
 
-# Låg taxa: 10 öre/min (räknat per sekund)
-default=(0.0016666666667, 1)
+# Låg taxa: 11 öre/min (räknat per sekund)
+default=(0.0018333333333, 1)
+
+# Specialpris över sommaren 2000 (6 öre/min)
+on (06/01..08/31) between () use (0.001, 1)
 
 # Röda helgdagar (de som infaller på en lördag/söndag utelämnade)
 # nyårsdagen
-on (01/01) between () use (0.0016666666667, 1)
+on (01/01) between () use (0.0018333333333, 1)
 # trettondag jul
-on (01/06) between () use (0.0016666666667, 1)
+on (01/06) between () use (0.0018333333333, 1)
 # långfredagen
-on (easter-2) between () use (0.0016666666667, 1)
+on (easter-2) between () use (0.0018333333333, 1)
 # annandag påsk
-on (easter+1) between () use (0.0016666666667, 1)
+on (easter+1) between () use (0.0018333333333, 1)
 # första maj
-on (05/01) between () use (0.0016666666667, 1)
+on (05/01) between () use (0.0018333333333, 1)
 # kristi himmelfärds dag
-on (easter+39) between () use (0.0016666666667, 1)
+on (easter+39) between () use (0.0018333333333, 1)
 # annandag pingst
-on (easter+50) between () use (0.0016666666667, 1)
+on (easter+50) between () use (0.0018333333333, 1)
 # juldagen
-on (12/25) between () use (0.0016666666667, 1)
+on (12/25) between () use (0.0018333333333, 1)
 # annandag jul
-on (12/26) between () use (0.0016666666667, 1)
+on (12/26) between () use (0.0018333333333, 1)
 
 # "aftnar" (osäkert om följande är korrekt & fullständigt)
 # trettondagsafton
-on (01/05) between () use (0.0016666666667, 1)
+on (01/05) between () use (0.0018333333333, 1)
 # julafton
-on (12/24) between () use (0.0016666666667, 1)
+on (12/24) between () use (0.0018333333333, 1)
 # nyårsafton
-on (12/31) between () use (0.0016666666667, 1)
+on (12/31) between () use (0.0018333333333, 1)

@@ -1,7 +1,7 @@
 ##############################################################
-# Swedish rate ruleset for local calls /w Telebonus 2 (15% discount)
+# Swedish rate ruleset for calls with Telia /w Telebonus 2 (15% discount)
 # Created 1998-04-26 by Anders Widell  <d95-awi@nada.kth.se>
-# Updated 2000-08-01 by Fredrik Ismyren <myrn@despammed.com>
+# Updated 2000-Aug-01 by Fredrik Ismyren <myrn@despammed.com>
 # May be distributed freely. I take no responsibility for
 # the correctness of the information in this file.
 ##############################################################
@@ -31,36 +31,36 @@ currency_digits=2
 per_connection=0.3825
 minimum_costs=0.0
 
-# Låg taxa: 9,775 öre/min (räknat per sekund)
-default=(0.0016291666667, 1)
-
 # Hög taxa: 19,55 öre/min måndag-fredag 8-18
 on (monday..friday) between (8:00..17:59) use (0.0032583333333, 1)
 
+# Låg taxa: 9,775 öre/min (räknat per sekund)
+default=(0.0016291666667, 1)
+
 # Röda helgdagar (de som infaller på en lördag/söndag utelämnade)
 # nyårsdagen
-on (01/01) between () use (0.0032583333333, 1)
+on (01/01) between () use (0.0016291666667, 1)
 # trettondag jul
-on (01/06) between () use (0.0032583333333, 1)
+on (01/06) between () use (0.0016291666667, 1)
 # långfredagen
-on (easter-2) between () use (0.0032583333333, 1)
+on (easter-2) between () use (0.0016291666667, 1)
 # annandag påsk
-on (easter+1) between () use (0.0032583333333, 1)
+on (easter+1) between () use (0.0016291666667, 1)
 # första maj
-on (05/01) between () use (0.0032583333333, 1)
+on (05/01) between () use (0.0016291666667, 1)
 # kristi himmelfärds dag
-on (easter+39) between () use (0.0032583333333, 1)
+on (easter+39) between () use (0.0016291666667, 1)
 # annandag pingst
-on (easter+50) between () use (0.0032583333333, 1)
+on (easter+50) between () use (0.0016291666667, 1)
 # juldagen
-on (12/25) between () use (0.0032583333333, 1)
+on (12/25) between () use (0.0016291666667, 1)
 # annandag jul
-on (12/26) between () use (0.0032583333333, 1)
+on (12/26) between () use (0.0016291666667, 1)
 
 # "aftnar" (osäkert om följande är korrekt & fullständigt)
 # trettondagsafton
-on (01/05) between () use (0.0032583333333, 1)
+on (01/05) between () use (0.0016291666667, 1)
 # julafton
-on (12/24) between () use (0.0032583333333, 1)
+on (12/24) between () use (0.0016291666667, 1)
 # nyårsafton
-on (12/31) between () use (0.0032583333333, 1)
+on (12/31) between () use (0.0016291666667, 1)

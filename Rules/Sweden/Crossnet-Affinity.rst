@@ -1,12 +1,12 @@
 ##############################################################
-# Swedish rate ruleset for calls with Nemtel
+# Swedish rate ruleset for calls with Crossnet-Affinity
 # Created 2000-Aug-01 by Fredrik Ismyren  <myrn@despammed.com>
 # Updated 2000-Aug-30 by Fredrik Ismyren
 # May be distributed freely. I take no responsibility for
 # the correctness of the information in this file.
 ##############################################################
 
-name=Nemtel_Nationellt
+name=Crossnet-Affinity_Nationellt
 currency_symbol=SEK
 currency_position=right 
 currency_digits=2
