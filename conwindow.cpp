@@ -240,8 +240,10 @@ void ConWindow::timeclick() {
       s = i18n("%1 Byte").arg(stats->totalbytes);
     else if(stats->totalbytes < 1024*1024)
       s = i18n("%1 KB").arg(KGlobal::locale()->formatNumber(((float)stats->totalbytes)/1024.0, 1));
-    else
+    else if(stats->totalbytes < 1024*1024*1024 )
       s = i18n("%1 MB").arg(KGlobal::locale()->formatNumber(((float)stats->totalbytes)/(1024.0*1024.0), 1));
+    else
+      s = i18n("%1 GB").arg(KGlobal::locale()->formatNumber(((float)stats->totalbytes)/(1024.0*1024.0*1024.0), 1));
 
     volinfo->setText(s);
     tooltip += i18n("\nVolume: %1").arg(s);
