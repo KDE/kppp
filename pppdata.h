@@ -3,8 +3,8 @@
  *            kPPP: A pppd front end for the KDE project
  *
  * $Id$
- * 
- *            Copyright (C) 1997 Bernd Johannes Wuebben 
+ *
+ *            Copyright (C) 1997 Bernd Johannes Wuebben
  *                   wuebben@math.cornell.edu
  *
  * based on EzPPP:
@@ -41,7 +41,7 @@ class KConfig;
 
 // string lengths
 
-#define PATH_SIZE 120 
+#define PATH_SIZE 120
 #define MODEMSTR_SIZE 80
 #define ACCNAME_SIZE 50
 #define PHONENUMBER_SIZE 60
@@ -246,7 +246,7 @@ public:
 
   const QString volumeInitString();
   int volume();
-  void setVolume(int);  
+  void setVolume(int);
 
 
   // modem command strings/responses
@@ -256,11 +256,11 @@ public:
   const QString modemInitResp();
   void setModemInitResp(const QString &);
 
-  const int modemPreInitDelay();
-  void setModemPreInitDelay(const int);
+  int modemPreInitDelay();
+  void setModemPreInitDelay(int);
 
-  const int modemInitDelay();
-  void setModemInitDelay(const int);
+  int modemInitDelay();
+  void setModemInitDelay(int);
 
   const QString modemDialStr();
   void setModemDialStr(const QString &);
@@ -306,12 +306,12 @@ public:
 
   bool deleteAccount();
   bool deleteAccount(const QString &);
-  int newaccount();       
-  int copyaccount(int i);       
+  int newaccount();
+  int copyaccount(int i);
 
   const QString accname();
   void setAccname(const QString &);
-  
+
   QStringList &phonenumbers();
   const QString phonenumber();
   void setPhonenumber(const QString &);
@@ -319,7 +319,7 @@ public:
   const QString dialPrefix();
   void setDialPrefix(const QString &);
 
-  const int authMethod();
+  int authMethod();
   void setAuthMethod(int);
 
   const QString storedUsername();
@@ -355,7 +355,7 @@ public:
   bool AcctEnabled();
   void setAcctEnabled(bool set);
 
-  const int VolAcctEnabled();
+  int VolAcctEnabled();
   void setVolAcctEnabled(int set);
 
   bool autoDNS();
@@ -407,7 +407,7 @@ public:
   void  setTotalBytes(int);
 
   // graphing widget
-  void setGraphingOptions(bool enabled, 
+  void setGraphingOptions(bool enabled,
 			  QColor bg,
 			  QColor text,
 			  QColor in,
@@ -423,7 +423,7 @@ public:
   QString password;
 
 private:
-  KConfig* config;                       // configuration object   
+  KConfig* config;                       // configuration object
   int highcount;                         // index of highest account
   int caccount;                          // index of the current account
   QString cgroup;                        // name of current config group

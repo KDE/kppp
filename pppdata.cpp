@@ -441,22 +441,22 @@ void PPPData::setModemInitResp(const QString &n) {
 }
 
 
-const int PPPData::modemPreInitDelay() {
+int PPPData::modemPreInitDelay() {
   return readNumConfig(MODEM_GRP, PREINITDELAY_KEY, 50);
 }
 
 
-void PPPData::setModemPreInitDelay(const int n) {
+void PPPData::setModemPreInitDelay(int n) {
   writeConfig(MODEM_GRP, PREINITDELAY_KEY, n);
 }
 
 
-const int PPPData::modemInitDelay() {
+int PPPData::modemInitDelay() {
   return readNumConfig(MODEM_GRP, INITDELAY_KEY, 50);
 }
 
 
-void PPPData::setModemInitDelay(const int n) {
+void PPPData::setModemInitDelay(int n) {
   writeConfig(MODEM_GRP, INITDELAY_KEY, n);
 }
 
@@ -818,7 +818,7 @@ void PPPData::setDialPrefix(const QString &s) {
 }
 
 
-const int PPPData::authMethod() {
+int PPPData::authMethod() {
     return readNumConfig(cgroup, AUTH_KEY, 0);
 }
 
@@ -938,7 +938,7 @@ void PPPData::setAcctEnabled(bool set) {
 }
 
 
-const int PPPData::VolAcctEnabled() {
+int PPPData::VolAcctEnabled() {
   return readNumConfig(cgroup, VOLACCTENABLED_KEY, 0);
 }
 
