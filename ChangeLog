@@ -1,3 +1,8 @@
+1999-05-07  Harri Porten  <porten@kde.org>
+
+	* renamed shutDown to myShutDown to avoid name clash with KApp
+	* runtests.cpp: better error message for missing s-bit.
+
 1999-05-04  Harri Porten  <porten@kde.org>
 
 	* conwindow.cpp: fixed deleting of old geometry layout

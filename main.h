@@ -158,6 +158,6 @@ pid_t execute_command(const char *);
 void make_directories();
 pid_t create_pidfile();
 bool remove_pidfile();
-void shutDown(int);
+void myShutDown(int);
 
 #endif

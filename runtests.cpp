@@ -26,11 +26,8 @@
 
 #include <qdir.h>
 #include "runtests.h"
-#include <kapp.h>
 #include <unistd.h>
 #include <qmessagebox.h>
-#include <qtextstream.h>
-#include <qregexp.h>
 #include <sys/stat.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -72,7 +69,6 @@
 #include "requester.h"
 #endif // linux
 
-#include "main.h"
 #include <klocale.h>
 
 // initial effective uid (main.cpp)
@@ -368,7 +364,7 @@ int runTests() {
 		 i18n("You´re not allowed to dial out with "
 				    "kppp.\nContact your system administrator."
 				    ));
-      shutDown(1);
+      return TEST_CRITICAL;
     }
   }
 
@@ -390,7 +386,7 @@ int runTests() {
 				"  * contact your system adminstrator\n"
 				"or\n"
 				"  * install a kernel with PPP support\n"));
-      shutDown(1);
+      warning++;
     }
   }
 #endif
@@ -438,10 +434,10 @@ int runTests() {
       if(st.st_uid != 0 || (st.st_mode & S_ISUID) == 0) {
 	QMessageBox::warning(0,
 		     i18n("Error"),
-		     i18n("pppd is not properly installed!\n\n"
-			  "The pppd binary must be installed\n"
-			  "with the SUID bit set. Contact your\n"
-			  "system administrator."));
+                     i18n("You don't have sufficient permission to run\n"
+                          "\n%1\n\n"
+                          "Please make sure that kppp is owned by root\n"
+                          "and has the SUID bit set.\n").arg(f));
         warning++;
       }
     }

@@ -90,7 +90,7 @@ void usage(char* progname) {
   fprintf(stderr, " -k : terminate an existing connection\n");
   fprintf(stderr, " -q : quit after end of connection\n");
   fprintf(stderr, " -r rule_file : check syntax of rule_file\n");
-  shutDown(1);
+  myShutDown(1);
 }
 
 void banner(char* progname){
@@ -101,7 +101,7 @@ void banner(char* progname){
   fprintf(stderr,"<mweilguni@kde.org>\n");
   fprintf(stderr,"(c) 1998-1999 Harri Porten <porten@kde.org>\n");
   fprintf(stderr,"Use -h for the list of valid command line options.\n\n");
-  shutDown(0);
+  myShutDown(0);
 }
 
 void showNews() {
@@ -345,7 +345,7 @@ int main( int argc, char **argv ) {
 	fprintf(stderr, "%s: unknown option \"%s\"\n", 
 		argv[0], argv[optind-1]);
 	usage(argv[0]);
-	shutDown(1);
+	myShutDown(1);
 
       case 'c':
 	{
@@ -376,7 +376,7 @@ int main( int argc, char **argv ) {
 	break;
 
       case 'r':
-	shutDown(RuleSet::checkRuleFile(optarg));
+	myShutDown(RuleSet::checkRuleFile(optarg));
 	break; // never reached
 
       case 'T':
@@ -404,7 +404,7 @@ int main( int argc, char **argv ) {
   if(pid < 0) {
     msg = i18n("kppp can't create or read from\n%1.").arg(pidfile);
     QMessageBox::warning(0L, i18n("Error"), msg);
-    shutDown(1);
+    myShutDown(1);
   }
   
   if (terminate_connection) {
@@ -414,7 +414,7 @@ int main( int argc, char **argv ) {
       kill(pid, SIGINT);
     else
       remove_pidfile();
-    shutDown(0);
+    myShutDown(0);
   }
   
   // Mario: testing
@@ -438,7 +438,7 @@ int main( int argc, char **argv ) {
                      "kppp,\ndelete the pid file, and restart kppp.")
                 .arg(pidfile).arg(pid);
     QMessageBox::warning(0L, i18n("Error"), msg, i18n("Exit"));
-    shutDown(1);
+    myShutDown(1);
   }
   
   KPPPWidget kppp;
@@ -467,7 +467,7 @@ int main( int argc, char **argv ) {
 
   remove_pidfile();
 
-  shutDown(ret); // okay ?
+  myShutDown(ret); // okay ?
   return 0; // never reached, prevent warning
 }
 
@@ -483,7 +483,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   int result = runTests();
   if(result == TEST_CRITICAL)
-    shutDown(4);
+    myShutDown(4);
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
 
@@ -913,7 +913,7 @@ void sigchld(int) {
                        "kppp will shut down right now.");
     QMessageBox::critical(0L, i18n("Error"), msg);
     remove_pidfile();
-    shutDown(1);
+    myShutDown(1);
   }
 }
 
@@ -1319,11 +1319,11 @@ bool remove_pidfile() {
 }
 
 
-void shutDown(int status) {
+void myShutDown(int status) {
   pid_t pid;
   // don't bother about SIGCHLDs anymore
   signal(SIGCHLD, SIG_IGN);
-  Debug("shutDown(%i)", status);
+  Debug("myShutDown(%i)", status);
   pid = gpppdata.suidChildPid();
   if(pid > 0) {
     gpppdata.setSuidChildPid(-1);
