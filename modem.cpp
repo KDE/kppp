@@ -460,6 +460,9 @@ int Modem::lockdevice() {
   if (modem_is_locked) 
     return 1;
 
+  QString lockfile = LOCK_DIR"/LCK..";
+  lockfile += gpppdata.modemDevice().mid(5); // append everything after /dev/
+
   if(access(lockfile.data(), F_OK) == 0) {
     if ((fd = Requester::rq->openLockfile(lockfile.data(), O_RDONLY)) >= 0) {
       // Mario: it's not necessary to read more than lets say 32 bytes. If

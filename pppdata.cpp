@@ -51,6 +51,8 @@ PPPData::PPPData()
 // open configuration file 
 //
 bool PPPData::open() {
+#warning TODO: find a kapp->getConfigState() replacement
+#if 0
   if (kapp->getConfigState() == KApplication::APPCONFIG_NONE) {
     QMessageBox::warning(0L, kapp->appName(),
                        i18n("The application-specific config file could "
@@ -60,7 +62,7 @@ bool PPPData::open() {
                        "chown {YourUsername} .kde/share/config/kppprc"));
     return false;
   }
-
+#endif
   config = kapp->getConfig();
 
   // don't expand shell variables
@@ -113,12 +115,9 @@ void PPPData::cancel() {
 
 
 // currently differentiates between READWRITE and NONE only
-int PPPData::access() const {
+bool PPPData::access() const {
 
-  if(config)
-    return KApplication::APPCONFIG_READWRITE;
-  else
-    return KApplication::APPCONFIG_NONE;
+  return(config != 0);
 }
 
 

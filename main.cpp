@@ -44,6 +44,8 @@
 #include <kbuttonbox.h>
 #include <kiconloader.h>
 #include <klocale.h>
+#include <kstddirs.h>
+#include <kglobal.h>
 
 #include "providerdb.h"
 
@@ -65,7 +67,7 @@
 #include "pppdata.h"
 
 #include <X11/Xlib.h>
-#include <kglobal.h>
+
 
 KPPPWidget*	p_kppp;
 extern PPPStats stats;
@@ -394,11 +396,11 @@ int main( int argc, char **argv ) {
 
   // make sure that nobody can read the password from the
   // config file
-  QString configFile = a.localconfigdir() + "/" + a.appName() + "rc";
-  if(access(configFile.data(), F_OK) == 0) {
-    chown(configFile.data(), getuid(), getgid());
+  QString configFile = KGlobal::dirs()->getSaveLocation("config")
+    + QString(kapp->name()) + "rc";
+  if(access(configFile.data(), F_OK) == 0)
     chmod(configFile.data(), S_IRUSR | S_IWUSR);
-  }
+
   make_directories();
 
   QString msg;
@@ -586,7 +588,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   if(setup_b->sizeHint().width() > minw)
     minw = setup_b->sizeHint().width();
 
-  if(gpppdata.access() != KApplication::APPCONFIG_READWRITE)
+  if(!gpppdata.access())
     setup_b->setEnabled(false);
 
   help_b = new QPushButton(i18n("?"), this);

@@ -40,8 +40,6 @@
 #include <qpushbutton.h>
 #include <qregexp.h>
 #include <qlineedit.h>
-#include <kapp.h>
-#include <kwm.h>
 #include <klocale.h>
 #include <kglobal.h>
 #include <kstddirs.h>
@@ -59,7 +57,6 @@ ProviderDB::ProviderDB(QWidget *parent) :
   QWizard(parent, "", true),
   cfg(0)
 {
-  KWM::setMiniIcon(winId(), kapp->getMiniIcon());
   setCaption(i18n("Create new account..."));
 
   wiz = this;
@@ -224,7 +221,7 @@ PDB_Country::PDB_Country(QWidget *parent) : QWidget(parent) {
 
   // fill the listbox
   // set up filter
-  QDir d(kapp->kde_datadir() + "/kppp/Provider/");
+  QDir d(KGlobal::dirs()->findDirs("appdata", "Provider").first());
   d.setFilter(QDir::Dirs);
   d.setSorting(QDir::Name);
 
@@ -293,8 +290,7 @@ void PDB_Provider::setDir(const char *_dir) {
     // set up filter
     dir = _dir;
     
-    QString dir1 = kapp->kde_datadir();
-    dir1 += "/kppp/Provider/";
+    QString dir1 = KGlobal::dirs()->findDirs("appdata", "Provider").first();
     QRegExp re1(" ");
     dir = dir.replace(re1, "_");
     dir1 += dir;

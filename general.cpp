@@ -29,6 +29,7 @@
 #include <qlayout.h>
 #include <knumlineedit.h>
 #include <kquickhelp.h>
+#include <kslider.h>
 #include "general.h"
 #include "version.h"
 #include "log.h"
@@ -301,7 +302,7 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   tl->addLayout(l1, 3, 1);
   baud_c = new QComboBox(peer());
 
-  static char *baudrates[] = {
+  static const char *baudrates[] = {
     
 #ifdef B460800 
     "460800",

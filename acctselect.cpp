@@ -280,7 +280,7 @@ void AccountingSelector::setupTreeWidget() {
 }
 
 
-void AccountingSelector::enableItems(bool b) {
+void AccountingSelector::enableItems(bool) {
 
   tl->setEnabled(isChecked());
 
