@@ -26,6 +26,7 @@
 #include "main.h"
 #include <klocale.h>
 #include <kcmdlineargs.h>
+#include <kaboutdata.h>
 
 #define F_EXIT     101
 
@@ -100,7 +101,13 @@ void TopWidget::menuCallback(int id) {
 }
 
 int main(int argc, char **argv) {
-  KCmdLineArgs::init(argc, argv, "kppplogview", description, version);
+  KAboutData aboutData("kppplogview", I18N_NOOP("KPPP Log Viewer"),
+    version, description, KAboutData::License_GPL,
+    I18N_NOOP("(c) 1999-2002, The KPPP Developers"));
+  aboutData.addAuthor("Bernd Wuebben",0, "wuebben@kde.org");
+  aboutData.addAuthor("Mario Weilguni",0, "");
+  aboutData.addAuthor("Harri Porten",0, "porten@kde.org");
+  KCmdLineArgs::init(argc, argv, &aboutData);
 
   KCmdLineArgs::addCmdLineOptions( option );
 
