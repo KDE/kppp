@@ -65,6 +65,7 @@
 #include "docking.h"
 #include "main.h"
 #include "modem.h"
+#include "kpppconfig.h"
 #include "pppdata.h"
 #include "pppstats.h"
 #include "requester.h"
@@ -295,7 +296,16 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
     }
 
     substate++;
-    vmain = 5;
+
+    /*
+     * FIXME after 3.0: Make it possible to disable ATS11 since it
+     * seems to be incompatible with ISDN. Even better would be to
+     * detect this when doing a "Modem Query"
+     */
+    if (MODEM_TONEDURATION != gpppdata.modemToneDuration())
+        vmain = 5;
+    else
+        vmain = 3;
 
     return;
   }
