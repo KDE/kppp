@@ -71,7 +71,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   l1->addWidget(tl, 1);
 
   KURLLabel *up = new KURLLabel(parent);
-  up->setText("Check for rule updates"); 
+  up->setText(i18n("Check for rule updates")); 
   up->setURL("http://devel-home.kde.org/~kppp/rules.html");
   connect(up, SIGNAL(leftClickedURL(const QString&)), SLOT(openURL(const QString&)));
 
