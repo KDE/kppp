@@ -1,8 +1,8 @@
-<!DOCTYPE book PUBLIC  "-//KDE//DTD DocBook V4.1-Based Variant V1.0//EN" [
+<!DOCTYPE book PUBLIC  "-//KDE//DTD DocBook V3.1-Based Variant V1.0//EN" [
   <!ENTITY kappname "&kppp;">
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE" -- change language only here -->
-  <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Documentation V2.0//EN">
+  <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Documentation V1.0//EN">
   %ents;
 ]>
 
@@ -1101,30 +1101,29 @@ why!</para>
 <para>Choose the device appropriate for your hardware.</para>
 <variablelist>
 <varlistentry>
-<term><filename class="devicefile">/dev/ttys0</filename></term>
+<term><filename>/dev/ttys0</filename></term>
 <listitem>
 <para>DOS or &Windows; users will know this as COM1, while COM2 is
-<filename class="devicefile">/dev/ttys1</filename> and so on.  These devices are
+<filename>/dev/ttys1</filename> and so on.  These devices are
 the ones normally used on &Linux; systems.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><filename class="devicefile">/dev/cua0</filename></term>
+<term><filename>/dev/cua0</filename></term>
 <listitem>
 <para>The first serial line (COM1).  COM2 is usually
 <filename>/dev/cua1</filename> and so on.  These devices are commonly used on
 BSD systems, namely FreeBSD, NetBSD and OpenBSD.  Older &Linux; systems may also
-have these, although on &Linux; they were renamed some time ago to <filename
-class="devicefile">/dev/ttyS<replaceable>x</replaceable></filename>.</para>
+have these, although on &Linux; they were renamed some time ago to <filename>/dev/ttyS<replaceable>x</replaceable></filename>.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><filename class="devicefile">/dev/ttyI0</filename></term>
+<term><filename>/dev/ttyI0</filename></term>
 <listitem>
 <para>On &Linux; these belong to internal <acronym>ISDN</acronym> cards.  These
 devices emulate a common Hayes compatible modem.
-<filename class="devicefile">/dev/ttyI0</filename> is for the first,
-<filename class="devicefile">/dev/ttyI1</filename> is for the second
+<filename>/dev/ttyI0</filename> is for the first,
+<filename>/dev/ttyI1</filename> is for the second
 <acronym>ISDN</acronym> card and so on. These devices are only available in the
 &Linux; version.</para> 
 </listitem>
@@ -1401,11 +1400,10 @@ information about &kppp;.</para>
 <chapter id="security">
 <title>&kppp; and security issues</title>
 
-<para>This section is mainly for superusers (<systemitem
-class="username">root</systemitem>) people with high security demands, or simply
-technically interested people.  It is not necessary to read this if you only use
-&Linux; at home for yourself, although you may learn a thing or two in any
-case.</para>
+<para>This section is mainly for superusers (<systemitem>root</systemitem>)
+people with high security demands, or simply technically interested people.  It
+is not necessary to read this if you only use &Linux; at home for yourself,
+although you may learn a thing or two in any case.</para>
 
 <sect1 id="security-restricting-access">
 <title>Restricting access to &kppp;</title>
@@ -1416,18 +1414,17 @@ to use &kppp;.  There are two ways to accomplish this.</para>
 <sect2 id="security-group-permissions">
 <title>Restricting access with group permissions</title>
 
-<para>Create a new group (you might want to name it <systemitem
-class="groupname">dialout</systemitem> or similar), and put every user that
-should be allowed to use &kppp; into that group.  Then type at the
-prompt:</para>
+<para>Create a new group (you might want to name it
+<systemitem>dialout</systemitem> or similar), and put every user that should be
+allowed to use &kppp; into that group.  Then type at the prompt:</para>
 
 <screen><prompt>#</prompt> <userinput><command>chown</command> <option>root.dialout</option> <filename>/opt/kde/bin/kppp</filename></userinput>
 <prompt>#</prompt> <userinput><command>chmod</command> <option>4750</option> <filename>/opt/kde/bin/kppp</filename></userinput>
 </screen>
 
 <para>This assumes that &kde; was installed in <filename class="directory">
-/opt/kde/</filename> and that your new group is named <systemitem
-class="groupname">dialout</systemitem>.</para>
+/opt/kde/</filename> and that your new group is named
+<systemitem>dialout</systemitem>.</para>
 
 </sect2>
 
@@ -1451,12 +1448,10 @@ karl
 daisy
 </screen>
 
-<para>In the example above, only the users <systemitem
-class="username">fred</systemitem>, <systemitem
-class="username">karl</systemitem> and <systemitem
-class="username">daisy</systemitem> are allowed to dial out, as well as every
-user with a <acronym>UID</acronym> of 0 (so you don't have to explicitly list
-root in the file).</para>
+<para>In the example above, only the users <systemitem>fred</systemitem>,
+<systemitem>karl</systemitem> and <systemitem>daisy</systemitem> are allowed to
+dial out, as well as every user with a <acronym>UID</acronym> of 0 (so you don't
+have to explicitly list root in the file).</para>
 
 </sect2>
 
@@ -1481,7 +1476,7 @@ fork, and runs with normal user privileges.</para>
 </listitem>
 <listitem>
 <para>The slave process keeps its  privileges, and is responsible for all
-actions that need <systemitem class="username">root</systemitem> privileges.  To
+actions that need <systemitem>root</systemitem> privileges.  To
 keep this part safe, no &kde; or &Qt; library calls are used here, just simple
 library calls.  The source code for this process is short (around 500 lines) and
 well documented, so it's easy for you to check it for security holes.</para>
@@ -1633,8 +1628,8 @@ of configuration files under <filename
 class="directory">/etc/ppp</filename>.</para>
 
 <para>For the purposes of illustration, imagine that you have an internet
-account with <systemitem>glob.net</systemitem> with the username <systemitem
-class="username">userbaz</systemitem> and the password
+account with <systemitem>glob.net</systemitem> with the username
+<systemitem>userbaz</systemitem> and the password
 <literal>foobar</literal></para>
 
 <para>First, you need to add all this to a  file called
@@ -2163,9 +2158,9 @@ help you to track down the bug.</para></listitem>
 <application>pppd</application> binary not a script</para></listitem>
 
 <listitem><para> Make sure that <application>pppd</application> is setuid
-<systemitem class="username">root</systemitem>. You may set this mode by issuing
+<systemitem>root</systemitem>. You may set this mode by issuing
 <userinput><command>chmod</command> <option>u+s pppd</option></userinput> as
-<systemitem class="username">root</systemitem>. </para></listitem>
+<systemitem>root</systemitem>. </para></listitem>
 
 <listitem><para> Make sure that your <filename>/etc/ppp/options</filename> file
 exists and that it doesn't contain any conflicting entries. If in doubt: Leave
@@ -2190,8 +2185,8 @@ on. </para></note></listitem>
 <listitem><para>Make sure you set the right permission. In case of trouble you
 might want to run it as root first and then later, when everything is working
 fine give it less harmful permission if you can not afford to run &kppp; setuid
-<systemitem class="username">root</systemitem>. The proper way to proceed would
-probably be creating a <systemitem class="groupname">modem</systemitem>
+<systemitem>root</systemitem>. The proper way to proceed would
+probably be creating a <systemitem>modem</systemitem>
 group.</para></listitem>
 
 <listitem><para>You might be launching <application>pppd</application> too
@@ -2224,10 +2219,10 @@ device. Once you are sure you have selected the right modem device, you must
 give &kppp; the right permission to access the modem device and to be able to
 modify <filename>/etc/resolv.conf</filename> in case you want &kppp; to
 configure <acronym>DNS</acronym> correctly for you. If you can afford to run
-&kppp; setuid <systemitem class="username">root</systemitem> this would solve
-all access problems for you, if not you will have to figure out what the right
-permissions are for your purposes. In order to give &kppp; setuid <systemitem
-class="username">root</systemitem> permissions do the following:</para>
+&kppp; setuid <systemitem>root</systemitem> this would solve all access problems
+for you, if not you will have to figure out what the right permissions are for
+your purposes. In order to give &kppp; setuid <systemitem>root</systemitem>
+permissions do the following:</para>
 
 <screen><prompt>%</prompt> <userinput><command>su</command> <option>root</option></userinput>
 <prompt>#</prompt> <userinput><command>chown</command> <option>root:root &dollar;KDEDIR/bin/kppp</option></userinput>
@@ -2257,18 +2252,17 @@ class="directory">/var/lock</filename> file.</para></answer>
 on?</para></question>
 
 <answer><para>para>There is no need for the SETUID bit, if you know a bit of
-&UNIX; systems administration. Simply create a <systemitem
-class="groupname">modem</systemitem> group, add all users that you want to give
-access to the modem to that group and make the modem device read/writable for
-that group. Also if you want <acronym>DNS</acronym> configuration to work with
-&kppp;, then <filename>/etc/resolv.conf</filename> must be read/writable by the
-members of that group. The same counts for
-<filename>/etc/ppp/pap-secrets</filename> and
+&UNIX; systems administration. Simply create a <systemitem>modem</systemitem>
+group, add all users that you want to give access to the modem to that group and
+make the modem device read/writable for that group. Also if you want
+<acronym>DNS</acronym> configuration to work with &kppp;, then
+<filename>/etc/resolv.conf</filename> must be read/writable by the members of
+that group. The same counts for <filename>/etc/ppp/pap-secrets</filename> and
 <filename>/etc/ppp/chap-secrets</filename> if you want to use the built-in
 <acronym>PAP</acronym> or <acronym>CHAP</acronym> support, respectively.</para>
 
 <para>The &kppp; team has lately done a lot of work to make
-&kppp; setuid-safe. But it's up to you to decide if you
+&kppp; setuid-safe. But it's up to you to decide if you 
 install and how you install it.</para>
 
 <para>You might also want to read the <link linkend="security">Security</link>
