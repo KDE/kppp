@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 GenericName=Internet Dial-Up Tool
+GenericName[ar]=أداة للإتصال الهاتفي بشبكة الإنترنت
 GenericName[bg]=Включване в Интернет
 GenericName[bs]=Program za spajanje na Internet
 GenericName[ca]=Eina per a la connexió telefònica a Internet
@@ -10,6 +11,7 @@ GenericName[de]=Einwahl ins Internet
 GenericName[el]=Εργαλείο dial-up στο διαδίκτυο
 GenericName[es]=Herramienta de conexión telefónica a Internet
 GenericName[et]=Sissehelistamine
+GenericName[eu]=Internet markatzaile tresna
 GenericName[fi]=Internetyhteyden soitto-ohjelma
 GenericName[fr]=Connexion internet par modem
 GenericName[hr]=Program za spajanje na Internet
