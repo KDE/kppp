@@ -2639,7 +2639,7 @@ url="ftp://ftp.kde.org/pub/kde/">ftp://ftp.kde.org/pub/kde/</ulink>, the main
 </sect1>
 
 <sect1 id="compilation">
-<title>Compilation and installation</title>
+<title>Compilation and Installation</title>
 
 <para>In order to compile and install &kppp; on your system, type the following
 in the base directory of the &kppp; distribution:</para>
