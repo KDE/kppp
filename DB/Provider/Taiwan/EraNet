@@ -1,0 +1,23 @@
+# KDE Config File
+ExDNSDisabled=0
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=4126888
+IPAddr=0.0.0.0
+Domain=
+Name=EraNet
+VolumeAccountingEnabled=0
+pppdArguments=
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=1
+DNS=168.95.1.1
+SubnetMask=0.0.0.0
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=

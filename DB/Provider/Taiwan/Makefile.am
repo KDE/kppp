@@ -1,4 +1,4 @@
-pkg_DATA = .directory HiNet SeedNet
+pkg_DATA = .directory HiNet SeedNet EraNet
 
 pkgdir = $(kde_datadir)/kppp/Provider/Taiwan
 
