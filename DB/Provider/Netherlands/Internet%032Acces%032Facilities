@@ -1,0 +1,25 @@
+AccountingEnabled=1
+AccountingFile=/Netherlands/BelBasis_Lokaal.rst
+Authentication=1
+AutoName=0
+BeforeDisconnect=
+Command=
+DNS=80.89.224.64,195.108.17.20
+DefaultRoute=1
+DisconnectCommand=
+Domain=
+ExDNSDisabled=0
+Gateway=80.89.224.1
+IPAddr=0.0.0.0
+Name=Internet Acces Facilities
+Password=%PASSWORD%
+Phonenumber=0676042328
+ScriptArguments=
+ScriptCommands=
+StorePassword=1
+SubnetMask=0.0.0.0
+Username=%USERNAME%
+VolumeAccountingEnabled=1
+pppdArguments=
+[Desktop Entry]
+Icon=
