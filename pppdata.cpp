@@ -422,13 +422,18 @@ void PPPData::setbusyWait(int n) {
 //
 //Advanced "Modem" dialog
 //
-const QString PPPData::modemInitStr() {
-  return readConfig(MODEM_GRP, INITSTR_KEY, "ATZ");
+// defaults: InitString=ATZ, InitString1="" etc.
+const QString PPPData::modemInitStr(int i) {
+  if(i == 0)
+    return readConfig(MODEM_GRP, INITSTR_KEY, "ATZ");
+  else
+    return readConfig(MODEM_GRP, INITSTR_KEY + QString::number(i), "");
 }
 
 
-void PPPData::setModemInitStr(const QString &n) {
-  writeConfig(MODEM_GRP, INITSTR_KEY, n);
+void PPPData::setModemInitStr(int i, const QString &n) {
+  QString k = INITSTR_KEY + (i > 0 ? QString::number(i) : "");
+  writeConfig(MODEM_GRP, k, n);
 }
 
 

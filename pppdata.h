@@ -252,8 +252,8 @@ public:
   void setWaitForDialTone(int i);
 
   // modem command strings/responses
-  const QString modemInitStr();
-  void setModemInitStr(const QString &);
+  const QString modemInitStr(int i);
+  void setModemInitStr(int i, const QString &);
 
   const QString modemInitResp();
   void setModemInitResp(const QString &);

@@ -46,6 +46,7 @@ public:
   ModemCommands(QWidget *parent=0, const char *name=0);
   ~ModemCommands() {}
 
+  enum { NumInitStrings = 2 };
 
 private slots:
   void cancelbutton();
@@ -58,8 +59,7 @@ private:
   QPushButton *ok;
   QPushButton *cancel;
 
-  QLineEdit *initstr;
-  QLabel *label1;
+  QLineEdit *initstr[int(NumInitStrings)];
 
   QLineEdit *initresp;
   QLabel *label2;

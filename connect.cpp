@@ -280,7 +280,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       usleep(gpppdata.modemPreInitDelay() * 5000);
     }
     setExpect(gpppdata.modemInitResp());
-    writeline(gpppdata.modemInitStr());
+    writeline(gpppdata.modemInitStr(0));
     usleep(gpppdata.modemInitDelay() * 10000); // 0.01 - 3.0 sec
     vmain = 3;
     return;

@@ -143,7 +143,7 @@ void MiniTerm::init() {
       Modem::modem->writeLine("");
       usleep(gpppdata.modemPreInitDelay() * 5000);
     }
-    Modem::modem->writeLine(gpppdata.modemInitStr().local8Bit());
+    Modem::modem->writeLine(gpppdata.modemInitStr(0).local8Bit());
     usleep(gpppdata.modemInitDelay() * 10000);
 
       statusbar->setText(i18n("Modem Ready"));
