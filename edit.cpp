@@ -25,7 +25,7 @@
 
 #include <string.h>
 #include <qlayout.h>
-#include <qmessagebox.h>
+#include <kmessagebox.h>
 #include <qwhatsthis.h>
 #include <qregexp.h>
 #include <kapp.h>
@@ -522,8 +522,7 @@ void IPWidget::autoname_t(bool on) {
 
   // big-fat warning when selecting the auto configure hostname option
   if(on && !was_warned) {
-    QMessageBox::warning(this, 
-			 i18n("Warning"),
+    KMessageBox::information(this, 
 			 i18n("Selecting this option might cause some weird\n"
 			      "problems with the X-server and applications\n"
 			      "while kppp is connected. Don't use it until\n"
@@ -531,7 +530,7 @@ void IPWidget::autoname_t(bool on) {
 			      "For more information take a look into the\n"
 			      "handbook (or help) in the section \"Frequently\n"
 			      "asked questions\""),
-			 i18n("OK"));
+			 i18n("Warning"));
     was_warned = true;
   }
 }
