@@ -175,7 +175,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   tl->addLayout(l2);
 
   int minw = 0;
-  quit_b = new KPushButton(KGuiItem(i18n("&Quit"), "exit" ), this);
+  quit_b = new KPushButton(KStdGuiItem::quit(), this);
   connect( quit_b, SIGNAL(clicked()), SLOT(quitbutton()));
   if(quit_b->sizeHint().width() > minw)
       minw = quit_b->sizeHint().width();
@@ -188,12 +188,11 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   if(gpppdata.access() != KConfig::ReadWrite)
     setup_b->setEnabled(false);
 
-  help_b = new KPushButton(i18n("&Help"), this);
+  help_b = new KPushButton(KStdGuiItem::help(), this);
   connect( help_b, SIGNAL(clicked()), SLOT(helpbutton()));
 
   KHelpMenu *helpMenu = new KHelpMenu(this, KGlobal::instance()->aboutData(), true);
   help_b->setPopup((QPopupMenu*)helpMenu->menu());
-  help_b->setGuiItem (KGuiItem(i18n("&Help"), "help" ) );
 
   if(help_b->sizeHint().width() > minw)
       minw = help_b->sizeHint().width();

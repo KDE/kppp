@@ -274,7 +274,7 @@ int main( int argc, char **argv ) {
                        "click Continue to begin.")
                   .arg(pidfile).arg(pid);
     int button = KMessageBox::warningYesNo(0, msg, i18n("Error"),
-                                      i18n("Exit"), i18n("Continue"));
+                                      i18n("Exit"), KStdGuiItem::cont());
     if (button == KMessageBox::Yes)            /* exit */
        return 1;
 

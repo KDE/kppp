@@ -265,7 +265,7 @@ void AccountWidget::newaccount() {
 	"very special settings, you might want to try the standard, "
 		"dialog-based setup."),
 		i18n("Create New Account"),
-		i18n("&Wizard"), i18n("&Manual Setup"), i18n("Cancel"));
+		i18n("&Wizard"), i18n("&Manual Setup"));
 
   switch(query) {
   case KMessageBox::Yes:
