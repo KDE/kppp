@@ -72,6 +72,8 @@ ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
   l1->addStretch(1);
   l1->addWidget(cancel);
 
+  setFixedSize(sizeHint());
+
   step = 0;
 
   ////////////////////////////////////////////////
@@ -272,18 +274,13 @@ ModemInfo::ModemInfo(QWidget *parent, const char* name)
   ok->setDefault(TRUE);
   ok->setFocus();
 
-  // Motif default buttons + Qt layout do not work tight together
-  if(ok->style() == MotifStyle) {
-    ok->setFixedWidth(ok->sizeHint().width() + 10);
-    ok->setFixedHeight(ok->sizeHint().height() + 10);
-    tl->addSpacing(8);
-  }
-
   tl->addLayout(l2);
   l2->addStretch(1);
 
   connect(ok, SIGNAL(clicked()), SLOT(accept()));
   l2->addWidget(ok);
+
+  setFixedSize(sizeHint());
 }
 
 

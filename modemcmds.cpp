@@ -222,6 +222,8 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   l1->addRowSpacing(0, 5);
   l1->addRowSpacing(GRIDROWS-1, 5);
 
+  setFixedSize(sizeHint());
+
   //set stuff from gpppdata
   preinitslider->setValue(gpppdata.modemPreInitDelay());
   lpreinitslider->setNum(gpppdata.modemPreInitDelay());

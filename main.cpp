@@ -613,6 +613,8 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   l2->addSpacing(20);
   l2->addWidget(connect_b);
 
+  setFixedSize(sizeHint());
+
   (void)new Modem;
 
   // we also connect cmld_start to the beginConnect so that I can run
