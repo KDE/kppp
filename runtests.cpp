@@ -168,7 +168,7 @@ const char *homedirFromUid(uid_t uid) {
 }
 
 
-QString getHomeDir() {
+const char* getHomeDir() {
   static const char *hd = 0;
   static bool ranTest = false;
   if(!ranTest) {

@@ -287,8 +287,9 @@ int main( int argc, char **argv ) {
   // install exit handler that will kill the helper process
   atexit(myShutDown);
 
-  if(getHomeDir() != 0)
-    setenv("HOME", QFile::encodeName(getHomeDir()), 1); 
+  // not needed anymore, just causes problems with broken setup
+  //  if(getHomeDir() != 0)
+  //      setenv("HOME", getHomeDir(), 1); 
 
   (void) new Requester(sockets[0]);
 
