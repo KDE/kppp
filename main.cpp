@@ -784,8 +784,10 @@ void KPPPWidget::resetaccounts() {
   connect(PW_Edit, SIGNAL(textChanged(const QString &)),
  	  this, SLOT(passwordChanged(const QString &)));
 
-  if(!ID_Edit->text().isEmpty() && PW_Edit->text().isEmpty())
-    PW_Edit->setFocus();
+  if (ID_Edit->text().isEmpty())
+      ID_Edit->setFocus();
+  else if (PW_Edit->text().isEmpty())
+      PW_Edit->setFocus();
 }
 
 
