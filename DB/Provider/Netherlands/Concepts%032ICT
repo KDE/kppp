@@ -1,0 +1,25 @@
+AccountingEnabled=1
+AccountingFile=/Netherlands/BelBasis_Lokaal.rst
+Authentication=1
+AutoName=0
+BeforeDisconnect=
+Command=
+DNS=213.197.28.3,213.197.24.3
+DefaultRoute=1
+DisconnectCommand=
+Domain=concepts.nl
+ExDNSDisabled=0
+Gateway=0.0.0.0
+IPAddr=0.0.0.0
+Name=Concepts_ICT
+Password=%PASSWORD%
+Phonenumber=8805480
+ScriptArguments=
+ScriptCommands=
+StorePassword=1
+SubnetMask=0.0.0.0
+Username=%USERNAME%
+VolumeAccountingEnabled=1
+pppdArguments=
+[Desktop Entry]
+Icon=

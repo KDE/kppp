@@ -1,0 +1,25 @@
+AccountingEnabled=1
+AccountingFile=/Netherlands/BelBasis_Lokaal.rst
+Authentication=1
+AutoName=0
+BeforeDisconnect=
+Command=
+DNS=194.151.103.251,194.151.103.252
+DefaultRoute=1
+DisconnectCommand=
+Domain=
+ExDNSDisabled=0
+Gateway=0.0.0.0
+IPAddr=0.0.0.0
+Name=Daxis Internet
+Password=%PASSWORD%
+Phonenumber=
+ScriptArguments=
+ScriptCommands=
+StorePassword=1
+SubnetMask=0.0.0.0
+Username=%USERNAME%
+VolumeAccountingEnabled=1
+pppdArguments=
+[Desktop Entry]
+Icon=

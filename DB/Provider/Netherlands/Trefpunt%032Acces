@@ -1,0 +1,26 @@
+AccountingEnabled=1
+AccountingFile=/Netherlands/BelBasis_Lokaal.rst
+Authentication=3
+AutoDNS=0
+AutoName=0
+BeforeDisconnect=
+Command=
+DNS=:195.121.1.34,195.121.1.66
+DefaultRoute=1
+DisconnectCommand=
+Domain=
+ExDNSDisabled=0
+Gateway=0.0.0.0
+IPAddr=0.0.0.0
+Name=Trefpunt Acces
+Password=%USERNAME%
+Phonenumber=
+ScriptArguments=
+ScriptCommands=
+StorePassword=1
+SubnetMask=0.0.0.0
+Username=%PASSWORD%
+VolumeAccountingEnabled=1
+pppdArguments=
+[Desktop Entry]
+Icon=
