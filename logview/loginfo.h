@@ -30,18 +30,19 @@ class LogInfo {
 public:
   LogInfo(QString data);
 
-  int error();
+  int error() const;
 
-  QDateTime from();
-  QDateTime until();
-  int duration();
-  QString connectionName();
-  QString currency();
-  double sessionCosts();
-  double totalCosts();
-  int bytesIn();
-  int bytesOut();
-  int bytes();
+  QDateTime from() const;
+  time_t from_t() const { return _from; }	
+  QDateTime until() const;
+  int duration() const;
+  QString connectionName() const;
+  QString currency() const;
+  double sessionCosts() const;
+  double totalCosts() const;
+  int bytesIn() const;
+  int bytesOut() const;
+  int bytes() const;
 
 #ifdef MYDEBUG
   void dump();

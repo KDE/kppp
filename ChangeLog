@@ -1,3 +1,9 @@
+2001-01-05  Harri Porten  <porten@kde.org>
+
+	* logview/monthly.cpp: sensible sort order for each column. cleanup.
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>> KDE 2.0.1 released <<<<<<<<<<<<<<<<<<<<<<<<<<<
+	
 2000-11-27  Harri Porten  <harri@trolltech.com>
 
 	* applied 7 bit fix from KDE 1.x for CompuServe users.

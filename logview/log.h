@@ -22,7 +22,6 @@
 #define __LOG__H__
 
 #include "loginfo.h"
-#include <qobject.h>
 #include <qlist.h>
 
 typedef QList<LogInfo>                    QLogInfoBase;

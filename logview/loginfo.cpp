@@ -37,50 +37,50 @@ LogInfo::LogInfo(QString data) {
   parse(data);
 }
 
-QDateTime LogInfo::from() {
+QDateTime LogInfo::from() const {
   QDateTime tm;
   tm.setTime_t(_from);
   return tm;
 }
 
-QDateTime LogInfo::until() {
+QDateTime LogInfo::until() const {
   QDateTime tm;
   tm.setTime_t(_until);
   return tm;
 }
 
-QString LogInfo::connectionName() {
+QString LogInfo::connectionName() const {
   return _conname;
 }
 
-QString LogInfo::currency() {
+QString LogInfo::currency() const {
   return _currency;
 }
 
-double LogInfo::sessionCosts() {
+double LogInfo::sessionCosts() const {
   return _session_cost;
 }
 
-double LogInfo::totalCosts() {
+double LogInfo::totalCosts() const {
   return _total_cost;
 }
 
-int LogInfo::bytesIn() {
+int LogInfo::bytesIn() const {
   return _bytes_in;
 }
 
-int LogInfo::bytesOut() {
+int LogInfo::bytesOut() const {
   return _bytes_out;
 }
 
-int LogInfo::bytes() {
+int LogInfo::bytes() const {
   if(bytesIn() == -1 || bytesOut() == -1)
     return -1;
   else
     return bytesIn() + bytesOut();
 }
 
-int LogInfo::error() {
+int LogInfo::error() const {
   return errorfield;
 }
 
@@ -109,11 +109,11 @@ void LogInfo::parse(QString s) {
       break;
 
     case 1:
-      _conname = token.copy();
+      _conname = token;
       break;
 
     case 2:
-      _currency = token.copy();
+      _currency = token;
       break;
 
     case 3:
@@ -150,7 +150,7 @@ void LogInfo::parse(QString s) {
 }
 
 
-int LogInfo::duration() {
+int LogInfo::duration() const {
   if( _until - _from < 0) 
     return 0;
   else

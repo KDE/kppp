@@ -34,15 +34,62 @@ static void formatBytes(int bytes, QString &result) {
 }
 
 static void formatDuration(int seconds, QString &result) {
+  QString sec;
+  sec.sprintf("%02d", seconds%60);
   if(seconds < 60)
-    result = i18n("%1 s").arg(seconds);
+    result = i18n("%1s").arg(sec);
   else if(seconds < 3600)
-    result = i18n("%1m %2s").arg(seconds/60).arg(seconds%60);
+    result = i18n("%1m %2s").arg(seconds/60).arg(sec);
   else
     result = i18n("%1h %2m %3s")
         .arg(seconds/3600)
         .arg((seconds % 3600)/60)
-        .arg(seconds%60);
+        .arg(sec);
+}
+
+class LogListItem : public QListViewItem {
+public:
+    LogListItem(LogInfo *l,
+		QListView * parent,
+		QString s1, QString s2,
+		QString s3, QString s4,
+		QString s5, QString s6,
+		QString s7, QString s8)
+	: QListViewItem(parent, s1, s2, s3, s4, s5, s6, s7, s8),
+	  li(l)
+	{
+	}
+    virtual QString key(int, bool) const;    
+private:
+    LogInfo *li;
+};
+
+QString LogListItem::key(int c, bool) const
+{
+  QString k;
+  switch (c) {
+  case 0:
+    k = li->connectionName();
+    break;
+  case 1:
+  case 2:
+  case 3:
+    k.sprintf("%012u", (uint)li->from_t());
+    break;
+  case 4:
+    k.sprintf("%012d", li->duration());    
+    break;
+  case 5:
+    k.sprintf("%012.2f", li->sessionCosts());        
+    break;
+  case 6:
+    k.sprintf("%012d", li->bytesIn());    
+    break;
+  case 7:
+    k.sprintf("%012d", li->bytesOut());    
+    break;
+  }
+  return k;
 }
 
 MonthlyWidget::MonthlyWidget(QWidget *parent) :
@@ -55,7 +102,7 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
   lv->addColumn(i18n("Day"));
   lv->addColumn(i18n("From"));
   lv->addColumn(i18n("Until"));
-  lv->addColumn(i18n("Seconds"));
+  lv->addColumn(i18n("Duration"));
   lv->addColumn(i18n("Costs"));
   lv->addColumn(i18n("Bytes in"));
   lv->addColumn(i18n("Bytes out"));
@@ -134,15 +181,13 @@ void MonthlyWidget::plotMonth() {
 
   // search the entries for this month
   QString s;
-  int lastday = -1;
-  QString lastConn = "-";
 
   // for collecting monthly statistics
   int count = 0;
   double costs = 0;
   int bin = 0, bout = 0;
   int duration = 0;
-  QListViewItem* last = 0;
+  LogListItem* last = 0;
   lv->clear();
   
 
@@ -169,16 +214,16 @@ void MonthlyWidget::plotMonth() {
 
       duration += li->from().secsTo(li->until());
 
-      QString bin, bout, b;
+      QString _bin, _bout, b;
       if(li->bytesIn() >= 0)
-        formatBytes(li->bytesIn(), bin);
+        formatBytes(li->bytesIn(), _bin);
       else
-        bin = i18n("n/a");
+        _bin = i18n("n/a");
 
       if(li->bytesOut() >= 0)
-        formatBytes(li->bytesOut(), bout);
+        formatBytes(li->bytesOut(), _bout);
       else
-        bout = i18n("n/a");
+        _bout = i18n("n/a");
 
       if(li->bytes() > 0)
         formatBytes(li->bytes(), b);
@@ -186,17 +231,8 @@ void MonthlyWidget::plotMonth() {
         b = i18n("n/a");
 
       QString day;
-      QString con;
-      if(li->from().date().day() != lastday) {
-        day.sprintf("%2d", li->from().date().day());
-        lastday = li->from().date().day();
-      }
-
-      if(li->connectionName() != lastConn) {
-        con = li->connectionName();
-        lastConn = li->connectionName();
-      } else
-        con = " ";
+      day.sprintf("%2d", li->from().date().day());
+      QString con = li->connectionName();
 
       QString s_duration;
       formatDuration(li->from().secsTo(li->until()),
@@ -208,8 +244,8 @@ void MonthlyWidget::plotMonth() {
       s_costs.sprintf("%6.2f",
                       li->sessionCosts());
 
-      last = new QListViewItem(lv, con, day, s_lifrom, s_liuntil, s_duration,
-                               s_costs, bin, bout);
+      last = new LogListItem(li, lv, con, day, s_lifrom, s_liuntil, s_duration,
+			     s_costs, _bin, _bout);
     }
   }
 
