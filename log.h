@@ -1,10 +1,11 @@
 /* -*- C++ -*-
  *            kPPP: A pppd front end for the KDE project
  *
- * $Id$
+ * $Id: $
  *
  *            Copyright (C) 1997 Bernd Johannes Wuebben
  *                   wuebben@math.cornell.edu
+ *
  * This file contributed by: Mario Weilguni, <mweilguni@sime.com>
  *
  *
@@ -23,52 +24,21 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef __ACCOUNTING__H__
-#define __ACCOUNTING__H__
+#ifndef __LOG__H__
+#define __LOG__H__
 
-#include <qobject.h>
-#include <qmsgbox.h>
-#include "ruleset.h"
+#include <assert.h>
+#include <stdarg.h>
 
-class Accounting : public QObject {
+extern void PRINTDEBUG(char *, int, const char *, ...);
 
-  Q_OBJECT
+#define Fatal(fmt, args...) { PRINTDEBUG(__FILE__, __LINE__, fmt, ##args); exit(1); }
 
-public:
-
-  Accounting(QObject *parent = 0);
-  ~Accounting();
-
-  bool running();
-  bool loadRuleSet(const char *name);
-  QString getCosts(const char* accountname);
-  double total();
-  double session();
-
-protected:
-  void timerEvent(QTimerEvent *);
-  void logMessage(QString, bool = FALSE);
-  bool saveCosts();
-  bool loadCosts();
-
-signals:
-  void changed(QString total, QString session);
-
-public slots:
-  void resetCosts(const char *accountname);
-  void slotStart();
-  void slotStop();
-
-private:
-
-  RuleSet rules;
-  QString LogFileName;
-  double _total, _session;
-  double _lastcosts;
-  double _lastlen;
-  int acct_timer_id, update_timer_id;
-
-};
-
+//#define MY_DEBUG
+#ifndef MY_DEBUG
+#define Debug(fmt, args...) ((void)0);
+#else
+#define Debug(fmt, args...) PRINTDEBUG(__FILE__, __LINE__, fmt, ##args);
 #endif
 
+#endif

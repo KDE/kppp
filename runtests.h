@@ -2,10 +2,10 @@
  *            kPPP: A pppd front end for the KDE project
  *
  * $Id$
- * 
- *            Copyright (C) 1997 Bernd Johannes Wuebben 
+ *
+ *            Copyright (C) 1997 Bernd Johannes Wuebben
  *                   wuebben@math.cornell.edu
- * 
+ *
  * This file was contributed by Mario Weilguni <mweilguni@sime.com>
  * Thanks Mario !
  *
@@ -37,9 +37,8 @@ const int TEST_WARNING = 1;
 const int TEST_NOCONNECT = 2;
 const int TEST_CRITICAL = 3;
 
-QString findFileInPath( const char *fname, const char *extraPath = 0 );
-
 // Various tests to be run at starttime
 int runTests();
 
 #endif
+
