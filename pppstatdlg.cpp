@@ -393,7 +393,7 @@ void PPPStatsDlg::timeclick() {
 
 
 void PPPStatsDlg::closeEvent( QCloseEvent *e ) {
-  e->ignore();
+  emit cancel();
 }
 
 

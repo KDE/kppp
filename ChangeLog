@@ -1,3 +1,8 @@
+1999-10-27  Harri Porten  <porten@kde.org>
+
+	* pppstatdlg.cpp: emit cancel() event instead of ignoring attempts
+	to close the stat window via the window's close button.
+
 1999-09-26  Harri Porten  <porten@kde.org>
 
 	* runtests.cpp (ppp_available): Linux kernels >= 2.2.13 will have
