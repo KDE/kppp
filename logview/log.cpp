@@ -34,7 +34,7 @@ QProgressDialog *dlg;
 int loadLogs() {
   int logsize = 0;
 
-  QString logdirname = locateLocal("appdata", "../kppp/Log/"); // HACK, but how to do otherwise ? (David)
+  QString logdirname = locateLocal("data", "kppp/Log/");
   QDir logdir(logdirname, "*.log");
 
   debug("logdirname: %s", logdirname.latin1());
