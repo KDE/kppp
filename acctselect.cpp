@@ -33,9 +33,13 @@
 //---------------------------------------------------------------------------
 
 
+#include <qcheckbox.h>
+#include <qcombobox.h>
 #include <qdir.h>
 #include <qgroupbox.h>
+#include <qlabel.h>
 #include <qlayout.h>
+#include <qlistview.h>
 #include <qdir.h>
 #include <qregexp.h>
 #include <qwmatrix.h>
@@ -56,18 +60,19 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   connect(this, SIGNAL(toggled(bool)), this, SLOT(enableItems(bool)));
 
   // insert the tree widget
-  tl = new KTreeList(peer());
-  connect(tl, SIGNAL(selected(int)),
-	  this, SLOT(slotHighlighted(int)));
+  tl = new QListView(peer(), "treewidget");
+  
+  connect(tl, SIGNAL(selectionChanged(QListViewItem*)), this,
+          SLOT(slotSelectionChanged(QListViewItem*)));
   tl->setMinimumSize(220, 200);
   l1->addWidget(tl, 1);
+  
 
   // label to display the currently selected ruleset
   QHBoxLayout *l11 = new QHBoxLayout;
   l1->addSpacing(10);
   l1->addLayout(l11);
   QLabel *lsel = new QLabel(i18n("Selected:"), peer());
-  lsel->setMinimumSize(lsel->sizeHint());
   selected = new QLabel(peer());
   selected->setFrameStyle(QFrame::Sunken | QFrame::WinPanel);
   selected->setLineWidth(1);
@@ -111,11 +116,12 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
     wm.scale(16.0/pmfile.width(), 16.0/pmfile.width());
     pmfile = pmfile.xForm(wm);
   }
-
-  choice = -1;
-
-  setupTreeWidget();
+  
   setChecked(gpppdata.AcctEnabled());
+  setChecked(true);
+  
+  setupTreeWidget();
+
   l1->activate();
 }
 
@@ -135,40 +141,22 @@ QString AccountingSelector::nameToFileName(QString s) {
 
 }
 
-
-QString AccountingSelector::indexToFileName(int idx) {
-
-  KTreeListItem *tli = tl->itemAt(idx);
-  if(tli == NULL)
-    return QString("");
-  else {
-    QString name = nameToFileName(QString(tli->getText()));
-    while(tli->hasParent()) {
-      tli = tli->getParent();
-      QString s = tli->getText();
-      if(s != i18n("Available rules"))
-	name = nameToFileName(s) + "/" + name;
-    }
-    return QString(name+".rst");
-  }
-}
-
-
-KTreeListItem *AccountingSelector::findByName(KTreeListItem *start,
-					      QString name)
+QListViewItem *AccountingSelector::findByName(QString name)
 {
-  KTreeListItem *ch = start;
+  QListViewItem *ch = tl->firstChild();
   while(ch) {
-    if(ch->getText() == name)
+    if(ch->text(0) == name)
       return ch;
-    ch = ch->getSibling();
+    ch = ch->nextSibling();
   }
-  return NULL;
+  return 0;
 }
 
 
-void AccountingSelector::insertDir(QDir d, KTreeListItem *root) {
+void AccountingSelector::insertDir(QDir d, QListViewItem *root) {
 
+  QListViewItem* tli = 0;
+    
   // sanity check
   if(!d.exists() || !d.isReadable())
     return;
@@ -185,19 +173,25 @@ void AccountingSelector::insertDir(QDir d, KTreeListItem *root) {
   QFileInfo *fi;
 
   // traverse the list and insert into the widget
-  while((fi = it.current()) != NULL) {
+  while((fi = it.current())) {
     ++it;
 
     QString samename = fi->fileName();
-    KTreeListItem *i = findByName(root->getChild(), samename);
+    
+    QListViewItem *i = findByName(samename);
 
     // skip this file if already in tree
-    if(i != NULL)
+    if(i)
       continue;
 
     // check if this is the file we should mark
     QString name = fileNameToName(fi->baseName());
-    KTreeListItem *tli = new KTreeListItem(name, &pmfile);
+    if(root)
+      tli = new QListViewItem(root, name);
+    else
+      tli = new QListViewItem(tl, name);
+    
+    tli->setPixmap(0, pmfile);
 
     // check if this is the item we are searching for
     // (only in "Edit"-mode, not in "New"-mode
@@ -205,7 +199,6 @@ void AccountingSelector::insertDir(QDir d, KTreeListItem *root) {
        (edit_s == QString(fi->filePath()).right(edit_s.length()))) {
       edit_item = tli;
     }
-    root->appendChild(tli);
   }
 
   // set up a filter for the directories
@@ -213,7 +206,8 @@ void AccountingSelector::insertDir(QDir d, KTreeListItem *root) {
   d.setNameFilter("*");
   const QFileInfoList *dlist = d.entryInfoList();
   QFileInfoListIterator dit(*dlist);
-  while((fi = dit.current()) != NULL) {
+  
+  while((fi = dit.current())) {
     // skip "." and ".." directories
     if(fi->fileName().left(1) != ".") {
       // convert to human-readable name
@@ -222,10 +216,17 @@ void AccountingSelector::insertDir(QDir d, KTreeListItem *root) {
       // if the tree already has an item with this name,
       // skip creation and use this one, otherwise
       // create a new entry
-      KTreeListItem *i = findByName(root->getChild(), name);
-      if(i == NULL) {
-	KTreeListItem *item = new KTreeListItem(name, &pmfolder);
-	root->appendChild(item);
+      QListViewItem *i = findByName(name);
+      if(!i) {
+        QListViewItem* item;
+        
+        if(root)
+          item = new QListViewItem(root, name);
+        else
+          item = new QListViewItem(tl, name);
+
+        item->setPixmap(0, pmfolder);
+        
 	insertDir(QDir(fi->filePath()), item);
       } else
 	insertDir(QDir(fi->filePath()), i);
@@ -235,106 +236,84 @@ void AccountingSelector::insertDir(QDir d, KTreeListItem *root) {
 }
 
 
-/// expands a branch of the treelist
-void expandBranch(KTreeList *tl, KTreeListItem *root) {
-
-  if(root != NULL) {
-    expandBranch(tl, root->getParent());
-    tl->expandItem(tl->itemIndex(root));
-  }
-}
-
 void AccountingSelector::setupTreeWidget() {
   // search the item
-  edit_item = NULL;
-  if(!isnewaccount)
+  edit_item = 0;
+  if(!isnewaccount) {
     edit_s = gpppdata.accountingFile();
+  }
   else
     edit_s = "";
 
-  KTreeListItem *i = new KTreeListItem(i18n("Available rules"), &pmfolder);
-  tl->setExpandButtonDrawing(TRUE);
-  tl->setTreeDrawing(TRUE);
-  tl->insertItem(i, -1, FALSE);
-
+  tl->addColumn( i18n("Available rules") );
+  tl->setColumnWidth(0, 205);
+  tl->setRootIsDecorated(true);
+  
   // look in ~/.kde/share/apps/kppp/Rules and $KDEDIR/share/apps/kppp/Rules
-  QStringList dirs = KGlobal::dirs()->getResourceDirs("data");
+  QStringList dirs = KGlobal::dirs()->getResourceDirs("appdata");
   for (QStringList::ConstIterator it = dirs.begin(); 
        it != dirs.end(); it++) {
-    QString s = *it;
-    s += "kppp/Rules";
-    insertDir(QDir(s), i);
+    insertDir(QDir((*it) + "Rules"), 0);
   }
-
-  enableItems(FALSE);
 
   // when mode is "Edit", then hightlight the
-  // appropriate item, otherwise expand
-  // one level of the tree
+  // appropriate item
   if(!isnewaccount) {
-    expandBranch(tl, edit_item);
-    tl->setCurrentItem(tl->itemIndex(edit_item));
-    slotHighlighted(tl->itemIndex(edit_item));
-  } else
-    tl->setExpandLevel(1);
+    tl->setSelected(edit_item, true);
+    tl->setOpen(edit_item->parent(), true);
+    tl->ensureItemVisible(edit_item);
+  }
+  
+  enableItems(isChecked());
 }
 
 
-void AccountingSelector::enableItems(bool) {
+void AccountingSelector::enableItems(bool enabled) {
 
-  tl->setEnabled(isChecked());
+  tl->setEnabled(enabled);
 
-  if(!isChecked() || (choice == -1))
+  if(!enabled || (!tl->currentItem()))
     selected->setText(i18n("(none)"));
   else {
-    // replace underscores
-    QString s = indexToFileName(choice);
-    s = s.replace(QRegExp("_"), " ");
-
-    // remove .rst extension
-    s = s.left(s.length()-4);
-    if( 0 == (s.find('/')))
-	s = s.right(s.length() -1);
-    selected->setText(s);
-
+    QListViewItem* i = tl->currentItem();
+    QString s;
+    while(i) {
+      s = "/" + i->text(0) + s;
+      i = i->parent();
+    }
+    selected->setText(s.mid(1));
+    
+    s += ".rst";
+    edit_s = nameToFileName(s);
   }
 }
 
 
-void AccountingSelector::slotHighlighted(int idx) {
-
-  KTreeListItem *tli = tl->itemAt(idx);
-
-  if(tli == NULL)
+void AccountingSelector::slotSelectionChanged(QListViewItem* i) {
+  
+  if(!i || i->childCount())
     return;
 
-  if(tli->hasChild())
+  if(!isChecked())
     return;
-
-  if(tli->getPixmap()->serialNumber() == pmfolder.serialNumber())
-    return;
-
-  choice = idx;
-  enableItems(TRUE);
-
+  
+  enableItems(true);
 }
 
 
 bool AccountingSelector::save() {
 
-  if(isChecked() && (choice != -1)) {
-
-    QString s = indexToFileName(choice);
-    gpppdata.setAccountingFile(s);
-    gpppdata.setAcctEnabled(TRUE);
+  if(isChecked()) {
+    gpppdata.setAccountingFile(edit_s);
+    gpppdata.setAcctEnabled(true);
   } else {
     gpppdata.setAccountingFile("");
-    gpppdata.setAcctEnabled(FALSE);
+    gpppdata.setAcctEnabled(false);
   }
 
   gpppdata.setVolAcctEnabled(use_vol->currentItem());
 
-  return TRUE;
+  return true;
 }
 
 #include "acctselect.moc"

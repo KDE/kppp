@@ -12,7 +12,7 @@
 //
 //---------------------------------------------------------------------------
 //  
-//  $Id: $
+//  $Id$
 //
 //---------------------------------------------------------------------------
 // 
@@ -35,15 +35,14 @@
 #ifndef __ACCTSELECT__H__
 #define __ACCTSELECT__H__
 
-#include <qdir.h>
 #include <qwidget.h>
-#include <qlabel.h>
-#include <ktreelist.h>
-#include <qchkbox.h>
 #include <qpixmap.h>
-#include <qlist.h>
-#include <qcombo.h>
 #include "groupbox.h"
+
+class QComboBox;
+class QLabel;
+class QListView;
+class QListViewItem;
 
 class AccountingSelector : public KCheckGroupBox {
   Q_OBJECT
@@ -54,25 +53,23 @@ public:
   bool save();
 
 private:
-  KTreeListItem *findByName(KTreeListItem *start, QString name);
+  QListViewItem *findByName(QString name);
   void setupTreeWidget();
-  void insertDir(QDir, KTreeListItem * = 0);
+  void insertDir(QDir, QListViewItem * = 0);
   QString fileNameToName(QString);
   QString nameToFileName(QString);
-  QString indexToFileName(int);
 
 private slots:
   void enableItems(bool);
-  void slotHighlighted(int);
+  void slotSelectionChanged(QListViewItem* i);
 
 private:
-  KTreeList *tl;
+  QListView *tl;
   QComboBox *use_vol;
   QPixmap pmfolder, pmfile;
   QLabel *selected;
-  int choice;
 
-  KTreeListItem *edit_item;
+  QListViewItem *edit_item;
   QString edit_s;
   bool isnewaccount;
 };

@@ -515,12 +515,12 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   tl->addLayout(l2);
 
   int minw = 0;
-  quit_b = new QPushButton(i18n("Quit"), this);
+  quit_b = new QPushButton(i18n("&Quit"), this);
   connect( quit_b, SIGNAL(clicked()), SLOT(quitbutton()));
   if(quit_b->sizeHint().width() > minw)
     minw = quit_b->sizeHint().width();
 
-  setup_b = new QPushButton(i18n("Setup"), this);
+  setup_b = new QPushButton(i18n("&Setup"), this);
   connect( setup_b, SIGNAL(clicked()), SLOT(expandbutton()));
   if(setup_b->sizeHint().width() > minw)
     minw = setup_b->sizeHint().width();
@@ -533,7 +533,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   if(help_b->sizeHint().width() > minw)
     minw = help_b->sizeHint().width();
 
-  connect_b = new QPushButton(i18n("Connect"), this);
+  connect_b = new QPushButton(i18n("&Connect"), this);
   connect_b->setFocus();
   connect(connect_b, SIGNAL(clicked()), SLOT(beginConnect()));
   if(connect_b->sizeHint().width() > minw)
