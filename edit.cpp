@@ -1,7 +1,6 @@
 /*
  *              kPPP: A pppd Front End for the KDE project
  *
- * $Id$
  *              Copyright (C) 1997 Bernd Johannes Wuebben
  *                      wuebben@math.cornell.edu
  *
@@ -172,7 +171,7 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
 
   cbphone = new QLineEdit(parent);
   cbphone_l->setBuddy(cbphone);
-  cbphone->setMaxLength(14);
+  cbphone->setMaxLength(140);
   tl->addWidget(cbphone, 6, 1);
   tmp = i18n("Callback phone number");
 
