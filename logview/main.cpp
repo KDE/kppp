@@ -49,7 +49,7 @@ TopWidget::TopWidget() : KMainWindow(0, "") {
   bool kpppmode = args->isSet("kppp");
   args->clear();
 
-  setCaption(i18n("kPPP log viewer"));
+  setCaption(i18n("kPPP Log Viewer"));
 
   w = new QWidget(this);
 
