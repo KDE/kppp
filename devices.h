@@ -43,6 +43,10 @@ static const char *devices[] = {
   "/dev/usb/ttyACM1",
   "/dev/usb/ttyACM2",
   "/dev/usb/ttyACM3",
+  "/dev/usb/ttyUSB0",          /* USB stuff modems */
+  "/dev/usb/ttyUSB1",
+  "/dev/usb/ttyUSB2",
+  "/dev/usb/ttyUSB3",
   "/dev/rfcomm0",	       /* BlueTooth */
   "/dev/rfcomm1",
   "/dev/rfcomm2",
