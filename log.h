@@ -1,7 +1,7 @@
 /* -*- C++ -*-
  *            kPPP: A pppd front end for the KDE project
  *
- * $Id: $
+ * $Id$
  *
  *            Copyright (C) 1997 Bernd Johannes Wuebben
  *                   wuebben@math.cornell.edu
@@ -38,7 +38,7 @@ extern void PRINTDEBUG(char *, int, const char *, ...);
 #ifndef MY_DEBUG
 #define Debug(fmt, args...) ((void)0);
 #else
-#define Debug(fmt, args...) PRINTDEBUG(__FILE__, __LINE__, fmt, ##args);
+#define Debug(fmt, args...) PRINTDEBUG(__FILE__, __LINE__, fmt, ##args)
 #endif
 
 #endif
