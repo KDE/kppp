@@ -17,6 +17,7 @@ SUBDIRS = Argentina \
 	India \
 	Indonesia \
 	Ireland \
+	Israel \
 	Italy \
 	Jamaica \
 	Japan \
