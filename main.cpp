@@ -253,7 +253,7 @@ int main( int argc, char **argv ) {
   // Mario: testing
   if(TESTING) {
     gpppdata.open();
-    gpppdata.setAccountbyIndex(0);
+    gpppdata.setAccountByIndex(0);
 
     QString s = argv[2];
     urlEncode(s);

@@ -166,7 +166,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   //load up account list from gppdata to the list box
   if(gpppdata.accountCount() > 0) {
     for(int i=0; i <= gpppdata.accountCount()-1; i++) {
-      gpppdata.setAccountbyIndex(i);
+      gpppdata.setAccountByIndex(i);
       accountlist_l->insertItem(gpppdata.accname());
     }
   }
@@ -184,7 +184,7 @@ void AccountWidget::slotListBoxSelect(int idx) {
   copy_b->setEnabled((bool)(idx != -1));
   if(idx!=-1) {
     QString account = gpppdata.accname();
-    gpppdata.setAccountbyIndex(accountlist_l->currentItem());
+    gpppdata.setAccountByIndex(accountlist_l->currentItem());
     reset->setEnabled(TRUE);
     costlabel->setEnabled(TRUE);
     costedit->setEnabled(TRUE);

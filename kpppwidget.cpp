@@ -1,7 +1,6 @@
 /*
  *            kPPP: A pppd front end for the KDE project
  *
- * $Id$
  *
  *            Copyright (C) 1997 Bernd Johannes Wuebben
  *                   wuebben@math.cornell.edu
@@ -436,7 +435,7 @@ void KPPPWidget::resetaccounts() {
 
   //load the accounts
   for(int i=0; i < count; i++) {
-    gpppdata.setAccountbyIndex(i);
+    gpppdata.setAccountByIndex(i);
      connectto_c->insertItem(gpppdata.accname());
   }
 
@@ -445,7 +444,7 @@ void KPPPWidget::resetaccounts() {
     for(int i=0; i < count; i++)
        if(gpppdata.defaultAccount() == connectto_c->text(i)) {
  	connectto_c->setCurrentItem(i);
-	gpppdata.setAccountbyIndex(i);
+	gpppdata.setAccountByIndex(i);
 
 	ID_Edit->setText(gpppdata.storedUsername());
 	PW_Edit->setText(gpppdata.storedPassword());

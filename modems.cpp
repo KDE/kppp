@@ -2,7 +2,7 @@
  *           kPPP: A pppd front end for the KDE project
  *
  *
- *    
+ *
  *
  *            Copyright (C) 2004 Simone Gotti
  *               <simone.gotti@email.it>
@@ -105,7 +105,7 @@ ModemsWidget::ModemsWidget( QWidget *parent, const char *name )
   //load up account list from gppdata to the list box
   if(gpppdata.modemCount() > 0) {
     for(int i=0; i <= gpppdata.modemCount()-1; i++) {
-      gpppdata.setModembyIndex(i);
+      gpppdata.setModemByIndex(i);
       modemlist_l->insertItem(gpppdata.modname());
     }
   }
@@ -123,9 +123,9 @@ void ModemsWidget::slotListBoxSelect(int idx) {
   copy_b->setEnabled((bool)(idx != -1));
   if(idx!=-1) {
     QString modem = gpppdata.modname();
-    gpppdata.setModembyIndex(modemlist_l->currentItem());
+    gpppdata.setModemByIndex(modemlist_l->currentItem());
     gpppdata.setModem(modem);
- } 
+ }
 }
 
 void ModemsWidget::editmodem() {

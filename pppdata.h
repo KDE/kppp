@@ -244,7 +244,7 @@ public:
   bool setModem(const QString &);
   bool setModemByIndex(int);
 
-	bool isUniqueModname(const QString &);
+  bool isUniqueModname(const QString &);
 
   bool deleteModem();
   bool deleteModem(const QString &);
@@ -355,7 +355,7 @@ public:
   // functions to set/get account information
   int accountCount() const;
   bool setAccount(const QString &);
-  bool setAccountbyIndex(int);
+  bool setAccountByIndex(int);
 
   bool isUniqueAccname(const QString &);
 
