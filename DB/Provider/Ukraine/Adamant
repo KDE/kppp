@@ -1,0 +1,24 @@
+# KDE Config File
+ExDNSDisabled=0
+AutoName=0
+ScriptArguments=                                                                
+AccountingEnabled=0
+Phonenumber=5667939,4595577
+IPAddr=0.0.0.0
+Domain=
+Name=Adamant
+VolumeAccountingEnabled=0
+pppdArguments=
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=1
+DNS=212.26.128.2,212.26.128.3,212.26.130.240
+SubnetMask=0.0.0.0
+AccountingFile=
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=
