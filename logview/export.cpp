@@ -23,6 +23,7 @@
 #include "export.h"
 
 #include <qpushbutton.h>
+#include <qtextcodec.h>
 
 class Export;
 
@@ -32,10 +33,16 @@ struct {
     QString name;
     QString desc;
     QString ext;
-  }  ExportFormats [] = {
-  { 1, i18n("CSV")  ,i18n("Export to a text file. The semicolon is used as separator.<p></p>Can be used for spreadsheet programs like <i>KSpread</i>."), "csv" },
-  { 2, i18n("HTML") ,i18n("Export to a HTML Page.<p></p>Can be used for easy exchange over the <i>Internet</i>."), "html" },
-  { 0, 0, 0, 0 }  /* !! don't forget !! */
+  }
+
+ExportFormats [] = {
+    { 1, I18N_NOOP("CSV"),
+      I18N_NOOP("Export to a text file. The semicolon is used as separator.<p></p>Can be used for spreadsheet programs like <i>KSpread</i>."),
+      "csv" },
+    { 2, I18N_NOOP("HTML"),
+      I18N_NOOP("Export to a HTML Page.<p></p>Can be used for easy exchange over the <i>Internet</i>."),
+      "html" },
+    { 0, 0, 0, 0 }  /* !! don't forget !! */
 };
 
 
@@ -58,7 +65,7 @@ ExportWizard::ExportWizard(QWidget *parent, const QString &_date)
   QToolTip::add(typeList, i18n("List with possible output formats"));
   int i=0;
   while (ExportFormats[i].id) { // add each format to the list
-    typeList->insertItem(ExportFormats[i].name);
+    typeList->insertItem(i18n(ExportFormats[i].name.utf8()));
     i++;
   }
 
@@ -112,7 +119,9 @@ Export * ExportWizard::createExportFilter() {
 }
 
 void ExportWizard::typeHighlighted(int index) {
-  typeInfo->setText("<qt><b>"+ExportFormats[index].name+" File Format</b><p></p>"+ExportFormats[index].desc+"</qt>");
+  typeInfo->setText("<qt><b>"+i18n(ExportFormats[index].name.utf8())+" " +
+                    i18n("File Format") + "</b><p></p>" + i18n(ExportFormats[index].desc.utf8())
+                    +"</qt>");
   setNextEnabled(formatPage, true );
 }
 
@@ -120,8 +129,9 @@ void ExportWizard::getFilename() {
   int i = typeList->currentItem();
 
   // prepare filter: e.g.: HTML (*.html *.HTML)
-  QString filter = "*." + ExportFormats[i].ext + " *." + ExportFormats[i].ext.upper() + "|" + ExportFormats[i].name +
-        " (*." + ExportFormats[i].ext + " *." + ExportFormats[i].ext.upper() + ")";
+  QString filter = "*." + ExportFormats[i].ext + " *." + ExportFormats[i].ext.upper() + "|" +
+                   i18n(ExportFormats[i].name.utf8()) + " (*." + ExportFormats[i].ext + " *." +
+                   ExportFormats[i].ext.upper() + ")";
 
   filename = KFileDialog::getSaveFileName(date + "." + ExportFormats[i].ext, filter, 0, i18n("Please Choose File"));
   if (filename.isEmpty()) // no file selected
@@ -154,7 +164,7 @@ bool Export::openFile() {
 
 bool Export::closeFile() {
   bool ok = true;
-  if (file.writeBlock(buffer.latin1(), buffer.length())<0)
+  if (file.writeBlock(buffer.local8Bit(), buffer.length())<0)
     ok = false;
   file.close();
   return ok;
@@ -204,7 +214,11 @@ HTMLExport::HTMLExport(const QString &filename, const QString &date)
   : Export(filename) {
   QString title = i18n("Connection log for %1").arg(date);
   buffer = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n";
-  buffer.append("<html>\n<head>\n  <title>"+title+"</title>\n</head>\n<body>\n<h1>"+title+"</h1>\n\n");
+  buffer.append("<html>\n<head>\n  <title>"+title+"</title>\n");
+  buffer.append(QString::fromLatin1("  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=")
+                + QTextCodec::codecForLocale()->mimeName() +
+                QString::fromLatin1("\">"));
+  buffer.append("\n</head>\n<body>\n<h1>"+title+"</h1>\n\n");
   buffer.append("<table width=\"100%\" border=\"1\">\n");
 
   trStartCode = "<tr>";

@@ -87,8 +87,8 @@ public:
 
 protected:
    QFile   file;
-   QString buffer;
    QString filename;
+   QString buffer;
 };
 
 

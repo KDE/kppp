@@ -408,12 +408,12 @@ void MonthlyWidget::exportWizard() {
 
       // this connection name not in the list and combo box
       if(lstConnections.findIndex(con) == -1) {
-	lstConnections.append(con);
+          lstConnections.append(con);
         cboConnections->insertItem(con);
       }
       // if all connections or the selected one
       if(cboConnections->currentText() != con &&
-	cboConnections->currentItem() != 0)
+         cboConnections->currentItem() != 0)
         continue;
 
       count++;
