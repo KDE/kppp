@@ -156,7 +156,7 @@ available, and only reduce it if you have connection problems.
 <term id="lock-files"><guilabel>Use Lock File</guilabel></term>
 <listitem>
 <para>Activate this option if you want &kppp; to create a lockfile. Under
-&Linux; the directory for such a file will be <filename
+&Linux; the folder for such a file will be <filename
 class="directory">/var/lock</filename>.  Programs such as
 <application>mgetty</application> depend on the existence of such lock files,
 and &kppp; will not work with <application>mgetty</application> if the lock file
