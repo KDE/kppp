@@ -107,6 +107,7 @@ void pppdVersion(int *version, int *modification, int *patch) {
   // had to add a dummy device to prevent a "no device specified
   // and stdin is not a tty" error from newer pppd versions.
   strcat(query, " --version /dev/tty 2>&1");
+  fflush(0L);
   FILE *output = popen(query, "r");
   delete [] query;
   if(!output)
