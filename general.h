@@ -81,6 +81,7 @@ private:
 
   KIntNumInput 	*modemtimeout;
   QCheckBox     *modemlockfile;
+  QStringList    flowListItem;
 };
 
 

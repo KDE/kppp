@@ -260,6 +260,11 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem, const char *name)
   flowcontrol->insertItem(i18n("Hardware [CRTSCTS]")); // sync with pppdata.cpp
   flowcontrol->insertItem(i18n("Software [XON/XOFF]"));
   flowcontrol->insertItem(i18n("None"));
+
+  flowListItem << "Hardware [CRTSCTS]";
+  flowListItem << "Software [XON/XOFF]";
+  flowListItem << "None";
+
   tl->addWidget(flowcontrol, 2, 1);
   /*connect(flowcontrol, SIGNAL(activated(int)),
 	  SLOT(setflowcontrol(int)));*/
@@ -428,7 +433,7 @@ bool ModemWidget::save()
     gpppdata.setSpeed(baud_c->text(baud_c->currentItem()));
     gpppdata.setEnter(enter->text(enter->currentItem()));
     gpppdata.setModemDevice(modemdevice->text(modemdevice->currentItem()));
-    gpppdata.setFlowcontrol(flowcontrol->text(flowcontrol->currentItem()));
+    gpppdata.setFlowcontrol(flowListItem[flowcontrol->currentItem()]);
     gpppdata.setModemLockFile(modemlockfile->isOn());
     gpppdata.setModemTimeout(modemtimeout->value());
     return true;
