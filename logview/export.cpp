@@ -33,7 +33,7 @@ struct {
     QString desc;
     QString ext;
   }  ExportFormats [] = {
-  { 1, i18n("CSV")  ,i18n("Export to a Textfile. The Semicolon is used as separator.<p></p>Can be used for spreadsheet programs like <i>KSpread</i>."), "csv" },
+  { 1, i18n("CSV")  ,i18n("Export to a text file. The semicolon is used as separator.<p></p>Can be used for spreadsheet programs like <i>KSpread</i>."), "csv" },
   { 2, i18n("HTML") ,i18n("Export to a HTML Page.<p></p>Can be used for easy exchange over the <i>Internet</i>."), "html" },
   { 0, 0, 0, 0 }  /* !! don't forget !! */
 };
@@ -123,7 +123,7 @@ void ExportWizard::getFilename() {
   QString filter = "*." + ExportFormats[i].ext + " *." + ExportFormats[i].ext.upper() + "|" + ExportFormats[i].name +
         " (*." + ExportFormats[i].ext + " *." + ExportFormats[i].ext.upper() + ")";
 
-  filename = KFileDialog::getSaveFileName(date + "." + ExportFormats[i].ext, filter, 0, i18n("Please choose a File"));
+  filename = KFileDialog::getSaveFileName(date + "." + ExportFormats[i].ext, filter, 0, i18n("Please choose a file"));
   if (filename.isEmpty()) // no file selected
     return;
   fnLine->setText(filename);

@@ -379,7 +379,7 @@ void MonthlyWidget::exportWizard() {
     return;
   }
   if (QFile::exists(wizard->filename)) {  // overwrite?
-    if (KMessageBox::Continue!=KMessageBox::warningContinueCancel(0, i18n("A Document with this Name already exists."), i18n("Overwrite file?"), i18n("Overwrite") /*, true*/)) { // no
+    if (KMessageBox::Continue!=KMessageBox::warningContinueCancel(0, i18n("A document with this name already exists."), i18n("Overwrite file?"), i18n("Overwrite") /*, true*/)) { // no
       return;
     }
   }
@@ -391,7 +391,7 @@ void MonthlyWidget::exportWizard() {
   }
 
   if (!exportIFace->openFile()) {  // error opening
-    KMessageBox::sorry(0, i18n("An Error occured while trying to open this file"), i18n("Sorry"), true);
+    KMessageBox::sorry(0, i18n("An error occurred while trying to open this file"), i18n("Sorry"), true);
     delete exportIFace;
     return; // abort...
   }
@@ -513,7 +513,7 @@ void MonthlyWidget::exportWizard() {
 
     // write buffer to file and close file
     if (!exportIFace->closeFile())  {
-      KMessageBox::sorry(0, i18n("An Error occured while trying to write this file"), i18n("Sorry"), true);
+      KMessageBox::sorry(0, i18n("An error occurred while trying to write to this file"), i18n("Sorry"), true);
       delete exportIFace;
       return;
     }
