@@ -30,7 +30,7 @@
 #define _CONNECT_H_
 
 #include <qtimer.h>
-#include <qpushbutton.h>
+#include <kpushbutton.h>
 #include <qlabel.h>
 #include <qevent.h>
 
@@ -129,7 +129,7 @@ private:
   QTimer *if_timeout_timer;
 
   QLabel *messg;
-  QPushButton *cancel;
+  KPushButton *cancel;
 
   bool firstrunID;
   bool firstrunPW;

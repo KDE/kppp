@@ -64,7 +64,7 @@ ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
   tl->addWidget(progressBar);
   tl->addWidget(statusBar);
 
-  cancel = new QPushButton(i18n("&Cancel"), this);
+  cancel = new KPushButton(KStdGuiItem::cancel(), this);
   cancel->setFocus();
   connect(cancel, SIGNAL(clicked()), SLOT(cancelbutton()));
 
