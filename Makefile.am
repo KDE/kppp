@@ -132,7 +132,6 @@ METASOURCES = accounting.moc \
 
 messages:
 	$(XGETTEXT) $(kppp_SOURCES) -o $(podir)/kppp.pot
-	(cd logview && make -f Makefile.am XGETTEXT=$(XGETTEXT) includedir=$(includedir) messages)
 
 # just install datas here. Use install-exec-data for scripts and etc.
 # the binary itself is already installed from automake

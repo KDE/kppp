@@ -44,3 +44,4 @@ METASOURCES = main.moc monthly.moc
 
 messages:
 	$(XGETTEXT) *.cpp *.h -o $(podir)/kppplogview.pot
+
