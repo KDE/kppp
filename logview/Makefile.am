@@ -24,8 +24,6 @@ EXTRA_DIST = $(apps_DATA)
 INCLUDES= $(all_includes)
 # claim, which subdirectories you want to install
 
-INSTALL_PROGRAM=$(INSTALL)
-
 # This one gets installed 
 bin_PROGRAMS = 	kppplogview
 
@@ -42,26 +40,7 @@ kppplogview_LDADD   =         $(LIB_KFILE)
 # this option you can leave out. Just, if you use "make dist", you need it
 noinst_HEADERS = loginfo.h log.h monthly.h main.h
 
-# just to make sure, automake makes them 
-BUILTSOURCES = monthly.moc
-
-# if you "make distclean", this files get removed. If you want to remove
-# them while "make clean", use CLEANFILES
-DISTCLEANFILES = $(BUILTSOURCES)
+METASOURCES = main.moc monthly.moc
 
 messages:
 	#$(XGETTEXT) -C -ktranslate -ki18n -x $(includedir)/kde.pot $(kppp_SOURCES) && mv messages.po ../po/kppp.pot
-
-
-# dependencies
-log.cpp: log.moc
-log.moc: log.h
-	$(MOC) log.h -o log.moc
-
-monthly.cpp: monthly.moc
-monthly.moc: monthly.h
-	$(MOC) monthly.h -o monthly.moc
-
-main.cpp: main.moc
-main.moc: main.h
-	$(MOC) main.h -o main.moc
