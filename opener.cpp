@@ -105,7 +105,7 @@ extern "C" int sethostname(char *name, int name_len);
 #define Debug2(s, i) fprintf(stderr, (s), (i));
 #endif
 
-static void sighandler(int);
+static void sighandler_child(int);
 static pid_t pppdPid = -1;
 static int pppdExitStatus = -1;
 static int checkForInterface();
@@ -115,7 +115,7 @@ Opener::Opener(int s) : socket(s), ttyfd(-1) {
   signal(SIGUSR1, SIG_IGN);
   signal(SIGTERM, SIG_IGN);
   signal(SIGINT, SIG_IGN);
-  signal(SIGCHLD, sighandler);
+  signal(SIGCHLD, sighandler_child);
   mainLoop();
 }
 
@@ -657,7 +657,7 @@ int checkForInterface()
 }
 
 
-void sighandler(int) {
+void sighandler_child(int) {
   pid_t pid;
   int status;
 
