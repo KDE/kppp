@@ -1,0 +1,23 @@
+# KDE Config File
+AutoName=0
+ExDNSDisabled=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=10741 0840 840 222
+IPAddr=0.0.0.0
+Name=Bluewin
+Domain=bluewin.ch
+VolumeAccountingEnabled=0
+pppdArguments=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=4
+SubnetMask=0.0.0.0
+DNS=
+AccountingFile=/Switzerland/Swisscom_Surf.rst
+DefaultRoute=1
+Username=%USERNAME%
+StorePassword=1
+Gateway=0.0.0.0
+DisconnectCommand=
