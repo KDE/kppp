@@ -176,17 +176,12 @@ bool ppp_available(void)
 {
   int s, ok;
   struct ifreq ifr;
-  struct utsname kernelInfo;
-  int major, minor;
 
-  // our check doesn't work with 2.3 kernels, yet. In order not to cause a
-  // false alarm we simply return success for anything higher than 2.2.
-  if(uname(&kernelInfo) == -1)
-    return true;
-  if(sscanf(kernelInfo.release, "%d.%d.", &major, &minor) != 2)
-    return true;
-  if(major > 2 || (major == 2 && minor > 2))
-    return true;
+  // we have been accidently exploiting a security hole in kernels prior
+  // to 2.2.13 to make this check work without root permissions.
+  // Additionally the new ppp code 2.3 kernels would require some adaptions.
+  // We'll simply fake success by returning true.
+  return true;
 
   /*
    * Open a socket for doing the ioctl operations.

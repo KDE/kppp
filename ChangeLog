@@ -1,3 +1,10 @@
+1999-09-26  Harri Porten  <porten@kde.org>
+
+	* runtests.cpp (ppp_available): Linux kernels >= 2.2.13 will have
+	a security hole fixed that breaks our check. Let's simply return true.
+	
+=========================== KDE 1.1.2 released =============================
+
 1999-08-25  Harri Porten  <porten@kde.org>
 
 	* main.cpp: work around copy&paste password bug by using a widget
