@@ -1,6 +1,8 @@
 pkg_DATA =	BelBasis_Lokaal.rst \
 		BelBudget_Lokaal.rst \
 		BelPlus_Lokaal.rst \
+		BelBasis_Lokaal_Nummervoordeel.rst \
+		BelPlus_Lokaal_Nummervoordeel.rst \
 		NedpointBasis_Lokaal.rst \
 		NedpointBelBespaar_Lokaal.rst
 
