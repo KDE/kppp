@@ -2,10 +2,10 @@
  *            kPPP: A pppd front end for the KDE project
  *
  * $Id$
- * 
- *            Copyright (C) 1997 Bernd Johannes Wuebben 
+ *
+ *            Copyright (C) 1997 Bernd Johannes Wuebben
  *                   wuebben@math.cornell.edu
- * 
+ *
  * This file was contributed by Mario Weilguni <mweilguni@sime.com>
  * Thanks Mario !
  *
@@ -60,7 +60,7 @@ public:
   QString name();
 
   /** Load a ruleset from a file. If an error occurs,
-   *  returns the linenumber the error was in, 
+   *  returns the linenumber the error was in,
    *  otherwise 0. If the file could not be opened,
    *  returns -1
    */
@@ -108,7 +108,7 @@ protected:
   bool parseEntry(RULE &ret, QString s, int year);
 
   /// parses the "on(...)" fields
-  bool parseEntries(QString s, int year, 
+  bool parseEntries(QString s, int year,
 		    QTime t1, QTime t2,
 		    double costs, double len, double after);
 
@@ -119,11 +119,11 @@ protected:
   bool parseRate(double &costs, double &len, double &after, QString s);
 
   /// parses a whole line
-  bool parseLine(QString &line);
+  bool parseLine(const QString &line);
 
   /// returns midnight time (00:00:00.000)
   QTime midnight() const;
-  
+
   /// returns the last valid time BEFORE midnight
   QTime beforeMidnight() const;
 
