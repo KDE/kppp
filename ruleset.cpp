@@ -535,7 +535,7 @@ QTime RuleSet::beforeMidnight() const {
 
 int RuleSet::checkRuleFile(const QString &rulefile) {
   if(rulefile == NULL) {
-    fprintf(stderr, i18n("kppp: no rulefile specified\n").local8Bit());
+    fputs(i18n("kppp: no rulefile specified\n").local8Bit(), stderr);
     return 1;
   }
 
@@ -546,7 +546,7 @@ int RuleSet::checkRuleFile(const QString &rulefile) {
   }
 
   if(rulefile.right(4) != ".rst") {
-    fprintf(stderr, i18n("kppp: rulefiles must have the extension \".rst\"\n").local8Bit());
+    fputs(i18n("kppp: rulefiles must have the extension \".rst\"\n").local8Bit(), stderr);
     return 1;
   }
 
@@ -555,7 +555,7 @@ int RuleSet::checkRuleFile(const QString &rulefile) {
   fl.close();
 
   if(err == -1) {
-    fprintf(stderr, i18n("kppp: error parsing the ruleset\n").local8Bit());
+    fputs(i18n("kppp: error parsing the ruleset\n").local8Bit(), stderr);
     return 1;
   }
 
@@ -566,16 +566,16 @@ int RuleSet::checkRuleFile(const QString &rulefile) {
 
   // check for the existance of a default rule
   if((r.default_costs < 0) || (r.default_len < 0)) {
-    fprintf(stderr, i18n("kppp: rulefile does not contain a default rule\n").local8Bit());
+    fputs(i18n("kppp: rulefile does not contain a default rule\n").local8Bit(), stderr);
     return 1;
   }
 
   if(r.name().length() == 0) {
-    fprintf(stderr, i18n("kppp: rulefile does not contain a \"name=...\" line\n").local8Bit());
+    fputs(i18n("kppp: rulefile does not contain a \"name=...\" line\n").local8Bit(), stderr);
     return 1;
   }
 
-  fprintf(stderr, i18n("kppp: rulefile is ok\n").local8Bit());
+  fputs(i18n("kppp: rulefile is ok\n").local8Bit(), stderr);
   return 0;
 }
 
