@@ -82,7 +82,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   connect(new_b, SIGNAL(clicked()), SLOT(newaccount()));
   l111->addWidget(new_b);
   QWhatsThis::add(new_b, i18n("Create a new dialup connection\n"
-  			      "to the internet"));
+  			      "to the Internet"));
 
   copy_b = new QPushButton(i18n("Co&py"), parent);
   connect(copy_b, SIGNAL(clicked()), SLOT(copyaccount()));

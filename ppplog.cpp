@@ -278,7 +278,7 @@ void PPPL_ShowLog() {
     fclose(f);
     umask(old_umask);
 
-    QString msg = i18n("The PPP log has been saved\nas \"%1\"!\n\nIf you want to send a bug report or have\nproblems connecting to the internet, please\nattach this file. It will help the maintainers\nto find the bug and to improve KPPP").arg(s);
+    QString msg = i18n("The PPP log has been saved\nas \"%1\"!\n\nIf you want to send a bug report, or have\nproblems connecting to the Internet, please\nattach this file. It will help the maintainers\nto find the bug and to improve KPPP").arg(s);
     KMessageBox::information(0, msg);
   }
   delete dlg;

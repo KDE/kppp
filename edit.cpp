@@ -315,8 +315,7 @@ i18n("Here you can select commands to run at certain stages of the\n"
   l1->addWidget(command, 1, 1);
   tmp = i18n("Allows you to run a program <b>after</b> a connection\n"
 	     "is established. When your program is called, all\n"
-	     "all preparations for an internet connection are\n"
-	     "finished.\n"
+	     "preparations for an Internet connection are finished.\n"
 	     "\n"
 	     "Very useful for fetching mail and news");
 
