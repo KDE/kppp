@@ -572,6 +572,8 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   stats = new PPPStats;
 
+  KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
+  
   con_win = new ConWindow(0, "conw", this, stats);
   KWin::setIcons(con_win->winId(), kapp->icon(), kapp->miniIcon());
   con_win->setGeometry(QApplication::desktop()->width()/2-160,
@@ -584,14 +586,14 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   (void)new DockWidget(this, "dockw", stats);
 
   debugwindow = new DebugWidget(0,"debugwindow");
-  KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
+  KWin::setIcons(debugwindow->winId(), kapp->icon(), kapp->miniIcon());
   debugwindow->hide();
 
   // load up the accounts combo box
 
   resetaccounts();
   con = new ConnectWidget(0, "con", stats);
-  KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
+  KWin::setIcons(con->winId(), kapp->icon(), kapp->miniIcon() );
   connect(this, SIGNAL(begin_connect()),con, SLOT(preinit()));
   con->setGeometry(QApplication::desktop()->width()/2-175,
 		    QApplication::desktop()->height()/2-55,
