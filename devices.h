@@ -60,6 +60,10 @@ static const char *devices[] = {
   "/dev/ircomm1",
   "/dev/ircomm2",
   "/dev/ircomm3",
+  "/dev/ttySL0",           /* necessary for slmodem driver http://www.smlink.com*/
+  "/dev/ttySL1",
+  "/dev/ttySL2",
+  "/dev/ttySL3",
 #elif defined(__svr4__)
   "/dev/cua/a",
   "/dev/cua/b",
