@@ -290,7 +290,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
     if(!expecting) {
       // skip setting the volume if command is empty
       if(gpppdata.volumeInitString().isEmpty()) {
-        vmain = 4;
+        vmain = 1;
         return;
       }
       messg->setText(i18n("Setting speaker volume..."));
@@ -301,20 +301,6 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       vol += gpppdata.volumeInitString();
       writeline(vol);
       usleep(gpppdata.modemInitDelay() * 10000); // 0.01 - 3.0 sec
-      vmain = 4;
-      return;
-    }
-  }
-
-  if(vmain == 4) {
-    if(!expecting) {
-      if(!gpppdata.waitForDialTone()) {
-	QString msg = i18n("Turning off dial tone waiting...");
-	messg->setText(msg);
-	emit debugMessage(msg);
-	setExpect(gpppdata.modemInitResp());
-	writeline(gpppdata.modemNoDialToneDetectionStr());
-      }
       vmain = 1;
       return;
     }
@@ -381,6 +367,30 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       return;
     }
 
+    if(readbuffer.contains(gpppdata.modemNoCarrierResp())) {
+      timeout_timer->stop();
+      timeout_timer->start(gpppdata.modemTimeout()*1000);
+
+      messg->setText(i18n("No Carrier. Hanging up ..."));
+      emit debugPutChar('\n');
+      Modem::modem->hangup();
+
+      if(gpppdata.busyWait() > 0) {
+	QString bm = i18n("No Carrier. Waiting: %1 seconds").arg(gpppdata.busyWait());
+	messg->setText(bm);
+	emit debugMessage(bm);
+
+	pausing = true;
+
+	pausetimer->start(gpppdata.busyWait()*1000, true);
+	timeout_timer->stop();
+      }
+
+      Modem::modem->setDataMode(false);
+      vmain = 0;
+      return;
+    }
+
     if(readbuffer.contains(gpppdata.modemNoDialtoneResp())) {
       timeout_timer->stop();
 
@@ -390,15 +400,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       return;
     }
 
-    if(readbuffer.contains(gpppdata.modemNoCarrierResp())) {
-      timeout_timer->stop();
-
-      messg->setText(i18n("No Carrier"));
-      vmain = 20;
-      Modem::modem->unlockdevice();
-      return;
-    }
-  }
+   }
 
   // wait for newline after CONNECT response (so we get the speed)
   if(vmain == 101) {
@@ -1118,7 +1120,8 @@ bool ConnectWidget::execppp() {
   //  command += " ";
   //  command += gpppdata.modemDevice();
 
-  command += " " + gpppdata.speed();
+  command += " " ;
+  command += gpppdata.speed();
 
   command += " -detach";
 
@@ -1138,18 +1141,29 @@ bool ConnectWidget::execppp() {
       command += gpppdata.gateway();
   }
 
-  if(gpppdata.subnetmask() != "0.0.0.0")
-    command += " netmask " + gpppdata.subnetmask();
+  if(gpppdata.subnetmask() != "0.0.0.0") {
+    command += " ";
+    command += "netmask";
+    command += " ";
+    command += gpppdata.subnetmask();
 
-  if(gpppdata.flowcontrol() != "None") {
-    if(gpppdata.flowcontrol() == "CRTSCTS")
-      command += " crtscts";
-    else
-      command += " xonxoff";
   }
 
-  if(gpppdata.defaultroute())
-    command += " defaultroute";
+  if(gpppdata.flowcontrol() != "None") {
+    if(gpppdata.flowcontrol() == "CRTSCTS") {
+      command += " ";
+      command +=  "crtscts";
+    }
+    else {
+      command += " ";
+      command += "xonxoff";
+    }
+  }
+
+  if(gpppdata.defaultroute()) {
+    command += " ";
+    command +=  "defaultroute";
+  }
 
   if(gpppdata.autoDNS())
     command += " usepeerdns";
@@ -1159,7 +1173,8 @@ bool ConnectWidget::execppp() {
         it != arglist.end();
         ++it )
   {
-    command += " " + *it;
+    command += " ";
+    command += *it;
   }
 
   // PAP settings
