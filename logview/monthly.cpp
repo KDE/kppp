@@ -161,12 +161,12 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
 	  this, SLOT(slotConnections(int)));
 
   bbox = new KButtonBox(this, Qt::Vertical);
-  prev = bbox->addButton(i18n("Prev Month"));
-  next = bbox->addButton(i18n("Next Month"));
+  prev = bbox->addButton(i18n("&Prev Month"));
+  next = bbox->addButton(i18n("&Next Month"));
   bbox->addStretch(1);
-  today = bbox->addButton(i18n("Current Month"));
+  today = bbox->addButton(i18n("C&urrent Month"));
   bbox->addStretch(1);
-  exportBttn = bbox->addButton(i18n("Export..."));
+  exportBttn = bbox->addButton(i18n("&Export..."));
 
   connect(prev, SIGNAL(released()),
 	  this, SLOT(prevMonth()));

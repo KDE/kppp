@@ -75,7 +75,7 @@ TopWidget::TopWidget() : KMainWindow(0, "") {
   } else {
     mb = 0;
     QPushButton *but = new QPushButton(w);
-    but->setText(i18n("Close"));
+    but->setText(i18n("&Close"));
     QHBoxLayout *lh = new QHBoxLayout(l);
     lh->addStretch(10);
     lh->addWidget(but);
