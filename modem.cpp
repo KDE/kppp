@@ -6,7 +6,7 @@
  *              Copyright (C) 1997 Bernd Johannes Wuebben
  *                      wuebben@math.cornell.edu
  *
- * This file was added by Harri Porten <porten@tu-harburg.de> 
+ * This file was added by Harri Porten <porten@tu-harburg.de>
  *
  *
  * This program is free software; you can redistribute it and/or
@@ -46,7 +46,7 @@ static sigjmp_buf jmp_buffer;
 
 Modem *Modem::modem = 0;
 
-Modem::Modem() : 
+Modem::Modem() :
   modemfd(-1),
   sn(0L),
   data_mode(false),
@@ -99,13 +99,13 @@ speed_t Modem::modemspeed() {
     break;
 #endif
 
-#ifdef B460800 
+#ifdef B460800
   case 4608:
-    return 4608;
+    return B460800;
     break;
 #endif
 
-  default:            
+  default:
     return B38400;
     break;
   }
@@ -120,7 +120,7 @@ bool Modem::opentty() {
     return false;
   }
 
-#if 0  
+#if 0
   if(gpppdata.UseCDLine()) {
     if(ioctl(modemfd, TIOCMGET, &flags) == -1) {
       errmsg = i18n("Sorry, can't detect state of CD line.");
@@ -156,14 +156,14 @@ bool Modem::opentty() {
 
   initial_tty = tty;
 
-  tty.c_cc[VMIN] = 0; // nonblocking 
+  tty.c_cc[VMIN] = 0; // nonblocking
   tty.c_cc[VTIME] = 0;
   tty.c_oflag = 0;
   tty.c_lflag = 0;
 
-  tty.c_cflag &= ~(CSIZE | CSTOPB | PARENB);  
+  tty.c_cflag &= ~(CSIZE | CSTOPB | PARENB);
   tty.c_cflag |= CS8 | CREAD;
-  tty.c_cflag |= CLOCAL;                   // ignore modem status lines      
+  tty.c_cflag |= CLOCAL;                   // ignore modem status lines
   tty.c_iflag = IGNBRK | IGNPAR /* | ISTRIP */ ;
   tty.c_lflag &= ~ICANON;                  // non-canonical mode
   tty.c_lflag &= ~(ECHO|ECHOE|ECHOK|ECHOKE);
@@ -187,7 +187,7 @@ bool Modem::opentty() {
   cfsetospeed(&tty, modemspeed());
   cfsetispeed(&tty, modemspeed());
 
-  tcdrain(modemfd);	
+  tcdrain(modemfd);
 
   if(tcsetattr(modemfd, TCSANOW, &tty) < 0){
     errmsg = i18n("Sorry, the modem is busy.");
@@ -206,7 +206,7 @@ bool Modem::closetty() {
     stop();
     /* discard data not read or transmitted */
     tcflush(modemfd, TCIOFLUSH);
-    
+
     if(tcsetattr(modemfd, TCSANOW, &initial_tty) < 0){
       errmsg = i18n("Can't restore tty settings: tcsetattr()\n");
       ::close(modemfd);
@@ -325,21 +325,21 @@ bool Modem::hangup() {
 
     // is this Escape & HangupStr stuff really necessary ? (Harri)
 
-    if (data_mode) escape_to_command_mode(); 
+    if (data_mode) escape_to_command_mode();
 
     // Then hangup command
     writeLine(gpppdata.modemHangupStr().local8Bit());
-    
-    usleep(gpppdata.modemInitDelay() * 10000); // 0.01 - 3.0 sec 
+
+    usleep(gpppdata.modemInitDelay() * 10000); // 0.01 - 3.0 sec
 
 #ifndef DEBUG_WO_DIALING
     if (sigsetjmp(jmp_buffer, 1) == 0) {
-      // set alarm in case tcsendbreak() hangs 
+      // set alarm in case tcsendbreak() hangs
       signal(SIGALRM, alarm_handler);
       alarm(2);
-      
+
       tcsendbreak(modemfd, 0);
-      
+
       alarm(0);
       signal(SIGALRM, SIG_IGN);
     } else {
@@ -356,12 +356,12 @@ bool Modem::hangup() {
     cfsetispeed(&temptty, B0);
     tcsetattr(modemfd, TCSAFLUSH, &temptty);
 
-    usleep(gpppdata.modemInitDelay() * 10000); // 0.01 - 3.0 secs 
+    usleep(gpppdata.modemInitDelay() * 10000); // 0.01 - 3.0 secs
 
     cfsetospeed(&temptty, modemspeed());
     cfsetispeed(&temptty, modemspeed());
     tcsetattr(modemfd, TCSAFLUSH, &temptty);
-#endif   
+#endif
     return true;
   } else
     return false;
@@ -375,13 +375,13 @@ void Modem::escape_to_command_mode() {
   // that the modem is now in the connect state (no long accepts AT commands.)
   // Need to send properly timed escape sequence to put modem in command state.
   // Escape codes and guard times are controlled by S2 and S12 values.
-  // 
+  //
   tcflush(modemfd, TCIOFLUSH);
 
   // +3 because quiet time must be greater than guard time.
   usleep((gpppdata.modemEscapeGuardTime()+3)*20000);
   QCString tmp = gpppdata.modemEscapeStr().local8Bit();
-  write(modemfd, tmp.data(), tmp.length());  
+  write(modemfd, tmp.data(), tmp.length());
   tcflush(modemfd, TCIOFLUSH);
   usleep((gpppdata.modemEscapeGuardTime()+3)*20000);
 
@@ -431,9 +431,9 @@ QString Modem::parseModemSpeed(const QString &s) {
 	rx = result;
 	break;
       }
-    }	
+    }
   }
-  
+
   for(i = 0; i < TXMAX; i++) {
     int len, idx, result;
     if((idx = trx[i].match(s, 0, &len)) > -1) {
@@ -445,7 +445,7 @@ QString Modem::parseModemSpeed(const QString &s) {
 	tx = result;
 	break;
       }
-    }	
+    }
   }
 
   if(rx == -1 && tx == -1)
@@ -458,7 +458,7 @@ QString Modem::parseModemSpeed(const QString &s) {
     result.sprintf("%d/%d", rx, tx);
 
   kdDebug(5002) << "The parsed result is: " << result << endl;
-  
+
   return result;
 }
 
@@ -474,7 +474,7 @@ int Modem::lockdevice() {
     return 0;
   }
 
-  if (modem_is_locked) 
+  if (modem_is_locked)
     return 1;
 
   QString lockfile = LOCK_DIR"/LCK..";
@@ -490,20 +490,20 @@ int Modem::lockdevice() {
       if (sz <= 0)
         return 1;
       oldlock[sz] = '\0';
-      
+
       kdDebug(5002) << "Device is locked by: " << &oldlock << endl;
-      
+
       int oldpid;
       int match = sscanf(oldlock, "%d", &oldpid);
 
       // found a pid in lockfile ?
       if (match < 1 || oldpid <= 0)
         return 1;
-    
+
       // check if process exists
       if (kill((pid_t)oldpid, 0) == 0 || errno != ESRCH)
         return 1;
-      
+
       kdDebug(5002) << "lockfile is stale" << endl;
     }
   }
@@ -524,7 +524,7 @@ int Modem::lockdevice() {
   return -1;
 
 }
-  
+
 
 // UnLock modem device
 void Modem::unlockdevice() {
@@ -533,12 +533,12 @@ void Modem::unlockdevice() {
     Requester::rq->removeLockfile();
     modem_is_locked=false;
   }
-}  
+}
 
 void alarm_handler(int) {
   //  fprintf(stderr, "alarm_handler(): Received SIGALRM\n");
 
-  // jump 
+  // jump
   siglongjmp(jmp_buffer, 1);
 }
 
