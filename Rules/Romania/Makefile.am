@@ -1,4 +1,4 @@
-pkg_DATA = RomTelecom_Interurban.rst RomTelecom_Local.rst RomTelecom_GSM.rst
+pkg_DATA = RomTelecom.rst
 
 pkgdir = $(kde_datadir)/kppp/Rules/Romania
 
