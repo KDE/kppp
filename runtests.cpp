@@ -93,10 +93,10 @@ int ppp_disc = N_PPP;
  * Internal routine to decode the version.modification.patch level
  */
 
-static void decode_version (const char *version, int *version,
+static void decode_version (const char *_buf, int *version,
 			    int *modification, int *patch)
   {
-      char *buf = qstrdup(buf);
+    char *buf = qstrdup(_buf);
     *version      = (int) strtoul (buf, &buf, 10);
     *modification = 0;
     *patch        = 0;
