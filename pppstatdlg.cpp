@@ -130,8 +130,8 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
   labelb1[4]->setText(i18n("non-vj"));
 
   for(i = 0; i < 5; i++) {
-    labela2[i]->setText("88888888");
-    labelb2[i]->setText("88888888");
+    labela2[i]->setText("888888888");	// TODO: resize automatically
+    labelb2[i]->setText("888888888");
     labela2[i]->setFixedSize(labela2[i]->sizeHint());
     labelb2[i]->setFixedSize(labelb2[i]->sizeHint());
     labela2[i]->setText("");
@@ -196,7 +196,7 @@ void PPPStatsDlg::cancel() {
 void PPPStatsDlg::take_stats() {
   stats->initStats();
   bin_last = stats->ibytes;
-  bout_last = stats->obytes;  
+  bout_last = stats->obytes;
   ringIdx = 0;
   for(int i = 0; i < MAX_GRAPH_WIDTH; i++) {
     bin[i] = -1;
@@ -207,7 +207,7 @@ void PPPStatsDlg::take_stats() {
 
   stats->start();
   if(gpppdata.graphingEnabled())
-    graphTimer->start(GRAPH_UPDATE_TIME);  
+    graphTimer->start(GRAPH_UPDATE_TIME);
 }
 
 
@@ -231,13 +231,13 @@ void PPPStatsDlg::paintGraph() {
   int idx = ringIdx - pm.width() + 1;
   if(idx < 0)
     idx += MAX_GRAPH_WIDTH;
-    
-  // find good scaling factor    
-  int last_h_in = 
+
+  // find good scaling factor
+  int last_h_in =
     pm.height() - (int)((float)bin[idx]/max * (pm.height() - 8))-1;
-  int last_h_out = 
+  int last_h_out =
     pm.height() - (int)((float)bout[idx]/max * (pm.height() - 8))-1;
-  
+
   // plot scale line
   p.setPen(text);
   p.setFont(QFont("fixed", 8));
@@ -246,11 +246,11 @@ void PPPStatsDlg::paintGraph() {
   int last_idx = 0;
   for(x = 1; x < pm.width(); x++) {
     int h_in, h_out;
-    
+
     h_in = pm.height() - (int)((float)bin[idx]/max * (pm.height() - 8))-1;
     h_out = pm.height() - (int)((float)bout[idx]/max * (pm.height() - 8))-1;
-    
-    p.setPen(out);    
+
+    p.setPen(out);
     if(bout[idx]!=-1)
       p.drawLine(x-1, last_h_out, x, h_out);
     p.setPen(in);
@@ -282,10 +282,10 @@ void PPPStatsDlg::updateGraph() {
   bout[ringIdx] = stats->obytes - bout_last;
   if(bin[ringIdx] > max)
     max = ((bin[ringIdx] / 1024) + 1) * 1024;
- 
+
  if(bout[ringIdx] > max)
     max = ((bout[ringIdx] / 1024) + 1) * 1024;
- 
+
   bin_last = stats->ibytes;
   bout_last = stats->obytes;
   ringIdx = (ringIdx + 1) % MAX_GRAPH_WIDTH;
@@ -385,18 +385,16 @@ void PPPStatsDlg::update_data() {
   QString local_addr = ( stats->local_ip_address.isEmpty() ?
                          i18n("unavailable") :
                          stats->local_ip_address );
- 
+
   if( ip_address_label2->text() != local_addr )
     ip_address_label2->setText(local_addr);
- 
+
   QString remote_addr = ( stats->remote_ip_address.isEmpty() ?
                           i18n("unavailable") :
                           stats->remote_ip_address );
-  
+
   if( ip_address_label4->text() != remote_addr )
     ip_address_label4->setText(remote_addr);
- 
- 
 }
 
 #include "pppstatdlg.moc"

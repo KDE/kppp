@@ -2,8 +2,8 @@
  *           kPPP: A pppd front end for the KDE project
  *
  * $Id$
- * 
- *            Copyright (C) 1997 Bernd Johannes Wuebben 
+ *
+ *            Copyright (C) 1997 Bernd Johannes Wuebben
  *                   wuebben@math.cornell.edu
  *
  * based on EzPPP:
@@ -56,7 +56,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   // add a hbox
   QHBoxLayout *l11 = new QHBoxLayout;
   l1->addLayout(l11);
-    
+
   accountlist_l = new QListBox(peer());
   accountlist_l->setMinimumSize(160, 128);
   connect(accountlist_l, SIGNAL(highlighted(int)),
@@ -66,7 +66,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   l11->addWidget(accountlist_l, 10);
 
   QVBoxLayout *l111 = new QVBoxLayout;
-  l11->addLayout(l111, 1);  
+  l11->addLayout(l111, 1);
   edit_b = new QPushButton(i18n("Edit..."), peer());
   connect(edit_b, SIGNAL(clicked()), SLOT(editaccount()));
   QWhatsThis::add(edit_b, i18n("Allows you to modify the selected account"));
@@ -86,7 +86,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   copy_b = new QPushButton(i18n("Copy"), peer());
   connect(copy_b, SIGNAL(clicked()), SLOT(copyaccount()));
   l111->addWidget(copy_b);
-  QWhatsThis::add(copy_b, 
+  QWhatsThis::add(copy_b,
 		  i18n("Makes a copy of the selected account. All\n"
 		       "settings of the selected account are copied\n"
 		       "to a new account, that you can modify to fit your\n"
@@ -95,7 +95,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   delete_b = new QPushButton(i18n("Delete"), peer());
   connect(delete_b, SIGNAL(clicked()), SLOT(deleteaccount()));
   l111->addWidget(delete_b);
-  QWhatsThis::add(delete_b, 
+  QWhatsThis::add(delete_b,
 		  i18n("<p>Deletes the selected account\n\n"
 		       "<font color=\"red\"><b>Use with care!</b></font>"));
 
@@ -147,7 +147,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   QVBoxLayout *l122 = new QVBoxLayout;
   l12->addStretch(1);
   l12->addLayout(l122);
-  
+
   l122->addStretch(1);
   reset = new QPushButton(i18n("Reset..."), peer());
   reset->setEnabled(FALSE);
@@ -228,7 +228,7 @@ void AccountWidget::resetClicked(){
     emit resetCosts(accountlist_l->text(accountlist_l->currentItem()));
     costedit->setText("0");
   }
-  
+
   if(what && QueryReset::VOLUME) {
     emit resetVolume(accountlist_l->text(accountlist_l->currentItem()));
     voledit->setText(prettyPrintVolume(0));
@@ -255,7 +255,7 @@ void AccountWidget::editaccount() {
 
 
 void AccountWidget::newaccount() {
-  if(accountlist_l->count() == MAX_ACCOUNTS) {   
+  if(accountlist_l->count() == MAX_ACCOUNTS) {
       KMessageBox::sorry(this, i18n("Maximum number of accounts reached."));
     return;
   }
@@ -270,16 +270,16 @@ void AccountWidget::newaccount() {
 		"dialog-based setup.\n"), i18n("Wizard"), i18n("Dialog setup"), i18n("Cancel"));
 
   switch(query) {
-  case 0: 
+  case 0:
     {
-      if (gpppdata.newaccount() == -1) 
+      if (gpppdata.newaccount() == -1)
 	return;
       ProviderDB pdb(this);
       result = pdb.exec();
       break;
     }
   case 1:
-    if (gpppdata.newaccount() == -1) 
+    if (gpppdata.newaccount() == -1)
       return;
     result = doTab();
     break;
@@ -294,7 +294,7 @@ void AccountWidget::newaccount() {
     emit resetaccounts();
     gpppdata.save();
   } else
-    gpppdata.deleteAccount();  
+    gpppdata.deleteAccount();
 }
 
 
@@ -338,9 +338,9 @@ void AccountWidget::deleteaccount() {
 
 int AccountWidget::doTab(){
   tabWindow = new QTabDialog(0,0,TRUE);
-  KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
+  KWin::setIcons(tabWindow->winId(), kapp->icon(), kapp->miniIcon());
   bool isnewaccount;
- 
+
   if(gpppdata.accname().isEmpty()) {
     tabWindow->setCaption(i18n("New Account"));
     isnewaccount = true;
@@ -407,7 +407,7 @@ int AccountWidget::doTab(){
 
 QString AccountWidget::prettyPrintVolume(unsigned int n) {
   int idx = 0;
-  const QString quant[] = {i18n("Byte"), i18n("KB"), 
+  const QString quant[] = {i18n("Byte"), i18n("KB"),
 		   i18n("MB"), i18n("GB"), QString::null};
 
   float n1 = n;
@@ -436,8 +436,8 @@ QueryReset::QueryReset(QWidget *parent) : QDialog(parent, 0, true) {
   setCaption(i18n("Reset accounting"));
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
-  KGroupBox *f = new KGroupBox(i18n("What to reset..."), this);  
-  
+  KGroupBox *f = new KGroupBox(i18n("What to reset..."), this);
+
   QVBoxLayout *l1 = new QVBoxLayout(f->peer(), 10, 10);
   costs = new QCheckBox(i18n("Reset the accumulated phone costs"), f->peer());
   costs->setChecked(true);
@@ -471,7 +471,7 @@ QueryReset::QueryReset(QWidget *parent) : QDialog(parent, 0, true) {
   connect(cancel, SIGNAL(clicked()),
 	  this, SLOT(reject()));
 
-  bbox->layout();  
+  bbox->layout();
   tl->addWidget(bbox);
 
   // TODO: activate if KGroupBox is fixed

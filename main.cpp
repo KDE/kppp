@@ -573,7 +573,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   stats = new PPPStats;
 
   con_win = new ConWindow(0, "conw", this, stats);
-  KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
+  KWin::setIcons(con_win->winId(), kapp->icon(), kapp->miniIcon());
   con_win->setGeometry(QApplication::desktop()->width()/2-160,
 		    QApplication::desktop()->height()/2-55,
 		    320,110);
@@ -669,7 +669,7 @@ bool KPPPWidget::eventFilter(QObject *o, QEvent *e) {
 void KPPPWidget::prepareSetupDialog() {
   if(tabWindow == 0) {
     tabWindow = new QTabDialog( kapp->mainWidget(), 0, TRUE );
-    KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
+    KWin::setIcons(tabWindow->winId(), kapp->icon(), kapp->miniIcon());
     tabWindow->setCaption( i18n("kppp Configuration") );
     tabWindow->setOkButton(i18n("OK"));
     tabWindow->setCancelButton(i18n("Cancel"));
