@@ -195,7 +195,6 @@ void PPPStatsDlg::cancel() {
 
 void PPPStatsDlg::take_stats() {
   stats->initStats();
-  ips_set = false;
   bin_last = stats->ibytes;
   bout_last = stats->obytes;  
   ringIdx = 0;
@@ -380,23 +379,24 @@ void PPPStatsDlg::update_data() {
   labelb2[3]->setText(packetsunc_string);
   labelb2[4]->setText(packetsoutunc_string);
 
-  if(!ips_set) {
-    // if I don't resort to this trick it is imposible to
-    // copy/paste the ip out of the lineedits due to
-    // reset of cursor position on setText()
-
-    if( !stats->local_ip_address.isEmpty() )
-      ip_address_label2->setText(stats->local_ip_address);
-    else
-      ip_address_label2->setText(i18n("unavailable"));
-
-    if( !stats->remote_ip_address.isEmpty() )
-      ip_address_label4->setText(stats->remote_ip_address);
-    else
-      ip_address_label4->setText(i18n("unavailable"));
-    
-    ips_set = true;
-  }
+  // if I don't resort to this trick it is imposible to
+  // copy/paste the ip out of the lineedits due to
+  // reset of cursor position on setText()
+  QString local_addr = ( stats->local_ip_address.isEmpty() ?
+                         i18n("unavailable") :
+                         stats->local_ip_address );
+ 
+  if( ip_address_label2->text() != local_addr )
+    ip_address_label2->setText(local_addr);
+ 
+  QString remote_addr = ( stats->remote_ip_address.isEmpty() ?
+                          i18n("unavailable") :
+                          stats->remote_ip_address );
+  
+  if( ip_address_label4->text() != remote_addr )
+    ip_address_label4->setText(remote_addr);
+ 
+ 
 }
 
 #include "pppstatdlg.moc"

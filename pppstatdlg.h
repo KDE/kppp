@@ -98,7 +98,6 @@ private:
   QPixmap big_modem_right_pixmap;
   QPixmap big_modem_none_pixmap;
 
-  bool ips_set; /* are the ip linedits filled in already?*/
   int ibytes_last;
   int obytes_last;
   bool need_to_paint;
