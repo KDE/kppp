@@ -2,8 +2,8 @@
  *            kPPP: A pppd front end for the KDE project
  *
  * $Id$
- * 
- *            Copyright (C) 1997 Bernd Johannes Wuebben 
+ *
+ *            Copyright (C) 1997 Bernd Johannes Wuebben
  *                   wuebben@math.cornell.edu
  *
  * based on EzPPP:
@@ -32,11 +32,16 @@
 #include "pppdargs.h"
 #include "pppdata.h"
 #include <klocale.h>
+#include <qlineedit.h>
+#include <qpushbutton.h>
+#include <qlistbox.h>
+#include <qlabel.h>
+
 
 PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
   : QDialog(parent, name, TRUE)
 {
-  setCaption(i18n("Customize pppd Arguments"));  
+  setCaption(i18n("Customize pppd Arguments"));
   KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
   QVBoxLayout *l = new QVBoxLayout(this, 10, 10);
   QHBoxLayout *tl = new QHBoxLayout(10);
@@ -53,7 +58,7 @@ PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
   l11->addWidget(argument_label);
 
   argument = new QLineEdit(this);
-  connect(argument, SIGNAL(returnPressed()), 
+  connect(argument, SIGNAL(returnPressed()),
 	  SLOT(addbutton()));
   l11->addWidget(argument);
   connect(argument, SIGNAL(textChanged(const QString &)),
@@ -68,7 +73,7 @@ PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
   add = new QPushButton(i18n("Add"), this);
   connect(add, SIGNAL(clicked()), SLOT(addbutton()));
   l2->addWidget(add);
-  l2->addStretch(1);  
+  l2->addStretch(1);
 
   remove = new QPushButton(i18n("Remove"), this);
   connect(remove, SIGNAL(clicked()), SLOT(removebutton()));
@@ -77,7 +82,7 @@ PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
   defaults = new QPushButton(i18n("Defaults"), this);
   connect(defaults, SIGNAL(clicked()), SLOT(defaultsbutton()));
   l2->addWidget(defaults);
-  
+
   l->addSpacing(5);
 
   KButtonBox *bbox = new KButtonBox(this);

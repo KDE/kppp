@@ -3,8 +3,8 @@
  *            kPPP: A front end for pppd for the KDE project
  *
  * $Id$
- * 
- *              Copyright (C) 1997 Bernd Johannes Wuebben 
+ *
+ *              Copyright (C) 1997 Bernd Johannes Wuebben
  *                      wuebben@math.cornell.edu
  *
  * based on EzPPP:
@@ -77,7 +77,7 @@ void ScriptEdit::seReturnPressed() {
 }
 
 
-QString ScriptEdit::text() {
+QString ScriptEdit::text()const {
   return se->text();
 }
 
@@ -86,7 +86,7 @@ void ScriptEdit::setText(const QString &t) {
 }
 
 
-int ScriptEdit::type() {
+int ScriptEdit::type()const {
   return st->currentItem();
 }
 

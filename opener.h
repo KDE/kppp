@@ -49,7 +49,7 @@ private:
   bool removeAuthFile(Auth method);
   const char* authFile(Auth method, int version = Original);
   bool execpppd(const char *arguments);
-  bool killpppd();
+  bool killpppd()const;
   void parseargs(char* buf, char** args);
 
   int socket;
@@ -62,12 +62,12 @@ struct RequestHeader {
   int	type;
   int	len;
   //  int   id;     // TODO: Use a transmission id and check whether
-                    //       response matches request 
+                    //       response matches request
 };
 
 struct ResponseHeader {
   int	status; /* 0 or errno */
-  //  int   id; 
+  //  int   id;
 };
 
 struct OpenModemRequest {

@@ -29,10 +29,12 @@
 #define _PPPDARGS_H_
 
 #include <qdialog.h>
-#include <qlineedit.h>
-#include <qpushbutton.h>
-#include <qlistbox.h>
-#include <qlabel.h>
+
+class QListBox;
+class QLabel;
+class QPushButton;
+class QLineEdit;
+
 
 class PPPdArguments : public QDialog {
 Q_OBJECT

@@ -3,8 +3,8 @@
  *            kPPP: A front end for pppd for the KDE project
  *
  * $Id$
- * 
- *             Copyright (C) 1997 Bernd Johannes Wuebben 
+ *
+ *             Copyright (C) 1997 Bernd Johannes Wuebben
  *                    wuebben@math.cornell.edu
  *
  * based on EzPPP:
@@ -39,9 +39,9 @@ public:
   ScriptEdit( QWidget *parent=0, const char *name=0 );
   ~ScriptEdit() {}
 
-  QString text();
+  QString text()const;
   void setText(const QString &);
-  int type();
+  int type()const;
 
   virtual void setEnabled(bool);
 
@@ -62,16 +62,16 @@ public:
 		 Pause = 2,
 		 Hangup = 3,
 		 Answer = 4,
-		 Timeout = 5, 
+		 Timeout = 5,
 		 Password = 6,
 		 ID = 7,
 		 Prompt = 8,
 		 PWPrompt = 9,
 		 LoopStart = 10,
-		 LoopEnd = 11, 
+		 LoopEnd = 11,
 		 Scan = 12,
                  Save = 13,
-		 SendNoEcho = 14		 
+		 SendNoEcho = 14
   };
 };
 

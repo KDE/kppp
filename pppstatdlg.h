@@ -26,15 +26,16 @@
 #define _PPPSTATSDLG_H_
 
 
-#include <qpushbutton.h>
-#include <qlabel.h>
 #include <qdialog.h>
-#include <qframe.h>
-#include <qgroupbox.h>
 #include <qevent.h>
 #include <qpixmap.h>
-#include <qlineedit.h>
-#include <qtimer.h>
+
+class QLabel;
+class QFrame;
+class QGroupBox;
+class QLineEdit;
+class QTimer;
+class QPushButton;
 
 const int MAX_GRAPH_WIDTH   = 600;
 const int GRAPH_UPDATE_TIME = 1000;

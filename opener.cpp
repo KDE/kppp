@@ -6,7 +6,7 @@
  *
  *              Copyright (C) 1997,98 Bernd Johannes Wuebben,
  *		                      Mario Weilguni
- *              Copyright (C) 1998-2002 Harri Porten <porten@kde.org>  
+ *              Copyright (C) 1998-2002 Harri Porten <porten@kde.org>
  *
  *
  * This program is free software; you can redistribute it and/or
@@ -568,7 +568,7 @@ bool Opener::execpppd(const char *arguments) {
 }
 
 
-bool Opener::killpppd() {
+bool Opener::killpppd()const {
   if(pppdPid > 0) {
     Debug2("In killpppd(): Sending SIGTERM to %d\n", pppdPid);
     if(kill(pppdPid, SIGTERM) < 0) {

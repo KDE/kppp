@@ -11,21 +11,21 @@
 // derived from Jay Painters "ezppp"
 //
 //---------------------------------------------------------------------------
-//  
+//
 //  $Id$
 //
 //---------------------------------------------------------------------------
-// 
+//
 //  This program is free software; you can redistribute it and-or
 //  modify it under the terms of the GNU Library General Public
 //  License as published by the Free Software Foundation; either
 //  version 2 of the License, or (at your option) any later version.
-// 
+//
 //  This program is distributed in the hope that it will be useful,
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 //  Library General Public License for more details.
-// 
+//
 //  You should have received a copy of the GNU Library General Public
 //  License along with this program; if not, write to the Free
 //  Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
@@ -38,6 +38,8 @@
 #include "modemdb.h"
 #include <klocale.h>
 #include <qpushbutton.h>
+#include <qlistbox.h>
+#include <kconfig.h>
 
 ModemSelector::ModemSelector(QWidget *parent) : QDialog(parent, 0, true) {
   // set up widgets and such
@@ -108,7 +110,7 @@ void ModemSelector::vendorSelected(int idx) {
   QStringList *models = db->models(name);
   model->clear();
   model->insertStringList(*models);
-  
+
   // FIXME: work around Qt bug
   if(models->count() == 0)
     model->update();
@@ -125,7 +127,7 @@ void ModemSelector::selected(int) {
 }
 
 
-ModemDatabase::ModemDatabase() {  
+ModemDatabase::ModemDatabase() {
   load();
 }
 
@@ -141,8 +143,8 @@ const QStringList *ModemDatabase::vendors() {
 }
 
 
-QStringList *ModemDatabase::models(QString vendor) {
-  QStringList *sl = new QStringList;  
+QStringList *ModemDatabase::models(QString vendor)  {
+  QStringList *sl = new QStringList;
   QString s = i18n("<Generic>");
   if(vendor == s)
     vendor = i18n("<Generic>");
@@ -173,7 +175,7 @@ void ModemDatabase::loadModem(const QString &key, CharDict &dict) {
   // remove parent attribute
   dict.setAutoDelete(true);
   dict.remove("Parent");
-  
+
   //  e = it->current();
   while(!it.key().isNull()) {
     if(dict.find(it.key()) == 0) {
@@ -190,7 +192,7 @@ void ModemDatabase::loadModem(const QString &key, CharDict &dict) {
   // check parent attribute
   if(dict["Parent"] != 0)
     loadModem(*dict["Parent"], dict);
-  else 
+  else
     // inherit common at last
     if (key != "Common")
       loadModem("Common", dict);

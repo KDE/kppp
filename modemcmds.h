@@ -38,6 +38,11 @@
 #include <qlabel.h>
 #include <pppdata.h>
 
+class QLineEdit;
+class QLabel;
+class QPushButton;
+class QGroupBox;
+
 class ModemCommands : public KDialogBase {
 
 Q_OBJECT

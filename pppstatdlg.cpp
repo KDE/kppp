@@ -29,6 +29,12 @@
 #include <kiconloader.h>
 #include <kapplication.h>
 #include <klocale.h>
+#include <qpushbutton.h>
+#include <qlabel.h>
+#include <qframe.h>
+#include <qgroupbox.h>
+#include <qlineedit.h>
+#include <qtimer.h>
 
 #include "pppdata.h"
 #include "pppstatdlg.h"
@@ -198,7 +204,7 @@ bool PPPStatsDlg::event(QEvent *e) {
     gpppdata.setWinPosStatWin(x(), y());
     return true;
   }
-  else 
+  else
     return QWidget::event(e);
 }
 

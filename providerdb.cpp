@@ -39,6 +39,9 @@
 #include "providerdb.h"
 #include "newwidget.h"
 #include "pppdata.h"
+#include <qlistbox.h>
+#include <qlineedit.h>
+#include <ksimpleconfig.h>
 
 
 #define UNENCODED_CHARS "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_"

@@ -34,6 +34,12 @@
 #include "pppdata.h"
 #include <kwin.h>
 
+#include <qgroupbox.h>
+#include <qlineedit.h>
+#include <qpushbutton.h>
+#include <qlabel.h>
+
+
 #define ADJUSTEDIT(e) e->setText("XXXXXXXXqy"); e->setMinimumSize(e->sizeHint()); e->setFixedHeight(e->sizeHint().height()); e->setText(""); e->setMaxLength(MODEMSTR_SIZE);
 
 // a little trick to make the label look like a disabled lineedit
