@@ -1183,7 +1183,11 @@ void PPPData::graphingOptions(bool &enable,
 
 
 bool PPPData::graphingEnabled() {
-  return (bool) readNumConfig(GRAPH_GRP, GENABLED, true);
+  if(config) {
+    config->setGroup(GRAPH_GRP);
+    return config->readBoolEntry(GENABLED, true);
+  }
+  else return true;
 }
 
 
