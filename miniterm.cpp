@@ -37,6 +37,7 @@
 #include <kglobalsettings.h>
 #include <kapplication.h>
 #include <kmenubar.h>
+#include <kstdguiitem.h>
 
 #include <qlayout.h>
 #include <qlabel.h>
@@ -69,7 +70,7 @@ MiniTerm::MiniTerm(QWidget *parent, const char *name)
   menubar = new KMenuBar(this);
   menubar->insertItem( i18n("&File"), m_file );
   menubar->insertItem( i18n("&Modem"), m_options );
-  menubar->insertItem( i18n("&Help"), m_help->menu());
+  menubar->insertItem( KStdGuiItem::help().text(), m_help->menu());
 
   statusbar = new QLabel(this);
   statusbar->setFrameStyle(QFrame::Panel | QFrame::Sunken);
