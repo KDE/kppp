@@ -30,18 +30,18 @@
 
 #include <qdialog.h>
 #include <qpixmap.h>
-#include <qlayout.h>
-#include <qpopupmenu.h>
-#include <qlabel.h>
 #include <qevent.h>
-#include <qtimer.h>
-#include <qframe.h>
 #include <qmultilineedit.h>
-#include <qtooltip.h>
-
 #include <ktoolbar.h>
-#include <kmenubar.h>
+
 class KHelpMenu;
+
+class QTimer;
+class QMenuBar;
+class KToolBar;
+class KHelpMenu;
+class QPushButton;
+class QLabel;
 
 class MyTerm : public QMultiLineEdit {
   Q_OBJECT

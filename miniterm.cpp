@@ -36,6 +36,13 @@
 #include <kpopupmenu.h>
 #include <kglobalsettings.h>
 #include <kapplication.h>
+#include <kmenubar.h>
+
+#include <qlayout.h>
+#include <qlabel.h>
+#include <qtimer.h>
+#include <qpopupmenu.h>
+
 
 extern PPPData gpppdata;
 

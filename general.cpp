@@ -38,6 +38,8 @@
 #include "devices.h"
 #include "pppdata.h"
 #include <klocale.h>
+#include <qlayout.h>
+#include <qgrid.h>
 
 /////////////////////////////////////////////////////////////////////////////
 //
