@@ -40,10 +40,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kdebug.h>
-
-#ifndef HAVE_USLEEP
-extern "C" void usleep(); // replacement from kdecore/fakes.cpp
-#endif
+#include <config.h>
 
 static sigjmp_buf jmp_buffer;
 

@@ -88,10 +88,6 @@ private:
   bool modem_is_locked;
 };
 
-#ifndef HAVE_USLEEP
-void usleep (long);
-#endif
-
 #endif
 
 
