@@ -75,7 +75,7 @@
 extern KPPPWidget *p_kppp;
 
 KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
-  : QWidget(parent, name), DCOPObject( "KpppIface" )
+  : DCOPObject( "KpppIface" ), QWidget(parent, name)
   , acct(0)
   , m_bCmdlAccount (false)
 {
