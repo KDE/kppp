@@ -96,7 +96,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   l12->addWidget(use_vol);
 
   // load the pmfolder pixmap from KDEdir
-  pmfolder = BarIcon("folder"); 
+  pmfolder = UserIcon("folder"); 
 
   // scale the pixmap
   if(pmfolder.width() > 0) {
@@ -106,7 +106,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   }
 
   // load the pmfolder pixmap from KDEdir
-  pmfile = BarIcon("phone");
+  pmfile = UserIcon("phone");
 
   // scale the pixmap
   if(pmfile.width() > 0) {

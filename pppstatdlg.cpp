@@ -67,10 +67,10 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *)
   QHBoxLayout *l111 = new QHBoxLayout;
   l11->addLayout(l111);
 
-  big_modem_both_pixmap = BarIcon("modemboth");
-  big_modem_left_pixmap = BarIcon("modemleft");
-  big_modem_right_pixmap = BarIcon("modemright");
-  big_modem_none_pixmap = BarIcon("modemnone");
+  big_modem_both_pixmap = UserIcon("modemboth");
+  big_modem_left_pixmap = UserIcon("modemleft");
+  big_modem_right_pixmap = UserIcon("modemright");
+  big_modem_none_pixmap = UserIcon("modemnone");
 
   pixmap_l = new QLabel(this);
   pixmap_l->setMinimumSize(big_modem_both_pixmap.size());

@@ -48,10 +48,10 @@ DockWidget::DockWidget(QWidget *parent, const char *name)
   : KDockWindow(0L, name) {
 
   // load pixmaps
-  dock_none_pixmap = BarIcon("dock_none");
-  dock_left_pixmap = BarIcon("dock_left");
-  dock_right_pixmap = BarIcon("dock_right");
-  dock_both_pixmap = BarIcon("dock_both");
+  dock_none_pixmap = UserIcon("dock_none");
+  dock_left_pixmap = UserIcon("dock_left");
+  dock_right_pixmap = UserIcon("dock_right");
+  dock_both_pixmap = UserIcon("dock_both");
 
   // popup menu for right mouse button
   popup_m = contextMenu();
