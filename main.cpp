@@ -78,7 +78,7 @@
 #include <kcmdlineargs.h>
 
 static const char *description = 
-	I18N_NOOP("A demo Audio Client for kaudio.");
+	I18N_NOOP("A dialer and front-end to pppd.");
 
 static const char *version = KPPPVERSION "\n"
   "(c) 1997-1999 Bernd Johannes Wuebben "
