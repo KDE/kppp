@@ -688,7 +688,7 @@ void DNSWidget::save() {
   // strip leading dot
   QString s(dnsdomain->text());
   if(s.left(1) == ".")
-    gpppdata.setDomain(dnsdomain->text()+1);
+    gpppdata.setDomain(s.mid(1));
   else
     gpppdata.setDomain(dnsdomain->text());
 
