@@ -106,6 +106,17 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
 		       "\n"
 		       "See <a href=\"#redial\">here</a> for more on this topic."));
 
+  chkBox = new QCheckBox(i18n("Automatic redial on NO &CARRIER"), parent);
+  chkBox->setChecked(gpppdata.get_redial_on_nocarrier());
+  connect(chkBox,SIGNAL(toggled(bool)),
+	  this, SLOT(nocarrier_toggled(bool)));
+  tl->addWidget(chkBox);
+  QWhatsThis::add(chkBox,
+		  i18n("<p>When dialing if modem returns NO CARRIER\n"
+		       "the program will make a new attempt to redial\n"
+		       "instead of waiting for user to click <CANCEL>\n"
+		       "button."));
+
   chkBox = new QCheckBox(i18n("&Show clock on caption"), parent);
   chkBox->setChecked(gpppdata.get_show_clock_on_caption());
   connect(chkBox, SIGNAL(toggled(bool)),
@@ -171,6 +182,9 @@ void GeneralWidget::redial_toggled(bool on){
   gpppdata.set_automatic_redial(on);
 }
 
+void GeneralWidget::nocarrier_toggled(bool on){
+  gpppdata.set_redial_on_nocarrier(on);
+}
 
 void GeneralWidget::xserver_toggled(bool on){
   gpppdata.set_xserver_exit_disconnect(on);

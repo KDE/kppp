@@ -47,6 +47,7 @@ private slots:
   void 	caption_toggled(bool);
   void  iconify_toggled(bool on);
   void 	redial_toggled(bool on);
+  void 	nocarrier_toggled(bool on);
   void 	xserver_toggled(bool on);
   void  quit_toggled(bool);
   void  docking_toggled(bool on);

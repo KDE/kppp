@@ -224,6 +224,10 @@ bool PPPData::get_xserver_exit_disconnect() {
   return (bool) readNumConfig(GENERAL_GRP, DISCONNECT_KEY, true);
 }
 
+bool PPPData::get_redial_on_nocarrier() {
+  return (bool) readNumConfig(GENERAL_GRP, REDIALONNOCARR_KEY, false);
+}
+
 
 void PPPData::setPPPDebug(bool set) {
   writeConfig(GENERAL_GRP, PPP_DEBUG_OPTION, (int)set);
@@ -237,6 +241,10 @@ bool PPPData::getPPPDebug() {
 
 void PPPData::set_xserver_exit_disconnect(bool set) {
   writeConfig(GENERAL_GRP, DISCONNECT_KEY, (int) set);
+}
+
+void PPPData::set_redial_on_nocarrier(bool set) {
+  writeConfig(GENERAL_GRP, REDIALONNOCARR_KEY, (int) set);
 }
 
 

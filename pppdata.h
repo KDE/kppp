@@ -71,6 +71,7 @@ class KConfig;
 #define DISCONNECT_KEY     "DisconnectOnXServerExit"
 #define QUITONDISCONNECT_KEY "QuitOnDisconnect"
 #define NUMACCOUNTS_KEY    "NumberOfAccounts"
+#define REDIALONNOCARR_KEY "RedialOnNoCarrier"
 #define ID_KEY		   "ID"
 
 // modem
@@ -193,6 +194,9 @@ public:
 
   void set_xserver_exit_disconnect(bool set);
   bool get_xserver_exit_disconnect();
+
+  void set_redial_on_nocarrier(bool set);
+  bool get_redial_on_nocarrier();
 
   void setPPPDebug(bool set);
   bool getPPPDebug();

@@ -451,11 +451,32 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
     }
 
     if(readbuffer.contains(gpppdata.modemNoCarrierResp())) {
-      timeout_timer->stop();
+      if (gpppdata.get_redial_on_nocarrier()) {
+        timeout_timer->stop();
+        timeout_timer->start(gpppdata.modemTimeout()*1000);
 
-      messg->setText(i18n("No Carrier"));
-      vmain = 20;
-      Modem::modem->unlockdevice();
+        if(gpppdata.busyWait() > 0) {
+	  QString bm = i18n("No carrier. Waiting: %1 seconds").arg(gpppdata.busyWait());
+	  messg->setText(bm);
+	  emit debugMessage(bm);
+
+	  pausing = true;
+
+	  pausetimer->start(gpppdata.busyWait()*1000, true);
+	  timeout_timer->stop();
+        }
+
+        Modem::modem->setDataMode(false);
+        vmain = 0;
+        substate = -1;
+        return;
+      } else {
+        timeout_timer->stop();
+
+        messg->setText(i18n("No Carrier"));
+        vmain = 20;
+        Modem::modem->unlockdevice();
+      }
       return;
     }
 
