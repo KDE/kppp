@@ -45,6 +45,7 @@
 #include <klocale.h>
 #include <kstddirs.h>
 #include <kglobal.h>
+#include <kaboutdata.h>
 #include <kconfig.h>
 #include <kmessagebox.h>
 #include <qdir.h>
@@ -286,9 +287,17 @@ int main( int argc, char **argv ) {
 
   (void) new Requester(sockets[0]);
 
-  KCmdLineArgs::init(argc, argv, "kppp", description, version);
-
+  KAboutData aboutData( argv[0], I18N_NOOP("KPPP"),
+    version, description, KAboutData::License_GPL,
+    "(c) 1999-2000, The KPPP Developers");
+  aboutData.addAuthor("Bernd Wuebben",0, "wuebben@kde.org");
+  aboutData.addAuthor("Mario Weilguni",0, "mweilguni@kde.org");
+  aboutData.addAuthor("Harri Porten",0, "porten@kde.org");
+  
+  KCmdLineArgs::init( argc, argv, &aboutData );
   KCmdLineArgs::addCmdLineOptions( option );
+  
+
 
   KApplication a;
 
