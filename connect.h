@@ -52,6 +52,7 @@ public:
 public:
   void set_con_speed_string();
   void setMsg(const QString &);
+  void pppdDied();
 
 protected:
   void timerEvent(QTimerEvent *);

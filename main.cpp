@@ -832,6 +832,7 @@ void KPPPWidget::sigPPPDDied() {
         gpppdata.setpppdError(E_PPPD_DIED);
       removedns();
       Modem::modem->unlockdevice();
+      con->pppdDied();
 
       if(!gpppdata.automatic_redial()) {
 	quit_b->setFocus();

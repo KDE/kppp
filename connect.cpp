@@ -902,6 +902,7 @@ void ConnectWidget::cancelbutton() {
   Modem::modem->stop();
   killTimer(main_timer_ID);
   timeout_timer->stop();
+  if_timer->stop();
   if_timeout_timer->stop();
 
   if (termwindow) {
@@ -1010,6 +1011,11 @@ void ConnectWidget::if_waiting_timed_out() {
   // reconnect_on_disconnect which is set in ConnectWidget::init();
 }
 
+void ConnectWidget::pppdDied()
+{
+  if_timer->stop();
+  if_timeout_timer->stop();
+}
 
 void ConnectWidget::if_waiting_slot() {
   messg->setText(i18n("Logging on to Network ..."));
@@ -1018,8 +1024,7 @@ void ConnectWidget::if_waiting_slot() {
 
     if(gpppdata.pppdError() != 0) {
       // we are here if pppd died immediately after starting it.
-
-      if_timer->stop();
+      pppdDied();
       // error message handled in main.cpp: sigPPPDDied()
       return;
     }
