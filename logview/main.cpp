@@ -29,6 +29,7 @@
 #include <kaboutdata.h>
 #include <kpushbutton.h>
 #include <kstdguiitem.h>
+#include <kiconloader.h>
 
 #define F_EXIT     101
 
@@ -68,10 +69,10 @@ TopWidget::TopWidget() : KMainWindow(0, "") {
     // create menu
     mb = new KMenuBar(this);
     QPopupMenu *fm = new QPopupMenu;
-    fm->insertItem(i18n("E&xit"), F_EXIT);
+    fm->insertItem(SmallIcon("exit"),KStdGuiItem::quit().text(), F_EXIT);
     mb->insertItem(i18n("&File"), fm);
 
-    mb->setAccel(CTRL + Key_X, F_EXIT);
+    mb->setAccel(CTRL + Key_Q, F_EXIT);
     connect(mb, SIGNAL(activated(int)),
 	    this, SLOT(menuCallback(int)));
   } else {
