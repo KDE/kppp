@@ -1,3 +1,7 @@
+2001-11-26  Harri Porten  <porten@kde.org>
+
+	* applied patch for USB modems by Oliver Gantz <Oliver.Gantz@epost.de>
+
 2001-11-23  Harri Porten  <porten@kde.org>
 
 	* connect.cpp: finally implemented often requested feature:

@@ -203,7 +203,7 @@ void Opener::mainLoop() {
 	device = deviceByIndex(request.lock.deviceNum);
 	MY_ASSERT(strlen(LOCK_DIR)+strlen(device) < MaxPathLen);
 	strncpy(lockfile, LOCK_DIR"/LCK..", MaxPathLen);
-	strncat(lockfile, device + strlen("/dev/"),
+	strncat(lockfile, strrchr(device, '/') + 1,
 		MaxPathLen - strlen(lockfile));
 	lockfile[MaxPathLen] = '\0';
 	response.status = 0;
