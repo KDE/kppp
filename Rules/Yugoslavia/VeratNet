@@ -1,0 +1,23 @@
+# KDE Config File
+AccountingEnabled=0
+AccountingFile=
+Authentication=1
+AutoName=0
+Command=
+DNS=212.200.40.2,
+DefaultRoute=1
+DisconnectCommand=
+Domain=verat.net
+ExDNSDisabled=0
+Gateway=0.0.0.0
+IPAddr=%IPADDR%
+Name=VeratNet
+Password=%PASSWORD%
+ScriptArguments=ogin:,%USERNAME%,assword:,%PASSWORD%,
+ScriptCommands=Expect,Send,Expect,Send,
+StorePassword=1
+SubnetMask=0.0.0.0
+Username=%USERNAME%
+VolumeAccountingEnabled=0
+pppdArguments=
+Phonenumber=3060606

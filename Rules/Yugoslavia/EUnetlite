@@ -1,0 +1,23 @@
+# KDE Config File
+AccountingEnabled=0
+AccountingFile=
+Authentication=1
+AutoName=0
+Command=
+DNS=194.247.192.33,194.247.192.1,
+DefaultRoute=1
+DisconnectCommand=
+Domain=eunet.yu
+ExDNSDisabled=0
+Gateway=0.0.0.0
+IPAddr=%IPADDR%
+Name=EUnet@Lite
+Password=%PASSWORD%
+ScriptArguments=ogin:,%USERNAME%@lite,assword:,%PASSWORD%,
+ScriptCommands=Expect,Send,Expect,Send,
+StorePassword=1
+SubnetMask=0.0.0.0
+Username=%USERNAME%
+VolumeAccountingEnabled=0
+pppdArguments=
+Phonenumber=3010101:3020202:3105050:184212:186444:2352500:3281249
