@@ -388,9 +388,6 @@ public:
   bool pppdRunning() const;
   void setpppdRunning(bool set);
 
-  pid_t suidChildPid() const;
-  void setSuidChildPid(pid_t);
-
   int pppdError() const;
   void setpppdError(int err);
 

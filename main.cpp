@@ -111,6 +111,8 @@ bool TESTING=0;
 
 // initial effective user id before possible suid status is dropped
 uid_t euid;
+// helper process' pid
+pid_t helperPid = -1;
 
 QString local_ip_address;
 QString remote_ip_address;
@@ -242,13 +244,12 @@ int main( int argc, char **argv ) {
   // you're doing. We're most likely running setuid root here,
   // until we drop this status a few lines below.
   int sockets[2];
-  pid_t fpid;
   if(socketpair(AF_UNIX, SOCK_DGRAM, 0, sockets) != 0) {
     fprintf(stderr, "error creating socketpair !\n");
-    exit(1);
+    return 1;
   }
 
-  switch(fpid = fork()) {
+  switch(helperPid = fork()) {
   case 0:
     // child process
     // make process leader of new group
@@ -272,9 +273,13 @@ int main( int argc, char **argv ) {
   euid = geteuid();
   setgid(getgid());
   setuid(getuid());
+
   //
   // end of setuid-dropping block.
   // 
+
+  // install exit handler that will kill the helper process
+  atexit(myShutDown);
 
   if(getHomeDir() != 0)
     setenv("HOME", getHomeDir(), 1); 
@@ -284,10 +289,6 @@ int main( int argc, char **argv ) {
   KCmdLineArgs::init(argc, argv, "kppp", description, version);
 
   KCmdLineArgs::addCmdLineOptions( option );
-#warning WABA: KCmdLineArgs may do an exit() during command line parsing! 
-// myShutDown() will not be called in that case.
-// A possible solution would be to install myShutDown as an exit handler.
-// See man 3 atexit for details.
 
   KApplication a;
 
@@ -297,9 +298,7 @@ int main( int argc, char **argv ) {
   // open configuration file
   gpppdata.open();
 
-  // store id of fork()'ed process
-  gpppdata.setSuidChildPid(fpid);
-  Debug("suidChildPid: %i\n", (int) gpppdata.suidChildPid());
+  Debug("helperPid: %i\n", (int) helperPid);
 
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
@@ -307,9 +306,8 @@ int main( int argc, char **argv ) {
   bool terminate_connection = args->isSet("k");
   quit_on_disconnect = args->isSet("q");
   if (args->isSet("r"))
-  {
-    myShutDown(RuleSet::checkRuleFile(args->getOption("r")));
-  }
+    return RuleSet::checkRuleFile(args->getOption("r"));
+
   TESTING = args->isSet("T");
   
   if(!cmdl_account.isEmpty()) {
@@ -332,7 +330,7 @@ int main( int argc, char **argv ) {
   if(pid < 0) {
     msg = i18n("kppp can't create or read from\n%1.").arg(pidfile);
     KMessageBox::error(0L, msg);
-    myShutDown(1);
+    return 1;
   }
   
   if (terminate_connection) {
@@ -342,7 +340,7 @@ int main( int argc, char **argv ) {
       kill(pid, SIGINT);
     else
       remove_pidfile();
-    myShutDown(0);
+    return 0;
   }
   
   // Mario: testing
@@ -355,7 +353,7 @@ int main( int argc, char **argv ) {
     printf("%s\n", s.data());
 
     remove_pidfile();
-    exit(0);
+    return 0;
   }
 
   if (pid > 0) {
@@ -366,7 +364,7 @@ int main( int argc, char **argv ) {
                      "kppp,\ndelete the pid file, and restart kppp.")
                 .arg(pidfile).arg(pid);
     QMessageBox::warning(0L, i18n("Error"), msg, i18n("Exit"));
-    myShutDown(1);
+    return 1;
   }
   
   KPPPWidget kppp;
@@ -395,8 +393,7 @@ int main( int argc, char **argv ) {
 
   remove_pidfile();
 
-  myShutDown(ret); // okay ?
-  return 0; // never reached, prevent warning
+  return ret;
 }
 
 
@@ -411,7 +408,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   int result = runTests();
   if(result == TEST_CRITICAL)
-    myShutDown(4);
+    exit(4);
 
   installEventFilter(this);
 
@@ -845,15 +842,15 @@ void KPPPWidget::sigChld() {
   Debug("sigchld()");
   pid_t id = wait(0L);
 
-  if(id == gpppdata.suidChildPid() && gpppdata.suidChildPid() != -1) {
+  if(id == helperPid && helperPid != -1) {
     Debug("It was the setuid child that died");
-    gpppdata.setSuidChildPid(-1);
+    helperPid = -1;
     QString msg = i18n("Sorry. kppp's helper process just died.\n\n"
                        "Since a further execution would be pointless, "
                        "kppp will shut down right now.");
     KMessageBox::error(0L, msg);
     remove_pidfile();
-    myShutDown(1);
+    exit(1);
   }
 }
 
@@ -1229,18 +1226,17 @@ bool remove_pidfile() {
 }
 
 
-void myShutDown(int status) {
+void myShutDown() {
   pid_t pid;
   // don't bother about SIGCHLDs anymore
   signal(SIGCHLD, SIG_IGN);
   Debug("myShutDown(%i)", status);
-  pid = gpppdata.suidChildPid();
+  pid = helperPid;
   if(pid > 0) {
-    gpppdata.setSuidChildPid(-1);
+    helperPid = -1;
     Debug("killing child process %i", pid);
     kill(pid, SIGKILL);
   }
-  exit(status);
 }
 
 #include "main.moc"
