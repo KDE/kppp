@@ -1,9 +1,9 @@
-<!DOCTYPE book PUBLIC  "-//KDE//DTD DocBook V3.1-Based Variant V1.0//EN" [
+<?xml version="1.0" ?><!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.1-Based Variant V1.0//EN" "dtd/kdex.dtd" [
   <!ENTITY kappname "&kppp;">
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % English "INCLUDE" -- change language only here -->
-  <!ENTITY % ents PUBLIC "-//KDE//ENTITIES Documentation V1.0//EN">
-  %ents;
+  <!ENTITY % English "INCLUDE" > <!-- change language only here -->
+  
+  
 ]>
 
 <book lang="&language;">
@@ -144,7 +144,7 @@ Dialer</guimenuitem>.</para>
 <screeninfo>The &kppp; dialer startup screen</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="kppp-dialler-tab.png" format="PNG">
+<imagedata fileref="kppp-dialler-tab.png" format="PNG"/>
 </imageobject>
 <textobject><phrase>The &kppp; dialer startup screen</phrase>
 </textobject>
@@ -165,7 +165,7 @@ Internet connection.</para>
 <screeninfo>The wizard asks you what you want to do...</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="kppp-wizard.png" format="PNG">
+<imagedata fileref="kppp-wizard.png" format="PNG"/>
 </imageobject>
 <textobject><phrase>The wizard asks you what you want to
 do...</phrase></textobject>
@@ -262,7 +262,7 @@ Dialler</guimenuitem>.</para>
 <screeninfo>The &kppp; dialer startup screen</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="kppp-dialler-tab.png" format="PNG">
+<imagedata fileref="kppp-dialler-tab.png" format="PNG"/>
 </imageobject>
 <textobject><phrase>The &kppp; dialer startup screen</phrase>
 </textobject>
@@ -283,7 +283,7 @@ following Dialog appear:</para>
 <screeninfo>The <guilabel>New Account</guilabel> Dialog</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="kppp-account-dial-tab.png" format="PNG">
+<imagedata fileref="kppp-account-dial-tab.png" format="PNG"/>
 </imageobject>
 <textobject>
 <phrase>The <guilabel>New Account</guilabel> Dialog</phrase>
@@ -335,7 +335,7 @@ described in the following sections.</para>
 <screeninfo>The Accounts <guilabel>Dial</guilabel> tab</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="kppp-account-dial-tab.png" format="PNG">
+<imagedata fileref="kppp-account-dial-tab.png" format="PNG"/>
 </imageobject>
 <textobject>
 <phrase>The Accounts <guilabel>Dial</guilabel> tab</phrase>
@@ -375,7 +375,7 @@ the list.</para>
 <para>Choose the appropriate method of authentication that &kppp; should use to
 log into the server.  Check with your provider for more information.  Use of
 <acronym>PAP</acronym> and <acronym>CHAP</acronym> are described in the chapter
-<xref linkend="chap-and-pap">.</para>
+<xref linkend="chap-and-pap"/>.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -406,7 +406,7 @@ doing, you should probably restrain yourself from tinkering with these.</para>
 <screeninfo>The Accounts <guilabel>IP</guilabel> tab</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="kppp-account-ip-tab.png" format="PNG">
+<imagedata fileref="kppp-account-ip-tab.png" format="PNG"/>
 </imageobject>
 <textobject>
 <phrase>The Accounts <guilabel>IP</guilabel> tab</phrase>
@@ -469,7 +469,7 @@ open any more <acronym>GUI</acronym> programs.</para>
 <screeninfo>The Accounts <guilabel>Gateway</guilabel> tab</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="kppp-account-gateway-tab.png" format="PNG">
+<imagedata fileref="kppp-account-gateway-tab.png" format="PNG"/>
 </imageobject>
 <textobject>
 <phrase>The Accounts <guilabel>Gateway</guilabel> tab</phrase>
@@ -511,7 +511,7 @@ default.</para>
 <screeninfo>The Accounts <guilabel>DNS</guilabel> tab</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="kppp-account-dns-tab.png" format="PNG">
+<imagedata fileref="kppp-account-dns-tab.png" format="PNG"/>
 </imageobject>
 <textobject>
 <phrase>The Accounts <guilabel>DNS</guilabel> tab</phrase>
@@ -577,7 +577,7 @@ remains up.</para>
 <screeninfo>The Accounts <guilabel>Login Script</guilabel> tab</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="kppp-account-login-script-tab.png" format="PNG">
+<imagedata fileref="kppp-account-login-script-tab.png" format="PNG"/>
 </imageobject>
 <textobject>
 <phrase>The Accounts <guilabel>Login Script</guilabel> tab</phrase>
@@ -859,7 +859,7 @@ keywords.</para>
 <screeninfo>The Accounts <guilabel>Execute</guilabel> tab</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="kppp-account-execute-tab.png" format="PNG">
+<imagedata fileref="kppp-account-execute-tab.png" format="PNG"/>
 </imageobject>
 <textobject>
 <phrase>The Accounts <guilabel>Execute</guilabel> tab</phrase>
@@ -925,7 +925,7 @@ you have disconnected.</para>
 <screeninfo>The Accounts <guilabel>Accounting</guilabel> tab</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="kppp-account-accounting-tab.png" format="PNG">
+<imagedata fileref="kppp-account-accounting-tab.png" format="PNG"/>
 </imageobject>
 <textobject>
 <phrase>The Accounts <guilabel>Accounting</guilabel> tab</phrase>
@@ -1023,7 +1023,7 @@ least &kppp; will never underestimate your bills.</para>
 <screeninfo>The <guilabel>Accounts</guilabel> tab</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="kppp-config.png" format="PNG">
+<imagedata fileref="kppp-config.png" format="PNG"/>
 </imageobject>
 <textobject>
 <phrase>The <guilabel>Accounts</guilabel> tab</phrase>
@@ -1083,7 +1083,7 @@ why!</para>
 <screeninfo>The <guilabel>Device</guilabel> tab</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="kppp-device-tab.png" format="PNG">
+<imagedata fileref="kppp-device-tab.png" format="PNG"/>
 </imageobject>
 <textobject>
 <phrase>The <guilabel>Device</guilabel> tab</phrase>
@@ -1201,7 +1201,7 @@ unexpectedly</errorname>.</para>
 <screeninfo>The <guilabel>Modem</guilabel> tab</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="kppp-modem-tab.png" format="PNG">
+<imagedata fileref="kppp-modem-tab.png" format="PNG"/>
 </imageobject>
 <textobject>
 <phrase>The <guilabel>Modem</guilabel> tab</phrase>
@@ -1276,7 +1276,7 @@ with the negotiation protocol for initialising a ppp connection with your
 <screeninfo>The <guilabel>Graph</guilabel> tab</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="kppp-graph-tab.png" format="PNG">
+<imagedata fileref="kppp-graph-tab.png" format="PNG"/>
 </imageobject>
 <textobject>
 <phrase>The <guilabel>Graph</guilabel> tab</phrase>
@@ -1300,7 +1300,7 @@ bytes color</guilabel>.</para>
 <screeninfo>The <guilabel>Misc.</guilabel> tab</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="kppp-misc-tab.png" format="PNG">
+<imagedata fileref="kppp-misc-tab.png" format="PNG"/>
 </imageobject>
 <textobject>
 <phrase>The <guilabel>Misc.</guilabel> tab</phrase>
@@ -3031,7 +3031,7 @@ This is a control code that most communication software translates as
        <entry>Hayes Smartmodem 300 compatible result codes</entry>
       </row>
       <row>
-       <entry><anchor id="hayes-basic-x1"><command>X1</command></entry>
+       <entry><anchor id="hayes-basic-x1"/><command>X1</command></entry>
        <entry></entry>
        <entry>Usually adds connection speed to basic result codes (&eg;
        <computeroutput>CONNECT 1200</computeroutput></entry>
@@ -3557,7 +3557,7 @@ reliable connection. Again, this is the mode that most modems use.</para>
        linkend="hayes-basic-x1">X<replaceable>n</replaceable></link></entry>
       </row>
      <row>
-       <entry><anchor id="hayes-s7"><varname>S7</varname></entry>
+       <entry><anchor id="hayes-s7"/><varname>S7</varname></entry>
        <entry>1-255 seconds</entry>
        <entry>30-60</entry>
        <entry>Wait time for remote carrier</entry>
@@ -3617,7 +3617,7 @@ reliable connection. Again, this is the mode that most modems use.</para>
        <entry>Negotiation Failure Treatment</entry>
       </row>
       <row>
-       <entry><anchor id="hayes-s37"><varname>S37</varname></entry>
+       <entry><anchor id="hayes-s37"/><varname>S37</varname></entry>
        <entry><itemizedlist>
 	 <listitem><para><returnvalue>1</returnvalue> = 300 bps</para>
 	 </listitem>
@@ -3827,3 +3827,4 @@ sgml-minimize-attributes: nil
 sgml-general-insert-case: lower
 End:
 -->
+
