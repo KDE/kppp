@@ -258,7 +258,7 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem, const char *name)
 
   flowcontrol = new QComboBox(false, parent);
   label2->setBuddy(flowcontrol);
-  flowcontrol->insertItem(i18n("Hardware [CRTSCTS]"));
+  flowcontrol->insertItem(i18n("Hardware [CRTSCTS]")); // sync with pppdata.cpp
   flowcontrol->insertItem(i18n("Software [XON/XOFF]"));
   flowcontrol->insertItem(i18n("None"));
   tl->addWidget(flowcontrol, 2, 1);
@@ -386,7 +386,7 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem, const char *name)
 // Set defaults if editing an existing connection
   if(!isnewmodem) {
     connectname_l->setText(gpppdata.modname());
-  
+
   //set stuff from gpppdata
   for(int i=0; i <= enter->count()-1; i++) {
     if(gpppdata.enter() == enter->text(i))
@@ -398,24 +398,24 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem, const char *name)
       modemdevice->setCurrentItem(i);
   }
 
-  for(int i=0; i <= flowcontrol->count()-1; i++) {
+  for(int i=0; i <= flowcontrol->count()-1; i++)
     if(gpppdata.flowcontrol() == flowcontrol->text(i))
       flowcontrol->setCurrentItem(i);
-			
+
 	//set the modem speed
   for(int i=0; i < baud_c->count(); i++)
     if(baud_c->text(i) == gpppdata.speed())
-      baud_c->setCurrentItem(i);			
-  }
-	} else {
+      baud_c->setCurrentItem(i);
+
+  } else {
 	//Set the standard Items
 		enter->setCurrentItem(0);
 		modemdevice->setCurrentItem(0);
 		flowcontrol->setCurrentItem(0);
-		baud_c->setCurrentItem(0);			
+		baud_c->setCurrentItem(0);
 	}
-	
-  tl->setRowStretch(7, 1); 
+
+  tl->setRowStretch(7, 1);
 }
 
 bool ModemWidget::save()
@@ -556,7 +556,7 @@ ModemWidget2::ModemWidget2(QWidget *parent, bool isnewmodem, const char *name)
 	  SLOT(query_modem()));
   connect(terminal_button, SIGNAL(clicked()),
 	  SLOT(terminal()));
-		
+
 		// Create the Modem Command so if the window is not opened they are autosaved anyway
 	mc = new ModemCommands(this);
 }
