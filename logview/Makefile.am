@@ -31,19 +31,19 @@ INCLUDES= $(all_includes)
 bin_PROGRAMS = 	kppplogview
 
 # Which sources should be compiled for kppp.
-kppplogview_SOURCES =	main.cpp loginfo.cpp log.cpp monthly.cpp
+kppplogview_SOURCES =	main.cpp loginfo.cpp log.cpp monthly.cpp export.cpp
 
 # the library search path
 kppplogview_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 
 # the libraries to link against. Be aware of the order. First the libraries,
 # that depend on the following ones.
-kppplogview_LDADD = -lm $(LIB_KDEUI)
+kppplogview_LDADD = -lm $(LIB_KDEUI) $(LIB_KFILE)
 
 # this option you can leave out. Just, if you use "make dist", you need it
-noinst_HEADERS = loginfo.h log.h monthly.h main.h
+noinst_HEADERS = export.h loginfo.h log.h monthly.h main.h
 
-METASOURCES = main.moc monthly.moc
+METASOURCES = main.moc monthly.moc export.moc
 
 messages:
 	$(XGETTEXT) *.cpp *.h -o $(podir)/kppplogview.pot

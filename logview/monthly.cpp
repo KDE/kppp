@@ -20,12 +20,16 @@
 
 #include <qpainter.h>
 #include <qcombobox.h>
-
+#include <qfile.h>
 #include <klocale.h>
 #include <kglobal.h>
 #include <klistview.h>
+#include <qcombobox.h>
+#include <kdebug.h>
+#include <kmessagebox.h>
 
 #include "monthly.h"
+#include "export.h"
 
 static void formatBytes(int bytes, QString &result) {
   if(bytes < 1024)
@@ -155,10 +159,12 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
 	  this, SLOT(slotConnections(int)));
 
   bbox = new KButtonBox(this, Qt::Vertical);
-  prev = bbox->addButton(i18n("Prev Month"));
-  next = bbox->addButton(i18n("Next Month"));
+  prev = bbox->addButton(i18n("Prev month"));
+  next = bbox->addButton(i18n("Next month"));
   bbox->addStretch(1);
-  today = bbox->addButton(i18n("Current Month"));
+  today = bbox->addButton(i18n("Current month"));
+  bbox->addStretch(1);
+  exportBttn = bbox->addButton(i18n("Export..."));
 
   connect(prev, SIGNAL(released()),
 	  this, SLOT(prevMonth()));
@@ -166,6 +172,8 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
 	  this, SLOT(nextMonth()));
   connect(today, SIGNAL(released()),
 	  this, SLOT(currentMonth()));
+  connect(exportBttn, SIGNAL(clicked()),
+	  this, SLOT(exportWizard()));
 
   bbox->addStretch(8);
   bbox->layout();
@@ -206,6 +214,9 @@ void MonthlyWidget::plotMonth() {
 		      i18n("October"),
 		      i18n("November"),
 		      i18n("December")};
+
+  // current showed month
+  currMonth = months[_month-1];
 
   // name of the current connection
   QString con;
@@ -316,14 +327,17 @@ void MonthlyWidget::plotMonth() {
   }
 
   QString t;
-  if(lv->childCount() > 0)
+  if(lv->childCount() > 0) {
+    exportBttn->setEnabled(true); // export possibility
     t = i18n("Connection log for %1 %2")
 	      .arg(months[_month-1])
 	      .arg(_year);
-  else
+  } else {
+    exportBttn->setEnabled(false); // nothing to export
     t = i18n("No connection log for %1 %2 available")
 	      .arg(months[_month-1])
 	      .arg(_year);
+  }
 
   title->setText(t);
 }
@@ -355,6 +369,196 @@ void MonthlyWidget::currentMonth() {
   _year  = QDate::currentDate().year();
   plotMonth();
 }
+
+void MonthlyWidget::exportWizard() {
+  QString date = QString(currMonth+"-%1").arg(_year);  // e.g.: June-2001
+
+  ExportWizard *wizard =new ExportWizard(0, date);
+  wizard->exec();
+  if (wizard->filename.isEmpty()) { // wizard aborted...
+    return;
+  }
+  if (QFile::exists(wizard->filename)) {  // overwrite?
+    if (KMessageBox::Continue!=KMessageBox::warningContinueCancel(0, i18n("A Document with this Name already exists."), i18n("Overwrite file?"), i18n("Overwrite") /*, true*/)) { // no
+      return;
+    }
+  }
+
+  CSVExport  *csv  = new CSVExport(wizard->filename, ";");
+  HTMLExport *html = new HTMLExport(wizard->filename, date);
+
+  bool openError = false;
+  switch (wizard->typeID) {  // call export-format specific methods
+    case 0: { /* CSV */
+      if (!csv->openFile()) {  // error opening
+        openError = true;
+        break;
+      }
+      // File header
+      csv->addDataline(i18n("Connection"), i18n("Day"), i18n("From"), i18n("Until"),
+                       i18n("Duration"), i18n("Costs"), i18n("Bytes in"), i18n("Bytes out") );
+      break;
+    }
+    case 1: { /* HTML */
+      if (!html->openFile()) {
+        openError = true;
+        break;
+      }
+      // File header
+      html->addDataline("<b>"+i18n("Connection")+"</b>", "<b>"+i18n("Day")+"</b>", "<b>"+i18n("From")+"</b>", "<b>"+i18n("Until")+"</b>",
+             "<b>"+i18n("Duration")+"</b>", "<b>"+i18n("Costs")+"</b>", "<b>"+i18n("Bytes in")+"</b>", "<b>"+i18n("Bytes out")+"</b>" );
+      break;
+    }
+  }
+  if (openError) { // error msg.
+    KMessageBox::sorry(0, i18n("An Error occured while trying to open this file"), i18n("Sorry"), true);
+    return; // abort...
+  }
+
+  // name of the current connection
+  QString con;
+
+  // for collecting monthly statistics
+  int count = 0;
+  double costs = 0;
+  int bin = 0, bout = 0;
+  int duration = 0;
+
+  for(int i = 0; i < (int)logList.count(); i++) {
+    LogInfo *li = logList.at(i);
+
+    if(li->from().date().month() == _month && li->from().date().year() == _year) {
+      // get connection name for this line
+      con = li->connectionName();
+
+      // this connection name not in the list and combo box
+      if(lstConnections.findIndex(con) == -1) {
+	lstConnections.append(con);
+        cboConnections->insertItem(con);
+      }
+      // if all connections or the selected one
+      if(cboConnections->currentText() != con &&
+	cboConnections->currentItem() != 0)
+        continue;
+
+      count++;
+      costs += li->sessionCosts();
+      if(bin >= 0) {
+        if(li->bytesIn() < 0)
+          bin = -1;
+        else
+          bin += li->bytesIn();
+      }
+
+      if(bout >= 0) {
+        if(li->bytesOut() < 0)
+          bout = -1;
+        else
+          bout += li->bytesOut();
+      }
+
+      duration += li->from().secsTo(li->until());
+
+      QString _bin, _bout, b;
+      if(li->bytesIn() >= 0)
+        formatBytes(li->bytesIn(), _bin);
+      else
+        _bin = i18n("n/a");
+
+      if(li->bytesOut() >= 0)
+        formatBytes(li->bytesOut(), _bout);
+      else
+        _bout = i18n("n/a");
+
+      if(li->bytes() > 0)
+        formatBytes(li->bytes(), b);
+      else
+        b = i18n("n/a");
+
+      QString day;
+      day.sprintf("%2d", li->from().date().day());
+      QString con = li->connectionName();
+
+      QString s_duration;
+      formatDuration(li->from().secsTo(li->until()),
+                     s_duration);
+
+      QString s_lifrom, s_liuntil, s_costs;
+      s_lifrom = KGlobal::locale()->formatTime(li->from().time(), false);
+      s_liuntil = KGlobal::locale()->formatTime(li->until().time(), false);
+      s_costs.sprintf("%6.2f",
+                      li->sessionCosts());
+
+      switch (wizard->typeID) { // call export-format specific methods
+        case 0: { /* CSV */
+          csv->addDataline(con, day, s_lifrom, s_liuntil, s_duration,
+                           s_costs, _bin, _bout);
+          break;
+        }
+        case 1: { /* HTML */
+          html->addDataline(con, day, s_lifrom, s_liuntil, s_duration,
+                            s_costs, _bin, _bout);
+          break;
+        }
+      }
+    }
+  }
+
+  if(count) {
+    QString _bin, _bout, _b;
+
+    if(bin < 0)
+      _bin = i18n("n/a");
+    else
+      formatBytes(bin, _bin);
+
+    if(bout < 0)
+      _bout = i18n("n/a");
+    else
+      formatBytes(bout, _bout);
+
+    if(bin < 0 || bout < 0)
+      _b = i18n("n/a");
+    else
+      formatBytes(bout + bin, _b);
+
+    QString s_duration;
+    formatDuration(duration,
+                   s_duration);
+
+    QString s_costs;
+    s_costs.sprintf("%6.2f", costs);
+
+    bool writeError = false;
+    switch (wizard->typeID) { // call format specific output methods
+      case 0: { /* CSV */
+        csv->addDataline(i18n("%1 connections").arg(count), QString::null, QString::null, QString::null, s_duration,
+                         s_costs, _bin, _bout);
+        // write buffer to file and close file
+        if (!csv->closeFile())  {
+          writeError=true;
+        }
+        break;
+      }
+      case 1: { /* HTML */
+        html->addDataline("&nbsp;", "&nbsp;", "&nbsp;", "&nbsp;", "&nbsp;", "&nbsp;", "&nbsp;", "&nbsp;");
+        html->addDataline(i18n("%1 connections").arg(count), QString::null, QString::null, QString::null, s_duration,
+                          s_costs, _bin, _bout);
+        html->finishCode();
+        // write buffer to file and close file
+        if (!html->closeFile())  {
+          writeError=true;
+        }
+        break;
+      }
+    }
+    if (writeError) { // error msg.
+      KMessageBox::sorry(0, i18n("An Error occured while trying to write this file"), i18n("Sorry"), true);
+      return;
+    }
+  }
+}
+
 
 
 #include "monthly.moc"

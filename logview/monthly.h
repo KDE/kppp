@@ -43,18 +43,20 @@ private slots:
   void nextMonth();
   void currentMonth();
   void slotConnections(int);
+  void exportWizard();
 
 private:
   void layoutWidget();
   void plotMonth();
 
+  QString currMonth;
   int _month, _year;
 
   QComboBox *cboConnections;  
   KButtonBox *bbox;
   QListView *lv;
   QLabel *title;
-  QPushButton *next, *prev, *today;
+  QPushButton *next, *prev, *today, *exportBttn;
   QValueList<QString> lstConnections;
   QVBoxLayout *tl;
 };
