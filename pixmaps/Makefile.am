@@ -1,11 +1,10 @@
 
 # add here all files
-data_DATA =	Terminal.xpm back.xpm exit.xpm fileopen.xpm \
-		finish.xpm folder.xpm help.xpm kppplogo.xpm modemboth.xpm \
+data_DATA =	Terminal.xpm folder.xpm kppplogo.xpm modemboth.xpm \
 		modemleft.xpm modemnone.xpm modemright.xpm phone.xpm \
-		start.xpm terminal_both.xpm terminal_left.xpm \
+		terminal_both.xpm terminal_left.xpm \
 		terminal_right.xpm dock_none.xpm dock_left.xpm \
-		dock_right.xpm dock_both.xpm exclamation.xpm
+		dock_right.xpm dock_both.xpm
 
 datadir = $(kde_datadir)/kppp/pics
 
