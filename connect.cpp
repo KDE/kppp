@@ -26,10 +26,13 @@
 
 #include <config.h>
 
+#include <qlayout.h>
 #include <qregexp.h>
+
+#include <kapplication.h>
+#include <kdebug.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <kapplication.h>
 
 #include <unistd.h>
 #include <stdlib.h>
@@ -58,18 +61,16 @@
 #endif
 
 #include "auth.h"
-#include "requester.h"
 #include "connect.h"
-#include "main.h"
-#include "pppdata.h"
 #include "docking.h"
+#include "main.h"
 #include "modem.h"
-#include "utils.h"
+#include "pppdata.h"
 #include "pppstats.h"
-#include <kdebug.h>
+#include "requester.h"
+#include "utils.h"
 
 extern KPPPWidget *p_kppp;
-extern bool quit_on_disconnect;
 
 QString old_hostname;
 bool modified_hostname;
@@ -191,7 +192,7 @@ void ConnectWidget::init() {
 
   p_kppp->con_speed = "";
 
-  quit_on_disconnect = quit_on_disconnect || gpppdata.quit_on_disconnect();
+  p_kppp->setQuitOnDisconnect (p_kppp->quitOnDisconnect() || gpppdata.quit_on_disconnect());
 
   comlist = &gpppdata.scriptType();
   arglist = &gpppdata.script();
@@ -972,7 +973,7 @@ void ConnectWidget::cancelbutton() {
   }
   prompt->setConsumed();
 
-  if(quit_on_disconnect)
+  if(p_kppp->quitOnDisconnect())
     kapp->exit(0);
 }
 

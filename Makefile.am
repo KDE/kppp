@@ -16,7 +16,8 @@ SUBDIRS = pixmaps icons logview Rules DB
 bin_PROGRAMS = 	kppp
 
 # Which sources should be compiled for kppp.
-kppp_SOURCES	= general.cpp \
+kppp_SOURCES	= kpppwidget.cpp \
+		general.cpp \
 		accounts.cpp \
 		connect.cpp \
 		conwindow.cpp \
@@ -57,7 +58,8 @@ kppp_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 kppp_LDADD   =       -lm $(LIB_KDEUI)
 
 # this option you can leave out. Just, if you use "make dist", you need it
-noinst_HEADERS = accounts.h \
+noinst_HEADERS = kpppwidget.h \
+		accounts.h \
 		kpppconfig.h \
 		connect.h \
 		conwindow.h \
@@ -102,7 +104,7 @@ METASOURCES = accounting.moc \
 	general.moc \
 	groupbox.moc \
 	loginterm.moc \
-	main.moc \
+	kpppwidget.moc \
 	miniterm.moc \
 	modem.moc \
 	modemcmds.moc \

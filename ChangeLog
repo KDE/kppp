@@ -1,3 +1,9 @@
+2002-01-22  Per Winkvist  <nd96pwt@student.hig.se>
+
+	* Make "Connect To" button default.
+	* Move KPPPWidget in main.cpp to an own file which reduced
+        the size of main.cpp with almost 1000 lines.
+
 2002-01-21 Chris Howells <howells@kde.org>
 	* Made the QMultiLineEdit on the  Login Debug Window
 	   read-only
