@@ -21,6 +21,7 @@
 #include <qpainter.h>
 #include <qcombobox.h>
 #include <qfile.h>
+#include <qheader.h>
 
 #include <kcalendarsystem.h>
 #include <klocale.h>
@@ -34,6 +35,22 @@
 #include <qstringlist.h>
 
 static void formatBytes(int bytes, QString &result) {
+  if(bytes < 1024)
+    result.setNum(bytes);
+  else if(bytes < 1024*1024)
+    result = i18n("%1 KB").arg(KGlobal::locale()->formatNumber((float)bytes / 1024.0, 1));
+  else
+    result = i18n("%1 MB").arg(KGlobal::locale()->formatNumber((float)bytes / 1024.0 / 1024.0, 1));
+}
+ 
+static void formatBytesMonth(int bytes, QString &result) {
+
+  int day, days;
+  day = QDate::currentDate().day();
+  days = QDate::currentDate().daysInMonth();
+
+  bytes = (bytes / day) * days;
+
   if(bytes < 1024)
     result.setNum(bytes);
   else if(bytes < 1024*1024)
@@ -55,6 +72,37 @@ static void formatDuration(int seconds, QString &result) {
         .arg((seconds % 3600)/60)
         .arg(sec);
 }
+ 
+static void formatDurationMonth(int seconds, QString &result) {
+
+	int day, days;
+	day = QDate::currentDate().day();
+	days = QDate::currentDate().daysInMonth();
+
+	seconds = (seconds / day) * days;
+
+	QString sec;
+	sec.sprintf("%02d", seconds%60);
+	if(seconds < 60)
+		result = i18n("%1s").arg(sec);
+	else if(seconds < 3600)
+		result = i18n("%1m %2s").arg(seconds/60).arg(sec);
+	else
+		result = i18n("%1h %2m %3s")
+			.arg(seconds/3600)
+			.arg((seconds % 3600)/60)
+			.arg(sec);
+}
+
+static void costsMonth(double costs, double &result) {
+
+	int day, days;
+	day = QDate::currentDate().day();
+	days = QDate::currentDate().daysInMonth();
+
+	result = (costs / day) * days;
+
+}
 
 class LogListItem : public QListViewItem {
 public:
@@ -72,6 +120,7 @@ public:
 			  int column, int width, int alignment );
 
     virtual QString key(int, bool) const;
+
     LogInfo *li;
 };
 
@@ -81,10 +130,10 @@ void LogListItem::paintCell( QPainter *p, const QColorGroup & cg,
   QListViewItem::paintCell(p, cg, column, width, alignment);
 
   // double line above sum
-  if(!li) {
-    p->drawLine(0, 0, width, 0);
-    p->drawLine(0, 2, width, 2);
-  }
+  //if(!li) {
+   // p->drawLine(0, 0, width, 0);
+    //p->drawLine(0, 2, width, 2);
+  //}
 }
 
 QString LogListItem::key(int c, bool ascending) const
@@ -141,13 +190,30 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
   lv->setColumnAlignment(7, AlignRight);
   lv->setAllColumnsShowFocus(true);
   lv->setShowSortIndicator(true);
-  lv->setItemMargin(2);
+  lv->setItemMargin(1);
   lv->setSorting(1);
-  lv->setMinimumWidth(320);
-  lv->setMinimumHeight(200);
+  lv->setMinimumWidth(180);
+  lv->setMinimumHeight(280);
   lv->setSelectionMode(QListView::Extended);
   selectionItem = 0L;
   connect(lv, SIGNAL(selectionChanged()), SLOT(slotSelectionChanged()));
+
+  lv2 = new KListView(this);
+  lv2->addColumn(i18n("Connection"));
+  lv2->addColumn(i18n("Duration"));
+  lv2->addColumn(i18n("Costs"));
+  lv2->addColumn(i18n("Bytes In"));
+  lv2->addColumn(i18n("Bytes Out"));
+  lv2->setColumnAlignment(1, AlignRight);
+  lv2->setColumnAlignment(2, AlignRight);
+  lv2->setColumnAlignment(3, AlignRight);
+  lv2->setColumnAlignment(4, AlignRight);
+  lv2->setAllColumnsShowFocus(true);
+  lv2->setSorting(-1);
+  lv2->setItemMargin(2);
+  lv2->setMaximumHeight(100);
+  lv2->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+  lv2->setSelectionMode(QListView::NoSelection);
 
   title = new QLabel("X", this);
   QFont f = title->font();
@@ -189,15 +255,23 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
 void MonthlyWidget::layoutWidget() {
   if(tl)
     delete tl;
-  tl = new QVBoxLayout(this, 10, 10);
-  tl->addWidget(title);
-  tl->addWidget(cboConnections, 1);	// add the combo box
 
-  QHBoxLayout *l1 = new QHBoxLayout;
-  tl->addLayout(l1, 1);
-  l1->addWidget(lv, 1);
-  l1->addWidget(bbox);
-
+  tl = new QGridLayout(this, 1, 1, 11, 16, "MainLayout");
+  tl->addWidget(title, 0, 0);
+  tl->addWidget(cboConnections, 0, 1);
+  QLabel *l = new QLabel(this);
+  l->setText(i18n("Statistics:"));
+  QFont f2 = l->font();
+  f2.setPointSize(f2.pointSize() + 1);
+  f2.setBold(TRUE);
+  l->setFont(f2);
+  l->setFixedHeight(l->sizeHint().height());
+  l->setAlignment( AlignLeft );
+  tl->addWidget(l, 5, 0);
+  tl->addWidget(bbox, 1, 2);
+  tl->addMultiCellWidget(lv, 1, 4, 0, 1);
+  tl->addMultiCellWidget(lv2, 6, 6, 0, 1);
+      
   tl->activate();
 }
 
@@ -216,6 +290,10 @@ void MonthlyWidget::plotMonth() {
   int duration = 0;
   lv->clear();
   selectionItem = 0L;
+  lv2->clear();
+
+  const KCalendarSystem * calendar = KGlobal::locale()->calendar();
+  QDate startDate = periodeFirst();
 
   for(int i = 0; i < (int)logList.count(); i++) {
     LogInfo *li = logList.at(i);
@@ -308,18 +386,42 @@ void MonthlyWidget::plotMonth() {
 
     QString s_costs(KGlobal::locale()->formatMoney(costs, QString::null, 2));
 
-    selectionItem =  new LogListItem(0, lv,
+    selectionItem =  new LogListItem(0, lv2,
 			   i18n("Selection (%n connection)", "Selection (%n connections)", 0),
 			   QString::null, QString::null, QString::null,
 			   QString::null, QString::null, QString::null, QString::null);
-    (void) new LogListItem(0, lv,
+    (void) new LogListItem(0, lv2,
 			   i18n("%n connection", "%n connections", count),
-			   QString::null, QString::null, QString::null,
-			   s_duration, s_costs, _bin, _bout);
+			   s_duration, s_costs, _bin, _bout, QString::null, QString::null, QString::null);
+
+	const KCalendarSystem * calendar = KGlobal::locale()->calendar();
+
+	if(calendar->month(periodeFirst()) == calendar->month(QDate::currentDate())) {
+
+	QString m_bin, m_bout;
+
+    if(bin < 0)
+      _bin = i18n("n/a");
+    else
+	formatBytesMonth(bin, m_bin);
+
+    if(bout < 0)
+      _bout = i18n("n/a");
+    else
+	formatBytesMonth(bout, m_bout);
+
+    QString m_duration;
+    formatDurationMonth(duration, m_duration);
+
+	costsMonth(costs, costs);
+    QString m_costs(KGlobal::locale()->formatMoney(costs, QString::null, 2));
+
+    (void) new QListViewItem(lv2, selectionItem,
+			   i18n("Monthly estimates"), m_duration, m_costs, m_bin, m_bout,
+			   QString::null, QString::null, QString::null);
+	}
   }
 
-  const KCalendarSystem * calendar = KGlobal::locale()->calendar();
-  QDate startDate = periodeFirst();
   QString t;
   if(lv->childCount() > 0) {
     exportBttn->setEnabled(true); // export possibility
@@ -372,7 +474,7 @@ void MonthlyWidget::exportWizard() {
     return;
   }
   if (QFile::exists(wizard->filename)) {  // overwrite?
-    if (KMessageBox::Continue!=KMessageBox::warningContinueCancel(0, i18n("A document with this name already exists."), i18n("Overwrite file?"), i18n("Overwrite") /*, true*/)) { // no
+    if (KMessageBox::Continue!=KMessageBox::warningContinueCancel(0, i18n("A document with this name already exists."), i18n("Overwrite file?"), i18n("&Overwrite") /*, true*/)) { // no
       return;
     }
   }
@@ -470,8 +572,35 @@ void MonthlyWidget::exportWizard() {
       // call export method
       exportIFace->addDataline(con, day, s_lifrom, s_liuntil, s_duration,
 			       s_costs, _bin, _bout);
+
     }
   }
+
+	if(calendar->month(periodeFirst()) == calendar->month(QDate::currentDate())) {
+
+	QString m_bin, m_bout;
+	if(bin < 0)
+		m_bin = i18n("n/a");
+	else
+		formatBytesMonth(bin, m_bin);
+
+	if(bout < 0)
+		m_bout = i18n("n/a");
+	else
+		formatBytesMonth(bout, m_bout);
+
+	QString m_duration;
+	formatDurationMonth(duration, m_duration);
+
+	costsMonth(costs, costs);
+	QString m_costs(KGlobal::locale()->formatMoney(costs, QString::null, 2));
+
+	QString datetime = KGlobal::locale()->formatDateTime( QDateTime::currentDateTime(), true);
+
+	exportIFace->addEmptyLine();
+	exportIFace->addDataline(i18n("Monthly estimates (%1)").arg(datetime), 
+		QString::null, QString::null, QString::null, m_duration, m_costs, m_bin, m_bout);
+	}
 
   if(count) {
     QString _bin, _bout, _b;
@@ -589,10 +718,10 @@ void MonthlyWidget::slotSelectionChanged()
 
       QString s_costs(KGlobal::locale()->formatMoney(costs, QString::null, 2));
       selectionItem->setText(0, i18n("Selection (%n connection)", "Selection (%n connections)", count));
-      selectionItem->setText(4, s_duration);
-      selectionItem->setText(5, s_costs);
-      selectionItem->setText(6, _bin);
-      selectionItem->setText(7, _bout);
+      selectionItem->setText(1, s_duration);
+      selectionItem->setText(2, s_costs);
+      selectionItem->setText(3, _bin);
+      selectionItem->setText(4, _bout);
     }
   }
 }
