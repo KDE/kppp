@@ -221,7 +221,6 @@ bool Requester::setSecret(int method, const char *name, const char *password) {
   default:
     return false;
   }
-  req.method = Opener::PAP;
   strncpy(req.username, name, Opener::MaxStrLen);
   req.username[Opener::MaxStrLen] = '\0';
   strncpy(req.password, password, Opener::MaxStrLen);
