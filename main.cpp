@@ -240,6 +240,7 @@ int main( int argc, char **argv ) {
     exit(1);
   }
 
+  QApplication::flushX();
   switch(fpid = fork()) {
   case 0:
     // child process
@@ -1142,6 +1143,7 @@ pid_t execute_command (const char *command) {
     
   Debug("Executing command: %s\n", command);
 
+  QApplication::flushX();
   if((id = fork()) == 0) {
     // don't bother dieppp()
     signal(SIGCHLD, SIG_IGN);
