@@ -494,6 +494,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
   QHBoxLayout *l12 = new QHBoxLayout;
   l1->addLayout(l12);
   l12->addStretch(1);
+#if 0
   chkbox1 = new QCheckBox(i18n("Modem Asserts CD Line."), peer());
   chkbox1->setChecked(gpppdata.UseCDLine());
   connect(chkbox1,SIGNAL(toggled(bool)),
@@ -507,7 +508,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 		       "problems with this, do not modify this setting.\n"
 		       "\n"
 		       "<b>Default</b>: off"));
-
+#endif
 
   // add the buttons
   QHBoxLayout *l11 = new QHBoxLayout;
@@ -571,10 +572,11 @@ void ModemWidget2::terminal() {
 }
 
 
+#if 0
 void ModemWidget2::use_cdline_toggled(bool on) {
     gpppdata.setUseCDLine(on);
 }
-
+#endif
 
 void ModemWidget2::busywaitchanged(int n) {
   gpppdata.setbusyWait(n);

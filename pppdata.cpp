@@ -347,6 +347,7 @@ void PPPData::setSpeed(const QString &n) {
 }
 
 
+#if 0
 void PPPData::setUseCDLine(const int n) {
   writeConfig(MODEM_GRP,USECDLINE_KEY,n);
 }
@@ -355,7 +356,7 @@ void PPPData::setUseCDLine(const int n) {
 int PPPData::UseCDLine() {
   return  readNumConfig(MODEM_GRP,USECDLINE_KEY,0);
 }
-
+#endif
 
 const QString  PPPData::modemEscapeStr() {
   return readConfig(MODEM_GRP,ESCAPESTR_KEY,"+++");
@@ -623,7 +624,7 @@ void PPPData::setModemAnswerResp(const QString &n) {
 
 
 const QString PPPData::enter() {
-  return readConfig(MODEM_GRP, ENTER_KEY, "CR/LF");
+  return readConfig(MODEM_GRP, ENTER_KEY, "CR");
 }
 
 

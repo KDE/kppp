@@ -114,13 +114,14 @@ speed_t Modem::modemspeed() {
 
 
 bool Modem::opentty() {
-  int flags;
+  //  int flags;
 
   if((modemfd = Requester::rq->openModem(gpppdata.modemDevice()))<0) {
     errmsg = i18n("Sorry, can't open modem.");
     return false;
   }
-  
+
+#if 0  
   if(gpppdata.UseCDLine()) {
     if(ioctl(modemfd, TIOCMGET, &flags) == -1) {
       errmsg = i18n("Sorry, can't detect state of CD line.");
@@ -135,7 +136,8 @@ bool Modem::opentty() {
       return false;
     }
   }
-	
+#endif
+
   tcdrain (modemfd);
   tcflush (modemfd, TCIOFLUSH);
 

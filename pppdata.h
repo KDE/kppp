@@ -292,8 +292,10 @@ public:
   const QString modemAnswerResp();
   void setModemAnswerResp(const QString &);
 
+#if 0
   void setUseCDLine(const int n);
   int  UseCDLine();
+#endif
 
   // functions to set/get account information
   int count() const;
