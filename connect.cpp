@@ -800,7 +800,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       killTimer( main_timer_ID );
 
       if_timeout_timer->start(gpppdata.pppdTimeout()*1000);
-      Debug("started if timeout timer with %d\n",atoi(gpppdata.pppdTimeout())*1000);
+      Debug("started if timeout timer with %d\n",gpppdata.pppdTimeout()*1000);
 
       // find out PPP interface and notify the stats module
       stats.setUnit(pppInterfaceNumber());

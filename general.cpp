@@ -28,9 +28,9 @@
 #include <kapp.h>
 #include <qlayout.h>
 #include <qwhatsthis.h>
-#include <qslider.h>
 
-#include <knuminput.h>
+//#include <knuminput.h>
+#include <qslider.h>
 #include "general.h"
 #include "version.h"
 #include "log.h"
@@ -52,27 +52,18 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
   : KGroupBox(i18n("kppp Setup"), parent, name)
 {
   QVBoxLayout *tl = new QVBoxLayout(peer(), 10, 10);
-  QHBoxLayout *l1 = new QHBoxLayout(10);
-  tl->addLayout(l1);
-
-  label6 = new QLabel(i18n("pppd Timeout:"), peer());
-  l1->addWidget(label6);
   
   pppdtimeout = new KIntNumInput(i18n("pppd Timeout:"), 1, TIMEOUT_SIZE, 2,
-                                 gpppdata.pppdTimeout(), "s", 10, true, this);
+                                 gpppdata.pppdTimeout(), i18n("seconds"), 10, true, this);
   connect(pppdtimeout, SIGNAL(valueChanged(int)),
           SLOT(pppdtimeoutchanged(int)));
-  l1->addWidget(pppdtimeout);
+  tl->addWidget(pppdtimeout);
   QString tmp = i18n("<i>kppp</i> will wait this number of seconds\n"
 		     "to see if a PPP connection is established.\n"
 		     "If no connection is made in this time frame,\n"
 		     "<i>kppp</i> will give up and kill pppd.");
 
-  QWhatsThis::add(label6,tmp);
   QWhatsThis::add(pppdtimeout,tmp); 
-
-  labeltmp = new QLabel(i18n("Seconds"), peer());
-  l1->addWidget(labeltmp);
 
   tl->addStretch(1);
   QHBoxLayout *lh = new QHBoxLayout();
@@ -377,10 +368,10 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   // Modem Timeout Line Edit Box
 
   modemtimeout = new KIntNumInput(i18n("Modem Timeout:"), 1, 120, 1, gpppdata.modemTimeout(),
-                                  i18n("s"), 10, true, this);
+                                  i18n("seconds"), 10, true, this);
   modemtimeout->setLabelAlignment(AlignRight);
   connect(modemtimeout, SIGNAL(valueChanged(int)), SLOT(modemtimeoutchanged(int)));  
-  tl->addWidget(modemtimeout, 6, 1);
+  tl->addMultiCellWidget(modemtimeout, 6, 6, 0, 1);
 
   QWhatsThis::add(modemtimeout,
                   i18n("This specifies how long <i>kppp</i> waits for a\n"
@@ -443,7 +434,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
   QVBoxLayout *l1 = new QVBoxLayout(peer(), 10, 10);
 
   busywait = new KIntNumInput(i18n("Busy Wait:"), 0, 300, 5, gpppdata.busyWait(),
-                              i18n("s"), 10, true, this);
+                              i18n("seconds"), 10, true, this);
   
   busywait->setLabelAlignment(AlignCenter);
   connect(busywait, SIGNAL(valueChanged(int)), SLOT(busywaitchanged(int)));
