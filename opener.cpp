@@ -524,7 +524,7 @@ bool Opener::execpppd(const char *arguments) {
     case 0:
       // let's parse the arguments the user supplied into UNIX suitable form
       // that is a list of pointers each pointing to exactly one word
-      strcpy(buf, arguments);
+      strlcpy(buf, arguments, sizeof(buf));
       parseargs(buf, args);
       // become a session leader and let /dev/ttySx
       // be the controlling terminal.
