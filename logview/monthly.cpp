@@ -18,12 +18,14 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include "monthly.h"
+#include <qpainter.h>
+#include <qcombobox.h>
 
 #include <klocale.h>
 #include <kglobal.h>
 #include <klistview.h>
-#include <qcombobox.h>
+
+#include "monthly.h"
 
 static void formatBytes(int bytes, QString &result) {
   if(bytes < 1024)
