@@ -1,3 +1,10 @@
+1999-07-06  Harri Porten  <porten@kde.org>
+
+	* modem.cpp: adhere to the lock file format described in the
+	Serial HOWTO (10 digits pid and a newline).
+	* connect.cpp: fixed race condition that might have lead to data not
+	being caught by "Expect" (found by Arch Harris <arch@cs.jmu.edu>)
+
 1999-06-05  Harri Porten  <porten@kde.org>
 
 	* pppstats.cpp: dropping the ifr_name #define hack allows compilation

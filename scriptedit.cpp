@@ -27,6 +27,8 @@
 
 #include "scriptedit.h"
 #include <qlayout.h>
+#include <qcombobox.h>
+#include <qlineedit.h>
 
 ScriptEdit::ScriptEdit( QWidget *parent, const char *name )
   : QWidget(parent, name)

@@ -994,6 +994,10 @@ void ConnectWidget::setExpect(const char *n) {
   QString ts = i18n("Expecting: ");
   ts += n;
   emit debugMessage(ts);
+
+  // fake an incoming character to see if the expected
+  // string is in the read buffer already.
+  readChar(0);
 }
 
 
