@@ -29,6 +29,7 @@
 #define _PPPDATA_H_
 
 #include <unistd.h>
+#include <sys/types.h>
 
 #include <qstring.h>
 #include <qstrlist.h>
