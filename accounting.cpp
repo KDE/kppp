@@ -154,7 +154,9 @@ QString AccountingBase::getCosts(const QString & accountname) {
   QString prev_account = gpppdata.accname();
 
   gpppdata.setAccount(accountname);
-  QString val = KGlobal::locale()->formatMoney(gpppdata.totalCosts().toDouble());
+  QString val = gpppdata.totalCosts();
+  // ### currency from rule file
+  //  QString val = KGlobal::locale()->formatMoney(gpppdata.totalCosts().toDouble(), currency);
 
   gpppdata.setAccount(prev_account);
 
