@@ -684,7 +684,8 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 		scriptindex++;
 		cancelbutton();
 	        QMessageBox::warning( 0, i18n("Error"),
-				      i18n("Loops nested too deeply!"));
+				      i18n("Loops nested too deeply!"),
+				      i18n("OK"));
 	} else {
         	setExpect(scriptArgument);
 		loopstartindex[loopnest] = scriptindex + 1;
@@ -706,7 +707,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 		vmain=20;
 		scriptindex++;
 		cancelbutton();
-	        QMessageBox::warning( 0, i18n("Error"), bm );
+	        QMessageBox::warning( 0, i18n("Error"), bm, i18n("OK"));
 		return;
 	} else {
         	setExpect(scriptArgument);
@@ -1174,7 +1175,8 @@ bool ConnectWidget::execppp() {
 			 i18n(
 			      "pppd command + command-line arguments exeed\n"
 			      "2024 characters in length. What are you doing?"
-			      )
+			      ),
+			 i18n("OK")
 			 );	
     return false; // nonsensically long command which would bust my buffer buf.
   }

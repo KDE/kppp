@@ -344,7 +344,7 @@ int main( int argc, char **argv ) {
   int pid = create_pidfile();
   if(pid < 0) {
     msg = i18n("kppp can't create or read from\n%1.").arg(pidfile);
-    QMessageBox::warning(0L, i18n("Error"), msg);
+    QMessageBox::warning(0L, i18n("Error"), msg, i18n("OK"));
     myShutDown(1);
   }
   
@@ -610,7 +610,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
     if (!result){
       QString string;
       string = i18n("No such Account:\n%1").arg(cmdl_account);
-      QMessageBox::warning(this, i18n("Error"), string);
+      QMessageBox::warning(this, i18n("Error"), string, i18n("OK"));
       have_cmdl_account = false;
       this->show();
     } else
@@ -854,7 +854,7 @@ void sigchld(int) {
     QString msg = i18n("Sorry. kppp's helper process just died.\n\n"
                        "Since a further execution would be pointless, "
                        "kppp will shut down right now.");
-    QMessageBox::critical(0L, i18n("Error"), msg);
+    QMessageBox::critical(0L, i18n("Error"), msg, i18n("OK"));
     remove_pidfile();
     myShutDown(1);
   }
@@ -886,7 +886,8 @@ void KPPPWidget::beginConnect() {
     QMessageBox::warning(this, i18n("Error"),
                          i18n("Cannot find the PPP daemon!\n\n"
                               "Make sure that pppd is installed and\n"
-                              "you have entered the correct path."));
+                              "you have entered the correct path."),
+			 i18n("OK"));
     return;
   }
 #if 0
@@ -915,7 +916,7 @@ void KPPPWidget::beginConnect() {
 		   "the setup dialog.\n Thank You").arg(gpppdata.modemDevice());
     QMessageBox::warning(this, 
 			 i18n("Error"),
-			 string);
+			 string, i18n("OK"));
     return;
   }
 
@@ -930,7 +931,8 @@ void KPPPWidget::beginConnect() {
 			   i18n(
                            "You have selected the authentication\n"
 			   "method PAP. This requires that you\n"
-			   "supply a username and a password!"));
+			   "supply a username and a password!"),
+			   i18n("OK"));
       return;
     } else {
       gpppdata.password = PW_Edit->text();
@@ -941,7 +943,7 @@ void KPPPWidget::beginConnect() {
 				     "file \"%1\"").arg(PAP_AUTH_FILE);
 	QMessageBox::warning(this,
 			     i18n("Error"),
-			     s);
+			     s, i18n("OK"));
 	return;
       }
     }
@@ -956,7 +958,8 @@ void KPPPWidget::beginConnect() {
 			   i18n(
                            "You have selected the authentication\n"
 			   "method CHAP. This requires that you\n"
-			   "supply a username and a password!"));
+			   "supply a username and a password!"),
+			   i18n("OK"));
       return;
     } else {
       gpppdata.password = PW_Edit->text();
@@ -967,7 +970,7 @@ void KPPPWidget::beginConnect() {
 				     "file \"%1\"").arg(CHAP_AUTH_FILE);
 	QMessageBox::warning(this,
 			     i18n("Error"),
-			     s);
+			     s, i18n("OK"));
 	return;
       }
     }
@@ -976,7 +979,7 @@ void KPPPWidget::beginConnect() {
   if (strlen(gpppdata.phonenumber()) == 0) {
     QString s;
     s = i18n("You must specify a telephone number!");
-    QMessageBox::warning(this, i18n("Error"), s);
+    QMessageBox::warning(this, i18n("Error"), s, i18n("OK"));
     return;
   }
 
@@ -1062,7 +1065,7 @@ void KPPPWidget::helpbutton() {
 
 void KPPPWidget::quitbutton() {
   if(gpppdata.pppdRunning()) {    
-    bool ok = QMessageBox::query(i18n("Quit kPPP?"), 
+    bool ok = QMessageBox::warning(this, i18n("Quit kPPP?"), 
 				 i18n("Exiting kPPP will close your PPP Session."),
 				 i18n("Yes"),
 				 i18n("No"));
@@ -1086,7 +1089,7 @@ void KPPPWidget::quitbutton() {
 void KPPPWidget::rulesetLoadError() {
   QMessageBox::warning(this, 
 		       i18n("Error"), 
-		       ruleset_load_errmsg);
+		       ruleset_load_errmsg, i18n("OK"));
 }
 
 

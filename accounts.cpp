@@ -246,7 +246,8 @@ void AccountWidget::editaccount() {
 void AccountWidget::newaccount() {
   if(accountlist_l->count() == MAX_ACCOUNTS) {   
       QMessageBox::information(this,i18n("Sorry"),
-			       i18n("Maximum number of accounts reached."));
+			       i18n("Maximum number of accounts reached."),
+			       i18n("OK"));
     return;
   }
 
@@ -291,13 +292,15 @@ void AccountWidget::newaccount() {
 void AccountWidget::copyaccount() {
   if(accountlist_l->count() == MAX_ACCOUNTS) {
     QMessageBox::information(this,i18n("Sorry"),
-			     i18n("Maximum number of accounts reached."));
+			     i18n("Maximum number of accounts reached."),
+			     i18n("OK"));
     return;
   }
 
   if(accountlist_l->currentItem()<0) {
     QMessageBox::information(this,i18n("Sorry"),
-			     i18n("No account selected."));
+			     i18n("No account selected."),
+			     i18n("OK"));
     return;
   }
 
@@ -384,12 +387,14 @@ int AccountWidget::doTab(){
 		acct->save();
          } else {
 	     QMessageBox::warning(this, i18n("Error"), 
-				     i18n( "You must enter an unique\naccount name"));
+				     i18n( "You must enter an unique\naccount name"),
+				     i18n("OK"));
 		ok = false;
 	 }
       } else {
 	      QMessageBox::warning(this, i18n("Error"), 
-				   i18n("Login script has unbalanced loop Start/End") );
+				   i18n("Login script has unbalanced loop Start/End"),
+				   i18n("OK"));
 	      ok = false;
       }
     }

@@ -363,8 +363,8 @@ int runTests() {
       QMessageBox::warning(0,
 		 i18n("Error"),
 		 i18n("You´re not allowed to dial out with "
-				    "kppp.\nContact your system administrator."
-				    ));
+				    "kppp.\nContact your system administrator."),
+		 i18n("OK"));
       return TEST_CRITICAL;
     }
   }
@@ -400,7 +400,8 @@ int runTests() {
 		 i18n("Error"),
 		 i18n("Cannot find the PPP daemon!\n\n"
                       "Make sure that pppd is installed and\n"
-                      "you have entered the correct path."));
+                      "you have entered the correct path."),
+		 i18n("OK"));
     warning++;
   }
 
@@ -427,7 +428,8 @@ int runTests() {
                      i18n("You don't have sufficient permission to run\n"
                           "\n%1\n\n"
                           "Please make sure that kppp is owned by root\n"
-                          "and has the SUID bit set.\n").arg(f));
+                          "and has the SUID bit set.\n").arg(f),
+		     i18n("OK"));
         warning++;
       }
     }
@@ -440,7 +442,7 @@ int runTests() {
                    "Ask your system administrator to create\n"
                    "this file (can be empty) with appropriate\n"
                    "read and write permissions.");
-    QMessageBox::warning(0, i18n("Error"), msgstr);
+    QMessageBox::warning(0, i18n("Error"), msgstr, i18n("OK"));
     warning ++;
   }
 

@@ -115,7 +115,7 @@ void ModemTransfer::time_out_slot() {
 
   QMessageBox::warning(this, 
 		       i18n("Error"),
-		       i18n("Modem Query timed out."));
+		       i18n("Modem Query timed out."), i18n("OK"));
   reject();
 }
 

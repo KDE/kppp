@@ -60,7 +60,8 @@ bool PPPData::open() {
                        "not be\nopened neither read-write nor read-only.\n\n"
                        "The superuser might have to change its ownership\n"
                        "by issuing the following command in your home directory:\n\n"
-                       "chown {YourUsername} .kde/share/config/kppprc"));
+                       "chown {YourUsername} .kde/share/config/kppprc"),
+		       i18n("OK"));
     return false;
   }
 
