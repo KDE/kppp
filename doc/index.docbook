@@ -54,7 +54,7 @@ allowing for interactive script generation and network setup.</para>
 <keyword>KDE</keyword>
 <keyword>kppp</keyword>
 <keyword>kdenetwork</keyword>
-<keyword>dialler</keyword>
+<keyword>dialer</keyword>
 <keyword>internet</keyword>
 <keyword>ppp</keyword>
 </keywordset>
@@ -80,7 +80,7 @@ to test and setup your connection.</para>
 <para>&kppp; features elaborate phone cost accounting, which enables you to
 easily track your online costs.</para>
 
-<para>We hope you enjoy this dialler, and that it eases your way onto the
+<para>We hope you enjoy this dialer, and that it eases your way onto the
 internet.</para>
 
 </chapter>
@@ -219,7 +219,7 @@ this:</para>
 
 <informalexample>
 <screen><computeroutput>
-PPP: version 2.3.0 (demand dialling)
+PPP: version 2.3.0 (demand dialing)
 TCP compression code copyright 1989 Regents of the University of California
 PPP Dynamic channel allocation code copyright 1995 Caldera, Inc.
 PPP line discipline registered
@@ -233,7 +233,7 @@ up.</para>
 <para>For &Linux; 2.x kernels, the <application>pppd</application> daemon should
 be version 2.3 or greater.  You can find out what version your system has, by
 issuing the command <userinput><command>pppd</command>
-<option>--version</option></userinput> on the comamnd line.  None of the
+<option>--version</option></userinput> on the command line.  None of the
 <application>pppd</application> daemons actually have a
 <option>--version</option>, but putting the option in will cause the
 <application>pppd</application> daemon to issue an error message, and then to

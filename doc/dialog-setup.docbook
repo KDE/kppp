@@ -7,7 +7,7 @@ difficult than using the wizard.</para>
 <para>You can reach the setup dialog the same way you did the wizard.  Start
 &kppp; from your <guimenu>K</guimenu> menu, where you will find its entry in the
 <guisubmenu>Internet</guisubmenu> as <guimenuitem>Internet
-Dialler</guimenuitem>.</para>
+Dialer</guimenuitem>.</para>
 
 <para>The following dialog will appear:</para>
 
@@ -15,7 +15,7 @@ Dialler</guimenuitem>.</para>
 <screeninfo>The &kppp; dialer startup screen</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="kppp-dialler-tab.png" format="PNG"/>
+<imagedata fileref="kppp-dialer-tab.png" format="PNG"/>
 </imageobject>
 <textobject><phrase>The &kppp; dialer startup screen</phrase>
 </textobject>
@@ -542,7 +542,7 @@ authentication.</title>
 is using some sort of challenge/response authentication. Usually you got a
 hardware token (a smart card with a display and calculator like keypad) from the
 <acronym>ISP</acronym>. You have to know a password to use the token. After
-dialling in your <acronym>ISP</acronym> displays your challenge. You have to
+dialing in your <acronym>ISP</acronym> displays your challenge. You have to
 type in the challenge to your token and get a dynamic password as a
 response. Then you have to enter that password.</para>
 
@@ -637,7 +637,7 @@ connection process:</para>
 <varlistentry>
 <term><guilabel>Before Connect</guilabel></term>
 <listitem>
-<para>Run this command before the dialling is initiated, so it is already
+<para>Run this command before the dialing is initiated, so it is already
 running when you connect to your <acronym>ISP</acronym>.</para>
 </listitem>
 </varlistentry>

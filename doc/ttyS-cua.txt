@@ -1,7 +1,7 @@
 From: "Theodore Y. Ts'o" <tytso@mit.edu>
 To: Tony Nugent <tonyn@sctnugen.ppp.gu.edu.au>
 Cc: linux-net@vger.rutgers.edu, linux-ppp@vger.rutgers.edu
-Subject: Re: /dev/cua? Vs /dev/ttyS? (was: Re: co-existance of pppd and mgetty ?)
+Subject: Re: /dev/cua? Vs /dev/ttyS? (was: Re: co-existence of pppd and mgetty ?)
 Date: Mon, 13 May 1996 19:51:04 +0200
 Status: ROr
 

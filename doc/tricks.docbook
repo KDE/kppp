@@ -155,19 +155,19 @@ These should match your modem.</para>
 </sect2>
 </sect1>
 
-<sect1 id="tone-dialling-speedup">
-<title>Make Tone dialling faster</title>
+<sect1 id="tone-dialing-speedup">
+<title>Make Tone dialing faster</title>
 
-<para>If you can use tone dialling, the amount of time it takes to dial can be
+<para>If you can use tone dialing, the amount of time it takes to dial can be
 changed using the <varname>S11</varname> register. It gives the duration (in
-100hundreds of a second) to send each tone while dialling. The default is
+100hundreds of a second) to send each tone while dialing. The default is
 usually 95 (almost a second.) How fast you can dial depends on the phone
 company's switching equipment which handles your line. The minimum duration is
 50, almost twice as fast, and that speed often works. </para>
 
 <screen>
 <userinput><command>ATZ</command></userinput>        <lineannotation># reset to default profile</lineannotation>
-<userinput><command>ATS11=50</command></userinput>   <lineannotation># fastest possible dialling, use a higher number if it doesn't work</lineannotation>
+<userinput><command>ATS11=50</command></userinput>   <lineannotation># fastest possible dialing, use a higher number if it doesn't work</lineannotation>
 <userinput><command>AT&amp;W</command></userinput>   <lineannotation># write to default profile</lineannotation>
 </screen>
 

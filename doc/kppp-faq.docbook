@@ -5,8 +5,8 @@
 
 <qandaset id="faqlist">
 
-<qandadiv id="faq-dialling">
-<title>Questions about Dialling</title>
+<qandadiv id="faq-dialing">
+<title>Questions about Dialing</title>
 <qandaentry>
 <question><para>I can't get &kppp; to work.  &kppp; tells me
 <application>pppd</application> has died or that a timeout has expired.  What's
@@ -187,7 +187,7 @@ message: <computeroutput>Expecting OK</computeroutput></para></question>
 CR/LF.</para>
 
 <para>Alternatively, your modem might need some time to respond to its
-intialization.  Open the <guilabel>Modem Commands</guilabel> dialog on the
+initialization.  Open the <guilabel>Modem Commands</guilabel> dialog on the
 <guilabel>Modem</guilabel> tab and adjust the <guilabel>Pre-Init</guilabel> and
 <guilabel>Post-Init</guilabel> delays.  See if you are successful when
 drastically increasing their values, and then do some fine-tuning
@@ -202,7 +202,7 @@ applications!</para></question>
 linkend="auto-configure-hostname">Auto Configure Host Name</link> option, and
 the X Server has problems connecting to your newly named host.  If you really
 need this option (and chances are you really don't), you are unfortunately on
-your own to set up the appropriate authorisations.  Issuing
+your own to set up the appropriate authorizations.  Issuing
 <userinput><command>xhost</command> <option>+</option></userinput> before
 starting the connection would do the job, but be warned of the security risks
 involved, since this effectively gives everyone else access to your X
@@ -256,7 +256,7 @@ Send             ppp
 <question><para>How can I stop &kppp; complaining: <errorname>Can't create lock
 file</errorname>?</para></question>
 <answer><para>This happens because you don't have permissions to create a lock
-file.  If you chose to use a lock file, you must have write permision to the
+file.  If you chose to use a lock file, you must have write permission to the
 directory (typically <filename class="directory">/var/lock</filename>).  This is
 of course no problem if you have given &kppp; setuid permissions.  Please read
 the section on <link linkend="lock-files">Lock files</link>.</para></answer>
@@ -264,7 +264,7 @@ the section on <link linkend="lock-files">Lock files</link>.</para></answer>
 
 <qandaentry>
 <question><para>Why is my modem making so much noise when
-dialling?</para></question>
+dialing?</para></question>
 
 <answer><para>Click on <guibutton>Setup</guibutton>, then
 <guilabel>Modem</guilabel>.  You can control the modem volume here in three
@@ -277,10 +277,10 @@ Commands</guibutton>.</para></answer>
 
 <qandaentry>
 <question><para>I turned the modem volume to <quote>Off</quote> and verified the
-modem commands, but I still hear that awful noise during dialling.
+modem commands, but I still hear that awful noise during dialing.
 Why?</para></question>
 
-<answer><para>The volume initialisation string can get lost if your modem can't
+<answer><para>The volume initialization string can get lost if your modem can't
 cope with the speed it is receiving commands from &kppp;.  Increase the value of
 <guilabel>Post-Init Delay</guilabel> in <guibutton>Setup</guibutton>,
 <guilabel>Modem</guilabel>, <guibutton>Modem
@@ -342,7 +342,7 @@ conflicts with other components of your system.  The &kcontrol; module
 </qandaentry>
 
 <qandaentry>
-<question><para>My phone line needs pulse dialling instead of tone dialling (or
+<question><para>My phone line needs pulse dialing instead of tone dialing (or
 vice-versa).  How do I change that?</para></question>
 <answer><para>You must modify your modem dial string.  Nearly all modems support
 the following AT commands:</para>
@@ -350,11 +350,11 @@ the following AT commands:</para>
 <variablelist>
 <varlistentry>
 <term><command>ATDT</command></term>
-<listitem><para><action>Selects tone dialling</action></para></listitem>
+<listitem><para><action>Selects tone dialing</action></para></listitem>
 </varlistentry>
 <varlistentry>
 <term><command>ATDP</command></term>
-<listitem><para><action>Selects pulse dialling</action></para></listitem>
+<listitem><para><action>Selects pulse dialing</action></para></listitem>
 </varlistentry>
 </variablelist>
 </answer>

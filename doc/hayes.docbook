@@ -63,7 +63,7 @@ optional.  In this example, <command>L0</command> is the same as a plain
 below!</para></note>
 
 <para>Here are some of the most important characters that may appear in the
-modem initialization string.  These characers normally should not be
+modem initialization string.  These characters normally should not be
 changed.</para>
 
 <variablelist>
@@ -135,7 +135,7 @@ This is a control code that most communication software translates as
       <row>
        <entry><command>D</command></entry>
        <entry>Dial</entry>
-       <entry><para>Dial the following number and then handshake in orginate
+       <entry><para>Dial the following number and then handshake in originate
        mode.</para><variablelist>
 	 <varlistentry>
 	  <term><command>P</command></term>
@@ -821,7 +821,7 @@ reliable connection. Again, this is the mode that most modems use.</para>
        <entry><varname>S6</varname></entry>
        <entry>2-255 seconds</entry>
        <entry>2</entry>
-       <entry>Dial tone wait time (blind dialling, see <link
+       <entry>Dial tone wait time (blind dialing, see <link
        linkend="hayes-basic-x1">X<replaceable>n</replaceable></link></entry>
       </row>
      <row>
@@ -908,7 +908,7 @@ reliable connection. Again, this is the mode that most modems use.</para>
 	 </listitem>
 	</itemizedlist></entry>
        <entry>0</entry>
-       <entry>Negotiation Speed (Intial handshake)</entry>
+       <entry>Negotiation Speed (Initial handshake)</entry>
       </row>
      </tbody>
     </tgroup>

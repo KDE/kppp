@@ -62,7 +62,7 @@ have to explicitly list root in the file).</para>
 <title>&kppp; has the <acronym>SUID</acronym> bit on? What about
 security?</title>
 
-<para>It's virtually impossible to write a dialler without the
+<para>It's virtually impossible to write a dialer without the
 <acronym>SUID</acronym> bit that is both safe and easy to use for inexperienced
 users.  &kppp; addresses the security issues with the following strategy.</para>
 

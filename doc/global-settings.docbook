@@ -50,7 +50,7 @@ Costs:</guilabel> and <guilabel>Volume:</guilabel> respectively.</para>
 
 <para>Pressing <guibutton>Reset...</guibutton> will reset the <guilabel>Phone
 Costs:</guilabel> and <guilabel>Volume:</guilabel> information to 0.  You would
-typically want to do this once a month or quarter, when you have recieved your
+typically want to do this once a month or quarter, when you have received your
 phone bill and reconciled the telephone costs. You can reset either
 independently, and are offered the choice of which item you want to reset, when
 you press the <guibutton>Reset</guibutton> button.</para>
@@ -202,7 +202,7 @@ unexpectedly</errorname>.</para>
 <varlistentry>
 <term><guilabel>Busy Wait</guilabel></term>
 <listitem>
-<para>This is the length of time the modem should wait before redialling, after
+<para>This is the length of time the modem should wait before redialing, after
 it has received a busy signal.  Note there are requirements by telecom providers
 in some countries, which ask you to not set this too low.
 </para>
@@ -227,7 +227,7 @@ linkend="appendix-hayes-commands">Hayes Commands</link> Appendix in this help fi
 information supplied there can be very helpful in cases where you experience
 trouble setting up a stable connection with your <acronym>ISP</acronym>'s
 modems.  In particular the two settings for <guilabel>Pre-Init Delay</guilabel>
-and for <guilabel>Post-Init Delay</guilabel> if you are experienceing modem
+and for <guilabel>Post-Init Delay</guilabel> if you are experiencing modem
 lockups.  These settings make &kppp; pause a little just before and just after
 sending the initialization string to your modem.  The <guilabel>Pre-Init
 Delay</guilabel> will by default also send a CR, unless you have set it the
@@ -247,7 +247,7 @@ not prove to be informative, depending on your modem.</para>
 <listitem>
 <para>Pushing the <guibutton>Terminal</guibutton> button will bring up a mini
 terminal. You can use the mini terminal to test your modem and to experiment
-with the negotiation protocol for initialising a ppp connection with your
+with the negotiation protocol for initializing a ppp connection with your
 <acronym>ISP</acronym>.  You no longer need a terminal program such as
 <application>minicom</application> or <application>Seyon</application>.</para>
 </listitem>
