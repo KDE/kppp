@@ -4,11 +4,11 @@
 #
 # by Giovanni Venturi (gventuri73@tiscali.it)
 #
-# Tele2_Internet.rst
+# Tele2_Internet_Tele2.rst
 #
 # URBANE.
 #
-# Ultimo aggiornamento: 28 Marzo 2005.
+# Ultimo aggiornamento: 29 Marzo 2005.
 #
 ################################################################
 ##                                                            ##
