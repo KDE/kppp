@@ -1,0 +1,24 @@
+# KDE Config File
+ExDNSDisabled=0
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=0676044000
+IPAddr=0.0.0.0
+Domain=
+Name=InterNLnet
+VolumeAccountingEnabled=1
+pppdArguments=
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=1
+DNS=217.149.196.6,217.149.192.6
+SubnetMask=0.0.0.0
+AccountingFile=
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=
