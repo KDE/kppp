@@ -1,5 +1,5 @@
 ################################################################
-# 25 Apr 2001 (Please change when TT increases the costs)
+# 21 Jul 2003 (Please change when TT increases the costs)
 #
 # I take no responsibility for the validity and accuracy of
 # this information, if you are so concerned please contact
@@ -41,30 +41,30 @@ currency_digits=0
 
 # This is the default rule which is used when no other rule
 # applies.
-default=(36600, 324)
+default=(70000, 324)
 ################################################################
 # connection settings
 ################################################################
 
 # Hafta arasi 1. indirim
-on(monday..friday) between (7:00..7:59) use(36600,463)
+on(monday..friday) between (7:00..7:59) use(70000,309)
 
  # Hafta arasi normal tarife
-on(monday..friday) between (8:00..19:59) use(36600,324)
+on(monday..friday) between (8:00..19:59) use(70000,216)
 
  # Hafta arasi 1. indirim
-on(monday..friday) between (20:00..22:29) use(36600,463)
+on(monday..friday) between (20:00..22:29) use(70000,309)
 
  # Hafta arasi 2. indirim
-on(monday..friday) between (22:30..6:59) use(36600,540)
+on(monday..friday) between (22:30..6:59) use(70000,360)
 
  # Cumartesi 1. indirim
-on(saturday) between (7:00..22:29) use(36600,463)
+on(saturday) between (7:00..22:29) use(70000,309)
 
  # Cumartesi 2. indirim
-on(saturday) between (22:30..6:59) use(36600,540)
+on(saturday) between (22:30..6:59) use(70000,360)
 
  # Pazar ve resmi tatil gunleri 2. indirim
-on(1/1, 04/23, 05/19, 08/30, 10/29, sunday) between () use(36600,540)
+on(1/1, 04/23, 05/19, 08/30, 10/29, sunday) between () use(70000,360)
 
 ################################################################
