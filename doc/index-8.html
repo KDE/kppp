@@ -1,24 +1,18 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
 <HTML>
 <HEAD>
-<TITLE>The kppp Handbook: kppp and Security Issues</TITLE>
-<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=iso-8859-1">
-<META NAME="keywords" CONTENT="KPPP Dialer Internet PPP IP PAP CHAP">
-<META NAME="description" CONTENT="KPPP Internet Dialer">
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.7">
+ <TITLE>The kppp Handbook: kppp and Security Issues</TITLE>
+ <LINK HREF="index-9.html" REL=next>
+ <LINK HREF="index-7.html" REL=previous>
+ <LINK HREF="index.html#toc8" REL=contents>
 </HEAD>
-<BODY BGCOLOR="#ffffff" LINK="#aa0000" TEXT="#000000" > 
-<FONT FACE="Helvetica">
-<A HREF="http://www.kde.org/"><IMG SRC="logotp3.gif" BORDER="0" ALT="The K Desktop Environment"></A>
-<HR WIDTH="100%" SIZE=2 ALIGN="CENTER" NOSHADE>
-
- 
-<P ALIGN="RIGHT">
-
-<A HREF="kppp-9.html">Next</A>
-<A HREF="kppp-7.html">Previous</A>
-<A HREF="kppp.html#toc8">Table of Contents</A>
-</P>
-<H3><A NAME="security"></A> <A NAME="s8">8. <EM>kppp</EM> and Security Issues</A></H3>
+<BODY>
+<A HREF="index-9.html">Next</A>
+<A HREF="index-7.html">Previous</A>
+<A HREF="index.html#toc8">Contents</A>
+<HR>
+<H2><A NAME="security"></A> <A NAME="s8">8. <EM>kppp</EM> and Security Issues</A></H2>
 
 <P>This section is mainly for superusers (root), people with high
 security demands or simply technically interested people. It is
@@ -26,13 +20,13 @@ not necessary to read this if you only use Linux at home for
 yourself (though you might learn something new when you read
 this)
 <P>
-<H3><A NAME="ss8.1">8.1 Restricting access to kppp</A>
-</H3>
+<H2><A NAME="ss8.1">8.1 Restricting access to kppp</A>
+</H2>
 
 <P>A system administrator might want to restrict access to who is
 allowed to use <EM>kppp</EM>. There are two ways to accomplish this:
 <P>
-<H4>With group permissions</H4>
+<H3>With group permissions</H3>
 
 <P>Create a new group (you might want to name it "dialout" or
 similar), put every user that should be allowed to use <EM>kppp</EM>
@@ -47,7 +41,7 @@ chmod 4750 /usr/local/kde/bin/kppp
 This assumes that KDE was installed in <CODE>/usr/local/kde</CODE>
 and your new group is named "dialout".
 <P>
-<H4><EM>kppp´s</EM> way</H4>
+<H3><EM>kppp´s</EM> way</H3>
 
 <P>Before doing anything, <EM>kppp</EM> checks if there is a file named
 <CODE>/etc/kppp.allow</CODE>. If such a file exists, ONLY users named
@@ -73,8 +67,8 @@ In the example above only the users <I>fred</I>, <I>karl</I> and
 user with a UID of 0. So you don´t need to put <I>root</I> in this
 file.
 <P>
-<H3><A NAME="ss8.2">8.2 <EM>kppp</EM> has the SUID bit on. What about security?</A>
-</H3>
+<H2><A NAME="ss8.2">8.2 <EM>kppp</EM> has the SUID bit on. What about security?</A>
+</H2>
 
 <P>It´s virtually impossible to write a dialer without the SUID bit,
 that is both safe and easy to use for unexperienced
@@ -97,17 +91,9 @@ it for security holes.</LI>
 <P>Many thanks to Harri Porten for writing this excellent piece of
 code. I thought it was impossible - he made it within a week.
 <P>
-<P ALIGN="RIGHT">
-
-<A HREF="kppp-9.html">Next</A>
-<A HREF="kppp-7.html">Previous</A>
-<A HREF="kppp.html#toc8">Table of Contents</A>
-</P>
-<CENTER>
-<HR WIDTH="100%" SIZE=3 ALIGN=CENTER NOSHADE>
-</CENTER>    
-</FONT>
-
- 
+<HR>
+<A HREF="index-9.html">Next</A>
+<A HREF="index-7.html">Previous</A>
+<A HREF="index.html#toc8">Contents</A>
 </BODY>
 </HTML>

@@ -1,28 +1,22 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
 <HTML>
 <HEAD>
-<TITLE>The kppp Handbook: Configuring an Account</TITLE>
-<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=iso-8859-1">
-<META NAME="keywords" CONTENT="KPPP Dialer Internet PPP IP PAP CHAP">
-<META NAME="description" CONTENT="KPPP Internet Dialer">
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.7">
+ <TITLE>The kppp Handbook: Configuring an Account</TITLE>
+ <LINK HREF="index-5.html" REL=next>
+ <LINK HREF="index-3.html" REL=previous>
+ <LINK HREF="index.html#toc4" REL=contents>
 </HEAD>
-<BODY BGCOLOR="#ffffff" LINK="#aa0000" TEXT="#000000" > 
-<FONT FACE="Helvetica">
-<A HREF="http://www.kde.org/"><IMG SRC="logotp3.gif" BORDER="0" ALT="The K Desktop Environment"></A>
-<HR WIDTH="100%" SIZE=2 ALIGN="CENTER" NOSHADE>
-
- 
-<P ALIGN="RIGHT">
-
-<A HREF="kppp-5.html">Next</A>
-<A HREF="kppp-3.html">Previous</A>
-<A HREF="kppp.html#toc4">Table of Contents</A>
-</P>
-<H3><A NAME="s4">4. Configuring an Account</A></H3>
+<BODY>
+<A HREF="index-5.html">Next</A>
+<A HREF="index-3.html">Previous</A>
+<A HREF="index.html#toc4">Contents</A>
+<HR>
+<H2><A NAME="s4">4. Configuring an Account</A></H2>
 
 <P>
-<H3><A NAME="ss4.1">4.1 Dial</A>
-</H3>
+<H2><A NAME="ss4.1">4.1 Dial</A>
+</H2>
 
 <P>
 <DL>
@@ -52,8 +46,8 @@ this dialog to add any desired options that you want <EM>kppp</EM> to hand to pp
 See the pppd man page for a list of available options. Unless you know exactly what you are doing you should
 restrain from tinkering with the pppd options.
 </DL>
-<H3><A NAME="ss4.2">4.2 IP</A>
-</H3>
+<H2><A NAME="ss4.2">4.2 IP</A>
+</H2>
 
 <P>
 <P>
@@ -81,8 +75,8 @@ it may also cause lots of undesired side effect. Just play with it ...
 </DL>
 <P>
 <P>
-<H3><A NAME="ss4.3">4.3 DNS</A>
-</H3>
+<H2><A NAME="ss4.3">4.3 DNS</A>
+</H2>
 
 <P>
 <DL>
@@ -104,8 +98,8 @@ in <CODE>/etc/resolv.conf</CODE> during connection.
 </DL>
 <P>
 <P>
-<H3><A NAME="ss4.4">4.4 Gateway</A>
-</H3>
+<H2><A NAME="ss4.4">4.4 Gateway</A>
+</H2>
 
 <P>
 <DL>
@@ -121,8 +115,8 @@ for your machine.
 this. Leave it on unless you really know what you are doing.
 </DL>
 <P>
-<H3><A NAME="ss4.5">4.5 Login Script</A>
-</H3>
+<H2><A NAME="ss4.5">4.5 Login Script</A>
+</H2>
 
 <P>
 <DL>
@@ -176,7 +170,7 @@ enabling repetition of username/password style paired dialogs.</LI>
 <P>
 </DL>
 <P>
-<H4>Example scripts</H4>
+<H3>Example scripts</H3>
 
 <P>
 <P>Here is a simple script I could use to connect to my ISP:
@@ -282,8 +276,8 @@ Send        3                          # choose option 3, i.e. PPP
 </PRE>
 </CODE></BLOCKQUOTE>
 <P>
-<H3><A NAME="ss4.6">4.6 Accounting</A>
-</H3>
+<H2><A NAME="ss4.6">4.6 Accounting</A>
+</H2>
 
 <P>
 <DL>
@@ -301,17 +295,17 @@ dialog.
 </DL>
 <P>
 <P>
-<H3><A NAME="ss4.7">4.7 Volume accounting</A>
-</H3>
+<H2><A NAME="ss4.7">4.7 Volume accounting</A>
+</H2>
 
 <P>
-<A NAME="volaccounting"></A> <H4>What is volume accounting?</H4>
+<A NAME="volaccounting"></A> <H3>What is volume accounting?</H3>
 
 <P>It basically means to count the number of bytes transmitted from or to the
 Internet. <EM>kppp</EM> can count incoming bytes, outgoing bytes or both. It´s up to
 you what you want (or must) use.
 <P>
-<H4>Why should I use volume accounting?</H4>
+<H3>Why should I use volume accounting?</H3>
 
 <P>Because nowadays, many Internet Service Providers begin to bill their
 customers depending on the number of bytes transferred. Or very often those
@@ -320,14 +314,14 @@ above this limit. <EM>kppp</EM> shows you your current volume and can help you k
 your bills to the minimum. Of course, if you do not have volume limits and you
 are curious, you can use it too...
 <P>
-<H4>What type of volume accounting should I select?</H4>
+<H3>What type of volume accounting should I select?</H3>
 
 <P>That depends on your provider. Many of them only count how many megabytes you
 get from Internet and ignore how much you send. In that case you should choose
 "Bytes in". If you have to pay for both you should select "Bytes in and
 out". "Bytes out" is not of much use and is only here for completeness.
 <P>
-<H4>Drawbacks</H4>
+<H3>Drawbacks</H3>
 
 <P>Unfortunately there´s a drawback on volume accounting. <EM>kppp</EM> will just count the
 number of bytes regardless their origin. Many providers set their limit only
@@ -342,17 +336,9 @@ higher.
 <P>
 <P>
 <P>
-<P ALIGN="RIGHT">
-
-<A HREF="kppp-5.html">Next</A>
-<A HREF="kppp-3.html">Previous</A>
-<A HREF="kppp.html#toc4">Table of Contents</A>
-</P>
-<CENTER>
-<HR WIDTH="100%" SIZE=3 ALIGN=CENTER NOSHADE>
-</CENTER>    
-</FONT>
-
- 
+<HR>
+<A HREF="index-5.html">Next</A>
+<A HREF="index-3.html">Previous</A>
+<A HREF="index.html#toc4">Contents</A>
 </BODY>
 </HTML>
