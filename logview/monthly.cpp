@@ -129,8 +129,8 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
   lv->addColumn(i18n("Until"));
   lv->addColumn(i18n("Duration"));
   lv->addColumn(i18n("Costs"));
-  lv->addColumn(i18n("Bytes in"));
-  lv->addColumn(i18n("Bytes out"));
+  lv->addColumn(i18n("Bytes In"));
+  lv->addColumn(i18n("Bytes Out"));
   lv->setColumnAlignment(1, AlignRight);
   lv->setColumnAlignment(2, AlignRight);
   lv->setColumnAlignment(3, AlignRight);
@@ -159,10 +159,10 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
 	  this, SLOT(slotConnections(int)));
 
   bbox = new KButtonBox(this, Qt::Vertical);
-  prev = bbox->addButton(i18n("Prev month"));
-  next = bbox->addButton(i18n("Next month"));
+  prev = bbox->addButton(i18n("Prev Month"));
+  next = bbox->addButton(i18n("Next Month"));
   bbox->addStretch(1);
-  today = bbox->addButton(i18n("Current month"));
+  today = bbox->addButton(i18n("Current Month"));
   bbox->addStretch(1);
   exportBttn = bbox->addButton(i18n("Export..."));
 
@@ -398,7 +398,7 @@ void MonthlyWidget::exportWizard() {
 
   // start writing data
   exportIFace->addHeadline(i18n("Connection"), i18n("Day"), i18n("From"), i18n("Until"),
-			   i18n("Duration"), i18n("Costs"), i18n("Bytes in"), i18n("Bytes out") );
+			   i18n("Duration"), i18n("Costs"), i18n("Bytes In"), i18n("Bytes Out") );
 
   // name of the current connection
   QString con;

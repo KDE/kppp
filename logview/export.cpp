@@ -91,7 +91,7 @@ ExportWizard::ExportWizard(QWidget *parent, const QString &_date)
   filenameLayout->addStretch(1);
 
   fnGet = new QPushButton(filenamePage);
-  fnGet->setText(i18n("&Select file..."));
+  fnGet->setText(i18n("&Select File..."));
   fnGet->setMaximumWidth(200);
   QToolTip::add(fnGet, i18n("Select the filename of the exported output-file"));
   filenameLayout->addWidget(fnGet);
