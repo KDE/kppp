@@ -2,8 +2,8 @@
  *            kPPP: A pppd front end for the KDE project
  *
  * $Id$
- * 
- *            Copyright (C) 1997 Bernd Johannes Wuebben 
+ *
+ *            Copyright (C) 1997 Bernd Johannes Wuebben
  *                   wuebben@math.cornell.edu
  *
  * based on EzPPP:
@@ -50,6 +50,7 @@
 #include <kaboutdata.h>
 #include <kconfig.h>
 #include <kmessagebox.h>
+#include <knotifyclient.h>
 #include <qdir.h>
 #include <qwhatsthis.h>
 #include <qmessagebox.h>
@@ -79,10 +80,10 @@
 #include <klocale.h>
 #include <kcmdlineargs.h>
 
-static const char *description = 
+static const char *description =
 	I18N_NOOP("A dialer and front-end to pppd.");
 
-static KCmdLineOptions option[] = 
+static KCmdLineOptions option[] =
 {
    { "c <account_name>", I18N_NOOP("Connect using 'account_name'"), 0 },
    { "k", I18N_NOOP("Terminate an existing connection"), 0 },
@@ -128,7 +129,7 @@ void showNews() {
   if(gpppdata.readNumConfig(GENERAL_GRP, QUICKHELP_HINT, 0) == 0) {
     QDialog dlg(0, 0, true);
     dlg.setCaption(i18n("Recent changes in kppp"));
-    
+
     QVBoxLayout *tl = new QVBoxLayout(&dlg, 10, 10);
     QHBoxLayout *l1 = new QHBoxLayout(10);
     QVBoxLayout *l2 = new QVBoxLayout(10);
@@ -151,7 +152,7 @@ void showNews() {
 			      "\n"
 			      "To test it, right-click somewhere in this text."),
 			 &dlg);
-    
+
     QCheckBox *cb = new QCheckBox(i18n("Don't show this hint again"), &dlg);
     cb->setFixedSize(cb->sizeHint());
 
@@ -198,16 +199,16 @@ QString encodeWord(const QString &s) {
 extern "C" {
   static int kppp_x_errhandler( Display *dpy, XErrorEvent *err ) {
     char errstr[256]; // safe
-  
+
     /*
       if(gpppdata.pppdpid() >= 0) {
       kill(gpppdata.pppdpid(), SIGTERM);
       }
-    
+
       p_kppp->stopAccounting();
       removedns();
       unlockdevice();*/
-  
+
     XGetErrorText( dpy, err->error_code, errstr, 256 );
     kdFatal() << "X Error: " << errstr << endl;
     kdFatal() << "Major opcode: " << err->request_code << endl;
@@ -237,14 +238,14 @@ extern "C" {
 
 int main( int argc, char **argv ) {
   // make sure that open/fopen and so on NEVER return 1 or 2 (stdout and stderr)
-  // Expl: if stdout/stderr were closed on program start (by parent), open() 
+  // Expl: if stdout/stderr were closed on program start (by parent), open()
   // would return a FD of 1, 2 (or even 0 if stdin was closed too)
   if(fcntl(0, F_GETFL) == -1)
     (void)open("/dev/null", O_RDONLY);
 
   if(fcntl(1, F_GETFL) == -1)
     (void)open("/dev/null", O_WRONLY);
-  
+
   if(fcntl(2, F_GETFL) == -1)
     (void)open("/dev/null", O_WRONLY);
 
@@ -284,14 +285,14 @@ int main( int argc, char **argv ) {
 
   //
   // end of setuid-dropping block.
-  // 
+  //
 
   // install exit handler that will kill the helper process
   atexit(myShutDown);
 
   // not needed anymore, just causes problems with broken setup
   //  if(getHomeDir() != 0)
-  //      setenv("HOME", getHomeDir(), 1); 
+  //      setenv("HOME", getHomeDir(), 1);
 
   (void) new Requester(sockets[0]);
 
@@ -301,10 +302,10 @@ int main( int argc, char **argv ) {
   aboutData.addAuthor("Bernd Wuebben",0, "wuebben@kde.org");
   aboutData.addAuthor("Mario Weilguni",0, "mweilguni@kde.org");
   aboutData.addAuthor("Harri Porten",0, "porten@kde.org");
-  
+
   KCmdLineArgs::init( argc, argv, &aboutData );
   KCmdLineArgs::addCmdLineOptions( option );
-  
+
 
 
   KApplication a;
@@ -326,7 +327,7 @@ int main( int argc, char **argv ) {
     return RuleSet::checkRuleFile(args->getOption("r"));
 
   TESTING = args->isSet("T");
-  
+
   if(!cmdl_account.isEmpty()) {
     have_cmdl_account = true;
     kdDebug(5002) << "cmdl_account: " << cmdl_account << endl;
@@ -349,7 +350,7 @@ int main( int argc, char **argv ) {
     KMessageBox::error(0L, msg);
     return 1;
   }
-  
+
   if (terminate_connection) {
     setgid(getgid());
     setuid(getuid());
@@ -359,7 +360,7 @@ int main( int argc, char **argv ) {
       remove_pidfile();
     return 0;
   }
-  
+
   // Mario: testing
   if(TESTING) {
     gpppdata.open();
@@ -383,7 +384,7 @@ int main( int argc, char **argv ) {
     QMessageBox::warning(0L, i18n("Error"), msg, i18n("Exit"));
     return 1;
   }
-  
+
   KPPPWidget kppp;
   p_kppp = &kppp;
 
@@ -397,7 +398,7 @@ int main( int argc, char **argv ) {
   a.setTopWidget(&kppp);
 
   // we really don't want to die accidentally, since that would leave the
-  // modem connected. If you really really want to kill me you must send 
+  // modem connected. If you really really want to kill me you must send
   // me a SIGKILL.
   signal(SIGINT, sighandler);
   signal(SIGCHLD, sighandler);
@@ -449,10 +450,10 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   l1->addWidget(label1, 0, 1);
 
   connectto_c = new QComboBox(false, this);
-  
-  connect(connectto_c, SIGNAL(activated(int)), 
+
+  connect(connectto_c, SIGNAL(activated(int)),
 	  SLOT(newdefaultaccount(int)));
-  l1->addWidget(connectto_c, 0, 2);  
+  l1->addWidget(connectto_c, 0, 2);
 
   ID_Label = new QLabel(i18n("Login ID:"), this);
   l1->addWidget(ID_Label, 1, 1);
@@ -481,7 +482,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   l1->addWidget(PW_Edit, 2, 2);
   connect(PW_Edit, SIGNAL(returnPressed()),
 	  this, SLOT(enterPressedInPW()));
-  
+
   tmp = i18n("<p>Type in the password that you got from your\n"
 	     "ISP. This is especially important for PAP\n"
 	     "and CHAP. You may omit this when you use\n"
@@ -499,12 +500,12 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
    tl->addSpacing(5);
    l3->addSpacing(10);
    log = new QCheckBox(i18n("Show Log Window"), this);
-   connect(log, SIGNAL(toggled(bool)), 
+   connect(log, SIGNAL(toggled(bool)),
   	  this, SLOT(log_window_toggled(bool)));
    log->setChecked(gpppdata.get_show_log_window());
    l3->addWidget(log);
 
-   QWhatsThis::add(log, 
+   QWhatsThis::add(log,
  		  i18n("<p>This controls whether a log window is shown.\n"
  		       "A log window shows the communication between\n"
  		       "<i>kppp</i> and your modem. This will help you\n"
@@ -563,7 +564,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   // we also connect cmld_start to the beginConnect so that I can run
   // the dialer through a command line argument
-  connect(this,SIGNAL(cmdl_start()),this,SLOT(beginConnect())); 
+  connect(this,SIGNAL(cmdl_start()),this,SLOT(beginConnect()));
 
   stats = new PPPStats;
 
@@ -605,7 +606,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 	  this, SLOT(startAccounting()));
   connect(con, SIGNAL(stopAccounting()),
 	  this, SLOT(stopAccounting()));
-    
+
   debugwindow->setGeometry(QApplication::desktop()->width()/2+190,
 			   QApplication::desktop()->height()/2-55,
 			   debugwindow->width(),debugwindow->height());
@@ -623,7 +624,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
       have_cmdl_account = false;
       this->show();
     } else
-      emit cmdl_start();    
+      emit cmdl_start();
   } else
     show();
 }
@@ -682,7 +683,7 @@ void KPPPWidget::prepareSetupDialog() {
     general = new GeneralWidget(tabWindow);
     graph = new GraphSetup(tabWindow);
     about  = new AboutWidget(tabWindow);
-    
+
     tabWindow->addTab( accounts, i18n("Accounts") );
     tabWindow->addTab( modem1, i18n("Device") );
     tabWindow->addTab( modem2, i18n("Modem") );
@@ -747,7 +748,7 @@ void KPPPWidget::resetaccounts() {
 	PW_Edit->setText(gpppdata.storedPassword());
     }
   }
-  else 
+  else
     if(count > 0) {
        gpppdata.setDefaultAccount(connectto_c->text(0));
         gpppdata.save();
@@ -798,11 +799,11 @@ void KPPPWidget::sigPPPDDied() {
     // if we are not connected pppdpid is -1 so have have to check for that
     // in the followin line to make sure that we don't raise a false alarm
     // such as would be the case when the log file viewer exits.
-    if(gpppdata.pppdRunning() || gpppdata.pppdError()) { 
+    if(gpppdata.pppdRunning() || gpppdata.pppdError()) {
       kdDebug(5002) << "It was pppd that died" << endl;
 
-      // when we killpppd() on Cancel in ConnectWidget 
-      // we set pppid to -1 so we won't 
+      // when we killpppd() on Cancel in ConnectWidget
+      // we set pppid to -1 so we won't
       // enter this block
 
       // just to be sure
@@ -810,7 +811,7 @@ void KPPPWidget::sigPPPDDied() {
       Requester::rq->removeSecret(AUTH_CHAP);
 
       gpppdata.setpppdRunning(false);
-      
+
       kdDebug(5002) << "Executing command on disconnect since pppd has died." << endl;
       QApplication::flushX();
       execute_command(gpppdata.command_on_disconnect());
@@ -819,13 +820,13 @@ void KPPPWidget::sigPPPDDied() {
 
       con_win->stopClock();
       DockWidget::dock_widget->stop_stats();
-      DockWidget::dock_widget->hide();      
+      DockWidget::dock_widget->hide();
 
       if(!gpppdata.pppdError())
         gpppdata.setpppdError(E_PPPD_DIED);
       removedns();
-      Modem::modem->unlockdevice();      
-      
+      Modem::modem->unlockdevice();
+
       if(!gpppdata.automatic_redial()) {
 	quit_b->setFocus();
 	show();
@@ -836,7 +837,7 @@ void KPPPWidget::sigPPPDDied() {
 
         gpppdata.setpppdRunning(false);
 	
-	KApplication::beep();
+	KNotifyClient::beep();
 	QString msg;
 	if (gpppdata.pppdError() == E_IF_TIMEOUT)
 	    msg = i18n("Timeout expired while waiting for the PPP interface "
@@ -844,10 +845,12 @@ void KPPPWidget::sigPPPDDied() {
 	else {
 	    msg = i18n("The pppd daemon died unexpectedly!");
 	    Requester::rq->pppdExitStatus();
-	    msg += i18n("\n\nExit status: %1").arg(Requester::rq->lastStatus);
-	    msg += i18n("\n\nSee 'man pppd' for an explanation of the error "
-			"codes\nor take a look at the kppp FAQ on\n\n"
-			"  http://devel-home.kde.org/~kppp/index.html");
+	    if (Requester::rq->lastStatus != 99) {	// more recent pppds only
+		msg += i18n("\n\nExit status: %1").arg(Requester::rq->lastStatus);
+		msg += i18n("\n\nSee 'man pppd' for an explanation of the error "
+			    "codes\nor take a look at the kppp FAQ on\n\n"
+			    "  http://devel-home.kde.org/~kppp/index.html");
+	    }
 	}
 	
 	if(QMessageBox::critical(0, i18n("Error"), msg, i18n("OK"), i18n("Details...")))
@@ -864,7 +867,7 @@ void KPPPWidget::sigPPPDDied() {
 	con_win->stopClock();
 	stopAccounting();
 	gpppdata.setpppdRunning(false);
-	KApplication::beep();
+	KNotifyClient::beep();
 	emit cmdl_start();
     }
   }
@@ -904,7 +907,7 @@ void KPPPWidget::expandbutton() {
 void KPPPWidget::beginConnect() {
   // make sure to connect to the account that is selected in the combo box
   // (exeption: an account given by a command line argument)
-  if(!have_cmdl_account) 
+  if(!have_cmdl_account)
     gpppdata.setAccount(connectto_c->currentText());
 
   QFileInfo info(pppdPath());
@@ -918,7 +921,7 @@ void KPPPWidget::beginConnect() {
 #if 0
   if(!info.isExecutable()){
 
-    QString string;   
+    QString string;
     string = i18n("kppp cannot execute:\n %1\n"
     		   "Please make sure that you have given kppp "
 		   "setuid permission and that\n"
@@ -932,7 +935,7 @@ void KPPPWidget::beginConnect() {
   QFileInfo info2(gpppdata.modemDevice());
 
   if(!info2.exists()){
-    QString string;   
+    QString string;
     string = i18n("kppp can not find:\n %1\nPlease make sure you have setup\n"
 		   "your modem device properly\n"
 		   "and/or adjust\n the location of the modem device on "
@@ -944,7 +947,7 @@ void KPPPWidget::beginConnect() {
 
   gpppdata.setPassword(PW_Edit->text());
 
-  // if this is a PAP or CHAP account, ensure that username is 
+  // if this is a PAP or CHAP account, ensure that username is
   // supplied
   if(gpppdata.authMethod() == AUTH_PAP || gpppdata.authMethod() == AUTH_CHAP) {
     if(ID_Edit->text().isEmpty()) {
@@ -981,7 +984,7 @@ void KPPPWidget::beginConnect() {
   con->setCaption(tit);
 
   con->show();
-  
+
   bool show_debug = gpppdata.get_show_log_window();
   debugwindow->clear();
   if (!show_debug)
@@ -991,7 +994,7 @@ void KPPPWidget::beginConnect() {
     con->raise();
     con->debug->setText(i18n("Log")); // set Log/Hide button text to Hide
   }	
-  
+
   emit begin_connect();
 }
 
@@ -1024,17 +1027,17 @@ void KPPPWidget::disconnect() {
 
   QApplication::flushX();
   execute_command(gpppdata.command_on_disconnect());
-  
+
   Requester::rq->removeSecret(AUTH_PAP);
   Requester::rq->removeSecret(AUTH_CHAP);
 
   removedns();
   Modem::modem->unlockdevice();
-  
+
   con_win->stopClock();
   p_kppp->stopAccounting();
   con_win->hide();
-  
+
   DockWidget::dock_widget->stop_stats();
   DockWidget::dock_widget->hide();
 
@@ -1049,12 +1052,12 @@ void KPPPWidget::disconnect() {
 
 void KPPPWidget::helpbutton() {
   kapp->invokeHelp();
-}             
+}
 
 
 void KPPPWidget::quitbutton() {
-  if(gpppdata.pppdRunning()) {    
-    int ok = KMessageBox::warningYesNo(this,  
+  if(gpppdata.pppdRunning()) {
+    int ok = KMessageBox::warningYesNo(this,
 			    i18n("Exiting kPPP will close your PPP Session."),
 			    i18n("Quit kPPP?"));
     if(ok == KMessageBox::Yes) {
@@ -1083,11 +1086,11 @@ void KPPPWidget::startAccounting() {
   stats->totalbytes = 0;
 
   kdDebug() << "AcctEnabled: " << gpppdata.AcctEnabled() << endl;
-  
+
   // load the ruleset
   if(!gpppdata.AcctEnabled())
     return;
-  
+
   QString d = AccountingBase::getAccountingFile(gpppdata.accountingFile());
   //  if(::access(d.data(), X_OK) != 0)
     acct = new Accounting(this, stats);
@@ -1167,9 +1170,9 @@ pid_t execute_command (const QString & cmd) {
   QCString command = QFile::encodeName(cmd);
   if (command.isEmpty() || command.length() > COMMAND_SIZE)
     return (pid_t) -1;
-    
+
   pid_t id;
-    
+
   kdDebug(5002) << "Executing command: " << command << endl;
 
   QApplication::flushX();
@@ -1184,25 +1187,25 @@ pid_t execute_command (const QString & cmd) {
     // drop privileges if running setuid root
     setgid(getgid());
     setuid(getuid());
-    
+
     system(command);
     _exit(0);
-  }	 
+  }	
 
   return id;
 }
 
 
-// Create a file containing the current pid. Returns 0 on success, 
-// -1 on failure or the pid of an already running kppp process. 
+// Create a file containing the current pid. Returns 0 on success,
+// -1 on failure or the pid of an already running kppp process.
 pid_t create_pidfile() {
   int fd = -1;
   char pidstr[40]; // safe
-  
+
   pidfile = KGlobal::dirs()->saveLocation("appdata") + "kppp.pid";
 
   if(access(QFile::encodeName(pidfile), F_OK) == 0) {
-    
+
     if((access(QFile::encodeName(pidfile), R_OK) < 0) ||
        (fd = open(QFile::encodeName(pidfile), O_RDONLY)) < 0)
       return -1;
@@ -1246,7 +1249,7 @@ pid_t create_pidfile() {
 
 bool remove_pidfile() {
   struct stat st;
-  
+
   // only remove regular files with user write permissions
   if(stat(QFile::encodeName(pidfile), &st) == 0 )
     if(S_ISREG(st.st_mode) && (access(QFile::encodeName(pidfile), W_OK) == 0)) {
