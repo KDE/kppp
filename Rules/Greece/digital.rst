@@ -16,19 +16,19 @@ name=digital
 currency_symbol=Drx
 currency_position=right 
 currency_digits=2
-per_connection=7.08
+per_connection=8.26
 
 
-# Each Unit costs 6drx+18%vat=7.08drx
+# Each Unit costs 7drx+18%vat=8.26drx
 # Every 1 min 1 Unit is added to the bill
 # Monday-Saturdays (22:00-08:00) and Sundays the cost drops to 1 Unit per 2mins
 
 # default : Cost of  seconds in the time periods (Monday..Saturday,8:00..22:00) 
-default=(7.08, 60)
+default=(8.26, 60)
 
 # (other time periods / Weekend)
-on (monday..saturday) between (00:00..08:00) use (7.08, 120)
-on (monday..saturday) between (22:00..23:59) use (7.08, 120)
-on (sunday) between (00:00..23:59) use (7.08, 120)
+on (monday..saturday) between (00:00..08:00) use (8.26, 120)
+on (monday..saturday) between (22:00..23:59) use (8.26, 120)
+on (sunday) between (00:00..23:59) use (8.26, 120)
 
 
