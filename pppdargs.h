@@ -34,6 +34,7 @@ class QListBox;
 class QLabel;
 class QPushButton;
 class QLineEdit;
+class KPushButton;
 
 
 class PPPdArguments : public QDialog {
@@ -59,7 +60,7 @@ private:
 
   QPushButton *add;
   QPushButton *remove;
-  QPushButton *defaults;
+  KPushButton *defaults;
 
   QListBox *arguments;
 

@@ -36,6 +36,8 @@
 #include <qpushbutton.h>
 #include <qlistbox.h>
 #include <qlabel.h>
+#include <kstdguiitem.h>
+#include <kpushbutton.h>
 
 
 PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
@@ -80,7 +82,7 @@ PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
   connect(remove, SIGNAL(clicked()), SLOT(removebutton()));
   l2->addWidget(remove);
 
-  defaults = new QPushButton(i18n("&Defaults"), this);
+  defaults = new KPushButton(KStdGuiItem::defaults(), this);
   connect(defaults, SIGNAL(clicked()), SLOT(defaultsbutton()));
   l2->addWidget(defaults);
 
