@@ -35,14 +35,16 @@
 #include <klocale.h>
 #include <kfiledialog.h>
 
+class Export;
 
 /***** ExportWizard *****/
-class ExportWizard : public KWizard { 
+class ExportWizard : public KWizard {
   Q_OBJECT
 public:
-   ExportWizard(QWidget *parent, const QString &_filePrefix);
+   ExportWizard(QWidget *parent, const QString &_date);
+   Export *createExportFilter();
 
-   int typeID;
+   int filterID;
    QString filename;
 
 public slots:
@@ -60,7 +62,7 @@ private:
    QLineEdit   *fnLine;
    QPushButton *fnGet;
 
-   QString filePrefix;
+   QString date;
 };
 
 
@@ -71,14 +73,20 @@ public:
    Export(const QString &filename);
    virtual ~Export();
    bool openFile();
+   bool closeFile();
+   virtual void addHeadline(const QString &a, const QString &b,
+			    const QString &c, const QString &d,
+			    const QString &e, const QString &f,
+			    const QString &g, const QString &h) = 0;
    virtual void addDataline(const QString &a, const QString &b,
 			    const QString &c, const QString &d,
 			    const QString &e, const QString &f,
 			    const QString &g, const QString &h) = 0;
-   bool closeFile();
+   virtual void addEmptyLine() = 0;
+   virtual void setFinishCode() = 0;
 
 protected:
-   QFile *fP;
+   QFile   file;
    QString buffer;
    QString filename;
 };
@@ -88,10 +96,16 @@ protected:
 class CSVExport : public Export {
 public:
   CSVExport(const QString &filename, const QString &separator);
+  virtual void addHeadline(const QString &a, const QString &b,
+			   const QString &c, const QString &d,
+			   const QString &e, const QString &f,
+			   const QString &g, const QString &h);
   virtual void addDataline(const QString &a, const QString &b,
 			   const QString &c, const QString &d,
 			   const QString &e, const QString &f,
 			   const QString &g, const QString &h);
+  virtual void addEmptyLine();
+  virtual void setFinishCode();
 
 private:
   QString separator;
@@ -102,16 +116,22 @@ private:
 class HTMLExport : public Export {
 public:
   HTMLExport(const QString &filename, const QString &date);
+  virtual void addHeadline(const QString &a, const QString &b,
+			   const QString &c, const QString &d,
+			   const QString &e, const QString &f,
+			   const QString &g, const QString &h);
   virtual void addDataline(const QString &a, const QString &b,
 			   const QString &c, const QString &d,
 			   const QString &e, const QString &f,
 			   const QString &g, const QString &h);
-  void finishCode();
+  virtual void addEmptyLine();
+  virtual void setFinishCode();
 
 private:
   QString trStartCode;
-  QString tdCode;
   QString trEndCode;
+  QString tdStartCode;
+  QString tdEndCode;
 };
 
 #endif

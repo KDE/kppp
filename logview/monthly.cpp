@@ -373,7 +373,7 @@ void MonthlyWidget::currentMonth() {
 void MonthlyWidget::exportWizard() {
   QString date = QString(currMonth+"-%1").arg(_year);  // e.g.: June-2001
 
-  ExportWizard *wizard =new ExportWizard(0, date);
+  ExportWizard *wizard = new ExportWizard(0, date);
   wizard->exec();
   if (wizard->filename.isEmpty()) { // wizard aborted...
     return;
@@ -384,36 +384,21 @@ void MonthlyWidget::exportWizard() {
     }
   }
 
-  CSVExport  *csv  = new CSVExport(wizard->filename, ";");
-  HTMLExport *html = new HTMLExport(wizard->filename, date);
-
-  bool openError = false;
-  switch (wizard->typeID) {  // call export-format specific methods
-    case 0: { /* CSV */
-      if (!csv->openFile()) {  // error opening
-        openError = true;
-        break;
-      }
-      // File header
-      csv->addDataline(i18n("Connection"), i18n("Day"), i18n("From"), i18n("Until"),
-                       i18n("Duration"), i18n("Costs"), i18n("Bytes in"), i18n("Bytes out") );
-      break;
-    }
-    case 1: { /* HTML */
-      if (!html->openFile()) {
-        openError = true;
-        break;
-      }
-      // File header
-      html->addDataline("<b>"+i18n("Connection")+"</b>", "<b>"+i18n("Day")+"</b>", "<b>"+i18n("From")+"</b>", "<b>"+i18n("Until")+"</b>",
-             "<b>"+i18n("Duration")+"</b>", "<b>"+i18n("Costs")+"</b>", "<b>"+i18n("Bytes in")+"</b>", "<b>"+i18n("Bytes out")+"</b>" );
-      break;
-    }
+  // open file
+  Export *exportIFace = wizard->createExportFilter();
+  if (exportIFace == NULL) { // error
+    return;
   }
-  if (openError) { // error msg.
+
+  if (!exportIFace->openFile()) {  // error opening
     KMessageBox::sorry(0, i18n("An Error occured while trying to open this file"), i18n("Sorry"), true);
+    delete exportIFace;
     return; // abort...
   }
+
+  // start writing data
+  exportIFace->addHeadline(i18n("Connection"), i18n("Day"), i18n("From"), i18n("Until"),
+			   i18n("Duration"), i18n("Costs"), i18n("Bytes in"), i18n("Bytes out") );
 
   // name of the current connection
   QString con;
@@ -489,18 +474,9 @@ void MonthlyWidget::exportWizard() {
       s_costs.sprintf("%6.2f",
                       li->sessionCosts());
 
-      switch (wizard->typeID) { // call export-format specific methods
-        case 0: { /* CSV */
-          csv->addDataline(con, day, s_lifrom, s_liuntil, s_duration,
-                           s_costs, _bin, _bout);
-          break;
-        }
-        case 1: { /* HTML */
-          html->addDataline(con, day, s_lifrom, s_liuntil, s_duration,
-                            s_costs, _bin, _bout);
-          break;
-        }
-      }
+      // call export method
+      exportIFace->addDataline(con, day, s_lifrom, s_liuntil, s_duration,
+			       s_costs, _bin, _bout);
     }
   }
 
@@ -529,34 +505,21 @@ void MonthlyWidget::exportWizard() {
     QString s_costs;
     s_costs.sprintf("%6.2f", costs);
 
-    bool writeError = false;
-    switch (wizard->typeID) { // call format specific output methods
-      case 0: { /* CSV */
-        csv->addDataline(i18n("%1 connections").arg(count), QString::null, QString::null, QString::null, s_duration,
-                         s_costs, _bin, _bout);
-        // write buffer to file and close file
-        if (!csv->closeFile())  {
-          writeError=true;
-        }
-        break;
-      }
-      case 1: { /* HTML */
-        html->addDataline("&nbsp;", "&nbsp;", "&nbsp;", "&nbsp;", "&nbsp;", "&nbsp;", "&nbsp;", "&nbsp;");
-        html->addDataline(i18n("%1 connections").arg(count), QString::null, QString::null, QString::null, s_duration,
-                          s_costs, _bin, _bout);
-        html->finishCode();
-        // write buffer to file and close file
-        if (!html->closeFile())  {
-          writeError=true;
-        }
-        break;
-      }
-    }
-    if (writeError) { // error msg.
+    // call export methods
+    exportIFace->addEmptyLine();
+    exportIFace->addDataline(i18n("%1 connections").arg(count), QString::null, QString::null, QString::null, s_duration,
+			     s_costs, _bin, _bout);
+    exportIFace->setFinishCode();
+
+    // write buffer to file and close file
+    if (!exportIFace->closeFile())  {
       KMessageBox::sorry(0, i18n("An Error occured while trying to write this file"), i18n("Sorry"), true);
+      delete exportIFace;
       return;
     }
+
   }
+  delete exportIFace;
 }
 
 

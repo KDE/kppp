@@ -24,7 +24,9 @@
 
 #include <qpushbutton.h>
 
-/* data struct */
+class Export;
+
+/***** ExportFormats *****/
 struct {
     int id;
     QString name;
@@ -38,9 +40,11 @@ struct {
 
 
 /***** ExportWizard *****/
-ExportWizard::ExportWizard(QWidget *parent, const QString &_filePrefix)
+ExportWizard::ExportWizard(QWidget *parent, const QString &_date)
   : KWizard(parent, "", true) {
-  filePrefix = _filePrefix;
+  date = _date;
+
+  filterID = 0;
 
   setCaption(i18n("Export Wizard for kPPP logs"));
 
@@ -99,6 +103,14 @@ ExportWizard::ExportWizard(QWidget *parent, const QString &_filePrefix)
   setHelpEnabled( filenamePage, false );
 }
 
+Export * ExportWizard::createExportFilter() {
+  switch (filterID) { // IDs: see data-struct ExportFormats
+    case 1 : return new CSVExport(filename, ";");
+    case 2 : return new HTMLExport(filename, date);
+    default : return NULL; // oops..
+  };
+}
+
 void ExportWizard::typeHighlighted(int index) {
   typeInfo->setText("<qt><b>"+ExportFormats[index].name+" File Format</b><p></p>"+ExportFormats[index].desc+"</qt>");
   setNextEnabled(formatPage, true );
@@ -111,7 +123,7 @@ void ExportWizard::getFilename() {
   QString filter = "*." + ExportFormats[i].ext + " *." + ExportFormats[i].ext.upper() + "|" + ExportFormats[i].name +
         " (*." + ExportFormats[i].ext + " *." + ExportFormats[i].ext.upper() + ")";
 
-  filename = KFileDialog::getSaveFileName(filePrefix + "." + ExportFormats[i].ext, filter, 0, i18n("Please choose a File"));
+  filename = KFileDialog::getSaveFileName(date + "." + ExportFormats[i].ext, filter, 0, i18n("Please choose a File"));
   if (filename.isEmpty()) // no file selected
     return;
   fnLine->setText(filename);
@@ -119,9 +131,10 @@ void ExportWizard::getFilename() {
 }
 
 void ExportWizard::accept() {
-  typeID = typeList->currentItem();
+  filterID = typeList->currentItem() + 1; // translate to ID-count in ExportFormats
   hide();
 }
+
 
 /***** Export *****/
 Export::Export(const QString &_filename)
@@ -135,15 +148,15 @@ Export::~Export()
 }
 
 bool Export::openFile() {
-  fP = new QFile( filename );
-  return fP->open( IO_WriteOnly );
+  file.setName(filename);
+  return file.open(IO_WriteOnly);
 }
 
 bool Export::closeFile() {
   bool ok = true;
-  if (fP->writeBlock(buffer.latin1(), buffer.length())<0)
+  if (file.writeBlock(buffer.latin1(), buffer.length())<0)
     ok = false;
-  fP->close();
+  file.close();
   return ok;
 }
 
@@ -155,7 +168,13 @@ CSVExport::CSVExport(const QString &filename, const QString &_separator)
 {
 }
 
-
+void CSVExport::addHeadline(const QString &a, const QString &b,
+			     const QString &c, const QString &d,
+			     const QString &e, const QString &f,
+			     const QString &g, const QString &h) {
+  // no especially style
+  addDataline(a, b, c, d, e, f, g, h);
+}
 
 void CSVExport::addDataline(const QString &a, const QString &b,
 			    const QString &c, const QString &d,
@@ -171,36 +190,66 @@ void CSVExport::addDataline(const QString &a, const QString &b,
           h + separator + "\n";
 }
 
+void CSVExport::addEmptyLine() {
+  // not needed
+}
+
+void CSVExport::setFinishCode() {
+  // not needed
+}
+
 
 /***** HTMLExport *****/
 HTMLExport::HTMLExport(const QString &filename, const QString &date)
   : Export(filename) {
   QString title = i18n("Connection log for %1").arg(date);
   buffer = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n";
-  buffer.append("<html>\n<head>\n  <title>"+title+"</title>\n</head>\n<body>\n<h1>"+title+"</h1>\n<table width=\"100%\" border=\"1\">\n");
+  buffer.append("<html>\n<head>\n  <title>"+title+"</title>\n</head>\n<body>\n<h1>"+title+"</h1>\n\n");
+  buffer.append("<table width=\"100%\" border=\"1\">\n");
 
-  trStartCode = "<tr><td>";
-  tdCode      = "</td><td>";
-  trEndCode   = "</td></tr>";
+  trStartCode = "<tr>";
+  trEndCode   = "</tr>\n";
+  tdStartCode = "<td>";
+  tdEndCode   = "</td>";
+}
+
+void HTMLExport::addHeadline(const QString &a, const QString &b,
+			     const QString &c, const QString &d,
+			     const QString &e, const QString &f,
+			     const QString &g, const QString &h) {
+  // simply bold font
+  QString bak1 = tdStartCode; tdStartCode.append("<b>");
+  QString bak2 = tdEndCode; tdEndCode.prepend("</b>");
+
+  addDataline(a, b, c, d, e, f, g, h);
+
+  // reset font
+  tdStartCode = bak1;
+  tdEndCode = bak2;
 }
 
 void HTMLExport::addDataline(const QString &a, const QString &b,
 			     const QString &c, const QString &d,
 			     const QString &e, const QString &f,
 			     const QString &g, const QString &h) {
-  buffer+=trStartCode +
-          a + tdCode  +
-          b + tdCode  +
-          c + tdCode  +
-          d + tdCode  +
-          e + tdCode  +
-          f + tdCode  +
-          g + tdCode  +
-          h + trEndCode + "\n";
+  buffer+=  trStartCode +
+  	    tdStartCode + a + tdEndCode +
+  	    tdStartCode + b + tdEndCode +
+  	    tdStartCode + c + tdEndCode +
+  	    tdStartCode + d + tdEndCode +
+  	    tdStartCode + e + tdEndCode +
+  	    tdStartCode + f + tdEndCode +
+  	    tdStartCode + g + tdEndCode +
+  	    tdStartCode + h + tdEndCode +
+  	    trEndCode;
 }
 
-void HTMLExport::finishCode() {
-  buffer+="</table>\n</body>\n</html>\n";
+void HTMLExport::addEmptyLine() {
+  addDataline("&nbsp;", "&nbsp;", "&nbsp;", "&nbsp;", "&nbsp;", "&nbsp;", "&nbsp;", "&nbsp;");
+}
+
+void HTMLExport::setFinishCode() {
+  buffer+= "</table>\n</body>\n</html>\n";
 }
 
 #include "export.moc"
