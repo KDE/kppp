@@ -1,1 +1,1 @@
-SUBDIRS = Austria United_Kingdom Norway Germany Denmark New_Zealand
+SUBDIRS = Austria Denmark Germany New_Zealand Norway Portugal United_Kingdom
