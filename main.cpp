@@ -918,10 +918,10 @@ void KPPPWidget::beginConnect() {
 
   gpppdata.setPassword(PW_Edit->text());
 
-  // if this is a PAP or CHAP account, ensure that password and username are
+  // if this is a PAP or CHAP account, ensure that username is 
   // supplied
   if(gpppdata.authMethod() == AUTH_PAP || gpppdata.authMethod() == AUTH_CHAP) {
-    if(ID_Edit->text().isEmpty() || PW_Edit->text().isEmpty()) {
+    if(ID_Edit->text().isEmpty()) {
       KMessageBox::error(this,
 			   i18n(
                            "You have selected the authentication\n"
