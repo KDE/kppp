@@ -1,3 +1,8 @@
+1999-08-31  Harri Porten  <porten@kde.org>
+
+	* opener.cpp: unified PAP and CHAP code
+	* use KMessageBox::Yes enum
+
 1999-07-22  Harri Porten  <porten@kde.org>
 
 	* connect.cpp: visualize \n as <LF> in setExpect()'s debug messages

@@ -206,41 +206,28 @@ int Requester::openSysLog() {
 }
 
 
-bool Requester::setPAPSecret(const char *name, const char *password) {
-  if(gpppdata.authMethod() != AUTH_PAP)
-    return false;
-
+bool Requester::setSecret(int method, const char *name, const char *password) {
   assert(name!=0);
   assert(password!=0);
 
   struct SetSecretRequest req;
   req.header.type = Opener::SetSecret;
-  req.authMethod = Opener::PAP;
-  strncpy(req.username, name, Opener::MaxStrLen);
-  req.username[Opener::MaxStrLen] = '\0';
-  strncpy(req.password, password, Opener::MaxStrLen);
-  req.password[Opener::MaxStrLen] = '\0';
-  sendRequest((struct RequestHeader *) &req, sizeof(req));
-  return recvResponse();
-}
-
-bool Requester::setCHAPSecret(const char *name, const char *password) {
-  if(gpppdata.authMethod() != AUTH_CHAP)
+  switch(method) {
+  case AUTH_PAP:
+    req.method = Opener::PAP;
+    break;
+  case AUTH_CHAP:
+    req.method = Opener::CHAP;
+    break;
+  default:
     return false;
-
-  assert(name!=0);
-  assert(password!=0);
-
-  struct SetSecretRequest req;
-  req.header.type = Opener::SetSecret;
-  req.authMethod = Opener::CHAP;
+  }
+  req.method = Opener::PAP;
   strncpy(req.username, name, Opener::MaxStrLen);
   req.username[Opener::MaxStrLen] = '\0';
   strncpy(req.password, password, Opener::MaxStrLen);
   req.password[Opener::MaxStrLen] = '\0';
-
   sendRequest((struct RequestHeader *) &req, sizeof(req));
-
   return recvResponse();
 }
 
@@ -248,10 +235,10 @@ bool Requester::removeSecret(int authMethod) {
   struct RemoveSecretRequest req;
   req.header.type = Opener::RemoveSecret;
   if(authMethod == AUTH_PAP && gpppdata.authMethod() == AUTH_PAP)
-    req.authMethod = Opener::PAP;
+    req.method = Opener::PAP;
   else
     if(authMethod == AUTH_CHAP && gpppdata.authMethod() == AUTH_CHAP)
-      req.authMethod = Opener::CHAP;
+      req.method = Opener::CHAP;
     else
       return false;
 

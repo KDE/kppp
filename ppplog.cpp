@@ -205,7 +205,7 @@ void PPPL_ShowLog() {
 				     "problems, so you should turn on the debug option.\n\n"
 				     "Shall I turn it on now?"));
 
-    if(result == 0) {
+    if(result == KMessageBox::Yes) {
       gpppdata.setPPPDebug(TRUE);
       KMessageBox::information(0,
 		       i18n("The \"debug\" option has been added. You\n"

@@ -215,7 +215,7 @@ void Opener::mainLoop() {
       case SetSecret:
 	Debug("Opener: received SetSecret");
 	MY_ASSERT(len == sizeof(struct SetSecretRequest));
-	response.status = !createAuthFile(request.secret.authMethod,
+	response.status = !createAuthFile(request.secret.method,
 					  request.secret.username,
 					  request.secret.password);
 	sendResponse(&response);
@@ -224,7 +224,7 @@ void Opener::mainLoop() {
       case RemoveSecret:
 	Debug("Opener: received RemoveSecret");
 	MY_ASSERT(len == sizeof(struct RemoveSecretRequest));
-	response.status = !removeAuthFile(request.remove.authMethod);
+	response.status = !removeAuthFile(request.remove.method);
 	sendResponse(&response);
 	break;
 
@@ -340,16 +340,16 @@ const char* Opener::deviceByIndex(int idx) {
   return device;
 }
 
-bool Opener::createAuthFile(int authMethod, char *username, char *password) {
+bool Opener::createAuthFile(Auth method, char *username, char *password) {
   const char *authfile, *oldName, *newName;
   char line[100];
   char regexp[2*MaxStrLen+30];
   regex_t preg;
 
-  if(!(authfile = authFile(authMethod)))
+  if(!(authfile = authFile(method)))
     return false;
 
-  if(!(newName = authFile(authMethod, New)))
+  if(!(newName = authFile(method, New)))
     return false;
 
   // look for username, "username" or 'username'
@@ -384,7 +384,7 @@ bool Opener::createAuthFile(int authMethod, char *username, char *password) {
   // free memory allocated by regcomp
   regfree(&preg);
 
-  if(!(oldName = authFile(authMethod, Old)))
+  if(!(oldName = authFile(method, Old)))
     return false;
 
   // delete old file if any
@@ -397,12 +397,12 @@ bool Opener::createAuthFile(int authMethod, char *username, char *password) {
 }
 
 
-bool Opener::removeAuthFile(int authMethod) {
+bool Opener::removeAuthFile(Auth method) {
   const char *authfile, *oldName;
 
-  if(!(authfile = authFile(authMethod)))
+  if(!(authfile = authFile(method)))
     return false;
-  if(!(oldName = authFile(authMethod, Old)))
+  if(!(oldName = authFile(method, Old)))
     return false;
 
   if(access(oldName, F_OK) == 0) {
@@ -413,8 +413,8 @@ bool Opener::removeAuthFile(int authMethod) {
 }
 
 
-const char* Opener::authFile(int authMethod, int version) {
-  switch(authMethod|version) {
+const char* Opener::authFile(Auth method, int version) {
+  switch(method|version) {
   case PAP|Original:
     return PAP_AUTH_FILE;
     break;

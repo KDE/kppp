@@ -32,7 +32,7 @@ public:
          SetHostname,
          ExecPPPDaemon, KillPPPDaemon,
          Stop };
-  enum { PAP = 1, CHAP };
+  enum Auth { PAP = 1, CHAP };
   enum { MaxPathLen = 30, MaxStrLen = 40, MaxArgs = 100 };
 
 private:
@@ -41,9 +41,9 @@ private:
   int sendFD(int ttyfd, struct ResponseHeader *response);
   int sendResponse(struct ResponseHeader *response);
   const char *deviceByIndex(int idx);
-  bool createAuthFile(int authMethod, char *username, char *password);
-  bool removeAuthFile(int authMethod);
-  const char* authFile(int authMethod, int version = Original);
+  bool createAuthFile(Auth method, char *username, char *password);
+  bool removeAuthFile(Auth method);
+  const char* authFile(Auth method, int version = Original);
   bool execpppd(const char *arguments);
   bool killpppd();
   void parseargs(char* buf, char** args);
@@ -92,14 +92,14 @@ struct OpenLogRequest {
 
 struct SetSecretRequest {
   struct RequestHeader header;
-  int    authMethod;   // PAP or CHAP
+  Opener::Auth method;   // PAP or CHAP
   char   username[Opener::MaxStrLen+1];
   char   password[Opener::MaxStrLen+1];
 };
 
 struct RemoveSecretRequest {
   struct RequestHeader header;
-  int    authMethod;   // PAP or CHAP
+  Opener::Auth method;   // PAP or CHAP
 };
 
 struct SetHostnameRequest {

@@ -481,7 +481,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 	     "lower volume.\n"
 	     "\n"
 	     "If this does not work for your modem,\n"
-	     "you must modify the modem volume command");
+	     "you must modify the modem volume command.");
 
   QWhatsThis::add(volumeLabel,tmp);
   QWhatsThis::add(volume, tmp);

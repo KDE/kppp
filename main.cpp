@@ -829,13 +829,11 @@ void dieppp(int) {
       } else { /* reconnect on disconnect */
 	Debug("Trying to reconnect ... \n");
 
-        if(gpppdata.authMethod() == AUTH_PAP)
-          Requester::rq->setPAPSecret(gpppdata.storedUsername(),
-                                      gpppdata.password);
-        if(gpppdata.authMethod() == AUTH_CHAP)
-          Requester::rq->setCHAPSecret(gpppdata.storedUsername(),
-                                       gpppdata.password);
-
+        if(gpppdata.authMethod() == AUTH_PAP ||
+	   gpppdata.authMethod() == AUTH_CHAP)
+          Requester::rq->setSecret(gpppdata.authMethod(),
+				   gpppdata.storedUsername(),
+				   gpppdata.password);
 	p_kppp->con_win->hide();
 	p_kppp->con_win->stopClock();
 	p_kppp->stopAccounting();
@@ -920,22 +918,23 @@ void KPPPWidget::beginConnect() {
 
   gpppdata.setPassword(PW_Edit->text());
 
-  // if this is a PAP account, ensure that password and username are
+  // if this is a PAP or CHAP account, ensure that password and username are
   // supplied
-  if(gpppdata.authMethod() == AUTH_PAP) {
-    if(strlen(ID_Edit->text()) == 0 || strlen(PW_Edit->text()) == 0) {
+  if(gpppdata.authMethod() == AUTH_PAP || gpppdata.authMethod() == AUTH_CHAP) {
+    if(ID_Edit->text().isEmpty() || PW_Edit->text().isEmpty()) {
       KMessageBox::error(this,
 			   i18n(
                            "You have selected the authentication\n"
-			   "method PAP. This requires that you\n"
+			   "method PAP or CHAP. This requires that you\n"
 			   "supply a username and a password!"));
       return;
     } else {
       gpppdata.password = PW_Edit->text();
-      if(!Requester::rq->setPAPSecret(gpppdata.storedUsername(),
-                                      gpppdata.password)) {
+      if(!Requester::rq->setSecret(gpppdata.authMethod(),
+				   gpppdata.storedUsername(),
+				   gpppdata.password)) {
 	QString s;
-	s = i18n("Cannot create PAP authentication\n"
+	s = i18n("Cannot create PAP/CHAP authentication\n"
 				     "file \"%1\"").arg(PAP_AUTH_FILE);
 	KMessageBox::error(this, s);
 	return;
@@ -943,30 +942,7 @@ void KPPPWidget::beginConnect() {
     }
   }
 
-  // if this is a CHAP account, ensure that password and username are
-  // supplied
-  if(gpppdata.authMethod() == AUTH_CHAP) {
-    if(strlen(ID_Edit->text()) == 0 || strlen(PW_Edit->text()) == 0) {
-      KMessageBox::error(this,
-			   i18n(
-                           "You have selected the authentication\n"
-			   "method CHAP. This requires that you\n"
-			   "supply a username and a password!"));
-      return;
-    } else {
-      gpppdata.password = PW_Edit->text();
-      if(!Requester::rq->setCHAPSecret(gpppdata.storedUsername(),
-                                       gpppdata.password)) {
-	QString s;
-	s = i18n("Cannot create CHAP authentication\n"
-				     "file \"%1\"").arg(CHAP_AUTH_FILE);
-	KMessageBox::error(this, s);
-	return;
-      }
-    }
-  }
-  
-  if (strlen(gpppdata.phonenumber()) == 0) {
+  if (gpppdata.phonenumber().isEmpty()) {
     QString s;
     s = i18n("You must specify a telephone number!");
     KMessageBox::error(this, s);
@@ -1055,10 +1031,10 @@ void KPPPWidget::helpbutton() {
 
 void KPPPWidget::quitbutton() {
   if(gpppdata.pppdRunning()) {    
-    bool ok = KMessageBox::warningYesNo(this,  
+    int ok = KMessageBox::warningYesNo(this,  
 			    i18n("Exiting kPPP will close your PPP Session."),
 			    i18n("Quit kPPP?"));
-    if(ok) {
+    if(ok == KMessageBox::Yes) {
       Requester::rq->killPPPDaemon();
       QApplication::flushX();
       execute_command(gpppdata.command_on_disconnect());
