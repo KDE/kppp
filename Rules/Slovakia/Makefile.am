@@ -4,7 +4,10 @@ pkg_DATA = Slovenske_Telekomunikacie_1_pasmo.rst \
 	Slovenske_Telekomunikacie_Internet_tarifa_b.rst \
 	Slovenske_Telekomunikacie_Internet_tarifa_c.rst \
 	Slovenske_Telekomunikacie_Mesto.rst \
-	Internetovy_tarif_019XY.rst
+	Internetovy_tarif_019XY.rst \
+	ST_medzimesto_1_pasmo.rst \
+	ST_medzimesto_2_pasmo.rst \
+	ST_mesto.rst
 
 pkgdir = $(kde_datadir)/kppp/Rules/Slovakia
 
