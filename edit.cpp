@@ -1150,7 +1150,7 @@ void ScriptWidget::removeButton() {
 // Used to specify a new phone number
 //
 /////////////////////////////////////////////////////////////////////////////
-PhoneNumberDialog::PhoneNumberDialog(QWidget *parent) : KDialogBase(parent, 0, true, i18n("Add a Phone Number"), Ok|Cancel) {
+PhoneNumberDialog::PhoneNumberDialog(QWidget *parent) : KDialogBase(parent, 0, true, i18n("Add Phone Number"), Ok|Cancel) {
   KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
 
   QHBox *hbox = new QHBox(this);
@@ -1158,7 +1158,7 @@ PhoneNumberDialog::PhoneNumberDialog(QWidget *parent) : KDialogBase(parent, 0, t
 
   hbox->setSpacing(KDialog::spacingHint());
 
-  new QLabel(i18n("Phone number:"), hbox);
+  new QLabel(i18n("Enter a phone number:"), hbox);
 
   le = newLineEdit(14, hbox);
   le->setMinimumWidth(125);

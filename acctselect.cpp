@@ -96,10 +96,10 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   l1->addLayout(l12);
   QLabel *usevol_l = new QLabel(i18n("Volume accounting:"), parent);
   use_vol = new QComboBox(parent);
-  use_vol->insertItem(i18n("No accounting"), 0);
-  use_vol->insertItem(i18n("Bytes in"), 1);
-  use_vol->insertItem(i18n("Bytes out"), 2);
-  use_vol->insertItem(i18n("Bytes in and out"), 3);
+  use_vol->insertItem(i18n("No Accounting"), 0);
+  use_vol->insertItem(i18n("Bytes In"), 1);
+  use_vol->insertItem(i18n("Bytes Out"), 2);
+  use_vol->insertItem(i18n("Bytes In and Out"), 3);
   use_vol->setCurrentItem(gpppdata.VolAcctEnabled());
   l12->addWidget(usevol_l);
   l12->addWidget(use_vol);

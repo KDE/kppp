@@ -216,7 +216,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   label16 = new QLabel(i18n("Guard time (sec/50):"), dummyWidget);
   l1->addWidget(label16, row++, 1);
 
-  QLabel *l = new QLabel(i18n("Volume off/low/high"), dummyWidget);
+  QLabel *l = new QLabel(i18n("Volume off/low/high:"), dummyWidget);
   l1->addWidget(l, row, 1);
   QHBoxLayout *l6 = new QHBoxLayout;
   l1->addLayout(l6, row++, 2);
