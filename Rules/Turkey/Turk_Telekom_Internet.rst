@@ -17,6 +17,10 @@
 #
 # Mesut Sismanoglu
 # mesuts@usa.net
+#
+# İsmail Dönmez
+# ismail.donmez@boun.edu.tr
+#
 ################################################################
 ################################################################
 #
@@ -41,30 +45,30 @@ currency_digits=0
 
 # This is the default rule which is used when no other rule
 # applies.
-default=(70000, 324)
+default=(72000, 324)
 ################################################################
 # connection settings
 ################################################################
 
 # Hafta arasi 1. indirim
-on(monday..friday) between (7:00..7:59) use(70000,309)
+on(monday..friday) between (7:00..7:59) use(72000,309)
 
  # Hafta arasi normal tarife
-on(monday..friday) between (8:00..19:59) use(70000,216)
+on(monday..friday) between (8:00..19:59) use(72000,216)
 
  # Hafta arasi 1. indirim
-on(monday..friday) between (20:00..22:29) use(70000,309)
+on(monday..friday) between (20:00..22:29) use(72000,309)
 
  # Hafta arasi 2. indirim
-on(monday..friday) between (22:30..6:59) use(70000,360)
+on(monday..friday) between (22:30..6:59) use(72000,360)
 
  # Cumartesi 1. indirim
-on(saturday) between (7:00..22:29) use(70000,309)
+on(saturday) between (7:00..22:29) use(72000,309)
 
  # Cumartesi 2. indirim
-on(saturday) between (22:30..6:59) use(70000,360)
+on(saturday) between (22:30..6:59) use(72000,360)
 
  # Pazar ve resmi tatil gunleri 2. indirim
-on(1/1, 04/23, 05/19, 08/30, 10/29, sunday) between () use(70000,360)
+on(1/1, 04/23, 05/19, 08/30, 10/29, sunday) between () use(72000,360)
 
 ################################################################
