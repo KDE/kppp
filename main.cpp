@@ -895,7 +895,7 @@ void KPPPWidget::beginConnect() {
   if(!info.isExecutable()){
 
     QString string;   
-    string = i18n("kppp can not execute:\n %1\n"
+    string = i18n("kppp cannot execute:\n %1\n"
     		   "Please make sure that you have given kppp "
 		   "setuid permission and that\n"
 		   "pppd is executable.").arg(gpppdata.pppdPath());
