@@ -509,7 +509,7 @@ IPWidget::IPWidget( QWidget *parent, bool isnewaccount, const char *name )
 		       "on this information, but it can also cause several\n"
 		       "<a href=\"kppp-7.html#autohostname\">problems</a>.\n"
 		       "\n"
-		       "Don't enable this unless you really need it."));
+		       "Do not enable this unless you really need it."));
 
   topLayout->addWidget(box);
   topLayout->addWidget(autoname);
