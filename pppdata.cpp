@@ -796,10 +796,11 @@ const QString PPPData::accname() {
 
 void PPPData::setAccname(const QString &n) {
   if(!cgroup.isNull()) {
-    //change the default account name along with the account name
-    if(accname() == defaultAccount())
-      setDefaultAccount(n);
+    // are we manipulating the default account's name ? then change it, too.
+    bool def = accname() == defaultAccount();
     writeConfig(cgroup, NAME_KEY, n);
+    if (def)
+      setDefaultAccount(n);
   }
 }
 

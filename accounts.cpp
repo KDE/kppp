@@ -236,11 +236,6 @@ void AccountWidget::resetClicked(){
 }
 
 
-void AccountWidget::editaccount(int) {
-  editaccount();
-}
-
-
 void AccountWidget::editaccount() {
   gpppdata.setAccount(accountlist_l->text(accountlist_l->currentItem()));
 

@@ -49,7 +49,6 @@ public:
 
 private slots:
   void editaccount();
-  void editaccount(int);
   void copyaccount();
   void newaccount();
   void deleteaccount();
