@@ -617,7 +617,7 @@ void KPPPWidget::beginConnect() {
 		   "your modem device properly "
 		   "and/or adjust the location of the modem device on "
 		   "the modem tab of "
-		   "the setup dialog.\nThank You").arg(gpppdata.modemDevice());
+		   "the setup dialog.").arg(gpppdata.modemDevice());
     KMessageBox::error(this, string);
     return;
   }
