@@ -112,6 +112,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   // l1->addWidget(label7, 1, 1); (done in resetmodems())
   modem_c = new QComboBox(false, this);
   label7->setBuddy(connectto_c);
+  m_bModemCShown = false;
 
   connect(modem_c, SIGNAL(activated(int)),
 	  SLOT(newdefaultmodem(int)));
@@ -487,13 +488,15 @@ void KPPPWidget::resetmodems() {
   }
 
   int newState = -1;
-  if (count > 1 && modem_c->isHidden()) {
+  if (count > 1 && !m_bModemCShown) {
       l1->addWidget(label7, 1, 1);
       l1->addWidget(modem_c, 1, 2);
+      m_bModemCShown = true;
       newState = 1;
-  } else if (modem_c->isShown()){
+  } else if (count <= 1 && m_bModemCShown){
       l1->remove(label7);
       l1->remove(modem_c);
+      m_bModemCShown = false;
       newState = 0;
   }
   if (newState >= 0) {

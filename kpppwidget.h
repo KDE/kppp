@@ -161,6 +161,7 @@ private:
   QString m_strCmdlAccount;
   bool m_bQuitOnDisconnect;
   bool m_bCmdlAccount;
+  bool m_bModemCShown;
 
 
   QTimer *disconnectTimer;
