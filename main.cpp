@@ -661,7 +661,7 @@ bool KPPPWidget::eventFilter(QObject *o, QEvent *e) {
 
 void KPPPWidget::prepareSetupDialog() {
   if(tabWindow == 0) {
-    tabWindow = new QTabDialog( this, 0, TRUE );
+    tabWindow = new QTabDialog( 0, 0, TRUE );
     KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
     tabWindow->setCaption( i18n("kppp Configuration") );
     tabWindow->setOkButton(i18n("OK"));
