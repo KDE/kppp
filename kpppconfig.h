@@ -26,6 +26,13 @@
 #ifndef _KPPPCONFIG_H_
 #define _KPPPCONFIG_H_
 
+#if defined(__svr4__)
+#define STREAMS
+#define _XOPEN_SOURCE 1
+#define _XOPEN_SOURCE_EXTENDED 1
+#define __EXTENSIONS__
+#endif
+
 #include <config.h>
 
 #ifdef HAVE_SYS_PARAM_H
@@ -110,13 +117,6 @@ const unsigned int MAX_CMDLEN = 2024;
 #define PPP_PID_DIR "/var/run/"
 #else
 #define PPP_PID_DIR "/etc/ppp/"
-#endif
-
-#if defined(__svr4__)
-#define STREAMS
-#define _XOPEN_SOURCE 1
-#define _XOPEN_SOURCE_EXTENDED 1
-#define __EXTENSIONS
 #endif
 
 #ifdef _XPG4_2

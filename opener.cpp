@@ -646,7 +646,7 @@ int checkForInterface()
 #if (defined(HAVE_NET_IF_PPP_H) || defined(HAVE_LINUX_IF_PPP_H)) && !defined(__svr4__)
     int s, ok;
     struct ifreq ifr;
-    extern char *no_ppp_msg;
+    //    extern char *no_ppp_msg;
 
     if ((s = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
         return 1;               /* can't tell */
