@@ -130,7 +130,7 @@ void showNews() {
     tl->addLayout(l1);
 
     QLabel *icon = new QLabel(&dlg);
-    icon->setPixmap(BarIcon("exclamation.xpm"));
+    icon->setPixmap(BarIcon("exclamation"));
     icon->setFixedSize(icon->sizeHint());
     l1->addWidget(icon);
     l1->addLayout(l2);

@@ -49,10 +49,10 @@ DockWidget::DockWidget(QWidget *parent, const char *name)
   docked = false;
 
   // load pixmaps
-  dock_none_pixmap = BarIcon("dock_none.xpm");
-  dock_left_pixmap = BarIcon("dock_left.xpm");
-  dock_right_pixmap = BarIcon("dock_right.xpm");
-  dock_both_pixmap = BarIcon("dock_both.xpm");
+  dock_none_pixmap = BarIcon("dock_none");
+  dock_left_pixmap = BarIcon("dock_left");
+  dock_right_pixmap = BarIcon("dock_right");
+  dock_both_pixmap = BarIcon("dock_both");
 
   // popup menu for right mouse button
   popup_m = new QPopupMenu(this);

@@ -104,17 +104,17 @@ void MiniTerm::setupToolbar() {
 
   QPixmap pixmap;
 
-  pixmap = BarIcon("exit.xpm");
+  pixmap = BarIcon("exit");
   toolbar->insertButton(pixmap, 0,
 		      SIGNAL(clicked()), this,
 		      SLOT(cancelbutton()), TRUE, i18n("Close MiniTerm"));
 
-  pixmap = BarIcon("back.xpm");
+  pixmap = BarIcon("back");
   toolbar->insertButton(pixmap, 0,
 		      SIGNAL(clicked()), this,
 		      SLOT(resetModem()), TRUE, i18n("Reset Modem"));
 
-  pixmap = BarIcon("help.xpm");
+  pixmap = BarIcon("help");
   toolbar->insertButton(pixmap, 0,
 		      SIGNAL(clicked()), this,
 		      SLOT(help()), TRUE, i18n("Help"));

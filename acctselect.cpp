@@ -48,6 +48,7 @@
 #include <kglobal.h>
 #include <kstddirs.h>
 #include <klocale.h>
+#include <kiconloader.h>
 #include "acctselect.h"
 #include "pppdata.h"
 
@@ -96,8 +97,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   l12->addWidget(use_vol);
 
   // load the pmfolder pixmap from KDEdir
-  QString fname = locate("appdata", "pics/folder.xpm"); 
-  pmfolder.load(fname);
+  pmfolder = BarIcon("folder"); 
 
   // scale the pixmap
   if(pmfolder.width() > 0) {
@@ -107,8 +107,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   }
 
   // load the pmfolder pixmap from KDEdir
-  fname = locate("appdata", "pics/phone.xpm");
-  pmfile.load(fname);
+  pmfile = BarIcon("phone");
 
   // scale the pixmap
   if(pmfile.width() > 0) {
