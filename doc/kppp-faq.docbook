@@ -76,6 +76,43 @@ log by issuing:</para>
 </qandaentry>
 
 <qandaentry>
+<question><para>pppd died - The remote system is required to authenticate itself ...</para></question>
+
+<answer>
+<para>As far as I can tell there are two causes for this problem: </para>
+<itemizedlist>
+<listitem><para><filename>/etc/ppp/options</filename> contains the
+<option>auth</option> option. Simply put a <prompt>#</prompt> comment in
+front and try again. </para></listitem> <listitem><para>Your system already
+has a default route. Have you set up a local network? In thise case recent
+versions of pppd will behave as if <option>auth</option> had been
+specified. To override this you may add <option>noauth</option> to the pppd
+arguments in kppp' setup dialog. Alternatively you could take down the local
+network prior to dialing in. I'd be thankful if someone could provide
+instructions on how to peacefully combine the two network
+connections. </para></listitem>
+</itemizedlist>
+</answer>
+</qandaentry>
+
+<qandaentry>
+<question><para>pppd dies with 2.4.x Linux kernel</para></question>
+<answer>
+<para>Typical error messages in the system log:</para>
+
+<screen>
+pppd[1182]: pppd 2.3.11 started by user, uid 500 
+pppd[1182]: ioctl(PPPIOCGFLAGS): Invalid argument 
+pppd[1182]: tcsetattr: Invalid argument 
+pppd[1182]: Exit. 
+</screen>
+<para>Install pppd 2.4.0b1 or better. See
+<filename>Documentation/Changes</filename> in the kernel sources for more 
+info.</para> 
+</answer>
+</qandaentry>
+
+<qandaentry>
 <question><para>Why does &kppp; tell me <errorname>Unable to open the
 modem</errorname>?</para></question>
 
@@ -315,6 +352,7 @@ the following AT commands:</para>
 </varlistentry>
 </variablelist>
 </answer>
+
 </qandaentry>
 
 </qandadiv>
