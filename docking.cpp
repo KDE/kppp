@@ -26,18 +26,18 @@
 
 #include <qtooltip.h>
 #include <qdir.h>
+#include <qpoint.h>
 #include <kwm.h>
 #include <kapp.h>
+#include <klocale.h>
 
 #include "docking.h"
 #include "main.h"
 #include "kpppconfig.h"
-#include <klocale.h>
+#include "pppstats.h"
 
 extern KPPPWidget   *p_kppp;
-
-extern bool do_stats();
-extern bool init_stats();
+extern PPPStats      stats;
 
 // static member
 DockWidget *DockWidget::dock_widget = 0;
@@ -76,16 +76,14 @@ DockWidget::DockWidget(const char *name)
   popup_m->insertItem(i18n("Disconnect"),
 		      this, SLOT(disconnect()));
 
-  // timer for little modem animation
-  clocktimer = new QTimer(this);
-  connect(clocktimer, SIGNAL(timeout()), SLOT(timeclick()));
+  // connect to stats for little modem animation
+  connect(&stats, SIGNAL(statsChanged(int)), SLOT(paintIcon(int)));
 
   DockWidget::dock_widget = this;
 }
 
 
 DockWidget::~DockWidget() {
-  clocktimer->stop();
   DockWidget::dock_widget = 0;
 }
 
@@ -128,58 +126,48 @@ const bool DockWidget::isDocked() {
 
 
 void DockWidget::paintEvent (QPaintEvent *) {
-  paintIcon();
+  paintIcon(PPPStats::BytesNone);
 }
 
 
-void DockWidget::paintIcon () {
+void DockWidget::paintIcon (int status) {
   // animate modem lights
 
-  if((ibytes_last != ibytes) && (obytes_last != obytes)) {
-    bitBlt(this, 0, 0, &dock_both_pixmap);
-    ibytes_last = ibytes;
-    obytes_last = obytes;
-    return;
-  }
+  const QPixmap *pixmap;
 
-  if(ibytes_last != ibytes) {
-    bitBlt(this, 0, 0, &dock_left_pixmap);
-    ibytes_last = ibytes;
-    obytes_last = obytes;
-    return;
-  }
-
-  if(obytes_last != obytes) {
-    bitBlt(this, 0, 0, &dock_right_pixmap);
-    ibytes_last = ibytes;
-    obytes_last = obytes;
-    return;
-  }
-
-  bitBlt(this, 0, 0, &dock_none_pixmap);
-  ibytes_last = ibytes;
-  obytes_last = obytes;
-}
-
-
-void DockWidget::timeclick() {
-  if(this->isVisible()){
-    (void) do_stats();
-    paintIcon();
+  if(this->isVisible()) {
+    switch(status)
+      {
+      case PPPStats::BytesBoth:
+        pixmap = &dock_both_pixmap;
+        break;
+      case PPPStats::BytesIn:
+        pixmap = &dock_left_pixmap;
+        break;
+      case PPPStats::BytesOut:
+        pixmap = &dock_right_pixmap;
+        break;
+      case PPPStats::BytesNone:
+      default:
+        pixmap = &dock_none_pixmap;
+        break;
+      }
+      
+    bitBlt(this, 0, 0, pixmap);
   }
 }
 
 
 void DockWidget::take_stats() {
   if (docked) {
-    init_stats();
-    clocktimer->start(PPP_STATS_INTERVAL);
+    stats.initStats();
+    stats.start();
   }
 }
 
 
 void DockWidget::stop_stats() {
-  clocktimer->stop();
+  stats.stop();
 }
 
 
@@ -224,7 +212,7 @@ void DockWidget::toggle_window_state() {
 void DockWidget::show_stats() {
   // show statistics
   if(p_kppp != 0L) {
-    p_kppp->stats->show();
+    p_kppp->statdlg->show();
   }
 }
 

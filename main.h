@@ -113,7 +113,7 @@ public:
   QString con_speed;
   ConnectWidget *con;
   ConWindow *con_win;
-  PPPStatsDlg *stats;
+  PPPStatsDlg *statdlg;
   AccountingBase *acct;
   QPushButton *quit_b;
 

@@ -48,8 +48,6 @@ public:
   PPPStatsDlg(QWidget *parent=0, const char *name=0,QWidget *main=0);
   ~PPPStatsDlg();
 
-  enum {PIXLEFT, PIXNONE,PIXRIGHT,PIXBOTH, PIXINIT};
-
 protected:
 
   void closeEvent( QCloseEvent *e );
@@ -61,13 +59,13 @@ public slots:
   void cancel();
   void take_stats();
   void stop_stats();
-  void paintIcon();
+  void paintIcon(int);
   void updateGraph();
 
 public:
 
   void startClock();
-  void update_data(bool data_available);
+  void update_data();
 
 private:
   void paintGraph();
@@ -75,9 +73,6 @@ private:
   QLabel *pixmap_l;
   QWidget *main;
   QPushButton *cancelbutton;
-  QTimer *clocktimer;
-  bool left;
-  int pixstate;
 
   QLabel *labela1[5];
   QLabel *labela2[5];

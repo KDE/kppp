@@ -87,42 +87,61 @@
 #endif
 
 #include "log.h"
+#include "pppstats.h"
 
-int	rflag, cflag;
-
-int	unit;
-char    unitName[5];
-
-int	s = 0;			/* socket file descriptor */
-bool    ppp_stats_available;
-int 	ibytes;
-int 	ipackets;
-int 	compressedin;
-int 	uncompressedin;
-int 	errorin;
-int 	obytes;
-int	opackets;
-int 	compressed;
-int 	packetsunc;
-int 	packetsoutunc;
-
-struct ifreq ifr;
-struct sockaddr_in *sinp;
-struct ppp_stats cur, old;
-struct ppp_comp_stats ccs, ocs;
-
-extern QString local_ip_address;
-extern QString remote_ip_address;
-
-bool get_ppp_stats(struct ppp_stats *curp);
-bool get_ppp_stats(struct ppp_stats *curp);
-bool get_ppp_cstats(struct ppp_comp_stats *csp);
-bool get_ppp_cstats(struct ppp_comp_stats *csp);
-bool strioctl( int fd, int cmd, char* ptr,int ilen, int olen);
+PPPStats::PPPStats() {
+  timer = new QTimer;
+  connect(timer, SIGNAL(timeout()), SLOT(timerClick()));
+}
 
 
-int if_is_up() {
-  int is_up;
+PPPStats::~PPPStats() {
+  stop();
+  delete timer;
+}
+
+
+void PPPStats::timerClick() {
+  enum IOStatus newStatus;
+
+  doStats();
+
+  if((ibytes != ibytes_last) && (obytes != obytes_last))
+    newStatus = BytesBoth;
+  else if(ibytes != ibytes_last)
+    newStatus = BytesIn;
+  else if(obytes != obytes_last)
+    newStatus = BytesOut;
+  else
+    newStatus = BytesNone;
+
+  if(newStatus != ioStatus)
+    emit statsChanged(ioStatus = newStatus);
+
+  ibytes_last = ibytes;
+  obytes_last = obytes;
+}
+
+void PPPStats::setUnit(int u) {
+  unit = u;
+  sprintf(unitName, "ppp%d", unit);
+}
+
+
+void PPPStats::start() {
+  timer->start(PPP_STATS_INTERVAL);
+}
+
+
+void PPPStats::stop() {
+  emit statsChanged(BytesNone);
+  timer->stop();
+}
+
+
+bool PPPStats::ifIsUp() {
+  bool is_up;
+  struct ifreq ifr;
 
 #ifdef __svr4__
     if ((s = open("/dev/ppp", O_RDONLY)) < 0) {
@@ -151,11 +170,11 @@ int if_is_up() {
     }
 
     if ((ifr.ifr_flags & (IFF_UP|IFF_RUNNING)) != 0) {
-	is_up = 1;
+	is_up = true;
 	Debug("Interface is up\n");
     } 
     else{
-      is_up = 0;
+      is_up = false;
       ::close(s);
       s = 0;
       Debug("Interface is down\n");
@@ -165,10 +184,15 @@ int if_is_up() {
 }
 
 
-bool init_stats() {
+bool PPPStats::initStats() {
+
+  struct sockaddr_in *sinp;
+  struct ifreq ifr;
 
   ibytes = 0;
   ipackets = 0;
+  ibytes_last = 0;
+  obytes_last = 0;
   compressedin = 0;
   uncompressedin = 0;
   errorin = 0;
@@ -177,6 +201,7 @@ bool init_stats() {
   compressed = 0;
   packetsunc = 0;
   packetsoutunc = 0;
+  ioStatus = BytesNone;
 
   strcpy(ifr.ifr_name, unitName);
     
@@ -202,22 +227,17 @@ bool init_stats() {
     remote_ip_address = "";  
   Debug("Remote IP: %s\n",remote_ip_address.data());    
 
-  memset(&old, 0, sizeof(old));
-  memset(&ocs, 0, sizeof(ocs));
-    
   return true;
 
 }
 
 
-bool do_stats()
-{
+bool PPPStats::doStats() {
+  struct ppp_stats cur;
 
   if(! get_ppp_stats(&cur)){
     return false;
   }
-
-  ppp_stats_available = true;
 
   // "in"  "pack"  "comp"  "uncomp"  "err"
   // IN    PACK    VJCOMP  VJUNC     VJERR
@@ -242,14 +262,13 @@ bool do_stats()
   packetsoutunc = cur.p.ppp_opackets - cur.vj.vjs_packets; 
 
   return true;
-    
 }
 
 
 #ifndef __svr4__
-bool get_ppp_stats(struct ppp_stats *curp){
+bool PPPStats::get_ppp_stats(struct ppp_stats *curp){
 
-    struct ifpppstatsreq req;
+  struct ifpppstatsreq req;
 
     if(s==0)
       return false;
@@ -272,51 +291,8 @@ bool get_ppp_stats(struct ppp_stats *curp){
     return true;
 }
 
-bool get_ppp_cstats(    struct ppp_comp_stats *csp){
-
-    struct ifpppcstatsreq creq;
-
-    memset (&creq, 0, sizeof (creq));
-
-#ifdef linux
-    creq.stats_ptr = (caddr_t) &creq.stats;
-#undef  ifr_name
-#define ifr_name ifr__name
-#endif
-
-    sprintf(creq.ifr_name, "ppp%d", unit);
-    if (ioctl(s, SIOCGPPPCSTATS, &creq) < 0) {
-	if (errno == ENOTTY) {
-	    fprintf(stderr, "pppstats: no kernel compression support\n");
-	    if (cflag)
-		return false;
-	    rflag = 0;
-	} else {
-	    perror("ioctl(SIOCGPPPCSTATS)");
-	    return false;
-	}
-    }
-
-#ifdef linux
-    if (creq.stats.c.bytes_out == 0)
-	creq.stats.c.ratio = 0.0;
-    else
-	creq.stats.c.ratio = (double) creq.stats.c.in_count /
-			     (double) creq.stats.c.bytes_out;
-
-    if (creq.stats.d.bytes_out == 0)
-	creq.stats.d.ratio = 0.0;
-    else
-	creq.stats.d.ratio = (double) creq.stats.d.in_count /
-			     (double) creq.stats.d.bytes_out;
-#endif
-
-    *csp = creq.stats;
-    return true;
-}
-
 #else	/* __svr4__ */
-bool get_ppp_stats( struct ppp_stats *curp){
+bool PPPStats::get_ppp_stats( struct ppp_stats *curp){
 
     if (strioctl(s, PPPIO_GETSTAT, curp, 0, sizeof(*curp)) < 0) {
 	if (errno == EINVAL)
@@ -327,22 +303,7 @@ bool get_ppp_stats( struct ppp_stats *curp){
     }
 }
 
-bool get_ppp_cstats(    struct ppp_comp_stats *csp){
-
-    if (strioctl(s, PPPIO_GETCSTAT, csp, 0, sizeof(*csp)) < 0) {
-	if (errno == ENOTTY) {
-	    fprintf(stderr, "pppstats: no kernel compression support\n");
-	    if (cflag)
-	      return false;
-	    rflag = 0;
-	} else {
-	    perror("pppstats: Couldn't get compression statistics");
-	    return false;
-	}
-    }
-}
-
-bool strioctl(int fd, int cmd, char* ptr, int ilen, int olen){
+bool PPPStats::strioctl(int fd, int cmd, char* ptr, int ilen, int olen){
 
     struct strioctl str;
 
@@ -358,4 +319,6 @@ bool strioctl(int fd, int cmd, char* ptr, int ilen, int olen){
     return true;
 }
 #endif /* __svr4__ */
+
+#include "pppstats.moc"
 

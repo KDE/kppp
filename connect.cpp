@@ -29,6 +29,7 @@
 #include <qdir.h>
 #include <qregexp.h> 
 #include <kmsgbox.h>
+#include <klocale.h>
 
 #include <netdb.h>
 #include <sys/types.h>
@@ -57,24 +58,14 @@
 #include "log.h"
 #include "modem.h"
 #include "utils.h"
-#include <klocale.h>
-
+#include "pppstats.h"
 
 extern KPPPWidget *p_kppp;
-extern int if_is_up();
-extern QString local_ip_address;
 extern bool quit_on_disconnect;
+extern PPPStats stats;
 
 QString old_hostname;
 bool modified_hostname;
-
-extern int totalbytes;
-
-
-// this is for setting the correct interface (ppp0, ppp1...).
-// This stuff is located in pppstats.cpp
-extern int unit;
-extern char unitName[5];
 
 
 ConnectWidget::ConnectWidget(QWidget *parent, const char *name)
@@ -184,7 +175,7 @@ void ConnectWidget::init() {
   scanvar = "";
   firstrunID = true;
   firstrunPW = true;
-  totalbytes = 0;
+  stats.totalbytes = 0;
   dialnumber = 0;
 
   p_kppp->con_speed = "";
@@ -782,10 +773,8 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       if_timeout_timer->start(atoi(gpppdata.pppdTimeout())*1000);
       Debug("started if timeout timer with %d\n",atoi(gpppdata.pppdTimeout())*1000);
 
-      // find out PPP interface
-      unit = pppInterfaceNumber();
-      sprintf(unitName, "ppp%d", unit);
-      fprintf(stderr, "USING PPP UNIT %s\n", unitName);
+      // find out PPP interface and notify the stats module
+      stats.setUnit(pppInterfaceNumber());
 
       kapp->flushX();
       semaphore = true;
@@ -1025,7 +1014,7 @@ void ConnectWidget::if_waiting_timed_out() {
 void ConnectWidget::if_waiting_slot() {
   messg->setText(i18n("Logging on to Network ..."));
 
-  if(!if_is_up()) {
+  if(!stats.ifIsUp()) {
 
     if(gpppdata.pppdError() != 0) {
       // we are here if pppd died immediately after starting it.
@@ -1048,7 +1037,7 @@ void ConnectWidget::if_waiting_slot() {
   // Close the debugging window. If we are connected, we
   // are not really interested in debug output
   emit closeDebugWindow();
-  p_kppp->stats->take_stats(); // start taking ppp statistics
+  p_kppp->statdlg->take_stats(); // start taking ppp statistics
   auto_hostname();
 
   if(strcmp(gpppdata.command_on_connect(), "") != 0) {
@@ -1217,8 +1206,8 @@ void auto_hostname() {
   tmp_str[sizeof(tmp_str)-1]=0; // panic
   old_hostname=tmp_str; // copy to QString
 
-  if (!local_ip_address.isEmpty() && gpppdata.autoname()) {
-    local_ip.s_addr=inet_addr((const char*)local_ip_address);
+  if (!stats.local_ip_address.isEmpty() && gpppdata.autoname()) {
+    local_ip.s_addr=inet_addr((const char*)stats.local_ip_address);
     hostname_entry=gethostbyaddr((const char *)&local_ip,sizeof(in_addr),AF_INET);
 
     if (hostname_entry != 0L) {

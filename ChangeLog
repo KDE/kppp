@@ -1,3 +1,10 @@
+1999-05-04  Harri Porten  <porten@kde.org>
+
+	* conwindow.cpp: fixed deleting of old geometry layout
+	* pppstats.cpp: bundled statistic in a module. Removed unused
+	get_ppp_cstats() and some variables. The modem animations are triggered
+	by signals from the PPPStats object.
+	
 1999-04-25  Harri Porten  <porten@kde.org>
 
 	* runtests.cpp: test for `lock' in /etc/ppp/options is not needed any-

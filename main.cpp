@@ -623,8 +623,8 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 		    QApplication::desktop()->height()/2-55,
 		    320,110);
 
-  stats = new PPPStatsDlg(0,"stats",this);
-  stats->hide();
+  statdlg = new PPPStatsDlg(0,"stats",this);
+  statdlg->hide();
 
   (void)new DockWidget("dockw");
 
@@ -1083,7 +1083,7 @@ void KPPPWidget::disconnect() {
 
   kapp->processEvents();
 
-  stats->stop_stats();
+  statdlg->stop_stats();
   Requester::rq->killPPPDaemon();
 
   QApplication::flushX();

@@ -42,6 +42,7 @@
 #include "accounting.h"
 #include "kpppconfig.h"
 #include "pppdata.h"
+#include "pppstats.h"
 #include "log.h"
 
 // defines the maximum duration until the current costs
@@ -50,9 +51,7 @@
 #define UPDATE_TIME    (5*60*1000)
 
 extern PPPData gpppdata;
-extern int ibytes;
-extern int obytes;
-
+extern PPPStats stats;
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -325,8 +324,8 @@ void Accounting::slotStop() {
 	      timet2qstring(time(0)).data(),
 	      session(),
 	      total(),
-	      ibytes,
-	      obytes);
+	      stats.ibytes,
+	      stats.obytes);
 
     logMessage(s, FALSE);
     saveCosts();
@@ -479,8 +478,8 @@ void ExecutableAccounting::slotStop() {
 	      timet2qstring(time(0)).data(),
 	      session(),
 	      total(),
-	      ibytes,
-	      obytes);
+	      stats.ibytes,
+	      stats.obytes);
 
     logMessage(s, FALSE);
     saveCosts();

@@ -35,25 +35,11 @@
 #include "kpppconfig.h"
 #include "iplined.h"
 #include <klocale.h>
+#include "pppstats.h"
 
 extern PPPData gpppdata;
-extern bool do_stats();
-extern bool init_stats();
 
-extern int 	ibytes;
-extern int 	ipackets;
-extern int 	compressedin;
-extern int 	uncompressedin;
-extern int 	errorin;
-extern int 	obytes;
-extern int	opackets;
-extern int 	compressed;
-extern int 	packetsunc;
-extern int 	packetsoutunc;
-extern QString  local_ip_address;
-extern QString  remote_ip_address;
-extern int      totalbytes; // main.cpp
-
+PPPStats stats;
 
 PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *)
   : QWidget(parent, name, 0 )
@@ -61,8 +47,6 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *)
   int i;
   max = 1024;
 
-  pixstate = PIXINIT;
-  need_to_paint = true;
   setCaption(i18n("kppp Statistics"));
   KWM::setMiniIcon(winId(), kapp->getMiniIcon());
 
@@ -203,20 +187,18 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *)
   cancelbutton->setMinimumWidth(QMAX(cancelbutton->sizeHint().width(), 70));
   l12->addWidget(cancelbutton);
 
-  clocktimer = new QTimer(this);
-  connect(clocktimer, SIGNAL(timeout()), SLOT(timeclick()));
-
   if(gpppdata.graphingEnabled()) {
     graphTimer = new QTimer(this);
     connect(graphTimer, SIGNAL(timeout()), SLOT(updateGraph()));
   }
 
   setFixedSize(sizeHint());
+
+  connect(&stats, SIGNAL(statsChanged(int)), SLOT(paintIcon(int)));
 }
 
 
 PPPStatsDlg::~PPPStatsDlg() {
-  clocktimer->stop();
 }
 
 
@@ -226,16 +208,17 @@ void PPPStatsDlg::cancel() {
 
 
 void PPPStatsDlg::take_stats() {
-  init_stats();
+  stats.initStats();
   ips_set = false;
-  bin_last = ibytes;
-  bout_last = obytes;  
+  bin_last = stats.ibytes;
+  bout_last = stats.obytes;  
   ringIdx = 0;
   for(int i = 0; i < MAX_GRAPH_WIDTH; i++) {
     bin[i] = -1;
     bout[i] = -1;
   }
-  clocktimer->start(PPP_STATS_INTERVAL);
+
+  update_data();
 
   if(gpppdata.graphingEnabled())
     graphTimer->start(GRAPH_UPDATE_TIME);  
@@ -243,7 +226,7 @@ void PPPStatsDlg::take_stats() {
 
 
 void PPPStatsDlg::stop_stats() {
-  clocktimer->stop();
+  stats.stop();
   if(gpppdata.graphingEnabled())
     graphTimer->stop();
 }
@@ -308,59 +291,52 @@ void PPPStatsDlg::paintGraph() {
 }
 
 void PPPStatsDlg::updateGraph() {
-  bin[ringIdx] = ibytes - bin_last;
-  bout[ringIdx] = obytes - bout_last;
+  bin[ringIdx] = stats.ibytes - bin_last;
+  bout[ringIdx] = stats.obytes - bout_last;
   if(bin[ringIdx] > max)
     max = ((bin[ringIdx] / 1024) + 1) * 1024;
  
  if(bout[ringIdx] > max)
     max = ((bout[ringIdx] / 1024) + 1) * 1024;
  
-  bin_last = ibytes;
-  bout_last = obytes;
+  bin_last = stats.ibytes;
+  bout_last = stats.obytes;
   ringIdx = (ringIdx + 1) % MAX_GRAPH_WIDTH;
   paintGraph();
 }
 
 
 void PPPStatsDlg::paintEvent (QPaintEvent *) {
-  need_to_paint = true;
-  paintIcon();
+  paintIcon(PPPStats::BytesNone); // correct ?
   if(gpppdata.graphingEnabled())
     paintGraph();
 }
 
 
-void PPPStatsDlg::paintIcon() {
+void PPPStatsDlg::paintIcon(int status) {
 
-    if((ibytes_last != ibytes) && (obytes_last != obytes)) {
-      bitBlt( pixmap_l, 0, 0, &big_modem_both_pixmap );
-      ibytes_last = ibytes;
-      obytes_last = obytes;
-      pixstate = PIXBOTH;
-      return;
+  const QPixmap *pixmap;
+
+  switch(status)
+    {
+    case PPPStats::BytesIn:
+      pixmap = &big_modem_left_pixmap;
+      break;
+    case PPPStats::BytesOut:
+      pixmap = &big_modem_right_pixmap;
+      break;
+    case PPPStats::BytesBoth:
+      pixmap = &big_modem_both_pixmap;
+      break;
+    case PPPStats::BytesNone:
+    default:
+      pixmap = &big_modem_none_pixmap;
+      break;
     }
 
-    if (ibytes_last != ibytes) {
-      bitBlt( pixmap_l, 0, 0, &big_modem_left_pixmap );
-      ibytes_last = ibytes;
-      obytes_last = obytes;
-      pixstate = PIXLEFT;
-      return;
-    }
+  bitBlt(pixmap_l, 0, 0, pixmap);
 
-    if(obytes_last != obytes) {
-      bitBlt( pixmap_l, 0, 0, &big_modem_right_pixmap );
-      ibytes_last = ibytes;
-      obytes_last = obytes;
-      pixstate = PIXRIGHT;
-      return;
-    }
-
-    bitBlt( pixmap_l,0,0, &big_modem_none_pixmap );
-    ibytes_last = ibytes;
-    obytes_last = obytes;
-    pixstate = PIXNONE;
+  update_data();
 }
 
 
@@ -371,21 +347,16 @@ void PPPStatsDlg::timeclick() {
     break;
 
   case 1: // bytes in
-    totalbytes = gpppdata.totalBytes() + ibytes;
+    stats.totalbytes = gpppdata.totalBytes() + stats.ibytes;
     break;
 
   case 2:
-    totalbytes = gpppdata.totalBytes() + obytes;
+    stats.totalbytes = gpppdata.totalBytes() + stats.obytes;
     break;
 
   case 3:
-    totalbytes = gpppdata.totalBytes() + ibytes + obytes;
+    stats.totalbytes = gpppdata.totalBytes() + stats.ibytes + stats.obytes;
     break;
-  }
-
-  if( isVisible()) {
-    update_data(do_stats());
-    paintIcon();
   }
 }
 
@@ -395,17 +366,17 @@ void PPPStatsDlg::closeEvent( QCloseEvent *e ) {
 }
 
 
-void PPPStatsDlg::update_data(bool) {
-  ibytes_string.sprintf("%d",ibytes);
-  ipackets_string.sprintf("%d",ipackets);
-  compressedin_string.sprintf("%d",compressedin);
-  uncompressedin_string.sprintf("%d",uncompressedin);
-  errorin_string.sprintf("%d",errorin);
-  obytes_string.sprintf("%d",obytes);
-  opackets_string.sprintf("%d",opackets);
-  compressed_string.sprintf("%d",compressed);
-  packetsunc_string.sprintf("%d",packetsunc);
-  packetsoutunc_string.sprintf("%d",packetsoutunc);
+void PPPStatsDlg::update_data() {
+  ibytes_string.sprintf("%d", stats.ibytes);
+  ipackets_string.sprintf("%d", stats.ipackets);
+  compressedin_string.sprintf("%d", stats.compressedin);
+  uncompressedin_string.sprintf("%d", stats.uncompressedin);
+  errorin_string.sprintf("%d", stats.errorin);
+  obytes_string.sprintf("%d", stats.obytes);
+  opackets_string.sprintf("%d", stats.opackets);
+  compressed_string.sprintf("%d", stats.compressed);
+  packetsunc_string.sprintf("%d", stats.packetsunc);
+  packetsoutunc_string.sprintf("%d", stats.packetsoutunc);
 
   labela2[0]->setText(ibytes_string);
   labela2[1]->setText(ipackets_string);
@@ -424,13 +395,13 @@ void PPPStatsDlg::update_data(bool) {
     // copy/paste the ip out of the lineedits due to
     // reset of cursor position on setText()
 
-    if( !local_ip_address.isEmpty() )
-      ip_address_label2->setText(local_ip_address);
+    if( !stats.local_ip_address.isEmpty() )
+      ip_address_label2->setText(stats.local_ip_address);
     else
       ip_address_label2->setText(i18n("unavailable"));
 
-    if( !remote_ip_address.isEmpty() )
-      ip_address_label4->setText(remote_ip_address);
+    if( !stats.remote_ip_address.isEmpty() )
+      ip_address_label4->setText(stats.remote_ip_address);
     else
       ip_address_label4->setText(i18n("unavailable"));
     

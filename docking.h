@@ -28,15 +28,9 @@
 #ifndef _DOCKING_H_
 #define _DOCKING_H_
 
-#include <stdio.h>
-#include <qapplication.h>
+#include <qwidget.h>
 #include <qpixmap.h>
-#include <qtimer.h>
 #include <qpopupmenu.h>
-#include <qpoint.h>
-
-extern int 	ibytes;
-extern int 	obytes;
 
 class DockWidget : public QWidget {
   Q_OBJECT
@@ -48,7 +42,6 @@ protected:
   void paintEvent(QPaintEvent *e);
 
 private slots:
-  void timeclick();
   void toggle_window_state();
   void show_stats();
   void disconnect();
@@ -57,7 +50,7 @@ private slots:
 public slots:
   void dock();
   void undock();
-  void paintIcon();
+  void paintIcon(int);
   void take_stats();
   void stop_stats();
 
@@ -68,11 +61,8 @@ public:
 private:
   bool docked;
   int toggleID;
-  int ibytes_last;
-  int obytes_last;
 
   QPopupMenu *popup_m;
-  QTimer     *clocktimer;
 
   QPixmap dock_none_pixmap;
   QPixmap dock_left_pixmap;

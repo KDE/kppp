@@ -125,6 +125,7 @@ METASOURCES = accounting.moc \
 	modeminfo.moc \
 	pppdargs.moc \
 	pppstatdlg.moc \
+	pppstats.moc \
 	pwentry.moc \
 	scriptedit.moc \
 	providerdb.moc
