@@ -1,10 +1,14 @@
 [Desktop Entry]
 Name=Belarus
+Name[be]=Беларусь
 Name[bg]=Беларус
 Name[bs]=Bjelorusija
+Name[ca]=Bielorússia
 Name[cs]=Bělorusko
+Name[da]=Hviderusland
 Name[eo]=Bjelorusio
 Name[fi]=Valkovenäjä
+Name[hu]=Fehéroroszország
 Name[is]=HvÃ­ta-RÃºssland
 Name[it]=Bielorussia
 Name[ja]=ベラルーシ
@@ -15,4 +19,5 @@ Name[sv]=Vitryssland
 Name[ta]=¦ÀÄ¡åÍ
 Name[th]=เบลารัส
 Name[uk]=Білорусія
+Name[wa]=Belaruss
 Name[zu]=I Bhelarusi
