@@ -6,7 +6,9 @@ pkg_DATA = AddCom_by_Call.rst Addcom.rst \
 	Telekom_City_Select_5_30.rst \
 	knUUt-by-Call.rst \
 	talkline_by_call.rst \
-	vossnet_fun.rst vossnet_fun_light.rst vossnet_kompl.rst
+	vossnet_fun.rst vossnet_fun_light.rst vossnet_kompl.rst \
+	Planet-Interkom_Internet_by_call.rst \
+	Freenet_Enterprise.rst
 
 pkgdir = $(kde_datadir)/kppp/Rules/Germany
 
