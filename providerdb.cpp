@@ -356,7 +356,7 @@ PDB_UserInfo::PDB_UserInfo(QWidget *parent) : QWidget(parent) {
 	  this, SLOT(textChanged(const QString &)));
   l1->addWidget(_password, 1, 1);
   tl->activate();
-};
+}
 
 
 void PDB_UserInfo::textChanged(const QString &) {
@@ -431,7 +431,7 @@ PDB_Finished::PDB_Finished(QWidget *parent) : QWidget(parent) {
 		       this);
   tl->addWidget(l);
   tl->addStretch(1);
-};
+}
 
 
 void urlDecode(QString &s) {

@@ -1,0 +1,26 @@
+# KDE Config File
+# http://www.support.nl/pagina/helpdesk/ipaddr.html
+ExDNSDisabled=0
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=
+IPAddr=0.0.0.0
+Domain=
+Name=Support Net
+VolumeAccountingEnabled=1
+pppdArguments=
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=4
+DNS=195.114.231.200,195.114.230.254
+SubnetMask=0.0.0.0
+AccountingFile=/Netherlands/BelBasis_Regio.rst
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=
+AutoDNS=0

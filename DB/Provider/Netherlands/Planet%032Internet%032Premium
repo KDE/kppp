@@ -1,0 +1,28 @@
+# KDE Config File
+# http://web.planet.nl/klantenservice/helpdesk/serverinstellingen.html
+# http://web.planet.nl/klantenservice/helpdesk/inbelpunten.html
+#
+ExDNSDisabled=0
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+AutoDNS=1
+Phonenumber=0676003505
+IPAddr=0.0.0.0
+Domain=
+Name=Planet Internet Premium
+VolumeAccountingEnabled=1
+pppdArguments=
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=4
+DNS=195.121.1.34,195.121.1.66
+SubnetMask=0.0.0.0
+AccountingFile=/Netherlands/Planet_Internet.rst
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=

@@ -1,0 +1,27 @@
+# KDE Config File
+# http://home.ilimburg.nl/b/totaalb2.3.3.5.html
+
+ExDNSDisabled=0
+AutoDNS=1
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=0464280030
+IPAddr=0.0.0.0
+Domain=
+Name=Internet Limburg
+VolumeAccountingEnabled=1
+pppdArguments=
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=4
+DNS=
+SubnetMask=0.0.0.0
+AccountingFile=/Netherlands/BelBasis_Regio.rst
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=

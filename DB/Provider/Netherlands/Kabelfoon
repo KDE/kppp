@@ -1,0 +1,66 @@
+# KDE Config File
+AccountingEnabled=0
+AccountingFile=
+Authentication=1
+AutoDNS=1
+AutoName=0
+BeforeConnect=
+BeforeDisconnect=
+Command=
+DNS=
+DefaultRoute=1
+DisconnectCommand=
+Domain=
+ExDNSDisabled=0
+Gateway=0.0.0.0
+IPAddr=0.0.0.0
+Name=Demos 1 Network
+Password=%PASSWORD%
+Phonenumber=4
+ScriptArguments=
+ScriptCommands=
+StorePassword=1
+SubnetMask=0.0.0.0
+Username=%USERNAME%
+VolumeAccountingEnabled=0
+pppdArguments=asyncmap 0,noauth,lock,crtscts,noipdefault,-proxyarp
+[Desktop Entry]
+Icon=
+[General]
+DefaultAccount=Demos 1 Network
+NumberOfAccounts=1
+PPPDebug=0
+ShowLogWindow=0
+pppdTimeout=15
+[Graph]
+Background=255,255,255
+Enabled=true
+InBytes=0,0,255
+OutBytes=255,0,0
+Text=0,0,0
+[Modem]
+AnswerResponse=CONNECT
+AnswerString=ATA
+BusyResponse=BUSY
+ConnectResponse=CONNECT
+DialString=AT&D0D
+EscapeGuardTime=50
+EscapeResponse=OK
+EscapeString=+++
+FlowControl=Geen
+HangUpResponse=OK
+HangupString=ATH
+InitDelay=50
+InitResponse=OK
+InitString=ATZ
+NoCarrierResponse=NO CARRIER
+NoDialToneResp=NO DIALTONE
+PreInitDelay=50
+RingResponse=RING
+Speed=115200
+Timeout=30
+UseLockFile=0
+Volume=0
+VolumeHigh=M0L0
+VolumeMedium=M0L0
+VolumeOff=M0L0

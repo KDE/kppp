@@ -1,0 +1,26 @@
+# KDE Config File
+# http://www.io.nl/support.html
+ExDNSDisabled=0
+AutoDNS=1
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=0676088030
+IPAddr=0.0.0.0
+Domain=
+Name=Internet Online
+VolumeAccountingEnabled=1
+pppdArguments=
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=4
+DNS=
+SubnetMask=0.0.0.0
+AccountingFile=/Netherlands/BelBasis_Regio.rst
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=

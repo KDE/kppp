@@ -1,0 +1,28 @@
+# KDE Config File
+# gegevens van http://www.cuci.nl/guide/faq.n.html
+
+ExDNSDisabled=0
+AutoDNS=1
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=0676070809
+IPAddr=0.0.0.0
+Domain=cm.cuci.nl
+Name=Cubic Circle
+VolumeAccountingEnabled=1
+pppdArguments=
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=4
+DNS=
+SubnetMask=0.0.0.0
+AccountingFile=
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=
+AccountingFile=/Netherlands/BelBasis_Regio_Nummervoordeel.rst
