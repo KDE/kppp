@@ -77,7 +77,7 @@ bool PPPData::open() {
   if(highcount >= 0 && defaultAccount().isEmpty()) {
     setAccountbyIndex(0);
     setDefaultAccount(accname());
-  } else if(!setAccount(accname()))
+  } else if(!setAccount(defaultAccount()))
     setDefaultAccount(accname());
 
   // start out with internal debugging disabled
@@ -963,6 +963,17 @@ bool PPPData::defaultroute() {
 
 void PPPData::setDefaultroute(bool set) {
   writeConfig(cgroup, DEFAULTROUTE_KEY, (int) set);
+}
+
+
+bool PPPData::autoDNS() {
+  bool set = (bool) readNumConfig(cgroup, AUTODNS_KEY, true);
+  return (set && gpppdata.pppdVersionMin(2, 3, 7));
+}
+
+
+void PPPData::setAutoDNS(bool set) {
+  writeConfig(cgroup, AUTODNS_KEY, (int) set);
 }
 
 

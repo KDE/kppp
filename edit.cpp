@@ -569,8 +569,9 @@ void IPWidget::hitIPSelect( int i ) {
 DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
   : KGroupBox(i18n("DNS Servers"), parent, name)
 {
+  //  box = new QGroupBox(peer());
   QGridLayout *tl = new QGridLayout(peer(), 7, 2, 10, 10);
-
+  
   dnsdomain_label = new QLabel(i18n("Domain Name:"), peer());
   tl->addWidget(dnsdomain_label, 0, 0);
 
@@ -589,11 +590,29 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
   QWhatsThis::add(dnsdomain_label,tmp);
   QWhatsThis::add(dnsdomain,tmp); 
 
+  conf_label = new QLabel(i18n("Configuration:"), peer());
+  tl->addWidget(conf_label, 1, 0);
+
+  bg = new QButtonGroup("Group", this);
+  connect(bg, SIGNAL(clicked(int)), SLOT(DNS_Mode_Selected(int)));
+  bg->hide();
+ 
+  autodns = new QRadioButton(i18n("Automatic"), peer());
+  bg->insert(autodns, 0);
+  tl->addWidget(autodns, 1, 1);
+  // no automatic DNS detection for pppd < 2.3.7
+  if(!gpppdata.pppdVersionMin(2, 3, 7))
+    autodns->setEnabled(false);
+
+  mandns = new QRadioButton(i18n("Manual"), peer());
+  bg->insert(mandns, 1);
+  tl->addWidget(mandns, 2, 1);
+  
   dns_label = new QLabel(i18n("DNS IP Address:"), peer());
-  tl->addWidget(dns_label, 2, 0);
+  tl->addWidget(dns_label, 3, 0);
 
   QHBoxLayout *l2 = new QHBoxLayout;
-  tl->addLayout(l2, 2, 1);
+  tl->addLayout(l2, 3, 1);
   dnsipaddr = new IPLineEdit(peer());
   connect(dnsipaddr, SIGNAL(returnPressed()), 
 	  SLOT(adddns()));
@@ -613,7 +632,7 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
   QWhatsThis::add(dnsipaddr, tmp);
 
   QHBoxLayout *l1 = new QHBoxLayout;
-  tl->addLayout(l1, 3, 1);
+  tl->addLayout(l1, 4, 1);
   add = new QPushButton(i18n("Add"), peer());
   connect(add, SIGNAL(clicked()), SLOT(adddns()));
   int width = add->sizeHint().width();
@@ -638,13 +657,13 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
 
   servers_label = new QLabel(i18n("DNS Address List:"), peer());
   servers_label->setAlignment(AlignTop|AlignLeft);
-  tl->addWidget(servers_label, 4, 0);
+  tl->addWidget(servers_label, 5, 0);
 
   dnsservers = new QListBox(peer());
-  dnsservers->setMinimumSize(150, 100);
+  dnsservers->setMinimumSize(150, 80);
   connect(dnsservers, SIGNAL(highlighted(int)),
 	  SLOT(DNS_Entry_Selected(int)));
-  tl->addWidget(dnsservers, 4, 1);
+  tl->addWidget(dnsservers, 5, 1);
   tmp = i18n("This shows all defined DNS servers to use\n"
 	     "while you are connected. Use the <b>Add</b> and\n"
 	     "<b>Remove</b> buttons to modify the list");
@@ -671,15 +690,13 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
 
   // restore data if editing
   if(!isnewaccount) {
-    QStrList &dnslist = gpppdata.dns();
-    for(char *dns = dnslist.first(); dns; dns = dnslist.next())
-      dnsservers->insertItem(dns);
+    dnsservers->insertStrList(gpppdata.dns());
     dnsdomain->setText(gpppdata.domain());
   }
 
-  // disable buttons
-  DNS_Edit_Changed("");
-  remove->setEnabled(false);
+  int mode = gpppdata.autoDNS() ? 0 : 1;
+  bg->setButton(mode);
+  DNS_Mode_Selected(mode);
 
   tl->activate();
 }
@@ -693,7 +710,21 @@ void DNSWidget::DNS_Entry_Selected(int) {
   remove->setEnabled(true);
 }
 
+void DNSWidget::DNS_Mode_Selected(int mode) {
+  bool on = (mode == 1);
+  dns_label->setEnabled(on);
+  servers_label->setEnabled(on);
+  dnsipaddr->setText("");
+  dnsipaddr->setEnabled(on);
+  add->setEnabled(false);
+  remove->setEnabled(false);
+  dnsservers->clearSelection();
+  dnsservers->setEnabled(on);
+  dnsservers->triggerUpdate(false);
+}
+
 void DNSWidget::save() {
+  gpppdata.setAutoDNS(bg->id(bg->selected()) == 0);
   QStrList serverlist;
   for(uint i=0; i < dnsservers->count(); i++)
     serverlist.append(dnsservers->text(i));

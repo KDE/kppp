@@ -122,6 +122,7 @@ class KConfig;
 #define DEFAULTROUTE_KEY   "DefaultRoute"
 #define DOMAIN_KEY         "Domain"
 #define DNS_KEY            "DNS"
+#define AUTODNS_KEY        "AutoDNS"
 #define EXDNSDISABLED_KEY  "ExDNSDisabled"
 #define SCRIPTCOM_KEY      "ScriptCommands"
 #define SCRIPTARG_KEY      "ScriptArguments"
@@ -351,6 +352,9 @@ public:
 
   const int VolAcctEnabled();
   void setVolAcctEnabled(int set);
+
+  bool autoDNS();
+  void setAutoDNS(bool set);
 
   bool exDNSDisabled();
   void setExDNSDisabled(bool set);

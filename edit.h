@@ -43,7 +43,6 @@
 #include "scriptedit.h"
 #include "kpppconfig.h"
 #include "pppdargs.h"
-#include "edit.h"
 #include "groupbox.h"
 
 class IPLineEdit;
@@ -153,9 +152,12 @@ protected slots:
   void removedns();
   void DNS_Edit_Changed(const QString &);
   void DNS_Entry_Selected(int);
+  void DNS_Mode_Selected(int);
 
 private:
-  QGroupBox *box;
+  QLabel *conf_label;
+  QButtonGroup *bg;
+  QRadioButton *autodns, *mandns;
   QLabel *dns_label;
   QLabel *servers_label;
   IPLineEdit *dnsipaddr;

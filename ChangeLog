@@ -1,3 +1,8 @@
+1999-10-03  Harri Porten  <porten@kde.org>
+
+	* support automatic DNS detection if pppd >= 2.3.7.
+	* pppdata.cpp: fixed default account
+
 1999-10-02  Harri Porten  <porten@kde.org>
 
 	* runtests.cpp: determine pppd version. Will be needed to check

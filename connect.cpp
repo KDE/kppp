@@ -815,7 +815,8 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       Debug("execppp() returned with return-code %d\n", result);
 
       if(result) {
-	adddns(); 
+        if(!gpppdata.autoDNS())
+          adddns(); 
 
 	// O.K we are done here, let's change over to the if_waiting loop
 	// where we wait for the ppp if (interface) to come up.
@@ -1074,6 +1075,9 @@ void ConnectWidget::if_waiting_slot() {
   if_timer->stop();
   usleep(200000);
 
+  if(gpppdata.autoDNS())
+    addpeerdns();
+
   // Close the debugging window. If we are connected, we
   // are not really interested in debug output
   emit closeDebugWindow();
@@ -1180,6 +1184,9 @@ bool ConnectWidget::execppp() {
     command += " ";
     command +=  "defaultroute";
   }
+
+  if(gpppdata.autoDNS())
+    command += " usepeerdns";
 
   QStrList &arglist = gpppdata.pppdArgument();
   for (char *arg = arglist.first(); arg; arg = arglist.next()) {
@@ -1322,7 +1329,6 @@ void adddns() {
   int fd;
 
   if((fd = Requester::rq->openResolv(O_WRONLY|O_APPEND)) >= 0) {
-
     QStrList &dnslist = gpppdata.dns();
     for(char *dns = dnslist.first(); dns; dns = dnslist.next()) {
       write(fd, "nameserver ", 11);
@@ -1334,6 +1340,26 @@ void adddns() {
   add_domain(gpppdata.domain());
 }  
 
+void addpeerdns() {
+  int fd, fd2;
+
+  if((fd = Requester::rq->openResolv(O_WRONLY|O_APPEND)) >= 0) {
+    if((fd2 = open("/etc/ppp/resolv.conf", O_RDONLY)) >= 0) {
+      char c;
+      int i = 0;
+      while(i++ < 100 && read(fd2, &c, 1) == 1) {
+        if(c == '\n')
+          write(fd, "\t#kppp temp entry\n", 18);
+        else
+          write(fd, &c, 1);
+      }
+      close(fd2);
+    } else
+      fprintf(stderr, "failed to read from /etc/ppp/resolv.conf\n");
+    close(fd);
+  }
+  add_domain(gpppdata.domain());
+}  
 
 // remove the dns entries from the /etc/resolv.conf file
 void removedns() {

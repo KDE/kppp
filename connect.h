@@ -139,6 +139,7 @@ private:
 // non-member function to kill&wait on the pppd child process
 extern void killppp();
 void adddns();
+void addpeerdns();
 void removedns();
 void add_domain(const char* newdomain);
 void auto_hostname();
