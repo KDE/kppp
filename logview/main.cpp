@@ -27,15 +27,29 @@
 #include "monthly.h"
 #include "main.h"
 #include <klocale.h>
+#include <kcmdlineargs.h>
 
 #define F_EXIT     101
 
+
+static const char *description = 
+	I18N_NOOP("KPPP log viewer");
+
+static const char *version = "v0.0.1";
+
+static KCmdLineOptions option[] =
+{
+   { "kppp", I18N_NOOP("Run in KPPP mode"), 0 },
+   { 0, 0, 0 }
+};
+
+
 TopWidget::TopWidget() : KTMainWindow("") {
-  // scan command line args for "-kppp"
-  bool kpppmode = FALSE;
-  for(int i = 1; i < kapp->argc(); i++) 
-    if(strcmp(kapp->argv()[i], "-kppp") == 0)
-      kpppmode = TRUE;
+  // Check command line args for "-kppp"
+
+  KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+  bool kpppmode = args->isSet("kppp");
+  args->clear();
 
   setCaption(i18n("kPPP log viewer"));
 
@@ -89,7 +103,11 @@ void TopWidget::menuCallback(int id) {
 }
 
 int main(int argc, char **argv) {
-  KApplication a(argc, argv, "kppplogview");
+  KCmdLineArgs::init(argc, argv, "kppplogview", description, version);
+
+  KCmdLineArgs::addCmdLineOptions( option );
+
+  KApplication a;
 
   loadLogs();
 

@@ -74,6 +74,29 @@
 
 #include <X11/Xlib.h>
 #include <kapp.h>
+#include <klocale.h>
+#include <kcmdlineargs.h>
+
+static const char *description = 
+	I18N_NOOP("A demo Audio Client for kaudio.");
+
+static const char *version = KPPPVERSION "\n"
+  "(c) 1997-1999 Bernd Johannes Wuebben "
+  "<wuebben@kde.org>\n"
+  "(c) 1997-1999 Mario Weilguni "
+  "<mweilguni@kde.org>\n"
+  "(c) 1998-1999 Harri Porten "
+  "<porten@kde.org>\n";
+
+static KCmdLineOptions option[] = 
+{
+   { "c <account_name>", I18N_NOOP("Connect using 'account_name'"), 0 },
+   { "k", I18N_NOOP("Terminate an existing connection"), 0 },
+   { "q", I18N_NOOP("Quit after end of connection"), 0 },
+   { "r <rule_file>", I18N_NOOP("Check syntax of rule_file"), 0 },
+   { "T", I18N_NOOP("Enable test-mode"), 0 },
+   { 0, 0, 0}
+};
 
 
 KPPPWidget*	p_kppp;
@@ -100,27 +123,6 @@ public:
 private:
   int sig;
 };
-
-void usage(char* progname) {
-  fprintf(stderr, "%s -- valid command line options:\n", progname);
-  fprintf(stderr, " -h : describe command line options\n");
-  fprintf(stderr, " -c account_name : connect to account account_name\n");
-  fprintf(stderr, " -k : terminate an existing connection\n");
-  fprintf(stderr, " -q : quit after end of connection\n");
-  fprintf(stderr, " -r rule_file : check syntax of rule_file\n");
-  myShutDown(1);
-}
-
-void banner(char* progname){
-  fprintf(stderr,"%s version " KPPPVERSION "\n",progname); 
-  fprintf(stderr,"(c) 1997-1999 Bernd Johannes Wuebben ");
-  fprintf(stderr,"<wuebben@kde.org>\n");
-  fprintf(stderr,"(c) 1997-1999 Mario Weilguni ");
-  fprintf(stderr,"<mweilguni@kde.org>\n");
-  fprintf(stderr,"(c) 1998-1999 Harri Porten <porten@kde.org>\n");
-  fprintf(stderr,"Use -h for the list of valid command line options.\n\n");
-  myShutDown(0);
-}
 
 void showNews() {
   /*
@@ -279,7 +281,15 @@ int main( int argc, char **argv ) {
 
   (void) new Requester(sockets[0]);
 
-  KApplication a(argc, argv, "kppp");
+  KCmdLineArgs::init(argc, argv, "kppp", description, version);
+
+  KCmdLineArgs::addCmdLineOptions( option );
+#warning WABA: KCmdLineArgs may do an exit() during command line parsing! 
+// myShutDown() will not be called in that case.
+// A possible solution would be to install myShutDown as an exit handler.
+// See man 3 atexit for details.
+
+  KApplication a;
 
   // set portable locale for decimal point
   setlocale(LC_NUMERIC ,"C");
@@ -291,55 +301,16 @@ int main( int argc, char **argv ) {
   gpppdata.setSuidChildPid(fpid);
   Debug("suidChildPid: %i\n", (int) gpppdata.suidChildPid());
 
-  bool terminate_connection = false;
-  int c;
-  opterr = 0;
-  while ((c = getopt(argc, argv, "c:khvr:qT")) != EOF) {
-    switch (c)
-      {
-      case '?':
-	fprintf(stderr, "%s: unknown option \"%s\"\n", 
-		argv[0], argv[optind-1]);
-	usage(argv[0]);
-	myShutDown(1);
+  KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-      case 'c':
-	{
-	  const int MAX_NAME_LENGTH = 64;
-	  char tmp[MAX_NAME_LENGTH];
-	  strncpy(tmp, optarg, MAX_NAME_LENGTH-1);
-	  
-	  // terminate string
-	  tmp[MAX_NAME_LENGTH-1] = 0; 
-	  cmdl_account = tmp;
-	  break;
-	}
-
-      case 'k':
-        terminate_connection = true;
-        break;
-
-      case 'h':
-	usage(argv[0]);
-	break;
-
-      case 'v':
-	banner(argv[0]);
-	break;
-
-      case 'q':
-	quit_on_disconnect = true;
-	break;
-
-      case 'r':
-	myShutDown(RuleSet::checkRuleFile(optarg));
-	break; // never reached
-
-      case 'T':
-	TESTING=true;
-	break;
-      }
+  cmdl_account = args->getOption("c");
+  bool terminate_connection = args->isSet("k");
+  quit_on_disconnect = args->isSet("q");
+  if (args->isSet("r"))
+  {
+    myShutDown(RuleSet::checkRuleFile(args->getOption("r")));
   }
+  TESTING = args->isSet("T");
   
   if(!cmdl_account.isEmpty()) {
     have_cmdl_account = true;
