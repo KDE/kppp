@@ -9,7 +9,7 @@ static const char *devices[] = {
   "/dev/cuaa1",
   "/dev/cuaa2",
   "/dev/cuaa3",
-  "/dev/cuaa4",	
+  "/dev/cuaa4",
 #elif defined(__NetBSD__)
   "/dev/tty00",                /* "normal" modem lines */
   "/dev/tty01",
@@ -43,6 +43,14 @@ static const char *devices[] = {
   "/dev/usb/ttyACM1",
   "/dev/usb/ttyACM2",
   "/dev/usb/ttyACM3",
+  "/dev/rfcomm0",	       /* BlueTooth */
+  "/dev/rfcomm1",
+  "/dev/rfcomm2",
+  "/dev/rfcomm3",
+  "/dev/ircomm0",	       /* IrDA */
+  "/dev/ircomm1",
+  "/dev/ircomm2",
+  "/dev/ircomm3",
 #elif defined(__svr4__)
   "/dev/cua/a",
   "/dev/cua/b",
