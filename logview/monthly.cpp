@@ -21,24 +21,28 @@
 #include "monthly.h"
 
 #include <klocale.h>
+#include <kglobal.h>
 #include <klistview.h>
 
 static void formatBytes(int bytes, QString &result) {
   if(bytes < 1024)
     result.setNum(bytes);
   else if(bytes < 1024*1024)
-    result.sprintf(i18n("%0.1f KB"), (float)bytes / 1024.0);
+    result = i18n("%1 KB").arg(KGlobal::locale()->formatNumber((float)bytes / 1024.0, 1));
   else
-    result.sprintf(i18n("%0.1f MB"), (float)bytes / 1024.0 / 1024.0);
+    result = i18n("%1 MB").arg(KGlobal::locale()->formatNumber((float)bytes / 1024.0 / 1024.0, 1));
 }
 
 static void formatDuration(int seconds, QString &result) {
   if(seconds < 60)
-    result.sprintf(i18n("%d s"), seconds);
+    result = i18n("%1 s").arg(seconds);
   else if(seconds < 3600)
-    result.sprintf(i18n("%dm %ds"), seconds/60, seconds%60);
+    result = i18n("%1m %2s").arg(seconds/60).arg(seconds%60);
   else
-    result.sprintf(i18n("%dh %dm %ds"), seconds/3600, (seconds % 3600)/60, seconds%60);
+    result = i18n("%1h %2m %3s")
+        .arg(seconds/3600)
+        .arg((seconds % 3600)/60)
+        .arg(seconds%60);
 }
 
 MonthlyWidget::MonthlyWidget(QWidget *parent) :
@@ -197,10 +201,8 @@ void MonthlyWidget::plotMonth() {
                      s_duration);
 
       QString s_lifrom, s_liuntil, s_costs;
-      s_lifrom.sprintf("%02d:%02d",
-                       li->from().time().hour(), li->from().time().minute());
-      s_liuntil.sprintf("%02d:%02d",
-                        li->until().time().hour(), li->until().time().minute());
+      s_lifrom = KGlobal::locale()->formatTime(li->from().time(), false);
+      s_liuntil = KGlobal::locale()->formatTime(li->until().time(), false);
       s_costs.sprintf("%6.2f",
                       li->sessionCosts());
 
@@ -245,15 +247,15 @@ void MonthlyWidget::plotMonth() {
 
   QString t;
   if(lv->childCount() > 0)
-    t.sprintf(i18n("Connection log for %s %d"),
-	      months[_month-1].data(),
-	      _year);
+    t = i18n("Connection log for %1 %2")
+	      .arg(months[_month-1])
+	      .arg(_year);
   else
-    t.sprintf(i18n("No connection log for %s %d available"),
-	      months[_month-1].data(),
-	      _year);
+    t = i18n("No connection log for %1 %2 available")
+	      .arg(months[_month-1])
+	      .arg(_year);
 
-  title->setText(t.data());
+  title->setText(t);
 }
 
 void MonthlyWidget::nextMonth() {
