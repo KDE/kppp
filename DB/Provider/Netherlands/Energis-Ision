@@ -1,0 +1,27 @@
+# KDE Config File
+# http://www.energis-ision.nl/klantenservice/index.html
+
+ExDNSDisabled=0
+AutoDNS=1
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=0676088888
+IPAddr=0.0.0.0
+Domain=
+Name=Energis-Ision
+VolumeAccountingEnabled=1
+pppdArguments=
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=4
+DNS=195.64.32.3,195.64.32.43
+SubnetMask=0.0.0.0
+AccountingFile=/Netherlands/BelBasis_Regio.rst
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=

@@ -1,4 +1,5 @@
 # KDE Config File
+# http://helpdesk.solcon.net/faqonderdeel.php?Categorie=5
 ExDNSDisabled=0
 AutoName=0
 ScriptArguments=
@@ -16,7 +17,7 @@ ScriptCommands=
 Authentication=1
 DNS=212.45.33.3,212.45.32.3.
 SubnetMask=0.0.0.0
-AccountingFile=/Netherlands/BelBasis_Lokaal.rst
+AccountingFile=/Netherlands/BelBasis_Regio.rst
 DefaultRoute=1
 Username=%USERNAME%
 Gateway=0.0.0.0

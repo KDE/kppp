@@ -1,0 +1,27 @@
+# KDE Config File
+# http://www.zeelandnet.nl/helpdesk/index.php?page=4&grp=1&cat=7&faq_id=68
+# http://www.zeelandnet.nl/helpdesk/index.php?page=4&grp=1&cat=16&faq_id=56
+ExDNSDisabled=0
+AutoName=0
+AccountingEnabled=1
+AutoDNS=0
+Phonenumber=0676088954
+IPAddr=0.0.0.0
+Domain=
+Name=Zeelandnet
+VolumeAccountingEnabled=1
+pppdArguments=
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+Authentication=4
+DNS=212.115.192.193,212.115.192.195
+SubnetMask=0.0.0.0
+AccountingFile=/Netherlands/BelBasis_Regio.rst
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=
+ScriptArguments=
+ScriptCommands=

@@ -1,0 +1,26 @@
+# KDE Config File
+# http://www.popin.nl/helpdeskinbel.htm
+ExDNSDisabled=0
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=0748507010
+IPAddr=0.0.0.0
+Domain=
+Name=Popin
+VolumeAccountingEnabled=1
+pppdArguments=
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=4
+DNS=194.229.143.15,194.229.143.5
+SubnetMask=0.0.0.0
+AccountingFile=/Netherlands/BelBasis_Regio.rst
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=
+AutoDNS=0

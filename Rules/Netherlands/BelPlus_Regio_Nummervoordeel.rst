@@ -1,17 +1,18 @@
 ######################################################################
 #
 #  kppp rules voor KPN BelPlus abonnement+ nummervoordeel per seconde
+# laatste wijziging 30-07-2003
 #
 #  Alleen voor lokale gesprekken
 #
 #  Kosten:
-#  Lokaal:      standaardtarief 2.52 cpm=0.042 cps	08:00-18:59
-# 		daltarief     	1.13  cpm=0.0188333 cps	19:00-23:59
-#		nacht 		0.9   cpm=0.015   cps	00:00-07:59
-#  		Zaterdag	0.9   cpm=0.015	 cps	00:00-23:59
-#		Zondag		0.9   cpm=0.015   cps	00:00-23:59
+#  Lokaal:      standaardtarief 2.60	cpm = 0.0004333333333	euro ps	08:00-18:59
+# 		daltarief     	1.40	cpm = 0.0002333333333	euro ps	19:00-23:59
+#		nacht 		0.94	cpm = 0.0001566666667	euro ps	00:00-07:59
+#  		Zaterdag	0.94	cpm = 0.0001566666667	euro ps	00:00-23:59
+#		Zondag		0.94	cpm = 0.0001566666667	euro ps	00:00-23:59
 #
-#  Starttarief 			3.73  ct per gesprek
+#  Starttarief 			3.84  ct per gesprek
 #
 #
 #  Gemaakt door: Rinse de Vries <rinse@kde.nl>
@@ -26,11 +27,11 @@ name=Nederlands BelPlus Regio Nummervoordeel
 currency_symbol=euro
 currency_position=left
 currency_digits=2
-per_connection=0.0373
+per_connection=0.0384
 minimum_costs=0.0
 
-default=(0.00042, 1)
-on (monday..friday) between (19:00..23:59) use (0.000188333, 1)
-on (monday..friday) between (00:00..07:59) use (0.00015, 1)
-on (saturday) between (00:00..23:59) use (0.00015, 1)
-on (sunday) between (00:00..23:59) use (0.00015, 1)
+default=(0.0004333333333, 1)
+on (monday..friday) between (19:00..23:59) use (0.0002333333333, 1)
+on (monday..friday) between (00:00..07:59) use (0.0001566666667, 1)
+on (saturday) between (00:00..23:59) use (0.0001566666667, 1)
+on (sunday) between (00:00..23:59) use (0.0001566666667, 1)

@@ -1,0 +1,26 @@
+# KDE Config File
+#informatie van http://www.betuwe.net/kop/inbel.html
+# en van http://www.betuwe.net/kop/faq.html#F
+ExDNSDisabled=0
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=0676000805
+IPAddr=0.0.0.0
+Domain=
+Name=Betuwenet BQuality
+VolumeAccountingEnabled=1
+pppdArguments=
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=4
+DNS=212.29.160.1,212.29.161.254
+SubnetMask=0.0.0.0
+AccountingFile=Netherlands/BelBasis_Regio.rst
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=

@@ -1,0 +1,27 @@
+# KDE Config File
+# http://www.vianetworks.nl/helpdesk/eindhoven/info_inbelnummers_text.shtml?regio=0517&inbelnummer=06760+77111
+# http://www.vianetworks.nl/helpdesk/eindhoven/info_ip_text.shtml
+ExDNSDisabled=0
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=
+IPAddr=0.0.0.0
+Domain=
+Name=Via Networks
+VolumeAccountingEnabled=1
+pppdArguments=
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=4
+DNS=212.61.15.8,212.61.25.226
+SubnetMask=0.0.0.0
+AccountingFile=/Netherlands/BelBasis_Regio.rst
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=
+AutoDNS=0

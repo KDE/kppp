@@ -79,8 +79,6 @@ ExportWizard::ExportWizard(QWidget *parent, const QString &_date)
   formatLayout->addWidget(typeInfo);
 
   addPage(formatPage, i18n("Selection of filetype"));
-  setNextEnabled( formatPage, false );
-  setHelpEnabled( formatPage, false );
 
 
   /* filename-page */
@@ -108,6 +106,10 @@ ExportWizard::ExportWizard(QWidget *parent, const QString &_date)
   addPage(filenamePage, i18n("Selection of filename"));
   setNextEnabled( filenamePage, false );
   setHelpEnabled( filenamePage, false );
+
+  setNextEnabled( formatPage, false );
+  setHelpEnabled( formatPage, false );
+
 }
 
 Export * ExportWizard::createExportFilter() {
@@ -127,7 +129,8 @@ void ExportWizard::typeHighlighted(int index) {
 
 void ExportWizard::getFilename() {
   int i = typeList->currentItem();
-
+  if ( i == -1)
+      return;
   // prepare filter: e.g.: HTML (*.html *.HTML)
   QString filter = "*." + ExportFormats[i].ext + " *." + ExportFormats[i].ext.upper() + "|" +
                    i18n(ExportFormats[i].name.utf8()) + " (*." + ExportFormats[i].ext + " *." +
@@ -138,6 +141,11 @@ void ExportWizard::getFilename() {
     return;
   fnLine->setText(filename);
   setFinishEnabled(filenamePage, true);
+}
+
+void ExportWizard::reject()  {
+    hide();
+    filename = QString::null;
 }
 
 void ExportWizard::accept() {
