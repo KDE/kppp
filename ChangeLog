@@ -1,3 +1,8 @@
+2002-10-27  Harri Porten  <porten@trolltech.com>
+
+	* connect.cpp: fix for race condition in Expect command by
+	Dag Nygren dag at newtech.fi
+
 2002-04-12  Nadeem Hasan  <nhasan@kde.org>
     * Lots of GUI and layout cleanups. Added accels.
 

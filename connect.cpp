@@ -534,8 +534,11 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	messg->setText(bm);
 	emit debugMessage(bm);
 
-        setExpect(scriptArgument);
+	// The incrementing of the scriptindex MUST be before the
+	// call to setExpect otherwise the expect will miss a string that is
+	// already in the buffer.
 	scriptindex++;
+	setExpect(scriptArgument);
         return;
       }
 
@@ -730,15 +733,19 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
         QString bm = i18n("Loop Start %1").arg(scriptArgument);
 
+	// The incrementing of the scriptindex MUST be before the
+	// call to setExpect otherwise the expect will miss a string that is
+	// already in the buffer.
+	scriptindex++;
+
 	if ( loopnest > (MAXLOOPNEST-2) ) {
 		bm += i18n("ERROR: Nested too deep, ignored.");
 		vmain=20;
-		scriptindex++;
 		cancelbutton();
 	        KMessageBox::error(0, i18n("Loops nested too deeply!"));
 	} else {
         	setExpect(scriptArgument);
-		loopstartindex[loopnest] = scriptindex + 1;
+		loopstartindex[loopnest] = scriptindex;
 		loopstr[loopnest] = scriptArgument;
 		loopend = false;
 		loopnest++;
@@ -746,7 +753,6 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	messg->setText(bm);
 	emit debugMessage(bm);
 
-	scriptindex++;
       }
 
       if (scriptCommand == "LoopEnd") {
@@ -754,11 +760,14 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	if ( loopnest <= 0 ) {
 		bm = i18n("LoopEnd without matching Start! Line: %1").arg(bm);
 		vmain=20;
-		scriptindex++;
 		cancelbutton();
 	        KMessageBox::error(0, bm);
 		return;
 	} else {
+	        // NB! The incrementing of the scriptindex MUST be before the
+	        // call to setExpect otherwise the expect will miss a string
+	        // that is already in the buffer.
+        	scriptindex++;
         	setExpect(scriptArgument);
 		loopnest--;
 		loopend = true;
@@ -766,7 +775,6 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	messg->setText(bm);
 	emit debugMessage(bm);
 
-	scriptindex++;
       }
     }
   }
