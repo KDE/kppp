@@ -298,10 +298,10 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
 
   tmp = i18n("Specifies the speed your modem and the serial\n"
 	     "port talk to each other. You should begin with\n"
-	     "the default of 38400 bits/sec. If everything\n"
-	     "works you can try to increase this value, but to\n"
-	     "no more than 115200 bits/sec (unless you know\n"
-	     "that your serial port supports higher speeds).");
+	     "at least 115200 bits/sec (or more if you know\n"
+	     "that your serial port supports higher speeds).\n"
+	     "If you have connection problems, try to reduce\n"
+	     "this value.");
 
   QWhatsThis::add(baud_label,tmp);
   QWhatsThis::add(baud_c,tmp);
