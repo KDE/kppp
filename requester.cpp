@@ -156,7 +156,10 @@ bool Requester::recvResponse() {
   len = recvmsg(socket, &msg, flags);
   kdDebug(5002) << "recvResponse(): received message" << endl;
   if (len <= 0) {
-    perror("recvmsg failed");
+    if (errno == EINTR)
+      kdDebug(5002) << "Interrupted system call. Continuing." << endl;
+    else
+      perror("recvmsg failed");
   } else {
     kdDebug(5002) << "response.status: " << response.status << endl;
   }
