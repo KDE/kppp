@@ -42,13 +42,13 @@
 #define CHAP_AUTH_FILE "/etc/ppp/chap-secrets"
 
 // Define the default modem response timeout
-#define MODEM_TIMEOUT "60"
+#define MODEM_TIMEOUT 60
 
 // Define the default time for pppd to get the interface up
-#define PPPD_TIMEOUT "30"
+#define PPPD_TIMEOUT 30
 
 // Define the default time to wait after a busy signal before redialing
-#define BUSY_WAIT "0"
+#define BUSY_WAIT 0
 
 
 

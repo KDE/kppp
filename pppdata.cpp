@@ -295,12 +295,12 @@ void PPPData::set_dock_into_panel(bool set) {
 }
 
 
-const QString PPPData::pppdTimeout() {
-  return readConfig(GENERAL_GRP, PPPDTIMEOUT_KEY, PPPD_TIMEOUT);
+int PPPData::pppdTimeout() {
+  return readNumConfig(GENERAL_GRP, PPPDTIMEOUT_KEY, PPPD_TIMEOUT);
 }
 
 
-void PPPData::setpppdTimeout(const QString &n) {
+void PPPData::setpppdTimeout(int n) {
   writeConfig(GENERAL_GRP, PPPDTIMEOUT_KEY, n);
 }
 
@@ -391,22 +391,22 @@ void PPPData::setModemLockFile(bool set) {
 }
 
 
-const QString PPPData::modemTimeout() {
-  return readConfig(MODEM_GRP, TIMEOUT_KEY, MODEM_TIMEOUT);
+int PPPData::modemTimeout() {
+  return readNumConfig(MODEM_GRP, TIMEOUT_KEY, MODEM_TIMEOUT);
 }
 
 
-void PPPData::setModemTimeout(const QString &n) {
+void PPPData::setModemTimeout(int n) {
   writeConfig(MODEM_GRP, TIMEOUT_KEY, n);
 }
 
 
-const QString PPPData::busyWait() {
-  return readConfig(MODEM_GRP, BUSYWAIT_KEY, BUSY_WAIT);
+int PPPData::busyWait() {
+  return readNumConfig(MODEM_GRP, BUSYWAIT_KEY, BUSY_WAIT);
 }
 
 
-void PPPData::setbusyWait(const QString &n) {
+void PPPData::setbusyWait(int n) {
   writeConfig(MODEM_GRP, BUSYWAIT_KEY, n);
 }
 

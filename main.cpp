@@ -1098,6 +1098,8 @@ void KPPPWidget::startAccounting() {
   // volume accounting
   stats.totalbytes = 0;
 
+  debug("AcctEnabled: %d", gpppdata.AcctEnabled());
+  
   // load the ruleset
   if(!gpppdata.AcctEnabled())
     return;

@@ -39,8 +39,10 @@
 
 #include "groupbox.h"
 
-class KSlider;
+class QSlider;
+
 class ModemTransfer;
+class KIntNumInput;
 
 class GeneralWidget : public KGroupBox {
   Q_OBJECT
@@ -48,7 +50,7 @@ public:
   GeneralWidget( QWidget *parent=0, const char *name=0 );
 
 private slots:
-  void 	pppdtimeoutchanged(const QString &n);
+  void 	pppdtimeoutchanged(int);
   void 	caption_toggled(bool);
   void  iconify_toggled(bool on); 
   void 	redial_toggled(bool on);
@@ -73,7 +75,7 @@ private:
   QCheckBox 	*chkbox6;
   QCheckBox 	*chkbox7;
 
-  QLineEdit 	*pppdtimeout;
+  KIntNumInput 	*pppdtimeout;
 };
 
 
@@ -85,7 +87,7 @@ public:
 private slots:
   void 	setmodemdc(int);
   void 	setflowcontrol(int);
-  void 	modemtimeoutchanged(const QString &);
+  void 	modemtimeoutchanged(int);
   void 	modemlockfilechanged(bool);
   void 	setenter(int);
   void  speed_selection(int);
@@ -94,7 +96,6 @@ private:
   QComboBox 	*enter;
   QLabel 	*label1;
   QLabel 	*label2;
-  QLabel 	*label3;
   QLabel 	*labeltmp;
   QLabel 	*labelenter;
   QComboBox 	*modemdevice;
@@ -103,7 +104,7 @@ private:
   QComboBox *baud_c;
   QLabel *baud_label;
 
-  QLineEdit 	*modemtimeout;
+  KIntNumInput 	*modemtimeout;
   QCheckBox     *modemlockfile;
 };
 
@@ -114,7 +115,7 @@ public:
   ModemWidget2( QWidget *parent=0, const char *name=0 );
 
 private slots:
-  void 	busywaitchanged(const QString &);
+  void 	busywaitchanged(int);
   void 	use_cdline_toggled(bool);
   void 	modemcmdsbutton();
   void 	terminal();
@@ -123,15 +124,14 @@ private slots:
 
 private:
   ModemTransfer *modemtrans;
-  QLabel 	*label4;
   QLabel 	*labeltmp;
   QPushButton 	*modemcmds;
   QPushButton 	*modeminfo_button;
   QPushButton 	*terminal_button;
   QFrame 	*fline;
-  QLineEdit 	*busywait;
+  KIntNumInput 	*busywait;
   QCheckBox 	*chkbox1;
-  KSlider       *volume;
+  QSlider       *volume;
 };
 
 class GraphSetup : public KCheckGroupBox {

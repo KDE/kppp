@@ -207,11 +207,11 @@ public:
   const QString enter();
   void setEnter(const QString &);
 
-  const QString pppdTimeout();
-  void setpppdTimeout(const QString &);
+  int pppdTimeout();
+  void setpppdTimeout(int);
 
-  const QString busyWait();
-  void setbusyWait(const QString &);
+  int busyWait();
+  void setbusyWait(int);
 
   const bool modemLockFile();
   void setModemLockFile(bool set);
@@ -231,8 +231,8 @@ public:
   const QString flowcontrol();
   void setFlowcontrol(const QString &);
 
-  const QString modemTimeout();
-  void setModemTimeout(const QString &);
+  int modemTimeout();
+  void setModemTimeout(int);
 
   const QString volumeOff();
   void setVolumeOff(const QString &);

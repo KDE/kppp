@@ -37,6 +37,8 @@ int loadLogs() {
   QString logdirname = locateLocal("appdata", "Log/");
   QDir logdir(logdirname, "*.log");
 
+  debug("logdirname: %s", logdirname.latin1());
+  
   // get log file size
   const QFileInfoList *list = logdir.entryInfoList();
   QFileInfoListIterator it( *list );

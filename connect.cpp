@@ -242,7 +242,7 @@ void ConnectWidget::init() {
       Modem::modem->notify(this, SLOT(readChar(unsigned char)));
       
       // if we are stuck anywhere we will time out
-      timeout_timer->start(atoi(gpppdata.modemTimeout())*1000); 
+      timeout_timer->start(gpppdata.modemTimeout()*1000); 
       
       // this timer will run the script etc.
       main_timer_ID = startTimer(10);
@@ -305,7 +305,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
     if(!expecting) {
 
       timeout_timer->stop();
-      timeout_timer->start(atoi(gpppdata.modemTimeout())*1000);
+      timeout_timer->start(gpppdata.modemTimeout()*1000);
 
       QString bm = i18n("Dialing");
       QStrList &plist = gpppdata.phonenumbers();
@@ -340,7 +340,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
     if(readbuffer.contains(gpppdata.modemBusyResp())) {      
       timeout_timer->stop();
-      timeout_timer->start(atoi(gpppdata.modemTimeout())*1000);
+      timeout_timer->start(gpppdata.modemTimeout()*1000);
 
       messg->setText(i18n("Line Busy. Hanging up ..."));
       emit debugPutChar('\n');
@@ -355,7 +355,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       
 	pausing = true;
       
-	pausetimer->start(atoi(gpppdata.busyWait())*1000, true);
+	pausetimer->start(gpppdata.busyWait()*1000, true);
 	timeout_timer->stop();
       }
 
@@ -392,7 +392,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       p_kppp->con_win->startClock();
 
       vmain = 2;
-      scriptTimeout=atoi(gpppdata.modemTimeout())*1000;
+      scriptTimeout=gpppdata.modemTimeout()*1000;
       return;
     }
   }
@@ -799,7 +799,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
       killTimer( main_timer_ID );
 
-      if_timeout_timer->start(atoi(gpppdata.pppdTimeout())*1000);
+      if_timeout_timer->start(gpppdata.pppdTimeout()*1000);
       Debug("started if timeout timer with %d\n",atoi(gpppdata.pppdTimeout())*1000);
 
       // find out PPP interface and notify the stats module

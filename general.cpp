@@ -28,9 +28,9 @@
 #include <kapp.h>
 #include <qlayout.h>
 #include <qwhatsthis.h>
+#include <qslider.h>
 
-#include <knumlineedit.h>
-#include <kslider.h>
+#include <knuminput.h>
 #include "general.h"
 #include "version.h"
 #include "log.h"
@@ -58,13 +58,10 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
   label6 = new QLabel(i18n("pppd Timeout:"), peer());
   l1->addWidget(label6);
   
-  pppdtimeout = new KIntLineEdit(peer());
-  pppdtimeout->setFixedHeight(pppdtimeout->sizeHint().height());
-  pppdtimeout->setMaxLength(TIMEOUT_SIZE);
-  pppdtimeout->setMinimumWidth(pppdtimeout->sizeHint().width()/4);
-  pppdtimeout->setText(gpppdata.pppdTimeout());
-  connect(pppdtimeout, SIGNAL(textChanged(const QString &)),
-	  SLOT(pppdtimeoutchanged(const QString &)));
+  pppdtimeout = new KIntNumInput(i18n("pppd Timeout:"), 1, TIMEOUT_SIZE, 2,
+                                 gpppdata.pppdTimeout(), "s", 10, true, this);
+  connect(pppdtimeout, SIGNAL(valueChanged(int)),
+          SLOT(pppdtimeoutchanged(int)));
   l1->addWidget(pppdtimeout);
   QString tmp = i18n("<i>kppp</i> will wait this number of seconds\n"
 		     "to see if a PPP connection is established.\n"
@@ -190,7 +187,7 @@ void GeneralWidget::quit_toggled(bool on){
 }
 
 
-void GeneralWidget::pppdtimeoutchanged(const QString &n) {
+void GeneralWidget::pppdtimeoutchanged(int n) {
   gpppdata.setpppdTimeout(n);
 
 }
@@ -378,29 +375,17 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
                        "<b>Default</b>: On"));
   
   // Modem Timeout Line Edit Box
-  label3 = new QLabel(i18n("Modem Timeout:"), peer());
-  tl->addWidget(label3, 6, 0);
 
-  QHBoxLayout *l2 = new QHBoxLayout;
-  tl->addLayout(l2, 6, 1);
+  modemtimeout = new KIntNumInput(i18n("Modem Timeout:"), 1, 120, 1, gpppdata.modemTimeout(),
+                                  i18n("s"), 10, true, this);
+  modemtimeout->setLabelAlignment(AlignRight);
+  connect(modemtimeout, SIGNAL(valueChanged(int)), SLOT(modemtimeoutchanged(int)));  
+  tl->addWidget(modemtimeout, 6, 1);
 
-  modemtimeout = new KIntLineEdit(peer());
-  modemtimeout->setMaxLength(TIMEOUT_SIZE);
-  modemtimeout->setMinimumWidth(fontMetrics().width('8')*3);
-  modemtimeout->setText(gpppdata.modemTimeout());
-  connect(modemtimeout, SIGNAL(textChanged(const QString &)),
-	  SLOT(modemtimeoutchanged(const QString &)));  
-  l2->addWidget(modemtimeout, 1);
-
-  labeltmp = new QLabel(i18n("Seconds"), peer());
-  l2->addWidget(labeltmp, 2);
-  tmp = i18n("This specifies how long <i>kppp</i> waits for a\n"
-	     "<i>CONNECT</i> response from your modem. The\n"
-	     "recommended value is 30 seconds.");
-
-  QWhatsThis::add(label3,tmp);
-  QWhatsThis::add(modemtimeout, tmp);
-
+  QWhatsThis::add(modemtimeout,
+                  i18n("This specifies how long <i>kppp</i> waits for a\n"
+                       "<i>CONNECT</i> response from your modem. The\n"
+                       "recommended value is 30 seconds."));
 
   //set stuff from gpppdata
   for(int i=0; i <= modemdevice->count()-1; i++) {
@@ -447,7 +432,7 @@ void ModemWidget::modemlockfilechanged(bool set) {
 }
 
 
-void ModemWidget::modemtimeoutchanged(const QString &n) {
+void ModemWidget::modemtimeoutchanged(int n) {
   gpppdata.setModemTimeout(n);
 }
 
@@ -457,33 +442,21 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 {
   QVBoxLayout *l1 = new QVBoxLayout(peer(), 10, 10);
 
-  QHBoxLayout *l10 = new QHBoxLayout;
-  l1->addLayout(l10);
-  label4 = new QLabel(i18n("Busy Wait:"), peer());
-  l10->addStretch(1);
-  l10->addWidget(label4);
+  busywait = new KIntNumInput(i18n("Busy Wait:"), 0, 300, 5, gpppdata.busyWait(),
+                              i18n("s"), 10, true, this);
+  
+  busywait->setLabelAlignment(AlignCenter);
+  connect(busywait, SIGNAL(valueChanged(int)), SLOT(busywaitchanged(int)));
+  l1->addWidget(busywait);
 
-  busywait = new KIntLineEdit(peer());
-  busywait->setMaxLength(TIMEOUT_SIZE);
-  busywait->setText(gpppdata.busyWait());
-  busywait->setMinimumWidth(busywait->sizeHint().width()/3);
-  connect(busywait, SIGNAL(textChanged(const QString &)),
-	  SLOT(busywaitchanged(const QString &)));
-  l10->addWidget(busywait);
-
-  labeltmp = new QLabel(i18n("Seconds"), peer());
-  l10->addWidget(labeltmp, 1);
-  l10->addStretch(1);
-  QString tmp =	i18n("Specifies the number of seconds to wait before\n"
-		     "redial if all dialed numbers are busy. This is\n"
-		     "necessary because some modems get stuck if the\n"
-		     "same number is busy too often.\n"
-		     "\n"
-		     "The default is 0 seconds, you should not change\n"
-		     "this unless you need to.");
- 
-  QWhatsThis::add(label4,tmp);
-  QWhatsThis::add(busywait, tmp);
+  QWhatsThis::add(busywait,
+                  i18n("Specifies the number of seconds to wait before\n"
+                       "redial if all dialed numbers are busy. This is\n"
+                       "necessary because some modems get stuck if the\n"
+                       "same number is busy too often.\n"
+                       "\n"
+                       "The default is 0 seconds, you should not change\n"
+                       "this unless you need to."));
 
   // the checkboxes
   l1->addSpacing(10);
@@ -495,13 +468,13 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
   volumeLabel->setAlignment(AlignVCenter|AlignRight);
   hbl->addStretch(1);
   hbl->addWidget(volumeLabel);
-  volume = new KSlider(0, 2, 1, gpppdata.volume(), KSlider::Horizontal, peer());
+  volume = new QSlider(0, 2, 1, gpppdata.volume(), QSlider::Horizontal, peer());
   volume->setFixedSize(120, 25);  
   hbl->addWidget(volume);
   hbl->addStretch(1);
   connect(volume, SIGNAL(valueChanged(int)),
 	  this, SLOT(volumeChanged(int)));
-  tmp = i18n("Most modems have a speaker which makes\n"
+  QString tmp = i18n("Most modems have a speaker which makes\n"
 	     "a lot of noise when dialing. Here you can\n"
 	     "either turn this completely off or select a\n"
 	     "lower volume.\n"
@@ -598,7 +571,7 @@ void ModemWidget2::use_cdline_toggled(bool on) {
 }
 
 
-void ModemWidget2::busywaitchanged(const QString &n) {
+void ModemWidget2::busywaitchanged(int n) {
   gpppdata.setbusyWait(n);
 }
 
