@@ -1,4 +1,5 @@
 # KDE Config File
+# gegevens van http://www.cybercomm.nl/instellingen.php
 ExDNSDisabled=0
 AutoName=0
 ScriptArguments=
@@ -16,7 +17,7 @@ ScriptCommands=
 Authentication=3
 DNS=213.196.1.3,213.196.1.4
 SubnetMask=0.0.0.0
-AccountingFile=/Netherlands/BelBasis_Lokaal.rst
+AccountingFile=/Netherlands/BelBasis_Regio.rst
 DefaultRoute=1
 Username=%USERNAME%
 Gateway=0.0.0.0

@@ -1,0 +1,26 @@
+# KDE Config File
+# http://www3.hccnet.nl/info/support/overzicht.cfm?onderwerp=65&code_1=F&code_2=B&code_3=B&code_4=A
+AccountingEnabled=1
+AccountingFile=/Netherlands/BelBasis_Regio.rst
+Authentication=4
+AutoName=0
+BeforeDisconnect=
+Command=
+DNS=
+DefaultRoute=1
+DisconnectCommand=
+Domain=
+ExDNSDisabled=0
+Gateway=0.0.0.0
+IPAddr=0.0.0.0
+Name=HCC Net
+Password=%PASSWORD%
+Phonenumber=0676042222
+ScriptArguments=
+ScriptCommands=
+StorePassword=1
+SubnetMask=0.0.0.0
+Username=%USERNAME%
+VolumeAccountingEnabled=1
+pppdArguments=
+AutoDNS=1

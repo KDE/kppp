@@ -1,0 +1,26 @@
+# KDE Config File
+# http://www.zonnet.nl/helpdesk/0,1862,1523,00.html
+ExDNSDisabled=0
+AutoDNS=1
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=0676000035
+IPAddr=0.0.0.0
+Domain=zonnet.nl
+Name=Zon2
+VolumeAccountingEnabled=1
+pppdArguments=
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=1
+DNS=62.58.50.5,62.58.50.6
+SubnetMask=0.0.0.0
+AccountingFile=
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=

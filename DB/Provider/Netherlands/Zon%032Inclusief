@@ -1,0 +1,25 @@
+# KDE Config File
+ExDNSDisabled=0
+AutoDNS=1
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=0676001010
+IPAddr=0.0.0.0
+Domain=zonnet.nl
+Name=Zon Inclusief
+VolumeAccountingEnabled=1
+pppdArguments=
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=1
+DNS=62.58.50.5,62.58.50.6
+SubnetMask=0.0.0.0
+AccountingFile=
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=

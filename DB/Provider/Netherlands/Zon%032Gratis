@@ -1,0 +1,26 @@
+# KDE Config File
+# http://www.zonnet.nl/helpdesk/topic/0,1890,l43,00.html#43
+ExDNSDisabled=0
+AutoDNS=1
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=0676075030
+IPAddr=0.0.0.0
+Domain=zonnet.nl
+Name=Zon Gratis
+VolumeAccountingEnabled=1
+pppdArguments=
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=1
+DNS=62.58.50.5,62.58.50.6
+SubnetMask=0.0.0.0
+AccountingFile=/Netherlands/BelBasis_Regio.rst
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=

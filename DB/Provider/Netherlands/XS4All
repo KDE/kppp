@@ -1,0 +1,26 @@
+# KDE Config File
+# http://www.xs4all.nl/helpdesk/besturingssysteem/linux/connectie/kde.html
+ExDNSDisabled=0
+AutoName=0
+AccountingEnabled=1
+AutoDNS=0
+Phonenumber=
+IPAddr=0.0.0.0
+Domain=
+Name=XS4All
+VolumeAccountingEnabled=1
+pppdArguments=
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+Authentication=1
+DNS=194.109.6.66,194.109.9.99
+SubnetMask=0.0.0.0
+AccountingFile=/Netherlands/BelBasis_Regio.rst
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=
+ScriptArguments=ogin:,%USERNAME%,assword:,%PASSWORD%
+ScriptCommands=Expect,Send,Expect,Send
