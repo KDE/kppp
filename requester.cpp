@@ -1,7 +1,6 @@
 /*
  *              kPPP: A pppd Front End for the KDE project
  *
- * $Id$
  *
  *              Copyright (C) 1997,98 Bernd Johannes Wuebben,
  *		                      Mario Weilguni,
