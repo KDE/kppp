@@ -1,0 +1,26 @@
+# KDE Config File
+Name=Volný
+DNS=212.20.96.34,212.20.96.38,
+Domain=
+AccountingEnabled=1
+ScriptArguments=
+ScriptCommands=
+AccountingFile=/Czechia/Czech_Telecom_Internet2000.rst
+VolumeAccountingEnabled=1
+AutoName=0
+pppdArguments=-detach,defaultroute,modem,debug,crtscts,
+Authentication=3
+Gateway=0.0.0.0
+Phonenumber=0971200111
+Username=%USERNAME%
+Password=%PASSWORD%
+BeforeConnect=
+DisconnectCommand=
+BeforeDisconnect=
+Command=
+StorePassword=1
+DefaultRoute=1
+ExDNSDisabled=0
+IPAddr=0.0.0.0
+SubnetMask=0.0.0.0
+
