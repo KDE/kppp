@@ -287,7 +287,7 @@ int main( int argc, char **argv ) {
 
   (void) new Requester(sockets[0]);
 
-  KAboutData aboutData( argv[0], I18N_NOOP("KPPP"),
+  KAboutData aboutData("kppp", I18N_NOOP("KPPP"),
     version, description, KAboutData::License_GPL,
     "(c) 1999-2000, The KPPP Developers");
   aboutData.addAuthor("Bernd Wuebben",0, "wuebben@kde.org");
