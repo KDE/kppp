@@ -1,21 +1,18 @@
 ################################################################
-#
 # NOTES: 
-# This rules are for the so called "digital" phones in Greece
-# The costs for a city phone-call are: 1 Unit(11.5+18%FPA=13.57Drs) every 3 minutes 
-# (180secs), and between 11:00pm and 08:00am 1Unit every 8 minutes (480secs)
-# Pay attention Greeks Users to the frequent changes of the Unit's price (sigh!).
-#
-# Nikos Kokras, senior medical student, Aristotle Univ. of Thessaloniki
-# email: nikos@biogate.com, kkrnls@med.auth.gr
-#
+# This rules apply to you if you are accessing an ISP  not using an EPAK or PEAK
+# number (0965-), in the same city as you.
+# The costs for a local city phone-call are:1 Unit(6.0+18%FPA=7.08Drs)
+# every 1 minute (60secs), and between 10:00pm and 08:00am 1 Unit every
+# 3 minutes (180secs).
 ################################################################
-
-
+#                             Achilleas Kotsis 
+# Electrical and Computer Engineering, National Technical University of Athens
+#           Webpage: http://www.chat.net.gr/~achille/
+#           E-mail : mailto:achille@freemail.gr IRCnick: Achille
+#           PGP Key: http://www.chat.net.gr/~achille/pgp.txt
 ################################################################
-#
 # NAME OF THE RULESET. This is NEEDED for accounting purposes.
-#
 ################################################################
 name=Hellas_local.rts
 
@@ -35,8 +32,6 @@ currency_position=right
 # (not absolutely needed, default is "2"
 currency_digits=2
 
-
-
 ################################################################
 # connection settings
 ################################################################
@@ -47,18 +42,16 @@ currency_digits=2
 
 
 # This is the default rule which is used when no other rule
-# applies. The first component "13.57" is the price of one
-# "unit", while "180" is the duration in seconds.
-# Therefore the following rule means: "Every 180 seconds 13.57 
+# applies. The first component "7.08" is the price of one
+# "unit", while "60" is the duration in seconds.
+# Therefore the following rule means: "Every 60 seconds 7.08 
 # DRS are added to the bill"
-default=(13.57, 180)
+default=(7.08, 60)
 
 #
 # more complicated rules:
 #
 
-# "on monday until sunday from 23:00 pm until 08:00 pm the costs
-# are 0.2 each 72 seconds"
-on (monday..sunday) between (23:00..08:00) use (13.57, 480)
-
-
+# "on monday until sunday from 22:00 pm until 08:00 pm the costs
+# are 7.08 each 180 seconds"
+on (monday..sunday) between (22:00..08:00) use (7.08, 180)
