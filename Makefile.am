@@ -42,7 +42,6 @@ kppp_SOURCES	= kpppwidget.cpp \
 		runtests.cpp \
 		loginterm.cpp \
 		ppplog.cpp \
-		groupbox.cpp \
 		newwidget.cpp \
 		requester.cpp \
 		opener.cpp \
@@ -55,7 +54,7 @@ kppp_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 
 # the libraries to link against. Be aware of the order. First the libraries,
 # that depend on the following ones.
-kppp_LDADD   =       -lm $(LIB_KDEUI)
+kppp_LDADD   =       -lm $(LIB_KIO) $(LIB_KDEUI)
 
 # this option you can leave out. Just, if you use "make dist", you need it
 noinst_HEADERS = kpppwidget.h \
@@ -87,7 +86,6 @@ noinst_HEADERS = kpppwidget.h \
 		version.h \
 		macros.h \
 		ppplog.h \
-		groupbox.h \
 		newwidget.h \
 		modemdb.h \
 		utils.h \
@@ -102,7 +100,6 @@ METASOURCES = accounting.moc \
 	docking.moc \
 	edit.moc \
 	general.moc \
-	groupbox.moc \
 	loginterm.moc \
 	kpppwidget.moc \
 	miniterm.moc \

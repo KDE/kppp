@@ -40,14 +40,14 @@
 #include <qbuttongroup.h>
 #include <qcheckbox.h>
 #include <qlabel.h>
+#include <kdialogbase.h>
 #include "scriptedit.h"
 #include "kpppconfig.h"
 #include "pppdargs.h"
-#include "groupbox.h"
 
 class IPLineEdit;
 
-class DialWidget : public KGroupBox {
+class DialWidget : public QWidget {
   Q_OBJECT
 public:
   DialWidget( QWidget *parent=0, bool isnewaccount = true, const char *name=0 );
@@ -83,7 +83,7 @@ private:
 // tab-window to select what to execute when
 //
 /////////////////////////////////////////////////////////////////////////////
-class ExecWidget : public KGroupBox {
+class ExecWidget : public QWidget {
   Q_OBJECT
 public:
   ExecWidget(QWidget *parent=0, bool isnewaccount=true, const char *name=0);
@@ -106,13 +106,11 @@ private:
 };
 
 
-class IPWidget : public KGroupBox {
+class IPWidget : public QWidget {
   Q_OBJECT
 public:
   IPWidget( QWidget *parent=0, bool isnewaccount = true, const char *name=0 );
   ~IPWidget() {}
-
-  virtual void resizeEvent(QResizeEvent *);
 
 public slots:
   void save();
@@ -125,7 +123,7 @@ private:
   QLabel *ipaddress_label;
   QLabel *sub_label;
   QGroupBox *box1;
-  QGroupBox *box;
+  QVGroupBox *box;
 
   QButtonGroup *rb;
   QRadioButton *dynamicadd_rb;
@@ -138,7 +136,7 @@ private:
 };
 
 
-class DNSWidget : public KGroupBox {
+class DNSWidget : public QWidget {
   Q_OBJECT
 public:
   DNSWidget( QWidget *parent=0, bool isnewaccount = true, const char *name=0 );
@@ -170,13 +168,11 @@ private:
 };
 
 
-class GatewayWidget : public KGroupBox {
+class GatewayWidget : public QWidget {
   Q_OBJECT
 public:
   GatewayWidget( QWidget *parent=0, bool isnewaccount = true, const char *name=0 );
   ~GatewayWidget() {}
-
-  virtual void resizeEvent(QResizeEvent *);
 
 public slots:
   void save();
@@ -196,7 +192,7 @@ private:
 };
 
 
-class ScriptWidget : public KGroupBox {
+class ScriptWidget : public QWidget {
   Q_OBJECT
 public:
   ScriptWidget( QWidget *parent=0, bool isnewaccount = true, const char *name=0 );
@@ -236,7 +232,7 @@ private:
 // Used to specify a new phone number
 //
 /////////////////////////////////////////////////////////////////////////////
-class PhoneNumberDialog : public QDialog {
+class PhoneNumberDialog : public KDialogBase {
   Q_OBJECT
 public:
   PhoneNumberDialog(QWidget *parent = 0);
@@ -247,7 +243,6 @@ private slots:
   void textChanged(const QString &);
 
 private: 
-  QPushButton *ok, *cancel;
   QLineEdit *le;
 };
 

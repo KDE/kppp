@@ -42,7 +42,7 @@ class ModemWidget2;
 class GraphSetup;
 class AboutWidget;
 class PPPStats;
-
+class KDialogBase;
 
 class SignalEvent : public QEvent {
 public:
@@ -136,7 +136,7 @@ private:
   QLabel *radio_label;
 
 
-  QTabDialog *tabWindow;
+  KDialogBase *tabWindow;
   AccountWidget *accounts;
   GeneralWidget *general;
   ModemWidget *modem1;

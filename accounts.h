@@ -31,8 +31,9 @@
 #include <qpushbutton.h>
 #include <qlistbox.h>
 #include "acctselect.h"
-#include "groupbox.h"
 
+class KDialogBase;
+class QCheckBox;
 class QLineEdit;
 class QTabDialog;
 class DialWidget;
@@ -41,7 +42,7 @@ class IPWidget;
 class DNSWidget;
 class GatewayWidget;
 
-class AccountWidget : public KGroupBox {
+class AccountWidget : public QWidget {
   Q_OBJECT
 public:
   AccountWidget( QWidget *parent=0, const char *name=0 );
@@ -67,7 +68,7 @@ signals:
 private:
   QString prettyPrintVolume(unsigned int);
 
-  QTabDialog *tabWindow;
+  KDialogBase *tabWindow;
   DialWidget *dial_w;
   AccountingSelector *acct;
   IPWidget *ip_w;

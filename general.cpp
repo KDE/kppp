@@ -32,7 +32,6 @@
 #include <qslider.h>
 #include "general.h"
 #include "version.h"
-#include "groupbox.h"
 #include "miniterm.h"
 #include "modeminfo.h"
 #include "modemcmds.h"
@@ -46,14 +45,14 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
-  : KGroupBox(i18n("kppp Setup"), parent, name)
+  : QWidget(parent, name)
 {
-  QVBoxLayout *tl = new QVBoxLayout(peer(), 10, 10);
+  QVBoxLayout *tl = new QVBoxLayout(parent, 0, KDialog::spacingHint());
 
   QHBoxLayout *verl = new QHBoxLayout(tl);
-  label1 = new QLabel(i18n("pppd Version:"), peer());
+  label1 = new QLabel(i18n("pppd version:"), parent);
   verl->addWidget(label1);
-  versionlabel = new QLabel(peer());
+  versionlabel = new QLabel(parent);
   QString version = gpppdata.pppdVersion();
   if(version == "0.0.0")
     version = "unknown";
@@ -62,8 +61,8 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
   versionlabel->setLineWidth(1);
   verl->addWidget(versionlabel);
 
-  pppdtimeout = new KIntNumInput(gpppdata.pppdTimeout(), peer());
-  pppdtimeout->setLabel(i18n("pppd Timeout:"), AlignVCenter | AlignLeft);
+  pppdtimeout = new KIntNumInput(gpppdata.pppdTimeout(), parent);
+  pppdtimeout->setLabel(i18n("pppd timeout:"), AlignVCenter | AlignLeft);
   pppdtimeout->setRange(1, TIMEOUT_SIZE, 5, false);
   pppdtimeout->setSuffix(i18n("s"));
   connect(pppdtimeout, SIGNAL(valueChanged(int)),
@@ -79,14 +78,12 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
   tl->addStretch(1);
   QHBoxLayout *lh = new QHBoxLayout();
   tl->addLayout(lh);
-  QVBoxLayout *l2 = new QVBoxLayout();
-  lh->addLayout(l2, 1);
   QVBoxLayout *l3 = new QVBoxLayout();
   lh->addLayout(l3, 0);
   QVBoxLayout *l4 = new QVBoxLayout();
   lh->addLayout(l4, 1);
 
-  chkbox6 = new QCheckBox(i18n("Dock into Panel on Connect"), peer());
+  chkbox6 = new QCheckBox(i18n("Dock into panel on connect"), parent);
   QWhatsThis::add(chkbox6,
 		  i18n("<p>After a connection is established, the\n"
 		       "window is minimized and a small icon\n"
@@ -101,7 +98,7 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
 	  this, SLOT(docking_toggled(bool)));
   l3->addWidget(chkbox6);
 
-  chkbox2 = new QCheckBox(i18n("Automatic Redial on Disconnect"), peer());
+  chkbox2 = new QCheckBox(i18n("Automatic redial on disconnect"), parent);
   chkbox2->setChecked(gpppdata.automatic_redial());
   connect(chkbox2,SIGNAL(toggled(bool)),
 	  this, SLOT(redial_toggled(bool)));
@@ -113,7 +110,7 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
 		       "\n"
 		       "See <a href=\"#redial\">here</a> for more on this topic."));
 
-  chkbox3 = new QCheckBox(i18n("Show Clock on Caption"), peer());
+  chkbox3 = new QCheckBox(i18n("Show clock on caption"), parent);
   chkbox3->setChecked(gpppdata.get_show_clock_on_caption());
   connect(chkbox3, SIGNAL(toggled(bool)),
 	  this, SLOT(caption_toggled(bool)));
@@ -124,7 +121,7 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
 		       "was established. Very useful, so you \n"
 		       "should turn this on"));
 
-  chkbox4 = new QCheckBox(i18n("Disconnect on X-server shutdown"), peer());
+  chkbox4 = new QCheckBox(i18n("Disconnect on X-server shutdown"), parent);
   chkbox4->setChecked(gpppdata.get_xserver_exit_disconnect());
   connect(chkbox4, SIGNAL(toggled(bool)),
 	  this, SLOT(xserver_toggled(bool)));
@@ -137,7 +134,7 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
 		       "\n"
 		       "See <a href=\"#disxserver\">here</a> for more on this."));
 
-  chkbox7 = new QCheckBox(i18n("Quit on Disconnect"), peer());
+  chkbox7 = new QCheckBox(i18n("Quit on disconnect"), parent);
   chkbox7->setChecked(gpppdata.quit_on_disconnect());
   connect(chkbox7, SIGNAL(toggled(bool)),
 	  this, SLOT(quit_toggled(bool)));
@@ -146,7 +143,7 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
 		  i18n("When this option is turned on, <i>kppp</i>\n"
 		       "will be closed when you disconnect"));
 
-  chkbox5 = new QCheckBox(i18n("Minimize Window on Connect"), peer());
+  chkbox5 = new QCheckBox(i18n("Minimize window on connect"), parent);
   chkbox5->setChecked(gpppdata.get_iconify_on_connect());
   connect(chkbox5,SIGNAL(toggled(bool)),
 	  this,SLOT(iconify_toggled(bool)));
@@ -199,10 +196,10 @@ void GeneralWidget::pppdtimeoutchanged(int n) {
 //
 /////////////////////////////////////////////////////////////////////////////
 AboutWidget::AboutWidget( QWidget *parent, const char *name)
-  : KGroupBox(i18n("About kppp"), parent, name)
+  : QWidget(parent, name)
 {
-  QVBoxLayout *tl = new QVBoxLayout(peer(), 10);
-  QLabel *label1 = new QLabel(peer());
+  QVBoxLayout *tl = new QVBoxLayout(parent);
+  QLabel *label1 = new QLabel(parent);
   label1->setAlignment(AlignLeft|ExpandTabs);
 
   QString string;
@@ -229,16 +226,16 @@ AboutWidget::AboutWidget( QWidget *parent, const char *name)
 
 
 ModemWidget::ModemWidget( QWidget *parent, const char *name)
-  : KGroupBox(i18n("Serial device"), parent, name)
+  : QWidget(parent, name)
 {
   int k;
 
-  QGridLayout *tl = new QGridLayout(peer(), 9, 2, 10, 10);
+  QGridLayout *tl = new QGridLayout(parent, 9, 2, 0, KDialog::spacingHint());
 
-  label1 = new QLabel(i18n("Modem Device:"), peer());
+  label1 = new QLabel(i18n("Modem device:"), parent);
   tl->addWidget(label1, 0, 0);
 
-  modemdevice = new QComboBox(false, peer());
+  modemdevice = new QComboBox(false, parent);
 
   for(k = 0; devices[k]; k++)
     modemdevice->insertItem(devices[k]);
@@ -258,10 +255,10 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   QWhatsThis::add(modemdevice,tmp);
 
 
-  label2 = new QLabel(i18n("Flow Control:"), peer());
+  label2 = new QLabel(i18n("Flow control:"), parent);
   tl->addWidget(label2, 1, 0);
 
-  flowcontrol = new QComboBox(false, peer());
+  flowcontrol = new QComboBox(false, parent);
   flowcontrol->insertItem("CRTSCTS");
   flowcontrol->insertItem("XON/XOFF");
   flowcontrol->insertItem(i18n("None"));
@@ -278,10 +275,10 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   QWhatsThis::add(label2,tmp);
   QWhatsThis::add(flowcontrol,tmp);
 
-  labelenter = new QLabel(i18n("Line Termination:"), peer());
+  labelenter = new QLabel(i18n("Line termination:"), parent);
   tl->addWidget(labelenter, 2, 0);
 
-  enter = new QComboBox(false, peer());
+  enter = new QComboBox(false, parent);
   enter->insertItem("CR");
   enter->insertItem("LF");
   enter->insertItem("CR/LF");
@@ -298,12 +295,12 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   QWhatsThis::add(labelenter,tmp);
   QWhatsThis::add(enter, tmp);
 
-  baud_label = new QLabel(i18n("Connection Speed:"), peer());
+  baud_label = new QLabel(i18n("Connection speed:"), parent);
   tl->addWidget(baud_label, 3, 0);
 
   QHBoxLayout *l1 = new QHBoxLayout;
   tl->addLayout(l1, 3, 1);
-  baud_c = new QComboBox(peer());
+  baud_c = new QComboBox(parent);
 
   static const char *baudrates[] = {
 
@@ -354,7 +351,7 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
 
 
   //Modem Lock File
-  modemlockfile = new QCheckBox(i18n("Use Lock File"), peer());
+  modemlockfile = new QCheckBox(i18n("Use lock file"), parent);
 
   modemlockfile->setChecked(gpppdata.modemLockFile());
   connect(modemlockfile, SIGNAL(toggled(bool)),
@@ -377,7 +374,7 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
 
   // Modem Timeout Line Edit Box
 
-  modemtimeout = new KIntNumInput(gpppdata.modemTimeout(), peer());
+  modemtimeout = new KIntNumInput(gpppdata.modemTimeout(), parent);
   modemtimeout->setLabel(i18n("Modem Timeout:"), AlignVCenter | AlignLeft);
   modemtimeout->setRange(1, 120, 1);
   modemtimeout->setSuffix(i18n("s"));
@@ -441,12 +438,12 @@ void ModemWidget::modemtimeoutchanged(int n) {
 
 
 ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
-  : KGroupBox(i18n("Modem"), parent, name)
+  : QWidget(parent, name)
 {
-  QVBoxLayout *l1 = new QVBoxLayout(peer(), 10, 10);
+  QVBoxLayout *l1 = new QVBoxLayout(parent, 0, KDialog::spacingHint());
 
 
-  waitfordt = new QCheckBox(i18n("Wait for Dial Tone Before Dialing"), peer());
+  waitfordt = new QCheckBox(i18n("Wait for dial tone before dialing"), parent);
   waitfordt->setChecked(gpppdata.waitForDialTone());
   connect(waitfordt, SIGNAL(toggled(bool)), SLOT(waitfordtchanged(bool)));
   l1->addWidget(waitfordt);
@@ -459,8 +456,8 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 		       "\n"
 		       "<b>Default:</b>: on"));
 
-  busywait = new KIntNumInput(gpppdata.busyWait(), peer());
-  busywait->setLabel(i18n("Busy Wait:"));
+  busywait = new KIntNumInput(gpppdata.busyWait(), parent);
+  busywait->setLabel(i18n("Busy wait:"));
   busywait->setRange(0, 300, 5);
   busywait->setSuffix(i18n("s"));
   connect(busywait, SIGNAL(valueChanged(int)), SLOT(busywaitchanged(int)));
@@ -480,15 +477,15 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
   l1->addStretch(1);
 
   QHBoxLayout *hbl = new QHBoxLayout;
-  l1->addLayout(hbl);
-  QLabel *volumeLabel = new QLabel(i18n("Modem Volume:"), peer());
-  volumeLabel->setAlignment(Qt::AlignVCenter);
-  hbl->addStretch(1);
+  hbl->setSpacing(KDialog::spacingHint());
+
+  QLabel *volumeLabel = new QLabel(i18n("Modem volume:"), parent);
   hbl->addWidget(volumeLabel);
-  volume = new QSlider(0, 2, 1, gpppdata.volume(), QSlider::Horizontal, peer());
-  volume->setFixedSize(200, 25);
+  volume = new QSlider(0, 2, 1, gpppdata.volume(), QSlider::Horizontal, parent);
   hbl->addWidget(volume);
-  hbl->addStretch(4);
+
+  l1->addLayout(hbl);
+
   connect(volume, SIGNAL(valueChanged(int)),
 	  this, SLOT(volumeChanged(int)));
   QString tmp = i18n("Most modems have a speaker which makes\n"
@@ -507,7 +504,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
   l1->addLayout(l12);
   l12->addStretch(1);
 #if 0
-  chkbox1 = new QCheckBox(i18n("Modem Asserts CD Line."), peer());
+  chkbox1 = new QCheckBox(i18n("Modem Asserts CD Line."), parent);
   chkbox1->setChecked(gpppdata.UseCDLine());
   connect(chkbox1,SIGNAL(toggled(bool)),
 	  this,SLOT(use_cdline_toggled(bool)));
@@ -528,12 +525,12 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
   l11->addStretch(1);
   QVBoxLayout *l111 = new QVBoxLayout;
   l11->addLayout(l111);
-  modemcmds = new QPushButton(i18n("Modem Commands"), peer());
+  modemcmds = new QPushButton(i18n("Modem Commands..."), parent);
   QWhatsThis::add(modemcmds,
 		  i18n("Allows you to change the AT command for\n"
 		       "your modem."));
 
-  modeminfo_button = new QPushButton(i18n("Query Modem"), peer());
+  modeminfo_button = new QPushButton(i18n("Query Modem..."), parent);
   QWhatsThis::add(modeminfo_button,
 		  i18n("Most modems support the ATI command set to\n"
 		       "find out vendor and revision of your modem.\n"
@@ -542,7 +539,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 		       "this information. It can be useful to help\n"
 		       "you setup the modem"));
 
-  terminal_button = new QPushButton(i18n("Terminal"), peer());
+  terminal_button = new QPushButton(i18n("Terminal..."), parent);
   QWhatsThis::add(terminal_button,
 		  i18n("Opens the built-in terminal program. You\n"
 		       "can use this if you want to play around\n"
@@ -609,43 +606,44 @@ void ModemWidget2::volumeChanged(int v) {
 //
 /////////////////////////////////////////////////////////////////////////////
 GraphSetup::GraphSetup(QWidget *parent, const char *name) :
-  KCheckGroupBox(i18n("Throughput graph"), parent, name)
+  QWidget(parent, name)
 {
-  connect(this, SIGNAL(toggled(bool)), SLOT(enableToggled(bool)));
-  QGridLayout *tl = new QGridLayout(peer(), 4, 2, 10, 10);
+  QGridLayout *tl = new QGridLayout(parent, 5, 2, 0, KDialog::spacingHint());
 
   bool enable;
   QColor bg, text, in, out;
   gpppdata.graphingOptions(enable, bg, text, in, out);
 
-  bg_text = new QLabel(i18n("Background color"), peer());
-  bg_text->setAlignment(AlignRight|AlignVCenter);
-  tl->addWidget(bg_text, 0, 0);
-  bg_color = new KColorButton(bg, peer());
+  enable_check = new QCheckBox(i18n("Enable throughput graph"), parent);
+  tl->addMultiCellWidget(enable_check, 0, 0, 0, 1);
+
+  bg_text = new QLabel(i18n("Background color:"), parent);
+  tl->addWidget(bg_text, 1, 0);
+  bg_color = new KColorButton(bg, parent);
   bg_color->setFixedSize(80, 24);
-  tl->addWidget(bg_color, 0, 1);
+  tl->addWidget(bg_color, 1, 1);
 
-  text_text = new QLabel(i18n("Text color"), peer());
-  text_text->setAlignment(AlignRight|AlignVCenter);
-  tl->addWidget(text_text, 1, 0);
-  text_color = new KColorButton(text, peer());
+  text_text = new QLabel(i18n("Text color:"), parent);
+  tl->addWidget(text_text, 2, 0);
+  text_color = new KColorButton(text, parent);
   text_color->setFixedSize(80, 24);
-  tl->addWidget(text_color, 1, 1);
+  tl->addWidget(text_color, 2, 1);
 
-  in_text = new QLabel(i18n("Input bytes color"), peer());
-  in_text->setAlignment(AlignRight|AlignVCenter);
-  tl->addWidget(in_text, 2, 0);
-  in_color = new KColorButton(in, peer());
+  in_text = new QLabel(i18n("Input bytes color:"), parent);
+  tl->addWidget(in_text, 3, 0);
+  in_color = new KColorButton(in, parent);
   in_color->setFixedSize(80, 24);
-  tl->addWidget(in_color, 2, 1);
+  tl->addWidget(in_color, 3, 1);
 
-  out_text = new QLabel(i18n("Output bytes color"), peer());
-  out_text->setAlignment(AlignRight|AlignVCenter);
-  tl->addWidget(out_text, 3, 0);
-  out_color = new KColorButton(out, peer());
+  out_text = new QLabel(i18n("Output bytes color:"), parent);
+  tl->addWidget(out_text, 4, 0);
+  out_color = new KColorButton(out, parent);
   out_color->setFixedSize(80, 24);
-  tl->addWidget(out_color, 3, 1);
+  tl->addWidget(out_color, 4, 1);
 
+  tl->setRowStretch(5, 1);
+
+  connect(enable_check, SIGNAL(toggled(bool)), this, SLOT(enableToggled(bool)));
   connect(bg_color, SIGNAL(changed(const QColor &)),
 	  SLOT(colorChanged(const QColor&)));
   connect(text_color, SIGNAL(changed(const QColor &)),
@@ -657,7 +655,7 @@ GraphSetup::GraphSetup(QWidget *parent, const char *name) :
 
   tl->activate();
 
-  setChecked(enable);
+  enable_check->setChecked(enable);
   enableToggled(enable);
 }
 
@@ -682,7 +680,7 @@ void GraphSetup::colorChanged(const QColor &) {
 
 
 void GraphSetup::save() {
-  gpppdata.setGraphingOptions(isChecked(),
+  gpppdata.setGraphingOptions(enable_check->isChecked(),
 			      bg_color->color(),
 			      text_color->color(),
 			      in_color->color(),

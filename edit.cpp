@@ -33,6 +33,9 @@
 #include <kiconloader.h>
 #include <kbuttonbox.h>
 #include <klocale.h>
+#include <qvgroupbox.h>
+#include <qhbox.h>
+#include <kdialog.h>
 #include <kwin.h>
 
 #include "edit.h"
@@ -42,16 +45,16 @@
 #include "auth.h"
 
 DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
-  : KGroupBox(i18n("Dial Setup"), parent, name)
+  : QWidget(parent, name)
 {
   const int GRIDROWS = 6;
 
-  QGridLayout *tl = new QGridLayout(peer(), GRIDROWS, 2, 10, 10);
+  QGridLayout *tl = new QGridLayout(parent, GRIDROWS, 2, 0, KDialog::spacingHint());
 
-  connect_label = new QLabel(i18n("Connection Name:"), peer());
+  connect_label = new QLabel(i18n("Connection name:"), parent);
   tl->addWidget(connect_label, 0, 0);
 
-  connectname_l = new QLineEdit(peer());
+  connectname_l = new QLineEdit(parent);
   connectname_l->setMaxLength(ACCNAME_SIZE);
   tl->addWidget(connectname_l, 0, 1);
   QString tmp = i18n("Type in a unique name for this connection");
@@ -60,24 +63,24 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
   QWhatsThis::add(connectname_l,tmp);
 
 
-  number_label = new QLabel(i18n("Phone Number:"), peer());
+  number_label = new QLabel(i18n("Phone number:"), parent);
   number_label->setAlignment(AlignTop|AlignLeft);
   tl->addWidget(number_label, 1, 0);
 
   QHBoxLayout *lpn = new QHBoxLayout(5);
   tl->addLayout(lpn, 1, 1);
-  numbers = new QListBox(peer());
+  numbers = new QListBox(parent);
   numbers->setMinimumSize(120, 70);
   lpn->addWidget(numbers);
   QVBoxLayout *lpn1 = new QVBoxLayout;
   lpn->addLayout(lpn1);
-  add = new QPushButton(i18n("&Add"), peer());
-  del = new QPushButton(i18n("&Remove"), peer());
+  add = new QPushButton(i18n("&Add..."), parent);
+  del = new QPushButton(i18n("&Remove"), parent);
 
-  up = new QPushButton(peer());
+  up = new QPushButton(parent);
   QPixmap pm = BarIcon("up");
   up->setPixmap(pm);
-  down = new QPushButton(peer());
+  down = new QPushButton(parent);
   pm = BarIcon("down");
   down->setPixmap(pm);
   lpn1->addWidget(add);
@@ -108,10 +111,10 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
   QWhatsThis::add(number_label,tmp);
   QWhatsThis::add(numbers,tmp);
 
-  auth_l = new QLabel(i18n("Authentication:"), peer());
+  auth_l = new QLabel(i18n("Authentication:"), parent);
   tl->addWidget(auth_l, 3, 0);
 
-  auth = new QComboBox(peer());
+  auth = new QComboBox(parent);
   auth->insertItem(i18n("Script-based"));
   auth->insertItem(i18n("PAP"));
   auth->insertItem(i18n("Terminal-based"));
@@ -131,7 +134,7 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
   QWhatsThis::add(auth_l,tmp);
   QWhatsThis::add(auth,tmp);
 
-  store_password = new QCheckBox(i18n("Store password"), peer());
+  store_password = new QCheckBox(i18n("Store password"), parent);
   store_password->setChecked(true);
   tl->addMultiCellWidget(store_password, 4, 4, 0, 1, AlignRight);
   QWhatsThis::add(store_password,
@@ -144,7 +147,7 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
 		       "readable only to you. Make sure nobody\n"
 		       "gains access to this file!"));
 
-  pppdargs = new QPushButton(i18n("Customize pppd Arguments..."), peer());
+  pppdargs = new QPushButton(i18n("Customize pppd Arguments..."), parent);
   connect(pppdargs, SIGNAL(clicked()), SLOT(pppdargsbutton()));
   tl->addMultiCellWidget(pppdargs, 5, 5, 0, 1, AlignCenter);
 
@@ -269,9 +272,9 @@ void DialWidget::pppdargsbutton() {
 // ExecWidget
 /////////////////////////////////////////////////////////////////////////////
 ExecWidget::ExecWidget(QWidget *parent, bool isnewaccount, const char *name) :
-  KGroupBox(i18n("Execute programs"), parent, name)
+  QWidget(parent, name)
 {
-  QVBoxLayout *tl = new QVBoxLayout(peer(), 10, 10);
+  QVBoxLayout *tl = new QVBoxLayout(parent, 0, KDialog::spacingHint());
 
   QLabel *l = new QLabel(\
 i18n("Here you can select commands to run at certain stages of the\n"
@@ -279,7 +282,7 @@ i18n("Here you can select commands to run at certain stages of the\n"
      "you cannot run any commands here requiring root permissions\n"
      "(unless, of course, you are root).\n\n"
      "Make sure to supply the whole path to the program otherwise\n"
-     "kppp might be unable to find it!"), peer());
+     "kppp might be unable to find it!"), parent);
   l->setMinimumHeight(l->sizeHint().height());
   tl->addWidget(l);
   tl->addStretch(1);
@@ -289,10 +292,10 @@ i18n("Here you can select commands to run at certain stages of the\n"
   l1->setColStretch(0, 0);
   l1->setColStretch(1, 1);
 
-  before_connect_l = new QLabel(i18n("Before connect:"), peer());
+  before_connect_l = new QLabel(i18n("Before connect:"), parent);
   before_connect_l->setAlignment(AlignVCenter);
   l1->addWidget(before_connect_l, 0, 0);
-  before_connect = new QLineEdit(peer());
+  before_connect = new QLineEdit(parent);
   before_connect->setMaxLength(COMMAND_SIZE);
   l1->addWidget(before_connect, 0, 1);
   QString tmp = i18n("Allows you to run a program <b>before</b> a connection\n"
@@ -304,10 +307,10 @@ i18n("Here you can select commands to run at certain stages of the\n"
   QWhatsThis::add(before_connect_l,tmp);
   QWhatsThis::add(before_connect,tmp);
 
-  command_label = new QLabel(i18n("Upon connect:"), peer());
+  command_label = new QLabel(i18n("Upon connect:"), parent);
   command_label->setAlignment(AlignVCenter);
   l1->addWidget(command_label, 1, 0);
-  command = new QLineEdit(peer());
+  command = new QLineEdit(parent);
   command->setMaxLength(COMMAND_SIZE);
   l1->addWidget(command, 1, 1);
   tmp = i18n("Allows you to run a program <b>after</b> a connection\n"
@@ -321,10 +324,10 @@ i18n("Here you can select commands to run at certain stages of the\n"
   QWhatsThis::add(command,tmp);
 
   predisconnect_label = new QLabel(i18n("Before disconnect:"),
-				 peer());
+				 parent);
   predisconnect_label->setAlignment(AlignVCenter);
   l1->addWidget(predisconnect_label, 2, 0);
-  predisconnect = new QLineEdit(peer());
+  predisconnect = new QLineEdit(parent);
   predisconnect->setMaxLength(COMMAND_SIZE);
   l1->addWidget(predisconnect, 2, 1);
   tmp = i18n("Allows you to run a program <b>before</b> a connection\n"
@@ -335,11 +338,11 @@ i18n("Here you can select commands to run at certain stages of the\n"
   QWhatsThis::add(predisconnect,tmp);
 
   discommand_label = new QLabel(i18n("Upon disconnect:"),
-			      peer());
+			      parent);
   discommand_label->setAlignment(AlignVCenter);
   l1->addWidget(discommand_label, 3, 0);
 
-  discommand = new QLineEdit(peer());
+  discommand = new QLineEdit(parent);
   discommand->setMaxLength(COMMAND_SIZE);
   l1->addWidget(discommand, 3, 1);
   tmp = i18n("Allows you to run a program <b>after</b> a connection\n"
@@ -381,38 +384,21 @@ bool ExecWidget::save() {
 //
 /////////////////////////////////////////////////////////////////////////////
 IPWidget::IPWidget( QWidget *parent, bool isnewaccount, const char *name )
-  : KGroupBox(i18n("IP Setup"), parent, name)
+  : QWidget(parent, name)
 {
-  box = new QGroupBox(peer());
+  QVBoxLayout *topLayout = new QVBoxLayout(parent);
+  topLayout->setSpacing(KDialog::spacingHint());
 
-  ipaddress_l = new IPLineEdit(peer());
+  box = new QVGroupBox(i18n("Configuration"), parent);
+  box->setInsideSpacing(KDialog::spacingHint());
 
-  ipaddress_label = new QLabel(i18n("IP Address:"), peer());
-  QString tmp = i18n("If your computer has a permanent internet\n"
-	     "address, you must supply your IP address here.");
-
-  QWhatsThis::add(ipaddress_label,tmp);
-  QWhatsThis::add(ipaddress_l,tmp);
-
-  subnetmask_l = new IPLineEdit(peer());
-
-  sub_label = new QLabel(i18n("Subnet Mask:"), peer());
-  tmp = i18n("<p>If your computer has a static Internet address,\n"
-	     "you must supply a network mask here. In almost\n"
-	     "all cases this netmask will be <b>255.255.255.0</b>,\n"
-	     "but your mileage may vary.\n"
-	     "\n"
-	     "If unsure, contact your Internet Service Provider");
-
-  QWhatsThis::add(sub_label,tmp);
-  QWhatsThis::add(subnetmask_l,tmp);
-  rb = new QButtonGroup(peer());
+  rb = new QButtonGroup(parent);
   rb->hide();
   connect(rb, SIGNAL(clicked(int)),
 	  SLOT(hitIPSelect(int)));
 
-  dynamicadd_rb = new QRadioButton(peer());
-  dynamicadd_rb->setText(i18n("Dynamic IP Address"));
+  dynamicadd_rb = new QRadioButton(box);
+  dynamicadd_rb->setText(i18n("Dynamic IP address"));
   QWhatsThis::add(dynamicadd_rb,
 		  i18n("Select this option when your computer gets an\n"
 		       "internet address (IP) everytime a\n"
@@ -421,8 +407,8 @@ IPWidget::IPWidget( QWidget *parent, bool isnewaccount, const char *name )
 		       "Almost every Internet Service Provider uses\n"
 		       "this method, so this should be turned on."));
 
-  staticadd_rb = new QRadioButton(peer());
-  staticadd_rb->setText(i18n("Static IP Address"));
+  staticadd_rb = new QRadioButton(box);
+  staticadd_rb->setText(i18n("Static IP address"));
   rb->insert(dynamicadd_rb, 0);
   rb->insert(staticadd_rb, 1);
   QWhatsThis::add(staticadd_rb,
@@ -432,10 +418,41 @@ IPWidget::IPWidget( QWidget *parent, bool isnewaccount, const char *name )
 		       "dynamic IP addressing unless you know what you\n"
 		       "are doing."));
 
-  autoname = new QCheckBox(i18n("Auto-configure hostname from this IP"), peer());
+  QWidget *ipWidget = new QWidget(box);
+  QGridLayout *ipLayout = new QGridLayout(ipWidget, 2, 2);
+  ipLayout->setSpacing(KDialog::spacingHint());
+
+  ipaddress_label = new QLabel(i18n("IP address:"), ipWidget);
+  QString tmp = i18n("If your computer has a permanent internet\n"
+	     "address, you must supply your IP address here.");
+  ipLayout->addWidget(ipaddress_label, 0, 0);
+
+  ipaddress_l = new IPLineEdit(ipWidget);
+  ipLayout->addWidget(ipaddress_l, 0, 1);
+
+  QWhatsThis::add(ipaddress_label,tmp);
+  QWhatsThis::add(ipaddress_l,tmp);
+
+  sub_label = new QLabel(i18n("Subnet mask:"), ipWidget);
+  tmp = i18n("<p>If your computer has a static Internet address,\n"
+	     "you must supply a network mask here. In almost\n"
+	     "all cases this netmask will be <b>255.255.255.0</b>,\n"
+	     "but your mileage may vary.\n"
+	     "\n"
+	     "If unsure, contact your Internet Service Provider");
+  ipLayout->addWidget(sub_label, 1, 0);
+
+  subnetmask_l = new IPLineEdit(ipWidget);
+  ipLayout->addWidget(subnetmask_l, 1, 1);
+
+  QWhatsThis::add(sub_label,tmp);
+  QWhatsThis::add(subnetmask_l,tmp);
+
+  autoname = new QCheckBox(i18n("Auto-configure hostname from this IP"), parent);
   autoname->setChecked(gpppdata.autoname());
   connect(autoname,SIGNAL(toggled(bool)),
 	  this,SLOT(autoname_t(bool)));
+
   QWhatsThis::add(autoname,
 		  i18n("<p>Whenever you connect, this reconfigures\n"
 		       "your hostname to match the IP address you\n"
@@ -445,6 +462,10 @@ IPWidget::IPWidget( QWidget *parent, bool isnewaccount, const char *name )
 		       "<a href=\"kppp-7.html#autohostname\">problems</a>.\n"
 		       "\n"
 		       "Don't enable this unless you really need it."));
+
+  topLayout->addWidget(box);
+  topLayout->addWidget(autoname);
+  topLayout->addStretch();
 
   //load info from gpppdata
   if(!isnewaccount) {
@@ -467,56 +488,6 @@ IPWidget::IPWidget( QWidget *parent, bool isnewaccount, const char *name )
   }
 
 }
-
-void IPWidget::resizeEvent(QResizeEvent *e) {
-  KGroupBox::resizeEvent(e);
-
-  // calculate the best with for the frame
-  int minw = QMAX(ipaddress_label->sizeHint().width() + 6,
-		 sub_label->sizeHint().width() + 6) +
-    QMAX(ipaddress_l->sizeHint().width(),
-	subnetmask_l->sizeHint().width()) + 10 + 20;
-
-  // egcs wants this to prevent a warning
-  int minh = 0;
-  minh = 2 * ipaddress_l->sizeHint().height() +
-    fontMetrics().lineSpacing() + 20;
-
-  // resize the frame
-  int box_x = (width() - minw)/2;
-  int box_y = (height() - minh)/2 - 20;
-  box->setGeometry(box_x -15, box_y, minw +30, minh +15);
-
-  // now move the lineedits into the frame
-  ipaddress_l->resize(ipaddress_l->sizeHint());
-  ipaddress_l->move(box->geometry().right() - ipaddress_l->width() - 15,
-		    box_y + fontMetrics().lineSpacing()/2 + 10);
-  subnetmask_l->resize(ipaddress_l->sizeHint());
-  subnetmask_l->move(ipaddress_l->geometry().left(),
-		     ipaddress_l->geometry().bottom() + 10);
-
-  // the labels
-  ipaddress_label->resize(ipaddress_label->sizeHint().width(),
-			  ipaddress_l->height());
-  ipaddress_label->move(box_x + 15, ipaddress_l->geometry().top());
-  sub_label->resize(sub_label->sizeHint().width(),
-		    ipaddress_l->height());
-  sub_label->move(box_x + 15, subnetmask_l->geometry().top());
-
-  // move the radiobuttons
-  staticadd_rb->resize(staticadd_rb->sizeHint());
-  dynamicadd_rb->resize(dynamicadd_rb->sizeHint());
-  staticadd_rb->move(box_x + 25,
-		     box_y - staticadd_rb->sizeHint().height()/2);
-  dynamicadd_rb->move(box_x + 25,
-		      staticadd_rb->geometry().top() -
-		      dynamicadd_rb->sizeHint().height() - 20);
-
-  autoname->resize(autoname->sizeHint());
-  autoname->move((width() - autoname->width())/2,
-		 (box->geometry().bottom() + height())/2);
-}
-
 
 void IPWidget::autoname_t(bool on) {
   static bool was_warned = false;
@@ -567,15 +538,15 @@ void IPWidget::hitIPSelect( int i ) {
 
 
 DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
-  : KGroupBox(i18n("DNS Servers"), parent, name)
+  : QWidget(parent, name)
 {
-  //  box = new QGroupBox(peer());
-  QGridLayout *tl = new QGridLayout(peer(), 7, 2, 10, 10);
+  //  box = new QGroupBox(parent);
+  QGridLayout *tl = new QGridLayout(parent, 7, 2, 0, KDialog::spacingHint());
 
-  dnsdomain_label = new QLabel(i18n("Domain Name:"), peer());
+  dnsdomain_label = new QLabel(i18n("Domain name:"), parent);
   tl->addWidget(dnsdomain_label, 0, 0);
 
-  dnsdomain = new QLineEdit(peer());
+  dnsdomain = new QLineEdit(parent);
   dnsdomain->setMaxLength(DOMAIN_SIZE);
   tl->addWidget(dnsdomain, 0, 1);
   QString tmp = i18n("If you enter a domain name here, this domain\n"
@@ -590,30 +561,30 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
   QWhatsThis::add(dnsdomain_label,tmp);
   QWhatsThis::add(dnsdomain,tmp);
 
-  conf_label = new QLabel(i18n("Configuration:"), peer());
+  conf_label = new QLabel(i18n("Configuration:"), parent);
   tl->addWidget(conf_label, 1, 0);
 
   bg = new QButtonGroup("Group", this);
   connect(bg, SIGNAL(clicked(int)), SLOT(DNS_Mode_Selected(int)));
   bg->hide();
 
-  autodns = new QRadioButton(i18n("Automatic"), peer());
+  autodns = new QRadioButton(i18n("Automatic"), parent);
   bg->insert(autodns, 0);
   tl->addWidget(autodns, 1, 1);
   // no automatic DNS detection for pppd < 2.3.7
   if(!gpppdata.pppdVersionMin(2, 3, 7))
     autodns->setEnabled(false);
 
-  mandns = new QRadioButton(i18n("Manual"), peer());
+  mandns = new QRadioButton(i18n("Manual"), parent);
   bg->insert(mandns, 1);
   tl->addWidget(mandns, 2, 1);
 
-  dns_label = new QLabel(i18n("DNS IP Address:"), peer());
+  dns_label = new QLabel(i18n("DNS IP address:"), parent);
   tl->addWidget(dns_label, 3, 0);
 
   QHBoxLayout *l2 = new QHBoxLayout;
   tl->addLayout(l2, 3, 1);
-  dnsipaddr = new IPLineEdit(peer());
+  dnsipaddr = new IPLineEdit(parent);
   connect(dnsipaddr, SIGNAL(returnPressed()),
 	  SLOT(adddns()));
   connect(dnsipaddr, SIGNAL(textChanged(const QString &)),
@@ -633,7 +604,7 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
 
   QHBoxLayout *l1 = new QHBoxLayout;
   tl->addLayout(l1, 4, 1);
-  add = new QPushButton(i18n("Add"), peer());
+  add = new QPushButton(i18n("Add"), parent);
   connect(add, SIGNAL(clicked()), SLOT(adddns()));
   int width = add->sizeHint().width();
   width = QMAX(width,60);
@@ -645,7 +616,7 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
 		       "specified in the field above. The entry\n"
 		       "will then be added to the list below"));
 
-  remove = new QPushButton(i18n("Remove"), peer());
+  remove = new QPushButton(i18n("Remove"), parent);
   connect(remove, SIGNAL(clicked()), SLOT(removedns()));
   width = remove->sizeHint().width();
   width = QMAX(width,60);
@@ -655,11 +626,11 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
 		  i18n("Click this button to remove the selected DNS\n"
 		       "server entry from the list below"));
 
-  servers_label = new QLabel(i18n("DNS Address List:"), peer());
+  servers_label = new QLabel(i18n("DNS address list:"), parent);
   servers_label->setAlignment(AlignTop|AlignLeft);
   tl->addWidget(servers_label, 5, 0);
 
-  dnsservers = new QListBox(peer());
+  dnsservers = new QListBox(parent);
   dnsservers->setMinimumSize(150, 80);
   connect(dnsservers, SIGNAL(highlighted(int)),
 	  SLOT(DNS_Entry_Selected(int)));
@@ -672,8 +643,8 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
   QWhatsThis::add(dnsservers,tmp);
 
   exdnsdisabled_toggle = new QCheckBox(i18n( \
-"Disable existing DNS Servers during Connection"),
-				     peer());
+"Disable existing DNS Servers during connection"),
+				     parent);
   exdnsdisabled_toggle->setChecked(gpppdata.exDNSDisabled());
   tl->addMultiCellWidget(exdnsdisabled_toggle, 6, 6, 0, 1, AlignCenter);
   QWhatsThis::add(exdnsdisabled_toggle,
@@ -762,16 +733,20 @@ void DNSWidget::removedns() {
 // GatewayWidget
 //
 GatewayWidget::GatewayWidget( QWidget *parent, bool isnewaccount, const char *name )
-  : KGroupBox(i18n("Gateway Setup"), parent, name)
+  : QWidget(parent, name)
 {
-  box = new QGroupBox(peer());
+  QVBoxLayout *topLayout = new QVBoxLayout(parent);
+  topLayout->setSpacing(KDialog::spacingHint());
 
-  rb = new QButtonGroup(peer());
+  box = new QVGroupBox(i18n("Configuration"), parent);
+  box->setInsideSpacing(KDialog::spacingHint());
+
+  rb = new QButtonGroup(parent);
   rb->hide();
   connect(rb, SIGNAL(clicked(int)), SLOT(hitGatewaySelect(int)));
 
-  defaultgateway = new QRadioButton(peer());
-  defaultgateway->setText(i18n("Default Gateway"));
+  defaultgateway = new QRadioButton(box);
+  defaultgateway->setText(i18n("Default gateway"));
   rb->insert(defaultgateway, 0);
   QWhatsThis::add(defaultgateway,
 		  i18n("This makes the PPP peer computer (the computer\n"
@@ -784,25 +759,29 @@ GatewayWidget::GatewayWidget( QWidget *parent, bool isnewaccount, const char *na
 		       "probably leave this option on."));
 
 
-  staticgateway = new QRadioButton(peer());
-  staticgateway->setText(i18n("Static Gateway"));
+  staticgateway = new QRadioButton(box);
+  staticgateway->setText(i18n("Static gateway"));
   rb->insert(staticgateway, 1);
   QWhatsThis::add(staticgateway,
 		  i18n("<p>Allows you to specify which computer you want\n"
 		       "to use as gateway (see <i>Default Gateway</i> above"));
 
-  gatewayaddr = new IPLineEdit(peer());
+  QHBox *gateBox = new QHBox(box);
+  gate_label = new QLabel(i18n("Gateway IP address:"), gateBox);
+  gatewayaddr = new IPLineEdit(gateBox);
 
-  gate_label = new QLabel(i18n("Gateway\nIP Address:"), peer());
-
-  defaultroute = new QCheckBox(i18n("Assign the Default Route to this Gateway"),
-			     peer());
+  defaultroute = new QCheckBox(i18n("Assign the default route to this gateway"),
+			     parent);
   QWhatsThis::add(defaultroute,
 		  i18n("If this option is enabled, all packets not\n"
 		       "going to the local net are routed through\n"
 		       "the PPP connection.\n"
 		       "\n"
 		       "Normally, you should turn this on"));
+
+  topLayout->addWidget(box);
+  topLayout->addWidget(defaultroute);
+  topLayout->addStretch();
 
   //load info from gpppdata
   if(!isnewaccount) {
@@ -822,48 +801,6 @@ GatewayWidget::GatewayWidget( QWidget *parent, bool isnewaccount, const char *na
     defaultroute->setChecked(true);
   }
 }
-
-void GatewayWidget::resizeEvent(QResizeEvent *e) {
-  KGroupBox::resizeEvent(e);
-
-  // calculate the best with for the frame
-  int minw = gate_label->sizeHint().width() + 6 +
-    gatewayaddr->sizeHint().width() + 40;
-
-  // egcs wants this to prevent a warning
-  int minh = 0;
-  minh = QMAX(gatewayaddr->sizeHint().height(),
-	      gate_label->sizeHint().height()) +
-    fontMetrics().lineSpacing() + 20;
-
-  // resize the frame
-  int box_x = (width() - minw)/2;
-  int box_y = (height() - minh)/2 - 20;
-  box->setGeometry(box_x, box_y, minw, minh);
-
-  // now move the lineedits into the frame
-  gatewayaddr->resize(gatewayaddr->sizeHint());
-  gatewayaddr->move(box->geometry().right() - gatewayaddr->width() - 15,
-		    box_y + fontMetrics().lineSpacing()/2 + 10);
-
-  // the labels
-  gate_label->resize(gate_label->sizeHint());
-  gate_label->move(box_x + 15, gatewayaddr->geometry().top());
-
-  // move the radiobuttons
-  staticgateway->resize(staticgateway->sizeHint());
-  defaultgateway->resize(defaultgateway->sizeHint());
-  staticgateway->move(box_x + 25,
-		     box_y - staticgateway->sizeHint().height()/2);
-  defaultgateway->move(box_x + 25,
-		      staticgateway->geometry().top() -
-		      defaultgateway->sizeHint().height() - 20);
-
-  defaultroute->resize(defaultroute->sizeHint());
-  defaultroute->move((width() - defaultroute->width())/2,
-		 (box->geometry().bottom() + height())/2);
-}
-
 
 void GatewayWidget::save() {
   gpppdata.setGateway(gatewayaddr->text());
@@ -887,15 +824,15 @@ void GatewayWidget::hitGatewaySelect( int i ) {
 
 
 ScriptWidget::ScriptWidget( QWidget *parent, bool isnewaccount, const char *name )
-  : KGroupBox(i18n("Edit Script"), parent, name)
+  : QWidget(parent, name)
 {
-  QVBoxLayout *tl = new QVBoxLayout(peer(), 20, 10);
-  se = new ScriptEdit(peer());
+  QVBoxLayout *tl = new QVBoxLayout(parent, 0, KDialog::spacingHint());
+  se = new ScriptEdit(parent);
   connect(se, SIGNAL(returnPressed()), SLOT(addButton()));
   tl->addWidget(se);
 
   // insert equal-sized buttons
-  KButtonBox *bbox = new KButtonBox(peer());
+  KButtonBox *bbox = new KButtonBox(parent);
   add = bbox->addButton(i18n("Add"));
   connect(add, SIGNAL(clicked()), SLOT(addButton()));
   bbox->addStretch(1);
@@ -909,17 +846,17 @@ ScriptWidget::ScriptWidget( QWidget *parent, bool isnewaccount, const char *name
 
   QHBoxLayout *l12 = new QHBoxLayout(0);
   tl->addLayout(l12);
-  stl = new QListBox(peer());
+  stl = new QListBox(parent);
   stl->setVScrollBarMode( QScrollView::AlwaysOff );
   connect(stl, SIGNAL(highlighted(int)), SLOT(stlhighlighted(int)));
   stl->setMinimumSize(QSize(70, 140));
 
-  sl = new QListBox(peer());
+  sl = new QListBox(parent);
   sl->setVScrollBarMode( QScrollView::AlwaysOff );
   connect(sl, SIGNAL(highlighted(int)), SLOT(slhighlighted(int)));
   sl->setMinimumSize(QSize(150, 140));
 
-  slb = new QScrollBar(peer());
+  slb = new QScrollBar(parent);
   slb->setFixedWidth(slb->sizeHint().width());
   connect(slb, SIGNAL(valueChanged(int)), SLOT(scrolling(int)));
 
@@ -1213,37 +1150,26 @@ void ScriptWidget::removeButton() {
 // Used to specify a new phone number
 //
 /////////////////////////////////////////////////////////////////////////////
-PhoneNumberDialog::PhoneNumberDialog(QWidget *parent) : QDialog(parent, 0, true) {
-  QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
-  setCaption(i18n("Add a Phone Number..."));
+PhoneNumberDialog::PhoneNumberDialog(QWidget *parent) : KDialogBase(parent, 0, true, i18n("Add a Phone Number"), Ok|Cancel) {
   KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
-  tl->addSpacing(5);
 
-  QHBoxLayout *l1 = new QHBoxLayout;
-  tl->addLayout(l1);
-  QLabel *l = new QLabel(i18n("Phone number:"), this);
-  l1->addWidget(l);
-  le = newLineEdit(14, this);
-  l1->addWidget(le);
+  QHBox *hbox = new QHBox(this);
+  setMainWidget(hbox);
+
+  hbox->setSpacing(KDialog::spacingHint());
+
+  new QLabel(i18n("Phone number:"), hbox);
+
+  le = newLineEdit(14, hbox);
+  le->setMinimumWidth(125);
+
   connect(le, SIGNAL(textChanged(const QString &)),
 	  this, SLOT(textChanged(const QString &)));
 
-  tl->addSpacing(5);
-  KButtonBox *bbox = new KButtonBox(this);
-  bbox->addStretch(1);
-  ok = bbox->addButton(i18n("OK"));
-  ok->setDefault(true);
-  connect(ok, SIGNAL(clicked()),
-	  this, SLOT(accept()));
-  cancel = bbox->addButton(i18n("Cancel"));
-  connect(cancel, SIGNAL(clicked()),
-	  this, SLOT(reject()));
-  bbox->layout();
-  tl->addWidget(bbox);
-  setFixedSize(sizeHint());
-
   le->setFocus();
   textChanged("");
+
+  enableButtonSeparator(true);
 }
 
 
@@ -1255,7 +1181,7 @@ QString PhoneNumberDialog::phoneNumber() {
 
 
 void PhoneNumberDialog::textChanged(const QString &s) {
-  ok->setEnabled(s.length() > 0);
+  enableButtonOK(s.length() > 0);
 }
 
 

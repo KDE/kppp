@@ -32,13 +32,13 @@
 #define _MODEMCMDS_H_
 
 #include <qgroupbox.h>
-#include <qdialog.h>
+#include <kdialogbase.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
 #include <pppdata.h>
 
-class ModemCommands : public QDialog {
+class ModemCommands : public KDialogBase {
 
 Q_OBJECT
 
@@ -48,15 +48,12 @@ public:
   ~ModemCommands() {}
 
 private slots:
-  void cancelbutton();
-  void okbutton();
+  void slotCancel();
+  void slotOk();
 
 private:
 
   QGroupBox *box;
-
-  QPushButton *ok;
-  QPushButton *cancel;
 
   QLineEdit *initstr[int(PPPData::NumInitStrings)];
 

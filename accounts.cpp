@@ -36,27 +36,29 @@
 #include <kmessagebox.h>
 #include <klocale.h>
 #include <kglobal.h>
-#include "groupbox.h"
+#include <kwin.h>
+#include <kdialogbase.h>
+#include <qvgroupbox.h>
+
 #include "pppdata.h"
 #include "accounts.h"
 #include "accounting.h"
 #include "providerdb.h"
 #include "edit.h"
-#include <kwin.h>
 
 void parseargs(char* buf, char** args);
 
 AccountWidget::AccountWidget( QWidget *parent, const char *name )
-  : KGroupBox( i18n("Account Setup"), parent, name )
+  : QWidget( parent, name )
 {
   int min = 0;
-  QVBoxLayout *l1 = new QVBoxLayout(peer(), 10, 10);
+  QVBoxLayout *l1 = new QVBoxLayout(parent, 10, 10);
 
   // add a hbox
   QHBoxLayout *l11 = new QHBoxLayout;
   l1->addLayout(l11);
 
-  accountlist_l = new QListBox(peer());
+  accountlist_l = new QListBox(parent);
   accountlist_l->setMinimumSize(160, 128);
   connect(accountlist_l, SIGNAL(highlighted(int)),
 	  this, SLOT(slotListBoxSelect(int)));
@@ -66,7 +68,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
 
   QVBoxLayout *l111 = new QVBoxLayout;
   l11->addLayout(l111, 1);
-  edit_b = new QPushButton(i18n("Edit..."), peer());
+  edit_b = new QPushButton(i18n("Edit..."), parent);
   connect(edit_b, SIGNAL(clicked()), SLOT(editaccount()));
   QWhatsThis::add(edit_b, i18n("Allows you to modify the selected account"));
 
@@ -76,13 +78,13 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
 
   l111->addWidget(edit_b);
 
-  new_b = new QPushButton(i18n("New..."), peer());
+  new_b = new QPushButton(i18n("New..."), parent);
   connect(new_b, SIGNAL(clicked()), SLOT(newaccount()));
   l111->addWidget(new_b);
   QWhatsThis::add(new_b, i18n("Create a new dialup connection\n"
   			      "to the internet"));
 
-  copy_b = new QPushButton(i18n("Copy"), peer());
+  copy_b = new QPushButton(i18n("Copy"), parent);
   connect(copy_b, SIGNAL(clicked()), SLOT(copyaccount()));
   l111->addWidget(copy_b);
   QWhatsThis::add(copy_b,
@@ -91,7 +93,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
 		       "to a new account, that you can modify to fit your\n"
 		       "needs"));
 
-  delete_b = new QPushButton(i18n("Delete"), peer());
+  delete_b = new QPushButton(i18n("Delete"), parent);
   connect(delete_b, SIGNAL(clicked()), SLOT(deleteaccount()));
   l111->addWidget(delete_b);
   QWhatsThis::add(delete_b,
@@ -105,11 +107,11 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   QVBoxLayout *l121 = new QVBoxLayout;
   l12->addLayout(l121);
   l121->addStretch(1);
-  costlabel = new QLabel(i18n("Phone Costs:"), peer());
+  costlabel = new QLabel(i18n("Phone costs:"), parent);
   costlabel->setEnabled(FALSE);
   l121->addWidget(costlabel);
 
-  costedit = new QLineEdit(peer());
+  costedit = new QLineEdit(parent);
   costedit->setFocusPolicy(QWidget::NoFocus);
   costedit->setFixedHeight(costedit->sizeHint().height());
   costedit->setEnabled(FALSE);
@@ -124,11 +126,11 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   QWhatsThis::add(costlabel, tmp);
   QWhatsThis::add(costedit, tmp);
 
-  vollabel = new QLabel(i18n("Volume:"), peer());
+  vollabel = new QLabel(i18n("Volume:"), parent);
   vollabel->setEnabled(FALSE);
   l121->addWidget(vollabel);
 
-  voledit = new QLineEdit(peer(),"voledit");
+  voledit = new QLineEdit(parent,"voledit");
   voledit->setFocusPolicy(QWidget::NoFocus);
   voledit->setFixedHeight(voledit->sizeHint().height());
   voledit->setEnabled(FALSE);
@@ -148,13 +150,13 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   l12->addLayout(l122);
 
   l122->addStretch(1);
-  reset = new QPushButton(i18n("Reset..."), peer());
+  reset = new QPushButton(i18n("Reset..."), parent);
   reset->setEnabled(FALSE);
   connect(reset, SIGNAL(clicked()),
 	  this, SLOT(resetClicked()));
   l122->addWidget(reset);
 
-  log = new QPushButton(i18n("View Logs"), peer());
+  log = new QPushButton(i18n("View Logs"), parent);
   connect(log, SIGNAL(clicked()),
 	  this, SLOT(viewLogClicked()));
   l122->addWidget(log);
@@ -262,7 +264,7 @@ void AccountWidget::newaccount() {
 	"very special settings, you might want to try the standard, "
 		"dialog-based setup."), 
 		i18n("Create a new account..."),
-		i18n("Wizard"), i18n("Dialog setup"), i18n("Cancel"));
+		i18n("Wizard"), i18n("Dialog Setup"), i18n("Cancel"));
 
   switch(query) {
   case KMessageBox::Yes:
@@ -332,7 +334,9 @@ void AccountWidget::deleteaccount() {
 
 
 int AccountWidget::doTab(){
-  tabWindow = new QTabDialog(0,0,TRUE);
+  tabWindow = new KDialogBase( KDialogBase::Tabbed, QString::null,
+                               KDialogBase::Ok|KDialogBase::Cancel, KDialogBase::Ok,
+                               0, 0, true);
   KWin::setIcons(tabWindow->winId(), kapp->icon(), kapp->miniIcon());
   bool isnewaccount;
 
@@ -346,25 +350,13 @@ int AccountWidget::doTab(){
     isnewaccount = false;
   }
 
-  //  tabWindow->resize( 360, 400 );
-  tabWindow->setOKButton(i18n("OK"));
-  tabWindow->setCancelButton(i18n("Cancel"));
-
-  dial_w = new DialWidget(tabWindow, isnewaccount);
-  ExecWidget *exec_w = new ExecWidget(tabWindow, isnewaccount);
-  ip_w = new IPWidget(tabWindow, isnewaccount);
-  dns_w = new DNSWidget(tabWindow, isnewaccount);
-  gateway_w = new GatewayWidget(tabWindow, isnewaccount);
-  script_w = new ScriptWidget(tabWindow, isnewaccount);
-  acct = new AccountingSelector(tabWindow, isnewaccount);
-
-  tabWindow->addTab(dial_w, i18n("Dial"));
-  tabWindow->addTab(ip_w, i18n("IP"));
-  tabWindow->addTab(gateway_w, i18n("Gateway"));
-  tabWindow->addTab(dns_w, i18n("DNS"));
-  tabWindow->addTab(script_w, i18n("Login Script"));
-  tabWindow->addTab(exec_w, i18n("Execute"));
-  tabWindow->addTab(acct, i18n("Accounting"));
+  dial_w = new DialWidget(tabWindow->addPage(i18n("Dial"), i18n("Dial Setup")), isnewaccount);
+  ip_w = new IPWidget(tabWindow->addPage(i18n("IP"), i18n("IP Setup")), isnewaccount);
+  gateway_w = new GatewayWidget(tabWindow->addPage(i18n("Gateway"), i18n("Gateway Setup")), isnewaccount);
+  dns_w = new DNSWidget(tabWindow->addPage(i18n("DNS"), i18n("DNS Servers")), isnewaccount);
+  script_w = new ScriptWidget(tabWindow->addPage(i18n("Login Script"), i18n("Edit Login Script")), isnewaccount);
+  ExecWidget *exec_w = new ExecWidget(tabWindow->addPage(i18n("Execute"), i18n("Execute Programs")), isnewaccount);
+  acct = new AccountingSelector(tabWindow->addPage(i18n("Accounting")), isnewaccount);
 
   int result = 0;
   bool ok = false;
@@ -431,17 +423,17 @@ QueryReset::QueryReset(QWidget *parent) : QDialog(parent, 0, true) {
   setCaption(i18n("Reset Accounting"));
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
-  KGroupBox *f = new KGroupBox(i18n("What to reset..."), this);
+  QVGroupBox *f = new QVGroupBox(i18n("What To Rest"), this);
 
-  QVBoxLayout *l1 = new QVBoxLayout(f->peer(), 10, 10);
-  costs = new QCheckBox(i18n("Reset the accumulated phone costs"), f->peer());
+  QVBoxLayout *l1 = new QVBoxLayout(parent, 10, 10);
+  costs = new QCheckBox(i18n("Reset the accumulated phone costs"), f);
   costs->setChecked(true);
   l1->addWidget(costs);
   QWhatsThis::add(costs, i18n("Check this to set the phone costs\n"
 			      "to zero. Typically you'll want to\n"
 			      "do this once a month."));
 
-  volume = new QCheckBox(i18n("Reset volume accounting"), f->peer());
+  volume = new QCheckBox(i18n("Reset volume accounting"), f);
   volume->setChecked(true);
   l1->addWidget(volume);
   QWhatsThis::add(volume, i18n("Check this to set the volume accounting\n"

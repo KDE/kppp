@@ -34,7 +34,7 @@
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qregexp.h>
-#include <qtabdialog.h>
+#include <kdialogbase.h>
 #include <qwhatsthis.h>
 
 #include <kaboutdata.h>
@@ -148,7 +148,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
    tl->addLayout(l3);
    tl->addSpacing(5);
    l3->addSpacing(10);
-   log = new QCheckBox(i18n("Show Log Window"), this);
+   log = new QCheckBox(i18n("Show log window"), this);
    connect(log, SIGNAL(toggled(bool)),
   	  this, SLOT(log_window_toggled(bool)));
    log->setChecked(gpppdata.get_show_log_window());
@@ -333,32 +333,28 @@ bool KPPPWidget::eventFilter(QObject *o, QEvent *e) {
 
 void KPPPWidget::prepareSetupDialog() {
   if(tabWindow == 0) {
-    tabWindow = new QTabDialog( kapp->mainWidget(), 0, TRUE );
+    tabWindow = new KDialogBase( KDialogBase::Tabbed, i18n("KPPP Configuration"), 
+                                 KDialogBase::Ok|KDialogBase::Cancel, KDialogBase::Ok,
+                                 kapp->mainWidget(), 0, true);
+
+
     KWin::setIcons(tabWindow->winId(), kapp->icon(), kapp->miniIcon());
-    tabWindow->setCaption( i18n("kppp Configuration") );
-    tabWindow->setOkButton(i18n("OK"));
-    tabWindow->setCancelButton(i18n("Cancel"));
+
     //    tabWindow->setFixedSize( 365, 375 );
 
-    accounts = new AccountWidget(tabWindow,"accounts");
+    accounts = new AccountWidget(tabWindow->addPage( i18n("Accounts"), i18n("Account Setup") ) );
     connect(accounts, SIGNAL(resetaccounts()),
 	    this, SLOT(resetaccounts()));
     connect(accounts, SIGNAL(resetCosts(const QString &)),
 	    this, SLOT(resetCosts(const QString &)));
     connect(accounts, SIGNAL(resetVolume(const QString &)),
 	    this, SLOT(resetVolume(const QString &)));
-    modem1 = new ModemWidget(tabWindow);
-    modem2 = new ModemWidget2(tabWindow);
-    general = new GeneralWidget(tabWindow);
-    graph = new GraphSetup(tabWindow);
-    about  = new AboutWidget(tabWindow);
 
-    tabWindow->addTab( accounts, i18n("Accounts") );
-    tabWindow->addTab( modem1, i18n("Device") );
-    tabWindow->addTab( modem2, i18n("Modem") );
-    tabWindow->addTab( graph, i18n("Graph") );
-    tabWindow->addTab( general, i18n("Misc.") );
-    tabWindow->addTab( about, i18n("About") );
+    modem1 = new ModemWidget( tabWindow->addPage( i18n("Device"), i18n("Serial Device") ) );
+    modem2 = new ModemWidget2( tabWindow->addPage( i18n("Modem"), i18n("Modem Settings") ) );
+    graph = new GraphSetup( tabWindow->addPage( i18n("Graph"), i18n("Throughput Graph" ) ) );
+    general = new GeneralWidget( tabWindow->addPage( i18n("Misc."), i18n("Miscellaneous Settings") ) );
+    about  = new AboutWidget( tabWindow->addPage( i18n("About"), i18n("About KPPP") ) );
   }
 }
 

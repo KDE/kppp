@@ -35,46 +35,54 @@
 
 #include <qcombobox.h>
 #include <qlabel.h>
+#include <kurllabel.h>
 #include <qlayout.h>
 #include <qlistview.h>
 #include <qdir.h>
 #include <qregexp.h>
 #include <qwmatrix.h>
-#include <stdio.h>
-
+#include <qcheckbox.h>
+#include <kdialog.h>
 #include <kstandarddirs.h>
 #include <klocale.h>
 #include <kiconloader.h>
+#include <krun.h>
+
 #include "acctselect.h"
 #include "pppdata.h"
 
 
 AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, const char *name)
-  : KCheckGroupBox(i18n("Enable accounting"), parent, name),
+  :  QWidget(parent, name),
     isnewaccount(_isnewaccount)
 {
-  QVBoxLayout *l1 = new QVBoxLayout(peer(), 10, 10);
-  connect(this, SIGNAL(toggled(bool)), this, SLOT(enableItems(bool)));
+  QVBoxLayout *l1 = new QVBoxLayout(parent, 0, KDialog::spacingHint());
+
+  enable_accounting = new QCheckBox(i18n("Enable accounting"), parent);
+  l1->addWidget(enable_accounting, 1);
+  connect(enable_accounting, SIGNAL(toggled(bool)), this, SLOT(enableItems(bool)));
 
   // insert the tree widget
-  tl = new QListView(peer(), "treewidget");
+  tl = new QListView(parent, "treewidget");
 
   connect(tl, SIGNAL(selectionChanged(QListViewItem*)), this,
           SLOT(slotSelectionChanged(QListViewItem*)));
   tl->setMinimumSize(220, 200);
   l1->addWidget(tl, 1);
 
-  QString ups(i18n("<i>Look for updates on<br/>%1</i>")
-		   .arg("http://devel-home.kde.org/~kppp/rules.html</i>"));
-  QLabel *up = new QLabel(ups, peer());
+  KURLLabel *up = new KURLLabel(parent);
+  up->setText("Check for rule updates"); 
+  up->setURL("http://devel-home.kde.org/~kppp/rules.html");
+  connect(up, SIGNAL(leftClickedURL(const QString&)), SLOT(openURL(const QString&)));
+
   l1->addWidget(up, 1);
 
   // label to display the currently selected ruleset
   QHBoxLayout *l11 = new QHBoxLayout;
   l1->addSpacing(10);
   l1->addLayout(l11);
-  QLabel *lsel = new QLabel(i18n("Selected:"), peer());
-  selected = new QLabel(peer());
+  QLabel *lsel = new QLabel(i18n("Selected:"), parent);
+  selected = new QLabel(parent);
   selected->setFrameStyle(QFrame::Sunken | QFrame::WinPanel);
   selected->setLineWidth(1);
   selected->setFixedHeight(selected->sizeHint().height() + 16);
@@ -86,8 +94,8 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   l1->addStretch(1);
   QHBoxLayout *l12 = new QHBoxLayout;
   l1->addLayout(l12);
-  QLabel *usevol_l = new QLabel(i18n("Volume accounting:"), peer());
-  use_vol = new QComboBox(peer());
+  QLabel *usevol_l = new QLabel(i18n("Volume accounting:"), parent);
+  use_vol = new QComboBox(parent);
   use_vol->insertItem(i18n("No accounting"), 0);
   use_vol->insertItem(i18n("Bytes in"), 1);
   use_vol->insertItem(i18n("Bytes out"), 2);
@@ -116,7 +124,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
     pmfile = pmfile.xForm(wm);
   }
 
-  setChecked(gpppdata.AcctEnabled());
+  enable_accounting->setChecked(gpppdata.AcctEnabled());
 
   setupTreeWidget();
 
@@ -243,7 +251,7 @@ void AccountingSelector::setupTreeWidget() {
   else
     edit_s = "";
 
-  tl->addColumn( i18n("Available rules") );
+  tl->addColumn( i18n("Available Rules") );
   tl->setColumnWidth(0, 205);
   tl->setRootIsDecorated(true);
 
@@ -262,7 +270,7 @@ void AccountingSelector::setupTreeWidget() {
     tl->ensureItemVisible(edit_item);
   }
 
-  enableItems(isChecked());
+  enableItems(enable_accounting->isChecked());
 }
 
 
@@ -292,7 +300,7 @@ void AccountingSelector::slotSelectionChanged(QListViewItem* i) {
   if(!i || i->childCount())
     return;
 
-  if(!isChecked())
+  if(!enable_accounting->isChecked())
     return;
 
   enableItems(true);
@@ -301,7 +309,7 @@ void AccountingSelector::slotSelectionChanged(QListViewItem* i) {
 
 bool AccountingSelector::save() {
 
-  if(isChecked()) {
+  if(enable_accounting->isChecked()) {
     gpppdata.setAccountingFile(edit_s);
     gpppdata.setAcctEnabled(true);
   } else {
@@ -312,6 +320,10 @@ bool AccountingSelector::save() {
   gpppdata.setVolAcctEnabled(use_vol->currentItem());
 
   return true;
+}
+
+void AccountingSelector::openURL(const QString &url) {
+  new KRun( url );
 }
 
 #include "acctselect.moc"

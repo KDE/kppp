@@ -35,13 +35,10 @@
 #include <qpushbutton.h>
 #include <kcolorbutton.h>
 
-#include "groupbox.h"
-
 class QSlider;
-
 class KIntNumInput;
 
-class GeneralWidget : public KGroupBox {
+class GeneralWidget : public QWidget {
   Q_OBJECT
 public:
   GeneralWidget( QWidget *parent=0, const char *name=0 );
@@ -78,7 +75,7 @@ private:
 };
 
 
-class ModemWidget : public KGroupBox {
+class ModemWidget : public QWidget {
   Q_OBJECT
 public:
   ModemWidget( QWidget *parent=0, const char *name=0 );
@@ -108,7 +105,7 @@ private:
 };
 
 
-class ModemWidget2 : public KGroupBox {
+class ModemWidget2 : public QWidget {
   Q_OBJECT
 public:
   ModemWidget2( QWidget *parent=0, const char *name=0 );
@@ -134,7 +131,7 @@ private:
   QSlider       *volume;
 };
 
-class GraphSetup : public KCheckGroupBox {
+class GraphSetup : public QWidget {
   Q_OBJECT
 public:
   GraphSetup(QWidget *parent = 0, const char *name = 0);
@@ -145,6 +142,8 @@ private slots:
 
 private:
   void save();
+
+  QCheckBox *enable_check;
 
   KColorButton *bg_color;
   KColorButton *text_color;
@@ -157,7 +156,7 @@ private:
   QLabel *out_text;
 };
 
-class AboutWidget : public KGroupBox {
+class AboutWidget : public QWidget {
   Q_OBJECT
 public:
   AboutWidget( QWidget *parent=0, const char *name=0 );

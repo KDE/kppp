@@ -38,14 +38,14 @@
 #include <qwidget.h>
 #include <qpixmap.h>
 #include <qdir.h>
-#include "groupbox.h"
 
+class QCheckBox;
 class QComboBox;
 class QLabel;
 class QListView;
 class QListViewItem;
 
-class AccountingSelector : public KCheckGroupBox {
+class AccountingSelector : public QWidget {
   Q_OBJECT
 public:
   AccountingSelector(QWidget *parent = 0, bool _isnewaccount = false, const char *name = 0);
@@ -61,10 +61,12 @@ private:
   QString nameToFileName(QString);
 
 private slots:
+  void openURL(const QString &);
   void enableItems(bool);
   void slotSelectionChanged(QListViewItem* i);
 
 private:
+  QCheckBox *enable_accounting;
   QListView *tl;
   QComboBox *use_vol;
   QPixmap pmfolder, pmfile;
