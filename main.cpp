@@ -865,10 +865,12 @@ void KPPPWidget::sigPPPDDied() {
 	kdDebug(5002) << "Trying to reconnect ... " << endl;
 
         if(gpppdata.authMethod() == AUTH_PAP ||
-	   gpppdata.authMethod() == AUTH_CHAP)
+	   gpppdata.authMethod() == AUTH_CHAP ||
+	   gpppdata.authMethod() == AUTH_PAPCHAP)
           Requester::rq->setSecret(gpppdata.authMethod(),
 				   encodeWord(gpppdata.storedUsername()),
 				   encodeWord(gpppdata.password));
+
 	con_win->hide();
 	con_win->stopClock();
 	stopAccounting();
@@ -955,7 +957,9 @@ void KPPPWidget::beginConnect() {
 
   // if this is a PAP or CHAP account, ensure that username is
   // supplied
-  if(gpppdata.authMethod() == AUTH_PAP || gpppdata.authMethod() == AUTH_CHAP) {
+  if(gpppdata.authMethod() == AUTH_PAP ||
+     gpppdata.authMethod() == AUTH_CHAP ||
+     gpppdata.authMethod() == AUTH_PAPCHAP ) {
     if(ID_Edit->text().isEmpty()) {
       KMessageBox::error(this,
 			   i18n(

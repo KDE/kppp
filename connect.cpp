@@ -1162,9 +1162,22 @@ bool ConnectWidget::execppp() {
     command += " " + *it;
   }
 
-  // PAP and CHAP settings
-  if(gpppdata.authMethod() == AUTH_PAP || gpppdata.authMethod() == AUTH_CHAP) {
-    command += " user \"" + gpppdata.storedUsername() + "\"";
+  // PAP settings
+  if(gpppdata.authMethod() == AUTH_PAP) {
+    command += " -chap user ";
+    command = command + "\"" + gpppdata.storedUsername() + "\"";
+  }
+
+  // CHAP settings
+  if(gpppdata.authMethod() == AUTH_CHAP) {
+    command += " -pap user ";
+    command = command + "\"" + gpppdata.storedUsername() + "\"";
+  }
+
+  // PAP/CHAP settings
+  if(gpppdata.authMethod() == AUTH_PAPCHAP) {
+    command += " user ";
+    command = command + "\"" + gpppdata.storedUsername() + "\"";
   }
 
   // check for debug

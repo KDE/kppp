@@ -32,5 +32,6 @@
 #define AUTH_TERMINAL   2
 #define AUTH_CHAP       3
 #define AUTH_MSCHAP     4
+#define AUTH_PAPCHAP    5
 
 #endif

@@ -117,6 +117,7 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
   auth->insertItem(i18n("PAP"));
   auth->insertItem(i18n("Terminal-based"));
   auth->insertItem(i18n("CHAP"));
+  auth->insertItem(i18n("PAP/CHAP"));
   tl->addWidget(auth, 3, 1);
   tmp = i18n("<p>Specifies the method used to identify yourself to\n"
 	     "the PPP server. Most universities still use\n"
@@ -125,7 +126,8 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
 	     "unsure, contact your ISP.\n"
 	     "\n"
 	     "If you can choose between PAP and CHAP,\n"
-	     "choose CHAP, because it's much safer.");
+	     "choose CHAP, because it's much safer. If you don't know\n"
+	     "whether PAP or CHAP is right, choose PAP/CHAP.");
 
   QWhatsThis::add(auth_l,tmp);
   QWhatsThis::add(auth,tmp);
@@ -170,8 +172,8 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
     auth->setCurrentItem(gpppdata.authMethod());
     store_password->setChecked(gpppdata.storePassword());
   } else {
-    // select PAP as default
-    auth->setCurrentItem(1);
+    // select PAP/CHAP as default
+    auth->setCurrentItem(5);
   }
 
   numbersChanged();

@@ -33,6 +33,7 @@
 #include <klocale.h>
 #include <kconfig.h>
 #include <kmessagebox.h>
+#include <assert.h>
 
 PPPData gpppdata;
 

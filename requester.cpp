@@ -234,6 +234,10 @@ bool Requester::setSecret(int method, const QString &name, const QString &passwo
   assert(name!=0);
   assert(password!=0);
 
+  if(method == AUTH_PAPCHAP)
+    return setSecret(AUTH_PAP, name, password) &&
+	setSecret(AUTH_CHAP, name, password);
+
   struct SetSecretRequest req;
   req.header.type = Opener::SetSecret;
   switch(method) {
