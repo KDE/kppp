@@ -124,7 +124,6 @@ private:
   int max;
   QTimer *graphTimer;
   QColor bg, text, in, out;
-  int status;
 };
 
 #endif

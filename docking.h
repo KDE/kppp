@@ -58,7 +58,6 @@ public:
 private:
   int toggleID;
   PPPStats *stats;
-  int status;
 
   KPopupMenu *popup_m;
 
