@@ -4,7 +4,7 @@
 # created 2001/03/12 by Jiri Vasina <jvasina@med.muni.cz>
 ################################################################
 
-name=Czech_Telecom_Internet_2001
+name=Czech_Telecom_Internet
 currency_symbol=Kc
 currency_position=right 
 currency_digits=2
