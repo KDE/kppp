@@ -1,0 +1,25 @@
+# KDE Config File
+ExDNSDisabled=0
+AutoDNS=0
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=0407654000
+IPAddr=0.0.0.0
+Domain=
+Name=IAE
+VolumeAccountingEnabled=1
+pppdArguments=detach,
+BeforeDisconnect=
+Password=%USERNAME%
+Command=
+ScriptCommands=
+Authentication=1
+DNS=212.61.26.34,212.61.26.2
+SubnetMask=0.0.0.0
+AccountingFile=/Netherlands/BelBasis_Lokaal.rst
+DefaultRoute=1
+Username=%PASSWORD%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=
