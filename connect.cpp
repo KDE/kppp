@@ -47,7 +47,7 @@
 #include <sys/param.h>
 #endif
 
-#ifdef linux
+#ifdef __linux__
 #include "runtests.h"
 #endif
 

@@ -58,13 +58,13 @@
 #include "kpppconfig.h"
 
 #ifndef STREAMS
-#if defined(_linux_) && defined(__powerpc__) \
+#if defined(__linux__) && defined(__powerpc__) \
     && (__GLIBC__ == 2 && __GLIBC_MINOR__ == 0)
 /* kludge alert! */
 #undef __GLIBC__
 #endif
 #include <sys/socket.h>		/* *BSD, Linux, NeXT, Ultrix etc. */
-#ifndef _linux_
+#ifndef __linux__
 #include <net/if.h>
 #include <net/ppp_defs.h>
 #include <net/if_ppp.h>
@@ -79,7 +79,7 @@
 #endif
 #include <linux/ppp_defs.h>
 #include <linux/if_ppp.h>
-#endif /* _linux_ */
+#endif /* __linux__ */
 
 #else	/* STREAMS */
 #include <sys/stropts.h>	/* SVR4, Solaris 2, SunOS 4, OSF/1, etc. */
@@ -277,7 +277,7 @@ bool PPPStats::get_ppp_stats(struct ppp_stats *curp){
     if(s==0)
       return false;
 
-#ifdef linux
+#ifdef __linux__
     req.stats_ptr = (caddr_t) &req.stats;
     sprintf(req.ifr__name, "ppp%d", unit);
 #else

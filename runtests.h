@@ -39,7 +39,7 @@ int runTests();
 QString getHomeDir();
 void pppdVersion(int *version, int *modification, int *patch);
 
-#ifdef linux
+#ifdef __linux__
 bool ppp_available(void);
 #endif
 

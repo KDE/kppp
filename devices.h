@@ -12,7 +12,7 @@ static const char *devices[] = {
 #else
   "/dev/modem",
 // Linux from 2.1.x on discourages from using this devices
-#ifndef linux
+#ifndef __linux__
   "/dev/cua0",
   "/dev/cua1",
   "/dev/cua2",

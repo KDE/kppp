@@ -102,7 +102,7 @@ const unsigned int MAX_CMDLEN = 2024;
 #define PPPDNAME "pppd"
 
 // support for internal ISDN cards and modem emulation
-#ifdef linux
+#ifdef __linux__
 #define ISDNSUPPORT
 #endif
 
