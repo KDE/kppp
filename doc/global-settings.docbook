@@ -304,8 +304,7 @@ can be very useful nonetheless.</para>
 <varlistentry>
 <term><guilabel>pppd Version</guilabel></term>
 <listitem>
-<para>
-</para>
+<para>The version number of the pppd daemon on your system.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -361,8 +360,7 @@ exits and &kppp; terminates.</para>
 <varlistentry>
 <term><guilabel>Quit on Disconnect</guilabel></term>
 <listitem>
-<para>
-</para>
+<para>If enabled, &kppp; will exit when you disconnect from the internet.  If disabled, &kppp; will stay open after disconnection.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
