@@ -1,10 +1,9 @@
-pkg_DATA =	Teledanmark_Local.rst \
-		Teledanmark_Regional.rst \
-		Teledanmark_Favorit_Internet.rst \
-		Image_1049.rst \
-		CyberCity_1033.rst \
-		1001_Internet.rst \
-		Get2Net_1001.rst
+pkg_DATA = 12Move_Analog.rst 12Move_ISDN.rst \
+	Cybercity_Friabonnement.rst \
+	Get2net_Betaling.rst Get2net_Gratis.rst \
+	Mobilix_Wanadoo.rst \
+	Teledanmark_Basis.rst Teledanmark_Favoritinternet.rst \
+	Worldonline-Analog.rst Worldonline-ISDN.rst
 
 pkgdir = $(kde_datadir)/kppp/Rules/Denmark
 
