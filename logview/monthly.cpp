@@ -109,17 +109,17 @@ void MonthlyWidget::plotMonth() {
   lb->setNumCols(9);
   lb->setSeparator('\t');
 
-#define TITLE(x, y) i18n(x), QMAX(lb->fontMetrics().boundingRect(i18n(x)).width() + 8, \
+#define TITLE(x, y) x, QMAX(lb->fontMetrics().boundingRect(i18n(x)).width() + 8, \
 			       lb->fontMetrics().boundingRect(y).width())
-  lb->setColumn(0, TITLE("Connection", "XXXXXXXXXXXXXXXX"));
-  lb->setColumn(1, TITLE("Day", "XX"));
-  lb->setColumn(2, TITLE("From", "XX:XX"));
-  lb->setColumn(3, TITLE("Until", "XX:XX"));
-  lb->setColumn(4, TITLE("Seconds", "XXXXX"));
-  lb->setColumn(5, TITLE("Costs", "XXXX.XX"));
-  lb->setColumn(6, TITLE("Bytes in", "888888888"));
-  lb->setColumn(7, TITLE("Bytes out", "888888888"));
-  lb->setColumn(8, TITLE("Bytes", "888888888"));
+  lb->setColumn(0, TITLE(i18n("Connection"), "XXXXXXXXXXXXXXXX"));
+  lb->setColumn(1, TITLE(i18n("Day"), "XX"));
+  lb->setColumn(2, TITLE(i18n("From"), "XX:XX"));
+  lb->setColumn(3, TITLE(i18n("Until"), "XX:XX"));
+  lb->setColumn(4, TITLE(i18n("Seconds"), "XXXXX"));
+  lb->setColumn(5, TITLE(i18n("Costs"), "XXXX.XX"));
+  lb->setColumn(6, TITLE(i18n("Bytes in"), "888888888"));
+  lb->setColumn(7, TITLE(i18n("Bytes out"), "888888888"));
+  lb->setColumn(8, TITLE(i18n("Bytes"), "888888888"));
 
   // search the entries for this month
   QString s;
@@ -259,11 +259,11 @@ void MonthlyWidget::plotMonth() {
 
   QString t;
   if(lb->count() > 0)
-    t.sprintf("Connection log for %s %d",
+    t.sprintf(i18n("Connection log for %s %d"),
 	      months[_month-1].data(),
 	      _year);
   else
-    t.sprintf("No connection log for %s %d available",
+    t.sprintf(i18n("No connection log for %s %d available"),
 	      months[_month-1].data(),
 	      _year);
     
