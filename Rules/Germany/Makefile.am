@@ -7,6 +7,7 @@ pkg_DATA = 2.5min.rst 2.5s.rst \
 	expressnet.rst Netcom_Kassel.rst \
 	Mobilcom_Freenet.rst \
 	Nikoma.rst Nikoma_Internet_by_Call.rst Nikoma_Study_and_Surf.rst \
+	Telekom_City.rst \
 	Telekom_City_Select_5_30.rst \
 	knUUt-by-Call.rst \
 	talkline_by_call.rst \
@@ -14,6 +15,7 @@ pkg_DATA = 2.5min.rst 2.5s.rst \
 	Planet-Interkom_Internet_by_call.rst \
 	NGI_Call_By_Call.rst \
 	MSN.rst \
+	Freenet_special_call_by_call.rst \
 	Freenet_Enterprise.rst
 
 pkgdir = $(kde_datadir)/kppp/Rules/Germany
