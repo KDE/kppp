@@ -708,6 +708,8 @@ bool PPPData::setAccountbyIndex(int i) {
 
 
 bool PPPData::isUniqueAccname(const QString &n) {
+  if(n.contains(':'))
+    return false;
   int current = caccount;
   for(int i=0; i <= highcount; i++) {
     setAccountbyIndex(i);
