@@ -419,7 +419,7 @@ bool Opener::createAuthFile(Auth method, char *username, char *password) {
 
   // look for username, "username" or 'username'
   // if you modify this RE you have to adapt regexp's size above
-  sprintf(regexp, "^[ \t]*%s[ \t]\\|^[ \t]*[\"\']%s[\"\']",
+  snprintf(regexp, sizeof(regexp), "^[ \t]*%s[ \t]\\|^[ \t]*[\"\']%s[\"\']",
           username,username);
   MY_ASSERT(regcomp(&preg, regexp, 0) == 0);
 
