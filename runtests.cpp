@@ -72,6 +72,7 @@
 #endif // linux
 
 #include "main.h"
+#include <klocale.h>
 
 // initial effective uid (main.cpp)
 extern uid_t euid;

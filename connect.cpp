@@ -57,6 +57,7 @@
 #include "log.h"
 #include "modem.h"
 #include "utils.h"
+#include <klocale.h>
 
 
 extern KPPPWidget *p_kppp;

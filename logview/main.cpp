@@ -24,6 +24,7 @@
 #include "log.h"
 #include "monthly.h"
 #include "main.h"
+#include <klocale.h>
 
 #define F_EXIT     101
 

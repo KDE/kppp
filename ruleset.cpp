@@ -34,6 +34,7 @@
 #include <kapp.h>
 #include "ruleset.h"
 #include "log.h"
+#include <klocale.h>
 
 RuleSet::RuleSet() {
   default_costs = -1;

@@ -26,6 +26,7 @@
 #include "main.h"
 #include "macros.h"
 #include "pppdata.h"
+#include <klocale.h>
 
 extern KPPPWidget *p_kppp;
 extern PPPData gpppdata;

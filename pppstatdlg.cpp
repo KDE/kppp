@@ -34,6 +34,7 @@
 #include "pppstatdlg.h"
 #include "kpppconfig.h"
 #include "iplined.h"
+#include <klocale.h>
 
 extern PPPData gpppdata;
 extern bool do_stats();

@@ -38,6 +38,7 @@
 #include "modemcmds.h"
 #include "devices.h"
 #include "pppdata.h"
+#include <klocale.h>
 
 
 /////////////////////////////////////////////////////////////////////////////

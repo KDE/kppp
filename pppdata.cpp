@@ -28,6 +28,7 @@
 #include "runtests.h"
 #include "kpppconfig.h"
 #include "devices.h"
+#include <klocale.h>
 
 PPPData gpppdata;
 

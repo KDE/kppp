@@ -19,6 +19,7 @@
  */
 
 #include "monthly.h"
+#include <klocale.h>
 
 static void formatBytes(int bytes, QString &result) {
   if(bytes < 1024)

@@ -32,6 +32,7 @@
 #include <qlayout.h>
 #include <qpushbutton.h>
 #include <qapplication.h>
+#include <klocale.h>
 
 extern KPPPWidget *p_kppp;
 

@@ -32,6 +32,7 @@
 #include "pppdata.h"
 #include "modem.h"
 #include "miniterm.h"
+#include <klocale.h>
 
 #define T_WIDTH 550
 #define T_HEIGHT 400

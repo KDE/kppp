@@ -48,6 +48,7 @@
 
 #include "pppdata.h"
 #include "requester.h"
+#include <klocale.h>
 
 
 int PPPL_MakeLog(QStrList &list) {

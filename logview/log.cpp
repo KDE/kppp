@@ -25,6 +25,7 @@
 #include <kapp.h>
 #include <qfileinfo.h>
 #include <qprogressdialog.h>
+#include <klocale.h>
 
 QList<LogInfo> log;
 QProgressDialog *dlg;

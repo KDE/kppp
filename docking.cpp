@@ -32,6 +32,7 @@
 #include "docking.h"
 #include "main.h"
 #include "kpppconfig.h"
+#include <klocale.h>
 
 extern KPPPWidget   *p_kppp;
 

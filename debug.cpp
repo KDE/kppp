@@ -23,6 +23,7 @@
 #include "debug.h"
 #include "main.h"
 #include "pppdata.h"
+#include <klocale.h>
 
 extern KPPPWidget *p_kppp;
 

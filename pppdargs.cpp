@@ -30,6 +30,7 @@
 #include <kwm.h>
 #include "pppdargs.h"
 #include "pppdata.h"
+#include <klocale.h>
 
 PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
   : QDialog(parent, name, TRUE)

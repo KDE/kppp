@@ -36,6 +36,7 @@
 #include "termios.h"
 #include "newwidget.h"
 #include "iplined.h"
+#include <klocale.h>
 
 DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
   : KGroupBox(i18n("Dial Setup"), parent, name)

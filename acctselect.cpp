@@ -44,6 +44,7 @@
 
 #include "acctselect.h"
 #include "pppdata.h"
+#include <klocale.h>
 
 AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, const char *name)
   : KCheckGroupBox(i18n("Enable accounting"), parent, name),

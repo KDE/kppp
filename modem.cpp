@@ -35,6 +35,7 @@
 #include "pppdata.h"
 #include "log.h"
 #include "requester.h"
+#include <klocale.h>
 
 #ifndef HAVE_USLEEP
 extern "C" void usleep(); // replacement from kdecore/fakes.cpp
