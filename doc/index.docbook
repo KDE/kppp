@@ -9,14 +9,14 @@
 <firstname>Bernd Johannes</firstname>
 <surname>Wuebben</surname>
 <affiliation>
-<address><email><ulink url="mailto:wuebben@kde.org">wuebben@kde.org</ulink></email></address></affiliation>
+<address><email>wuebben@kde.org</email></address></affiliation>
 </author>
 </authorgroup>
-<date>Version 1.6.2, February 5, 1999</date>
-<releaseinfo><!-- information about this particular version --></releaseinfo>
+<date>05/02/1999</date>
+<releaseinfo>Version 1.6.2</releaseinfo>
 <abstract>
 <para>This Handbook describes <emphasis>kppp</emphasis> Version 1.6.2</para>
-<para>KPPP Internet Dialer</para><!-- Merge this with the previous paragraph; it comes from <META NAME="description" CONTENT="..."> --></abstract>
+<para>KPPP Internet Dialer</para></abstract>
 <keywordset>
 <keyword>KPPP</keyword>
 <keyword>Dialer</keyword>
