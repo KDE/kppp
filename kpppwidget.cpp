@@ -24,6 +24,7 @@
 #include <kstandarddirs.h>
 #include <kwin.h>
 
+#include <stdlib.h>
 #include <errno.h>
 
 #include "runtests.h"
