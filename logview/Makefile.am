@@ -14,14 +14,9 @@
 
 # if you use a variable *dir and have *_DATA, it will be installed by
 # make install
-appsdir = $(kde_appsdir)/Internet/More
-apps_DATA = kppplogview.desktop
+xdg_apps_DATA = kppplogview.desktop
 
-EXTRA_DIST = $(apps_DATA)
-
-install-data-local: uninstall.desktop
-	$(mkinstalldirs) $(DESTDIR)$(kde_appsdir)/Internet
-	$(INSTALL_DATA) $(srcdir)/uninstall.desktop $(DESTDIR)$(kde_appsdir)/Internet/kppplogview.desktop
+EXTRA_DIST = $(xdg_apps_DATA)
 
 # set the include path for X, qt and KDE
 INCLUDES= $(all_includes)

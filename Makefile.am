@@ -2,10 +2,9 @@
 
 # if you use a variable *dir and have *_DATA, it will be installed by
 # make install
-appsdir = $(kde_appsdir)/Internet
-apps_DATA = Kppp.desktop
+xdg_apps_DATA = Kppp.desktop
 
-EXTRA_DIST = $(apps_DATA)
+EXTRA_DIST = $(xdg_apps_DATA)
 
 # set the include path for X, qt and KDE
 INCLUDES= $(all_includes)
