@@ -122,7 +122,7 @@ int RuleSet::load(const QString &filename) {
       else
 	buffer[br] = 0;
       lineno++;
-      line.append( QString::fromLocal8Bit(buffer) );
+      line.append(QString::fromUtf8(buffer));
       backslashed = (line.right(1) == "\\");
     } while(!f.atEnd() && backslashed);
 
@@ -384,7 +384,7 @@ bool RuleSet::parseLine(const QString &s) {
   }
 
   // check currency settings
-  if(s.find("currency_symbol=") >= 0) {
+  if(s.startsWith("currency_symbol=")) {
      _currency_symbol = s.mid(16);
      return TRUE;
   }
@@ -484,12 +484,14 @@ void RuleSet::getActiveRule(QDateTime dt, double connect_time, double &costs, do
 }
 
 
+#if 0
 static double round(double d, int digits) {
   d *= pow(10, digits);
   d = rint(d);
   d /= pow(10, digits);
   return d;
 }
+#endif
 
 QString RuleSet::currencySymbol() const {
   return _currency_symbol.copy();
