@@ -1,4 +1,35 @@
-SUBDIRS = Germany Slovakia
+SUBDIRS = Argentina \
+	Austria \
+	Belgium \
+	Brasil \
+	Croatia \
+	Czechia \
+	Denmark \
+	England \
+	France \
+	Germany \
+	Greece \
+	HongKong \
+	Hungary \
+	India \
+	Indonesia \
+	Italy \
+	Jamaica \
+	Japan \
+	Kazakhstan \
+	Luxembourg \
+	Malaysia \
+	Netherlands \
+	Norway \
+	Poland \
+	Portugal \
+	Romania \
+	Singapore \
+	Slovakia \
+	SouthAfrika \
+	Spain \
+	Sweden \
+	Switzerland
 
 pkg_DATA = TEMPLATE 
 pkg_SCRIPTS = checkrules
@@ -6,3 +37,4 @@ pkg_SCRIPTS = checkrules
 pkgdir = $(kde_datadir)/kppp/Rules
 
 EXTRA_DIST = $(pkg_DATA)
+
