@@ -281,7 +281,16 @@ void Modem::flush() {
 
 
 bool Modem::writeChar(unsigned char c) {
-  return write(modemfd, &c, 1) == 1;
+  int s;
+  do {
+    s = write(modemfd, &c, 1);
+    if (s < 0) {
+      kdError(5002) << "write() in Modem::writeChar failed" << endl;
+      return false;
+    }
+  } while(s == 0);
+
+  return true;
 }
 
 

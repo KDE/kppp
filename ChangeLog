@@ -1,3 +1,7 @@
+2001-05-21  Harri Porten  <porten@kde.org>
+
+	* modem.cpp: 460800 speed fix from msade@cs.pitt.edu
+
 2001-04-13  Harri Porten  <porten@kde.org>
 
 	* runtests.cpp: fixed startup crash if 'pppd --version' failed
