@@ -33,12 +33,12 @@ name=British_OneTel
 #
 # British monetary format examples:
 #
-#   £1.57 = 1 pound and 57 pence.
+#   Â£1.57 = 1 pound and 57 pence.
 #    157p = 1 pound and 57 pence.
 #
 # defines GBP (Pound Sterling) to be used as currency symbol
 # (default = "$")
-currency_symbol=£
+currency_symbol=Â£
 
 # Define the position of the currency symbol.
 # (default is "right")

@@ -36,12 +36,12 @@ name=British_BritishTelecom_Local
 #
 # Our monetry format:
 #
-# e.g. £1.57 = 1 pound and 57 pence.
+# e.g. Â£1.57 = 1 pound and 57 pence.
 # e.g. 157p = 1 pund and 57 pence.
 #
 # defines UKP (PoundSterling) to be used as currency
 # symbol (not absolutely needed, default = "$")
-currency_symbol=£
+currency_symbol=Â£
 
 # Define the position of the currency symbol.
 # (not absolutely needed, default is "right")
