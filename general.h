@@ -58,6 +58,7 @@ private slots:
 private:
   QGroupBox 	*box;
 
+  QLabel        *label1;
   QLabel 	*label3;
   QLabel 	*label4;
   QLabel 	*label5;
@@ -72,6 +73,7 @@ private:
   QCheckBox 	*chkbox6;
   QCheckBox 	*chkbox7;
 
+  QLabel        *versionlabel;
   KIntNumInput 	*pppdtimeout;
 };
 

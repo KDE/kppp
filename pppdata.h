@@ -59,6 +59,7 @@ class KConfig;
 
 // general
 #define DEFAULTACCOUNT_KEY "DefaultAccount"
+#define PPPDVERSION_KEY    "pppdVersion"
 #define PPPDTIMEOUT_KEY    "pppdTimeout"
 #define SHOWCLOCK_KEY      "ShowClock"
 #define SHOWLOGWIN_KEY     "ShowLogWindow"
@@ -199,6 +200,9 @@ public:
 
   const QString enter();
   void setEnter(const QString &);
+
+  QString pppdVersion();
+  bool pppdVersionMin(int ver, int mod, int patch);
 
   int pppdTimeout();
   void setpppdTimeout(int);
@@ -421,6 +425,7 @@ private:
   bool pppdisrunning;                    // pppd process
                                          // daemon
   int pppderror;                         // error encounterd running pppd
+  int pppdVer, pppdMod, pppdPatch;       // pppd version
 
   QStrList phonelist;
 };

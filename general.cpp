@@ -53,10 +53,22 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
   : KGroupBox(i18n("kppp Setup"), parent, name)
 {
   QVBoxLayout *tl = new QVBoxLayout(peer(), 10, 10);
+
+  QHBoxLayout *verl = new QHBoxLayout(tl);
+  label1 = new QLabel(i18n("pppd Version:"), peer());
+  verl->addWidget(label1);
+  versionlabel = new QLabel(peer());
+  QString version = gpppdata.pppdVersion();
+  if(version == "0.0.0")
+    version = "unknown";
+  versionlabel->setText(version);
+  versionlabel->setFrameStyle(QFrame::Sunken | QFrame::WinPanel);
+  versionlabel->setLineWidth(1);
+  verl->addWidget(versionlabel);
   
-  pppdtimeout = new KIntNumInput(i18n("pppd Timeout:"), 1, TIMEOUT_SIZE, 30,
+  pppdtimeout = new KIntNumInput(i18n("pppd Timeout:"), 1, TIMEOUT_SIZE, 5,
                                  gpppdata.pppdTimeout(), i18n("s"), 
-				 10, true, peer(), "pppd_timeout");
+				 10, false, peer(), "pppd_timeout");
 //  pppdtimeout->setLabelAlignment(Qt::AlignLeft);
   connect(pppdtimeout, SIGNAL(valueChanged(int)),
           SLOT(pppdtimeoutchanged(int)));
@@ -68,8 +80,6 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
 
   QWhatsThis::add(pppdtimeout,tmp); 
 
-  debug("added pppdtimeout");
-
   tl->addStretch(1);
   QHBoxLayout *lh = new QHBoxLayout();
   tl->addLayout(lh);
@@ -79,8 +89,6 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
   lh->addLayout(l3, 0);
   QVBoxLayout *l4 = new QVBoxLayout();
   lh->addLayout(l4, 1);
-
-  debug("some layouts added");
 
   chkbox6 = new QCheckBox(i18n("Dock into Panel on Connect"), peer());
   QWhatsThis::add(chkbox6, 

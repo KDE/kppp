@@ -57,11 +57,16 @@
 
 #include "accounting.h"
 #include "conwindow.h"
-#include "general.h"
 #include "accounts.h"
 #include "connect.h"
 #include "debug.h"
 #include "pppstatdlg.h"
+
+class GeneralWidget;
+class ModemWidget;
+class ModemWidget2;
+class GraphSetup;
+class AboutWidget;
 
 class KPPPWidget : public QWidget {
   Q_OBJECT

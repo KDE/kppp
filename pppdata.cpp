@@ -84,6 +84,8 @@ bool PPPData::open() {
   // the user is still free to specify `debug' on his own
   setPPPDebug(false);
 
+  ::pppdVersion(&pppdVer, &pppdMod, &pppdPatch);
+
   return true;      
 }
 
@@ -287,6 +289,17 @@ void PPPData::set_dock_into_panel(bool set) {
   writeConfig(GENERAL_GRP, DOCKING_KEY, (int) set);
 }
 
+
+QString PPPData::pppdVersion() {
+  return QString("%1.%2.%3").arg(pppdVer).arg(pppdMod).arg(pppdPatch);
+}
+
+bool PPPData::pppdVersionMin(int ver, int mod, int patch) {
+  // check if pppd version fulfills minimum requirement
+  return (pppdVer > ver
+          || (pppdVer == ver && pppdMod > mod)
+          || (pppdVer == ver && pppdMod == mod && pppdPatch >= patch));
+}
 
 int PPPData::pppdTimeout() {
   return readNumConfig(GENERAL_GRP, PPPDTIMEOUT_KEY, PPPD_TIMEOUT);

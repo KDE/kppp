@@ -71,6 +71,7 @@
 #include "iplined.h"
 #include "pppstats.h"
 #include "pppdata.h"
+#include "general.h"
 
 #include <X11/Xlib.h>
 #include <kapp.h>

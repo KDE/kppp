@@ -26,6 +26,7 @@
 
 #include <qdir.h>
 #include "runtests.h"
+#include <ctype.h>
 #include <unistd.h>
 #include <kmessagebox.h>
 #include <sys/stat.h>
@@ -293,6 +294,50 @@ bool ppp_available(void)
 #endif
 
 
+void pppdVersion(int *version, int *modification, int *patch) {
+  char buffer[30];
+  const char *pppd;
+  char *query;
+
+  *version = *modification = *patch = 0;
+
+  // locate pppd
+  if(!(pppd = pppdPath()))
+    return;
+
+  // call pppd with --version option
+  if(!(query = new char[strlen(pppd)+16]))
+    return;
+  strcpy(query, pppd);
+  strcat(query, " --version 2>&1");
+  FILE *output = popen(query, "r");
+  delete [] query;
+  if(!output)
+    return;
+
+  // read output
+  int size = fread(buffer, sizeof(char), 29, output);
+
+  if(ferror(output)) {
+    pclose(output);
+    return;
+  }
+  pclose(output);
+  buffer[size] = '\0';
+
+  // find position of version number x.y.z
+  char *p = buffer;
+  while(!isdigit(*p))
+    p++;
+  char *p2 = p;
+  while(*p2 == '.' || isdigit(*p2))
+    p2++;
+  *p2 = '\0';
+
+  decode_version(p, version, modification, patch);
+}
+
+
 int uidFromName(const char *uname) {
   struct passwd *pw;
 
@@ -304,7 +349,7 @@ int uidFromName(const char *uname) {
       return uid;
     }
   }
-
+  
   endpwent();
   return -1;
 }
