@@ -55,6 +55,7 @@ private slots:
   void newmodem();
   void deletemodem();
   void slotListBoxSelect(int);
+  void modemNameChanged(const QString &);
 
 private:
   int doTab();
