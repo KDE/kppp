@@ -1,0 +1,24 @@
+# KDE Config File
+AccountingEnabled=1
+AccountingFile=/Yugoslavia/Lokalni_poziv.rst
+Authentication=1
+AutoDNS=1
+AutoName=0
+Command=
+DNS=
+DefaultRoute=1
+DisconnectCommand=
+Domain=tippnet.co.yu
+ExDNSDisabled=0
+Gateway=0.0.0.0
+IPAddr=0.0.0.0
+Name=TippNet
+Password=%PASSWORD%
+ScriptArguments=
+ScriptCommands=
+StorePassword=1
+SubnetMask=0.0.0.0
+Username=%USERNAME%
+VolumeAccountingEnabled=0
+pppdArguments=
+Phonenumber=654321
