@@ -1,0 +1,63 @@
+################################################################
+#
+# This RULESET is based on the TEMPLATE file found in
+# /usr/share/apps/kppp/Rules written by
+# Bernd Wuebben
+# wuebben@math.cornell.edu / wuebben@kde.org
+# 
+################################################################
+
+
+################################################################
+#
+# Agni Systems Limited, Dhaka, Bangladesh (helpdesk@agni.com)
+# 
+################################################################
+name=agni
+
+################################################################
+# currency settings
+################################################################
+
+
+currency_symbol=Tk
+
+currency_position=left
+
+# Define the number of significant digits.
+# (not absolutely needed, default is "2"
+currency_digits=2
+
+
+
+################################################################
+# connection settings 
+# VAT (15%) is included
+################################################################
+
+# NOTE: rules are applied from top to bottom - the
+#       LAST matching rule is the one used for the
+#       cost computations.
+
+# Local call charge (T&T)
+per_connection=1.7
+
+minimum_costs=0.0
+
+# This is the default rule which is used when no other rule
+# applies. The first component "1.15" is the price of one
+# "unit", while "60" is the duration in seconds. It is here
+# only for *.rst file compatibilty.
+default=(1.15, 60)
+
+#
+# THE RULES
+#
+
+# AGNI Systems( http://www.agni.net ) VAT (15%) included
+on (friday) between (0:00..23:59) use (1.15, 60)
+on (saturday..thursday) between (0:00..7:59) use (1.15, 60)
+on (saturday..thursday) between (8:00..17:59) use (2.87, 60)
+on (saturday..thursday) between (18:00..23:59) use (2.3, 60)
+
+#This rules file was written by Ionmon247 sas@startrekmail.com

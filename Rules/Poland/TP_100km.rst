@@ -11,6 +11,7 @@ currency_position=right
 currency_digits=2
 per_connection=0.0
 minimum_costs=0.0
+default=(0.59,60)
 
 # taryfa do 100km
 on (monday..friday)  between (8:00..18:00)  use (0.59, 60)

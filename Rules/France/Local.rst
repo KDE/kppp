@@ -9,9 +9,9 @@
 #
 # Modifié par Fabrice Eudes <eudes@gat.univ-lille1.fr>
 # le 21 Decembre 1997.
+# Modifié par Yann Cointepas <yann.cointepas@enst.fr>
+# le 28 aout 1999
 #
-# Modifié par Laurent Montel <montell@club-internet.fr>
-# le 8 mai 1999
 ################################################################
 
 # Les nouveaux tarifs de France Télécom sont en vigueur
@@ -60,13 +60,10 @@ default=(0.28, 60)
 # sont incluses dans les règles ci-dessous; quelle est l'utilité
 # de ce paramètre ?!?!
 
-on (monday..saturday) between (00:00..08:00) use (0.14, 60)
-on (monday..friday)   between (08:00..19:00) use (0.28, 60)
+on (monday..friday)   between (00:00..07:59) use (0.14, 60)
+on (monday..friday)   between (08:00..18:59) use (0.28, 60)
 on (monday..friday)   between (19:00..23:59) use (0.14, 60)
-# changement le 1er mars 1999 le samedi de 8 Heures à 12 Heures ca coute 0.14 francs par minute
-on (saturday)         between (08:00..12:00) use (0.14, 60)
-on (saturday)         between (12:00..23:59) use (0.14, 60)
-on (sunday)           between (00:00..23:59) use (0.14, 60)
+on (saturday..sunday) between (00:00..23:59) use (0.14, 60)
 
 # Jours fériés :-))
 on (01/01, easter+1, 05/01, 05/08, easter+38, easter+50, 07/14, 08/15, 11/01, 11/11, 12/25) between (00:00..23:59) use (0.14, 60)
