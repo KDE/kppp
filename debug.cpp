@@ -63,7 +63,7 @@ DebugWidget::DebugWidget(QWidget *parent, const char *name)
 
   dismiss = new QPushButton(this);
   dismiss->setGeometry(330,340,70,30);
-  dismiss->setText(i18n("Close"));
+  dismiss->setText(i18n("&Close"));
   dismiss->setFocus();
   connect(dismiss, SIGNAL(clicked()), SLOT(hide()));
 

@@ -61,11 +61,11 @@ ConWindow::ConWindow(QWidget *parent, const char *name,QWidget *mainwidget,
   this->setCaption("kppp");
 
   cancelbutton = new QPushButton(this);
-  cancelbutton->setText(i18n("Disconnect"));
+  cancelbutton->setText(i18n("&Disconnect"));
   connect(cancelbutton, SIGNAL(clicked()), mainwidget, SLOT(disconnect()));
 
   statsbutton = new QPushButton(this);
-  statsbutton->setText(i18n("Details"));
+  statsbutton->setText(i18n("De&tails"));
   statsbutton->setFocus();
   connect(statsbutton, SIGNAL(clicked()), mainwidget, SLOT(showStats()));
 

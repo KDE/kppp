@@ -64,7 +64,7 @@ ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
   tl->addWidget(progressBar);
   tl->addWidget(statusBar);
 
-  cancel = new QPushButton(i18n("Cancel"), this);
+  cancel = new QPushButton(i18n("&Cancel"), this);
   cancel->setFocus();
   connect(cancel, SIGNAL(clicked()), SLOT(cancelbutton()));
 
@@ -269,7 +269,7 @@ ModemInfo::ModemInfo(QWidget *parent, const char* name)
   //tl->addSpacing(1);
 
   QHBoxLayout *l2 = new QHBoxLayout;
-  QPushButton *ok = new QPushButton(i18n("Close"), this);
+  QPushButton *ok = new QPushButton(i18n("&Close"), this);
   ok->setDefault(TRUE);
   ok->setFocus();
 

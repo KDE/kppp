@@ -1,3 +1,8 @@
+2003-02-18  Harri Porten  <porten@kde.org>
+
+	* added keyboard accelerators, layout fix (patch from
+	Mikolaj Machowski)
+
 2002-12-22  Harri Porten  <porten@kde.org>
 
 	* acctselect.cpp: allow %xx escapes in ruleset file names.

@@ -58,7 +58,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
 {
   QVBoxLayout *l1 = new QVBoxLayout(parent, 0, KDialog::spacingHint());
 
-  enable_accounting = new QCheckBox(i18n("Enable accounting"), parent);
+  enable_accounting = new QCheckBox(i18n("&Enable accounting"), parent);
   l1->addWidget(enable_accounting, 1);
   connect(enable_accounting, SIGNAL(toggled(bool)), this, SLOT(enableItems(bool)));
 

@@ -116,7 +116,6 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   messw = QMAX(messw,280);
   messg->setMinimumWidth(messw);
   messg->setText(i18n("Looking for modem..."));
-  l0->addSpacing(10);
   l0->addWidget(messg);
   l0->addSpacing(10);
 
@@ -124,11 +123,11 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   tl->addLayout(l1);
   l1->addStretch(1);
 
-  debug = new QPushButton(i18n("Log"), this);
+  debug = new QPushButton(i18n("&Log"), this);
   debug->setToggleButton(true);
   connect(debug, SIGNAL(clicked()), SIGNAL(toggleDebugWindow()));
 
-  cancel = new QPushButton(i18n("Cancel"), this);
+  cancel = new QPushButton(i18n("&Cancel"), this);
   cancel->setFocus();
   connect(cancel, SIGNAL(clicked()), SLOT(cancelbutton()));
 
@@ -139,6 +138,7 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   cancel->setFixedWidth(maxw);
   l1->addWidget(debug);
   l1->addWidget(cancel);
+  l1->addSpacing(10);
 
   setFixedSize(sizeHint());
 

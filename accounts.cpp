@@ -264,7 +264,7 @@ void AccountWidget::newaccount() {
 	"very special settings, you might want to try the standard, "
 		"dialog-based setup."), 
 		i18n("Create New Account"),
-		i18n("Wizard"), i18n("Dialog Setup"), i18n("Cancel"));
+		i18n("&Wizard"), i18n("&Manual Setup"), i18n("Cancel"));
 
   switch(query) {
   case KMessageBox::Yes:
@@ -426,14 +426,14 @@ QueryReset::QueryReset(QWidget *parent) : QDialog(parent, 0, true) {
   QVGroupBox *f = new QVGroupBox(i18n("What to Reset"), this);
 
   QVBoxLayout *l1 = new QVBoxLayout(parent, 10, 10);
-  costs = new QCheckBox(i18n("Reset the accumulated phone costs"), f);
+  costs = new QCheckBox(i18n("Reset the accumulated p&hone costs"), f);
   costs->setChecked(true);
   l1->addWidget(costs);
   QWhatsThis::add(costs, i18n("Check this to set the phone costs\n"
 			      "to zero. Typically you'll want to\n"
 			      "do this once a month."));
 
-  volume = new QCheckBox(i18n("Reset volume accounting"), f);
+  volume = new QCheckBox(i18n("Reset &volume accounting"), f);
   volume->setChecked(true);
   l1->addWidget(volume);
   QWhatsThis::add(volume, i18n("Check this to set the volume accounting\n"
@@ -449,9 +449,9 @@ QueryReset::QueryReset(QWidget *parent) : QDialog(parent, 0, true) {
 
   KButtonBox *bbox = new KButtonBox(this);
   bbox->addStretch(1);
-  QPushButton *ok = bbox->addButton(i18n("OK"));
+  QPushButton *ok = bbox->addButton(i18n("&OK"));
   ok->setDefault(true);
-  QPushButton *cancel = bbox->addButton(i18n("Cancel"));
+  QPushButton *cancel = bbox->addButton(i18n("&Cancel"));
 
   connect(ok, SIGNAL(clicked()),
 	  this, SLOT(accepted()));

@@ -123,25 +123,29 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
 
 
   initresp = new QLineEdit(dummyWidget);
-  label2 = new QLabel(i18n("Init response:"), dummyWidget);
+  label2 = new QLabel(i18n("Init &response:"), dummyWidget);
+  label2->setBuddy(initresp);
   ADJUSTEDIT(initresp);
   l1->addWidget(label2, row, 1);
   l1->addWidget(initresp, row++, 2);
 
   nodetectdialtone = new QLineEdit(dummyWidget);
-  lnodetectdialtone = new QLabel(i18n("No dial tone detection:"), dummyWidget);
+  lnodetectdialtone = new QLabel(i18n("No di&al tone detection:"), dummyWidget);
+  lnodetectdialtone->setBuddy(nodetectdialtone);
   ADJUSTEDIT(nodetectdialtone);
   l1->addWidget(lnodetectdialtone, row, 1);
   l1->addWidget(nodetectdialtone, row++, 2);
 
   dialstr = new QLineEdit(dummyWidget);
-  label4 = new QLabel(i18n("Dial string:"),dummyWidget);
+  label4 = new QLabel(i18n("Dial &string:"),dummyWidget);
+  label4->setBuddy(dialstr);
   ADJUSTEDIT(dialstr);
   l1->addWidget(label4, row, 1);
   l1->addWidget(dialstr, row++, 2);
 
   connectresp = new QLineEdit(dummyWidget);
-  label5 = new QLabel(i18n("Connect response:"), dummyWidget);
+  label5 = new QLabel(i18n("Co&nnect response:"), dummyWidget);
+  label5->setBuddy(connectresp);
   ADJUSTEDIT(connectresp);
   l1->addWidget(label5, row, 1);
   l1->addWidget(connectresp, row++, 2);
@@ -153,7 +157,8 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   l1->addWidget(busyresp, row++, 2);
 
   nocarrierresp = new QLineEdit(dummyWidget);
-  label7 = new QLabel(i18n("No carrier response:"), dummyWidget);
+  label7 = new QLabel(i18n("No carr&ier response:"), dummyWidget);
+  label7->setBuddy(nocarrierresp);
   ADJUSTEDIT(nocarrierresp);
   l1->addWidget(label7, row, 1);
   l1->addWidget(nocarrierresp, row++, 2);
@@ -165,7 +170,8 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   l1->addWidget(nodialtoneresp, row++, 2);
 
   hangupstr = new QLineEdit(dummyWidget);
-  label9 = new QLabel(i18n("Hangup string:"), dummyWidget);
+  label9 = new QLabel(i18n("&Hangup string:"), dummyWidget);
+  label9->setBuddy(hangupstr);
   ADJUSTEDIT(hangupstr);
   l1->addWidget(label9, row, 1);
   l1->addWidget(hangupstr, row++, 2);
@@ -177,7 +183,8 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   l1->addWidget(hangupresp, row++, 2);
 
   answerstr = new QLineEdit(dummyWidget);
-  label11 = new QLabel(i18n("Answer string:"), dummyWidget);
+  label11 = new QLabel(i18n("Answ&er string:"), dummyWidget);
+  label11->setBuddy(answerstr);
   ADJUSTEDIT(answerstr);
   l1->addWidget(label11, row, 1);
   l1->addWidget(answerstr, row++, 2);
@@ -189,13 +196,15 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   l1->addWidget(ringresp, row++, 2);
 
   answerresp = new QLineEdit(dummyWidget);
-  label13 = new QLabel(i18n("Answer response:"), dummyWidget);
+  label13 = new QLabel(i18n("Ans&wer response:"), dummyWidget);
+  label13->setBuddy(answerresp);
   ADJUSTEDIT(answerresp);
   l1->addWidget(label13, row, 1);
   l1->addWidget(answerresp, row++, 2);
 
   escapestr = new QLineEdit(dummyWidget);
-  label14 = new QLabel(i18n("Escape string:"), dummyWidget);
+  label14 = new QLabel(i18n("Escape strin&g:"), dummyWidget);
+  label14->setBuddy(escapestr);
   ADJUSTEDIT(escapestr);
   l1->addWidget(label14, row, 1);
   l1->addWidget(escapestr, row++, 2);

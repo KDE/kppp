@@ -170,7 +170,7 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
   }
 
   cancelbutton = new QPushButton(this, "cancelbutton");
-  cancelbutton->setText(i18n("Close"));
+  cancelbutton->setText(i18n("&Close"));
   cancelbutton->setFocus();
   connect(cancelbutton, SIGNAL(clicked()), this,SLOT(cancel()));
   cancelbutton->setFixedHeight(cancelbutton->sizeHint().height());

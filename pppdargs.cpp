@@ -54,10 +54,11 @@ PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
   QHBoxLayout *l11 = new QHBoxLayout(10);
   l1->addLayout(l11);
 
-  argument_label = new QLabel(i18n("Argument:"), this);
+  argument_label = new QLabel(i18n("Arg&ument:"), this);
   l11->addWidget(argument_label);
 
   argument = new QLineEdit(this);
+  argument_label->setBuddy(argument);
   connect(argument, SIGNAL(returnPressed()),
 	  SLOT(addbutton()));
   l11->addWidget(argument);
@@ -70,16 +71,16 @@ PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
 	  this, SLOT(itemSelected(int)));
   l1->addWidget(arguments, 1);
 
-  add = new QPushButton(i18n("Add"), this);
+  add = new QPushButton(i18n("&Add"), this);
   connect(add, SIGNAL(clicked()), SLOT(addbutton()));
   l2->addWidget(add);
   l2->addStretch(1);
 
-  remove = new QPushButton(i18n("Remove"), this);
+  remove = new QPushButton(i18n("&Remove"), this);
   connect(remove, SIGNAL(clicked()), SLOT(removebutton()));
   l2->addWidget(remove);
 
-  defaults = new QPushButton(i18n("Defaults"), this);
+  defaults = new QPushButton(i18n("&Defaults"), this);
   connect(defaults, SIGNAL(clicked()), SLOT(defaultsbutton()));
   l2->addWidget(defaults);
 
@@ -87,9 +88,9 @@ PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
 
   KButtonBox *bbox = new KButtonBox(this);
   bbox->addStretch(1);
-  closebtn = bbox->addButton(i18n("OK"));
+  closebtn = bbox->addButton(i18n("&OK"));
   connect(closebtn, SIGNAL(clicked()), SLOT(closebutton()));
-  QPushButton *cancel = bbox->addButton(i18n("Cancel"));
+  QPushButton *cancel = bbox->addButton(i18n("&Cancel"));
   connect(cancel, SIGNAL(clicked()),
 	  this, SLOT(reject()));
   bbox->layout();
