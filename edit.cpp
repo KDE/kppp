@@ -692,8 +692,14 @@ void DNSWidget::save() {
   for(uint i=0; i < dnsservers->count(); i++)
     serverlist.append(dnsservers->text(i));
   gpppdata.setDns(serverlist);
+  
+  // strip leading dot
+  QString s(dnsdomain->text());
+  if(s.left(1) == ".")
+    gpppdata.setDomain(dnsdomain->text()+1);
+  else
+    gpppdata.setDomain(dnsdomain->text());
 
-  gpppdata.setDomain(dnsdomain->text());
   gpppdata.setExDNSDisabled(exdnsdisabled_toggle->isChecked());
 }
 

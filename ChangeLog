@@ -15,6 +15,9 @@
 	  of the size managment), which makes adding or deleting widgets
 	  in the tab-dialogs much easier (especially for other people)
 
+	* if a user enters to domain name with a leading dot, this is
+	  silently ignored now.
+
 1999-02-08  Harri Porten  <porten@kde.org>
 
 	* removed some doubled and obsolete code. Some simplifications.
