@@ -74,10 +74,10 @@
 #endif
 
 #else	/* STREAMS */
+#include <sys/socket.h>
 #include <sys/stropts.h>	/* SVR4, Solaris 2, SunOS 4, OSF/1, etc. */
 #include <net/ppp_defs.h>
 #include <net/pppio.h>
-#include <sys/socket.h>
 #include <net/if.h>
 #include <sys/sockio.h>
 
@@ -146,11 +146,11 @@ bool PPPStats::ifIsUp() {
 #endif
 
 #ifdef STREAMS
-    if ((s = open("/dev/ppp", O_RDONLY)) < 0) {
+    if ((t = open("/dev/ppp", O_RDONLY)) < 0) {
 	perror("pppstats: Couldn't open /dev/ppp: ");
 	return false;
     }
-    if (strioctl(s, PPPIO_ATTACH, (char*)&unit, sizeof(int), 0) < 0) {
+    if (!strioctl(t, PPPIO_ATTACH, (char*)&unit, sizeof(int), 0)) {
 	fprintf(stderr, "pppstats: ppp%d is not available\n", unit);
 	return false;
     }

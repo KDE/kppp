@@ -112,4 +112,12 @@ const unsigned int MAX_CMDLEN = 2024;
 #define PPP_PID_DIR "/etc/ppp/"
 #endif
 
+#if defined(__svr4__)
+#define STREAMS
+#endif
+
+#ifdef _XPG4_2
+#define __xnet_connect connect
+#endif
+
 #endif

@@ -69,6 +69,7 @@ private:
 
   int ibytes_last, obytes_last;
   int s;                      // socket file descriptor
+  int t;
   int unit;
   char unitName[5];
   enum IOStatus ioStatus;

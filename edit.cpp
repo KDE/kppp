@@ -24,6 +24,7 @@
  */
 
 #include <string.h>
+#include <termios.h>
 #include <qlayout.h>
 #include <kmessagebox.h>
 #include <qwhatsthis.h>
@@ -38,7 +39,6 @@
 
 #include "edit.h"
 #include "pppdata.h"
-#include "termios.h"
 #include "newwidget.h"
 #include "iplined.h"
 
@@ -60,12 +60,12 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
   QWhatsThis::add(connect_label,tmp);
   QWhatsThis::add(connectname_l,tmp);
 
-  
+
   number_label = new QLabel(i18n("Phone Number:"), peer());
   number_label->setAlignment(AlignTop|AlignLeft);
-  tl->addWidget(number_label, 1, 0);  
+  tl->addWidget(number_label, 1, 0);
 
-  QHBoxLayout *lpn = new QHBoxLayout(5);  
+  QHBoxLayout *lpn = new QHBoxLayout(5);
   tl->addLayout(lpn, 1, 1);
   numbers = new QListBox(peer());
   numbers->setMinimumSize(120, 70);
@@ -97,7 +97,7 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
   connect(numbers, SIGNAL(highlighted(int)),
 	  this, SLOT(selectionChanged(int)));
   numbersChanged();
-  
+
   tmp = i18n("<p>Specifies the phone numbers to dial. You\n"
 	     "can supply multiple numbers here, simply\n"
 	     "click on \"Add\". You can arrange the\n"
@@ -108,7 +108,7 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
 
   QWhatsThis::add(number_label,tmp);
   QWhatsThis::add(numbers,tmp);
-  
+
   auth_l = new QLabel(i18n("Authentication:"), peer());
   tl->addWidget(auth_l, 3, 0);
 
@@ -144,13 +144,13 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
 		       "gains access to this file!"));
 
   pppdargs = new QPushButton(i18n("Customize pppd arguments..."), peer());
-  connect(pppdargs, SIGNAL(clicked()), SLOT(pppdargsbutton()));  
+  connect(pppdargs, SIGNAL(clicked()), SLOT(pppdargsbutton()));
   tl->addMultiCellWidget(pppdargs, 5, 5, 0, 1, AlignCenter);
 
   // Set defaults if editing an existing connection
   if(!isnewaccount) {
     connectname_l->setText(gpppdata.accname());
-     
+
     // insert the phone numbers into the listbox
     QString n = gpppdata.phonenumber();
     QString tmp = "";
@@ -207,7 +207,7 @@ void DialWidget::numbersChanged() {
 
   del->setEnabled(sel != -1);
   up->setEnabled(sel != -1 && sel != 0);
-  down->setEnabled(sel != -1 && sel != (int)numbers->count()-1); 
+  down->setEnabled(sel != -1 && sel != (int)numbers->count()-1);
 }
 
 
@@ -286,7 +286,7 @@ i18n("Here you can select commands to run at certain stages of the\n"
   QGridLayout *l1 = new QGridLayout(4, 2, 10);
   tl->addLayout(l1);
   l1->setColStretch(0, 0);
-  l1->setColStretch(1, 1);  
+  l1->setColStretch(1, 1);
 
   before_connect_l = new QLabel(i18n("Before connect:"), peer());
   before_connect_l->setAlignment(AlignVCenter);
@@ -332,7 +332,7 @@ i18n("Here you can select commands to run at certain stages of the\n"
 
   QWhatsThis::add(predisconnect_label,tmp);
   QWhatsThis::add(predisconnect,tmp);
-		  
+
   discommand_label = new QLabel(i18n("Upon disconnect:"),
 			      peer());
   discommand_label->setAlignment(AlignVCenter);
@@ -368,7 +368,7 @@ bool ExecWidget::save() {
   gpppdata.setCommand_before_connect(before_connect->text());
   gpppdata.setCommand_on_connect(command->text());
   gpppdata.setCommand_before_disconnect(predisconnect->text());
-  gpppdata.setCommand_on_disconnect(discommand->text());  
+  gpppdata.setCommand_on_disconnect(discommand->text());
   return true;
 }
 
@@ -407,8 +407,8 @@ IPWidget::IPWidget( QWidget *parent, bool isnewaccount, const char *name )
   QWhatsThis::add(subnetmask_l,tmp);
   rb = new QButtonGroup(peer());
   rb->hide();
-  connect(rb, SIGNAL(clicked(int)), 
-	  SLOT(hitIPSelect(int)));  
+  connect(rb, SIGNAL(clicked(int)),
+	  SLOT(hitIPSelect(int)));
 
   dynamicadd_rb = new QRadioButton(peer());
   dynamicadd_rb->setText(i18n("Dynamic IP Address"));
@@ -447,7 +447,7 @@ IPWidget::IPWidget( QWidget *parent, bool isnewaccount, const char *name )
 
   //load info from gpppdata
   if(!isnewaccount) {
-    if(gpppdata.ipaddr() == "0.0.0.0" && 
+    if(gpppdata.ipaddr() == "0.0.0.0" &&
        gpppdata.subnetmask() == "0.0.0.0") {
       dynamicadd_rb->setChecked(true);
       hitIPSelect(0);
@@ -478,7 +478,7 @@ void IPWidget::resizeEvent(QResizeEvent *e) {
 
   // egcs wants this to prevent a warning
   int minh = 0;
-  minh = 2 * ipaddress_l->sizeHint().height() + 
+  minh = 2 * ipaddress_l->sizeHint().height() +
     fontMetrics().lineSpacing() + 20;
 
   // resize the frame
@@ -497,18 +497,18 @@ void IPWidget::resizeEvent(QResizeEvent *e) {
   // the labels
   ipaddress_label->resize(ipaddress_label->sizeHint().width(),
 			  ipaddress_l->height());
-  ipaddress_label->move(box_x + 15, ipaddress_l->geometry().top());		
+  ipaddress_label->move(box_x + 15, ipaddress_l->geometry().top());
   sub_label->resize(sub_label->sizeHint().width(),
 		    ipaddress_l->height());
   sub_label->move(box_x + 15, subnetmask_l->geometry().top());
 
   // move the radiobuttons
   staticadd_rb->resize(staticadd_rb->sizeHint());
-  dynamicadd_rb->resize(dynamicadd_rb->sizeHint());  
-  staticadd_rb->move(box_x + 25, 
+  dynamicadd_rb->resize(dynamicadd_rb->sizeHint());
+  staticadd_rb->move(box_x + 25,
 		     box_y - staticadd_rb->sizeHint().height()/2);
   dynamicadd_rb->move(box_x + 25,
-		      staticadd_rb->geometry().top() - 
+		      staticadd_rb->geometry().top() -
 		      dynamicadd_rb->sizeHint().height() - 20);
 
   autoname->resize(autoname->sizeHint());
@@ -522,7 +522,7 @@ void IPWidget::autoname_t(bool on) {
 
   // big-fat warning when selecting the auto configure hostname option
   if(on && !was_warned) {
-    KMessageBox::information(this, 
+    KMessageBox::information(this,
 			 i18n("Selecting this option might cause some weird\n"
 			      "problems with the X-server and applications\n"
 			      "while kppp is connected. Don't use it until\n"
@@ -544,7 +544,7 @@ void IPWidget::save() {
     gpppdata.setIpaddr(ipaddress_l->text());
     gpppdata.setSubnetmask(subnetmask_l->text());
   }
-  gpppdata.setAutoname(autoname->isChecked()); 
+  gpppdata.setAutoname(autoname->isChecked());
 }
 
 
@@ -570,7 +570,7 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
 {
   //  box = new QGroupBox(peer());
   QGridLayout *tl = new QGridLayout(peer(), 7, 2, 10, 10);
-  
+
   dnsdomain_label = new QLabel(i18n("Domain Name:"), peer());
   tl->addWidget(dnsdomain_label, 0, 0);
 
@@ -587,7 +587,7 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
 		     "made to the domain name.");
 
   QWhatsThis::add(dnsdomain_label,tmp);
-  QWhatsThis::add(dnsdomain,tmp); 
+  QWhatsThis::add(dnsdomain,tmp);
 
   conf_label = new QLabel(i18n("Configuration:"), peer());
   tl->addWidget(conf_label, 1, 0);
@@ -595,7 +595,7 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
   bg = new QButtonGroup("Group", this);
   connect(bg, SIGNAL(clicked(int)), SLOT(DNS_Mode_Selected(int)));
   bg->hide();
- 
+
   autodns = new QRadioButton(i18n("Automatic"), peer());
   bg->insert(autodns, 0);
   tl->addWidget(autodns, 1, 1);
@@ -606,16 +606,16 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
   mandns = new QRadioButton(i18n("Manual"), peer());
   bg->insert(mandns, 1);
   tl->addWidget(mandns, 2, 1);
-  
+
   dns_label = new QLabel(i18n("DNS IP Address:"), peer());
   tl->addWidget(dns_label, 3, 0);
 
   QHBoxLayout *l2 = new QHBoxLayout;
   tl->addLayout(l2, 3, 1);
   dnsipaddr = new IPLineEdit(peer());
-  connect(dnsipaddr, SIGNAL(returnPressed()), 
+  connect(dnsipaddr, SIGNAL(returnPressed()),
 	  SLOT(adddns()));
-  connect(dnsipaddr, SIGNAL(textChanged(const QString &)), 
+  connect(dnsipaddr, SIGNAL(textChanged(const QString &)),
 	  SLOT(DNS_Edit_Changed(const QString &)));
   l2->addWidget(dnsipaddr, 1);
   l2->addStretch(1);
@@ -626,7 +626,7 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
 	     "\n"
 	     "To add a DNS server, type in the IP address of\n"
 	     "of the DNS server here and click on <b>Add</b>");
-  
+
   QWhatsThis::add(dns_label, tmp);
   QWhatsThis::add(dnsipaddr, tmp);
 
@@ -643,7 +643,7 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
 		  i18n("Click this button to add the DNS server\n"
 		       "specified in the field above. The entry\n"
 		       "will then be added to the list below"));
-		  
+
   remove = new QPushButton(i18n("Remove"), peer());
   connect(remove, SIGNAL(clicked()), SLOT(removedns()));
   width = remove->sizeHint().width();
@@ -728,7 +728,7 @@ void DNSWidget::save() {
   for(uint i=0; i < dnsservers->count(); i++)
     serverlist.append(dnsservers->text(i));
   gpppdata.setDns(serverlist);
-  
+
   // strip leading dot
   QString s(dnsdomain->text());
   if(s.left(1) == ".")
@@ -780,7 +780,7 @@ GatewayWidget::GatewayWidget( QWidget *parent, bool isnewaccount, const char *na
 		       "\n"
 		       "This is the default for most ISPs, so you should\n"
 		       "probably leave this option on"));
-		  
+
 
   staticgateway = new QRadioButton(peer());
   staticgateway->setText(i18n("Static Gateway"));
@@ -825,7 +825,7 @@ void GatewayWidget::resizeEvent(QResizeEvent *e) {
   KGroupBox::resizeEvent(e);
 
   // calculate the best with for the frame
-  int minw = gate_label->sizeHint().width() + 6 + 
+  int minw = gate_label->sizeHint().width() + 6 +
     gatewayaddr->sizeHint().width() + 40;
 
   // egcs wants this to prevent a warning
@@ -846,15 +846,15 @@ void GatewayWidget::resizeEvent(QResizeEvent *e) {
 
   // the labels
   gate_label->resize(gate_label->sizeHint());
-  gate_label->move(box_x + 15, gatewayaddr->geometry().top());		
+  gate_label->move(box_x + 15, gatewayaddr->geometry().top());
 
   // move the radiobuttons
   staticgateway->resize(staticgateway->sizeHint());
-  defaultgateway->resize(defaultgateway->sizeHint());  
-  staticgateway->move(box_x + 25, 
+  defaultgateway->resize(defaultgateway->sizeHint());
+  staticgateway->move(box_x + 25,
 		     box_y - staticgateway->sizeHint().height()/2);
   defaultgateway->move(box_x + 25,
-		      staticgateway->geometry().top() - 
+		      staticgateway->geometry().top() -
 		      defaultgateway->sizeHint().height() - 20);
 
   defaultroute->resize(defaultroute->sizeHint());
@@ -865,7 +865,7 @@ void GatewayWidget::resizeEvent(QResizeEvent *e) {
 
 void GatewayWidget::save() {
   gpppdata.setGateway(gatewayaddr->text());
-  gpppdata.setDefaultroute(defaultroute->isChecked()); 
+  gpppdata.setDefaultroute(defaultroute->isChecked());
 }
 
 
@@ -886,12 +886,12 @@ void GatewayWidget::hitGatewaySelect( int i ) {
 
 ScriptWidget::ScriptWidget( QWidget *parent, bool isnewaccount, const char *name )
   : KGroupBox(i18n("Edit Script"), parent, name)
-{ 
+{
   QVBoxLayout *tl = new QVBoxLayout(peer(), 20, 10);
   se = new ScriptEdit(peer());
   connect(se, SIGNAL(returnPressed()), SLOT(addButton()));
   tl->addWidget(se);
-  
+
   // insert equal-sized buttons
   KButtonBox *bbox = new KButtonBox(peer());
   add = bbox->addButton(i18n("Add"));
@@ -963,7 +963,7 @@ bool ScriptWidget::check() {
 	if ( lend > lstart ) errcnt++;
     }
     return ( (errcnt == 0 ) && (lstart == lend) );
-  } 
+  }
   return true;
 }
 
@@ -976,7 +976,7 @@ void ScriptWidget::save() {
   }
   gpppdata.setScriptType(typelist);
   gpppdata.setScript(arglist);
-}                        
+}
 
 
 
