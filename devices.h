@@ -48,6 +48,10 @@ static const char *devices[] = {
   "/dev/usb/ttyUSB1",
   "/dev/usb/ttyUSB2",
   "/dev/usb/ttyUSB3",
+  "/dev/ttyUSB0",          /* USB stuff modems  with udev */
+  "/dev/ttyUSB1",
+  "/dev/ttyUSB2",
+  "/dev/ttyUSB3",  
   "/dev/usb/tts/0",          /* USB stuff modems with devfs*/
   "/dev/usb/tts/1",
   "/dev/usb/tts/2",
@@ -64,6 +68,10 @@ static const char *devices[] = {
   "/dev/ttySL1",
   "/dev/ttySL2",
   "/dev/ttySL3",  
+  "/dev/ttySHSF0",
+  "/dev/ttySHSF1",
+  "/dev/ttySHSF2",
+  "/dev/ttySHSF3",  /* necessary for conexant modem which use hsfserial commercial module */
 #elif defined(__svr4__)
   "/dev/cua/a",
   "/dev/cua/b",
