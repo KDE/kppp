@@ -53,3 +53,4 @@ Path=
 Type=Application
 Terminal=
 X-DCOP-ServiceType=Multi
+Categories=QT;KDE;Network
