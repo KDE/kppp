@@ -1002,7 +1002,6 @@ void KPPPWidget::beginConnect() {
     debugwindow->show();
     con->raise();
   }
-  con->debug->setOn(show_debug);
 
   emit begin_connect();
 }
