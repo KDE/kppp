@@ -29,12 +29,12 @@ SUBDIRS = docs pixmaps icons logview Rules DB
 bin_PROGRAMS = 	kppp
 
 # Which sources should be compiled for kppp.
-kppp_SOURCES	= accounts.cpp \
+kppp_SOURCES	= general.cpp \
+		accounts.cpp \
 		connect.cpp \
 		conwindow.cpp \
 		debug.cpp \
 		edit.cpp \
-		general.cpp \
 		iplined.cpp \
 		main.cpp \
                 modem.cpp \
