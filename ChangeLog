@@ -1,3 +1,7 @@
+2004-07-11  Harri Porten  <porten@kde.org>
+
+	* general.cpp (ModemWidget): fixed name label of modem dialog
+
 2004-05-28  Harri Porten  <porten@kde.org>
 
 	* devices.h: added /dev/ttyS4 as requested by Christopher Martin for

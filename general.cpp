@@ -206,19 +206,17 @@ void GeneralWidget::pppdtimeoutchanged(int n) {
 ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem, const char *name)
   : QWidget(parent, name)
 {
-  int k;
-
   QGridLayout *tl = new QGridLayout(parent, 9, 2, 0, KDialog::spacingHint());
 
-	connect_label = new QLabel(i18n("Connection &name:"), parent);
+  connect_label = new QLabel(i18n("Modem &name:"), parent);
   tl->addWidget(connect_label, 0, 0);
 
-	connectname_l = new QLineEdit(parent);
+  connectname_l = new QLineEdit(parent);
   connectname_l->setMaxLength(ACCNAME_SIZE);
   connect_label->setBuddy(connectname_l);
 
   tl->addWidget(connectname_l, 0, 1);
-  QString tmp = i18n("Type in a unique name for this connection");
+  QString tmp = i18n("Type in a unique name for this modem");
 
   QWhatsThis::add(connect_label,tmp);
   QWhatsThis::add(connectname_l,tmp);
@@ -230,7 +228,7 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem, const char *name)
   label1->setBuddy(modemdevice);
   // ### deviceExist mechanism not functional right now
   bool deviceExist = false;
-  for(k = 0; devices[k]; k++)
+  for(int k = 0; devices[k]; k++)
   {
       if ( devices[k] == gpppdata.modemDevice())
           deviceExist = true;
@@ -325,7 +323,7 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem, const char *name)
     "2400",
     0};
 
-  for(k = 0; baudrates[k]; k++)
+  for(int k = 0; baudrates[k]; k++)
     baud_c->insertItem(baudrates[k]);
 
   baud_c->setCurrentItem(3);
