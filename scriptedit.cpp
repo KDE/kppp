@@ -26,7 +26,6 @@
  */
 
 #include "scriptedit.h"
-#include <kapp.h>
 #include <qlayout.h>
 
 ScriptEdit::ScriptEdit( QWidget *parent, const char *name )
@@ -51,16 +50,12 @@ ScriptEdit::ScriptEdit( QWidget *parent, const char *name )
   st->insertItem("Save");
   st->insertItem("SendNoEcho");
   connect(st, SIGNAL(activated(int)), SLOT(setType(int)));
-  st->setMinimumSize(st->sizeHint());
-  st->setFixedHeight(st->sizeHint().height());
 
   se = new QLineEdit(this, "se");
   se->setGeometry(120, 5, 140, 25);
   se->setMaxLength(50);
   connect(se, SIGNAL(returnPressed()), SLOT(seReturnPressed()));
 
-  se->setFixedHeight(se->sizeHint().height());
-  se->setMinimumWidth(se->sizeHint().width());
   tl->addWidget(st, 3);
   tl->addWidget(se, 7);
 
@@ -80,11 +75,11 @@ void ScriptEdit::seReturnPressed() {
 }
 
 
-const char *ScriptEdit::text() {
+QString ScriptEdit::text() {
   return se->text();
 }
 
-void ScriptEdit::setText(const char *t) {
+void ScriptEdit::setText(const QString &t) {
   se->setText(t);
 }
 

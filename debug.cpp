@@ -31,7 +31,7 @@ myMultiEdit::myMultiEdit(QWidget *parent, const char *name)
 {
 }
 
-void myMultiEdit::insertChar(char c) {
+void myMultiEdit::insertChar(unsigned char c) {
   QMultiLineEdit::insert(QChar(c));
 }
 
@@ -86,7 +86,7 @@ void DebugWidget::clear() {
 }
 
 
-void DebugWidget::addChar(char c) {
+void DebugWidget::addChar(unsigned char c) {
   QString stuff;
 
   if(c == '\r' || c == '\n') {
@@ -97,7 +97,7 @@ void DebugWidget::addChar(char c) {
 }
 
 
-void DebugWidget::statusLabel(QString s) {
+void DebugWidget::statusLabel(const QString &s) {
   statuslabel->setText(s);
 }
 
@@ -131,7 +131,7 @@ void DebugWidget::toggleVisibility() {
   else
     show();
 
-  bool showlog = (int)isVisible();
+  bool showlog = isVisible();
   gpppdata.set_show_log_window(showlog);
 }
 

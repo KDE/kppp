@@ -157,7 +157,7 @@ public:
   bool open();
   void save();
   void cancel();
-  int  access();       // read/write access
+  int  access() const;       // read/write access
 
   // function to read/write date to configuration file
   const QString readConfig(const char *, const char *, const char *);
@@ -292,7 +292,7 @@ public:
   int  UseCDLine();
 
   // functions to set/get account information
-  int count();
+  int count() const;
   bool setAccount(const QString &);
   bool setAccountbyIndex(int);
 
@@ -381,13 +381,13 @@ public:
   void setpppdArgument(QStrList &);
 
   //functions to change/set the child pppd process info
-  const bool pppdRunning();
+  bool pppdRunning() const;
   void setpppdRunning(bool set);
 
-  pid_t suidChildPid();
+  pid_t suidChildPid() const;
   void setSuidChildPid(pid_t);
 
-  int pppdError();
+  int pppdError() const;
   void setpppdError(int err);
 
   // functions to set/query the accounting info

@@ -39,8 +39,8 @@ public:
   ScriptEdit( QWidget *parent=0, const char *name=0 );
   ~ScriptEdit() {}
 
-  const char *text();
-  void setText(const char *);
+  QString text();
+  void setText(const QString &);
   int type();
 
   virtual void setEnabled(bool);

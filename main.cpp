@@ -645,12 +645,12 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   // connect the ConnectWidgets various signals
   connect(con, SIGNAL(closeDebugWindow()),
 	  debugwindow, SLOT(hide()));
-  connect(con, SIGNAL(debugMessage(QString)),
-	  debugwindow, SLOT(statusLabel(QString)));
+  connect(con, SIGNAL(debugMessage(const QString &)),
+	  debugwindow, SLOT(statusLabel(const QString &)));
   connect(con, SIGNAL(toggleDebugWindow()),
 	  debugwindow, SLOT(toggleVisibility()));
-  connect(con, SIGNAL(debugPutChar(char)),
-	  debugwindow, SLOT(addChar(char)));
+  connect(con, SIGNAL(debugPutChar(unsigned char)),
+	  debugwindow, SLOT(addChar(unsigned char)));
   connect(con, SIGNAL(startAccounting()),
 	  this, SLOT(startAccounting()));
   connect(con, SIGNAL(stopAccounting()),
@@ -702,10 +702,10 @@ void KPPPWidget::prepareSetupDialog() {
     accounts = new AccountWidget(tabWindow,"accounts");
     connect(accounts, SIGNAL(resetaccounts()),
 	    this, SLOT(resetaccounts()));
-    connect(accounts, SIGNAL(resetCosts(const char *)),
-	    this, SLOT(resetCosts(const char *)));
-    connect(accounts, SIGNAL(resetVolume(const char *)),
-	    this, SLOT(resetVolume(const char *)));
+    connect(accounts, SIGNAL(resetCosts(const QString &)),
+	    this, SLOT(resetCosts(const QString &)));
+    connect(accounts, SIGNAL(resetVolume(const QString &)),
+	    this, SLOT(resetVolume(const QString &)));
     modem1 = new ModemWidget(tabWindow);
     modem2 = new ModemWidget2(tabWindow);
     general = new GeneralWidget(tabWindow);
@@ -1063,8 +1063,8 @@ void KPPPWidget::disconnect() {
   if (strcmp(gpppdata.command_before_disconnect(), "") != 0) {
     con_win->hide();
     con->show();
-    con->setCaption("Disconnecting ...");
-    con->setMsg("Executing command before disconnection.");
+    con->setCaption(i18n("Disconnecting ..."));
+    con->setMsg(i18n("Executing command before disconnection."));
 
     kapp->processEvents();
     pid_t id = execute_command(gpppdata.command_before_disconnect());
@@ -1207,17 +1207,17 @@ void KPPPWidget::passwordChanged(const QString &) {
 }
 
 
-void KPPPWidget::setPW_Edit(const char *pw) {
+void KPPPWidget::setPW_Edit(const QString &pw) {
   PW_Edit->setText(pw);
 }
 
 
-void KPPPWidget::resetCosts(const char *s) {
+void KPPPWidget::resetCosts(const QString &s) {
   AccountingBase::resetCosts(s);
 }
 
 
-void KPPPWidget::resetVolume(const char *s) {
+void KPPPWidget::resetVolume(const QString &s) {
   AccountingBase::resetVolume(s);
 }
 

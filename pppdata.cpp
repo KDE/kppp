@@ -107,7 +107,7 @@ void PPPData::cancel() {
 
 
 // currently differentiates between READWRITE and NONE only
-int PPPData::access() {
+int PPPData::access() const {
 
   if(config)
     return KApplication::APPCONFIG_READWRITE;
@@ -617,7 +617,7 @@ void PPPData::setEnter(const QString &n) {
 //
 
 //returns number of accounts
-int PPPData::count() {
+int PPPData::count() const {
   return highcount + 1;
 }
 
@@ -1126,7 +1126,7 @@ bool PPPData::graphingEnabled() {
 //
 //functions to change/set the child pppd process info
 //
-const bool PPPData::pppdRunning() {
+bool PPPData::pppdRunning() const {
   return pppdisrunning;
 }
 
@@ -1134,7 +1134,7 @@ void PPPData::setpppdRunning(bool set) {
   pppdisrunning = set;
 }
 
-pid_t PPPData::suidChildPid() {
+pid_t PPPData::suidChildPid() const {
   return suidprocessid;
 }
 
@@ -1142,7 +1142,7 @@ void PPPData::setSuidChildPid(pid_t id) {
   suidprocessid = id;
 }
 
-int PPPData::pppdError() {
+int PPPData::pppdError() const {
   return pppderror;
 }
 

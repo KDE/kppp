@@ -55,8 +55,8 @@ private:
 
 signals:
   void resetaccounts();
-  void resetCosts(const char *);
-  void resetVolume(const char *);
+  void resetCosts(const QString &);
+  void resetVolume(const QString &);
 
 private:
   QString prettyPrintVolume(unsigned int);

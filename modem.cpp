@@ -36,6 +36,10 @@
 #include "log.h"
 #include "requester.h"
 
+#ifndef HAVE_USLEEP
+extern "C" void usleep(); // replacement from kdecore/fakes.cpp
+#endif
+
 static sigjmp_buf jmp_buffer;
 
 Modem *Modem::modem = 0;
@@ -151,7 +155,7 @@ bool Modem::opentty() {
   tty.c_cflag &= ~(CSIZE | CSTOPB | PARENB);  
   tty.c_cflag |= CS8 | CREAD;
   tty.c_cflag |= CLOCAL;                   // ignore modem status lines      
-  tty.c_iflag = IGNBRK | IGNPAR | ISTRIP;  // added ISTRIP
+  tty.c_iflag = IGNBRK | IGNPAR /* | ISTRIP */ ;
   tty.c_lflag &= ~ICANON;                  // non-canonical mode
   tty.c_lflag &= ~(ECHO|ECHOE|ECHOK|ECHOKE);
 
@@ -205,7 +209,7 @@ bool Modem::closetty() {
 }
 
 void Modem::readtty(int) {
-  char c;
+  unsigned char c;
 
   if(read(modemfd, &c, 1) == 1) {
     emit charWaiting(c);
@@ -221,13 +225,13 @@ void Modem::readtty(int) {
 
 
 void Modem::notify(const QObject *receiver, const char *member) {
-  connect(this, SIGNAL(charWaiting(char)), receiver, member);
+  connect(this, SIGNAL(charWaiting(unsigned char)), receiver, member);
   startNotifier();
 }
 
 
 void Modem::stop() {
-  disconnect(SIGNAL(charWaiting(char)));
+  disconnect(SIGNAL(charWaiting(unsigned char)));
   stopNotifier();
 }
 
@@ -261,7 +265,7 @@ void Modem::flush() {
 }
 
 
-bool Modem::writeChar(char c) {
+bool Modem::writeChar(unsigned char c) {
   return write(modemfd, &c, 1) == 1;
 }
 
@@ -513,27 +517,5 @@ void alarm_handler(int) {
   // jump 
   siglongjmp(jmp_buffer, 1);
 }
-
-#ifndef HAVE_USLEEP
-
-// usleep for those of you out there who don't have a BSD 4.2 style usleep
-
-extern "C" int select();
-
-void usleep(long usec){
-  
-  struct {
-      long tv_sec;
-      long tv_usec;
-  } tval;
-
-  tval.tv_sec = usec / 1000000;
-  tval.tv_usec = usec % 1000000;
-  select(0, 0, 0, 0, (struct timeval *) &tval);
-  return;
-
-}
-
-#endif /* HAVE_USLEEP */
 
 #include "modem.moc"

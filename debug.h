@@ -42,7 +42,7 @@ public:
   myMultiEdit(QWidget *parent=0, const char *name=0);
 
   void newLine();
-  void  insertChar(char c);
+  void insertChar(unsigned char c);
 };
 
 
@@ -54,9 +54,9 @@ public:
   void clear();
 
 public slots:
-  void statusLabel(QString);
+  void statusLabel(const QString &);
   void toggleVisibility();
-  void addChar(char);
+  void addChar(unsigned char);
 
 private slots:
   void hideit();

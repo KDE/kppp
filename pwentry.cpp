@@ -57,7 +57,7 @@ PWEntry::PWEntry( QWidget *parent, const char *name )
    isconsumed = TRUE;
 }
 
-const char *PWEntry::text() { return (pw->text()); }
+QString PWEntry::text() { return (pw->text()); }
 
 void PWEntry::focusInEvent( QFocusEvent *){
 
@@ -77,7 +77,7 @@ void PWEntry::setEchoModePassword() {
 
 }
 
-void PWEntry::setPrompt(const char* p) {
+void PWEntry::setPrompt(const QString &p) {
 
     frame->setTitle(p);
 

@@ -43,8 +43,8 @@ public:
    PWEntry( QWidget *parent=0,  const char *name=0 );   
    bool Consumed();
    void setConsumed();
-   const char *text();
-   void setPrompt( const char * t = "Enter Password:");
+   QString text();
+   void setPrompt(const QString &);
 
 public slots:
 

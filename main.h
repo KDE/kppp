@@ -77,7 +77,7 @@ public:
   friend void sigint(int);
   friend void sigchld(int);
 
-  void setPW_Edit(const char *);
+  void setPW_Edit(const QString &);
   virtual bool eventFilter(QObject *, QEvent *);
 
 private slots:
@@ -95,8 +95,8 @@ private slots:
 
 public slots:
   void resetaccounts();
-  void resetCosts(const char *);
-  void resetVolume(const char *);
+  void resetCosts(const QString &);
+  void resetVolume(const QString &);
   void disconnect();
   void log_window_toggled(bool on);
   void startAccounting();

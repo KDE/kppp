@@ -61,7 +61,7 @@ public:
   
 public:
   void set_con_speed_string();
-  void setMsg(const char *);
+  void setMsg(const QString &);
   friend void sigint(int);
 
 protected:
@@ -69,7 +69,7 @@ protected:
   void closeEvent( QCloseEvent *e );  
 
 private slots:
-  void readChar(char);
+  void readChar(unsigned char);
   void pause();
   void cancelbutton();
   void debugbutton();
@@ -83,11 +83,10 @@ public slots:
 
 signals:
   void if_waiting_signal();
-  void debugMessage(const char *);
-  void debugMessage(QString);
+  void debugMessage(const QString &);
   void toggleDebugWindow();
   void closeDebugWindow();
-  void debugPutChar(char);
+  void debugPutChar(unsigned char);
   void startAccounting();
   void stopAccounting();
 
