@@ -9,6 +9,7 @@ pkg_DATA = AddCom_by_Call.rst Addcom.rst \
 	vossnet_fun.rst vossnet_fun_light.rst vossnet_kompl.rst \
 	Planet-Interkom_Internet_by_call.rst \
 	NGI_Call_By_Call.rst \
+	MSN.rst \
 	Freenet_Enterprise.rst
 
 pkgdir = $(kde_datadir)/kppp/Rules/Germany
