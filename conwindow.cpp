@@ -89,8 +89,28 @@ bool ConWindow::event(QEvent *e) {
     gpppdata.setWinPosConWin(x(), y());
     return true;
   }
-  else 
+  else
     return QWidget::event(e);
+}
+
+QString ConWindow::prettyPrintVolume(unsigned int n) {
+  int idx = 0;
+  const QString quant[] = {i18n("Byte"), i18n("KB"),
+		   i18n("MB"), i18n("GB"), QString::null};
+
+  float n1 = n;
+  while(n >= 1024 && quant[idx] != QString::null) {
+    idx++;
+    n /= 1024;
+  }
+
+  int i = idx;
+  while(i--)
+    n1 = n1 / 1024.0;
+
+  QString s = KGlobal::locale()->formatNumber( n1, idx==0 ? 0 : 1 );
+  s += " " + quant[idx];
+  return s;
 }
 
 void ConWindow::accounting(bool on) {
@@ -251,18 +271,10 @@ void ConWindow::timeclick() {
 		 .arg(session_bill->text()).arg(total_bill->text());
   // volume accounting
   if(volumeAccountingEnabled) {
-    QString s;
-    if(stats->totalbytes < 1024*10)
-      s = i18n("%1 Byte").arg(stats->totalbytes);
-    else if(stats->totalbytes < 1024*1024)
-      s = i18n("%1 KB").arg(KGlobal::locale()->formatNumber(((float)stats->totalbytes)/1024.0, 1));
-    else if(stats->totalbytes < 1024*1024*1024 )
-      s = i18n("%1 MB").arg(KGlobal::locale()->formatNumber(((float)stats->totalbytes)/(1024.0*1024.0), 1));
-    else
-      s = i18n("%1 GB").arg(KGlobal::locale()->formatNumber(((float)stats->totalbytes)/(1024.0*1024.0*1024.0), 1));
-
-    volinfo->setText(s);
-    tooltip += i18n("\nVolume: %1").arg(s);
+    
+    volinfo->setEnabled(TRUE);
+    int bytes = gpppdata.totalBytes();
+    volinfo->setText(prettyPrintVolume(bytes));
   }
 
   seconds++;

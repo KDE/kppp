@@ -65,7 +65,7 @@ private:
   QLabel *info2;
   QPushButton *cancelbutton;
   QPushButton *statsbutton;
-
+  QString prettyPrintVolume(unsigned int);
   int minutes;
   int seconds;
   int hours;
