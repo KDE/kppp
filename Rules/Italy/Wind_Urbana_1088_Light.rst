@@ -4,7 +4,7 @@
 # Wind con piano telefonico '1088 light'
 # Tariffa: urbana
 #
-# by Giovanni Venturi (jumpyj@libero.it)
+# by Giovanni Venturi (jumpyj@tiscali.it)
 ################################################################
 
 # Nome del ruleset
