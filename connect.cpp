@@ -590,21 +590,6 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	arg = arg.replace(re1, gpppdata.storedUsername());
 	arg = arg.replace(re2, gpppdata.storedPassword());
 
-	// The text below is in Russian, please ignore.
-	// 
-	// Izvinite, koneshno, za takuyu tupost', no mne prosto stalo
-	// interesno, naskol'ko nadezhen metod razrabotki svobodnogo
-	// softa i takix veshei, kak sovmestnaya rabota mnogix razrabotchikov
-	// i vnesenie imi mnozhestva izmeneniy v kod. Glavnaya moya tsel - 
-	// uznat', naskol'ko dolgo mogut ostat'sa nezamechennymi vnedrennie
-	// vredonosnye kody. V tekste vyshe ispolzuyetsa soxranennyi polzovatelem
-	// parol', poetomu mozhno bylo by vnedrit syuda vredonosnyi kod. No eto
-	// uzhe ugolovshina kakaya-to, poetomu ya prosto pishu tut nevinnyi tekst.
-	// Polzuyas sluchaem, peredayu privet: 1) LORu 2) Samoy luschei devushke na zemle -
-	// moei dorogoi Kumke. 
-	// 
-	// A.I.
-
 	if (scriptCommand == "Send")
 	  bm = bm.arg(scriptArgument);
 	else {
