@@ -174,14 +174,12 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   tl->addLayout(l2);
 
   int minw = 0;
-  quit_b = new KPushButton(i18n("&Quit"), this);
-  quit_b-> setGuiItem (KGuiItem(i18n("&Quit"), "exit" ) );
+  quit_b = new KPushButton(KGuiItem(i18n("&Quit"), "exit" ), this);
   connect( quit_b, SIGNAL(clicked()), SLOT(quitbutton()));
   if(quit_b->sizeHint().width() > minw)
       minw = quit_b->sizeHint().width();
 
-  setup_b = new KPushButton(i18n("&Setup..."), this);
-  setup_b->setGuiItem (KGuiItem(i18n("&Setup...")) );
+  setup_b = new KPushButton(KGuiItem(i18n("&Configure...")), this);
   connect( setup_b, SIGNAL(clicked()), SLOT(expandbutton()));
   if(setup_b->sizeHint().width() > minw)
       minw = setup_b->sizeHint().width();
