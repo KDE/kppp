@@ -38,7 +38,7 @@
  *	- Initial distribution.
  */
 
-
+#include "pppstats.h"
 
 #include <ctype.h>
 #include <errno.h>
@@ -53,8 +53,6 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <netinet/in.h>
-
-#include "kpppconfig.h"
 
 #ifndef STREAMS
 #if defined(__linux__) && defined(__powerpc__) \
@@ -152,8 +150,10 @@ bool PPPStats::ifIsUp() {
     }
     if (!strioctl(t, PPPIO_ATTACH, (char*)&unit, sizeof(int), 0)) {
 	fprintf(stderr, "pppstats: ppp%d is not available\n", unit);
+	::close(t);
 	return false;
     }
+    // TODO: close t somewhere again
 #endif
     if ((s = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
 	perror("Couldn't create IP socket");
@@ -295,7 +295,7 @@ bool PPPStats::get_ppp_stats(struct ppp_stats *curp){
 #else	/* STREAMS */
 bool PPPStats::get_ppp_stats( struct ppp_stats *curp){
 
-    if (strioctl(s, PPPIO_GETSTAT, (char*)curp, 0, sizeof(*curp)) < 0) {
+    if (!strioctl(t, PPPIO_GETSTAT, (char*)curp, 0, sizeof(*curp))) {
 	if (errno == EINVAL)
 	    fprintf(stderr, "pppstats: kernel support missing\n");
 	else

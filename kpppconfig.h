@@ -114,10 +114,15 @@ const unsigned int MAX_CMDLEN = 2024;
 
 #if defined(__svr4__)
 #define STREAMS
+#define _XOPEN_SOURCE_EXTENDED
 #endif
 
 #ifdef _XPG4_2
 #define __xnet_connect connect
+#endif
+
+#ifdef __osf__
+#define _XOPEN_SOURCE_EXTENDED
 #endif
 
 #endif

@@ -26,6 +26,8 @@
 #ifndef _PPPSTATS_H_
 #define _PPPSTATS_H_
 
+
+#include "kpppconfig.h"
 #include <qobject.h>
 
 class QTimer;
@@ -69,7 +71,9 @@ private:
 
   int ibytes_last, obytes_last;
   int s;                      // socket file descriptor
+#ifdef STREAMS
   int t;
+#endif
   int unit;
   char unitName[5];
   enum IOStatus ioStatus;

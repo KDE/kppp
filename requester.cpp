@@ -26,9 +26,8 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifdef __osf__
-#define _XOPEN_SOURCE_EXTENDED
-#endif
+#include "kpppconfig.h"
+
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -57,7 +56,6 @@ extern "C" {
 #include <kdebug.h>
 #include <qfile.h>
 
-#include "kpppconfig.h"
 #include "auth.h"
 #include "pppdata.h"
 #include "opener.h"
