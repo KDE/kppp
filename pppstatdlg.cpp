@@ -25,7 +25,7 @@
 
 #include <kmsgbox.h>
 #include <qlayout.h>
-#include <qmsgbox.h>
+#include <qmessagebox.h>
 #include <kapp.h>
 #include <kwm.h>
 

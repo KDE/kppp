@@ -29,8 +29,8 @@
 #define _SCRIPTEDIT_H_
 
 #include <qwidget.h>
-#include <qcombo.h>
-#include <qlined.h>
+#include <qcombobox.h>
+#include <qlineedit.h>
 
 
 class ScriptEdit : public QWidget {

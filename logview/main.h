@@ -22,7 +22,7 @@
 #define __MAIN__H__
 
 #include <ktopwidget.h>
-#include <qtabdlg.h>
+#include <qtabdialog.h>
 #include <kmenubar.h>
 #include "monthly.h"
 

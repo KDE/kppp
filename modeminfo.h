@@ -28,10 +28,10 @@
 #ifndef _MODEMINFO_H_
 #define _MODEMINFO_H_
 
-#include <qgrpbox.h> 
+#include <qgroupbox.h> 
 #include <qdialog.h>
-#include <qlined.h>
-#include <qpushbt.h>
+#include <qlineedit.h>
+#include <qpushbutton.h>
 #include <qpainter.h>
 #include <qlabel.h>
 #include <qevent.h>
@@ -39,8 +39,8 @@
 #include <qsignal.h>
 #include <qregexp.h> 
 #include <qframe.h>
-#include <qmsgbox.h>
-#include <qrangect.h>
+#include <qmessagebox.h>
+#include <qrangecontrol.h>
 #include <qfont.h>
 #include <kprogress.h>
 

@@ -23,8 +23,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <kapp.h>
-#include <qfileinf.h>
-#include <qprogdlg.h>
+#include <qfileinfo.h>
+#include <qprogressdialog.h>
 
 QList<LogInfo> log;
 QProgressDialog *dlg;
@@ -46,9 +46,8 @@ int loadLogs() {
   }
 
   dlg = new QProgressDialog(i18n("Loading log files"),
-			     0,
-			     logsize,
-			     0);
+			     QString::null,
+			     logsize);
   dlg->setProgress(0);
 
   // load logs
@@ -111,7 +110,7 @@ int loadLog(QString fname) {
     return 0;
 }
 
-int QLogList::compareItems(GCI a, GCI b) {
+int QLogList::compareItems(Item a, Item b) {
   LogInfo *la = (LogInfo *)a;
   LogInfo *lb = (LogInfo *)b;
 

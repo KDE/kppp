@@ -2,8 +2,8 @@
 #define _LOGINTERM_H_
 
 #include <qdialog.h>
-#include <qmlined.h>
-#include <qapp.h>
+#include <qmultilinedit.h>
+#include <qapplication.h>
 #include <qtimer.h>
 
 class LoginMultiLineEdit : public QMultiLineEdit {

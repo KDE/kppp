@@ -29,12 +29,12 @@
 #include <string.h>
 #include <qwidget.h>
 #include <qpainter.h>
-#include <qcombo.h>
-#include <qlined.h>
+#include <qcombobox.h>
+#include <qlineedit.h>
 #include <qlabel.h>
-#include <qchkbox.h>
-#include <qradiobt.h>
-#include <qgrpbox.h>
+#include <qcheckbox.h>
+#include <qradiobutton.h>
+#include <qgroupbox.h>
 #include <kslider.h>
 #include <kcolorbtn.h>
 

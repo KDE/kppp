@@ -259,7 +259,7 @@ void MyTerm::keyPressEvent(QKeyEvent *k) {
 
 
 void MyTerm::insertChar(char c) {  
-  QMultiLineEdit::insertChar(c);
+  QMultiLineEdit::insert(QChar(c));
 }
 
 

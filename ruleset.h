@@ -28,7 +28,7 @@
 #define __RULESET__H__
 
 #include <qarray.h>
-#include <qdatetm.h>
+#include <qdatetime.h>
 #include <qstring.h>
 
 #define CURRENCY_LEFT	1

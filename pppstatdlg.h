@@ -26,14 +26,14 @@
 #define _PPPSTATSDLG_H_
 
 
-#include <qpushbt.h>
+#include <qpushbutton.h>
 #include <qlabel.h>
 #include <qdialog.h>
 #include <qframe.h>
-#include <qgrpbox.h>
+#include <qgroupbox.h>
 #include <qevent.h>
 #include <qpixmap.h>
-#include <qlined.h>
+#include <qlineedit.h>
 #include <qtimer.h>
 
 const int MAX_GRAPH_WIDTH   = 600;

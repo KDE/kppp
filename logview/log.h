@@ -25,18 +25,12 @@
 #include <qobject.h>
 #include <qlist.h>
 
-#if defined(DEFAULT_TEMPLATECLASS)
-typedef QListT<LogInfo>                    QLogInfoBase;
-typedef QListIteratorT<LogInfo>            QLogInfoIterator;
-#else
-typedef Q_DECLARE(QListM,LogInfo)          QLogInfoBase;
-typedef Q_DECLARE(QListIteratorM,LogInfo)  QLogInfoIterator;
-#endif     
-
+typedef QList<LogInfo>                    QLogInfoBase;
+typedef QListIterator<LogInfo>            QLogInfoIterator;
 
 class QLogList : public QLogInfoBase {
 public:
-  virtual int compareItems(GCI, GCI);
+  virtual int compareItems(Item, Item);
 };
 
 extern QList<LogInfo> log;

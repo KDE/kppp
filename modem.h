@@ -34,7 +34,7 @@
 #include <termios.h>
 #include <unistd.h>
 
-#include <qsocknot.h>
+#include <qsocketnotifier.h>
 
 #include <config.h>
 

@@ -9,9 +9,9 @@
 
 #include <qwidget.h>
 #include <qlabel.h>
-#include <qradiobt.h>
-#include <qchkbox.h>
-#include <qlined.h>
+#include <qradiobutton.h>
+#include <qcheckbox.h>
+#include <qlineedit.h>
 
 #define L_FIXEDW 1
 #define L_FIXEDH 2

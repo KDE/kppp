@@ -40,8 +40,8 @@ TopWidget::TopWidget() : KTopLevelWidget("") {
 
   // remove buttons
   if(!kpppmode) {
-    td->setOkButton(0);
-    td->setCancelButton(0);
+    td->setOkButton(QString::null);
+    td->setCancelButton(QString::null);
     
     // create menu 
     mb = new KMenuBar(this);
@@ -56,7 +56,7 @@ TopWidget::TopWidget() : KTopLevelWidget("") {
   } else {
     mb = 0;
     td->setOkButton(i18n("Close"));
-    td->setCancelButton(0);
+    td->setCancelButton(QString::null);
     connect(td, SIGNAL(applyButtonPressed()),
 	    kapp, SLOT(quit()));
   }

@@ -122,7 +122,7 @@ void MonthlyWidget::plotMonth() {
   lb->setColumn(8, TITLE("Bytes", "888888888"));
 
   // search the entries for this month
-  QString s(2048);
+  QString s;
   int lastday = -1;
   QString lastConn = "-";
 
@@ -205,7 +205,7 @@ void MonthlyWidget::plotMonth() {
   }
 
   if(count) {
-    QString s(1024);
+    QString s;
     QString _bin, _bout, _b;
     
     if(bin < 0)

@@ -28,11 +28,11 @@
 #define PWENTRY_H
  
 #include <qwidget.h>
-#include <qpushbt.h>
-#include <qlined.h>
+#include <qpushbutton.h>
+#include <qlineedit.h>
 #include <qlabel.h>
-#include <qgrpbox.h>
-#include <qapp.h>
+#include <qgroupbox.h>
+#include <qapplication.h>
 
 class PWEntry : public QWidget {
 

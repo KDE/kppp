@@ -26,7 +26,7 @@
 
 #include <config.h>
 
-#include <qfileinf.h>
+#include <qfileinfo.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <sys/socket.h>

@@ -31,7 +31,7 @@
 
 #include <qdir.h>
 #include <qfile.h>
-#include <qdatetm.h>
+#include <qdatetime.h>
 #include <qregexp.h>
 #include <qlabel.h>
 

@@ -32,7 +32,7 @@ myMultiEdit::myMultiEdit(QWidget *parent, const char *name)
 }
 
 void myMultiEdit::insertChar(char c) {
-  QMultiLineEdit::insertChar( c);
+  QMultiLineEdit::insert(QChar(c));
 }
 
 

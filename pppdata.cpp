@@ -199,7 +199,7 @@ const char* PPPData::Password() {
 
 void PPPData::setPassword(const char* pw) {
   password = pw;
-  password.detach();
+  
 }
 
 
@@ -1116,13 +1116,13 @@ void PPPData::graphingOptions(bool &enable,
   if(config) {
     config->setGroup(GRAPH_GRP);
     enable = config->readBoolEntry(GENABLED, true);
-    c = white;
+    c = Qt::white;
     bg = config->readColorEntry(GCOLOR_BG, &c);
-    c = black;
+    c = Qt::black;
     text = config->readColorEntry(GCOLOR_TEXT, &c);
-    c = blue;
+    c = Qt::blue;
     in = config->readColorEntry(GCOLOR_IN, &c);
-    c = red;
+    c = Qt::red;
     out = config->readColorEntry(GCOLOR_OUT, &c);
   }
 }

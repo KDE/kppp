@@ -202,7 +202,7 @@ void ModemDatabase::loadModem(const char *key, CharDict &dict) {
 
 
 void ModemDatabase::load() {
-  modemDB = new KConfig("DB/modemDB.rc", 0);
+  modemDB = new KConfig("DB/modemDB.rc", QString::null);
   lvendors = new QStrList;
   lvendors->setAutoDelete(true);
   modems.setAutoDelete(true);

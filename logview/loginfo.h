@@ -22,7 +22,7 @@
 #define __LOGINFO__H__
 #define MYDEBUG
 
-#include <qdatetm.h>
+#include <qdatetime.h>
 #include <qstring.h>
 #include <time.h>
 

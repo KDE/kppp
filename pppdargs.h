@@ -32,8 +32,8 @@
 
 #include <qdialog.h>
 #include <qpainter.h>
-#include <qlined.h>
-#include <qpushbt.h>
+#include <qlineedit.h>
+#include <qpushbutton.h>
 #include <qlistbox.h>
 #include <qlabel.h>
 

@@ -30,7 +30,7 @@
 
 #include <kapp.h>
 #include <qstring.h>
-#include <qmsgbox.h>
+#include <qmessagebox.h>
 #include <qstrlist.h>
 #include <string.h>
 #include <sys/types.h>

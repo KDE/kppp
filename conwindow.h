@@ -27,7 +27,7 @@
 
 
 #include <qtimer.h>
-#include <qpushbt.h>
+#include <qpushbutton.h>
 #include <qlabel.h>
 #include <qdialog.h>
 #include <qframe.h>

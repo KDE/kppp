@@ -28,7 +28,7 @@
 #include "runtests.h"
 #include <kapp.h>
 #include <unistd.h>
-#include <qmsgbox.h>
+#include <qmessagebox.h>
 #include <qregexp.h>
 #include <sys/stat.h>
 #include <stdlib.h>

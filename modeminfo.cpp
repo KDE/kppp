@@ -207,8 +207,7 @@ void ModemTransfer::readtty() {
   if (step == 0)
     return;
 
-  readbuffer.replace("\n"," ");         // remove stray \n
-  readbuffer.replace("\r","");          // remove stray \r
+  readbuffer.replace(QRegExp("[\n\r]")," ");         // remove stray \n and \r
   readbuffer = readbuffer.stripWhiteSpace(); // strip of leading or trailing white
                                                  // space
 

@@ -30,13 +30,13 @@
 
 #include <qpixmap.h>
 #include <qmenubar.h> 
-#include <qpopmenu.h> 
+#include <qpopupmenu.h> 
 #include <qdialog.h>
 #include <qlabel.h>
 #include <qevent.h>
 #include <qtimer.h>
 #include <qframe.h>
-#include <qmlined.h> 
+#include <qmultilinedit.h> 
 #include <qtooltip.h> 
 
 #include <unistd.h>

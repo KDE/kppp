@@ -28,7 +28,7 @@
 #define _ACCOUNTS_H_
 
 #include <qwidget.h>
-#include <qpushbt.h>
+#include <qpushbutton.h>
 #include <qlistbox.h>
 #include "acctselect.h"
 #include "groupbox.h"

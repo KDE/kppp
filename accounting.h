@@ -27,7 +27,7 @@
 #define __ACCOUNTING__H__
 
 #include <qobject.h>
-#include <qmsgbox.h>
+#include <qmessagebox.h>
 #include <kprocess.h>
 #include "ruleset.h"
 

@@ -41,7 +41,7 @@
 
 #include <qglobal.h>
 #if QT_VERSION < 140
-#include <qmlined.h>
+#include <qmultilinedit.h>
 #else
 #include <qmultilinedit.h>
 #endif

@@ -30,8 +30,8 @@
 
 #include <stdio.h>
 #include <qlayout.h>
-#include <qpushbt.h>
-#include <qapp.h>
+#include <qpushbutton.h>
+#include <qapplication.h>
 
 extern KPPPWidget *p_kppp;
 
@@ -47,7 +47,7 @@ LoginMultiLineEdit::~LoginMultiLineEdit() {
 
 
 void LoginMultiLineEdit::insertChar(char c) {
-  QMultiLineEdit::insertChar(c);
+  QMultiLineEdit::insert(QChar(c));
   p_kppp->debugwindow->addChar(c);
 }
 

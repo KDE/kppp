@@ -30,17 +30,17 @@
 #define _EDIT_H_
 
 #include <qdialog.h>
-#include <qpushbt.h>
-#include <qgrpbox.h> 
-#include <qscrbar.h>
-#include <qcombo.h>
-#include <qlined.h>
+#include <qpushbutton.h>
+#include <qgroupbox.h> 
+#include <qscrollbar.h>
+#include <qcombobox.h>
+#include <qlineedit.h>
 #include <qlistbox.h>
-#include <qradiobt.h>
-#include <qbttngrp.h>
+#include <qradiobutton.h>
+#include <qbuttongroup.h>
 #include <qpainter.h>
-#include <qmsgbox.h>
-#include <qtabdlg.h>
+#include <qmessagebox.h>
+#include <qtabdialog.h>
 #include <string.h>
 #include <qchkbox.h>
 #include <qlabel.h>

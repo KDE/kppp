@@ -9,8 +9,8 @@
 #define __KGROUPBOX__H__
 
 #include <qframe.h>
-#include <qchkbox.h>
-#include <qradiobt.h>
+#include <qcheckbox.h>
+#include <qradiobutton.h>
 
 class KGroupBoxBase : public QFrame {
   Q_OBJECT

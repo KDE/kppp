@@ -38,10 +38,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <qapp.h>
+#include <qapplication.h>
 #include <qdialog.h>
 #include <qtimer.h>
-#include <qpushbt.h>
+#include <qpushbutton.h>
 #include <qlabel.h>
 #include <qevent.h>
 

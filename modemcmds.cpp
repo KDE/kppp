@@ -37,7 +37,7 @@
 #define ADJUSTEDIT(e) e->setText("XXXXXXXXqy"); e->setMinimumSize(e->sizeHint()); e->setFixedHeight(e->sizeHint().height()); e->setText(""); e->setMaxLength(MODEMSTR_SIZE);
 
 // a little trick to make the label look like a disabled lineedit
-#define FORMATSLIDERLABEL(l) l->setFixedWidth(l->sizeHint().width()); l->setFixedHeight(QLineEdit().sizeHint().height()); l->setAlignment(AlignCenter); l->setFrameStyle(QFrame::WinPanel|QFrame::Sunken); l->setLineWidth(2);
+#define FORMATSLIDERLABEL(l) l->setFixedWidth(l->sizeHint().width()); l->setFixedHeight(QLineEdit(this).sizeHint().height()); l->setAlignment(AlignCenter); l->setFrameStyle(QFrame::WinPanel|QFrame::Sunken); l->setLineWidth(2);
 
 ModemCommands::ModemCommands(QWidget *parent, const char *name)
   : QDialog(parent, name, TRUE, WStyle_Customize|WStyle_NormalBorder)

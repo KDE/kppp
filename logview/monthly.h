@@ -28,7 +28,7 @@
 #include <qlayout.h>
 #include <qlabel.h>
 #include <ktablistbox.h>
-#include <qpushbt.h>
+#include <qpushbutton.h>
 #include <kbuttonbox.h>
 
 class MonthlyWidget : public QWidget {
