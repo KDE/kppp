@@ -496,14 +496,14 @@ IPWidget::IPWidget( QWidget *parent, bool isnewaccount, const char *name )
   QWhatsThis::add(sub_label,tmp);
   QWhatsThis::add(subnetmask_l,tmp);
 
-  autoname = new QCheckBox(i18n("&Auto-configure host name from this IP"), parent);
+  autoname = new QCheckBox(i18n("&Auto-configure hostname from this IP"), parent);
   autoname->setChecked(gpppdata.autoname());
   connect(autoname,SIGNAL(toggled(bool)),
 	  this,SLOT(autoname_t(bool)));
 
   QWhatsThis::add(autoname,
 		  i18n("<p>Whenever you connect, this reconfigures\n"
-		       "your host name to match the IP address you\n"
+		       "your hostname to match the IP address you\n"
 		       "got from the PPP server. This may be useful\n"
 		       "if you need to use a protocol which depends\n"
 		       "on this information, but it can also cause several\n"

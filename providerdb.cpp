@@ -336,7 +336,7 @@ QString PDB_Provider::getDir() {
 /////////////////////////////////////////////////////////////////////////////
 PDB_UserInfo::PDB_UserInfo(QWidget *parent) : QWidget(parent) {
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
-  QLabel *l = new QLabel(i18n("To log on to your ISP, kppp needs the user name\n"
+  QLabel *l = new QLabel(i18n("To log on to your ISP, kppp needs the username\n"
 			    "and the password you got from your ISP. Type\n"
 			    "in this information in the fields below.\n\n"
 			    "Word case is important here."),
@@ -345,7 +345,7 @@ PDB_UserInfo::PDB_UserInfo(QWidget *parent) : QWidget(parent) {
 
   QGridLayout *l1 = new QGridLayout(2, 2);
   tl->addLayout(l1);
-  l = new QLabel(i18n("User name:"), this);
+  l = new QLabel(i18n("Username:"), this);
   l1->addWidget(l, 0, 0);
   l = new QLabel(i18n("Password:"), this);
   l1->addWidget(l, 1, 0);
