@@ -341,7 +341,7 @@ int runTests() {
       char buf[2048]; // safe
       while(f != NULL && !feof(f)) {
 	if(fgets(buf, sizeof(buf), f) != NULL) {
-	  QString s(buf, sizeof(buf));
+	  QString s(buf);
 
 	  s = s.stripWhiteSpace();
 	  if(s[0] == '#' || s.length() == 0)
