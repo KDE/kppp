@@ -33,7 +33,7 @@
 
 char *mystrsep (char **stringp, const char *delim);
 
-LogInfo::LogInfo(QString data) {
+LogInfo::LogInfo(QCString data) {
   parse(data);
 }
 
@@ -84,10 +84,10 @@ int LogInfo::error() const {
   return errorfield;
 }
 
-void LogInfo::parse(QString s) {
+void LogInfo::parse(QCString s) {
   errorfield = 0;
   char *c = (char *)malloc(s.length() + 1), *csep;
-  strcpy(c, s.ascii());
+  strcpy(c, s);
 
   // init data
   _from = _until = 0;
@@ -101,7 +101,7 @@ void LogInfo::parse(QString s) {
   char *p = mystrsep(&csep, ":");
   int i = 0;
   while(i < 8 && p != 0) {
-    QString token = p;
+    QString token = QString::fromLocal8Bit(p);
 
     switch(i) {
     case 0:

@@ -28,7 +28,7 @@
 
 class LogInfo {
 public:
-  LogInfo(QString data);
+  LogInfo(QCString data);
 
   int error() const;
 
@@ -49,7 +49,7 @@ public:
 #endif
 
 private:
-  void parse(QString );
+  void parse(QCString );
 
   int errorfield;
 
