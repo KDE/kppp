@@ -1,11 +1,13 @@
 SUBDIRS = Argentina \
 	Austria \
+	Bangladesh \
 	Belgium \
 	Brasil \
 	Croatia \
 	Czechia \
 	Denmark \
 	England \
+	Estonia \
 	France \
 	Germany \
 	Greece \

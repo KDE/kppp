@@ -1,5 +1,12 @@
 ################################################################
 #
+# Disclaimer/License
+# This Template ist (c) by Mario Weilguni <mweilguni@kde.org>
+# It ist licenced under the same terms as the kppp package, 
+# which it is part of
+#
+################################################################
+#
 # This is a sample rule set for kppp. You can use it as a 
 # template when you have to create your own ruleset. If you do
 # so, remove all comments and add your own. This will allow
