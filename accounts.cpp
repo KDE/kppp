@@ -289,6 +289,8 @@ void AccountWidget::newaccount() {
 
   if(result == QDialog::Accepted) {
     accountlist_l->insertItem(gpppdata.accname());
+    accountlist_l->setSelected(accountlist_l->findItem(gpppdata.accname()),
+			       true);
     emit resetaccounts();
     gpppdata.save();
   } else

@@ -750,6 +750,9 @@ void KPPPWidget::resetaccounts() {
   else 
     if(count > 0) {
        gpppdata.setDefaultAccount(connectto_c->text(0));
+        gpppdata.save();
+	ID_Edit->setText(gpppdata.storedUsername());
+	PW_Edit->setText(gpppdata.storedPassword());
     }
 
 
