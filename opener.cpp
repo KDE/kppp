@@ -39,8 +39,8 @@
 #if defined(__osf__) || defined(__svr4__)
 #define _POSIX_PII_SOCKET
 extern "C" int sethostname(char *name, int name_len);
-extern "C" int _Psendmsg();
-extern "C" int _Precvmsg();
+extern "C" int _Psendmsg(int, void*, int);
+extern "C" int _Precvmsg(int, void*, int);
 #endif
 
 #include <sys/types.h>
