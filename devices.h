@@ -9,6 +9,7 @@ static const char *devices[] = {
   "/dev/cuaa1",
   "/dev/cuaa2",
   "/dev/cuaa3",
+  "/dev/cuaa4",	
 #elif defined(__NetBSD__)
   "/dev/tty00",                /* "normal" modem lines */
   "/dev/tty01",
