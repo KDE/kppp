@@ -15,7 +15,7 @@
 //  $Id$
 //
 //---------------------------------------------------------------------------
-// 
+//
 //  This program is free software; you can redistribute it and-or
 //  modify it under the terms of the GNU Library General Public
 //  License as published by the Free Software Foundation; either
@@ -132,7 +132,7 @@ void ProviderDB::loadProviderInfo() {
   QString loc = *page2->list->at(page2->lb->currentItem());
   QString provider = page3->lb->text(page3->lb->currentItem());
   urlEncode(provider);
-  QString prov = "kppp/Provider/" + loc;
+  QString prov = "Provider/" + loc;
   prov += "/" + provider;
   QString fname = locate("appdata", prov);
   kdDebug(5002) << "Providerfile=" << fname << endl;
@@ -145,7 +145,7 @@ void ProviderDB::accept() {
   QRegExp re_username("%USERNAME%");
   QRegExp re_password("%PASSWORD%");
 
-  QMap <QString, QString> map(cfg->entryMap("<Default>"));
+  QMap <QString, QString> map(cfg->entryMap("<default>"));
   QMap <QString, QString>::Iterator it(map.begin());
   while(it != map.end()) {
     QString key = it.key();
@@ -461,7 +461,7 @@ void urlEncode(QString &s) {
     if(QString(UNENCODED_CHARS).find(s[i]) >= 0)
       s1 += s[i];
     else {
-      tmp.sprintf("\%03i", s[i].unicode());
+      tmp.sprintf("%%%03i", s[i].unicode());
       s1 += tmp;
     }
   }
