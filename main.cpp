@@ -40,6 +40,7 @@
 #include <sys/param.h>
 #endif
 
+#include <kdebug.h>
 #include <kbuttonbox.h>
 #include <kiconloader.h>
 #include <klocale.h>
