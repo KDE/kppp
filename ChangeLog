@@ -1,3 +1,8 @@
+2004-05-19  Harri Porten  <porten@kde.org>
+
+	* modem.cpp: fixed flow control for non-English users. Bug found by
+	Elias Jahn (#73646).
+
 2004-01-07  Harri Porten  <porten@kde.org>
 
 	* modem.cpp: fix a bug in writing of modem commands. EAGAIN errors
