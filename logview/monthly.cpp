@@ -72,7 +72,6 @@ public:
 			  int column, int width, int alignment );
 
     virtual QString key(int, bool) const;
-private:
     LogInfo *li;
 };
 
@@ -146,6 +145,9 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
   lv->setSorting(1);
   lv->setMinimumWidth(320);
   lv->setMinimumHeight(200);
+  lv->setSelectionMode(QListView::Extended);
+  selectionItem = 0L;
+  connect(lv, SIGNAL(selectionChanged()), SLOT(slotSelectionChanged()));
 
   title = new QLabel("X", this);
   QFont f = title->font();
@@ -213,6 +215,7 @@ void MonthlyWidget::plotMonth() {
   int bin = 0, bout = 0;
   int duration = 0;
   lv->clear();
+  selectionItem = 0L;
 
   for(int i = 0; i < (int)logList.count(); i++) {
     LogInfo *li = logList.at(i);
@@ -305,6 +308,10 @@ void MonthlyWidget::plotMonth() {
 
     QString s_costs(KGlobal::locale()->formatMoney(costs, QString::null, 2));
 
+    selectionItem =  new LogListItem(0, lv,
+			   i18n("Selection (%n connection)", "Selection (%n connections)", 0),
+			   QString::null, QString::null, QString::null,
+			   QString::null, QString::null, QString::null, QString::null);
     (void) new LogListItem(0, lv,
 			   i18n("%n connection", "%n connections", count),
 			   QString::null, QString::null, QString::null,
@@ -518,6 +525,76 @@ QDate MonthlyWidget::periodeLast() const
 
   // One month minus one day
   return calendar->addDays(calendar->addMonths(m_periodeFirst, 1), -1);
+}
+
+void MonthlyWidget::slotSelectionChanged()
+{
+  if (selectionItem)
+  {
+    int count = 0;
+    double costs = 0;
+    int bin = 0, bout = 0;
+    int duration = 0;
+    LogListItem *item;
+    LogInfo *li;
+    QListViewItemIterator it(lv);
+    while ( it.current() )
+    {
+      item = dynamic_cast<LogListItem*>(it.current());
+      if ( item && item->isSelected() && item->li)
+      {
+        li = item->li;
+        costs += li->sessionCosts();
+        if(bin >= 0) {
+          if(li->bytesIn() < 0)
+            bin = -1;
+          else
+            bin += li->bytesIn();
+        }
+
+        if(bout >= 0) {
+          if(li->bytesOut() < 0)
+            bout = -1;
+          else
+            bout += li->bytesOut();
+        }
+
+        duration += li->from().secsTo(li->until());
+        count++;
+      }
+      ++it;
+    }
+    if(count)
+    {
+      QString _bin, _bout, _b;
+
+      if(bin < 0)
+        _bin = i18n("n/a");
+      else
+        formatBytes(bin, _bin);
+
+      if(bout < 0)
+        _bout = i18n("n/a");
+      else
+        formatBytes(bout, _bout);
+
+      if(bin < 0 || bout < 0)
+        _b = i18n("n/a");
+      else
+        formatBytes(bout + bin, _b);
+
+      QString s_duration;
+      formatDuration(duration,
+                    s_duration);
+
+      QString s_costs(KGlobal::locale()->formatMoney(costs, QString::null, 2));
+      selectionItem->setText(0, i18n("Selection (%n connection)", "Selection (%n connections)", count));
+      selectionItem->setText(4, s_duration);
+      selectionItem->setText(5, s_costs);
+      selectionItem->setText(6, _bin);
+      selectionItem->setText(7, _bout);
+    }
+  }
 }
 
 #include "monthly.moc"

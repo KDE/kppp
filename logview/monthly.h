@@ -34,6 +34,7 @@
 
 class QListView;
 class QComboBox;
+class LogListItem;
 
 class MonthlyWidget : public QWidget {
   Q_OBJECT
@@ -46,11 +47,12 @@ private slots:
   void currentMonth();
   void slotConnections(int);
   void exportWizard();
+  void slotSelectionChanged();
 
 private:
   void layoutWidget();
   void plotMonth();
-  
+
   /**
    * Returns the first day in the period
    */
@@ -59,13 +61,14 @@ private:
    * Returns the last day in the period
    */
   QDate periodeLast() const;
-  
+
   QDate m_periodeFirst; // First day in month
   //int _month, _year;
 
-  QComboBox *cboConnections;  
+  QComboBox *cboConnections;
   KButtonBox *bbox;
   QListView *lv;
+  LogListItem* selectionItem;
   QLabel *title;
   QPushButton *next, *prev, *today, *exportBttn;
   QValueList<QString> lstConnections;
