@@ -59,22 +59,21 @@ extern "C" int _Precvmsg();
 #include <netinet/in.h>
 
 #ifdef __FreeBSD__
-     // For kldload
-     #include <sys/linker.h>
+#  include <sys/linker.h>  // for kldload
 #endif
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#  include <config.h>
 #endif
 
 #ifndef HAVE_NET_IF_PPP_H
-#ifdef HAVE_LINUX_IF_PPP_H
-#include <linux/if_ppp.h>
-#endif
+#  ifdef HAVE_LINUX_IF_PPP_H
+#    include <linux/if_ppp.h>
+#  endif
 #else
-#include <net/ppp_defs.h>
-#include <net/if.h>
-#include <net/if_ppp.h>
+#  include <net/ppp_defs.h>
+#  include <net/if.h>
+#  include <net/if_ppp.h>
 #endif
 
 #include <errno.h>
@@ -91,8 +90,8 @@ extern "C" int _Precvmsg();
 #include "devices.h"
 
 #ifdef HAVE_RESOLV_H
-#include <arpa/nameser.h>
-#include <resolv.h>
+#  include <arpa/nameser.h>
+#  include <resolv.h>
 #endif
 
 #ifndef _PATH_RESCONF
