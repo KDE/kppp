@@ -55,4 +55,4 @@ on (12/25) between (07:00..00:59) use (0.004666, 1)
 # Teine jõulupüha
 on (12/26) between (07:00..00:59) use (0.004666, 1)
 # Suur reede
-on (easter) between (07:00..00:59) use (0.004666, 1)
+on (easter-2) between (07:00..00:59) use (0.004666, 1)
