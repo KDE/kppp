@@ -64,6 +64,7 @@
 #include "pppstats.h"
 
 #include <X11/Xlib.h>
+#include <kglobal.h>
 
 KPPPWidget*	p_kppp;
 extern PPPStats stats;

@@ -27,6 +27,7 @@
 #include <kquickhelp.h>
 #include <qregexp.h>
 #include <kapp.h>
+#include <kglobal.h>
 #include <kiconloader.h>
 #include <kbuttonbox.h>
 #include <kwm.h>
@@ -71,10 +72,10 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
   del = new QPushButton(i18n("Remove"), peer());
 
   up = new QPushButton(peer());
-  QPixmap pm = kapp->getIconLoader()->loadIcon("up.xpm");
+  QPixmap pm = KGlobal::iconLoader()->loadIcon("up.xpm");
   up->setPixmap(pm);
   down = new QPushButton(peer());
-  pm = kapp->getIconLoader()->loadIcon("down.xpm");
+  pm = KGlobal::iconLoader()->loadIcon("down.xpm");
   down->setPixmap(pm);
   lpn1->addWidget(add);
   lpn1->addWidget(del);
