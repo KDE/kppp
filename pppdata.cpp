@@ -122,8 +122,8 @@ int PPPData::access() const {
 
 
 // functions to read/write date to configuration file
-const QString PPPData::readConfig(const char* group, const char* key,
-                                  const char* defvalue = "") 
+QString PPPData::readConfig(const QString &group, const QString &key,
+                            const QString &defvalue = "") 
 {
   if (config) {
     config->setGroup(group);
@@ -131,12 +131,12 @@ const QString PPPData::readConfig(const char* group, const char* key,
       config->writeEntry(key, QString(defvalue));
     return config->readEntry(key);
   } else
-    return QString(defvalue);
+    return defvalue;
   
 }
 
 
-int PPPData::readNumConfig(const char* group, const char* key,
+int PPPData::readNumConfig(const QString &group, const QString &key,
 			   int defvalue) {
   if (config) {
     config->setGroup(group);
@@ -151,7 +151,7 @@ int PPPData::readNumConfig(const char* group, const char* key,
 }
 
 
-bool PPPData::readListConfig(const char* group, const char* key,
+bool PPPData::readListConfig(const QString &group, const QString &key,
                              QStrList &list, char sep) {
   list.clear();
   if (config) {
@@ -163,7 +163,7 @@ bool PPPData::readListConfig(const char* group, const char* key,
 }
 
 
-void PPPData::writeConfig(const char* group, const char* key,
+void PPPData::writeConfig(const QString &group, const QString &key,
 			  const QString &value) {
   if (config) {
     config->setGroup(group);
@@ -172,7 +172,7 @@ void PPPData::writeConfig(const char* group, const char* key,
 }
 
 
-void PPPData::writeConfig(const char* group, const char* key, int value) {
+void PPPData::writeConfig(const QString &group, const QString &key, int value) {
   if (config) {
     config->setGroup(group);
     config->writeEntry(key, value);
@@ -180,7 +180,7 @@ void PPPData::writeConfig(const char* group, const char* key, int value) {
 }
 
 
-void PPPData::writeListConfig(const char* group, const char* key,
+void PPPData::writeListConfig(const QString &group, const QString &key,
                               QStrList &list, char sep) {
   if (config) {
     config->setGroup(group);
@@ -668,7 +668,7 @@ bool PPPData::deleteAccount() {
     return false;
 
   QMap <QString, QString> map;
-  QMapIterator< QString, QString, QString&, QString* > it;
+  QMap <QString, QString>::Iterator it;
 
   // set all entries of the current account to "" 
   map = config->entryMap(cgroup);
@@ -742,7 +742,7 @@ int PPPData::copyaccount(int i) {
   setAccountbyIndex(i);
 
   QMap <QString, QString> map = config->entryMap(cgroup);
-  QMapIterator< QString, QString, QString&, QString* > it = map.begin();
+  QMap <QString, QString>::Iterator it = map.begin();
 
   QString newname = accname();
   newname += "_copy";

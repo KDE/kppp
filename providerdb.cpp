@@ -37,6 +37,7 @@
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qlistbox.h>
+#include <qpushbutton.h>
 #include <kwm.h>
 #include <qregexp.h>
 #include <kapp.h>
@@ -50,58 +51,54 @@
 
 #define UNENCODED_CHARS "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_"
 
+QWizard* ProviderDB::wiz = 0L;
 
 ProviderDB::ProviderDB(QWidget *parent) : 
-  KWizard(parent, 0, true),
+  QWizard(parent, "", true),
   cfg(0)
 {
   KWM::setMiniIcon(winId(), kapp->getMiniIcon());
   setCaption(i18n("Create new account..."));
 
-  KWizardPage *p1 = new KWizardPage;
+  wiz = this;
+
   page1 = new PDB_Intro(this);
-  p1->w = page1;
-  addPage(p1);
-  p1->w->setFocusPolicy(StrongFocus);
+  addPage(page1, "");
+  setHelpEnabled(page1, false);
+  // TODO  p1->w->setFocusPolicy(StrongFocus);
 
-  KWizardPage *p2 = new KWizardPage;
   page2 = new PDB_Country(this);
-  p2->w = page2;
-  addPage(p2);
+  addPage(page2, "");
+  setHelpEnabled(page2, false);
 
-  KWizardPage *p3 = new KWizardPage;
   page3 = new PDB_Provider(this);
-  p3->w = page3;
-  addPage(p3);
+  addPage(page3, "");
+  setHelpEnabled(page3, false);
 
-  KWizardPage *p4 = new KWizardPage;
   page4 = new PDB_UserInfo(this);
-  p4->w = page4;
-  addPage(p4);
+  addPage(page4, "");
+  setHelpEnabled(page4, false);
 
-  KWizardPage *p5 = new KWizardPage;
   page5 = new PDB_DialPrefix(this);
-  p5->w = page5;
-  addPage(p5);
+  addPage(page5, "");
+  setHelpEnabled(page5, false);
 
-  KWizardPage *p9 = new KWizardPage;
   page9 = new PDB_Finished(this);
-  p9->w = page9;
-  addPage(p9);
+  addPage(page9, "");
+  setHelpEnabled(page9, false);
+  setFinish(page9, true);
+  setFinishEnabled(page9, true);
 
-  connect(this, SIGNAL(selected(int)),
-	  this, SLOT(pageSelected(int)));
-  connect(this, SIGNAL(cancelclicked()),
-	  this, SLOT(reject()));
+  backButton()->setText("<< " + i18n("Back"));
+  nextButton()->setText(i18n("Next") + " >>");
+  helpButton()->setText(i18n("Help"));
+  finishButton()->setText(i18n("Finish"));
+  cancelButton()->setText(i18n("Cancel"));
 
-  setCancelButton();
-  setOkButton();
-  setHelpButton();
-  getOkButton()->setEnabled(false);
-  connect(getOkButton(), SIGNAL(clicked()),
-	  this, SLOT(accept()));
-  connect(getCancelButton(), SIGNAL(clicked()),
-	  this, SLOT(reject()));
+  connect((const QObject *)nextButton(), SIGNAL(clicked()),
+  	  this, SLOT(pageSelected()));
+  connect((const QObject *)backButton(), SIGNAL(clicked()),
+  	  this, SLOT(pageSelected()));
 
   //  resize(minimumSize());
   adjustSize();
@@ -114,40 +111,26 @@ ProviderDB::~ProviderDB() {
 }
 
 
-void ProviderDB::pageSelected(int idx) {
+void ProviderDB::pageSelected() {
   bool prev = true;
   bool next = true;
-  int nextPage = idx;
 
-  switch(idx+1) {
-  case 1:
-    break;
-  case 2:
+  QWidget *page = currentPage();
+  if(page == page2) {
     next = page2->lb->currentItem() != -1;
-    break;
-  case 3:
+  } else if(page == page3) {
     page3->setDir(page2->lb->text(page2->lb->currentItem()));
-    next = page3->lb->currentItem() != -1;    
-    break;
-  case 4:
+    next = page3->lb->currentItem() != -1;
+  } else if(page == page4) {
     loadProviderInfo();
     next = page4->username().length() > 0 &&
       page4->password().length() > 0;
-    page4->activate();
-    break;
-  case 5:
-    page5->activate();
-    break;
-  case 6:
-    getOkButton()->setEnabled(true);
-    prev = false;
-    break;
-  }
+    //    page4->activate();
+  } // else if(page == page5)
+  //    page5->activate();
 
-  getPreviousButton()->setEnabled(prev);
-  getNextButton()->setEnabled(next);
-  if(idx != nextPage)
-    gotoPage(nextPage);
+  setBackEnabled(page, prev);
+  setNextEnabled(page, next);
 }
 
 
@@ -269,8 +252,8 @@ PDB_Country::PDB_Country(QWidget *parent) : QWidget(parent) {
 }
 
 void PDB_Country::selectionChanged(int idx) {
-  KWizard *w = (KWizard *)parent();
-  w->getNextButton()->setEnabled(idx != -1);
+  //  QWizard *wizard = (QWizard *)parent(); Why doesn't this work ?
+  ProviderDB::wiz->setNextEnabled(this, (idx != -1));
 }
 
 
@@ -300,8 +283,7 @@ PDB_Provider::PDB_Provider(QWidget *parent) : QWidget(parent) {
 }
 
 void PDB_Provider::selectionChanged(int idx) {
-  KWizard *w = (KWizard *)parent();
-  w->getNextButton()->setEnabled(idx != -1);
+  ProviderDB::wiz->setNextEnabled(this, idx != -1);
 }
 
 
@@ -383,9 +365,8 @@ PDB_UserInfo::PDB_UserInfo(QWidget *parent) : QWidget(parent) {
 
 
 void PDB_UserInfo::textChanged(const QString &) {
-  KWizard *w = (KWizard*)parent();
-  w->getNextButton()->setEnabled(strlen(_password->text()) > 0 &&
-				 strlen(_username->text()) > 0);
+  ProviderDB::wiz->setNextEnabled(this, strlen(_password->text()) > 0 &&
+                      strlen(_username->text()) > 0);
 }
 
 
@@ -448,7 +429,7 @@ void PDB_DialPrefix::activate() {
 PDB_Finished::PDB_Finished(QWidget *parent) : QWidget(parent) {
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
   QLabel *l = new QLabel(i18n("Finished!\n\n"
-			    "A new account has been created. Hit \"OK\" to\n"
+			    "A new account has been created. Hit \"Finish\" to\n"
 			    "go back to the setup dialog. If you want to\n"
 			    "check the settings of the newly created account,\n"
 			    "you can use \"Edit\" in the setup dialog."),
@@ -466,8 +447,9 @@ void urlDecode(QString &s) {
       s1 += 100*s[i+1].digitValue() + 10*s[i+2].digitValue()
         + s[i+3].digitValue();
       i += 3;
-    } else
+    } else {
       s1 += s[i];
+    }
   }
   
   s = s1;

@@ -160,12 +160,14 @@ public:
   int  access() const;       // read/write access
 
   // function to read/write date to configuration file
-  const QString readConfig(const char *, const char *, const char *);
-  int readNumConfig(const char *, const char *, int);
-  bool readListConfig(const char *, const char *, QStrList &, char sep = ',');
-  void writeConfig(const char *, const char *, const QString &);
-  void writeConfig(const char *, const char *, int);
-  void writeListConfig(const char *, const char *, QStrList &, char sep = ',');
+  QString readConfig(const QString &, const QString &, const QString &);
+  int readNumConfig(const QString &, const QString &, int);
+  bool readListConfig(const QString &, const QString &,
+                      QStrList &, char sep = ',');
+  void writeConfig(const QString &, const QString &, const QString &);
+  void writeConfig(const QString &, const QString &, int);
+  void writeListConfig(const QString &, const QString &,
+                       QStrList &, char sep = ',');
 
   // return the current account group
   QString currentGroup() { return cgroup; }

@@ -169,7 +169,7 @@ void ModemDatabase::loadModem(const char *key, CharDict &dict) {
   //  KEntryIterator *it = modemDB->entryIterator(key);
   //  KEntryDictEntry *e;
   QMap <QString, QString> map;
-  QMapIterator< QString, QString, QString&, QString* > it;
+  QMap <QString, QString>::Iterator it;
   //  KEntryMapConstIterator e;
   KEntry e;
   map = modemDB->entryMap(key);

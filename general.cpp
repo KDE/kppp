@@ -27,7 +27,7 @@
 #include <qdir.h>
 #include <kapp.h>
 #include <qlayout.h>
-#include <kintlineedit.h>
+#include <knumlineedit.h>
 #include <kquickhelp.h>
 #include "general.h"
 #include "version.h"

@@ -35,6 +35,7 @@
 #ifndef PROVIDER_DB
 #define PROVIDER_DB
 
+#include <qwizard.h>
 #include <kwizard.h>
 #include <ksimpleconfig.h>
 #include <qwidget.h>
@@ -113,14 +114,15 @@ public:
 };
 
 
-class ProviderDB : public KWizard {
+class ProviderDB : public QWizard {
   Q_OBJECT
 public:
   ProviderDB(QWidget *parent);
   ~ProviderDB();
+  static QWizard *wiz;
 
 public slots:
-  void pageSelected(int);
+  void pageSelected();
   void accept();
 
 private:
