@@ -122,6 +122,7 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   l1->addStretch(1);
 
   debug = new QPushButton(i18n("Log"), this);
+  debug->setToggleButton(true);
   connect(debug, SIGNAL(clicked()), SIGNAL(toggleDebugWindow()));
 
   cancel = new QPushButton(i18n("Cancel"), this);

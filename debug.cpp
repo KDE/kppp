@@ -62,7 +62,7 @@ DebugWidget::DebugWidget(QWidget *parent, const char *name)
   dismiss->setGeometry(330,340,70,30);
   dismiss->setText(i18n("Close"));
   dismiss->setFocus();
-  connect(dismiss,SIGNAL(clicked()),SLOT(hideit()));
+  connect(dismiss, SIGNAL(clicked()), SLOT(hide()));
 
 
   /*  fline = new QFrame(this,"line");
@@ -73,17 +73,14 @@ DebugWidget::DebugWidget(QWidget *parent, const char *name)
 
 }
 
-
-void DebugWidget::hideit() {
-  this->hide();
-  if (p_kppp)
-    p_kppp->con->debug->setText(i18n("Log")); // set Log/Hide button text to Log 
+void DebugWidget::hideEvent(QHideEvent *)
+{
+  assert(p_kppp);
+  p_kppp->con->debug->setOn(false);
 }
 
-
 void DebugWidget::clear() {
-  if(text_window)
-    text_window->clear(); 
+  text_window->clear(); 
 }
 
 
@@ -121,8 +118,7 @@ void DebugWidget::resizeEvent(QResizeEvent *e){
 
 
 void DebugWidget::enter() {
-  char character[3] = "\r\n"; // safe
-  text_window->append(character);
+  text_window->append("\r\n");
 }
 
 

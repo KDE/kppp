@@ -1,3 +1,11 @@
+2002-01-01  Harri Porten  <porten@kde.org>
+
+	* don't ignore SIGHUP anymore. Forbidding Ctrl-Z is crazy.
+	* a bit more respect for Session Managment by adding handlers
+	  for KApplication::saveYourSelf() and shutDown(). A user
+          had reported corrupted config data.
+	* made 'Log' a toggle button to represent debug window state
+
 2001-11-30  Harri Porten  <porten@kde.org>
 
 	* main.cpp: set focus to password field if it's missing on startup.

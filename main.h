@@ -89,6 +89,8 @@ private slots:
   void passwordChanged(const QString &);
   void enterPressedInID();
   void enterPressedInPW();
+  void saveMyself();
+  void shutDown();
 
 public slots:
   void resetaccounts();
@@ -118,7 +120,7 @@ public:
 
 private:
   void prepareSetupDialog();
-  void sigInt();
+  void interruptConnection();
   void sigChld();
   void sigPPPDDied();
 

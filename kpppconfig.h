@@ -120,7 +120,7 @@ const unsigned int MAX_CMDLEN = 2024;
 #endif
 
 // defined in opener.cpp
-extern const char *kppp_syslog[];
+extern const char * const kppp_syslog[];
 
 #ifdef _XPG4_2
 #define __xnet_connect connect

@@ -39,7 +39,6 @@
 
 class QSlider;
 
-class ModemTransfer;
 class KIntNumInput;
 
 class GeneralWidget : public KGroupBox {
@@ -124,7 +123,6 @@ private slots:
   void  volumeChanged(int);
 
 private:
-  ModemTransfer *modemtrans;
   QLabel 	*labeltmp;
   QPushButton 	*modemcmds;
   QPushButton 	*modeminfo_button;

@@ -5,6 +5,7 @@
  *
  *            Copyright (C) 1997 Bernd Johannes Wuebben
  *                   wuebben@math.cornell.edu
+ *            Copyright (C) 1998-2002 Harri Porten <porten@kde.org> 
  *
  * based on EzPPP:
  * Copyright (C) 1997  Jay Painter
@@ -79,10 +80,10 @@
 #include <kapplication.h>
 #include <kcmdlineargs.h>
 
-static const char *description =
+static const char * const description =
 	I18N_NOOP("A dialer and front-end to pppd.");
 
-static KCmdLineOptions option[] =
+static const KCmdLineOptions options[] =
 {
    { "c <account_name>", I18N_NOOP("Connect using 'account_name'"), 0 },
    { "k", I18N_NOOP("Terminate an existing connection"), 0 },
@@ -195,6 +196,7 @@ QString encodeWord(const QString &s) {
     return r;
 }
 
+#if 0
 extern "C" {
   static int kppp_x_errhandler( Display *dpy, XErrorEvent *err ) {
     char errstr[256]; // safe
@@ -233,7 +235,7 @@ extern "C" {
     }
   }
 } /* extern "C" */
-
+#endif
 
 int main( int argc, char **argv ) {
   // make sure that open/fopen and so on NEVER return 1 or 2 (stdout and stderr)
@@ -297,13 +299,13 @@ int main( int argc, char **argv ) {
 
   KAboutData aboutData("kppp", I18N_NOOP("KPPP"),
     KPPPVERSION, description, KAboutData::License_GPL,
-    I18N_NOOP("(c) 1999-2000, The KPPP Developers"));
+    I18N_NOOP("(c) 1999-2002, The KPPP Developers"));
   aboutData.addAuthor("Bernd Wuebben",0, "wuebben@kde.org");
   aboutData.addAuthor("Mario Weilguni",0, "");
   aboutData.addAuthor("Harri Porten",0, "porten@kde.org");
 
   KCmdLineArgs::init( argc, argv, &aboutData );
-  KCmdLineArgs::addCmdLineOptions( option );
+  KCmdLineArgs::addCmdLineOptions( options );
 
 
 
@@ -418,7 +420,6 @@ int main( int argc, char **argv ) {
   signal(SIGCHLD, sighandler);
   signal(SIGUSR1, sighandler);
   signal(SIGTERM, SIG_IGN);
-  signal(SIGHUP, SIG_IGN);
 
   //  XSetErrorHandler( kppp_x_errhandler );
   //  XSetIOErrorHandler( kppp_xio_errhandler );
@@ -580,15 +581,10 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
 
+  // constructor of con_win reads position from config file  
   con_win = new ConWindow(0, "conw", this, stats);
   KWin::setIcons(con_win->winId(), kapp->icon(), kapp->miniIcon());
-/*
-constructor of con_win reads position from config file
 
-  con_win->setGeometry(QApplication::desktop()->width()/2-160,
-		    QApplication::desktop()->height()/2-55,
-		    320,110);
-*/
   statdlg = new PPPStatsDlg(0, "stats", this, stats);
   statdlg->hide();
 
@@ -619,7 +615,11 @@ constructor of con_win reads position from config file
 	  this, SLOT(startAccounting()));
   connect(con, SIGNAL(stopAccounting()),
 	  this, SLOT(stopAccounting()));
-
+  connect(KApplication::kApplication(), SIGNAL(saveYourself()),
+	  this, SLOT(saveMyself()));
+  connect(KApplication::kApplication(), SIGNAL(shutDown()),
+	  this, SLOT(shutDown()));
+	  
   debugwindow->setGeometry(QApplication::desktop()->width()/2+190,
 			   QApplication::desktop()->height()/2-55,
 			   debugwindow->width(),debugwindow->height());
@@ -651,7 +651,8 @@ bool KPPPWidget::eventFilter(QObject *o, QEvent *e) {
   if(e->type() == QEvent::User) {
     switch(((SignalEvent*)e)->sigType()) {
     case SIGINT:
-      sigInt();
+      kdDebug(5002) << "Received a SIGINT" << endl;
+      interruptConnection();
       break;
     case SIGCHLD:
       sigChld();
@@ -716,6 +717,15 @@ void KPPPWidget::enterPressedInPW() {
   connect_b->setFocus();
 }
 
+// triggered by the session manager
+void KPPPWidget::saveMyself() {
+    gpppdata.save();
+}
+
+void KPPPWidget::shutDown() {
+    interruptConnection();
+    saveMyself();
+}
 
 void KPPPWidget::log_window_toggled(bool on) {
   gpppdata.set_show_log_window(on);
@@ -796,9 +806,7 @@ void sighandler(int sig) {
   signal(sig, sighandler); // reinstall signal handler
 }
 
-void KPPPWidget::sigInt() {
-  kdDebug(5002) << "Received a SIGINT" << endl;
-
+void KPPPWidget::interruptConnection() {
   // interrupt dial up
   if (con->isVisible())
     emit con->cancelbutton();
@@ -1005,6 +1013,7 @@ void KPPPWidget::beginConnect() {
   con->show();
 
   bool show_debug = gpppdata.get_show_log_window();
+  con->debug->setOn(show_debug);	// toggle button
   debugwindow->clear();
   if (!show_debug)
     debugwindow->hide();

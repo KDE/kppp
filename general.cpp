@@ -572,9 +572,8 @@ void ModemWidget2::modemcmdsbutton() {
 
 
 void ModemWidget2::query_modem() {
-  modemtrans = new ModemTransfer(this);
-  modemtrans->exec();
-  delete modemtrans;
+  ModemTransfer mt(this);
+  mt.exec();
 }
 
 
