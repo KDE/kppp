@@ -1,19 +1,18 @@
 ################################################################
-# Ruleset for Freenet Sorglos
-# Internet by Call with Application
+# Ruleset for Freenet StandardTarif
+# Internet by Call _without_ Application
 #
-# Created 2002-03-07 by Valentin Funk <valentin.funk@computerfabrik.de>
+# Created 2002-04-29 by Valentin Funk <valentin.funk@computerfabrik.de>
 #
-# One of the cheapest call-by-call provider with application in
-# Germany.
-# Note: Balanced as Freenet StandardTarif until application.
+# An ordinary german internet call-by-call rate. Also used as
+# fallback rate until application for other Freenet rates.
 ################################################################
 
 ################################################################
 # Name of the ruleset - absolutly requiered!
 ################################################################
 
-name=Freenet_Sorglos
+name=Freenet_StandardTarif
 
 ################################################################
 # Currency settings
@@ -25,9 +24,9 @@ currency_digits=2
 
 ################################################################
 # Connection settings
-# 1,29 ¢/Min mit minutengenauer Abrechnung
+# 2,505 ¢/Min mit minutengenauer Abrechnung
 ################################################################
 
 per_connection=0.0
 minimum_costs=0.0
-default=(0.0129, 60)
+default=(0.02505, 60)
