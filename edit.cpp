@@ -144,7 +144,7 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
 		       "readable only to you. Make sure nobody\n"
 		       "gains access to this file!"));
 
-  pppdargs = new QPushButton(i18n("Customize pppd arguments..."), peer());
+  pppdargs = new QPushButton(i18n("Customize pppd Arguments..."), peer());
   connect(pppdargs, SIGNAL(clicked()), SLOT(pppdargsbutton()));
   tl->addMultiCellWidget(pppdargs, 5, 5, 0, 1, AlignCenter);
 

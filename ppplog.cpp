@@ -244,7 +244,7 @@ void PPPL_ShowLog() {
   diagnosis->setReadOnly(TRUE);
   KButtonBox *bbox = new KButtonBox(dlg);
   bbox->addStretch(1);
-  QPushButton *write = bbox->addButton(i18n("Write to file"));
+  QPushButton *write = bbox->addButton(i18n("Write to File"));
   QPushButton *close = bbox->addButton(i18n("Close"));
   bbox->layout();
   edit->setMinimumSize(600, 250);
