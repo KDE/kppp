@@ -63,7 +63,7 @@
 #include <X11/Xlib.h>
 
 static const char description[] =
-	I18N_NOOP("A dialer and front-end to pppd.");
+	I18N_NOOP("A dialer and front-end to pppd");
 
 static const KCmdLineOptions options[] =
 {
