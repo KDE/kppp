@@ -31,10 +31,10 @@
 #define F_EXIT     101
 
 
-static const char *description =
+static const char description[] =
 	I18N_NOOP("KPPP log viewer");
 
-static const char *version = "v0.0.2";
+static const char version[] = "v0.0.2";
 
 static KCmdLineOptions option[] =
 {

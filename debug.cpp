@@ -59,7 +59,7 @@ DebugWidget::DebugWidget(QWidget *parent, const char *name)
   statuslabel->setFrameStyle( QFrame::Panel | QFrame::Sunken );
   statuslabel->setAlignment( AlignLeft|AlignVCenter );
   statuslabel->setGeometry(2, 307, 400, 20);
-  //statusPageLabel->setFont( QFont("helvetica",12,QFont::Normal) );
+  //statusPageLabel->setFont( KGlobalSettings::generalFont() );
 
   dismiss = new QPushButton(this);
   dismiss->setGeometry(330,340,70,30);

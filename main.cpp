@@ -62,7 +62,7 @@
 
 #include <X11/Xlib.h>
 
-static const char * const description =
+static const char description[] =
 	I18N_NOOP("A dialer and front-end to pppd.");
 
 static const KCmdLineOptions options[] =
@@ -72,7 +72,7 @@ static const KCmdLineOptions options[] =
    { "q", I18N_NOOP("Quit after end of connection"), 0 },
    { "r <rule_file>", I18N_NOOP("Check syntax of rule_file"), 0 },
    { "T", I18N_NOOP("Enable test-mode"), 0 },
-   { 0, 0, 0}
+   KCmdLineLastOption
 };
 
 

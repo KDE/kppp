@@ -284,7 +284,7 @@ void PPPStatsDlg::paintGraph() {
 
   // plot scale line
   p.setPen(text);
-  p.setFont(QFont("fixed", 8));
+  p.setFont(QFont(KGlobalSettings::fixedFont().family(), 8));
 
   QRect r;
   QString s = i18n("%1 (max. %2) kb/sec")

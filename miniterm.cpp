@@ -34,6 +34,7 @@
 #include "miniterm.h"
 #include <klocale.h>
 #include <kpopupmenu.h>
+#include <kglobalsettings.h>
 #include <kapplication.h>
 
 extern PPPData gpppdata;
@@ -219,7 +220,7 @@ void MiniTerm::help() {
 MyTerm::MyTerm(QWidget *parent, const char* name)
   : QMultiLineEdit(parent, name)
 {
-   this->setFont(QFont("courier",12,QFont::Normal));
+   this->setFont(KGlobalSettings::fixedFont());
 }
 
 void MyTerm::keyPressEvent(QKeyEvent *k) {
