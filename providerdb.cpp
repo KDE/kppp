@@ -53,7 +53,7 @@ ProviderDB::ProviderDB(QWidget *parent) :
   KWizard(parent, "", true),
   cfg(0)
 {
-  setCaption(i18n("Create New Account..."));
+  setCaption(i18n("Create New Account"));
 
   wiz = this;
 
