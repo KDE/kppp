@@ -1,3 +1,4 @@
+
 /*
  *              kPPP: A pppd Front End for the KDE project
  *
@@ -64,11 +65,12 @@ extern "C" int sethostname(char *name, int name_len);
 
 #include <net/ppp_defs.h>
 #include <net/if.h>
+
+#ifndef HAVE_NET_IF_PPP_H
 #ifdef HAVE_LINUX_IF_PPP_H
 #include <linux/if_ppp.h>
 #endif
-
-#ifdef HAVE_NET_IF_PPP_H
+#else
 #include <net/if_ppp.h>
 #endif
 
