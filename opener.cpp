@@ -36,22 +36,32 @@
  * o be paranoid and think twice about everything you change.
  */
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
+
+#include <sys/types.h>
 #include <sys/uio.h>
 #include <sys/stat.h>
-#include <sys/types.h>
 #include <sys/socket.h> 
 #include <sys/ioctl.h>
 #include <sys/un.h>
-#include <fcntl.h>
-#include <string.h>
-#include <errno.h>
-#include <regex.h>
-#include <netinet/in.h>
-#include <signal.h>
 #include <sys/wait.h>
+
+
+#include <netinet/in.h>
+
+#ifdef __FreeBSD__
+     #include <sys/param.h>
+     #include <sys/linker.h>
+     #include <net/if_ppp.h>
+#endif
+
+#include <errno.h>
+#include <fcntl.h>
+#include <regex.h>
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 #include "kpppconfig.h"
 #include "opener.h"
@@ -73,6 +83,7 @@
 static void sighandler(int);
 static pid_t pppdPid = -1;
 static int pppdExitStatus = -1;
+static int checkForInterface();
 
 Opener::Opener(int s) : socket(s), ttyfd(-1) {
   lockfile[0] = '\0';
@@ -472,6 +483,18 @@ bool Opener::execpppd(const char *arguments) {
       dup2(ttyfd, 0);
       dup2(ttyfd, 1);
 
+      switch (checkForInterface()) {
+        case 1:
+          fprintf(stderr, "Cannot determine if kernel supports ppp.\n");
+          break;
+        case -1:
+          fprintf(stderr, "Kernel does not support ppp, oops.\n");
+          break;
+        case 0:
+          fprintf(stderr, "Kernel supports ppp alright.\n");
+          break;
+      }
+
       execve(pppdPath(), args, 0L);
       _exit(0);
       break;
@@ -565,6 +588,31 @@ const char* pppdPath() {
   }
 
   return pppdPath;
+}
+
+int checkForInterface()
+{
+#ifdef __FreeBSD__
+    int s, ok;
+    struct ifreq ifr;
+    extern char *no_ppp_msg;
+
+    if ((s = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
+        return 1;               /* can't tell */
+
+    strncpy(ifr.ifr_name, "ppp0", sizeof (ifr.ifr_name));
+    ok = ioctl(s, SIOCGIFFLAGS, (caddr_t) &ifr) >= 0;
+    close(s);
+
+    if (ok == -1) {
+        // If we failed to load ppp support and don't have it already.
+        if (kldload("if_ppp") == -1) {
+            return -1;
+        }
+        return 0;
+    }
+    return 0;
+#endif
 }
 
 
