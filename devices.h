@@ -33,6 +33,7 @@ static const char *devices[] = {
   "/dev/ttyS1",
   "/dev/ttyS2",
   "/dev/ttyS3",
+  "/dev/ttyS4",
 #ifdef ISDNSUPPORT
   "/dev/ttyI0",
   "/dev/ttyI1",

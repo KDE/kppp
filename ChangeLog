@@ -1,3 +1,11 @@
+2004-05-28  Harri Porten  <porten@kde.org>
+
+	* devices.h: added /dev/ttyS4 as requested by Christopher Martin for
+	PCI hardware modem in 2.6 kernels (#82345)
+
+	* general.cpp: made modem combo box read-only again. Editing device
+	names didn't really work (#82345).
+
 2004-05-19  Harri Porten  <porten@kde.org>
 
 	* modem.cpp: fixed flow control for non-English users. Bug found by
