@@ -45,7 +45,7 @@
 // string lengths
 
 #define PATH_SIZE 120 
-#define MODEMSTR_SIZE 50
+#define MODEMSTR_SIZE 80
 #define ACCNAME_SIZE 50
 #define PHONENUMBER_SIZE 60
 #define COMMAND_SIZE 255
@@ -99,7 +99,7 @@
 #define ESCAPESTR_KEY      "EscapeString"
 #define ESCAPERESP_KEY     "EscapeResponse"
 #define ESCAPEGUARDTIME_KEY "EscapeGuardTime"
-#define USECDLINE_KEY      "UseCDLine"
+// #define USECDLINE_KEY      "UseCDLine"
 #define VOLUME_HIGH        "VolumeHigh"
 #define VOLUME_MEDIUM      "VolumeMedium"
 #define VOLUME_OFF         "VolumeOff"
@@ -160,7 +160,7 @@ public:
   int  access();       // read/write access
 
   // function to read/write date to configuration file
-  const char* readConfig(const char *, const char *, const char *);
+  const char* readConfig(const char *, const char *, const char *defvalue = "");
   int readNumConfig(const char *, const char *, int);
   bool readListConfig(const char *, const char *, QStrList &, char sep = ',');
   void writeConfig(const char *, const char *, const char *);
@@ -287,8 +287,10 @@ public:
   const char* modemAnswerResp();
   void setModemAnswerResp(const char*);
 
+#if 0
   void setUseCDLine(const int n);
   int  UseCDLine();
+#endif
 
   // functions to set/get account information
   int count();
@@ -374,11 +376,8 @@ public:
   void setpppdArgument(QStrList &);
 
   //functions to change/set the child pppd process info
-  const bool pppdRunning();
+  bool pppdRunning();
   void setpppdRunning(bool set);
-
-  pid_t suidChildPid();
-  void setSuidChildPid(pid_t);
 
   int pppdError();
   void setpppdError(int err);

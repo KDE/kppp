@@ -176,6 +176,17 @@ bool ppp_available(void)
 {
   int s, ok;
   struct ifreq ifr;
+  struct utsname kernelInfo;
+  int major, minor;
+
+  // our check doesn't work with 2.3 kernels, yet. In order not to cause a
+  // false alarm we simply return success for anything higher than 2.2.
+  if(uname(&kernelInfo) == -1)
+    return true;
+  if(sscanf(kernelInfo.release, "%d.%d.", &major, &minor) != 2)
+    return true;
+  if(major > 2 || (major == 2 && minor > 2))
+    return true;
 
   /*
    * Open a socket for doing the ioctl operations.
@@ -329,28 +340,6 @@ const char *getHomeDir() {
   return hd;
 }
 
-int securityTests() {
-  // Test 1: check whether $HOME is valid. The KDE and Qt libraries
-  //         rely on this variable and we don't want to allow anyone
-  //         to exploit kppp's setuid status.
-  /*
-  QString homedir = getHomeDir();
-  struct stat st;
-  int ok = false;
-  if(homedir.length() > 0)
-    if(stat(homedir.data(), &st) == 0)
-      if(S_ISDIR(st.st_mode) && st.st_uid == getuid())
-        ok = true;
-
-  if(!ok) {
-    fprintf(stderr, "kppp: ERROR: The HOME variable isn't set properly.\n"
-            "kppp: Please ask your system administrator to "
-            "correct its setting.\n\n");
-    return TEST_CRITICAL;
-  }
-  */
-  return TEST_OK;
-}
 
 int runTests() {
   int warning = 0;
@@ -408,31 +397,27 @@ int runTests() {
 				"  * contact your system adminstrator\n"
 				"or\n"
 				"  * install a kernel with PPP support\n"));
-      shutDown(1);
+      warning++;
     }
   }
 #endif
 
   // Test 1: search the pppd binary
-  QString f = gpppdata.pppdPath();
-  bool pppdFound = FALSE;
-  if(access(f.data(), F_OK) == 0)
-    pppdFound = TRUE;
+  const char *f = gpppdata.pppdPath();
 
-  if(!pppdFound) {
+  if(!f) {
     QMessageBox::warning(0,
 		 i18n("Error"),
-		 i18n("Cannot find the pppd-daemon!\n\n"
-				    "Make sure that pppd is installed and\n"
-				    "you have entered the correct path.\n"
-				    ));
+		 i18n("Cannot find the PPP daemon!\n\n"
+                      "Make sure that pppd is installed and\n"
+                      "you have entered the correct path."));
     warning++;
   }
 
   // Test 2: check access to the pppd binary
-  if(pppdFound) {
+  if(f) {
 #if 0
-    if(access(f.data(), X_OK) != 0 /* && geteuid() != 0 */) {
+    if(access(f, X_OK) != 0 /* && geteuid() != 0 */) {
       QMessageBox::critical(0,
 		   i18n("Error"),
 		   i18n("You do not have the permission\n"
@@ -442,7 +427,7 @@ int runTests() {
       return TEST_CRITICAL;
     } else {
       struct stat st;
-      stat(f.data(), &st);
+      stat(f, &st);
       if((st.st_mode & S_ISUID) == 0 && getuid() != 0 ) {
 	QMessageBox::warning(0,
 		     i18n("Error"),
@@ -456,7 +441,7 @@ int runTests() {
 #endif
     if(euid != 0) {
       struct stat st;
-      stat(f.data(), &st);
+      stat(f, &st);
       if(st.st_uid != 0 || (st.st_mode & S_ISUID) == 0) {
 	QMessageBox::warning(0,
 		     i18n("Error"),
@@ -469,6 +454,7 @@ int runTests() {
     }
   }
 
+#if 0
   // Test 4: check for undesired 'lock' option in /etc/ppp/options
   QFile opt(SYSOPTIONS);
   if (opt.open(IO_ReadOnly)) {
@@ -502,6 +488,7 @@ int runTests() {
       warning++;
     }
   } 
+#endif
 
   // Test 5: check for existence of /etc/resolv.conf
   int fd;

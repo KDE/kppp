@@ -27,61 +27,9 @@
 #include "pppdata.h"
 #include "runtests.h"
 #include "kpppconfig.h"
+#include "devices.h"
 
-
-QString findFileInPath( const char *fname, const char *extraPath) {
-  QString f;
-
-  if(access(fname, F_OK) == 0)
-    return QString(fname);
-
-  // strip arguments
-  QString _fname = fname;
-  if(_fname.find(' ') != -1)
-    _fname = _fname.left(_fname.find(' '));
-
-  int psize = 0;
-  if(extraPath != 0)
-    psize += strlen(extraPath);
-  if(getenv("PATH") != 0)
-    psize += strlen(getenv("PATH"));
-
-  // psize for the path, 2 for ":" and one zero byte
-  char *path = new char[psize+3];
-  if(!path) {
-    fprintf(stderr, "malloc failed!\n");
-    exit(1);
-  }
-  path[0] = 0;
-
-  if(extraPath != 0)
-    strcpy(path, extraPath);
-
-  // for absolute path
-  strcat(path, ":");
-
-  if(getenv("PATH") != 0) {
-    strcat(path, ":");
-    strcat(path, getenv("PATH"));
-  }
-
-  char *p = strtok(path, ":");
-  while(p != 0) {
-    f = p;
-    f += "/";
-    f += _fname;
-    if(access(f.data(), F_OK) == 0) {
-      delete path;
-      return f;
-    } else
-      p = strtok(0, ":");
-  }  
-
-  delete path;
-  f = "";
-  return f;
-}
-
+extern const char *pppdPath();
 
 PPPData gpppdata;
 
@@ -130,6 +78,10 @@ bool PPPData::open() {
     }
   }
 
+  // start out with internal debugging disabled
+  // the user is still free to specify `debug' on his own
+  setPPPDebug(false);
+
   return true;      
 }
 
@@ -172,7 +124,7 @@ int PPPData::access() {
 
 // functions to read/write date to configuration file
 const char* PPPData::readConfig(const char* group, const char* key,
-				const char* defvalue = "") {
+				const char* defvalue) {
   static QString s;
 
   if (config) {
@@ -288,7 +240,7 @@ void PPPData::setPPPDebug(bool set) {
 
 
 const bool PPPData::getPPPDebug() {
-  return (bool)readNumConfig(GENERAL_GRP, PPP_DEBUG_OPTION, (int)TRUE);
+  return (bool)readNumConfig(GENERAL_GRP, PPP_DEBUG_OPTION, false);
 }
 
 
@@ -348,23 +300,7 @@ void PPPData::set_dock_into_panel(bool set) {
 
 
 const char* PPPData::pppdPath() {
-  static char *PPPDPATH = 0;
-
-  if(PPPDPATH == 0) {
-    QString s = findFileInPath(PPPDNAME, 
-			       PPPDSEARCHPATH);
-    PPPDPATH = new char[s.length() + 1];
-    if(PPPDPATH == 0) {
-      fprintf(stderr, "kppp: low memory\n");
-      exit(1);
-    }
-    
-    // safe to use strcpy here
-    strcpy(PPPDPATH, s.data());
-  }
-  
-  return PPPDPATH;
-
+  return ::pppdPath();
 }
 
 
@@ -379,11 +315,7 @@ void PPPData::setpppdTimeout(const char *n) {
 
 
 const char* PPPData::modemDevice() {
-#ifdef __FreeBSD__
-  return readConfig (MODEM_GRP, MODEMDEV_KEY, "/dev/cuaa0");
-#else
-  return readConfig (MODEM_GRP, MODEMDEV_KEY, "/dev/modem");
-#endif
+  return readConfig (MODEM_GRP, MODEMDEV_KEY, devices[DEV_DEFAULT]);
 }
 
 
@@ -403,7 +335,13 @@ void PPPData::setFlowcontrol(const char *n) {
 
 
 const char* PPPData::speed() {
-  return readConfig(MODEM_GRP, SPEED_KEY);
+  const char* s = readConfig(MODEM_GRP, SPEED_KEY, "57600");
+  // undo the damage of a bug in former versions. It left an empty Speed=
+  // entry in kppprc. kppp did set the serial port to 57600 as default but
+  // pppd wouldn't receive the speed via the command line.
+  if(!s || atoi(s) == 0)
+    s = "57600";
+  return s;
 }
 
 
@@ -411,7 +349,7 @@ void PPPData::setSpeed( const char *n ) {
   writeConfig(MODEM_GRP, SPEED_KEY, n);
 }
 
-
+#if 0
 void PPPData::setUseCDLine(const int n) {
   writeConfig(MODEM_GRP,USECDLINE_KEY,n);
 }
@@ -420,7 +358,7 @@ void PPPData::setUseCDLine(const int n) {
 int PPPData::UseCDLine() {
   return  readNumConfig(MODEM_GRP,USECDLINE_KEY,0);
 }
-
+#endif
 
 const char*  PPPData::modemEscapeStr() {
   return readConfig(MODEM_GRP,ESCAPESTR_KEY,"+++");
@@ -685,7 +623,7 @@ void PPPData::setModemAnswerResp(const char *n) {
 
 
 const char* PPPData::enter() {
-  return readConfig(MODEM_GRP, ENTER_KEY, "CR/LF");
+  return readConfig(MODEM_GRP, ENTER_KEY, "CR");
 }
 
 
@@ -1192,20 +1130,12 @@ bool PPPData::graphingEnabled() {
 //
 //functions to change/set the child pppd process info
 //
-const bool PPPData::pppdRunning() {
+bool PPPData::pppdRunning() {
   return pppdisrunning;
 }
 
 void PPPData::setpppdRunning(bool set) {
   pppdisrunning = set;
-}
-
-pid_t PPPData::suidChildPid() {
-  return suidprocessid;
-}
-
-void PPPData::setSuidChildPid(pid_t id) {
-  suidprocessid = id;
 }
 
 int PPPData::pppdError() {

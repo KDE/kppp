@@ -26,11 +26,12 @@
 #include <qfileinf.h>
 #include <qprogdlg.h>
 
-QList<LogInfo> log;
+QList<LogInfo> logList;
 QProgressDialog *dlg;
 
 int loadLogs() {
   int logsize = 0;
+  logList.setAutoDelete(true);
 
   QString logdirname = kapp->localkdedir() + "/share/apps/kppp/Log/";
   QDir logdir(logdirname, "*.log");
@@ -98,9 +99,9 @@ int loadLog(QString fname) {
 	       fname.data(), lineno, buffer, li->error());
 	delete li;
       } else
-	log.append(li);
+	logList.append(li);
     } else
-      log.append(li);    
+      logList.append(li);    
   }
 
   fclose(f);

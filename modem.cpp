@@ -109,11 +109,18 @@ speed_t Modem::modemspeed() {
 bool Modem::opentty() {
   int flags;
 
+  if(modemfd>=0) {
+    fprintf(stderr, "kppp warning: closing old modem fd\n");
+    ::close(modemfd);
+    modemfd = -1;
+  }
+
   if((modemfd = Requester::rq->openModem(gpppdata.modemDevice()))<0) {
     errmsg = i18n("Sorry, can't open modem.");
     return false;
   }
   
+#if 0
   if(gpppdata.UseCDLine()) {
     if(ioctl(modemfd, TIOCMGET, &flags) == -1) {
       errmsg = i18n("Sorry, can't detect state of CD line.");
@@ -128,15 +135,28 @@ bool Modem::opentty() {
       return false;
     }
   }
+#endif
 	
   tcdrain (modemfd);
   tcflush (modemfd, TCIOFLUSH);
 
   if(tcgetattr(modemfd, &tty) < 0){
-    errmsg = i18n("Sorry, the modem is busy.");
-    ::close(modemfd);
-    modemfd = -1;
-    return false;
+    // try if that helps
+    tcsendbreak(modemfd, 0);
+    sleep(1);
+    if(tcgetattr(modemfd, &tty) < 0){
+      errmsg = i18n("Sorry, the modem is busy.");
+      ::close(modemfd);
+      modemfd = -1;
+      return false;
+    }
+    // Ask for success stories since we don't know if the tcsendbreak()
+    // makes any difference. No serious need for a translation.
+    QMessageBox::warning(0L, "Warning", 
+			 "kppp had to resort to an experimental method to get "
+			 "the terminal attributes.\n\nPlease send me "
+			 "(porten@kde.org) a short note so we can make this "
+			 "fix\npermanent in the next release. Thanks.");
   }
 
   memset(&initial_tty,'\0',sizeof(initial_tty));
@@ -151,7 +171,7 @@ bool Modem::opentty() {
   tty.c_cflag &= ~(CSIZE | CSTOPB | PARENB);  
   tty.c_cflag |= CS8 | CREAD;
   tty.c_cflag |= CLOCAL;                   // ignore modem status lines      
-  tty.c_iflag = IGNBRK | IGNPAR | ISTRIP;  // added ISTRIP
+  tty.c_iflag = IGNBRK | IGNPAR /* | ISTRIP */ ;
   tty.c_lflag &= ~ICANON;                  // non-canonical mode
   tty.c_lflag &= ~(ECHO|ECHOE|ECHOK|ECHOKE);
 
@@ -190,56 +210,62 @@ bool Modem::opentty() {
 
 bool Modem::closetty() {
   if(modemfd >=0 ) {
+    stop();
     /* discard data not read or transmitted */
     tcflush(modemfd, TCIOFLUSH);
     
     if(tcsetattr(modemfd, TCSANOW, &initial_tty) < 0){
       errmsg = i18n("Can't restore tty settings: tcsetattr()\n");
       ::close(modemfd);
+      modemfd = -1;
       return false;
     }
     ::close(modemfd);
+    modemfd = -1;
   }
 
   return true;
 }
 
-void Modem::readtty(int) {
-  char c;
 
-  if(read(modemfd, &c, 1) == 1) {
-    emit charWaiting(c);
-    // if this is a newline or carriage return, disable the notifier
-    // for a short time and then re-enable it (avoid reading too much)
-    if(sn != 0 && (c == '\n' || c == '\r')) {
-      sn->setEnabled(false);
-      //      Debug("QSocketNotifier disabled!");
-      QTimer::singleShot(20, this, SLOT(startNotifier()));
+void Modem::readtty(int) {
+  char buffer[200];
+  unsigned char c;
+  int len;
+
+  // read data in chunks of up to 200 bytes
+  if((len = ::read(modemfd, buffer, 200)) > 0) {
+    // split buffer into single characters for further processing
+    for(int i = 0; i < len; i++) {
+      c = buffer[i] & 0x7F;
+      emit charWaiting(c);
     }
   }
 }
 
 
 void Modem::notify(const QObject *receiver, const char *member) {
-  connect(this, SIGNAL(charWaiting(char)), receiver, member);
+  connect(this, SIGNAL(charWaiting(unsigned char)), receiver, member);
   startNotifier();
 }
 
 
 void Modem::stop() {
-  disconnect(SIGNAL(charWaiting(char)));
+  disconnect(SIGNAL(charWaiting(unsigned char)));
   stopNotifier();
 }
 
 
 void Modem::startNotifier() {
-  if(sn == 0) {
-    sn = new QSocketNotifier(modemfd, QSocketNotifier::Read, this);
-    connect(sn, SIGNAL(activated(int)), SLOT(readtty(int)));
-    Debug("QSocketNotifier started!");
-  } else {
-    //    Debug("QSocketNotifier re-enabled!");
-    sn->setEnabled(true);
+  if(modemfd >= 0) {
+    if(sn == 0) {
+      sn = new QSocketNotifier(modemfd, QSocketNotifier::Read, this);
+      connect(sn, SIGNAL(activated(int)), SLOT(readtty(int)));
+      Debug("QSocketNotifier started!");
+    } else {
+      //    Debug("QSocketNotifier re-enabled!");
+      sn->setEnabled(true);
+    }
   }
 }
 
@@ -255,13 +281,23 @@ void Modem::stopNotifier() {
 }
 
 
+void Modem::resumeNotifier() {
+  if(modemfd >= 0) {
+    if(sn != 0) {
+      sn->setEnabled(true);
+      Debug("QSocketNotifier resumed operation.");
+    }
+  }
+}
+
+
 void Modem::flush() {
   char c;
   while(read(modemfd, &c, 1) == 1);
 }
 
 
-bool Modem::writeChar(char c) {
+bool Modem::writeChar(unsigned char c) {
   return write(modemfd, &c, 1) == 1;
 }
 
@@ -362,7 +398,7 @@ void Modem::escape_to_command_mode() {
 }
 
 
-char *Modem::modemMessage() {
+const char *Modem::modemMessage() const {
   return errmsg.data();
 }
 
@@ -450,8 +486,13 @@ int Modem::lockdevice() {
   if (modem_is_locked) 
     return 1;
 
+  QString lockfile = LOCK_DIR"/LCK..";
+  // append everything after /dev/
+  lockfile += QString(gpppdata.modemDevice()).mid(5, 0xffff);
+  
   if(access(lockfile.data(), F_OK) == 0) {
-    if ((fd = Requester::rq->openLockfile(lockfile.data(), O_RDONLY)) >= 0) {
+    if ((fd = Requester::rq->openLockfile(gpppdata.modemDevice(),
+                                          O_RDONLY)) >= 0) {
       // Mario: it's not necessary to read more than lets say 32 bytes. If
       // file has more than 32 bytes, skip the rest
       char oldlock[33]; // safe
@@ -483,7 +524,7 @@ int Modem::lockdevice() {
   fd = Requester::rq->openLockfile(gpppdata.modemDevice(),
                                    O_WRONLY|O_TRUNC|O_CREAT);
   if(fd >= 0) {
-    sprintf(newlock,"%05d %s %s\n", getpid(), "kppp", "user" );
+    sprintf(newlock,"%010d\n", getpid());
     Debug("Locking Device: %s\n",newlock);
 
     write(fd, newlock, strlen(newlock));

@@ -29,6 +29,7 @@
 #include <qlayout.h>
 #include <kintegerline.h>
 #include <kquickhelp.h>
+#include <kslider.h>
 #include "general.h"
 #include "version.h"
 #include "macros.h"
@@ -297,11 +298,11 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   KQuickHelp::add(enter, 
 		  i18n("Specifies how AT commands are send to your\n"
 		       "modem. Most modems will work fine with the\n"
-		       "default <i>CR/LF</i>. If your modem does not react\n"
+		       "default <i>CR</i>. If your modem does not react\n"
 		       "to the init string, you should try different\n"
 		       "settings here\n"
 		       "\n"
-		       "<b>Default</b>: CR/LF")));
+		       "<b>Default</b>: CR")));
 
   baud_label = newLabel(i18n("Connection Speed:"), this);
   tl->addWidget(baud_label, 4, 1);  
@@ -310,7 +311,7 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   tl->addLayout(l1, 4, 2);
   baud_c = new QComboBox(this);
 
-  static char *baudrates[] = {
+  static const char *baudrates[] = {
     
 #ifdef B460800 
     "460800",
@@ -337,7 +338,6 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   for(k = 0; baudrates[k]; k++)
     baud_c->insertItem(baudrates[k]);
   
-  baud_c->setCurrentItem(3);
   connect(baud_c, SIGNAL(activated(int)),
 	  this, SLOT(speed_selection(int)));
   FIXED_HEIGHT(baud_c);
@@ -500,7 +500,6 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 		       "The default is 0 seconds, you should not change\n"
 		       "this unless you need to.")));
 
-  // the checkboxes
   l1->addSpacing(10);
   l1->addStretch(1);
 
@@ -526,7 +525,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 		       "If this does not work for your modem,\n"
 		       "you must modify the modem volume command")));
 
-
+#if 0
   QHBoxLayout *l12 = new QHBoxLayout;
   l1->addLayout(l12);
   l12->addStretch(1);
@@ -543,7 +542,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 		       "problems with this, do not modify this setting.\n"
 		       "\n"
 		       "<b>Default</b>: off"));
-
+#endif
 
   // add the buttons 
   QHBoxLayout *l11 = new QHBoxLayout;
@@ -609,11 +608,11 @@ void ModemWidget2::terminal() {
   terminal.exec();
 }
 
-
+#if 0
 void ModemWidget2::use_cdline_toggled(bool on) {
     gpppdata.setUseCDLine(on);
 }
-
+#endif
 
 void ModemWidget2::busywaitchanged(const char *n) {
   gpppdata.setbusyWait(n);

@@ -33,15 +33,10 @@
 #include <locale.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <stdlib.h>
 
 #ifdef HAVE_SYS_PARAM_H
 #include <sys/param.h>
-#endif
-
-#ifdef BSD
-#include <stdlib.h>
-#else
-#include <getopt.h>
 #endif
 
 #include <kmsgbox.h>
@@ -82,6 +77,9 @@ bool TESTING=0;
 
 // initial effective user id before possible suid status is dropped
 uid_t euid;
+
+// pid of the forked child
+pid_t helper_pid;
 
 QString local_ip_address;
 QString remote_ip_address;
@@ -290,13 +288,12 @@ int main( int argc, char **argv ) {
   // you're doing. We're most likely running setuid root here,
   // until we drop this status a few lines below.
   int sockets[2];
-  pid_t fpid;
   if(socketpair(AF_UNIX, SOCK_DGRAM, 0, sockets) != 0) {
     fprintf(stderr, "error creating socketpair !\n");
     exit(1);
   }
 
-  switch(fpid = fork()) {
+  switch(helper_pid = fork()) {
   case 0:
     // child process
     // make process leader of new group
@@ -329,9 +326,6 @@ int main( int argc, char **argv ) {
 
   (void) new Requester(sockets[0]);
 
-  if(securityTests() != TEST_OK)
-    shutDown(1);
-
   KApplication a(argc, argv, "kppp");
 
   // set portable locale for decimal point
@@ -339,10 +333,6 @@ int main( int argc, char **argv ) {
 
   // open configuration file
   gpppdata.open();
-
-  // store id of fork()'ed process
-  gpppdata.setSuidChildPid(fpid);
-  Debug("suidChildPid: %i\n", (int) gpppdata.suidChildPid());
 
   int c;
   opterr = 0;
@@ -435,9 +425,7 @@ int main( int argc, char **argv ) {
     c->exec();
     delete c;
     remove_pidfile();
-    exit(0);
-    
-    return a.exec();
+    shutDown(0);
   }
 
   if (pid > 0) {
@@ -548,8 +536,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   MIN_SIZE(PW_Label);
   l1->addWidget(PW_Label, 2, 1);
 
-  PW_Edit= new QLineEdit(this);
-  PW_Edit->setEchoMode(QLineEdit::Password);
+  PW_Edit= new PasswordWidget(this);
   MIN_WIDTH(PW_Edit);
   FIXED_HEIGHT(PW_Edit);
   l1->addWidget(PW_Edit, 2, 2);
@@ -682,8 +669,8 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 	  debugwindow, SLOT(statusLabel(QString)));
   connect(con, SIGNAL(toggleDebugWindow()),
 	  debugwindow, SLOT(toggleVisibility()));
-  connect(con, SIGNAL(debugPutChar(char)),
-	  debugwindow, SLOT(addChar(char)));
+  connect(con, SIGNAL(debugPutChar(unsigned char)),
+	  debugwindow, SLOT(addChar(unsigned char)));
   connect(con, SIGNAL(startAccounting()),
 	  this, SLOT(startAccounting()));
   connect(con, SIGNAL(stopAccounting()),
@@ -846,9 +833,13 @@ void dieppp(int) {
       Requester::rq->removeSecret(AUTH_PAP);
       Requester::rq->removeSecret(AUTH_CHAP);
 
+      Modem::modem->closetty();
+      Modem::modem->unlockdevice();
+
       gpppdata.setpppdRunning(false);
       
       Debug("Executing command on disconnect since pppd has died:\n");
+      QApplication::flushX();
       execute_command(gpppdata.command_on_disconnect());
 
       p_kppp->stopAccounting();
@@ -860,7 +851,6 @@ void dieppp(int) {
       if(!gpppdata.pppdError())
         gpppdata.setpppdError(E_PPPD_DIED);
       removedns();
-      Modem::modem->unlockdevice();      
       
       if(!gpppdata.automatic_redial()) {
 	p_kppp->quit_b->setFocus();
@@ -887,7 +877,7 @@ void dieppp(int) {
 	
 	KMsgBox msgb(0, 
 		     i18n("Error"), 
-		     i18n(msg),
+		     msg,
 		     KMsgBox::STOP | KMsgBox::DB_FIRST,
 		     i18n("OK"),
 		     i18n("Details..."));
@@ -919,15 +909,15 @@ void sigchld(int) {
   Debug("sigchld()");
   pid_t id = wait(0L);
 
-  if(id == gpppdata.suidChildPid() && gpppdata.suidChildPid() != -1) {
+  if(id == helper_pid && helper_pid != -1) {
     Debug("It was the setuid child that died");
-    gpppdata.setSuidChildPid(-1);
+    helper_pid = -1;
     QString msg = i18n("Sorry. kppp's helper process just died.\n\n"
                        "Since a further execution would be pointless, "
                        "kppp will shut down right now.");
     QMessageBox::critical(0L, i18n("Error"), msg);
     remove_pidfile();
-    shutDown(1);
+    exit(1);
   }
 }
 
@@ -955,16 +945,10 @@ void KPPPWidget::connectbutton() {
   QFileInfo info(gpppdata.pppdPath());
 
   if(!info.exists()){
-    QString string;   
-    string.sprintf(i18n("kppp can not find:\n %s\n"
-    			"Please install pppd properly and/or adjust\n"
-    			"the location of the pppd executable on\n"
-			"the PPP tab of the setup dialog.\n"
-			"This will insure that kppp can find the\n"
-			"PPP daemon.\n"
-			"Thank You"),
-		   gpppdata.pppdPath());
-    QMessageBox::warning(this, i18n("Error"), string.data());
+    QMessageBox::warning(this, i18n("Error"),
+                         i18n("Cannot find the PPP daemon!\n\n"
+                              "Make sure that pppd is installed and\n"
+                              "you have entered the correct path."));
     return;
   }
 #if 0
@@ -1090,6 +1074,7 @@ void KPPPWidget::disconnect() {
     con->setMsg("Executing command before disconnection.");
 
     kapp->processEvents();
+    QApplication::flushX();
     pid_t id = execute_command(gpppdata.command_before_disconnect());
     int i, status;
 
@@ -1107,12 +1092,14 @@ void KPPPWidget::disconnect() {
   stats->stop_stats();
   Requester::rq->killPPPDaemon();
 
+  QApplication::flushX();
   execute_command(gpppdata.command_on_disconnect());
   
   Requester::rq->removeSecret(AUTH_PAP);
   Requester::rq->removeSecret(AUTH_CHAP);
 
   removedns();
+  Modem::modem->closetty();
   Modem::modem->unlockdevice();
   
   con_win->stopClock();
@@ -1147,6 +1134,7 @@ void KPPPWidget::quitbutton() {
 
     if(ok) {
       Requester::rq->killPPPDaemon();
+      QApplication::flushX();
       execute_command(gpppdata.command_on_disconnect());
       removedns();
       Modem::modem->unlockdevice();
@@ -1239,6 +1227,17 @@ void KPPPWidget::resetCosts(const char *s) {
   AccountingBase::resetCosts(s);
 }
 
+PasswordWidget::PasswordWidget(QWidget *parent, const char *name)
+  : QLineEdit(parent, name)
+{
+  setEchoMode(Password);
+}
+
+void PasswordWidget::focusOutEvent(QFocusEvent *e)
+{
+  deselect();
+  QLineEdit::focusOutEvent(e);
+}
 
 pid_t execute_command (const char *command) {
     if(!command || strcmp(command, "") ==0 || strlen(command) > COMMAND_SIZE)
@@ -1335,13 +1334,12 @@ bool remove_pidfile() {
 
 
 void shutDown(int status) {
-  pid_t pid;
   // don't bother about SIGCHLDs anymore
   signal(SIGCHLD, SIG_IGN);
   Debug("shutDown(%i)", status);
-  pid = gpppdata.suidChildPid();
+  pid_t pid = helper_pid;
   if(pid > 0) {
-    gpppdata.setSuidChildPid(-1);
+    helper_pid = -1;
     Debug("killing child process %i", pid);
     kill(pid, SIGKILL);
   }

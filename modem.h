@@ -49,11 +49,11 @@ public:
   bool opentty();
   bool closetty();
   bool hangup();
-  bool writeChar(char);
+  bool writeChar(unsigned char);
   bool writeLine(const char *);
   bool dataMode() const { return data_mode; }
   void setDataMode(bool set) { data_mode = set; }
-  char *modemMessage();  
+  const char *modemMessage() const;  
   speed_t modemspeed();
   static QString parseModemSpeed(const QString &);
   void notify(const QObject *, const char *);
@@ -67,11 +67,12 @@ public:
   static Modem *modem;
 
 signals:
-  void charWaiting(char);
+  void charWaiting(unsigned char);
 
 private slots:
   void startNotifier();
   void stopNotifier();
+  void resumeNotifier();
   void readtty(int);  
 
 private:
@@ -84,9 +85,7 @@ private:
   QString errmsg;
   struct termios initial_tty;
   struct termios tty;
-
   bool modem_is_locked;
-  QString lockfile;
 };
 
 #ifndef HAVE_USLEEP

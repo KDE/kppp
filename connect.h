@@ -69,7 +69,7 @@ protected:
   void closeEvent( QCloseEvent *e );  
 
 private slots:
-  void readChar(char);
+  void readChar(unsigned char);
   void pause();
   void cancelbutton();
   void debugbutton();
@@ -86,7 +86,7 @@ signals:
   void debugMessage(const char *);
   void debugMessage(QString);
   void toggleDebugWindow();
-  void debugPutChar(char);
+  void debugPutChar(unsigned char);
   void startAccounting();
   void stopAccounting();
 
@@ -115,6 +115,7 @@ private:
   QTimer *timeout_timer;
   bool execppp();
   void writeline(const char*);
+  void checkBuffers();
   
   void setExpect(const char *);
   bool expecting;
