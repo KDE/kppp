@@ -19,7 +19,7 @@ name=Arcor-Internet by Call easy
 # currency settings
 ################################################################
 
-currency_symbol=¤
+currency_symbol=Â¤
 currency_position=right 
 currency_digits=2
 

@@ -19,7 +19,7 @@ name=Freenet
 #
 ################################################################
 
-currency_symbol=¤
+currency_symbol=Â¤
 currency_position=left
 currency_digits=2
 
