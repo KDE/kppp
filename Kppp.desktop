@@ -1,7 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 GenericName=Internet Dial-up Tool
-GenericName[af]=internet op-bel program
+GenericName[af]=Internet Op-bel Program
 GenericName[ar]=أداة للإتصال بشبكة الإنترنت
 GenericName[bs]=Program za spajanje na Internet
 GenericName[cs]=Program na připojení přes vytáčenou linku
@@ -45,7 +45,7 @@ GenericName[zh_TW]=Internet 撥號工具
 GenericName[zu]=Ithuluzi sokushayela-phezulu Uxhumaniso olusakazekileyo
 BinaryPattern=kppp;
 Name=KPPP
-Name[af]=kppp
+Name[af]=Kppp
 Name[eo]=Interretkonektilo
 Name[sv]=Kppp
 Name[xx]=xx
