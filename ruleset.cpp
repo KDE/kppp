@@ -82,7 +82,7 @@ int RuleSet::dayNameToInt(const char *s) {
 			"sunday", NULL};
 
   for(int i = 0; name[i] != NULL; i++)
-    if(stricmp(name[i], s) == 0)
+    if(qstricmp(name[i], s) == 0)
       return i;
 
   return -1;
