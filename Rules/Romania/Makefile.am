@@ -1,5 +1,5 @@
 pkg_DATA = Romtelecom_Acces_Special_Internet.rst \
-           Romtelecom_Interurban.rst \
+           Romtelecom_Interjudetean.rst \
            Romtelecom_Local.rst \
            RomTelecom_GSM.rst \
            Zapp-Mobile.rst Easynet.rst
