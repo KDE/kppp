@@ -205,6 +205,7 @@ void ConnectWidget::init() {
     emit debugMessage(i18n("Running pre-startup command..."));
 
     kapp->processEvents();
+    QApplication::flushX();
     pid_t id = execute_command(gpppdata.command_before_connect());
     int i, status;
 
@@ -288,16 +289,18 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
   }
 
   if(vmain == 3) {
-    messg->setText(i18n("Setting speaker volume..."));
-    emit debugMessage(i18n("Setting speaker volume..."));
+    if(!expecting) {
+      messg->setText(i18n("Setting speaker volume..."));
+      emit debugMessage(i18n("Setting speaker volume..."));
 
-    setExpect(gpppdata.modemInitResp());
-    QString vol("AT");
-    vol += gpppdata.volumeInitString();
-    writeline(vol.data());
-    usleep(gpppdata.modemInitDelay() * 10000); // 0.01 - 3.0 sec
-    vmain = 1;
-    return;
+      setExpect(gpppdata.modemInitResp());
+      QString vol("AT");
+      vol += gpppdata.volumeInitString();
+      writeline(vol.data());
+      usleep(gpppdata.modemInitDelay() * 10000); // 0.01 - 3.0 sec
+      vmain = 1;
+      return;
+    }
   }
 
   // dial the number and wait to connect
@@ -332,6 +335,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
   // if NO CARRIER or NO DIALTONE
   if(vmain == 100) {
     if(!expecting) {
+      myreadbuffer = gpppdata.modemConnectResp();
       setExpect("\n");
       vmain = 101;
       return;
@@ -767,6 +771,11 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	}
       }
       
+      // Close the tty. This prevents the QTimer::singleShot() in
+      // Modem::readtty() from re-enabling the socket notifier.
+      // The port is still held open by the helper process.
+      Modem::modem->closetty();
+
       killTimer( main_timer_ID );
 
       if_timeout_timer->start(atoi(gpppdata.pppdTimeout())*1000);
@@ -865,7 +874,8 @@ void ConnectWidget::readChar(unsigned char c) {
   if(expecting) {
     if(readbuffer.contains(expectstr)) {
       expecting = false;
-      readbuffer = "";
+      // keep everything after the expected string
+      readbuffer.remove(0, readbuffer.find(expectstr) + expectstr.length());
 
       QString ts = i18n("Found: ");
       ts += expectstr;
@@ -874,7 +884,6 @@ void ConnectWidget::readChar(unsigned char c) {
       if (loopend) {
 	loopend=false;
       }
-      return;
     }
 
     if (loopend && readbuffer.contains(loopstr[loopnest])) {
@@ -887,6 +896,9 @@ void ConnectWidget::readChar(unsigned char c) {
       loopend = false;
       loopnest++;
     }
+    // notify event loop if expected string was found
+    if(!expecting)
+      timerEvent((QTimerEvent *) 0);
   }
 }
 
@@ -1087,8 +1099,12 @@ bool ConnectWidget::execppp() {
 
   command = "pppd";
 
-  command += " ";
-  command += gpppdata.modemDevice();
+  // as of version 2.3.6 pppd falls back to the real user rights when
+  // opening a device given in a command line. To avoid permission conflicts
+  // we'll simply leave this argument away. pppd will then use the default tty
+  // which is the serial port we connected stdin/stdout to in opener.cpp.
+  //  command += " ";
+  //  command += gpppdata.modemDevice();
 
   command += " " ;
   command += gpppdata.speed();

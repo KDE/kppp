@@ -834,6 +834,7 @@ void dieppp(int) {
       gpppdata.setpppdRunning(false);
       
       Debug("Executing command on disconnect since pppd has died:\n");
+      QApplication::flushX();
       execute_command(gpppdata.command_on_disconnect());
 
       p_kppp->stopAccounting();
@@ -1067,6 +1068,7 @@ void KPPPWidget::disconnect() {
     con->setMsg(i18n("Executing command before disconnection."));
 
     kapp->processEvents();
+    QApplication::flushX();
     pid_t id = execute_command(gpppdata.command_before_disconnect());
     int i, status;
 
@@ -1084,6 +1086,7 @@ void KPPPWidget::disconnect() {
   stats->stop_stats();
   Requester::rq->killPPPDaemon();
 
+  QApplication::flushX();
   execute_command(gpppdata.command_on_disconnect());
   
   Requester::rq->removeSecret(AUTH_PAP);
@@ -1124,6 +1127,7 @@ void KPPPWidget::quitbutton() {
 
     if(ok) {
       Requester::rq->killPPPDaemon();
+      QApplication::flushX();
       execute_command(gpppdata.command_on_disconnect());
       removedns();
       Modem::modem->unlockdevice();

@@ -45,7 +45,7 @@
 // string lengths
 
 #define PATH_SIZE 120 
-#define MODEMSTR_SIZE 50
+#define MODEMSTR_SIZE 80
 #define ACCNAME_SIZE 50
 #define PHONENUMBER_SIZE 60
 #define COMMAND_SIZE 255

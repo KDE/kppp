@@ -194,15 +194,18 @@ bool Modem::opentty() {
 
 bool Modem::closetty() {
   if(modemfd >=0 ) {
+    stop();
     /* discard data not read or transmitted */
     tcflush(modemfd, TCIOFLUSH);
     
     if(tcsetattr(modemfd, TCSANOW, &initial_tty) < 0){
       errmsg = i18n("Can't restore tty settings: tcsetattr()\n");
       ::close(modemfd);
+      modemfd = -1;
       return false;
     }
     ::close(modemfd);
+    modemfd = -1;
   }
 
   return true;
@@ -237,13 +240,15 @@ void Modem::stop() {
 
 
 void Modem::startNotifier() {
-  if(sn == 0) {
-    sn = new QSocketNotifier(modemfd, QSocketNotifier::Read, this);
-    connect(sn, SIGNAL(activated(int)), SLOT(readtty(int)));
-    Debug("QSocketNotifier started!");
-  } else {
-    //    Debug("QSocketNotifier re-enabled!");
-    sn->setEnabled(true);
+  if(modemfd >= 0) {
+    if(sn == 0) {
+      sn = new QSocketNotifier(modemfd, QSocketNotifier::Read, this);
+      connect(sn, SIGNAL(activated(int)), SLOT(readtty(int)));
+      Debug("QSocketNotifier started!");
+    } else {
+      //    Debug("QSocketNotifier re-enabled!");
+      sn->setEnabled(true);
+    }
   }
 }
 
