@@ -703,32 +703,24 @@ void KPPPWidget::setup() {
 void KPPPWidget::resetaccounts() {
   connectto_c->clear();
 
-  if(gpppdata.count() == 0) {
-    connectto_c->setEnabled(false);
-    connect_b->setEnabled(false);
+  int count = gpppdata.count();
 
-    log->setEnabled(false);
-    ID_Edit->setEnabled(false);
-    PW_Edit->setEnabled(false);
-  }
-  else {
-    connectto_c->setEnabled(true);
-    connect_b->setEnabled(true);
-
-    log->setEnabled(true);
-    ID_Edit->setEnabled(true);
-    PW_Edit->setEnabled(true);
-  }
+  // enable/disable controls
+  connectto_c->setEnabled(count > 0);
+  connect_b->setEnabled(count > 0);
+  log->setEnabled(count > 0);
+  ID_Edit->setEnabled(count > 0);
+  PW_Edit->setEnabled(count > 0);
 
   //load the accounts
-  for(int i=0; i <= gpppdata.count()-1; i++) {
+  for(int i=0; i < count; i++) {
     gpppdata.setAccountbyIndex(i);
      connectto_c->insertItem(gpppdata.accname());
   }
 
   //set the default account
   if(!gpppdata.defaultAccount().isEmpty()) {
-    for(int i=0; i < connectto_c->count(); i++)
+    for(int i=0; i < count; i++)
        if(gpppdata.defaultAccount() == connectto_c->text(i)) {
  	connectto_c->setCurrentItem(i);
 	gpppdata.setAccountbyIndex(i);
@@ -738,7 +730,7 @@ void KPPPWidget::resetaccounts() {
     }
   }
   else 
-    if(gpppdata.count() > 0) {
+    if(count > 0) {
        gpppdata.setDefaultAccount(connectto_c->text(0));
     }
 

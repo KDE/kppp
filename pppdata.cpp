@@ -74,12 +74,11 @@ bool PPPData::open() {
   if (highcount > MAX_ACCOUNTS)
     highcount = MAX_ACCOUNTS;
 
-  if(highcount >= 0) {
-    if(defaultAccount().isEmpty()) {
-      setAccountbyIndex(0);
-      setDefaultAccount(accname());
-    }
-  }
+  if(highcount >= 0 && defaultAccount().isEmpty()) {
+    setAccountbyIndex(0);
+    setDefaultAccount(accname());
+  } else if(!setAccount(accname()))
+    setDefaultAccount(accname());
 
   // start out with internal debugging disabled
   // the user is still free to specify `debug' on his own
@@ -128,12 +127,9 @@ QString PPPData::readConfig(const QString &group, const QString &key,
 {
   if (config) {
     config->setGroup(group);
-    if (!config->hasKey(key))
-      config->writeEntry(key, QString(defvalue));
-    return config->readEntry(key);
+    return config->readEntry(key, defvalue);
   } else
     return defvalue;
-  
 }
 
 
@@ -141,11 +137,7 @@ int PPPData::readNumConfig(const QString &group, const QString &key,
 			   int defvalue) {
   if (config) {
     config->setGroup(group);
-    
-    // make default entry
-    if (!config->hasKey(key)) 
-      config->writeEntry(key, defvalue);
-    return config->readNumEntry(key);
+    return config->readNumEntry(key, defvalue);
   } else
     return defvalue;
 
