@@ -55,6 +55,7 @@
 #include <net/ppp_defs.h>
 
 #include "config.h"
+#include "pppstats.h"
 
 #ifndef STREAMS
  #if defined(__linux__) && defined(__powerpc__) \
@@ -86,9 +87,9 @@
 #include <qtimer.h>
 #include <kdebug.h>
 
-#include "pppstats.h"
-
-PPPStats::PPPStats() {
+PPPStats::PPPStats()
+{
+  clear();
   timer = new QTimer;
   connect(timer, SIGNAL(timeout()), SLOT(timerClick()));
 }
@@ -99,6 +100,23 @@ PPPStats::~PPPStats() {
   delete timer;
 }
 
+
+void PPPStats::clear()
+{
+  ibytes = 0;
+  ipackets = 0;
+  ibytes_last = 0;
+  obytes_last = 0;
+  compressedin = 0;
+  uncompressedin = 0;
+  errorin = 0;
+  obytes = 0;
+  opackets = 0;
+  compressed = 0;
+  packetsunc = 0;
+  packetsoutunc = 0;
+  ioStatus = BytesNone;
+}
 
 void PPPStats::timerClick() {
   enum IOStatus newStatus;
@@ -194,19 +212,7 @@ bool PPPStats::initStats() {
   struct sockaddr_in *sinp;
   struct ifreq ifr;
 
-  ibytes = 0;
-  ipackets = 0;
-  ibytes_last = 0;
-  obytes_last = 0;
-  compressedin = 0;
-  uncompressedin = 0;
-  errorin = 0;
-  obytes = 0;
-  opackets = 0;
-  compressed = 0;
-  packetsunc = 0;
-  packetsoutunc = 0;
-  ioStatus = BytesNone;
+  clear();
 
   strcpy(ifr.ifr_name, unitName);
 

@@ -186,13 +186,13 @@ void PPPData::writeListConfig(const QString &group, const QString &key,
 //
 // functions to set/return general information
 //
-const QString PPPData::Password() {
-  return password;
+QString PPPData::password() const {
+  return passwd;
 }
 
 
 void PPPData::setPassword(const QString &pw) {
-  password = pw;
+  passwd = pw;
 }
 
 
