@@ -9,6 +9,23 @@ static const char *devices[] = {
   "/dev/cuaa1",
   "/dev/cuaa2",
   "/dev/cuaa3",
+#elif defined(__NetBSD__)
+  "/dev/tty00",                /* "normal" modem lines */
+  "/dev/tty01",
+  "/dev/tty02",
+  "/dev/tty03",
+  "/dev/dty00",                /* Dial out devices */
+  "/dev/dty01",
+  "/dev/dty02",
+  "/dev/dty03",
+  "/dev/ttyU0",                /* USB stuff modems */
+  "/dev/ttyU1",
+  "/dev/ttyU2",
+  "/dev/ttyU3",
+  "/dev/dtyU0",                /* USB stuff, too (dial out device) */
+  "/dev/dtyU1",
+  "/dev/dtyU2",
+  "/dev/dtyU3",
 #elif defined (__linux__)
   "/dev/modem",
 // Linux from 2.1.x on discourages from using this devices
