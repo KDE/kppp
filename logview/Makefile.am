@@ -42,5 +42,3 @@ noinst_HEADERS = loginfo.h log.h monthly.h main.h
 
 METASOURCES = main.moc monthly.moc
 
-messages:
-	#$(XGETTEXT) -C -ktranslate -ki18n -x $(includedir)/kde.pot $(kppp_SOURCES) && mv messages.po ../po/kppp.pot
