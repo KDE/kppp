@@ -45,7 +45,7 @@ ModemSelector::ModemSelector(QWidget *parent) : QDialog(parent, 0, true) {
   // set up widgets and such
   setCaption(i18n("Select Modem Type"));
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
-  QLabel *l1 = new QLabel(i18n("To setup your modem, first choose its vendor in the "
+  QLabel *l1 = new QLabel(i18n("To set up your modem, first choose its vendor in the "
 			       "list to the left, and then select the model from the "
 			       "right list. If you don't know which modem you have, "
 			       "you can try out one of the \"Generic\" modems."),
@@ -76,7 +76,7 @@ ModemSelector::ModemSelector(QWidget *parent) : QDialog(parent, 0, true) {
   tl->addWidget(bbox);
   setFixedSize(sizeHint());
 
-  // setup modem database
+  // set up modem database
   db = new ModemDatabase();
 
   // set up signal/slots

@@ -430,7 +430,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
     if(readbuffer.contains(gpppdata.modemNoDialtoneResp())) {
       timeout_timer->stop();
 
-      messg->setText(i18n("No Dialtone"));
+      messg->setText(i18n("No Dial Tone"));
       vmain = 20;
       Modem::modem->unlockdevice();
       return;

@@ -37,7 +37,7 @@ struct {
 
 ExportFormats [] = {
     { 1, I18N_NOOP("CSV"),
-      I18N_NOOP("Export to a text file. The semicolon is used as separator.<p></p>Can be used for spreadsheet programs like <i>KSpread</i>."),
+      I18N_NOOP("Export to a text file, using semicolons as separators.<p></p>Can be used for spreadsheet programs like <i>KSpread</i>."),
       "csv" },
     { 2, I18N_NOOP("HTML"),
       I18N_NOOP("Export to a HTML Page.<p></p>Can be used for easy exchange over the <i>Internet</i>."),
@@ -98,7 +98,7 @@ ExportWizard::ExportWizard(QWidget *parent, const QString &_date)
   fnGet = new QPushButton(filenamePage);
   fnGet->setText(i18n("&Select File..."));
   fnGet->setMaximumWidth(200);
-  QToolTip::add(fnGet, i18n("Select the filename of the exported output-file"));
+  QToolTip::add(fnGet, i18n("Select the filename of the exported output file"));
   filenameLayout->addWidget(fnGet);
   connect(fnGet, SIGNAL(clicked()), SLOT(getFilename()));
   filenameLayout->addStretch(2);

@@ -90,7 +90,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   QWhatsThis::add(copy_b,
 		  i18n("Makes a copy of the selected account. All\n"
 		       "settings of the selected account are copied\n"
-		       "to a new account, that you can modify to fit your\n"
+		       "to a new account that you can modify to fit your\n"
 		       "needs"));
 
   delete_b = new QPushButton(i18n("De&lete"), parent);

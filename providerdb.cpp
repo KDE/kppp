@@ -392,7 +392,7 @@ PDB_DialPrefix::PDB_DialPrefix(QWidget *parent) : QWidget(parent) {
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
   QLabel *l = new QLabel(i18n("If you need a special dial prefix (e.g. if you\n"
 			    "are using a telephone switch) you can specify\n"
-			    "this here. This prefix is dialed just before the\n"
+			    "it here. This prefix is dialed just before the\n"
 			    "phone number.\n\n"
 			    "If you have a telephone switch, you probably need\n"
 			    "to write \"0\" or \"0,\" here."),
