@@ -200,12 +200,20 @@ void PPPL_ShowLog() {
 
   PPPL_MakeLog(sl);
 
+  bool foundConnect = false;
   bool foundLCP = gpppdata.getPPPDebug();
-  for(uint i = 0; !foundLCP && i < sl.count(); i++)
-    if(strstr((*sl.at(i)).local8Bit(), "[LCP") != 0)
-      foundLCP = TRUE;
-
-  if(!foundLCP) {
+  QString lcp = QString::fromLatin1("[LCP");
+  QString conn = QString::fromLatin1("Connect:");
+  QStringList::ConstIterator it = sl.begin();
+  for( ; it != sl.end(); it++) {
+    if((*it).find(lcp) >= 0) {
+      foundLCP = true;
+      break;
+    }
+    if((*it).find(conn) >= 0)
+      foundConnect = true;
+  }
+  if(foundConnect && !foundLCP) {
     int result = KMessageBox::warningYesNo(0,
 				i18n("KPPP could not prepare a PPP log. It's very likely\n"
 				     "that pppd was started without the \"debug\" option.\n\n"
