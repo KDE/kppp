@@ -1,10 +1,12 @@
 # KDE Config File
+# gegevens van 
+# http://www.cistron.nl/node.php?id=70&sqlcistron=b9093c0a65c4836c62715eb05bcf71f4
 ExDNSDisabled=0
 AutoDNS=1
 AutoName=0
 ScriptArguments=
 AccountingEnabled=1
-Phonenumber=0676099099
+Phonenumber=0676070809
 IPAddr=0.0.0.0
 Domain=
 Name=Cistron
@@ -23,3 +25,4 @@ Username=%USERNAME%
 Gateway=0.0.0.0
 StorePassword=1
 DisconnectCommand=
+AccountingFile=/Netherlands/BelBasis_Regio_Nummervoordeel.rst
