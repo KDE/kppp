@@ -52,7 +52,7 @@ class KConfig;
 #define COMMAND_SIZE 255
 #define IPADDR_SIZE 15
 #define DOMAIN_SIZE 50
-#define TIMEOUT_SIZE 4
+#define TIMEOUT_SIZE 60
 
 //
 // keys for config file

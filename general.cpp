@@ -29,7 +29,7 @@
 #include <qlayout.h>
 #include <qwhatsthis.h>
 
-//#include <knuminput.h>
+#include <knuminput.h>
 #include <qslider.h>
 #include "general.h"
 #include "version.h"
@@ -53,8 +53,8 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
 {
   QVBoxLayout *tl = new QVBoxLayout(peer(), 10, 10);
   
-  pppdtimeout = new KIntNumInput(i18n("pppd Timeout:"), 1, TIMEOUT_SIZE, 2,
-                                 gpppdata.pppdTimeout(), i18n("seconds"), 
+  pppdtimeout = new KIntNumInput(i18n("pppd Timeout:"), 1, TIMEOUT_SIZE, 30,
+                                 gpppdata.pppdTimeout(), i18n("s"), 
 				 10, true, peer(), "pppd_timeout");
   pppdtimeout->setLabelAlignment(Qt::AlignRight);
   connect(pppdtimeout, SIGNAL(valueChanged(int)),
@@ -67,6 +67,8 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
 
   QWhatsThis::add(pppdtimeout,tmp); 
 
+  debug("added pppdtimeout");
+
   tl->addStretch(1);
   QHBoxLayout *lh = new QHBoxLayout();
   tl->addLayout(lh);
@@ -76,6 +78,8 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
   lh->addLayout(l3, 0);
   QVBoxLayout *l4 = new QVBoxLayout();
   lh->addLayout(l4, 1);
+
+  debug("some layouts added");
 
   chkbox6 = new QCheckBox(i18n("Dock into Panel on Connect"), peer());
   QWhatsThis::add(chkbox6, 
@@ -369,12 +373,12 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
 
   modemtimeout = new KIntNumInput(i18n("Modem Timeout:"), 1, 120, 1,
 				  gpppdata.modemTimeout(),
-                                  i18n("seconds"), 10, true, 
+                                  i18n("s"), 10, true, 
 				  peer(), "modem_timeout");
   modemtimeout->setLabelAlignment(Qt::AlignRight);
   connect(modemtimeout, SIGNAL(valueChanged(int)), 
 	  SLOT(modemtimeoutchanged(int)));  
-  tl->addWidget(modemtimeout, 6, 1);
+  tl->addMultiCellWidget(modemtimeout, 6, 6, 0, 1);
 
   QWhatsThis::add(modemtimeout,
                   i18n("This specifies how long <i>kppp</i> waits for a\n"
@@ -438,7 +442,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 
   busywait = new KIntNumInput(i18n("Busy Wait:"), 0, 300, 5, 
 			      gpppdata.busyWait(),
-                              i18n("seconds"), 10, true, 
+                              i18n("s"), 10, true, 
 			      peer(), "busy_wait");
   
   busywait->setLabelAlignment(AlignCenter);
