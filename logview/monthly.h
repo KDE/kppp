@@ -28,9 +28,11 @@
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
+#include <qvaluelist.h>
 #include <kbuttonbox.h>
 
 class QListView;
+class QComboBox;
 
 class MonthlyWidget : public QWidget {
   Q_OBJECT
@@ -41,6 +43,7 @@ private slots:
   void prevMonth();
   void nextMonth();
   void currentMonth();
+  void slotConnections(int);
 
 private:
   void layoutWidget();
@@ -48,11 +51,12 @@ private:
 
   int _month, _year;
 
+  QComboBox *cboConnections;  
   KButtonBox *bbox;
   QListView *lv;
   QLabel *title;
   QPushButton *next, *prev, *today;
-
+  QValueList<QString> lstConnections;
   QVBoxLayout *tl;
 };
 

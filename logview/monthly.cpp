@@ -23,6 +23,7 @@
 #include <klocale.h>
 #include <kglobal.h>
 #include <klistview.h>
+#include <qcombobox.h>
 
 static void formatBytes(int bytes, QString &result) {
   if(bytes < 1024)
@@ -62,7 +63,7 @@ public:
   virtual void paintCell( QPainter *p, const QColorGroup & cg,
 			  int column, int width, int alignment );
 
-    virtual QString key(int, bool) const;    
+    virtual QString key(int, bool) const;
 private:
     LogInfo *li;
 };
@@ -70,12 +71,12 @@ private:
 void LogListItem::paintCell( QPainter *p, const QColorGroup & cg,
 			     int column, int width, int alignment )
 {
-  QListViewItem::paintCell(p, cg, column, width, alignment);    
+  QListViewItem::paintCell(p, cg, column, width, alignment);
 
   // double line above sum
   if(!li) {
     p->drawLine(0, 0, width, 0);
-    p->drawLine(0, 2, width, 2);    
+    p->drawLine(0, 2, width, 2);
   }
 }
 
@@ -83,7 +84,7 @@ QString LogListItem::key(int c, bool ascending) const
 {
   if (!li)	// we want the sum to be always at the bottom
     return ascending ? "z" : " ";
-  
+
   QString k;
   switch (c) {
   case 0:
@@ -95,16 +96,16 @@ QString LogListItem::key(int c, bool ascending) const
     k.sprintf("%012u", (uint)li->from_t());
     break;
   case 4:
-    k.sprintf("%012d", li->duration());    
+    k.sprintf("%012d", li->duration());
     break;
   case 5:
-    k.sprintf("%012.2f", li->sessionCosts());        
+    k.sprintf("%012.2f", li->sessionCosts());
     break;
   case 6:
-    k.sprintf("%012d", li->bytesIn());    
+    k.sprintf("%012d", li->bytesIn());
     break;
   case 7:
-    k.sprintf("%012d", li->bytesOut());    
+    k.sprintf("%012d", li->bytesOut());
     break;
   }
   return k;
@@ -145,6 +146,12 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
   title->setFont(f);
   title->setFixedHeight(title->sizeHint().height()*2);
 
+  cboConnections = new QComboBox(false, this);            // add a combo box to select connections
+  cboConnections->setMaximumWidth(200);                   // a resonable size
+  cboConnections->insertItem(i18n("All connections"));    // default to all connections
+  connect(cboConnections, SIGNAL(activated(int)),
+	  this, SLOT(slotConnections(int)));
+
   bbox = new KButtonBox(this, Qt::Vertical);
   prev = bbox->addButton(i18n("Prev month"));
   next = bbox->addButton(i18n("Next month"));
@@ -170,6 +177,7 @@ void MonthlyWidget::layoutWidget() {
     delete tl;
   tl = new QVBoxLayout(this, 10, 10);
   tl->addWidget(title);
+  tl->addWidget(cboConnections, 1);	// add the combo box
 
   QHBoxLayout *l1 = new QHBoxLayout;
   tl->addLayout(l1, 1);
@@ -197,8 +205,8 @@ void MonthlyWidget::plotMonth() {
 		      i18n("November"),
 		      i18n("December")};
 
-  // search the entries for this month
-  QString s;
+  // name of the current connection
+  QString con;
 
   // for collecting monthly statistics
   int count = 0;
@@ -211,7 +219,18 @@ void MonthlyWidget::plotMonth() {
     LogInfo *li = logList.at(i);
 
     if(li->from().date().month() == _month && li->from().date().year() == _year) {
+      // get connection name for this line
+      con = li->connectionName();
 
+      // this connection name not in the list and combo box
+      if(lstConnections.findIndex(con) == -1) {
+	lstConnections.append(con);
+        cboConnections->insertItem(con);
+      }
+      // if all connections or the selected one
+      if(cboConnections->currentText() != con &&
+	cboConnections->currentItem() != 0)
+        continue;
       count++;
       costs += li->sessionCosts();
       if(bin >= 0) {
@@ -248,7 +267,6 @@ void MonthlyWidget::plotMonth() {
 
       QString day;
       day.sprintf("%2d", li->from().date().day());
-      QString con = li->connectionName();
 
       QString s_duration;
       formatDuration(li->from().secsTo(li->until()),
@@ -260,8 +278,7 @@ void MonthlyWidget::plotMonth() {
       s_costs.sprintf("%6.2f",
                       li->sessionCosts());
 
-      (void) new LogListItem(li, lv, con, day, s_lifrom, s_liuntil, s_duration,
-			     s_costs, _bin, _bout);
+    	(void) new LogListItem(li, lv, con, day, s_lifrom, s_liuntil, s_duration, s_costs, _bin, _bout);
     }
   }
 
@@ -307,6 +324,10 @@ void MonthlyWidget::plotMonth() {
 	      .arg(_year);
 
   title->setText(t);
+}
+
+void MonthlyWidget::slotConnections(int) {
+  plotMonth();
 }
 
 void MonthlyWidget::nextMonth() {
