@@ -1,0 +1,32 @@
+# KDE Config File
+#Permission for inclusion of the czech ISP list for KDE 2.0.1 and
+#further versions is hereby granted to the KDE team as long as they
+#maintain the apropriate copyright notice "(c) by SuSE CR, s.r.o.".
+# 
+#This permission is also valid for future versions of the czech ISP
+#list until stated otherwise.
+#
+Name=
+DNS=
+Domain=
+AccountingEnabled=1
+ScriptArguments=
+ScriptCommands=
+AccountingFile=/Czechia/Czech_Telecom_Internet2000.rst
+VolumeAccountingEnabled=1
+AutoName=0
+pppdArguments=-detach,defaultroute,modem,debug,crtscts,
+Authentication=3
+Gateway=0.0.0.0
+Phonenumber=0971205211
+Username=
+Password=
+BeforeConnect=
+DisconnectCommand=
+BeforeDisconnect=
+Command=
+StorePassword=1
+DefaultRoute=1
+ExDNSDisabled=0
+IPAddr=0.0.0.0
+SubnetMask=0.0.0.0
