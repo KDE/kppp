@@ -88,7 +88,7 @@ bool PPPData::open() {
   if (modemhighcount > MAX_MODEMS)
     modemhighcount = MAX_MODEMS;
 
-  // if there aren't no ModemX setted and exists the [Modem] group, 
+  // if there aren't no ModemX setted and exists the [Modem] group,
   // probably it's the first time we are using this new version
   // with multiple modem profiles.
   // So we copy the old [Modem] to the new [Modem0]
@@ -106,18 +106,18 @@ bool PPPData::open() {
       config->writeEntry(it.key(), *it);
       it++;
     }
-	
+
 	QString newname("Modem0");
     setModname(newname);
   }
-	
+
   if(modemhighcount >= 0 && defaultModem().isEmpty()) {
     setModembyIndex(0);
     setDefaultModem(modname());
   } else if(!setModem(defaultModem()))
     setDefaultModem(modname());
-    
-    
+
+
   // start out with internal debugging disabled
   // the user is still free to specify `debug' on his own
   setPPPDebug(false);
@@ -541,8 +541,9 @@ void PPPData::setModemDevice(const QString &n) {
 }
 
 
-const QString PPPData::flowcontrol() {
-  return readConfig(cmodemgroup, FLOWCONTROL_KEY, "CRTSCTS");
+QString PPPData::flowcontrol() {
+  // keep default value in sync with general.cpp
+  return readConfig(cmodemgroup, FLOWCONTROL_KEY, i18n("Hardware [CRTSCTS]"));
 }
 
 

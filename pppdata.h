@@ -273,7 +273,7 @@ public:
   const QString modemDevice();
   void setModemDevice(const QString &);
 
-  const QString flowcontrol();
+  QString flowcontrol();
   void setFlowcontrol(const QString &);
 
   int modemTimeout();
