@@ -35,11 +35,6 @@
 // Warning: If you fiddle with the following directories you have
 // to adjust make_directories() in main.cpp()
 
-// specifies the directory where kppp stores it's local
-// accounting files and it's logfile (relative to the
-// users homedirectory)
-#define ACCOUNTING_PATH	".kde/share/apps/kppp/"
-
 // file used for PAP authetication purposes
 #define PAP_AUTH_FILE "/etc/ppp/pap-secrets"
 
@@ -99,9 +94,6 @@ const unsigned int MAX_CMDLEN = 2024;
 #  define	LOCK_DIR "/usr/spool/locks"
 # endif /* BSD */
 #endif  /* linux */
-
-// Define pid file relative to localkdedir() (usually ~/.kde)
-#define PIDFILE "/share/apps/kppp/kppp.pid"
 
 // search path for pppd binary
 #define PPPDSEARCHPATH "/sbin:/usr/sbin:/usr/local/sbin:/usr/bin:/usr/local/bin"

@@ -51,10 +51,11 @@ PPPData::PPPData()
 // open configuration file 
 //
 bool PPPData::open() {
-#warning TODO: find a kapp->getConfigState() replacement
-#if 0
-  if (kapp->getConfigState() == KApplication::APPCONFIG_NONE) {
-    QMessageBox::warning(0L, kapp->appName(),
+
+  config = kapp->getConfig();
+
+  if (config->getConfigState() == KConfig::NoAccess) {
+    QMessageBox::warning(0L, kapp->name(),
                        i18n("The application-specific config file could "
                        "not be\nopened neither read-write nor read-only.\n\n"
                        "The superuser might have to change its ownership\n"
@@ -62,8 +63,6 @@ bool PPPData::open() {
                        "chown {YourUsername} .kde/share/config/kppprc"));
     return false;
   }
-#endif
-  config = kapp->getConfig();
 
   // don't expand shell variables
   config->setDollarExpansion(false);
@@ -115,9 +114,9 @@ void PPPData::cancel() {
 
 
 // currently differentiates between READWRITE and NONE only
-bool PPPData::access() const {
+int PPPData::access() const {
 
-  return(config != 0);
+  return config->getConfigState();
 }
 
 

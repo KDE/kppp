@@ -84,12 +84,8 @@ AccountingBase::AccountingBase(QObject *parent) :
     .arg(dt.monthName(dt.month()))
     .arg(dt.year(), 4);
 
-  QString fname = QDir::homeDirPath() + "/";
-  fname += ACCOUNTING_PATH;
-  fname += "/Log/";
-  fname += LogFileName;
-
-  LogFileName = fname;
+  LogFileName = KGlobal::dirs()->getSaveLocation("appdata", "Log")
+    + LogFileName;
 }
 
 AccountingBase::~AccountingBase() {

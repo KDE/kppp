@@ -156,7 +156,6 @@ void sigint(int);
 void dieppp(int);
 void sigchld(int);
 pid_t execute_command(const char *);
-void make_directories();
 pid_t create_pidfile();
 bool remove_pidfile();
 void myShutDown(int);

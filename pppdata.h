@@ -157,7 +157,7 @@ public:
   bool open();
   void save();
   void cancel();
-  bool access() const;       // read/write access
+  int  access() const;       // read/write access
 
   // function to read/write date to configuration file
   QString readConfig(const QString &, const QString &, const QString &);

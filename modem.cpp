@@ -46,11 +46,11 @@ static sigjmp_buf jmp_buffer;
 Modem *Modem::modem = 0;
 
 Modem::Modem() : 
-  modemfd(-1), 
+  modemfd(-1),
+  sn(0L),
   data_mode(false),
   modem_is_locked(false)
 {
-  sn = 0L;
   assert(modem==0);
   modem = this;
 }
@@ -484,9 +484,7 @@ int Modem::lockdevice() {
         return 1;
     
       // check if process exists
-      if (kill((pid_t)oldpid, 0) == 0)
-        return 1;
-      if (errno != ESRCH)
+      if (kill((pid_t)oldpid, 0) == 0 || errno != ESRCH)
         return 1;
       
       Debug("lockfile is stale\n");

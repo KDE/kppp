@@ -208,70 +208,6 @@ extern "C" {
 } /* extern "C" */
 
 
-void make_directories() {
-  // Not really needed, but just to be sure in case
-  // someone modifies kppp to be suid at this point.
-  if(geteuid() != getuid() || getegid() != getgid())
-    return;
-
-  QDir dir;
-  QString d = KApplication::localkdedir();
-
-  dir.setPath(d);
-  if(!dir.exists()){
-    dir.mkdir(d);
-    chown(d.data(),getuid(),getgid());
-    chmod(d.data(),S_IRUSR | S_IWUSR | S_IXUSR);
-  }
-
-  d += "/share";
-  dir.setPath(d);
-  if(!dir.exists()){
-    dir.mkdir(d);
-    chown(d.data(),getuid(),getgid());
-    chmod(d.data(),S_IRUSR | S_IWUSR | S_IXUSR);
-  }
-
-  d += "/apps";
-  dir.setPath(d);
-  if(!dir.exists()){
-    dir.mkdir(d);
-    chown(d.data(),getuid(),getgid());
-    chmod(d.data(),S_IRUSR | S_IWUSR | S_IXUSR);
-  }
-
-  d += "/kppp" ;
-
-  dir.setPath(d);
-  if(!dir.exists()){
-    dir.mkdir(d);
-    chown(d.data(),getuid(),getgid());
-    chmod(d.data(),S_IRUSR | S_IWUSR | S_IXUSR);
-  }
-
-  
-  d += "/Rules/";
-
-  dir.setPath(d);
-  if(!dir.exists()){
-    dir.mkdir(d);
-    chown(d.data(),getuid(),getgid());
-    chmod(d.data(),S_IRUSR | S_IWUSR | S_IXUSR);
-  }
-
-  QString logdir = getHomeDir();
-  logdir += "/";
-  logdir += ACCOUNTING_PATH "/Log";
-
-  dir.setPath(logdir);
-  if(!dir.exists()){
-    dir.mkdir(logdir);
-    chown(logdir.data(),getuid(),getgid());
-    chmod(logdir.data(),S_IRUSR | S_IWUSR | S_IXUSR);
-  }
-}
-
-
 int main( int argc, char **argv ) {
   // make sure that open/fopen and so on NEVER return 1 or 2 (stdout and stderr)
   // Expl: if stdout/stderr were closed on program start (by parent), open() 
@@ -401,7 +337,8 @@ int main( int argc, char **argv ) {
   if(access(configFile.data(), F_OK) == 0)
     chmod(configFile.data(), S_IRUSR | S_IWUSR);
 
-  make_directories();
+  // do we really need to generate an empty directory structure here ?
+  KGlobal::dirs()->getSaveLocation("appdata", "Rules");
 
   QString msg;
   int pid = create_pidfile();
@@ -588,7 +525,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   if(setup_b->sizeHint().width() > minw)
     minw = setup_b->sizeHint().width();
 
-  if(!gpppdata.access())
+  if(gpppdata.access() != KConfig::ReadWrite)
     setup_b->setEnabled(false);
 
   help_b = new QPushButton(i18n("?"), this);
@@ -1269,7 +1206,7 @@ pid_t create_pidfile() {
   int fd = -1;
   char pidstr[40]; // safe
   
-  pidfile = KApplication::localkdedir() + PIDFILE;
+  pidfile = KGlobal::dirs()->getSaveLocation("appdata") + "kppp.pid";
 
   if(access(pidfile.data(), F_OK) == 0) {
     

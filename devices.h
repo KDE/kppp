@@ -1,6 +1,8 @@
 #ifndef _DEVICES_H_
 #define _DEVICES_H_
 
+#include "kpppconfig.h"
+
 static const char *devices[] = {
 #ifdef __FreeBSD__
   "/dev/cuaa0",
