@@ -84,7 +84,7 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
 		       "in the KDE panel represents this window.\n"
 		       "\n"
 		       "Clicking on this icon will restore the\n"
-		       "window to it's original location and\n"
+		       "window to its original location and\n"
 		       "size."));
 
   chkBox->setChecked(gpppdata.get_dock_into_panel());
