@@ -190,7 +190,7 @@ PDB_Country::PDB_Country(QWidget *parent) : QWidget(parent) {
 			    "account from the list below. If your country or\n"
 			    "location is not listed, you have to create the\n"
 			    "account with the normal, dialog based setup.\n\n"
-			    "If you hit \"Cancel\", the dialog based setup\n"
+			    "If you click \"Cancel\", the dialog based setup\n"
 			    "will start."),
 		       this);
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
@@ -423,7 +423,7 @@ void PDB_DialPrefix::activate() {
 PDB_Finished::PDB_Finished(QWidget *parent) : QWidget(parent) {
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
   QLabel *l = new QLabel(i18n("Finished!\n\n"
-			    "A new account has been created. Hit \"Finish\" to\n"
+			    "A new account has been created. Click \"Finish\" to\n"
 			    "go back to the setup dialog. If you want to\n"
 			    "check the settings of the newly created account,\n"
 			    "you can use \"Edit\" in the setup dialog."),

@@ -908,9 +908,9 @@ void KPPPWidget::showNews() {
     l2->addWidget(cb);
     tl->addWidget(bbox);
 
-    QString tmp = i18n("This is an example for <b>QuickHelp</b>.\n"
+    QString tmp = i18n("This is an example of <b>QuickHelp</b>.\n"
 		       "This window will stay open until you\n"
-		       "click a mouse button or a hit a key.\n");
+		       "click a mouse button or a press a key.\n");
 
     QWhatsThis::add(cb,tmp);
     QWhatsThis::add(l, tmp);
