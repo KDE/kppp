@@ -30,9 +30,10 @@
 #include <kwin.h>
 #include <kmessagebox.h>
 #include <kapplication.h>
+#include <klocale.h>
+#include <kpushbutton.h>
 #include "modeminfo.h"
 #include "modem.h"
-#include <klocale.h>
 
 ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
   : QDialog(parent, name,TRUE, WStyle_Customize|WStyle_NormalBorder)
