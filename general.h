@@ -61,6 +61,7 @@ class ModemWidget : public QWidget {
 public:
   ModemWidget(QWidget *parent=0, bool isnewmodem=true, const char *name=0);
 	bool save();
+	QLineEdit *connectName() { return connectname_l;}
 
 private slots:
 
