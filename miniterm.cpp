@@ -36,6 +36,7 @@
 #include "miniterm.h"
 #include <klocale.h>
 #include <kglobal.h>
+#include <kpopupmenu.h>
 
 #define T_WIDTH 550
 #define T_HEIGHT 400
