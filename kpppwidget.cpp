@@ -759,7 +759,7 @@ void KPPPWidget::startAccounting() {
   // volume accounting
   stats->totalbytes = 0;
 
-  kdDebug() << "AcctEnabled: " << gpppdata.AcctEnabled() << endl;
+  kdDebug(5002) << "AcctEnabled: " << gpppdata.AcctEnabled() << endl;
 
   // load the ruleset
   if(!gpppdata.AcctEnabled())

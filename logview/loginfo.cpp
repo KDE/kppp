@@ -159,18 +159,18 @@ int LogInfo::duration() const {
 
 #ifdef MYDEBUG
 void LogInfo::dump() {
-  kdDebug() << "LOGINFO " << this << endl;
-  kdDebug() << "connection name : " << connectionName() << endl;
-  kdDebug() << "currency symbol : " << currency() << endl;
-  kdDebug() << "begin           : " << ctime(&_from) << endl;
-  kdDebug() << "end             : " << ctime(&_until) << endl;
-  kdDebug() << "duration        : " << (int)_until - (int)_from << " seconds" << endl;
-  kdDebug() << "session cost    : " << sessionCosts() << endl;
-  kdDebug() << "total cost      : " << totalCosts() << endl;
-  kdDebug() << "bytes in        : " << bytesIn() << endl;
-  kdDebug() << "bytes out       : " << bytesOut() << endl;
-  kdDebug() << "bytes total     : " << bytes() << endl;
-  kdDebug() << endl;
+  kdDebug(5002) << "LOGINFO " << this << endl;
+  kdDebug(5002) << "connection name : " << connectionName() << endl;
+  kdDebug(5002) << "currency symbol : " << currency() << endl;
+  kdDebug(5002) << "begin           : " << ctime(&_from) << endl;
+  kdDebug(5002) << "end             : " << ctime(&_until) << endl;
+  kdDebug(5002) << "duration        : " << (int)_until - (int)_from << " seconds" << endl;
+  kdDebug(5002) << "session cost    : " << sessionCosts() << endl;
+  kdDebug(5002) << "total cost      : " << totalCosts() << endl;
+  kdDebug(5002) << "bytes in        : " << bytesIn() << endl;
+  kdDebug(5002) << "bytes out       : " << bytesOut() << endl;
+  kdDebug(5002) << "bytes total     : " << bytes() << endl;
+  kdDebug(5002) << endl;
 }
 #endif
 

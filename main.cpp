@@ -256,7 +256,7 @@ int main( int argc, char **argv ) {
 
     QString s = argv[2];
     urlEncode(s);
-    kdDebug() << s << endl;
+    kdDebug(5002) << s << endl;
 
     remove_pidfile();
     return 0;

@@ -40,7 +40,7 @@ int loadLogs() {
   QString logdirname = locateLocal("data", "kppp/Log/");
   QDir logdir(logdirname, "*.log");
 
-  kdDebug() << "logdirname: " << logdirname << endl;
+  kdDebug(5002) << "logdirname: " << logdirname << endl;
   
   // get log file size
   const QFileInfoList *list = logdir.entryInfoList();

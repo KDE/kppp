@@ -80,7 +80,7 @@ AccountingBase::AccountingBase(QObject *parent) :
   LogFileName = KGlobal::dirs()->saveLocation("appdata", "Log")
     + "/" + LogFileName;
 
-  kdDebug() << "LogFileName: " << LogFileName << endl;
+  kdDebug(5002) << "LogFileName: " << LogFileName << endl;
 }
 
 AccountingBase::~AccountingBase() {
