@@ -27,7 +27,6 @@
 #include <qdir.h>
 #include <termios.h>
 #include <string.h>
-#include <kapp.h>
 #include <qlayout.h>
 #include <qwhatsthis.h>
 

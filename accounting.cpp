@@ -37,7 +37,7 @@
 
 #include <kprogress.h>
 #include <kglobal.h>
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 #include <kdebug.h>
 #include <time.h>
 

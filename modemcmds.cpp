@@ -28,7 +28,7 @@
 #include <qslider.h>
 #include <kbuttonbox.h>
 #include <stdlib.h>
-#include <kapp.h> // for getMiniIcon()
+#include <kapplication.h> // for getMiniIcon()
 #include <klocale.h>
 #include "modemcmds.h"
 #include "pppdata.h"

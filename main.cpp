@@ -50,7 +50,7 @@
 #include <kbuttonbox.h>
 #include <kiconloader.h>
 #include <klocale.h>
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 #include <kglobal.h>
 #include <kaboutdata.h>
 #include <kconfig.h>
@@ -82,7 +82,7 @@
 #include "general.h"
 
 #include <X11/Xlib.h>
-#include <kapp.h>
+#include <kapplication.h>
 #include <kcmdlineargs.h>
 
 static const char *description =

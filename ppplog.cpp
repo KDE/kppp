@@ -47,7 +47,6 @@
 
 #include <kbuttonbox.h>
 #include <kmessagebox.h>
-#include <kapp.h>
 
 #include "pppdata.h"
 #include "requester.h"

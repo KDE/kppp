@@ -27,9 +27,9 @@
 #include <qprogressdialog.h>
 #include <qdir.h>
 
-#include <kapp.h>
+#include <kapplication.h>
 #include <klocale.h>
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 #include <kdebug.h>
 
 QPtrList<LogInfo> logList;

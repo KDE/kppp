@@ -32,7 +32,7 @@
 #include <qwhatsthis.h>
 #include <qmessagebox.h>
 
-#include <kapp.h>
+#include <kapplication.h>
 #include <kbuttonbox.h>
 #include <kmessagebox.h>
 #include <klocale.h>

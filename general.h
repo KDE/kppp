@@ -32,7 +32,8 @@
 #include <qlabel.h>
 #include <qcheckbox.h>
 #include <qgroupbox.h>
-#include <kcolorbtn.h>
+#include <qpushbutton.h>
+#include <kcolorbutton.h>
 
 #include "groupbox.h"
 

@@ -29,7 +29,7 @@
 #include <kmessagebox.h>
 #include <qwhatsthis.h>
 #include <qregexp.h>
-#include <kapp.h>
+#include <kapplication.h>
 #include <kglobal.h>
 #include <kiconloader.h>
 #include <kbuttonbox.h>

@@ -37,7 +37,6 @@
 #include <qstringlist.h>
 #include <kbuttonbox.h>
 #include <qlayout.h>
-#include <kapp.h>
 #include "modemdb.h"
 #include <klocale.h>
 #include <qpushbutton.h>

@@ -27,7 +27,6 @@
 #include <sys/ioctl.h>
 #include <termios.h>
 #include <sys/types.h>
-#include <kapp.h>
 #include <kwin.h>
 #include <khelpmenu.h>
 #include <kiconloader.h>
@@ -37,6 +36,7 @@
 #include <klocale.h>
 #include <kglobal.h>
 #include <kpopupmenu.h>
+#include <kapplication.h>
 
 extern PPPData gpppdata;
 

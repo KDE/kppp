@@ -28,9 +28,9 @@
 #include <unistd.h>
 #include <qregexp.h>
 #include <qlayout.h>
-#include <kapp.h>
 #include <kwin.h>
 #include <kmessagebox.h>
+#include <kapplication.h>
 #include "modeminfo.h"
 #include "modem.h"
 #include <klocale.h>

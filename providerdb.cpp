@@ -42,7 +42,7 @@
 #include <qlineedit.h>
 #include <klocale.h>
 #include <kglobal.h>
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 #include <kdebug.h>
 #include "providerdb.h"
 #include "newwidget.h"

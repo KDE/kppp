@@ -30,6 +30,7 @@
 #include <qregexp.h>
 #include <klocale.h>
 #include <kmessagebox.h>
+#include <kapplication.h>
 
 #include <unistd.h>
 #include <stdlib.h>
@@ -67,7 +68,6 @@
 #include "modem.h"
 #include "utils.h"
 #include "pppstats.h"
-#include <kapp.h>
 #include <kdebug.h>
 
 extern KPPPWidget *p_kppp;

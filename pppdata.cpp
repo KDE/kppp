@@ -29,10 +29,10 @@
 #include "runtests.h"
 #include "kpppconfig.h"
 #include "devices.h"
-#include <kapp.h>
 #include <klocale.h>
 #include <kconfig.h>
 #include <kmessagebox.h>
+#include <kapplication.h>
 #include <assert.h>
 
 PPPData gpppdata;
