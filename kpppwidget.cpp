@@ -179,7 +179,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   if(quit_b->sizeHint().width() > minw)
       minw = quit_b->sizeHint().width();
 
-  setup_b = new KPushButton(KGuiItem(i18n("&Configure...")), this);
+  setup_b = new KPushButton(KGuiItem(i18n("Co&nfigure...")), this);
   connect( setup_b, SIGNAL(clicked()), SLOT(expandbutton()));
   if(setup_b->sizeHint().width() > minw)
       minw = setup_b->sizeHint().width();
