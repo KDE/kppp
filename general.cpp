@@ -196,11 +196,17 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   label1 = new QLabel(i18n("Modem de&vice:"), parent);
   tl->addWidget(label1, 0, 0);
 
-  modemdevice = new QComboBox(false, parent);
+  modemdevice = new QComboBox(true, parent);
   label1->setBuddy(modemdevice);
-
+  bool deviceExist = false;
   for(k = 0; devices[k]; k++)
+  {
+      if ( devices[k] == gpppdata.modemDevice())
+          deviceExist = true;
     modemdevice->insertItem(devices[k]);
+  }
+  if ( !deviceExist )
+      modemdevice->insertItem(gpppdata.modemDevice());
 
   tl->addWidget(modemdevice, 0, 1);
   connect(modemdevice, SIGNAL(activated(int)),
@@ -579,9 +585,9 @@ GraphSetup::GraphSetup(QWidget *parent, const char *name) :
   enable_check = new QCheckBox(i18n("&Enable throughput graph"), parent);
   tl->addWidget(enable_check);
 
-  grpColor = new QGroupBox(2, Qt::Horizontal, 
+  grpColor = new QGroupBox(2, Qt::Horizontal,
         i18n("Graph Colors"), parent);
-  tl->addWidget(grpColor); 
+  tl->addWidget(grpColor);
 
   QLabel *label;
 
