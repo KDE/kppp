@@ -41,7 +41,6 @@ MimeType=
 DocPath=kppp/kppp.html
 Exec=kppp
 Icon=kppp
-MiniIcon=kppp
 TerminalOptions=
 Path=
 Type=Application
