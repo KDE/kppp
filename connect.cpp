@@ -290,7 +290,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
     if(!expecting) {
       // skip setting the volume if command is empty
       if(gpppdata.volumeInitString().isEmpty()) {
-        vmain = 1;
+        vmain = 4;
         return;
       }
       messg->setText(i18n("Setting speaker volume..."));
@@ -301,6 +301,20 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       vol += gpppdata.volumeInitString();
       writeline(vol);
       usleep(gpppdata.modemInitDelay() * 10000); // 0.01 - 3.0 sec
+      vmain = 4;
+      return;
+    }
+  }
+
+  if(vmain == 4) {
+    if(!expecting) {
+      if(!gpppdata.waitForDialTone()) {
+	QString msg = i18n("Turning off dial tone waiting...");
+	messg->setText(msg);
+	emit debugMessage(msg);
+	setExpect(gpppdata.modemInitResp());
+	writeline(gpppdata.modemNoDialToneDetectionStr());
+      }
       vmain = 1;
       return;
     }

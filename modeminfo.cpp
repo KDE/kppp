@@ -2,8 +2,8 @@
  *            kPPP: A front end for pppd for the KDE project
  *
  * $Id$
- * 
- * Copyright (C) 1997 Bernd Johannes Wuebben 
+ *
+ * Copyright (C) 1997 Bernd Johannes Wuebben
  *                    wuebben@math.cornell.edu
  *
  * This file contributed by: Markus Wuebben, mwuebben@fiwi02.wiwi.uni-tuebingen.de
@@ -28,7 +28,7 @@
 #include <unistd.h>
 #include <qregexp.h>
 #include <qlayout.h>
-#include <kapp.h> 
+#include <kapp.h>
 #include <kwin.h>
 #include <kmessagebox.h>
 #include "modeminfo.h"
@@ -42,10 +42,10 @@ ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
   KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
-  
+
   progressBar = new KProgress(0, 8, 0, KProgress::Horizontal, this, "bar");
   progressBar->setBarStyle(KProgress::Blocked);
-  
+
   statusBar = new QLabel(this,"sBar");
   statusBar->setFrameStyle(QFrame::Panel|QFrame::Sunken);
   statusBar->setAlignment(AlignCenter);
@@ -125,13 +125,13 @@ void ModemTransfer::init() {
 
   int lock = Modem::modem->lockdevice();
   if (lock == 1) {
-    
+
     statusBar->setText(i18n("Sorry, modem device is locked."));
     return;
   }
 
   if (lock == -1) {
-    
+
     statusBar->setText(i18n("Sorry, can't create modem lock file."));
     return;
   }
@@ -155,12 +155,12 @@ void ModemTransfer::init() {
       return;
     }
   }
-  
-  // opentty() or hangup() failed 
+
+  // opentty() or hangup() failed
   statusBar->setText(Modem::modem->modemMessage());
   step = 99; // wait until cancel is pressed
-  Modem::modem->unlockdevice();  
-}                  
+  Modem::modem->unlockdevice();
+}
 
 
 void ModemTransfer::do_script() {
@@ -225,7 +225,7 @@ void ModemTransfer::cancelbutton() {
 
   statusBar->setText(i18n("One Moment Please ..."));
   kapp->processEvents();
-  
+
   Modem::modem->hangup();
 
   Modem::modem->closetty();
@@ -265,7 +265,7 @@ ModemInfo::ModemInfo(QWidget *parent, const char* name)
 
     ati_label_result[i] =  new QLineEdit(this);
     ati_label_result[i]->setMinimumWidth(fontMetrics().width('H') * 24);
-    l1->addWidget(ati_label_result[i], i, 1); 
+    l1->addWidget(ati_label_result[i], i, 1);
   }
   //tl->addSpacing(1);
 
@@ -280,7 +280,7 @@ ModemInfo::ModemInfo(QWidget *parent, const char* name)
   connect(ok, SIGNAL(clicked()), SLOT(accept()));
   l2->addWidget(ok);
 
-  setFixedSize(sizeHint());
+  setMinimumSize(sizeHint());
 }
 
 

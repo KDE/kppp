@@ -70,6 +70,9 @@ private:
   QLabel *linitslider;
   QLabel *label3;
 
+  QLineEdit *nodetectdialtone;
+  QLabel *lnodetectdialtone;
+
   QLineEdit *dialstr;
   QLabel *label4;
 

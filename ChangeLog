@@ -1,5 +1,7 @@
 2001-04-08  Harri Porten  <porten@kde.org>
 
+	* option for turning off dial tone detection. Modem string
+	  defaults to ATX3.
 	* Solaris fixes: added missing include, less restrictive compile check
 	* main.cpp: deactivated KNotify::beep() in pppd-died signal handler,
 	  due to appearant race conditions when working remote

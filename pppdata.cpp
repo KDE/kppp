@@ -460,6 +460,13 @@ void PPPData::setModemInitDelay(int n) {
   writeConfig(MODEM_GRP, INITDELAY_KEY, n);
 }
 
+QString PPPData::modemNoDialToneDetectionStr() {
+  return readConfig(MODEM_GRP, NODTDETECT_KEY, "ATX3");
+}
+
+void PPPData::setModemNoDialToneDetectionStr(const QString &n) {
+  writeConfig(MODEM_GRP, NODTDETECT_KEY, n);
+}
 
 const QString PPPData::modemDialStr() {
   return readConfig(MODEM_GRP, DIALSTR_KEY, "ATDT");
@@ -534,7 +541,7 @@ const QString PPPData::modemAnswerStr() {
 }
 
 
-const QString PPPData::volumeOff() {
+QString PPPData::volumeOff() {
   return readConfig(MODEM_GRP, VOLUME_OFF, "M0L0");
 }
 
@@ -544,7 +551,7 @@ void PPPData::setVolumeOff(const QString &s) {
 }
 
 
-const QString PPPData::volumeMedium() {
+QString PPPData::volumeMedium() {
  return readConfig(MODEM_GRP, VOLUME_MEDIUM, "M1L1");
 }
 
@@ -554,7 +561,7 @@ void PPPData::setVolumeMedium(const QString &s) {
 }
 
 
-const QString PPPData::volumeHigh() {
+QString PPPData::volumeHigh() {
   QString tmp = readConfig(MODEM_GRP, VOLUME_HIGH, "M1L3");
   if(tmp == "M1L4")
     tmp = "M1L3";
@@ -567,7 +574,7 @@ void PPPData::setVolumeHigh(const QString &s) {
 }
 
 
-const QString PPPData::volumeInitString() {
+QString PPPData::volumeInitString() {
   QString s;
 
   switch(volume()) {
@@ -597,6 +604,13 @@ void PPPData::setVolume(int i) {
   writeConfig(MODEM_GRP, VOLUME_KEY, i);
 }
 
+int PPPData::waitForDialTone() {
+  return readNumConfig(MODEM_GRP, DIALTONEWAIT_KEY, 1);
+}
+
+void PPPData::setWaitForDialTone(int i) {
+  writeConfig(MODEM_GRP, DIALTONEWAIT_KEY, i);
+}
 
 void PPPData::setModemAnswerStr(const QString &n) {
   writeConfig(MODEM_GRP, ANSWERSTR_KEY, n);

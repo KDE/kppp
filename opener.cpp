@@ -87,7 +87,6 @@ extern "C" int _Precvmsg();
 #include <unistd.h>
 #include <termios.h>
 
-#include "kpppconfig.h"
 #include "opener.h"
 #include "devices.h"
 

@@ -2,8 +2,8 @@
  *            kPPP: A front end for pppd for the KDE project
  *
  * $Id$
- * 
- * Copyright (C) 1997 Bernd Johannes Wuebben 
+ *
+ * Copyright (C) 1997 Bernd Johannes Wuebben
  * wuebben@math.cornell.edu
  *
  * based on EzPPP:
@@ -45,11 +45,11 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   setCaption(i18n("Edit Modem Commands"));
   KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
 
-  const int GRIDROWS = 20;
+  const int GRIDROWS = 21;
 
   // toplevel layout
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 4);
-  
+
   // add grid + frame
   QGridLayout *l1 = new QGridLayout(GRIDROWS, 4);
   tl->addLayout(l1);
@@ -61,7 +61,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   l1->addLayout(l5, 1, 2);
   lpreinitslider = new QLabel("MMMM", this);
   FORMATSLIDERLABEL(lpreinitslider);
-  
+
   QSlider *preinitslider = new QSlider(0, 300, 1, 0,
                                        QSlider::Horizontal, this);
   preinitslider->setFixedHeight(preinitslider->sizeHint().height());
@@ -90,7 +90,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
 	  linitslider, SLOT(setNum(int)));
   l2->addWidget(linitslider, 0);
   l2->addWidget(initslider, 1);
-  
+
   label3 = new QLabel(i18n("Post-Init Delay (sec/100):"), this);
   l1->addWidget(label3, 3, 1);
 
@@ -100,80 +100,86 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   l1->addWidget(label2, 4, 1);
   l1->addWidget(initresp, 4, 2);
 
+  nodetectdialtone = new QLineEdit(this);
+  lnodetectdialtone = new QLabel(i18n("No Dial Tone Detection:"), this);
+  ADJUSTEDIT(nodetectdialtone);
+  l1->addWidget(lnodetectdialtone, 5, 1);
+  l1->addWidget(nodetectdialtone, 5, 2);
+
   dialstr = new QLineEdit(this);
   label4 = new QLabel(i18n("Dial String:"),this);
   ADJUSTEDIT(dialstr);
-  l1->addWidget(label4, 5, 1);
-  l1->addWidget(dialstr, 5, 2);
+  l1->addWidget(label4, 6, 1);
+  l1->addWidget(dialstr, 6, 2);
 
   connectresp = new QLineEdit(this);
   label5 = new QLabel(i18n("Connect Response:"), this);
   ADJUSTEDIT(connectresp);
-  l1->addWidget(label5, 6, 1);
-  l1->addWidget(connectresp, 6, 2);
+  l1->addWidget(label5, 7, 1);
+  l1->addWidget(connectresp, 7, 2);
 
   busyresp = new QLineEdit(this);
   label6 = new QLabel(i18n("Busy Response:"), this);
   ADJUSTEDIT(busyresp);
-  l1->addWidget(label6, 7, 1);
-  l1->addWidget(busyresp, 7, 2);
+  l1->addWidget(label6, 8, 1);
+  l1->addWidget(busyresp, 8, 2);
 
   nocarrierresp = new QLineEdit(this);
   label7 = new QLabel(i18n("No Carrier Response:"), this);
   ADJUSTEDIT(nocarrierresp);
-  l1->addWidget(label7, 8, 1);
-  l1->addWidget(nocarrierresp, 8, 2);
+  l1->addWidget(label7, 9, 1);
+  l1->addWidget(nocarrierresp, 9, 2);
 
   nodialtoneresp = new QLineEdit(this);
-  label8 = new QLabel(i18n("No Dialtone Response:"), this);
+  label8 = new QLabel(i18n("No Dial Tone Response:"), this);
   ADJUSTEDIT(nodialtoneresp);
-  l1->addWidget(label8, 9, 1);
-  l1->addWidget(nodialtoneresp, 9, 2);
+  l1->addWidget(label8, 10, 1);
+  l1->addWidget(nodialtoneresp, 10, 2);
 
   hangupstr = new QLineEdit(this);
   label9 = new QLabel(i18n("Hangup String:"), this);
   ADJUSTEDIT(hangupstr);
-  l1->addWidget(label9, 10, 1);
-  l1->addWidget(hangupstr, 10, 2);
+  l1->addWidget(label9, 11, 1);
+  l1->addWidget(hangupstr, 11, 2);
 
   hangupresp = new QLineEdit(this);
   label10 = new QLabel(i18n("Hangup Response:"), this);
   ADJUSTEDIT(hangupresp);
-  l1->addWidget(label10, 11, 1);
-  l1->addWidget(hangupresp, 11, 2);
+  l1->addWidget(label10, 12, 1);
+  l1->addWidget(hangupresp, 12, 2);
 
   answerstr = new QLineEdit(this);
   label11 = new QLabel(i18n("Answer String:"), this);
   ADJUSTEDIT(answerstr);
-  l1->addWidget(label11, 12, 1);
-  l1->addWidget(answerstr, 12, 2);
+  l1->addWidget(label11, 13, 1);
+  l1->addWidget(answerstr, 13, 2);
 
   ringresp = new QLineEdit(this);
   label12 = new QLabel(i18n("Ring Response:"), this);
   ADJUSTEDIT(ringresp);
-  l1->addWidget(label12, 13, 1);
-  l1->addWidget(ringresp, 13, 2);
+  l1->addWidget(label12, 14, 1);
+  l1->addWidget(ringresp, 14, 2);
 
   answerresp = new QLineEdit(this);
   label13 = new QLabel(i18n("Answer Response:"), this);
   ADJUSTEDIT(answerresp);
-  l1->addWidget(label13, 14, 1);
-  l1->addWidget(answerresp, 14, 2);
+  l1->addWidget(label13, 15, 1);
+  l1->addWidget(answerresp, 15, 2);
 
   escapestr = new QLineEdit(this);
   label14 = new QLabel(i18n("Escape String:"), this);
   ADJUSTEDIT(escapestr);
-  l1->addWidget(label14, 15, 1);
-  l1->addWidget(escapestr, 15, 2);
+  l1->addWidget(label14, 16, 1);
+  l1->addWidget(escapestr, 16, 2);
 
   escaperesp = new QLineEdit(this);
   label15 = new QLabel(i18n("Escape Response:"), this);
   ADJUSTEDIT(escaperesp);
-  l1->addWidget(label15, 16, 1);
-  l1->addWidget(escaperesp, 16, 2);
+  l1->addWidget(label15, 17, 1);
+  l1->addWidget(escaperesp, 17, 2);
 
   QHBoxLayout *l3 = new QHBoxLayout;
-  l1->addLayout(l3, 17, 2);
+  l1->addLayout(l3, 18, 2);
   lslider = new QLabel("MMMM", this);
   FORMATSLIDERLABEL(lslider);
 
@@ -184,14 +190,14 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
 	  lslider, SLOT(setNum(int)));
   l3->addWidget(lslider, 0);
   l3->addWidget(slider, 1);
-  
+
   label16 = new QLabel(i18n("Guard Time (sec/50):"), this);
-  l1->addWidget(label16, 17, 1);
-  
+  l1->addWidget(label16, 18, 1);
+
   QLabel *l = new QLabel(i18n("Volume off/low/high"), this);
-  l1->addWidget(l, 18, 1);
+  l1->addWidget(l, 19, 1);
   QHBoxLayout *l4 = new QHBoxLayout;
-  l1->addLayout(l4, 18, 2);
+  l1->addLayout(l4, 19, 2);
   volume_off = new QLineEdit(this);
   volume_off->setFixedHeight(volume_off->sizeHint().height());
   volume_off->setMinimumWidth((int)(volume_off->sizeHint().width() / 2));
@@ -210,15 +216,15 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   ok = bbox->addButton(i18n("OK"));
   ok->setDefault(TRUE);
   cancel = bbox->addButton(i18n("Cancel"));
-  
+
   connect(ok, SIGNAL(clicked()), SLOT(okbutton()));
   connect(cancel, SIGNAL(clicked()), SLOT(cancelbutton()));
 
   bbox->layout();
   tl->addWidget(bbox);
-  
+
   initstr->setFocus();
-  
+
   l1->addColSpacing(0, 10);
   l1->addColSpacing(3, 10);
   l1->addRowSpacing(0, 5);
@@ -234,6 +240,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   linitslider->setNum(gpppdata.modemInitDelay());
   initresp->setText(gpppdata.modemInitResp());
 
+  nodetectdialtone->setText(gpppdata.modemNoDialToneDetectionStr());
   dialstr->setText(gpppdata.modemDialStr());
   connectresp->setText(gpppdata.modemConnectResp());
   busyresp->setText(gpppdata.modemBusyResp());
@@ -265,6 +272,7 @@ void ModemCommands::okbutton() {
   gpppdata.setModemInitResp(initresp->text());
   gpppdata.setModemInitDelay(linitslider->text().toInt());
 
+  gpppdata.setModemNoDialToneDetectionStr(nodetectdialtone->text());
   gpppdata.setModemDialStr(dialstr->text());
   gpppdata.setModemConnectResp(connectresp->text());
   gpppdata.setModemBusyResp(busyresp->text());
@@ -279,7 +287,7 @@ void ModemCommands::okbutton() {
 
   gpppdata.setModemAnswerStr(answerstr->text());
   gpppdata.setModemRingResp(ringresp->text());
-  gpppdata.setModemAnswerResp(answerresp->text());  
+  gpppdata.setModemAnswerResp(answerresp->text());
 
   gpppdata.setVolumeHigh(volume_high->text());
   gpppdata.setVolumeMedium(volume_medium->text());

@@ -448,6 +448,20 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 {
   QVBoxLayout *l1 = new QVBoxLayout(peer(), 10, 10);
 
+
+  waitfordt = new QCheckBox(i18n("Wait for Dial Tone Before Dialing"), peer());
+  waitfordt->setChecked(gpppdata.waitForDialTone());
+  connect(waitfordt, SIGNAL(toggled(bool)), SLOT(waitfordtchanged(bool)));
+  l1->addWidget(waitfordt);
+  QWhatsThis::add(waitfordt,
+		  i18n("Normally the modem waits for a dial tone\n"
+		       "from your phone line indicating that it can\n"
+		       "start to dial a number. If your modem doesn't\n"
+		       "recognize this sound or your local phone system\n"
+		       "doesn't emit such a tone, uncheck this option\n"
+		       "\n"
+		       "<b>Default:</b>: on"));
+
   busywait = new KIntNumInput(gpppdata.busyWait(), peer());
   busywait->setLabel(i18n("Busy Wait:"));
   busywait->setRange(0, 300, 5);
@@ -470,7 +484,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 
   QHBoxLayout *hbl = new QHBoxLayout;
   l1->addLayout(hbl);
-  QLabel *volumeLabel = new QLabel(i18n("Modem volume:"), peer());
+  QLabel *volumeLabel = new QLabel(i18n("Modem Volume:"), peer());
   volumeLabel->setAlignment(Qt::AlignVCenter);
   hbl->addStretch(1);
   hbl->addWidget(volumeLabel);
@@ -578,6 +592,10 @@ void ModemWidget2::use_cdline_toggled(bool on) {
     gpppdata.setUseCDLine(on);
 }
 #endif
+
+void ModemWidget2::waitfordtchanged(bool b) {
+  gpppdata.setWaitForDialTone((int)b);
+}
 
 void ModemWidget2::busywaitchanged(int n) {
   gpppdata.setbusyWait(n);

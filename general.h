@@ -3,8 +3,8 @@
  *            kPPP: A pppd front end for the KDE project
  *
  * $Id$
- * 
- *            Copyright (C) 1997 Bernd Johannes Wuebben 
+ *
+ *            Copyright (C) 1997 Bernd Johannes Wuebben
  *                   wuebben@math.cornell.edu
  *
  *
@@ -49,7 +49,7 @@ public:
 private slots:
   void 	pppdtimeoutchanged(int);
   void 	caption_toggled(bool);
-  void  iconify_toggled(bool on); 
+  void  iconify_toggled(bool on);
   void 	redial_toggled(bool on);
   void 	xserver_toggled(bool on);
   void  quit_toggled(bool);
@@ -99,7 +99,7 @@ private:
   QLabel 	*labelenter;
   QComboBox 	*modemdevice;
   QComboBox 	*flowcontrol;
-  
+
   QComboBox *baud_c;
   QLabel *baud_label;
 
@@ -114,6 +114,7 @@ public:
   ModemWidget2( QWidget *parent=0, const char *name=0 );
 
 private slots:
+  void  waitfordtchanged(bool);
   void 	busywaitchanged(int);
 //  void 	use_cdline_toggled(bool);
   void 	modemcmdsbutton();
@@ -128,6 +129,7 @@ private:
   QPushButton 	*modeminfo_button;
   QPushButton 	*terminal_button;
   QFrame 	*fline;
+  QCheckBox     *waitfordt;
   KIntNumInput 	*busywait;
   QCheckBox 	*chkbox1;
   QSlider       *volume;

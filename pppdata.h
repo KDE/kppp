@@ -83,6 +83,8 @@ class KConfig;
 #define INITRESP_KEY       "InitResponse"
 #define PREINITDELAY_KEY   "PreInitDelay"
 #define INITDELAY_KEY      "InitDelay"
+#define NODTDETECT_KEY     "NoDialToneDetection"
+#define DIALTONEWAIT_KEY   "WaitForDialTone"
 #define DIALSTR_KEY        "DialString"
 #define CONNECTRESP_KEY    "ConnectResponse"
 #define BUSYRESP_KEY       "BusyResponse"
@@ -235,19 +237,12 @@ public:
   int modemTimeout();
   void setModemTimeout(int);
 
-  const QString volumeOff();
-  void setVolumeOff(const QString &);
-
-  const QString volumeMedium();
-  void setVolumeMedium(const QString &);
-
-  const QString volumeHigh();
-  void setVolumeHigh(const QString &);
-
-  const QString volumeInitString();
+  QString volumeInitString();
   int volume();
   void setVolume(int);
 
+  int waitForDialTone();
+  void setWaitForDialTone(int i);
 
   // modem command strings/responses
   const QString modemInitStr();
@@ -261,6 +256,9 @@ public:
 
   int modemInitDelay();
   void setModemInitDelay(int);
+
+  QString modemNoDialToneDetectionStr();
+  void setModemNoDialToneDetectionStr(const QString &);
 
   const QString modemDialStr();
   void setModemDialStr(const QString &);
@@ -291,6 +289,15 @@ public:
 
   const QString modemAnswerResp();
   void setModemAnswerResp(const QString &);
+
+  QString volumeOff();
+  void setVolumeOff(const QString &);
+
+  QString volumeMedium();
+  void setVolumeMedium(const QString &);
+
+  QString volumeHigh();
+  void setVolumeHigh(const QString &);
 
 #if 0
   void setUseCDLine(const int n);
