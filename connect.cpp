@@ -28,7 +28,6 @@
 
 #include <qdir.h>
 #include <qregexp.h> 
-#include <kmsgbox.h>
 #include <klocale.h>
 
 #include <netdb.h>

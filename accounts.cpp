@@ -27,7 +27,6 @@
 #include <qdir.h>
 #include <qlayout.h>
 #include <kapp.h> // TODO: needed for getMiniIcon() only
-#include <kmsgbox.h>
 #include <kquickhelp.h>
 #include <kwm.h>
 #include <kbuttonbox.h>
@@ -252,18 +251,16 @@ void AccountWidget::newaccount() {
   }
 
   int result;
-  int query = KMsgBox::yesNoCancel(this,
+  int query = QMessageBox::information(this,
 				   i18n("Create a new account..."),
    i18n("Do you want to use the wizard to create the new account or the\n"
 	"standard, dialog-based setup?\n\n"
 	"The wizard is easier and sufficient in most cases. If you need\n"
 	"very special settings, you might want to try the standard,\n"
-	"dialog-based setup.\n\n"
-	"Use \"Yes\" for the wizard, \"No\" for the dialog setup, and\n"
-	"\"Cancel\" to stop.\n"));
+		"dialog-based setup.\n"), i18n("Wizard"), i18n("Dialog setup"), i18n("Cancel"));
 
   switch(query) {
-  case 1: 
+  case 0: 
     {
       if (gpppdata.newaccount() == -1) 
 	return;
@@ -271,7 +268,7 @@ void AccountWidget::newaccount() {
       result = pdb.exec();
       break;
     }
-  case 2:
+  case 1:
     if (gpppdata.newaccount() == -1) 
       return;
     result = doTab();
@@ -317,10 +314,10 @@ void AccountWidget::deleteaccount() {
   QString s = i18n("Are you sure you want to delete\nthe account \"%1\"?")
     .arg(accountlist_l->text(accountlist_l->currentItem()));
 
-  if(KMsgBox::yesNo(this, 
+  if(QMessageBox::information(this, 
 		    i18n("Confirm"), 
 		    s,
-		    KMsgBox::DB_SECOND) != 1)
+		    i18n("Yes"), i18n("No")) != 0)
     return;
 
   if(gpppdata.deleteAccount(accountlist_l->text(accountlist_l->currentItem())))

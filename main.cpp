@@ -39,7 +39,6 @@
 #include <sys/param.h>
 #endif
 
-#include <kmsgbox.h>
 #include <kquickhelp.h>
 #include <kbuttonbox.h>
 #include <kiconloader.h>
@@ -814,13 +813,7 @@ void dieppp(int) {
 	    msg = i18n("The pppd daemon died unexpectedly!");
 	  }
 	
-	KMsgBox msgb(0, 
-		     i18n("Error"), 
-		     i18n(msg),
-		     KMsgBox::STOP | KMsgBox::DB_FIRST,
-		     i18n("OK"),
-		     i18n("Details..."));
-	if(msgb.exec() == 2)
+	if(QMessageBox::critical(0, i18n("Error"), i18n(msg), i18n("OK"), i18n("Details...")))
 	  PPPL_ShowLog();
       } else { /* reconnect on disconnect */
 	Debug("Trying to reconnect ... \n");
