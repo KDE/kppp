@@ -1,7 +1,6 @@
 pkg_DATA =	Swisscom_Local.rst \
 		Swisscom_Remote.rst \
 		Swisscom_Surf.rst \
-		Sunrise_Internet.rst \
 		Sunrise_Select_Internet.rst \
 		Sunrise_Local.rst
 
