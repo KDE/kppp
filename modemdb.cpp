@@ -34,6 +34,7 @@
 
 #include <qlabel.h>
 #include <qlistbox.h>
+#include <qstringlist.h>
 #include <kbuttonbox.h>
 #include <qlayout.h>
 #include <kapp.h>
@@ -165,21 +166,27 @@ QStrList *ModemDatabase::models(QString vendor) {
 
 
 void ModemDatabase::loadModem(const char *key, CharDict &dict) {
-  KEntryIterator *it = modemDB->entryIterator(key);
-  KEntryDictEntry *e;
+  //  KEntryIterator *it = modemDB->entryIterator(key);
+  //  KEntryDictEntry *e;
+  QMap <QString, QString> map;
+  QMapIterator< QString, QString, QString&, QString* > it;
+  //  KEntryMapConstIterator e;
+  KEntry e;
+  map = modemDB->entryMap(key);
+  it = map.begin();
 
   // remove parent attribute
   dict.setAutoDelete(true);
   dict.remove("Parent");
   
-  e = it->current();
-  while((e = it->current()) != 0) {
-    if(dict.find(it->currentKey()) == 0) {
-      char *value = new char[e->aValue.length()+1];
-      strcpy(value, e->aValue);
-      dict.insert(it->currentKey(), value);
+  //  e = it->current();
+  while(it.key() != QString::null) {
+    if(dict.find(it.key()) == 0) {
+      char *value = new char[it.data().length()+1];
+      strcpy(value, it.data());
+      dict.insert(it.key(), value);
     }
-    ++(*it);
+    it++;
   }
 
   // check name attribute
@@ -197,7 +204,6 @@ void ModemDatabase::loadModem(const char *key, CharDict &dict) {
     if(strcmp(key, "Common") != 0)
       loadModem("Common", dict);
 
-  delete it;
 }
 
 
@@ -207,14 +213,16 @@ void ModemDatabase::load() {
   lvendors->setAutoDelete(true);
   modems.setAutoDelete(true);
 
-  KGroupIterator *it = modemDB->groupIterator();
-  while(it->current()) {
-    modemDB->setGroup(it->currentKey());
+  QStringList list = modemDB->groupList();
+  QStringList::Iterator it = list.begin();
+  while(it != list.end()) {
+    modemDB->setGroup(*it);
     CharDict *c = new CharDict;
     c->setAutoDelete(true);
-    loadModem(it->currentKey(), *c);
+    loadModem(it->latin1(), *c);
 
-    if(strcmp(it->currentKey(), "Common") == 0) {
+    //    if(strcmp(it->latin1(), "Common") == 0) {
+    if(*it == "Common") {
       QString s = i18n("Hayes(tm) compatible modem");
       char *name = new char[s.length()+1];
       strcpy(name, s);
@@ -232,12 +240,10 @@ void ModemDatabase::load() {
       if(lvendors->find(vendor) == -1)
 	lvendors->inSort(vendor);
     }
-    ++(*it);
+    ++it;
   }
 
   lvendors->insert(0, i18n("<Generic>"));
-
-  delete it;
 }
 
 

@@ -173,10 +173,13 @@ void ProviderDB::accept() {
   QRegExp re_username("%USERNAME%");
   QRegExp re_password("%PASSWORD%");
 
-  KEntryIterator *it = cfg->entryIterator("<Default>");
-  while(it->current() != 0) {
-    QString key = it->currentKey();
-    QString value = it->current()->aValue;
+  QMap <QString, QString> map;
+  QMapIterator< QString, QString, QString&, QString* > it;
+  map = cfg->entryMap("<Default>");
+  it = map.begin();
+  while(it.key() != QString::null) {
+    QString key = it.key();
+    QString value = it.data();
     if(value.contains(re_username))
       value.replace(re_username, page4->username());
 
@@ -189,7 +192,7 @@ void ProviderDB::accept() {
 
     if(key == "Name")
       gpppdata.setAccname(value);
-    ++(*it);
+    ++it;
   }
 
   gpppdata.writeConfig(gpppdata.currentGroup(), "DialPrefix", page5->prefix());

@@ -24,6 +24,7 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
+#include <qmap.h>
 #include "pppdata.h"
 #include "runtests.h"
 #include "kpppconfig.h"
@@ -666,45 +667,39 @@ bool PPPData::deleteAccount() {
   if(caccount < 0) 
     return false;
 
-  KEntryIterator* it;
-  QString key, value;
-
+  QMap <QString, QString> map;
+  QMapIterator< QString, QString, QString&, QString* > it;
 
   // set all entries of the current account to "" 
-  it = config->entryIterator(cgroup);
-  while (it->current() != 0L) {
-    key = it->currentKey();
-    config->writeEntry(key, "");
-    ++(*it);
+  map = config->entryMap(cgroup);
+  it = map.begin();
+  while (it.key() != QString::null) {
+    config->writeEntry(it.key(), "");
+    it++;
   }
-  delete it;
 
   // shift the succeeding accounts
   for(int i = caccount+1; i <= highcount; i++) {
     setAccountbyIndex(i);
-    it = config->entryIterator(cgroup);
+    map = config->entryMap(cgroup);
+    it = map.begin();
     setAccountbyIndex(i-1);
     config->setGroup(cgroup);
-    while (it->current() != 0L) {
-      key = it->currentKey();
-      value = it->current()->aValue;    
-      config->writeEntry(key, value);
-      ++(*it);
+    while (it.key() != QString::null) {
+      config->writeEntry(it.key(), it.data());
+      it++;
     }
-    delete it;
   }
 
   // make sure the top account is cleared
   setAccountbyIndex(highcount);
-  it = config->entryIterator(cgroup);
+  map = config->entryMap(cgroup);
+  it = map.begin();
   config->setGroup(cgroup);
-  while (it->current() != 0L) {
-    key = it->currentKey();
-    config->writeEntry(key, "");
-    ++(*it);
+  while (it.key() != QString::null) {
+    config->writeEntry(it.key(), "");
+    it++;
   }
-  delete it;
-
 
   highcount--;
   if(caccount > highcount)
@@ -746,21 +741,18 @@ int PPPData::copyaccount(int i) {
   
   setAccountbyIndex(i);
 
-  KEntryIterator* it(config->entryIterator(cgroup));
+  QMap <QString, QString> map = config->entryMap(cgroup);
+  QMapIterator< QString, QString, QString&, QString* > it = map.begin();
 
   QString newname = accname();
   newname += "_copy";
 
   newaccount();
 
-  QString key, value;
-  while (it->current() != 0L) {
-    key = it->currentKey();
-    value = it->current()->aValue;    
-    config->writeEntry(key, value);
-    ++(*it);
+  while (it.key() != QString::null) {
+    config->writeEntry(it.key(), it.data());
+    it++;
   }
-  delete it;
 
   setAccname(newname);
 

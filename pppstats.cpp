@@ -114,7 +114,7 @@ void PPPStats::timerClick() {
     newStatus = BytesOut;
   else
     newStatus = BytesNone;
-
+  
   if(newStatus != ioStatus)
     emit statsChanged(ioStatus = newStatus);
 

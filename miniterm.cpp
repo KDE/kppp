@@ -33,6 +33,7 @@
 #include "modem.h"
 #include "miniterm.h"
 #include <klocale.h>
+#include <kglobal.h>
 
 #define T_WIDTH 550
 #define T_HEIGHT 400
@@ -98,7 +99,7 @@ MiniTerm::~MiniTerm() {
 void MiniTerm::setupToolbar() {
   toolbar = new KToolBar( this );
 
-  KIconLoader *loader = kapp->getIconLoader();
+  KIconLoader *loader = KGlobal::iconLoader();
 
   QPixmap pixmap;
 
