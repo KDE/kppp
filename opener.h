@@ -13,7 +13,7 @@
 // ### add by bhughes - FreeBSD defines 'BSD' in sys/param.h
 #include <sys/param.h>
 
-#ifdef BSD || defined(__svr4__)
+#if defined(BSD) || defined(__svr4__)
 # define IOV_BASE_CAST (char *)
 #else
 # define IOV_BASE_CAST (void *)
