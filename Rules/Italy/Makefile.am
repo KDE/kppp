@@ -4,8 +4,8 @@ pkg_DATA = Infostrada_Internet_SpZero.rst \
 	Infostrada_Loc_Reg_Naz_SpZero.rst \
 	Infostrada_Locali_Base.rst \
 	Infostrada_Reg_Naz_Base.rst \
-	Tele2_Interurbane.rst \
-	Tele2_Urbane.rst \
+	Tele2_Altri_ISP.rst \
+	Tele2_Internet.rst \
 	Telecom_Interurbane_Fino15Km.rst \
 	Telecom_Interurbane_Oltre15Km.rst \
 	Telecom_Locali.rst \
