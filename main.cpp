@@ -762,13 +762,16 @@ void KPPPWidget::resetaccounts() {
 	PW_Edit->setText(gpppdata.storedPassword());
     }
 
-
   connect(ID_Edit, SIGNAL(textChanged(const QString &)),
  	  this, SLOT(usernameChanged(const QString &)));
 
   connect(PW_Edit, SIGNAL(textChanged(const QString &)),
  	  this, SLOT(passwordChanged(const QString &)));
+
+  if(!ID_Edit->text().isEmpty() && PW_Edit->text().isEmpty())
+    PW_Edit->setFocus();
 }
+
 
 void sighandler(int sig) {
   QEvent *e = 0L;
