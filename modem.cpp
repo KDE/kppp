@@ -297,23 +297,29 @@ bool Modem::writeChar(unsigned char c) {
 
 
 bool Modem::writeLine(const char *buf) {
-  // TODO check return code and think out how to proceed
-  // in case of trouble.
-  write(modemfd, buf, strlen(buf));
-
-  // Let's send an "enter"
-  // which enter we send depends on what the user has selected
-  // I haven't seen this on other dialers but this seems to be
-  // necessary. I have tested this with two different modems and 
-  // one needed an CR the other a CR/LF. Am i hallucinating ?
-  // If you know what the scoop is on this please let me know. 
-  if(gpppdata.enter() == "CR/LF")
-    write(modemfd, "\r\n", 2);
-  else if(gpppdata.enter() == "LF")
-    write(modemfd, "\n", 1);
-  else if(gpppdata.enter() == "CR")
-    write(modemfd, "\r", 1);
- 
+  int len = strlen(buf);
+  char *b = new char[len+2];
+  memcpy(b, buf, len);
+  // different modems seem to need different line terminations
+  QString term = gpppdata.enter();
+  if(term == "LF")
+    b[len++]='\n';
+  else if(term == "CR")
+    b[len++]='\r';
+  else if(term == "CR/LF") {
+    b[len++]='\r';
+    b[len++]='\n';
+  }
+  int l = len;
+  while(l) {
+    int wr = write(modemfd, &b[len-l], l);
+    if(wr < 0) {
+      // TODO do something meaningful with the error code (or ignore it
+      kdError(5002) << "write() in Modem::writeLine failed" << endl;
+      return false;
+    }
+    l -= wr;
+  }
   return true;
 }
 
