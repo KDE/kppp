@@ -1,5 +1,10 @@
 1999-05-07  Harri Porten  <porten@kde.org>
 
+	* main.cpp: added public showStats() slot. Saved methods and p_kppp
+	pointers in DockWidget and ConWindow.
+
+1999-05-07  Harri Porten  <porten@kde.org>
+
 	* renamed shutDown to myShutDown to avoid name clash with KApp
 	* runtests.cpp: better error message for missing s-bit.
 

@@ -60,18 +60,17 @@
 #include "requester.h"
 #include "modemdb.h"
 #include "iplined.h"
+#include "pppstats.h"
 
 #include <X11/Xlib.h>
 
 KPPPWidget*	p_kppp;
+extern PPPStats stats;
 QString 	cmdl_account;
 
 bool	have_cmdl_account;
 bool    quit_on_disconnect = false;
 bool    terminate_connection = false;
-
-// this is needed for volume accounting and updated in pppstatdlg.cpp
-int totalbytes;
 
 // for testing purposes
 bool TESTING=0;
@@ -626,7 +625,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   statdlg = new PPPStatsDlg(0,"stats",this);
   statdlg->hide();
 
-  (void)new DockWidget("dockw");
+  (void)new DockWidget(this, "dockw");
 
   debugwindow = new DebugWidget(0,"debugwindow");
   KWM::setMiniIcon(debugwindow->winId(), kapp->getMiniIcon());
@@ -1149,7 +1148,7 @@ void KPPPWidget::rulesetLoadError() {
 
 void KPPPWidget::startAccounting() {
   // volume accounting
-  totalbytes = 0;
+  stats.totalbytes = 0;
 
   // load the ruleset
   if(!gpppdata.AcctEnabled())
@@ -1181,8 +1180,8 @@ void KPPPWidget::startAccounting() {
 
 void KPPPWidget::stopAccounting() {
   // store volume accounting
-  if(totalbytes != 0)
-    gpppdata.setTotalBytes(totalbytes);
+  if(stats.totalbytes != 0)
+    gpppdata.setTotalBytes(stats.totalbytes);
 
   if(!gpppdata.AcctEnabled())
     return;
@@ -1192,6 +1191,12 @@ void KPPPWidget::stopAccounting() {
     delete acct;
     acct = 0;
   }
+}
+
+
+void KPPPWidget::showStats() {
+  if(statdlg)
+    statdlg->show();
 }
 
 

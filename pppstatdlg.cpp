@@ -370,6 +370,8 @@ void PPPStatsDlg::closeEvent( QCloseEvent *e ) {
 
 
 void PPPStatsDlg::update_data() {
+  timeclick();
+
   ibytes_string.sprintf("%d", stats.ibytes);
   ipackets_string.sprintf("%d", stats.ipackets);
   compressedin_string.sprintf("%d", stats.compressedin);

@@ -1056,7 +1056,7 @@ void ConnectWidget::if_waiting_slot() {
   emit debugMessage(i18n("Done"));
   set_con_speed_string();
 
-  p_kppp->con_win->setConnectionSpeed();
+  p_kppp->con_win->setConnectionSpeed(p_kppp->con_speed);
   this->hide();
   messg->setText("");
 

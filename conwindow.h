@@ -43,20 +43,14 @@ public:
   ~ConWindow();
 
 protected:
-//  void timerEvent(QTimerEvent *);
-
   void closeEvent( QCloseEvent *e );
 
 private slots:
-
-//void cancelslot();
-
   void timeclick();
-  void stats();
   void dock();
 
 public:
-  void setConnectionSpeed();
+  void setConnectionSpeed(const QString&);
   void startClock();
   void stopClock();
   void accounting(bool); // show/ hide accounting info
@@ -65,8 +59,6 @@ public slots:
   void slotAccounting(QString, QString);
 
 private:
-
-  QWidget *main;
   QLabel *info1;
   QLabel *info2;
   QPushButton *cancelbutton;

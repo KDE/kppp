@@ -35,7 +35,7 @@
 class DockWidget : public QWidget {
   Q_OBJECT
 public:
-  DockWidget(const char *name=0);
+  DockWidget(QWidget * parent, const char *name=0);
   ~DockWidget();
 
 protected:
@@ -43,8 +43,6 @@ protected:
 
 private slots:
   void toggle_window_state();
-  void show_stats();
-  void disconnect();
   void mousePressEvent(QMouseEvent *e);
 
 public slots:

@@ -101,6 +101,7 @@ public slots:
   void log_window_toggled(bool on);
   void startAccounting();
   void stopAccounting();
+  void showStats();
 
 signals:
   void begin_connect();

@@ -23,29 +23,27 @@
 
 #include <qdir.h>
 #include "conwindow.h"
-#include "main.h"
-#include "macros.h"
+#include "docking.h"
 #include "pppdata.h"
+#include "pppstats.h"
 #include <klocale.h>
 
-extern KPPPWidget *p_kppp;
 extern PPPData gpppdata;
-extern int totalbytes;
+extern PPPStats stats;
 
 ConWindow::ConWindow(QWidget *parent, const char *name,QWidget *mainwidget)
-  : QWidget(parent, name,0 )
+  : QWidget(parent, name, 0),
+    minutes(0),
+    seconds(0),
+    hours(0),
+    days(0),
+    tl1(0)
 {
-  main = mainwidget;
-  minutes = 0;
-  seconds = 0;
-  hours = 0;
-  days = 0;
-
   info1 = new QLabel(i18n("Connected at:"), this);
-  info2 = new QLabel("", this,"infolabel");
+  info2 = new QLabel("", this);
 
   timelabel1 = new QLabel(i18n("Time connected:"), this);
-  timelabel2 = new QLabel("000:00:00", this,"timelabel");
+  timelabel2 = new QLabel("000:00:00", this);
 
   vollabel = new QLabel(i18n("Volume:"), this);
   volinfo  = new QLabel("", this);
@@ -58,18 +56,17 @@ ConWindow::ConWindow(QWidget *parent, const char *name,QWidget *mainwidget)
 
   this->setCaption("kppp");
 
-  cancelbutton = new QPushButton(this,"cancelbutton");
+  cancelbutton = new QPushButton(this);
   cancelbutton->setText(i18n("Disconnect"));
-  connect(cancelbutton, SIGNAL(clicked()), main, SLOT(disconnect()));
+  connect(cancelbutton, SIGNAL(clicked()), mainwidget, SLOT(disconnect()));
 
-  statsbutton = new QPushButton(this,"statsbutton");
+  statsbutton = new QPushButton(this);
   statsbutton->setText(i18n("Details"));
   statsbutton->setFocus();
-  connect(statsbutton, SIGNAL(clicked()), this,SLOT(stats()));
+  connect(statsbutton, SIGNAL(clicked()), mainwidget, SLOT(showStats()));
 
   clocktimer = new QTimer(this);
   connect(clocktimer, SIGNAL(timeout()), SLOT(timeclick()));
-  tl1 = 0;
 }
 
 ConWindow::~ConWindow() {
@@ -115,9 +112,9 @@ void ConWindow::accounting(bool on) {
   session_bill->setText("888888.88 XXX");
   total_bill->setText("888888.88 XXX");
   volinfo->setText("8888.8 MB");
-  MIN_SIZE(session_bill);
-  MIN_SIZE(total_bill);
-  MIN_SIZE(volinfo);
+  session_bill->setFixedSize(session_bill->sizeHint());
+  total_bill->setFixedSize(total_bill->sizeHint());
+  volinfo->setFixedSize(volinfo->sizeHint());
   session_bill->setText(s1);
   total_bill->setText(s2);
   volinfo->setText(s3);
@@ -182,11 +179,6 @@ void ConWindow::accounting(bool on) {
 }
 
 
-void ConWindow::stats() {
-  p_kppp->statdlg->show();
-}
-
-
 void ConWindow::dock() {
   DockWidget::dock_widget->dock();
   this->hide();
@@ -211,9 +203,8 @@ void ConWindow::startClock() {
 }
 
 
-void ConWindow::setConnectionSpeed(){
-  if(p_kppp)
-    info2->setText(p_kppp->con_speed);
+void ConWindow::setConnectionSpeed(const QString &speed) {
+  info2->setText(speed);
 }
 
 
@@ -226,12 +217,12 @@ void ConWindow::timeclick() {
   // volume accounting
   if(gpppdata.VolAcctEnabled()) {
     QString s;
-    if(totalbytes < 1024*10)
-      s.sprintf("%d Byte", totalbytes);
-    else if(totalbytes < 1024*1024)
-      s.sprintf("%0.1f KB", ((float)totalbytes)/1024);
+    if(stats.totalbytes < 1024*10)
+      s.sprintf("%d Byte", stats.totalbytes);
+    else if(stats.totalbytes < 1024*1024)
+      s.sprintf("%0.1f KB", ((float)stats.totalbytes)/1024);
     else
-      s.sprintf("%0.1f MB", ((float)totalbytes)/(1024*1024));
+      s.sprintf("%0.1f MB", ((float)stats.totalbytes)/(1024*1024));
 
     volinfo->setText(s);
   }

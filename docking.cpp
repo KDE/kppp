@@ -42,7 +42,7 @@ extern PPPStats      stats;
 // static member
 DockWidget *DockWidget::dock_widget = 0;
 
-DockWidget::DockWidget(const char *name)
+DockWidget::DockWidget(QWidget *parent, const char *name)
   : QWidget(0, name, 0) {
 
   docked = false;
@@ -68,13 +68,13 @@ DockWidget::DockWidget(const char *name)
   }
 
   // popup menu for right mouse button
-  popup_m = new QPopupMenu();
+  popup_m = new QPopupMenu(this);
   toggleID = popup_m->insertItem(i18n("Restore"),
 				 this, SLOT(toggle_window_state()));
-  popup_m->insertItem(i18n("Details"), this, SLOT(show_stats()));
+  popup_m->insertItem(i18n("Details"), parent, SLOT(showStats()));
   popup_m->insertSeparator();
   popup_m->insertItem(i18n("Disconnect"),
-		      this, SLOT(disconnect()));
+		      parent, SLOT(disconnect()));
 
   // connect to stats for little modem animation
   connect(&stats, SIGNAL(statsChanged(int)), SLOT(paintIcon(int)));
@@ -207,22 +207,5 @@ void DockWidget::toggle_window_state() {
     }
   }
 }
-
-
-void DockWidget::show_stats() {
-  // show statistics
-  if(p_kppp != 0L) {
-    p_kppp->statdlg->show();
-  }
-}
-
-
-void DockWidget::disconnect() {
-  // close ppp-connection
-  if(p_kppp != 0L) {
-    emit p_kppp->disconnect();
-  }
-}
-
 
 #include "docking.moc"

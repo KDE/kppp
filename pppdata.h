@@ -417,12 +417,10 @@ public:
   QString password;
 
 private:
+  KConfig* config;                       // configuration object   
   int highcount;                         // index of highest account
   int caccount;                          // index of the current account
   QString cgroup;                        // name of current config group
-
-  KConfig* config;                       // configuration object   
-
   pid_t suidprocessid;                   // process ID of setuid child
   bool pppdisrunning;                    // pppd process
                                          // daemon
