@@ -66,13 +66,12 @@
 
 extern KPPPWidget *p_kppp;
 extern bool quit_on_disconnect;
-extern PPPStats stats;
 
 QString old_hostname;
 bool modified_hostname;
 
 
-ConnectWidget::ConnectWidget(QWidget *parent, const char *name)
+ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   : QWidget(parent, name),
     // initialize some important variables
     myreadbuffer(""),
@@ -88,7 +87,8 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name)
     scanning(false),
     pausing(false),
     termwindow(0),
-    dialnumber(0)
+    dialnumber(0),
+    stats(st)
 {
   modified_hostname = false;
 
@@ -179,7 +179,7 @@ void ConnectWidget::init() {
   scanvar = "";
   firstrunID = true;
   firstrunPW = true;
-  stats.totalbytes = 0;
+  stats->totalbytes = 0;
   dialnumber = 0;
 
   p_kppp->con_speed = "";
@@ -803,7 +803,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       kdDebug(5002) << "started if timeout timer with " << gpppdata.pppdTimeout()*1000 << endl;
 
       // find out PPP interface and notify the stats module
-      stats.setUnit(pppInterfaceNumber());
+      stats->setUnit(pppInterfaceNumber());
 
       kapp->flushX();
       semaphore = true;
@@ -1053,7 +1053,7 @@ void ConnectWidget::if_waiting_timed_out() {
 void ConnectWidget::if_waiting_slot() {
   messg->setText(i18n("Logging on to Network ..."));
 
-  if(!stats.ifIsUp()) {
+  if(!stats->ifIsUp()) {
 
     if(gpppdata.pppdError() != 0) {
       // we are here if pppd died immediately after starting it.
@@ -1249,8 +1249,8 @@ void auto_hostname() {
   tmp_str[sizeof(tmp_str)-1]=0; // panic
   old_hostname=tmp_str; // copy to QString
 
-  if (!stats.local_ip_address.isEmpty() && gpppdata.autoname()) {
-    local_ip.s_addr=inet_addr((const char*)stats.local_ip_address);
+  if (!p_kppp->stats->local_ip_address.isEmpty() && gpppdata.autoname()) {
+    local_ip.s_addr=inet_addr(p_kppp->stats->local_ip_address.ascii());
     hostname_entry=gethostbyaddr((const char *)&local_ip,sizeof(in_addr),AF_INET);
 
     if (hostname_entry != 0L) {

@@ -65,6 +65,7 @@ class ModemWidget;
 class ModemWidget2;
 class GraphSetup;
 class AboutWidget;
+class PPPStats;
 
 class KPPPWidget : public QWidget {
   Q_OBJECT
@@ -113,6 +114,7 @@ public:
   PPPStatsDlg *statdlg;
   AccountingBase *acct;
   QPushButton *quit_b;
+  PPPStats *stats;
 
 private:
   void prepareSetupDialog();

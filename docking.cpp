@@ -39,13 +39,12 @@
 #include "pppstats.h"
 
 extern KPPPWidget   *p_kppp;
-extern PPPStats      stats;
 
 // static member
 DockWidget *DockWidget::dock_widget = 0;
 
-DockWidget::DockWidget(QWidget *parent, const char *name)
-  : KDockWindow(0L, name) {
+DockWidget::DockWidget(QWidget *parent, const char *name, PPPStats *st)
+  : KDockWindow(0L, name), stats(st) {
 
   // load pixmaps
   dock_none_pixmap = UserIcon("dock_none");
@@ -62,7 +61,7 @@ DockWidget::DockWidget(QWidget *parent, const char *name)
   popup_m->insertItem(i18n("Disconnect"),
 		      parent, SLOT(disconnect()));
   // connect to stats for little modem animation
-  connect(&stats, SIGNAL(statsChanged(int)), SLOT(paintIcon(int)));
+  connect(stats, SIGNAL(statsChanged(int)), SLOT(paintIcon(int)));
 
   DockWidget::dock_widget = this;
 }
@@ -108,14 +107,14 @@ void DockWidget::paintIcon (int status) {
 
 void DockWidget::take_stats() {
   if (isVisible()) {
-    stats.initStats();
-    stats.start();
+    stats->initStats();
+    stats->start();
   }
 }
 
 
 void DockWidget::stop_stats() {
-  stats.stop();
+  stats->stop();
 }
 
 

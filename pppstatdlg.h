@@ -39,13 +39,16 @@
 const int MAX_GRAPH_WIDTH   = 600;
 const int GRAPH_UPDATE_TIME = 1000;
 
+class PPPStats;
+
 class PPPStatsDlg : public QWidget {
 
   Q_OBJECT
 
 public:
 
-  PPPStatsDlg(QWidget *parent=0, const char *name=0,QWidget *main=0);
+  PPPStatsDlg(QWidget *parent, const char *name,QWidget *main,
+	      PPPStats *st);
   ~PPPStatsDlg();
 
 protected:
@@ -69,6 +72,7 @@ public:
 
 private:
   void paintGraph();
+  PPPStats *stats;
 
   QLabel *pixmap_l;
   QWidget *main;

@@ -31,10 +31,12 @@
 #include <qpixmap.h>
 #include <kdockwindow.h>
 
+class PPPStats;
+
 class DockWidget : public KDockWindow {
   Q_OBJECT
 public:
-  DockWidget(QWidget * parent, const char *name=0);
+  DockWidget(QWidget * parent, const char *name, PPPStats *st);
   ~DockWidget();
 
 protected:
@@ -55,6 +57,7 @@ public:
 
 private:
   int toggleID;
+  PPPStats *stats;
 
   KPopupMenu *popup_m;
 

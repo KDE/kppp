@@ -31,15 +31,16 @@
 #include <kglobal.h>
 
 extern PPPData gpppdata;
-extern PPPStats stats;
 
-ConWindow::ConWindow(QWidget *parent, const char *name,QWidget *mainwidget)
+ConWindow::ConWindow(QWidget *parent, const char *name,QWidget *mainwidget,
+		     PPPStats *st)
   : QWidget(parent, name, 0),
     minutes(0),
     seconds(0),
     hours(0),
     days(0),
-    tl1(0)
+    tl1(0),
+    stats(st)
 {
   info1 = new QLabel(i18n("Connected at:"), this);
   info2 = new QLabel("", this);
@@ -219,12 +220,12 @@ void ConWindow::timeclick() {
   // volume accounting
   if(gpppdata.VolAcctEnabled()) {
     QString s;
-    if(stats.totalbytes < 1024*10)
-      s = i18n("%1 Byte").arg(stats.totalbytes);
-    else if(stats.totalbytes < 1024*1024)
-      s = i18n("%1 KB").arg(KGlobal::locale()->formatNumber(((float)stats.totalbytes)/1024.0, 1));
+    if(stats->totalbytes < 1024*10)
+      s = i18n("%1 Byte").arg(stats->totalbytes);
+    else if(stats->totalbytes < 1024*1024)
+      s = i18n("%1 KB").arg(KGlobal::locale()->formatNumber(((float)stats->totalbytes)/1024.0, 1));
     else
-      s = i18n("%1 MB").arg(KGlobal::locale()->formatNumber(((float)stats.totalbytes)/(1024.0*1024.0), 1));
+      s = i18n("%1 MB").arg(KGlobal::locale()->formatNumber(((float)stats->totalbytes)/(1024.0*1024.0), 1));
 
     volinfo->setText(s);
   }

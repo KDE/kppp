@@ -52,7 +52,6 @@
 #define UPDATE_TIME    (5*60*1000)
 
 extern PPPData gpppdata;
-extern PPPStats stats;
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -216,10 +215,11 @@ QString AccountingBase::getAccountingFile(const QString &accountname) {
 // Accounting class for ruleset files
 //
 /////////////////////////////////////////////////////////////////////////////
-Accounting::Accounting(QObject *parent) : 
+Accounting::Accounting(QObject *parent, PPPStats *st) : 
   AccountingBase(parent),
   acct_timer_id(0),
-  update_timer_id(0)
+  update_timer_id(0),
+  stats(st)
 {
 }
 
@@ -313,8 +313,8 @@ void Accounting::slotStop() {
 	      timet2qstring(time(0)).data(),
 	      session(),
 	      total(),
-	      stats.ibytes,
-	      stats.obytes);
+	      stats->ibytes,
+	      stats->obytes);
 
     logMessage(s, FALSE);
     saveCosts();
@@ -361,9 +361,10 @@ double Accounting::session() {
 
 
 
-ExecutableAccounting::ExecutableAccounting(QObject *parent) : 
+ExecutableAccounting::ExecutableAccounting(PPPStats *st, QObject *parent) : 
   AccountingBase(parent),
-  proc(0)
+  proc(0),
+  stats(st)
 {
 }
 
@@ -467,8 +468,8 @@ void ExecutableAccounting::slotStop() {
 	      timet2qstring(time(0)).data(),
 	      session(),
 	      total(),
-	      stats.ibytes,
-	      stats.obytes);
+	      stats->ibytes,
+	      stats->obytes);
 
     logMessage(s, FALSE);
     saveCosts();

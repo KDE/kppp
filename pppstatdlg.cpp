@@ -39,10 +39,10 @@
 
 extern PPPData gpppdata;
 
-PPPStats stats;
-
-PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *)
-  : QWidget(parent, name, 0 )
+PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
+			 PPPStats *st)
+  : QWidget(parent, name, 0),
+    stats(st)
 {
   int i;
   max = 1024;
@@ -180,7 +180,7 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *)
 
   setFixedSize(sizeHint());
 
-  connect(&stats, SIGNAL(statsChanged(int)), SLOT(paintIcon(int)));
+  connect(stats, SIGNAL(statsChanged(int)), SLOT(paintIcon(int)));
 }
 
 
@@ -194,10 +194,10 @@ void PPPStatsDlg::cancel() {
 
 
 void PPPStatsDlg::take_stats() {
-  stats.initStats();
+  stats->initStats();
   ips_set = false;
-  bin_last = stats.ibytes;
-  bout_last = stats.obytes;  
+  bin_last = stats->ibytes;
+  bout_last = stats->obytes;  
   ringIdx = 0;
   for(int i = 0; i < MAX_GRAPH_WIDTH; i++) {
     bin[i] = -1;
@@ -206,14 +206,14 @@ void PPPStatsDlg::take_stats() {
 
   update_data();
 
-  stats.start();
+  stats->start();
   if(gpppdata.graphingEnabled())
     graphTimer->start(GRAPH_UPDATE_TIME);  
 }
 
 
 void PPPStatsDlg::stop_stats() {
-  stats.stop();
+  stats->stop();
   if(gpppdata.graphingEnabled())
     graphTimer->stop();
 }
@@ -279,16 +279,16 @@ void PPPStatsDlg::paintGraph() {
 }
 
 void PPPStatsDlg::updateGraph() {
-  bin[ringIdx] = stats.ibytes - bin_last;
-  bout[ringIdx] = stats.obytes - bout_last;
+  bin[ringIdx] = stats->ibytes - bin_last;
+  bout[ringIdx] = stats->obytes - bout_last;
   if(bin[ringIdx] > max)
     max = ((bin[ringIdx] / 1024) + 1) * 1024;
  
  if(bout[ringIdx] > max)
     max = ((bout[ringIdx] / 1024) + 1) * 1024;
  
-  bin_last = stats.ibytes;
-  bout_last = stats.obytes;
+  bin_last = stats->ibytes;
+  bout_last = stats->obytes;
   ringIdx = (ringIdx + 1) % MAX_GRAPH_WIDTH;
   paintGraph();
 }
@@ -335,15 +335,15 @@ void PPPStatsDlg::timeclick() {
     break;
 
   case 1: // bytes in
-    stats.totalbytes = gpppdata.totalBytes() + stats.ibytes;
+    stats->totalbytes = gpppdata.totalBytes() + stats->ibytes;
     break;
 
   case 2:
-    stats.totalbytes = gpppdata.totalBytes() + stats.obytes;
+    stats->totalbytes = gpppdata.totalBytes() + stats->obytes;
     break;
 
   case 3:
-    stats.totalbytes = gpppdata.totalBytes() + stats.ibytes + stats.obytes;
+    stats->totalbytes = gpppdata.totalBytes() + stats->ibytes + stats->obytes;
     break;
   }
 }
@@ -357,16 +357,16 @@ void PPPStatsDlg::closeEvent(QCloseEvent *) {
 void PPPStatsDlg::update_data() {
   timeclick();
 
-  ibytes_string.setNum(stats.ibytes);
-  ipackets_string.setNum(stats.ipackets);
-  compressedin_string.setNum(stats.compressedin);
-  uncompressedin_string.setNum(stats.uncompressedin);
-  errorin_string.setNum(stats.errorin);
-  obytes_string.setNum(stats.obytes);
-  opackets_string.setNum(stats.opackets);
-  compressed_string.setNum(stats.compressed);
-  packetsunc_string.setNum(stats.packetsunc);
-  packetsoutunc_string.setNum(stats.packetsoutunc);
+  ibytes_string.setNum(stats->ibytes);
+  ipackets_string.setNum(stats->ipackets);
+  compressedin_string.setNum(stats->compressedin);
+  uncompressedin_string.setNum(stats->uncompressedin);
+  errorin_string.setNum(stats->errorin);
+  obytes_string.setNum(stats->obytes);
+  opackets_string.setNum(stats->opackets);
+  compressed_string.setNum(stats->compressed);
+  packetsunc_string.setNum(stats->packetsunc);
+  packetsoutunc_string.setNum(stats->packetsoutunc);
 
   labela2[0]->setText(ibytes_string);
   labela2[1]->setText(ipackets_string);
@@ -385,13 +385,13 @@ void PPPStatsDlg::update_data() {
     // copy/paste the ip out of the lineedits due to
     // reset of cursor position on setText()
 
-    if( !stats.local_ip_address.isEmpty() )
-      ip_address_label2->setText(stats.local_ip_address);
+    if( !stats->local_ip_address.isEmpty() )
+      ip_address_label2->setText(stats->local_ip_address);
     else
       ip_address_label2->setText(i18n("unavailable"));
 
-    if( !stats.remote_ip_address.isEmpty() )
-      ip_address_label4->setText(stats.remote_ip_address);
+    if( !stats->remote_ip_address.isEmpty() )
+      ip_address_label4->setText(stats->remote_ip_address);
     else
       ip_address_label4->setText(i18n("unavailable"));
     

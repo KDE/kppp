@@ -41,10 +41,12 @@
 
 #define MAXLOOPNEST (MAX_SCRIPT_ENTRIES/2)
 
+class PPPStats;
+
 class ConnectWidget : public QWidget {
   Q_OBJECT
 public:  
-  ConnectWidget(QWidget *parent=0, const char *name=0);
+  ConnectWidget(QWidget *parent, const char *name, PPPStats *st);
   ~ConnectWidget();
   
 public:
@@ -132,6 +134,8 @@ private:
   bool firstrunPW;
 
   unsigned int dialnumber; // the current number to dial
+
+  PPPStats *stats;
 };
 
 

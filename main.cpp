@@ -100,7 +100,6 @@ static KCmdLineOptions option[] =
 
 
 KPPPWidget*	p_kppp;
-extern PPPStats stats;
 QString 	cmdl_account;
 
 bool	have_cmdl_account;
@@ -554,16 +553,18 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   // the dialer through a command line argument
   connect(this,SIGNAL(cmdl_start()),this,SLOT(beginConnect())); 
 
-  con_win = new ConWindow(0,"conw",this);
+  stats = new PPPStats;
+
+  con_win = new ConWindow(0, "conw", this, stats);
   KWM::setMiniIcon(con_win->winId(), kapp->miniIcon());
   con_win->setGeometry(QApplication::desktop()->width()/2-160,
 		    QApplication::desktop()->height()/2-55,
 		    320,110);
 
-  statdlg = new PPPStatsDlg(0,"stats",this);
+  statdlg = new PPPStatsDlg(0, "stats", this, stats);
   statdlg->hide();
 
-  (void)new DockWidget(this, "dockw");
+  (void)new DockWidget(this, "dockw", stats);
 
   debugwindow = new DebugWidget(0,"debugwindow");
   KWM::setMiniIcon(debugwindow->winId(), kapp->miniIcon());
@@ -572,7 +573,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   // load up the accounts combo box
 
   resetaccounts();
-  con = new ConnectWidget(0, "con");
+  con = new ConnectWidget(0, "con", stats);
   KWM::setMiniIcon(con->winId(), kapp->miniIcon());
   connect(this, SIGNAL(begin_connect()),con, SLOT(preinit()));
   con->setGeometry(QApplication::desktop()->width()/2-175,
@@ -1055,7 +1056,7 @@ void KPPPWidget::rulesetLoadError() {
 
 void KPPPWidget::startAccounting() {
   // volume accounting
-  stats.totalbytes = 0;
+  stats->totalbytes = 0;
 
   debug("AcctEnabled: %d", gpppdata.AcctEnabled());
   
@@ -1065,7 +1066,7 @@ void KPPPWidget::startAccounting() {
   
   QString d = AccountingBase::getAccountingFile(gpppdata.accountingFile());
   //  if(::access(d.data(), X_OK) != 0)
-    acct = new Accounting(this);
+    acct = new Accounting(this, stats);
     //  else
     //    acct = new ExecutableAccounting(this);
 
@@ -1089,8 +1090,8 @@ void KPPPWidget::startAccounting() {
 
 void KPPPWidget::stopAccounting() {
   // store volume accounting
-  if(stats.totalbytes != 0)
-    gpppdata.setTotalBytes(stats.totalbytes);
+  if(stats->totalbytes != 0)
+    gpppdata.setTotalBytes(stats->totalbytes);
 
   if(!gpppdata.AcctEnabled())
     return;

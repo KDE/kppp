@@ -34,12 +34,13 @@
 #include <qevent.h>
 #include <qlayout.h>
 
+class PPPStats;
 
 class ConWindow : public QWidget {
 Q_OBJECT
 
 public:
-  ConWindow(QWidget *parent=0, const char *name=0,QWidget *main=0);
+  ConWindow(QWidget *parent, const char *name,QWidget *main, PPPStats *st);
   ~ConWindow();
 
 protected:
@@ -80,6 +81,7 @@ private:
   QVBoxLayout *tl1;
   QLabel *vollabel;
   QLabel *volinfo;
+  PPPStats *stats;
 };
 
 

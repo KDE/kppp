@@ -97,7 +97,7 @@
 #define Debug(s) ((void)0);
 #define Debug2(s, i) ((void)0);
 #else
-#define Debug(s) fprintf(stderr, (s));
+#define Debug(s) fprintf(stderr, (s "\n"));
 #define Debug2(s, i) fprintf(stderr, (s), (i));
 #endif
 

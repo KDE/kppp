@@ -30,6 +30,8 @@
 #include <kprocess.h>
 #include "ruleset.h"
 
+class PPPStats;
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // Accounting base class
@@ -38,7 +40,7 @@
 class AccountingBase : public QObject {
   Q_OBJECT
 public:
-  AccountingBase(QObject *parent = 0);
+  AccountingBase(QObject *parent);
   virtual ~AccountingBase();
 
   virtual double total();
@@ -80,7 +82,7 @@ public:
 class Accounting : public AccountingBase {
   Q_OBJECT
 public:
-  Accounting(QObject *parent = 0);
+  Accounting(QObject *parent, PPPStats *st);
 
   virtual double total();
   virtual double session();
@@ -105,6 +107,7 @@ private:
   double _lastcosts;
   double _lastlen;
   RuleSet rules;
+  PPPStats *stats;
 };
 
 
@@ -116,7 +119,7 @@ private:
 class ExecutableAccounting : public AccountingBase {
   Q_OBJECT
 public:
-  ExecutableAccounting(QObject *parent = 0);
+  ExecutableAccounting(PPPStats *st, QObject *parent = 0);
 
   virtual bool loadRuleSet(const char *);
   virtual bool running();
@@ -135,6 +138,7 @@ private:
   KProcess *proc;
   QString currency;
   QString provider;
+  PPPStats *stats;
 };
 
 #endif
