@@ -524,12 +524,12 @@ void IPWidget::autoname_t(bool on) {
   // big-fat warning when selecting the auto configure hostname option
   if(on && !was_warned) {
     KMessageBox::information(this,
-			 i18n("Selecting this option might cause some weird\n"
-			      "problems with the X-server and applications\n"
-			      "while kppp is connected. Don't use it until\n"
-			      "you know what you are doing!\n\n"
-			      "For more information take a look at the\n"
-			      "handbook (or help) in the section \"Frequently\n"
+			 i18n("Selecting this option might cause some weird "
+			      "problems with the X-server and applications "
+			      "while kppp is connected. Don't use it until "
+			      "you know what you are doing!\n"
+			      "For more information take a look at the "
+			      "handbook (or help) in the section \"Frequently "
 			      "asked questions\"."),
 			 i18n("Warning"));
     was_warned = true;

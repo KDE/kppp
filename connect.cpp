@@ -1202,7 +1202,7 @@ bool ConnectWidget::execppp() {
 
   if (command.length() > MAX_CMDLEN) {
     KMessageBox::error(this, i18n(
-			      "pppd command + command-line arguments exeed\n"
+			      "pppd command + command-line arguments exceed "
 			      "2024 characters in length. What are you doing?"
 			      ));
 

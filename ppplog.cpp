@@ -212,18 +212,18 @@ void PPPL_ShowLog() {
   }
   if(foundConnect && !foundLCP) {
     int result = KMessageBox::warningYesNo(0,
-				i18n("KPPP could not prepare a PPP log. It's very likely\n"
-				     "that pppd was started without the \"debug\" option.\n\n"
-				     "Without this option it's difficult to find out PPP\n"
-				     "problems, so you should turn on the debug option.\n\n"
+				i18n("KPPP could not prepare a PPP log. It's very likely "
+				     "that pppd was started without the \"debug\" option.\n"
+				     "Without this option it's difficult to find out PPP "
+				     "problems, so you should turn on the debug option.\n"
 				     "Shall I turn it on now?"));
 
     if(result == KMessageBox::Yes) {
       gpppdata.setPPPDebug(TRUE);
       KMessageBox::information(0,
-		       i18n("The \"debug\" option has been added. You\n"
-			    "should now try to reconnect. If that fails\n"
-			    "again, you will get a PPP log that may help\n"
+		       i18n("The \"debug\" option has been added. You "
+			    "should now try to reconnect. If that fails "
+			    "again, you will get a PPP log that may help "
 					"you to track down the connection problem."));
       //      return;
     }

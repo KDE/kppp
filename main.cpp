@@ -54,7 +54,6 @@
 #include <kseparator.h>
 #include <qdir.h>
 #include <qwhatsthis.h>
-#include <qmessagebox.h>
 #include <kwin.h>
 
 #include "providerdb.h"
@@ -376,19 +375,19 @@ int main( int argc, char **argv ) {
   }
 
   if (pid > 0) {
-    QString msg = i18n("kppp has detected a %1 file.\n\n"
+    QString msg = i18n("kppp has detected a %1 file.\n"
                        "Another instance of kppp seems to be "
-                       "running under\nprocess-ID %2.\n\n"
+                       "running under process-ID %2.\n"
                        "Please click Exit, make sure that you are "
-                       "not running\nanother kppp, delete the pid "
-                       "file, and restart kppp.\n\n"
+                       "not running another kppp, delete the pid "
+                       "file, and restart kppp.\n"
                        "Alternatively, if you have determined that "
-                       "there\nis no other kppp running, please "
+                       "there is no other kppp running, please "
                        "click Continue to begin.")
                   .arg(pidfile).arg(pid);
-    int button = QMessageBox::warning(0L, i18n("Error"), msg,
+    int button = KMessageBox::warningYesNo(0, msg, i18n("Error"),
                                       i18n("Exit"), i18n("Continue"));
-    if (button == 0)            /* exit */
+    if (button == KMessageBox::Yes)            /* exit */
        return 1;
 
     remove_pidfile();
@@ -867,17 +866,18 @@ void KPPPWidget::sigPPPDDied() {
 	    msg = i18n("Timeout expired while waiting for the PPP interface "
                        "to come up!");
 	else {
-	    msg = i18n("The pppd daemon died unexpectedly!");
+	    msg = i18n("<p>The pppd daemon died unexpectedly!</p>");
 	    Requester::rq->pppdExitStatus();
 	    if (Requester::rq->lastStatus != 99) {	// more recent pppds only
-		msg += i18n("\n\nExit status: %1").arg(Requester::rq->lastStatus);
-		msg += i18n("\n\nSee 'man pppd' for an explanation of the error "
-			    "codes\nor take a look at the kppp FAQ on\n\n"
-			    "  http://devel-home.kde.org/~kppp/index.html");
+		msg += i18n("<p>Exit status: %1").arg(Requester::rq->lastStatus);
+		msg += i18n("</p><p>See 'man pppd' for an explanation of the error "
+			    "codes or take a look at the kppp FAQ on "
+			    "  <a href=http://devel-home.kde.org/~kppp/index.html>"
+			    "http://devel-home.kde.org/~kppp/index.html</a></p>");
 	    }
 	}
 
-	if(QMessageBox::critical(0, i18n("Error"), msg, i18n("OK"), i18n("Details...")))
+	if(KMessageBox::warningYesNo(0, msg, i18n("Error"), i18n("&OK"), i18n("&Details...")) == KMessageBox::No)
 	  PPPL_ShowLog();
       } else { /* reconnect on disconnect */
 	kdDebug(5002) << "Trying to reconnect ... " << endl;
@@ -907,7 +907,7 @@ void KPPPWidget::sigChld() {
   //  if(id == helperPid && helperPid != -1) {
   //    kdDebug(5002) << "It was the setuid child that died" << endl;
     helperPid = -1;
-    QString msg = i18n("Sorry. kppp's helper process just died.\n\n"
+    QString msg = i18n("Sorry. kppp's helper process just died.\n"
                        "Since a further execution would be pointless, "
                        "kppp will shut down right now.");
     KMessageBox::error(0L, msg);
@@ -939,9 +939,9 @@ void KPPPWidget::beginConnect() {
   QFileInfo info(pppdPath());
 
   if(!info.exists()){
-    KMessageBox::error(this, i18n("Cannot find the PPP daemon!\n\n"
-                              "Make sure that pppd is installed and\n"
-                              "you have entered the correct path."));
+    KMessageBox::error(this, i18n("Cannot find the PPP daemon!\n"
+                              "Make sure that pppd is installed and "
+                              "that you have entered the correct path."));
     return;
   }
 #if 0
@@ -950,7 +950,7 @@ void KPPPWidget::beginConnect() {
     QString string;
     string = i18n("kppp cannot execute:\n %1\n"
     		   "Please make sure that you have given kppp "
-		   "setuid permission and that\n"
+		   "setuid permission and that "
 		   "pppd is executable.").arg(gpppdata.pppdPath());
     KMessageBox::error(this, string);
     return;
@@ -962,11 +962,11 @@ void KPPPWidget::beginConnect() {
 
   if(!info2.exists()){
     QString string;
-    string = i18n("kppp can not find:\n %1\nPlease make sure you have setup\n"
-		   "your modem device properly\n"
-		   "and/or adjust\n the location of the modem device on "
-		   "the modem tab of\n"
-		   "the setup dialog.\n Thank You").arg(gpppdata.modemDevice());
+    string = i18n("kppp can not find:\n %1\nPlease make sure you have setup "
+		   "your modem device properly "
+		   "and/or adjust the location of the modem device on "
+		   "the modem tab of "
+		   "the setup dialog.\nThank You").arg(gpppdata.modemDevice());
     KMessageBox::error(this, string);
     return;
   }
@@ -981,8 +981,8 @@ void KPPPWidget::beginConnect() {
     if(ID_Edit->text().isEmpty()) {
       KMessageBox::error(this,
 			   i18n(
-                           "You have selected the authentication\n"
-			   "method PAP or CHAP. This requires that you\n"
+                           "You have selected the authentication "
+			   "method PAP or CHAP. This requires that you "
 			   "supply a username and a password!"));
       return;
     } else {
@@ -1129,7 +1129,7 @@ void KPPPWidget::startAccounting() {
 	  con_win, SLOT(slotAccounting(QString, QString)));
 
   if(!acct->loadRuleSet(gpppdata.accountingFile())) {
-    QString s= i18n("Can not load the accounting\n"
+    QString s= i18n("Can not load the accounting "
     		    "ruleset \"%1\"!").arg(gpppdata.accountingFile());
 
     // starting the messagebox with a timer will prevent us

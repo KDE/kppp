@@ -255,16 +255,17 @@ void AccountWidget::newaccount() {
   }
 
   int result;
-  int query = QMessageBox::information(this,
-				   i18n("Create a new account..."),
-   i18n("Do you want to use the wizard to create the new account or the\n"
-	"standard, dialog-based setup?\n\n"
-	"The wizard is easier and sufficient in most cases. If you need\n"
-	"very special settings, you might want to try the standard,\n"
-		"dialog-based setup.\n"), i18n("Wizard"), i18n("Dialog setup"), i18n("Cancel"));
+  int query = KMessageBox::questionYesNoCancel(this,
+   i18n("Do you want to use the wizard to create the new account or the "
+	"standard, dialog-based setup?\n"
+	"The wizard is easier and sufficient in most cases. If you need "
+	"very special settings, you might want to try the standard, "
+		"dialog-based setup."), 
+		i18n("Create a new account..."),
+		i18n("Wizard"), i18n("Dialog setup"), i18n("Cancel"));
 
   switch(query) {
-  case 0:
+  case KMessageBox::Yes:
     {
       if (gpppdata.newaccount() == -1)
 	return;
@@ -272,7 +273,7 @@ void AccountWidget::newaccount() {
       result = pdb.exec();
       break;
     }
-  case 1:
+  case KMessageBox::No:
     if (gpppdata.newaccount() == -1)
       return;
     result = doTab();

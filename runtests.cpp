@@ -227,7 +227,7 @@ int runTests() {
 
   if(!f) {
     KMessageBox::error(0,
-		 i18n("Cannot find the PPP daemon!\n\n"
+		 i18n("Cannot find the PPP daemon!\n"
                       "Make sure that pppd is installed."));
     warning++;
   }
@@ -237,9 +237,9 @@ int runTests() {
 #if 0
     if(access(f, X_OK) != 0 /* && geteuid() != 0 */) {
       KMessageBox::error(0,
-		   i18n("You do not have the permission\n"
-			"to start pppd!\n\n"
-			"Contact your system administrator\n"
+		   i18n("You do not have the permission "
+			"to start pppd!\n"
+			"Contact your system administrator "
 			"and ask to get access to pppd."));
       return TEST_CRITICAL;
     }
@@ -251,9 +251,9 @@ int runTests() {
       if(st.st_uid != 0 || (st.st_mode & S_ISUID) == 0) {
 	KMessageBox::error(0,
                      i18n("You don't have sufficient permission to run\n"
-                          "\n%1\n\n"
-                          "Please make sure that kppp is owned by root\n"
-                          "and has the SUID bit set.\n").arg(f));
+                          "%1\n"
+                          "Please make sure that kppp is owned by root "
+                          "and has the SUID bit set.").arg(f));
         warning++;
       }
     }
@@ -262,9 +262,9 @@ int runTests() {
   // Test 5: check for existence of /etc/resolv.conf
   if (access(_PATH_RESCONF, R_OK) != 0) {
     QString file = _PATH_RESCONF" ";
-    QString msgstr = i18n("%1 is missing or can't be read!\n\n"
-                   "Ask your system administrator to create\n"
-                   "this file (can be empty) with appropriate\n"
+    QString msgstr = i18n("%1 is missing or can't be read!\n"
+                   "Ask your system administrator to create "
+                   "this file (can be empty) with appropriate "
                    "read and write permissions.").arg(file);
     KMessageBox::error(0, msgstr);
     warning ++;
