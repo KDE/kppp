@@ -21,12 +21,12 @@
 #ifndef __MAIN__H__
 #define __MAIN__H__
 
-#include <ktmainwindow.h>
+#include <kmainwindow.h>
 #include <qtabwidget.h>
 #include <kmenubar.h>
 #include "monthly.h"
 
-class TopWidget : public KTMainWindow {
+class TopWidget : public KMainWindow {
   Q_OBJECT
 public:
   TopWidget();

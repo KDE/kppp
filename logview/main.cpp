@@ -45,7 +45,7 @@ static KCmdLineOptions option[] =
 };
 
 
-TopWidget::TopWidget() : KTMainWindow("") {
+TopWidget::TopWidget() : KMainWindow(0, "") {
   // Check command line args for "-kppp"
 
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
@@ -70,7 +70,6 @@ TopWidget::TopWidget() : KTMainWindow("") {
     QPopupMenu *fm = new QPopupMenu;
     fm->insertItem(i18n("E&xit"), F_EXIT);
     mb->insertItem(i18n("&File"), fm);
-    setMenu(mb);
     
     mb->setAccel(CTRL + Key_X, F_EXIT);
     connect(mb, SIGNAL(activated(int)),
@@ -89,7 +88,7 @@ TopWidget::TopWidget() : KTMainWindow("") {
 
   setMinimumSize(mw->sizeHint().width() + 15, 
                  mw->sizeHint().height() + 120);
-  setView(w);
+  setCentralWidget(w);
 }
 
 TopWidget::~TopWidget() {
