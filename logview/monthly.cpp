@@ -150,7 +150,7 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
 
   cboConnections = new QComboBox(false, this);            // add a combo box to select connections
   cboConnections->setMaximumWidth(200);                   // a resonable size
-  cboConnections->insertItem(i18n("All connections"));    // default to all connections
+  cboConnections->insertItem(i18n("All Connections"));    // default to all connections
   connect(cboConnections, SIGNAL(activated(int)),
 	  this, SLOT(slotConnections(int)));
 

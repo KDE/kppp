@@ -500,7 +500,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
   l1->addSpacing(20);
 
 #if 0
-  chkbox1 = new QCheckBox(i18n("Modem Asserts CD Line."), parent);
+  chkbox1 = new QCheckBox(i18n("Modem asserts CD line"), parent);
   chkbox1->setChecked(gpppdata.UseCDLine());
   connect(chkbox1,SIGNAL(toggled(bool)),
 	  this,SLOT(use_cdline_toggled(bool)));
