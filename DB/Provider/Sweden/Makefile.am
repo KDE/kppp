@@ -1,4 +1,4 @@
-pkg_DATA = .directory Utfors World%032Online
+pkg_DATA = .directory Utfors Tiscali
 
 pkgdir = $(kde_datadir)/kppp/Provider/Sweden
 

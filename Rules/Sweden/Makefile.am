@@ -5,7 +5,7 @@ pkg_DATA = ACN.rst Abonnera_com.rst \
 	Tele1_Europe.rst Tele2.rst Tele8.rst Teleman.rst \
 	Telenordia.rst Telerian.rst Telia.rst Telia_Telebonus1.rst \
 	Telia_Telebonus2.rst Telitel.rst Transnet.rst \
-	Universal_Telecom.rst Utfors.rst Vattenfall.rst World_Online.rst
+	Universal_Telecom.rst Utfors.rst Vattenfall.rst Tiscali.rst
 
 pkgdir = $(kde_datadir)/kppp/Rules/Sweden
 

@@ -1,6 +1,6 @@
 # KDE Config File
 AccountingEnabled=1
-AccountingFile=/Sweden/World_Online.rst
+AccountingFile=/Sweden/Tiscali.rst
 Authentication=1
 AutoDNS=0
 AutoName=0
@@ -10,11 +10,11 @@ Command=
 DNS=213.204.128.170,213.204.128.171
 DefaultRoute=1
 DisconnectCommand=
-Domain=worldonline.se
+Domain=tiscali.se
 ExDNSDisabled=0
 Gateway=0.0.0.0
 IPAddr=0.0.0.0
-Name=World Online
+Name=Tiscali
 Password=%PASSWORD%
 Phonenumber=0200785070
 ScriptArguments=

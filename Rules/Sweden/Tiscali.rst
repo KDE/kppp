@@ -1,11 +1,11 @@
 ##############################################################
-# Swedish rate ruleset for calls with World Online
+# Swedish rate ruleset for calls with Tiscali
 # Created 2001-01-01 by Anders Widell  <awl@hem.passagen.se>
 # May be distributed freely. I take no responsibility for
 # the correctness of the information in this file.
 ##############################################################
 
-name=World_Online
+name=Tiscali
 currency_symbol=SEK
 currency_position=right 
 currency_digits=2
