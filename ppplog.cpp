@@ -198,9 +198,9 @@ void PPPL_ShowLog() {
 
   if(!foundLCP) {
     int result = KMessageBox::warningYesNo(0,
-				i18n("KPPP could not prepare a PPP log. It´s very likely\n"
+				i18n("KPPP could not prepare a PPP log. It's very likely\n"
 				     "that pppd was started without the \"debug\" option.\n\n"
-				     "Without this option it´s difficult to find out PPP\n"
+				     "Without this option it's difficult to find out PPP\n"
 				     "problems, so you should turn on the debug option.\n\n"
 				     "Shall I turn it on now?"));
 

@@ -71,7 +71,7 @@ QString timet2qstring(time_t t) {
 //
 // The base class for the accounting system provides a base set of usefull
 // and common functions, but does not do any accounting by itself. The 
-// accounting is accomplished withing it´s derived classes
+// accounting is accomplished withing it's derived classes
 //
 /////////////////////////////////////////////////////////////////////////////
 AccountingBase::AccountingBase(QObject *parent) :

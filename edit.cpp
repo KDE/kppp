@@ -526,7 +526,7 @@ void IPWidget::autoname_t(bool on) {
 			 i18n("Warning"),
 			 i18n("Selecting this option might cause some weird\n"
 			      "problems with the X-server and applications\n"
-			      "while kppp is connected. Don´t use it until\n"
+			      "while kppp is connected. Don't use it until\n"
 			      "you know what you are doing!\n\n"
 			      "For more information take a look into the\n"
 			      "handbook (or help) in the section \"Frequently\n"

@@ -51,7 +51,7 @@
 #include "utils.h"
 #include "kpppconfig.h"
 
-// in case of error, we simply return "0" and hope it´s ok :-)
+// in case of error, we simply return "0" and hope it's ok :-)
 int pppInterfaceNumber() {
   char ifname[64];
 

@@ -210,7 +210,7 @@ int runTests() {
 
     if(!access) {
       KMessageBox::error(0,
-		 i18n("You´re not allowed to dial out with "
+		 i18n("You're not allowed to dial out with "
 		      "kppp.\nContact your system administrator."));
       return TEST_CRITICAL;
     }
