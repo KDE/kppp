@@ -1,20 +1,21 @@
 # KDE Config File
+# http://www3.hccnet.nl/info/support/overzicht.cfm?onderwerp=65&code_1=F&code_2=B&code_3=B&code_4=A
 AccountingEnabled=1
 AccountingFile=/Netherlands/BelBasis_Regio.rst
-Authentication=1
+Authentication=4
 AutoName=0
 BeforeDisconnect=
 Command=
-DNS=213.197.28.3,213.197.24.3
+DNS=
 DefaultRoute=1
 DisconnectCommand=
-Domain=concepts.nl
+Domain=
 ExDNSDisabled=0
 Gateway=0.0.0.0
 IPAddr=0.0.0.0
-Name=Concepts_ICT
+Name=HCC Net
 Password=%PASSWORD%
-Phonenumber=0676050500
+Phonenumber=0676042222
 ScriptArguments=
 ScriptCommands=
 StorePassword=1

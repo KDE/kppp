@@ -1,4 +1,6 @@
 pkg_DATA = .directory \
+	Kabelfoon \
+	HCC%032NET \
 	12Move \
 	FlakkeeNet \
 	IntroWeb%032Hengelo%032e.o. \
