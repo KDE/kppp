@@ -143,7 +143,7 @@ bool Modem::opentty() {
   tcflush (modemfd, TCIOFLUSH);
 
   if(tcgetattr(modemfd, &tty) < 0){
-    // try if that helps
+    // this helps in some cases
     tcsendbreak(modemfd, 0);
     sleep(1);
     if(tcgetattr(modemfd, &tty) < 0){
@@ -152,13 +152,6 @@ bool Modem::opentty() {
       modemfd = -1;
       return false;
     }
-    // Ask for success stories since we don't know if the tcsendbreak()
-    // makes any difference. No serious need for a translation.
-    KMessageBox::information(0L,
-			 "kppp had to resort to an experimental method to get "
-			 "the terminal attributes.\n\nPlease send me "
-			 "(porten@kde.org) a short note so we can make this "
-			 "fix\npermanent in the next release. Thanks.");
   }
 
   memset(&initial_tty,'\0',sizeof(initial_tty));
