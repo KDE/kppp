@@ -114,7 +114,7 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   int messw = (messg->sizeHint().width() * 12) / 10;
   messw = QMAX(messw,280);
   messg->setMinimumWidth(messw);
-  messg->setText(i18n("Looking for Modem ..."));
+  messg->setText(i18n("Looking for modem..."));
   l0->addSpacing(10);
   l0->addWidget(messg);
   l0->addSpacing(10);
@@ -170,7 +170,7 @@ ConnectWidget::~ConnectWidget() {
 void ConnectWidget::preinit() {
   // this is all just to keep the GUI nice and snappy ....
   // you have to see to believe ...
-  messg->setText(i18n("Looking for Modem ..."));
+  messg->setText(i18n("Looking for modem..."));
   inittimer->start(100);
 }
 
@@ -276,8 +276,8 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
     assert(PPPData::NumInitStrings > 0);
     // first init string ?
     if(substate == -1) {
-      messg->setText(i18n("Initializing Modem..."));
-      emit debugMessage(i18n("Initializing Modem..."));
+      messg->setText(i18n("Initializing modem..."));
+      emit debugMessage(i18n("Initializing modem..."));
       substate = 0;
     }
 
@@ -405,12 +405,12 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       timeout_timer->stop();
       timeout_timer->start(gpppdata.modemTimeout()*1000);
 
-      messg->setText(i18n("Line Busy. Hanging up ..."));
+      messg->setText(i18n("Line busy. Hanging up..."));
       emit debugPutChar('\n');
       Modem::modem->hangup();
 
       if(gpppdata.busyWait() > 0) {
-	QString bm = i18n("Line Busy. Waiting: %1 seconds").arg(gpppdata.busyWait());
+	QString bm = i18n("Line busy. Waiting: %1 seconds").arg(gpppdata.busyWait());
 	messg->setText(bm);
 	emit debugMessage(bm);
 
@@ -834,7 +834,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       semaphore = true;
       result = execppp();
 
-      emit debugMessage(i18n("Starting pppd ..."));
+      emit debugMessage(i18n("Starting pppd..."));
       kdDebug(5002) << "execppp() returned with return-code " << result << endl;
 
       if(result) {
@@ -970,7 +970,7 @@ void ConnectWidget::cancelbutton() {
     this->show();
   }
 
-  messg->setText(i18n("One Moment Please ..."));
+  messg->setText(i18n("One moment please..."));
 
   // just to be sure
   Requester::rq->removeSecret(AUTH_PAP);
@@ -1073,7 +1073,7 @@ void ConnectWidget::pppdDied()
 }
 
 void ConnectWidget::if_waiting_slot() {
-  messg->setText(i18n("Logging on to Network ..."));
+  messg->setText(i18n("Logging on to network..."));
 
   if(!stats->ifIsUp()) {
 
@@ -1104,7 +1104,7 @@ void ConnectWidget::if_waiting_slot() {
   auto_hostname();
 
   if(!gpppdata.command_on_connect().isEmpty()) {
-    messg->setText(i18n("Running Startup Command ..."));
+    messg->setText(i18n("Running startup command..."));
 
     // make sure that we don't get any async errors
     kapp->flushX();

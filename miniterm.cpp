@@ -180,7 +180,7 @@ void MiniTerm::readChar(unsigned char c) {
 void MiniTerm::cancelbutton() {
   Modem::modem->stop();
 
-  statusbar->setText(i18n("Hanging up ..."));
+  statusbar->setText(i18n("Hanging up..."));
   kapp->processEvents();
   KApplication::flushX();
 

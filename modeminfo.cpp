@@ -59,7 +59,7 @@ ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
   statusBar->setFixedHeight(statusBar->sizeHint().height() + 4);
 
   // set original text
-  statusBar->setText(i18n("Looking for Modem ..."));
+  statusBar->setText(i18n("Looking for Modem..."));
   progressBar->setFixedHeight(statusBar->minimumSize().height());
   tl->addWidget(progressBar);
   tl->addWidget(statusBar);
@@ -169,7 +169,7 @@ void ModemTransfer::do_script() {
   switch(step) {
   case 0:
     readtty();
-    statusBar->setText("ATI ...");
+    statusBar->setText("ATI...");
     progressBar->advance(1);
     Modem::modem->writeLine("ATI\n");
     break;
@@ -222,7 +222,7 @@ void ModemTransfer::cancelbutton() {
   Modem::modem->stop();
   timeout_timer->stop();
 
-  statusBar->setText(i18n("One Moment Please ..."));
+  statusBar->setText(i18n("One moment please..."));
   kapp->processEvents();
 
   Modem::modem->hangup();

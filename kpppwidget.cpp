@@ -518,7 +518,7 @@ void KPPPWidget::sigPPPDDied() {
 	if(KMessageBox::warningYesNo(0, msg, i18n("Error"), i18n("&OK"), i18n("&Details...")) == KMessageBox::No)
 	  PPPL_ShowLog();
       } else { /* reconnect on disconnect */
-	kdDebug(5002) << "Trying to reconnect ... " << endl;
+	kdDebug(5002) << "Trying to reconnect... " << endl;
 
         if(gpppdata.authMethod() == AUTH_PAP ||
 	   gpppdata.authMethod() == AUTH_CHAP ||
@@ -668,7 +668,7 @@ void KPPPWidget::disconnect() {
   if (!gpppdata.command_before_disconnect().isEmpty()) {
     con_win->hide();
     con->show();
-    con->setCaption(i18n("Disconnecting ..."));
+    con->setCaption(i18n("Disconnecting..."));
     con->setMsg(i18n("Executing command before disconnection."));
 
     kapp->processEvents();
