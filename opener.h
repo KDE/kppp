@@ -4,7 +4,7 @@
 #define DEVNULL "/dev/null"
 
 // workaround for bug in glibc on RedHat 5.0 and Debian 2.1
-#if (__GLIBC__ == 2 && __GLIBC_MINOR__ == 0 && defined(__linux__))
+#if defined(__GLIBC__) && (__GLIBC__ == 2 && __GLIBC_MINOR__ == 0 && defined(__linux__))
 # define MY_SCM_RIGHTS 1
 #else
 # define MY_SCM_RIGHTS SCM_RIGHTS
