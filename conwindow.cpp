@@ -58,7 +58,7 @@ ConWindow::ConWindow(QWidget *parent, const char *name,QWidget *mainwidget,
   total_bill_l = new QLabel(i18n("Total bill:"), this);
   total_bill = new QLabel("", this);
 
-  this->setCaption("kppp");
+  setCaption("kppp");
 
   cancelbutton = new QPushButton(this);
   cancelbutton->setText(i18n("&Disconnect"));
@@ -228,7 +228,7 @@ void ConWindow::accounting(bool on) {
 
 void ConWindow::dock() {
   DockWidget::dock_widget->show();
-  this->hide();
+  hide();
 }
 
 
@@ -243,7 +243,7 @@ void ConWindow::startClock() {
   if(gpppdata.get_show_clock_on_caption()){
     title += " 00:00" ;
   }
-  this->setCaption(title);
+  setCaption(title);
 
   timelabel2->setText("00:00:00");
   clocktimer->start(1000);
@@ -314,7 +314,7 @@ void ConWindow::timeclick() {
   if(gpppdata.get_show_clock_on_caption() && (seconds == 1)){
     // we update the Caption only once per minute not every second
     // otherwise I get a flickering icon
-    this->setCaption(caption_string);
+    setCaption(caption_string);
   }
 
   QToolTip::add(DockWidget::dock_widget, tooltip);

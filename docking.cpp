@@ -76,7 +76,7 @@ void DockWidget::paintIcon (int status) {
 
   const QPixmap *pixmap;
 
-  if(this->isVisible()) {
+  if(isVisible()) {
     switch(status)
       {
       case PPPStats::BytesBoth:

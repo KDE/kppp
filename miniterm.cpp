@@ -228,7 +228,7 @@ void MiniTerm::help() {
 MyTerm::MyTerm(QWidget *parent, const char* name)
   : QMultiLineEdit(parent, name)
 {
-   this->setFont(KGlobalSettings::fixedFont());
+   setFont(KGlobalSettings::fixedFont());
 }
 
 void MyTerm::keyPressEvent(QKeyEvent *k) {

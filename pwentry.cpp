@@ -35,8 +35,8 @@ PWEntry::PWEntry( QWidget *parent, const char *name )
 
    if(parent){
 
-     QPoint point = this->mapToGlobal (QPoint (0,0));
-     QRect pos = this->geometry();
+     QPoint point = mapToGlobal (QPoint (0,0));
+     QRect pos = geometry();
      
      setGeometry(point.x() + pos.width()/2  - 300/2,
 		 point.y() + pos.height()/2 - 90/2, 
@@ -49,7 +49,7 @@ PWEntry::PWEntry( QWidget *parent, const char *name )
 
    frame = new QGroupBox(name, this );
    
-   this->setFocusPolicy( QWidget::StrongFocus );
+   setFocusPolicy( QWidget::StrongFocus );
    
    pw = new QLineEdit( this, "le" );
    pw->setEchoMode( QLineEdit::Password ); 
@@ -86,8 +86,8 @@ void PWEntry::setPrompt(const QString &p) {
 
 void PWEntry::resizeEvent(QResizeEvent* ){
 
-    pw->setGeometry( 15,35, this->width() - 30, 25 );
-    frame->setGeometry(5,5,this->width() - 10, this->height() - 10 );
+    pw->setGeometry( 15,35, width() - 30, 25 );
+    frame->setGeometry(5,5, width() - 10, height() - 10 );
 
 }
 

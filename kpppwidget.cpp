@@ -300,7 +300,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
       string = i18n("No such Account:\n%1").arg(m_strCmdlAccount);
       KMessageBox::error(this, string);
       m_bCmdlAccount = false;
-      this->show();
+      show();
     } else {
       beginConnect();
     }
@@ -750,7 +750,7 @@ void KPPPWidget::beginConnect() {
     return;
   }
 
-  this->hide();
+  hide();
 
   QString tit = i18n("Connecting to: %1").arg(gpppdata.accname());
   con->setCaption(tit);
@@ -833,8 +833,8 @@ void KPPPWidget::delayedDisconnect() {
   if(m_bQuitOnDisconnect)
     kapp->exit(0);
   else {
-    this->quit_b->setFocus();
-    this->show();
+    quit_b->setFocus();
+    show();
   }
 }
 

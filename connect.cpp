@@ -892,7 +892,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	if (termwindow) {
 	  delete termwindow;
 	  termwindow = 0L;
-	  this->show();
+	  show();
 	} else {
 	  termwindow = new LoginTerm(0L, 0L);
 	  hide();
@@ -936,7 +936,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	// handled by execppp();
 	if_timeout_timer->stop();
 
-	this->hide();
+	hide();
 	messg->setText("");
 	p_kppp->quit_b->setFocus();
 	p_kppp->show();
@@ -1055,7 +1055,7 @@ void ConnectWidget::cancelbutton() {
   if (termwindow) {
     delete termwindow;
     termwindow = 0L;
-    this->show();
+    show();
   }
 
   messg->setText(i18n("One moment please..."));
@@ -1070,7 +1070,7 @@ void ConnectWidget::cancelbutton() {
   Requester::rq->killPPPDaemon();
   Modem::modem->hangup();
 
-  this->hide();
+  hide();
   messg->setText("");
   p_kppp->quit_b->setFocus();
   p_kppp->show();
@@ -1211,7 +1211,7 @@ void ConnectWidget::if_waiting_slot() {
   set_con_speed_string();
 
   p_kppp->con_win->setConnectionSpeed(p_kppp->con_speed);
-  this->hide();
+  hide();
   messg->setText("");
 
   // prepare the con_win so as to have the right size for
@@ -1224,7 +1224,7 @@ void ConnectWidget::if_waiting_slot() {
   if (gpppdata.get_dock_into_panel()) {
     DockWidget::dock_widget->show();
     DockWidget::dock_widget->take_stats();
-    this->hide();
+    hide();
   }
   else {
     p_kppp->con_win->show();
