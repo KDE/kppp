@@ -270,7 +270,7 @@ ModemInfo::ModemInfo(QWidget *parent, const char* name)
   //tl->addSpacing(1);
 
   QHBoxLayout *l2 = new QHBoxLayout;
-  QPushButton *ok = new QPushButton(i18n("&Close"), this);
+  QPushButton *ok = new KPushButton(KStdGuiItem::close(), this);
   ok->setDefault(TRUE);
   ok->setFocus();
 
