@@ -32,7 +32,7 @@
 #include <kstddirs.h>
 #include <kdebug.h>
 
-QList<LogInfo> logList;
+QPtrList<LogInfo> logList;
 QProgressDialog *dlg;
 
 int loadLogs() {

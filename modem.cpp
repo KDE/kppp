@@ -441,7 +441,8 @@ QString Modem::parseModemSpeed(const QString &s) {
 
   for(i = 0; i < RXMAX; i++) {
     int len, idx, result;
-    if((idx = rrx[i].match(s, 0, &len)) > -1) {
+    if((idx = rrx[i].search(s)) > -1) {
+      len = rrx[i].matchedLength();
 
       //
       // rrx[i] has been matched, idx contains the start of the match
@@ -453,7 +454,8 @@ QString Modem::parseModemSpeed(const QString &s) {
       // Now extract the digits only from the match, which will
       // then be converted to an int.
       //
-      if ((idx = rrx[RXMAX-1].match( sub, 0, &len )) > -1) {
+      if ((idx = rrx[RXMAX-1].search( sub )) > -1) {
+        len = rrx[RXMAX-1].matchedLength();
         sub = sub.mid(idx, len);
         result = sub.toInt();
         if(result > 0) {
@@ -466,7 +468,8 @@ QString Modem::parseModemSpeed(const QString &s) {
 
   for(i = 0; i < TXMAX; i++) {
     int len, idx, result;
-    if((idx = trx[i].match(s, 0, &len)) > -1) {
+    if((idx = trx[i].search(s)) > -1) {
+      len = trx[i].matchedLength();
 
       //
       // trx[i] has been matched, idx contains the start of the match
@@ -478,7 +481,8 @@ QString Modem::parseModemSpeed(const QString &s) {
       // Now extract the digits only from the match, which will then
       // be converted to an int.
       //
-      if((idx = rrx[RXMAX-1].match(sub, 0, &len)) > -1) {
+      if((idx = rrx[RXMAX-1].search(sub)) > -1) {
+        len = rrx[RXMAX-1].matchedLength();
         sub = sub.mid(idx, len);
         result = sub.toInt();
         if(result > 0) {

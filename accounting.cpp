@@ -80,7 +80,7 @@ AccountingBase::AccountingBase(QObject *parent) :
 {
   QDate dt = QDate::currentDate();
   LogFileName = QString("%1-%2.log")
-    .arg(dt.monthName(dt.month()))
+    .arg(QDate::shortMonthName(dt.month()))
     .arg(dt.year(), 4);
 
   LogFileName = KGlobal::dirs()->saveLocation("appdata", "Log")

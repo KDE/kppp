@@ -22,17 +22,17 @@
 #define __LOG__H__
 
 #include "loginfo.h"
-#include <qlist.h>
+#include <qptrlist.h>
 
-typedef QList<LogInfo>                    QLogInfoBase;
-typedef QListIterator<LogInfo>            QLogInfoIterator;
+typedef QPtrList<LogInfo>                    QLogInfoBase;
+typedef QPtrListIterator<LogInfo>            QLogInfoIterator;
 
 class QLogList : public QLogInfoBase {
 public:
   virtual int compareItems(Item, Item);
 };
 
-extern QList<LogInfo> logList;
+extern QPtrList<LogInfo> logList;
 
 int loadLogs();
 int loadLog(QString);
