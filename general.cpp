@@ -539,7 +539,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 		       "find out vendor and revision of your modem.\n"
 		       "\n"
 		       "Press this button to query your modem for\n"
-		       "this information.  It can be useful to help\n"
+		       "this information. It can be useful to help\n"
 		       "you setup the modem"));
 
   terminal_button = new QPushButton(i18n("Terminal"), peer());
