@@ -126,8 +126,10 @@ void pppdVersion(int *version, int *modification, int *patch) {
 
   // find position of version number x.y.z
   char *p = buffer;
-  while(!isdigit(*p))
+  while(*p && !isdigit(*p))
     p++;
+  if (*p == 0)
+    return;
   char *p2 = p;
   while(*p2 == '.' || isdigit(*p2))
     p2++;
