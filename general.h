@@ -30,7 +30,6 @@
 #include <qwidget.h>
 #include <qpainter.h>
 #include <qcombobox.h>
-#include <qlineedit.h>
 #include <qlabel.h>
 #include <qcheckbox.h>
 #include <qradiobutton.h>
