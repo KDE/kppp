@@ -304,7 +304,7 @@ int main( int argc, char **argv ) {
     KPPPVERSION, description, KAboutData::License_GPL,
     "(c) 1999-2000, The KPPP Developers");
   aboutData.addAuthor("Bernd Wuebben",0, "wuebben@kde.org");
-  aboutData.addAuthor("Mario Weilguni",0, "mweilguni@kde.org");
+  aboutData.addAuthor("Mario Weilguni",0, "");
   aboutData.addAuthor("Harri Porten",0, "porten@kde.org");
 
   KCmdLineArgs::init( argc, argv, &aboutData );
