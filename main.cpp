@@ -348,11 +348,11 @@ int main( int argc, char **argv ) {
   // do we really need to generate an empty directory structure here ?
   KGlobal::dirs()->saveLocation("appdata", "Rules");
 
-  QString msg;
+  QString err_msg = i18n("kppp can't create or read from\n%1.").arg(pidfile);
+
   int pid = create_pidfile();
   if(pid < 0) {
-    msg = i18n("kppp can't create or read from\n%1.").arg(pidfile);
-    KMessageBox::error(0L, msg);
+    KMessageBox::error(0L, err_msg);
     return 1;
   }
 
@@ -380,14 +380,27 @@ int main( int argc, char **argv ) {
   }
 
   if (pid > 0) {
-    msg = i18n("kppp has detected a %1 file.\n\n"
-                     "Another instance of kppp seems to be "
-                     "running under\nprocess-ID %2.\n\n"
-                     "Make sure that you are not running another "
-                     "kppp,\ndelete the pid file, and restart kppp.")
-                .arg(pidfile).arg(pid);
-    QMessageBox::warning(0L, i18n("Error"), msg, i18n("Exit"));
-    return 1;
+    QString msg = i18n("kppp has detected a %1 file.\n\n"
+                       "Another instance of kppp seems to be "
+                       "running under\nprocess-ID %2.\n\n"
+                       "Please click Exit, make sure that you are "
+                       "not running\nanother kppp, delete the pid "
+                       "file, and restart kppp.\n\n"
+                       "Alternatively, if you have determined that "
+                       "there\nis no other kppp running, please "
+                       "click Continue to begin.")
+                  .arg(pidfile).arg(pid);
+    int button = QMessageBox::warning(0L, i18n("Error"), msg,
+                                      i18n("Exit"), i18n("Continue"));
+    if (button == 0)            /* exit */
+       return 1;
+
+    remove_pidfile();
+    pid = create_pidfile();
+    if(pid) {
+      KMessageBox::error(0L, err_msg);
+      return 1;
+    }
   }
 
   KPPPWidget kppp;
@@ -762,13 +775,16 @@ void KPPPWidget::resetaccounts() {
 	PW_Edit->setText(gpppdata.storedPassword());
     }
 
-
   connect(ID_Edit, SIGNAL(textChanged(const QString &)),
  	  this, SLOT(usernameChanged(const QString &)));
 
   connect(PW_Edit, SIGNAL(textChanged(const QString &)),
  	  this, SLOT(passwordChanged(const QString &)));
+
+  if(!ID_Edit->text().isEmpty() && PW_Edit->text().isEmpty())
+    PW_Edit->setFocus();
 }
+
 
 void sighandler(int sig) {
   QEvent *e = 0L;
