@@ -178,8 +178,8 @@ bool Modem::opentty() {
   tty.c_lflag &= ~(ECHO|ECHOE|ECHOK|ECHOKE);
 
 
-  if(strcmp(gpppdata.flowcontrol(), "None") != 0) {
-    if(strcmp(gpppdata.flowcontrol(), "CRTSCTS") == 0) {
+  if(gpppdata.flowcontrol() != "None") {
+    if(gpppdata.flowcontrol() == "CRTSCTS") {
       tty.c_cflag |= CRTSCTS;
     }
     else {
@@ -315,11 +315,11 @@ bool Modem::writeLine(const char *buf) {
   // necessary. I have tested this with two different modems and 
   // one needed an CR the other a CR/LF. Am i hallucinating ?
   // If you know what the scoop is on this please let me know. 
-  if(strcmp(gpppdata.enter(), "CR/LF") == 0)
+  if(gpppdata.enter() == "CR/LF")
     write(modemfd, "\r\n", 2);
-  else if(strcmp(gpppdata.enter(), "LF") == 0)
+  else if(gpppdata.enter() == "LF")
     write(modemfd, "\n", 1);
-  else if(strcmp(gpppdata.enter(), "CR") == 0)
+  else if(gpppdata.enter() == "CR")
     write(modemfd, "\r", 1);
  
   return true;

@@ -1080,7 +1080,7 @@ void ConnectWidget::if_waiting_slot() {
   p_kppp->statdlg->take_stats(); // start taking ppp statistics
   auto_hostname();
 
-  if(strcmp(gpppdata.command_on_connect(), "") != 0) {
+  if(!gpppdata.command_on_connect().isEmpty()) {
     messg->setText(i18n("Running Startup Command ..."));
 
     // make sure that we don't get any async errors
@@ -1141,9 +1141,9 @@ bool ConnectWidget::execppp() {
 
   command += " -detach";
 
-  if(strcmp(gpppdata.ipaddr(), "0.0.0.0") != 0 ||
-     strcmp(gpppdata.gateway(), "0.0.0.0") != 0) {
-    if(strcmp(gpppdata.ipaddr(), "0.0.0.0") != 0) {
+  if(gpppdata.ipaddr() != "0.0.0.0" ||
+     gpppdata.gateway() != "0.0.0.0") {
+    if(gpppdata.ipaddr() != "0.0.0.0") {
       command += " "; 
       command += gpppdata.ipaddr();
       command +=  ":";
@@ -1153,11 +1153,11 @@ bool ConnectWidget::execppp() {
       command += ":";
     }
 
-    if(strcmp(gpppdata.gateway(), "0.0.0.0") != 0)
+    if(gpppdata.gateway() != "0.0.0.0")
       command += gpppdata.gateway();
   }
 
-  if(strcmp(gpppdata.subnetmask(), "0.0.0.0") != 0) {
+  if(gpppdata.subnetmask() != "0.0.0.0") {
     command += " ";
     command += "netmask";
     command += " ";
@@ -1165,8 +1165,8 @@ bool ConnectWidget::execppp() {
 
   }
 
-  if(strcmp(gpppdata.flowcontrol(), "None") != 0) {
-    if(strcmp(gpppdata.flowcontrol(), "CRTSCTS") == 0) {
+  if(gpppdata.flowcontrol() != "None") {
+    if(gpppdata.flowcontrol() == "CRTSCTS") {
       command += " ";
       command +=  "crtscts";
     }
@@ -1272,7 +1272,7 @@ void add_domain(const char *domain) {
   char c;
   QString resolv[MAX_RESOLVCONF_LINES];
 
-  if (domain == 0L || ! strcmp(domain, "")) 
+  if (domain == 0L || strlen(domain) == 0) 
     return;
 
   if((fd = Requester::rq->openResolv(O_RDONLY)) >= 0) {

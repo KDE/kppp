@@ -343,7 +343,7 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   QWhatsThis::add(baud_c,tmp);
 
   for(int i=0; i <= enter->count()-1; i++) {
-    if(strcmp(gpppdata.enter(), enter->text(i)) == 0)
+    if(gpppdata.enter() == enter->text(i))
       enter->setCurrentItem(i);
   }
 
@@ -388,18 +388,18 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
 
   //set stuff from gpppdata
   for(int i=0; i <= modemdevice->count()-1; i++) {
-    if(strcmp(gpppdata.modemDevice(), modemdevice->text(i)) == 0)
+    if(gpppdata.modemDevice() == modemdevice->text(i))
       modemdevice->setCurrentItem(i);
   }
 
   for(int i=0; i <= flowcontrol->count()-1; i++) {
-    if(strcmp(gpppdata.flowcontrol(), flowcontrol->text(i)) == 0)
+    if(gpppdata.flowcontrol() == flowcontrol->text(i))
       flowcontrol->setCurrentItem(i);
   }     
 
   //set the modem speed
   for(int i=0; i < baud_c->count(); i++)
-    if(strcmp(baud_c->text(i), gpppdata.speed()) == 0)
+    if(baud_c->text(i) == gpppdata.speed())
       baud_c->setCurrentItem(i);
 
   tl->activate();

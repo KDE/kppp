@@ -447,8 +447,8 @@ IPWidget::IPWidget( QWidget *parent, bool isnewaccount, const char *name )
 
   //load info from gpppdata
   if(!isnewaccount) {
-    if(strcmp(gpppdata.ipaddr(),"0.0.0.0")==0 && 
-       strcmp(gpppdata.subnetmask(),"0.0.0.0")==0) {
+    if(gpppdata.ipaddr() == "0.0.0.0" && 
+       gpppdata.subnetmask() == "0.0.0.0") {
       dynamicadd_rb->setChecked(true);
       hitIPSelect(0);
       autoname->setChecked(gpppdata.autoname());
@@ -774,7 +774,7 @@ GatewayWidget::GatewayWidget( QWidget *parent, bool isnewaccount, const char *na
 
   //load info from gpppdata
   if(!isnewaccount) {
-    if(strcmp(gpppdata.gateway(),"0.0.0.0")==0 ) {
+    if(gpppdata.gateway() == "0.0.0.0") {
       defaultgateway->setChecked(true);
       hitGatewaySelect(0);
     }
@@ -921,10 +921,10 @@ bool ScriptWidget::check() {
 
   if(sl->count() > 0)   {
     for( uint i=0; i <= sl->count()-1; i++) {
-	if ( 0 == strcmp( "LoopStart", stl->text(i)) )  {
+	if(stl->text(i) == "LoopStart") {
 		lstart++;
         }
-	if ( 0 == strcmp( "LoopEnd", stl->text(i)) )  {
+	if (stl->text(i) == "LoopEnd") {
 		lend++;
         }
 	if ( lend > lstart ) errcnt++;

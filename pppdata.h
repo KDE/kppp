@@ -174,28 +174,28 @@ public:
   void setDefaultAccount(const QString &);
 
   void set_xserver_exit_disconnect(bool set);
-  const bool get_xserver_exit_disconnect();
+  bool get_xserver_exit_disconnect();
 
   void setPPPDebug(bool set);
-  const bool getPPPDebug();
+  bool getPPPDebug();
 
   void set_quit_on_disconnect(bool);
-  const bool quit_on_disconnect();
+  bool quit_on_disconnect();
 
   void set_show_clock_on_caption(bool set);
-  const bool get_show_clock_on_caption();
+  bool get_show_clock_on_caption();
 
   void set_show_log_window(bool set);
-  const bool get_show_log_window();
+  bool get_show_log_window();
 
   void set_automatic_redial(bool set);
-  const bool automatic_redial();
+  bool automatic_redial();
 
   void set_iconify_on_connect(bool set);
-  const bool get_iconify_on_connect();
+  bool get_iconify_on_connect();
 
   void set_dock_into_panel(bool set);
-  const bool get_dock_into_panel();
+  bool get_dock_into_panel();
 
   const QString enter();
   void setEnter(const QString &);
@@ -206,7 +206,7 @@ public:
   int busyWait();
   void setbusyWait(int);
 
-  const bool modemLockFile();
+  bool modemLockFile();
   void setModemLockFile(bool set);
 
   int modemEscapeGuardTime();
@@ -318,7 +318,7 @@ public:
   const QString storedPassword();
   void setStoredPassword(const QString &);
 
-  const bool storePassword();
+  bool storePassword();
   void setStorePassword(bool);
 
   const QString speed();
@@ -342,22 +342,22 @@ public:
   const QString subnetmask();
   void setSubnetmask(const QString &);
 
-  const bool AcctEnabled();
+  bool AcctEnabled();
   void setAcctEnabled(bool set);
 
   const int VolAcctEnabled();
   void setVolAcctEnabled(int set);
 
-  const bool exDNSDisabled();
+  bool exDNSDisabled();
   void setExDNSDisabled(bool set);
 
-  const bool autoname();
+  bool autoname();
   void setAutoname(bool set);
 
   const QString gateway();
   void setGateway(const QString &);
 
-  const bool defaultroute();
+  bool defaultroute();
   void setDefaultroute(bool set);
 
   QStrList &dns();

@@ -727,9 +727,9 @@ void KPPPWidget::resetaccounts() {
   }
 
   //set the default account
-  if(strcmp(gpppdata.defaultAccount(), "") != 0) {
+  if(!gpppdata.defaultAccount().isEmpty()) {
     for(int i=0; i < connectto_c->count(); i++)
-       if(strcmp(gpppdata.defaultAccount(), connectto_c->text(i)) == 0) {
+       if(gpppdata.defaultAccount() == connectto_c->text(i)) {
  	connectto_c->setCurrentItem(i);
 	gpppdata.setAccountbyIndex(i);
 	
@@ -996,7 +996,7 @@ void KPPPWidget::beginConnect() {
 
 
 void KPPPWidget::disconnect() {
-  if (strcmp(gpppdata.command_before_disconnect(), "") != 0) {
+  if (!gpppdata.command_before_disconnect().isEmpty()) {
     con_win->hide();
     con->show();
     con->setCaption(i18n("Disconnecting ..."));
@@ -1066,7 +1066,7 @@ void KPPPWidget::quitbutton() {
       Modem::modem->unlockdevice();
     }
   } else {
-    if (strcmp(gpppdata.accname(), "") != 0 && !gpppdata.storePassword())
+    if (!gpppdata.accname().isEmpty() && !gpppdata.storePassword())
       gpppdata.setStoredPassword("");
   }
   gpppdata.save();
@@ -1166,7 +1166,7 @@ void KPPPWidget::resetVolume(const QString &s) {
 
 
 pid_t execute_command (const char *command) {
-    if(!command || strcmp(command, "") ==0 || strlen(command) > COMMAND_SIZE)
+  if(!command || strlen(command) == 0 || strlen(command) > COMMAND_SIZE)
     return (pid_t) -1;
     
   pid_t id;

@@ -335,7 +335,7 @@ int AccountWidget::doTab(){
   KWM::setMiniIcon(tabWindow->winId(), kapp->getMiniIcon());
   bool isnewaccount;
  
-  if(strcmp(gpppdata.accname(), "") == 0) {
+  if(gpppdata.accname().isEmpty()) {
     tabWindow->setCaption(i18n("New Account"));
     isnewaccount = true;
   } else {

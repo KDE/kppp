@@ -75,7 +75,7 @@ bool PPPData::open() {
     highcount = MAX_ACCOUNTS;
 
   if(highcount >= 0) {
-    if(defaultAccount().isEmpty()) == 0) {
+    if(defaultAccount().isEmpty()) {
       setAccountbyIndex(0);
       setDefaultAccount(accname());
     }
@@ -216,7 +216,7 @@ void PPPData::setDefaultAccount(const QString &n) {
 }
 
 
-const bool PPPData::get_show_clock_on_caption() {
+bool PPPData::get_show_clock_on_caption() {
   return (bool) readNumConfig(GENERAL_GRP, SHOWCLOCK_KEY, true);
 }
 
@@ -226,7 +226,7 @@ void PPPData::set_show_clock_on_caption(bool set) {
 }
 
 
-const bool PPPData::get_xserver_exit_disconnect() {
+bool PPPData::get_xserver_exit_disconnect() {
   return (bool) readNumConfig(GENERAL_GRP, DISCONNECT_KEY, true);
 }
 
@@ -236,7 +236,7 @@ void PPPData::setPPPDebug(bool set) {
 }
 
 
-const bool PPPData::getPPPDebug() {
+bool PPPData::getPPPDebug() {
   return (bool)readNumConfig(GENERAL_GRP, PPP_DEBUG_OPTION, false);
 }
 
@@ -246,7 +246,7 @@ void PPPData::set_xserver_exit_disconnect(bool set) {
 }
 
 
-const bool PPPData::quit_on_disconnect() {
+bool PPPData::quit_on_disconnect() {
   return (bool) readNumConfig(GENERAL_GRP, QUITONDISCONNECT_KEY, false);
 }
 
@@ -256,7 +256,7 @@ void PPPData::set_quit_on_disconnect(bool set) {
 }
 
 
-const bool PPPData::get_show_log_window() {
+bool PPPData::get_show_log_window() {
   return (bool) readNumConfig (GENERAL_GRP, SHOWLOGWIN_KEY, false);
 }
 
@@ -266,7 +266,7 @@ void PPPData::set_show_log_window(bool set) {
 }
 
 
-const bool PPPData::automatic_redial() {
+bool PPPData::automatic_redial() {
   return (bool) readNumConfig(GENERAL_GRP, AUTOREDIAL_KEY, FALSE);
 }
 
@@ -276,7 +276,7 @@ void PPPData::set_automatic_redial(bool set) {
 }
 
 
-const bool PPPData::get_iconify_on_connect() {
+bool PPPData::get_iconify_on_connect() {
   return (bool) readNumConfig(GENERAL_GRP, ICONIFY_ON_CONNECT_KEY, TRUE);
 }
 
@@ -286,7 +286,7 @@ void PPPData::set_iconify_on_connect(bool set) {
 }
 
 
-const bool PPPData::get_dock_into_panel() {
+bool PPPData::get_dock_into_panel() {
   return (bool) readNumConfig(GENERAL_GRP, DOCKING_KEY, false);
 }
 
@@ -382,7 +382,7 @@ void PPPData::setModemEscapeGuardTime(int n) {
 }
 
 
-const bool PPPData::modemLockFile() {
+bool PPPData::modemLockFile() {
   return readNumConfig(MODEM_GRP, LOCKFILE_KEY, 1);
 }
 
@@ -767,14 +767,14 @@ int PPPData::copyaccount(int i) {
 }
 
 
-QString PPPData::accname() {
+const QString PPPData::accname() {
   return readConfig(cgroup, NAME_KEY);
 }
 
 void PPPData::setAccname(const QString &n) {
   if(cgroup) {
     //change the default account name along with the account name
-    if(accname == defaultAccount)
+    if(accname() == defaultAccount())
       setDefaultAccount(n);
     writeConfig(cgroup, NAME_KEY, n);
   }
@@ -840,7 +840,7 @@ void PPPData::setStoredPassword(const QString &b) {
 }
 
 
-const bool PPPData::storePassword() {
+bool PPPData::storePassword() {
   return (bool)readNumConfig(cgroup, STORE_PASSWORD_KEY, 1);
 }
 
@@ -910,7 +910,7 @@ void PPPData::setSubnetmask(const QString &n) {
 }
 
 
-const bool PPPData::autoname() {
+bool PPPData::autoname() {
   return (bool) readNumConfig(cgroup, AUTONAME_KEY, false);
 }
 
@@ -920,7 +920,7 @@ void PPPData::setAutoname(bool set) {
 }
 
 
-const bool PPPData::AcctEnabled() {
+bool PPPData::AcctEnabled() {
   return (bool) readNumConfig(cgroup, ACCTENABLED_KEY, false);
 }
 
@@ -950,7 +950,7 @@ void PPPData::setGateway(const QString &n ) {
 }
 
 
-const bool PPPData::defaultroute() {
+bool PPPData::defaultroute() {
   // default route is by default 'on'.
   return (bool) readNumConfig(cgroup, DEFAULTROUTE_KEY, true);  
 }
@@ -966,7 +966,7 @@ void PPPData::setExDNSDisabled(bool set) {
 }
 
 
-const bool PPPData::exDNSDisabled() {
+bool PPPData::exDNSDisabled() {
   return (bool) readNumConfig(cgroup, EXDNSDISABLED_KEY,0);
 }
 
