@@ -113,12 +113,12 @@ LoginTerm::LoginTerm (QWidget *parent, const char *name)
   vgr->addWidget(text_window, 0, 0);
 
   cancel_b = new QPushButton(this, "cancel");
-  cancel_b->setText(i18n("Ca&ncel"));
+  cancel_b->setText(i18n("&Cancel"));
   cancel_b->setFixedHeight(25);
   connect(cancel_b, SIGNAL(clicked()), SLOT(cancelbutton()));
 
   continue_b = new QPushButton(this, "continue");
-  continue_b->setText(i18n("&Continue"));
+  continue_b->setText(i18n("C&ontinue"));
   continue_b->setFixedHeight(25);
   connect(continue_b, SIGNAL(clicked()), SLOT(continuebutton()));
 
