@@ -55,6 +55,7 @@
 #include <net/ppp_defs.h>
 
 #include "config.h"
+#include "pppstats.h"
 
 #ifndef STREAMS
  #if defined(__linux__) && defined(__powerpc__) \
@@ -85,8 +86,6 @@
 
 #include <qtimer.h>
 #include <kdebug.h>
-
-#include "pppstats.h"
 
 PPPStats::PPPStats()
 {
