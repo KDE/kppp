@@ -66,7 +66,7 @@ int PPPL_MakeLog(QStringList &list) {
   }
 
   FILE *f = fdopen(fd, "r");
-  while(fgets(buffer, sizeof(buffer), f) != 0) { 
+  while(fgets(buffer, sizeof(buffer), f) != 0) {
     // pppd line ?
     p = (char *)strstr(buffer, "pppd[");
     if(p == 0)
@@ -126,41 +126,41 @@ void PPPL_AnalyseLog(QStringList &list, QStringList &result) {
 
   // setup the analysis database
   struct {
-    const QString regexp;
-    const QString answer;
+    const char *regexp;
+    const char *answer;
   } hints[] = {
     {"Receive serial link is not 8-bit clean",
-     i18n("You have launched pppd before the remote server " \
+     I18N_NOOP("You have launched pppd before the remote server " \
 	  "was ready to establish a PPP connection.\n"
 	  "Please use the terminal-based login to verify") },
 
-    {"Serial line is looped back", 
-     i18n("You haven't started the PPP software on the peer system.") },
-    
+    {"Serial line is looped back",
+     I18N_NOOP("You haven't started the PPP software on the peer system.") },
+
     {"AP authentication failed",
-     i18n("Check that you supplied the correct username and password!")} ,
-    
+     I18N_NOOP("Check that you supplied the correct username and password!")} ,
+
     {"is locked by pid",
-     i18n("You shouldn't pass 'lock' as an argument to pppd. "
+     I18N_NOOP("You shouldn't pass 'lock' as an argument to pppd. "
 	  "Check /etc/ppp/options and ~/.ppprc") },
-    
+
     {"CP: timeout sending",
-     i18n("The remote system does not seem to answer to\n"
+     I18N_NOOP("The remote system does not seem to answer to\n"
 	  "configuration request! Contact your provider!") },
 
     {"unrecognized option",
-     i18n("You have passed an invalid option to pppd. See `man pppd' "
+     I18N_NOOP("You have passed an invalid option to pppd. See `man pppd' "
           "for a complete list of valid arguments.") },
 
     // terminator
     {0,0}
   };
-    
+
 
   // scan the log for keywords and try to offer any help
   for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
   {
-    // look for remote message      
+    // look for remote message
     int pos = (*it).find(rmsg);
     if (pos != -1)
     {
@@ -179,7 +179,7 @@ void PPPL_AnalyseLog(QStringList &list, QStringList &result) {
       QRegExp rx(hints[k].regexp);
       QString l(*it);
       if(l.contains(rx)) {
-	result.append(hints[k].answer);
+	result.append(i18n(hints[k].answer));
 	break;
       }
     }
@@ -217,7 +217,7 @@ void PPPL_ShowLog() {
 					"you to track down the connection problem."));
       //      return;
     }
-    
+
     //    return;
   }
 
@@ -251,7 +251,7 @@ void PPPL_ShowLog() {
     edit->append(*sl.at(i));
   for(uint i = 0; i < result.count(); i++)
     diagnosis->append(*result.at(i));
-  
+
   dlg->connect(close, SIGNAL(clicked()),
 	       dlg, SLOT(reject()));
   dlg->connect(write, SIGNAL(clicked()),
@@ -261,13 +261,13 @@ void PPPL_ShowLog() {
     QDir d = QDir::home();
     QString s = d.absPath() + "/PPP-logfile";
     int old_umask = umask(0077);
-    
+
     FILE *f = fopen(QFile::encodeName(s), "w");
     for(uint i = 0; i < sl.count(); i++)
       fprintf(f, "%s\n", (*sl.at(i)).local8Bit().data());
     fclose(f);
     umask(old_umask);
-    
+
     QString msg = i18n("The PPP log has been saved\nas \"%1\"!\n\nIf you want to send a bug report or have\nproblems connecting to the internet, please\nattach this file. It will help the maintainers\nto find the bug and to improve KPPP").arg(s);
     KMessageBox::information(0, msg);
   }
