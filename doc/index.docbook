@@ -26,7 +26,7 @@
 <firstname>Lauri</firstname>
 <surname>Watts</surname>
 <affiliation>
-<address><email>vampyr@atconnex.net</email></address>
+<address><email>lauri@kde.org</email></address>
 </affiliation>
 </author>
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
@@ -151,7 +151,7 @@ to the mysteries of file descriptor passing.</para>
 
 
 <para>Documentation copyright 2001 Lauri Watts
-<email>vampyr@atconnex.net</email>, although largely based on the original by
+<email>lauri@kde.org</email>, although largely based on the original by
 Bernd Johannes Wuebben <email>wuebben@kde.org</email></para>
 
 &underFDL;               <!-- FDL: do not remove -->
