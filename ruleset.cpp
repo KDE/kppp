@@ -192,7 +192,7 @@ bool RuleSet::parseEntry(RULE &ret, QString s, int year) {
     return TRUE;
   }
   
-  if(s.contains(QRegExp("^[0-9]+.[0-9]+$"))) {
+  if(s.contains(QRegExp("^[0-9]+\\.[0-9]+$"))) {
     int d, m;
     sscanf(s.ascii(), "%d.%d", &d, &m);
     ret.type = 1;
