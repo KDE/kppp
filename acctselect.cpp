@@ -99,7 +99,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   use_vol->insertItem(i18n("No Accounting"), 0);
   use_vol->insertItem(i18n("Bytes In"), 1);
   use_vol->insertItem(i18n("Bytes Out"), 2);
-  use_vol->insertItem(i18n("Bytes In and Out"), 3);
+  use_vol->insertItem(i18n("Bytes In & Out"), 3);
   use_vol->setCurrentItem(gpppdata.VolAcctEnabled());
   l12->addWidget(usevol_l);
   l12->addWidget(use_vol);

@@ -263,7 +263,7 @@ void AccountWidget::newaccount() {
 	"The wizard is easier and sufficient in most cases. If you need "
 	"very special settings, you might want to try the standard, "
 		"dialog-based setup."), 
-		i18n("Create new Account"),
+		i18n("Create New Account"),
 		i18n("Wizard"), i18n("Dialog Setup"), i18n("Cancel"));
 
   switch(query) {

@@ -642,7 +642,7 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
   QWhatsThis::add(dnsservers,tmp);
 
   exdnsdisabled_toggle = new QCheckBox(i18n( \
-"Disable existing DNS Servers during connection"),
+"Disable existing DNS servers during connection"),
 				     parent);
   exdnsdisabled_toggle->setChecked(gpppdata.exDNSDisabled());
   tl->addMultiCellWidget(exdnsdisabled_toggle, 6, 6, 0, 1, AlignCenter);

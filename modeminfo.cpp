@@ -59,7 +59,7 @@ ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
   statusBar->setFixedHeight(statusBar->sizeHint().height() + 4);
 
   // set original text
-  statusBar->setText(i18n("Looking for Modem..."));
+  statusBar->setText(i18n("Looking for modem..."));
   progressBar->setFixedHeight(statusBar->minimumSize().height());
   tl->addWidget(progressBar);
   tl->addWidget(statusBar);

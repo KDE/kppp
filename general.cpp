@@ -115,7 +115,7 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
 		       "was established. Very useful, so you \n"
 		       "should turn this on"));
 
-  chkBox = new QCheckBox(i18n("Disco&nnect on X-server shutdown"), parent);
+  chkBox = new QCheckBox(i18n("Disco&nnect on X server shutdown"), parent);
   chkBox->setChecked(gpppdata.get_xserver_exit_disconnect());
   connect(chkBox, SIGNAL(toggled(bool)),
 	  this, SLOT(xserver_toggled(bool)));
