@@ -374,14 +374,27 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
       QStringList &plist = gpppdata.phonenumbers();
       QString bmarg= gpppdata.dialPrefix();
-      bmarg += *plist.at(dialnumber);
+      
+      // pppd cannot handle numbers in Hindic/Bengali digits
+      // need to transform them to Arab digits
+      QString numberToDial = *plist.at(dialnumber);
+       for (unsigned int i=0; i<numberToDial.length(); i++)
+        {
+                QChar c = numberToDial[i];
+                if (c.isDigit())
+                        c = c.digitValue() + '0';
+                numberToDial[i] = c;
+        }
+
+      
+      bmarg += numberToDial;
       QString bm = i18n("Dialing %1").arg(bmarg);
       messg->setText(bm);
       emit debugMessage(bm);
 
       QString pn = gpppdata.modemDialStr();
       pn += gpppdata.dialPrefix();
-      pn += *plist.at(dialnumber);
+      pn += numberToDial;
       if(++dialnumber >= plist.count())
         dialnumber = 0;
       writeline(pn);
