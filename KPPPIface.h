@@ -22,6 +22,11 @@ class KpppIface : virtual public DCOPObject
 {
   K_DCOP
 
+  k_dcop:
+    virtual void beginConnect() = 0;
+    virtual void disconnect() = 0;
+    virtual bool isConnected() const = 0;
+    
   k_dcop_signals:
     
     void aboutToConnect();

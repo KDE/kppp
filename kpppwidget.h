@@ -76,7 +76,6 @@ private slots:
   void newdefaultaccount(int);
 	void newdefaultmodem(int);
   void expandbutton();
-  void beginConnect();
   void quitbutton();
   void helpbutton();
   void setup();
@@ -91,6 +90,7 @@ private slots:
   void delayedDisconnect();
 
 public slots:
+  void beginConnect();
   void resetaccounts();
 	void resetmodems();
   void resetCosts(const QString &);
@@ -100,7 +100,7 @@ public slots:
   void startAccounting();
   void stopAccounting();
   void showStats();
-
+  bool isConnected() const {return connected;};
 signals:
   void begin_connect();
   void cmdl_start();
