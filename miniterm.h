@@ -3,8 +3,8 @@
  *            kPPP: A front end for pppd for the KDE project
  *
  * $Id$
- * 
- * Copyright (C) 1997 Bernd Johannes Wuebben 
+ *
+ * Copyright (C) 1997 Bernd Johannes Wuebben
  * wuebben@math.cornell.edu
  *
  *
@@ -28,20 +28,20 @@
 #ifndef _MINITERM_H_
 #define _MINITERM_H_
 
-#include <qpixmap.h>
-#include <qmenubar.h> 
-#include <qpopupmenu.h> 
 #include <qdialog.h>
+#include <qpixmap.h>
+#include <qlayout.h>
+#include <qpopupmenu.h>
 #include <qlabel.h>
 #include <qevent.h>
 #include <qtimer.h>
 #include <qframe.h>
-#include <qmultilineedit.h> 
-#include <qtooltip.h> 
+#include <qmultilineedit.h>
+#include <qtooltip.h>
 
 #include <ktoolbar.h>
+#include <kmenubar.h>
 class KHelpMenu;
-
 
 class MyTerm : public QMultiLineEdit {
   Q_OBJECT
@@ -66,7 +66,6 @@ public:
   ~MiniTerm();
 
   void closeEvent( QCloseEvent *e );
-  void resizeEvent(QResizeEvent *e);
 
 public slots:
   void cancelbutton();
@@ -89,7 +88,6 @@ protected:
   QPopupMenu  * m_options;
   KHelpMenu  * m_help;
   QLabel      * statusbar;
-  QLabel      * statusbar2;
   QPushButton *pb1;
   QPushButton *pb2;
   QPushButton *pb3;

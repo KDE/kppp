@@ -2,8 +2,8 @@
  *            kPPP: A front end for pppd for the KDE project
  *
  * $Id$
- * 
- * Copyright (C) 1997 Bernd Johannes Wuebben 
+ *
+ * Copyright (C) 1997 Bernd Johannes Wuebben
  *                    wuebben@math.cornell.edu
  *
  *
@@ -38,64 +38,57 @@
 #include <kglobal.h>
 #include <kpopupmenu.h>
 
-#define T_WIDTH 550
-#define T_HEIGHT 400
-
 extern PPPData gpppdata;
 
 MiniTerm::MiniTerm(QWidget *parent, const char *name)
-  : QDialog(parent, name, TRUE)
+  : QDialog(parent, name, true)
 {
   setCaption(i18n("Kppp Mini-Terminal"));
   KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
 
-  m_file = new QPopupMenu;
+  m_file = new QPopupMenu(this);
   m_file->insertItem( i18n("&Close"),this, SLOT(cancelbutton()) );
-  m_options = new QPopupMenu;
+  m_options = new QPopupMenu(this);
   m_options->insertItem(i18n("&Reset Modem"),this,SLOT(resetModem()));
-  m_help = 
-    new KHelpMenu(this, 
+  m_help =
+    new KHelpMenu(this,
 		      i18n("MiniTerm - A terminal emulation for KPPP\n\n"
 			   "(c) 1997 Bernd Johannes Wuebben <wuebben@kde.org>\n"
 			   "(c) 1998 Harri Porten <porten@kde.org>\n"
-			   "(c) 1998 Mario Weilguni <mweilguni@kde.org>\n\n" 
+			   "(c) 1998 Mario Weilguni <mweilguni@kde.org>\n\n"
 			   "This program is published under the GNU GPL\n"
 			   "(GNU General Public License)"
 			   ));
-  
-  menubar = new QMenuBar( this );
+
+  menubar = new KMenuBar(this);
   menubar->insertItem( i18n("&File"), m_file );
   menubar->insertItem( i18n("&Modem"), m_options );
   menubar->insertItem( i18n("&Help"), m_help->menu());
-  
+
   statusbar = new QLabel(this);
   statusbar->setFrameStyle(QFrame::Panel | QFrame::Sunken);
 
-  statusbar2 = new QLabel(this);
-  statusbar2->setFrameStyle(QFrame::Panel | QFrame::Sunken);
-
-  terminal = new MyTerm(this,"term");
+  terminal = new MyTerm(this, "term");
 
   setupToolbar();
 
-  statusbar->setGeometry(0, T_HEIGHT - 20, T_WIDTH - 70, 20);
-  statusbar2->setGeometry(T_WIDTH - 70, T_HEIGHT - 20, 70, 20);
+  QVBoxLayout *layout=new QVBoxLayout(this);
+  layout->addWidget(menubar);
+  layout->addWidget(toolbar);
+  layout->addWidget(terminal);
+  layout->addWidget(statusbar);
 
-  menubar->setGeometry(0,0,T_WIDTH,30);
-
-  terminal->setGeometry(0, menubar->height() + toolbar->height() , 
-   T_WIDTH,  T_HEIGHT - menubar->height() - toolbar->height() - statusbar->height());
- 
   inittimer = new QTimer(this);
   connect(inittimer,SIGNAL(timeout()),this,SLOT(init()));
   inittimer->start(500);
-}  
+
+  resize(550,400);
+}
 
 
 MiniTerm::~MiniTerm() {
   delete toolbar;
   delete statusbar;
-  delete statusbar2;
 }
 
 
@@ -122,17 +115,6 @@ void MiniTerm::setupToolbar() {
   toolbar->setBarPos( KToolBar::Top );
   toolbar->enableMoving(false);
   toolbar->updateRects(true);
-}
-
-
-void MiniTerm::resizeEvent(QResizeEvent*) {
-  menubar->setGeometry(0,0,width(),30);
-  toolbar->setGeometry(0,menubar->height(),width(),toolbar->height());
-  terminal->setGeometry(0, menubar->height() + toolbar->height() , 
-			width(),  height() - menubar->height() 
-			- toolbar->height() - statusbar->height());
-  statusbar->setGeometry(0, height() - 20, width() - 70, 20);
-  statusbar2->setGeometry(width() - 70, height() - 20, 70, 20);
 }
 
 
@@ -163,10 +145,10 @@ void MiniTerm::init() {
     }
     Modem::modem->writeLine(gpppdata.modemInitStr().local8Bit());
     usleep(gpppdata.modemInitDelay() * 10000);
-      
+
       statusbar->setText(i18n("Modem Ready"));
       terminal->setFocus();
-      
+
       kapp->processEvents();
       kapp->processEvents();
 
@@ -174,11 +156,11 @@ void MiniTerm::init() {
       return;
     }
   }
-  
-  // opentty() or hangup() failed 
+
+  // opentty() or hangup() failed
   statusbar->setText(Modem::modem->modemMessage());
   Modem::modem->unlockdevice();
-}                  
+}
 
 
 void MiniTerm::readChar(unsigned char c) {
@@ -202,7 +184,7 @@ void MiniTerm::readChar(unsigned char c) {
 }
 
 
-void MiniTerm::cancelbutton() {  
+void MiniTerm::cancelbutton() {
   Modem::modem->stop();
 
   statusbar->setText(i18n("Hanging up ..."));
@@ -244,7 +226,7 @@ void MiniTerm::help() {
 MyTerm::MyTerm(QWidget *parent, const char* name)
   : QMultiLineEdit(parent, name)
 {
-   this->setFont(QFont("courier",12,QFont::Normal));  
+   this->setFont(QFont("courier",12,QFont::Normal));
 }
 
 void MyTerm::keyPressEvent(QKeyEvent *k) {
@@ -259,12 +241,12 @@ void MyTerm::keyPressEvent(QKeyEvent *k) {
 }
 
 
-void MyTerm::insertChar(unsigned char c) {  
+void MyTerm::insertChar(unsigned char c) {
   QMultiLineEdit::insert(QChar(c));
 }
 
 
-void MyTerm::newLine() {  
+void MyTerm::newLine() {
   QMultiLineEdit::newLine();
 }
 
@@ -282,7 +264,7 @@ void MyTerm::backspace() {
 void MyTerm::myreturn() {
   int column;
   int line;
-  
+
   getCursorPosition(&line,&column);
   for (int i = 0; i < column;i++)
     QMultiLineEdit::cursorLeft();
