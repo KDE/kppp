@@ -2,8 +2,8 @@
  *            kPPP: A pppd front end for the KDE project
  *
  * $Id$
- * 
- *            Copyright (C) 1997 Bernd Johannes Wuebben 
+ *
+ *            Copyright (C) 1997 Bernd Johannes Wuebben
  *                   wuebben@math.cornell.edu
  *
  * based on EzPPP:
@@ -64,11 +64,11 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
   versionlabel->setFrameStyle(QFrame::Sunken | QFrame::WinPanel);
   versionlabel->setLineWidth(1);
   verl->addWidget(versionlabel);
-  
-  pppdtimeout = new KIntNumInput(i18n("pppd Timeout:"), 1, TIMEOUT_SIZE, 5,
-                                 gpppdata.pppdTimeout(), i18n("s"), 
-				 10, false, peer(), "pppd_timeout");
-//  pppdtimeout->setLabelAlignment(Qt::AlignLeft);
+
+  pppdtimeout = new KIntNumInput(gpppdata.pppdTimeout(), peer());
+  pppdtimeout->setLabel(i18n("pppd Timeout:"), AlignVCenter | AlignLeft);
+  pppdtimeout->setRange(1, TIMEOUT_SIZE, 5, false);
+  pppdtimeout->setSuffix(i18n("s"));
   connect(pppdtimeout, SIGNAL(valueChanged(int)),
           SLOT(pppdtimeoutchanged(int)));
   tl->addWidget(pppdtimeout);
@@ -77,7 +77,7 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
 		     "If no connection is made in this time frame,\n"
 		     "<i>kppp</i> will give up and kill pppd.");
 
-  QWhatsThis::add(pppdtimeout,tmp); 
+  QWhatsThis::add(pppdtimeout,tmp);
 
   tl->addStretch(1);
   QHBoxLayout *lh = new QHBoxLayout();
@@ -90,7 +90,7 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
   lh->addLayout(l4, 1);
 
   chkbox6 = new QCheckBox(i18n("Dock into Panel on Connect"), peer());
-  QWhatsThis::add(chkbox6, 
+  QWhatsThis::add(chkbox6,
 		  i18n("After a connection is established, the\n"
 		       "window is minimized and a small icon\n"
 		       "in the <i>kpanel</i> represents this window.\n"
@@ -100,7 +100,7 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
 		       "size."));
 
   chkbox6->setChecked(gpppdata.get_dock_into_panel());
-  connect(chkbox6,SIGNAL(toggled(bool)), 
+  connect(chkbox6,SIGNAL(toggled(bool)),
 	  this, SLOT(docking_toggled(bool)));
   l3->addWidget(chkbox6);
 
@@ -109,7 +109,7 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
   connect(chkbox2,SIGNAL(toggled(bool)),
 	  this, SLOT(redial_toggled(bool)));
   l3->addWidget(chkbox2);
-  QWhatsThis::add(chkbox2, 
+  QWhatsThis::add(chkbox2,
 		  i18n("When a connection is established and\n"
 		       "it somehow gets disconnected, <i>kppp</i>\n"
 		       "will try to reconnect to the same account.\n"
@@ -121,7 +121,7 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
   connect(chkbox3, SIGNAL(toggled(bool)),
 	  this, SLOT(caption_toggled(bool)));
   l3->addWidget(chkbox3);
-  QWhatsThis::add(chkbox3, 
+  QWhatsThis::add(chkbox3,
 		  i18n("When this option is checked, the window\n"
 		       "title shows the time since a connection\n"
 		       "was established. Very useful, so you \n"
@@ -132,7 +132,7 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
   connect(chkbox4, SIGNAL(toggled(bool)),
 	  this, SLOT(xserver_toggled(bool)));
   l3->addWidget(chkbox4);
-  QWhatsThis::add(chkbox4, 
+  QWhatsThis::add(chkbox4,
 		  i18n("Checking this option will close any\n"
 		       "open connection when the X-server is\n"
 		       "shut down. You should enable this option\n"
@@ -145,7 +145,7 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
   connect(chkbox7, SIGNAL(toggled(bool)),
 	  this, SLOT(quit_toggled(bool)));
   l3->addWidget(chkbox7);
-  QWhatsThis::add(chkbox7, 
+  QWhatsThis::add(chkbox7,
 		  i18n("When this option is turned on, <i>kppp</i>\n"
 		       "will be closed when you disconnect"));
 
@@ -154,7 +154,7 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
   connect(chkbox5,SIGNAL(toggled(bool)),
 	  this,SLOT(iconify_toggled(bool)));
   l3->addWidget(chkbox5);
-  QWhatsThis::add(chkbox5, 
+  QWhatsThis::add(chkbox5,
 		  i18n("Iconifies <i>kppp</i>'s window when a\n"
 		       "connection is established"));
 }
@@ -169,7 +169,7 @@ void GeneralWidget::iconify_toggled(bool on){
   gpppdata.set_iconify_on_connect(on);
 }
 
- 
+
 void GeneralWidget::caption_toggled(bool on){
   gpppdata.set_show_clock_on_caption(on);
 }
@@ -239,14 +239,14 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
 
   label1 = new QLabel(i18n("Modem Device:"), peer());
   tl->addWidget(label1, 0, 0);
-  
+
   modemdevice = new QComboBox(false, peer());
 
   for(k = 0; devices[k]; k++)
     modemdevice->insertItem(devices[k]);
 
   tl->addWidget(modemdevice, 0, 1);
-  connect(modemdevice, SIGNAL(activated(int)), 
+  connect(modemdevice, SIGNAL(activated(int)),
 	  SLOT(setmodemdc(int)));
   QString tmp = i18n("This specifies the serial port your modem is attached \n"
 		     "to. On Linux/x86, typically this is either /dev/ttyS0 \n"
@@ -257,7 +257,7 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
 		     "should select one of the /dev/ttyIx devices.");
 
   QWhatsThis::add(label1,tmp);
-  QWhatsThis::add(modemdevice,tmp); 
+  QWhatsThis::add(modemdevice,tmp);
 
 
   label2 = new QLabel(i18n("Flow Control:"), peer());
@@ -268,7 +268,7 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   flowcontrol->insertItem("XON/XOFF");
   flowcontrol->insertItem(i18n("None"));
   tl->addWidget(flowcontrol, 1, 1);
-  connect(flowcontrol, SIGNAL(activated(int)), 
+  connect(flowcontrol, SIGNAL(activated(int)),
 	  SLOT(setflowcontrol(int)));
 
   tmp = i18n("Specifies how the serial port and modem\n"
@@ -301,15 +301,15 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   QWhatsThis::add(enter, tmp);
 
   baud_label = new QLabel(i18n("Connection Speed:"), peer());
-  tl->addWidget(baud_label, 3, 0);  
-  
+  tl->addWidget(baud_label, 3, 0);
+
   QHBoxLayout *l1 = new QHBoxLayout;
   tl->addLayout(l1, 3, 1);
   baud_c = new QComboBox(peer());
 
   static const char *baudrates[] = {
-    
-#ifdef B460800 
+
+#ifdef B460800
     "460800",
 #endif
 
@@ -333,7 +333,7 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
 
   for(k = 0; baudrates[k]; k++)
     baud_c->insertItem(baudrates[k]);
-  
+
   baud_c->setCurrentItem(3);
   connect(baud_c, SIGNAL(activated(int)),
 	  this, SLOT(speed_selection(int)));
@@ -345,7 +345,7 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
 	     "works you can try to increase this value, but to\n"
 	     "no more than 115200 bits/sec (unless you know\n"
 	     "that your serial port supports higher speeds).");
- 
+
   QWhatsThis::add(baud_label,tmp);
   QWhatsThis::add(baud_c,tmp);
 
@@ -366,7 +366,7 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   //  l12->addStretch(1);
   l12->addWidget(modemlockfile);
   //  l12->addStretch(1);
-  QWhatsThis::add(modemlockfile, 
+  QWhatsThis::add(modemlockfile,
 		  i18n("To prevent other programs from accessing the\n"
 		       "modem while a connection is established, a\n"
 		       "file can be created to indicate that the modem\n"
@@ -376,16 +376,15 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
 		       "be done.\n"
 		       "\n"
                        "<b>Default</b>: On"));
-  
+
   // Modem Timeout Line Edit Box
 
-  modemtimeout = new KIntNumInput(i18n("Modem Timeout:"), 1, 120, 1,
-				  gpppdata.modemTimeout(),
-                                  i18n("s"), 10, true, 
-				  peer(), "modem_timeout");
- // modemtimeout->setLabelAlignment(Qt::AlignRight);
-  connect(modemtimeout, SIGNAL(valueChanged(int)), 
-	  SLOT(modemtimeoutchanged(int)));  
+  modemtimeout = new KIntNumInput(gpppdata.modemTimeout(), peer());
+  modemtimeout->setLabel(i18n("Modem Timeout:"), AlignVCenter | AlignLeft);
+  modemtimeout->setRange(1, 120, 1);
+  modemtimeout->setSuffix(i18n("s"));
+  connect(modemtimeout, SIGNAL(valueChanged(int)),
+	  SLOT(modemtimeoutchanged(int)));
   tl->addMultiCellWidget(modemtimeout, 6, 6, 0, 1);
 
   QWhatsThis::add(modemtimeout,
@@ -402,7 +401,7 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   for(int i=0; i <= flowcontrol->count()-1; i++) {
     if(gpppdata.flowcontrol() == flowcontrol->text(i))
       flowcontrol->setCurrentItem(i);
-  }     
+  }
 
   //set the modem speed
   for(int i=0; i < baud_c->count(); i++)
@@ -448,12 +447,10 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 {
   QVBoxLayout *l1 = new QVBoxLayout(peer(), 10, 10);
 
-  busywait = new KIntNumInput(i18n("Busy Wait:"), 0, 300, 5, 
-			      gpppdata.busyWait(),
-                              i18n("s"), 10, true, 
-			      peer(), "busy_wait");
-  
- // busywait->setLabelAlignment(AlignCenter);
+  busywait = new KIntNumInput(gpppdata.busyWait(), peer());
+  busywait->setLabel(i18n("Busy Wait:"));
+  busywait->setRange(0, 300, 5);
+  busywait->setSuffix(i18n("s"));
   connect(busywait, SIGNAL(valueChanged(int)), SLOT(busywaitchanged(int)));
   l1->addWidget(busywait);
 
@@ -477,7 +474,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
   hbl->addStretch(1);
   hbl->addWidget(volumeLabel);
   volume = new QSlider(0, 2, 1, gpppdata.volume(), QSlider::Horizontal, peer());
-  volume->setFixedSize(200, 25);  
+  volume->setFixedSize(200, 25);
   hbl->addWidget(volume);
   hbl->addStretch(4);
   connect(volume, SIGNAL(valueChanged(int)),
@@ -504,7 +501,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
   l12->addWidget(chkbox1);
   l12->addStretch(1);
   l1->addStretch(1);
-  QWhatsThis::add(chkbox1, 
+  QWhatsThis::add(chkbox1,
 		  i18n("This controls how <i>kppp</i> detects that the modem\n"
 		       "is not responding. Unless you are having\n"
 		       "problems with this, do not modify this setting.\n"
@@ -512,9 +509,9 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 		       "<b>Default</b>: off"));
 
 
-  // add the buttons 
+  // add the buttons
   QHBoxLayout *l11 = new QHBoxLayout;
-  l1->addLayout(l11); 
+  l1->addLayout(l11);
   l11->addStretch(1);
   QVBoxLayout *l111 = new QVBoxLayout;
   l11->addLayout(l111);
@@ -522,9 +519,9 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
   QWhatsThis::add(modemcmds,
 		  i18n("Allows you to change the AT command for\n"
 		       "your modem."));
-  
+
   modeminfo_button = new QPushButton(i18n("Query Modem"), peer());
-  QWhatsThis::add(modeminfo_button, 
+  QWhatsThis::add(modeminfo_button,
 		  i18n("Most modems support the ATI command set to\n"
 		       "find out vendor and revision of your modem.\n"
 		       "\n"
@@ -533,7 +530,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 		       "you setup the modem"));
 
   terminal_button = new QPushButton(i18n("Terminal"), peer());
-  QWhatsThis::add(terminal_button, 
+  QWhatsThis::add(terminal_button,
 		  i18n("Opens the built-in terminal program. You\n"
 		       "can use this if you want to play around\n"
 		       "with your modem's AT command set"));
@@ -546,11 +543,11 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 
   l1->activate();
 
-  connect(modemcmds, SIGNAL(clicked()), 
+  connect(modemcmds, SIGNAL(clicked()),
 	  SLOT(modemcmdsbutton()));
-  connect(modeminfo_button, SIGNAL(clicked()), 
+  connect(modeminfo_button, SIGNAL(clicked()),
 	  SLOT(query_modem()));
-  connect(terminal_button, SIGNAL(clicked()), 
+  connect(terminal_button, SIGNAL(clicked()),
 	  SLOT(terminal()));
 }
 
@@ -561,7 +558,7 @@ void ModemWidget2::modemcmdsbutton() {
 }
 
 
-void ModemWidget2::query_modem() {  
+void ModemWidget2::query_modem() {
   modemtrans = new ModemTransfer(this);
   modemtrans->exec();
   delete modemtrans;
@@ -606,7 +603,7 @@ GraphSetup::GraphSetup(QWidget *parent, const char *name) :
 
   bg_text = new QLabel(i18n("Background color"), peer());
   bg_text->setAlignment(AlignRight|AlignVCenter);
-  tl->addWidget(bg_text, 0, 0);  
+  tl->addWidget(bg_text, 0, 0);
   bg_color = new KColorButton(bg, peer());
   bg_color->setFixedSize(80, 24);
   tl->addWidget(bg_color, 0, 1);
@@ -632,13 +629,13 @@ GraphSetup::GraphSetup(QWidget *parent, const char *name) :
   out_color->setFixedSize(80, 24);
   tl->addWidget(out_color, 3, 1);
 
-  connect(bg_color, SIGNAL(changed(const QColor &)), 
+  connect(bg_color, SIGNAL(changed(const QColor &)),
 	  SLOT(colorChanged(const QColor&)));
-  connect(text_color, SIGNAL(changed(const QColor &)), 
+  connect(text_color, SIGNAL(changed(const QColor &)),
 	  SLOT(colorChanged(const QColor&)));
-  connect(in_color, SIGNAL(changed(const QColor &)), 
+  connect(in_color, SIGNAL(changed(const QColor &)),
 	  SLOT(colorChanged(const QColor&)));
-  connect(out_color, SIGNAL(changed(const QColor &)), 
+  connect(out_color, SIGNAL(changed(const QColor &)),
 	  SLOT(colorChanged(const QColor&)));
 
   tl->activate();
@@ -652,12 +649,12 @@ void GraphSetup::enableToggled(bool b) {
   in_text->setEnabled(b);
   text_text->setEnabled(b);
   bg_text->setEnabled(b);
-  
+
   out_color->setEnabled(b);
   in_color->setEnabled(b);
   bg_color->setEnabled(b);
   text_color->setEnabled(b);
-  
+
   save();
 }
 
@@ -674,6 +671,6 @@ void GraphSetup::save() {
 			      in_color->color(),
 			      out_color->color());
 }
-  
+
 
 #include "general.moc"
