@@ -40,6 +40,7 @@ SUBDIRS = Argentina \
 	Sweden \
 	Switzerland \
 	Turkey \
+	Ukraine \
 	United_Kingdom \
 	Uruguay \
 	Yugoslavia
