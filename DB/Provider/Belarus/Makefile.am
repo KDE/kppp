@@ -1,4 +1,4 @@
-pkg_DATA = AtlantTelecom
+pkg_DATA = .directory AtlantTelecom
 
 pkgdir = $(kde_datadir)/kppp/Provider/Belarus
 

@@ -1,4 +1,4 @@
-pkg_DATA = Bluewin 
+pkg_DATA = .directory Bluewin
 
 pkgdir = $(kde_datadir)/kppp/Provider/Switzerland
 
