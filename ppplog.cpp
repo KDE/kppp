@@ -161,13 +161,15 @@ void PPPL_AnalyseLog(QStringList &list, QStringList &result) {
   for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
   {
     // look for remote message      
-    char *p = strstr((*it).data(), rmsg);
-    if(p) {
-      p += strlen(rmsg);
-      if(strlen(p)) {
+    int pos = (*it).find(rmsg);
+    if (pos != -1)
+    {
+      QString str = (*it);
+      str.remove(0, pos + strlen(rmsg));
+      if(!str.isEmpty()) {
         msg = i18n("Notice that the remote system has sent the following"
                          " message:\n\"%1\"\nThis may give you a hint why the"
-                         " the connection has failed.").arg(p);
+                         " the connection has failed.").arg(str);
         result.append(msg);
       }
     }

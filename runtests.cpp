@@ -197,7 +197,7 @@ int runTests() {
 	  if(s[0] == '#' || s.length() == 0)
 	    continue;
 
-	  if((uid_t)uidFromName(s.data()) == getuid()) {
+	  if((uid_t)uidFromName(QFile::encodeName(s)) == getuid()) {
 	    access = TRUE;
 	    fclose(f);
 	    f = NULL;

@@ -187,7 +187,7 @@ void RuleSet::addRule(RULE r) {
 bool RuleSet::parseEntry(RULE &ret, QString s, int year) {
   if(s.contains(QRegExp("^[0-9]+/[0-9]+$"))) {
     int d, m;
-    sscanf(s.data(), "%d/%d", &m, &d);
+    sscanf(s.ascii(), "%d/%d", &m, &d);
     ret.type = 1;
     ret.date.from = QDate(year, m, d);
     ret.date.until = QDate(year, m, d);
@@ -195,7 +195,7 @@ bool RuleSet::parseEntry(RULE &ret, QString s, int year) {
   }
 
   if(s.right(3) == "day") {
-    int d = dayNameToInt(s.data());
+    int d = dayNameToInt(s.ascii());
     if(d != -1) {
       ret.type = 2;
       ret.weekday.from = d;
@@ -293,7 +293,7 @@ bool RuleSet::parseTime(QTime &t1, QTime &t2, QString s) {
     return TRUE;
   } else {
     int t1m, t1h, t2m, t2h;
-    if(sscanf(s.data(), "%d:%d..%d:%d", &t1h, &t1m, &t2h, &t2m) == 4) {
+    if(sscanf(s.ascii(), "%d:%d..%d:%d", &t1h, &t1m, &t2h, &t2m) == 4) {
       t1.setHMS(t1h, t1m, 0);
       t2.setHMS(t2h, t2m, 0);
       return TRUE;
@@ -304,7 +304,7 @@ bool RuleSet::parseTime(QTime &t1, QTime &t2, QString s) {
 
 bool RuleSet::parseRate(double &costs, double &len, double &after, QString s) {
   after = 0;
-  int fields = sscanf(s.data(), "%lf,%lf,%lf", &costs, &len, &after);
+  int fields = sscanf(s.ascii(), "%lf,%lf,%lf", &costs, &len, &after);
   return (fields == 2) || (fields == 3);
 }
 
@@ -315,7 +315,7 @@ bool RuleSet::parseLine(QString &s) {
     // parse the time fields
     QString token = s.mid(s.find("flat_init_costs=(") + 17,
 			  s.find(")")-s.find("flat_init_costs=(") - 17);
-    //    printf("TOKEN=%s\n",token.data());
+    //    printf("TOKEN=%s\n",token.ascii());
 
     double after;
     if(!parseRate(flat_init_costs, flat_init_duration, after, token))
