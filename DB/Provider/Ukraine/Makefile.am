@@ -1,4 +1,4 @@
-pkg_DATA = .directory Adamant
+pkg_DATA = .directory Adamant IPTelecom
 
 pkgdir = $(kde_datadir)/kppp/Provider/Ukraine
 
