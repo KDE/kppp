@@ -148,8 +148,8 @@ void ExportWizard::accept() {
 
 /***** Export *****/
 Export::Export(const QString &_filename)
-  : buffer(""),
-    filename(_filename)
+  : filename(_filename),
+    buffer("")
 {
 }
 
