@@ -289,6 +289,13 @@ void Opener::mainLoop() {
 	sendResponse(&response);
 	break;
 
+      case PPPDExitStatus:
+	Debug("Opener: received PPPDExitStatus");
+	MY_ASSERT(len == sizeof(struct PPPDExitStatusRequest));
+	response.status = pppdExitStatus;
+	sendResponse(&response);
+	break;
+	
       case Stop:
 	Debug("Opener: received STOP command");
 	_exit(0);
@@ -673,7 +680,7 @@ void sighandler_child(int) {
       pppdPid = -1;
       if((WIFEXITED(status))) {
 	pppdExitStatus = (WEXITSTATUS(status));
-        Debug2("pppd exited with return value %d", pppdExitStatus);
+        Debug2("pppd exited with return value %d\n", pppdExitStatus);
       } else {
 	pppdExitStatus = 99;
         Debug("pppd exited abnormally.");

@@ -17,10 +17,12 @@ public:
   bool setHostname(const QString & name);
   bool execPPPDaemon(const QString & arguments);
   bool killPPPDaemon();
+  int  pppdExitStatus();
   bool stop();
 
 public:
   static Requester *rq;
+  int lastStatus;
 
 private:
   bool sendRequest(struct RequestHeader *request, int len);

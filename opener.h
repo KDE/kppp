@@ -34,6 +34,7 @@ public:
          SetSecret, RemoveSecret,
          SetHostname,
          ExecPPPDaemon, KillPPPDaemon,
+	 PPPDExitStatus,
          Stop };
   enum Auth { PAP = 1, CHAP };
   enum { MaxPathLen = 30, MaxStrLen = 40, MaxArgs = 100 };
@@ -119,6 +120,10 @@ struct KillDaemonRequest {
   struct RequestHeader header;
 };
 
+struct PPPDExitStatusRequest {
+  struct RequestHeader header;
+};
+
 struct StopRequest {
   struct RequestHeader header;
 };
@@ -135,6 +140,7 @@ union AllRequests {
   struct OpenLogRequest log;
   struct ExecDaemonRequest daemon;
   struct ExecDaemonRequest kill;
+  struct PPPDExitStatusRequest status;
   struct StopRequest stop;
 };
 

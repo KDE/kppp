@@ -828,16 +828,17 @@ void KPPPWidget::sigPPPDDied() {
 	
 	KApplication::beep();
 	QString msg;
-	switch (gpppdata.pppdError())
-	  {
-	  case E_IF_TIMEOUT:
+	if (gpppdata.pppdError() == E_IF_TIMEOUT)
 	    msg = i18n("Timeout expired while waiting for the PPP interface "
                        "to come up!");
-	    break;
-	  
-	  default: 
+	else {
 	    msg = i18n("The pppd daemon died unexpectedly!");
-	  }
+	    Requester::rq->pppdExitStatus();
+	    msg += i18n("\n\nExit status: %1").arg(Requester::rq->lastStatus);
+	    msg += i18n("\n\nSee 'man pppd' for an explanation of the error "
+			"codes\nor take a look at the kppp FAQ on\n\n"
+			"  http://devel-home.kde.org/~kppp/index.html");
+	}
 	
 	if(QMessageBox::critical(0, i18n("Error"), msg, i18n("OK"), i18n("Details...")))
 	  PPPL_ShowLog();

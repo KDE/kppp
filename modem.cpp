@@ -335,6 +335,7 @@ bool Modem::hangup() {
     
     usleep(gpppdata.modemInitDelay() * 10000); // 0.01 - 3.0 sec 
 
+#ifndef DEBUG_WO_DIALING
     if (sigsetjmp(jmp_buffer, 1) == 0) {
       // set alarm in case tcsendbreak() hangs 
       signal(SIGALRM, alarm_handler);
@@ -363,7 +364,7 @@ bool Modem::hangup() {
     cfsetospeed(&temptty, modemspeed());
     cfsetispeed(&temptty, modemspeed());
     tcsetattr(modemfd, TCSAFLUSH, &temptty);
-   
+#endif   
     return true;
   } else
     return false;

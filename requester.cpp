@@ -62,6 +62,7 @@ Requester *Requester::rq = 0L;
 Requester::Requester(int s) : socket(s) {
   assert(rq==0L);
   rq = this;
+  lastStatus = -1;
 }
 
 Requester::~Requester() {
@@ -155,6 +156,7 @@ bool Requester::recvResponse() {
     kdDebug(5002) << "response.status: " << response.status << endl;
   }
 
+  lastStatus = response.status;
   return (response.status == 0);
 }
 
@@ -289,6 +291,13 @@ bool Requester::killPPPDaemon() {
   return recvResponse();
 }
 
+int Requester::pppdExitStatus()
+{
+  struct PPPDExitStatusRequest req;
+  req.header.type = Opener::PPPDExitStatus;
+  sendRequest((struct RequestHeader *) &req, sizeof(req));
+  return recvResponse();
+}
 
 bool Requester::stop() {
 
