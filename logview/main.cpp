@@ -28,7 +28,7 @@
 
 #define F_EXIT     101
 
-TopWidget::TopWidget() : KTopLevelWidget("") {
+TopWidget::TopWidget() : KTMainWindow("") {
   // scan command line args for "-kppp"
   bool kpppmode = FALSE;
   for(int i = 1; i < kapp->argc(); i++) 
@@ -42,7 +42,6 @@ TopWidget::TopWidget() : KTopLevelWidget("") {
   // remove buttons
   if(!kpppmode) {
     td->setOkButton(QString::null);
-    td->setCancelButton(QString::null);
     
     // create menu 
     mb = new KMenuBar(this);
@@ -64,8 +63,9 @@ TopWidget::TopWidget() : KTopLevelWidget("") {
 
   mw = new MonthlyWidget(td);
   td->addTab(mw, i18n("Monthly log"));
-  setMinimumSize(mw->minimumSize().width(), 
-		 mw->minimumSize().height() + 120);
+  setMinimumSize(mw->sizeHint().width(), 
+                 mw->sizeHint().height() + 120);
+  td->show();
   setView(td);
 }
 
