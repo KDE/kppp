@@ -14,7 +14,7 @@
 
 # if you use a variable *dir and have *_DATA, it will be installed by
 # make install
-appsdir = $(kde_appsdir)/Internet
+appsdir = $(kde_appsdir)/Programs/Internet
 
 apps_DATA = kppplogview.desktop
 
