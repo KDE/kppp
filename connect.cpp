@@ -850,11 +850,16 @@ void ConnectWidget::readChar(unsigned char c) {
     // add to debug window
     emit debugPutChar(c);
 
+    checkBuffers();
+}
 
+
+void ConnectWidget::checkBuffers() {
   // Let's check if we are finished with scanning:
   // The scanstring have to be in the buffer and the latest character
   // was a carriage return or an linefeed (depending on modem setup)
-  if( scanning && scanbuffer.contains(scanstr) && (c == '\n' || c == '\r') ) {
+  if( scanning && scanbuffer.contains(scanstr) &&
+      ( scanbuffer.right(1) == "\n" || scanbuffer.right(1) == "\r") ) {
       scanning = false;
 
       int vstart = scanbuffer.find( scanstr ) + scanstr.length();
@@ -995,9 +1000,8 @@ void ConnectWidget::setExpect(const char *n) {
   ts += n;
   emit debugMessage(ts);
 
-  // fake an incoming character to see if the expected
-  // string is in the read buffer already.
-  readChar(0);
+  // check if the expected string is in the read buffer already.
+  checkBuffers();
 }
 
 
