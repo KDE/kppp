@@ -81,7 +81,7 @@ internet.</para>
 <sect1 id="things-to-prepare">
 <title>A few things you should have ready before you start</title>
 
-<para>If you have a fairly modern &Linux distribution, you might find the rest
+<para>If you have a fairly modern &Linux; distribution, you might find the rest
 of this document superfluous.  &kppp; comes with a clever little wizard that in
 many cases can have you up and running with an internet connection in just a few
 minutes.</para>
@@ -2170,7 +2170,7 @@ help you to track down the bug.</para></listitem>
 <systemitem class="username">root</systemitem>. </para></listitem>
 
 <listitem><para> Make sure that your <filename>/etc/ppp/options</filename> file
-exists and that it doesn´t contain any conflicting entries. If in doubt: Leave
+exists and that it doesn't contain any conflicting entries. If in doubt: Leave
 this file empty. </para></listitem>
 
 <listitem><para> Make sure that you <emphasis>don't</emphasis> use the option
@@ -2524,7 +2524,7 @@ number 15, &ie; <errorcode>SIGTERM</errorcode>.</para>
 <screen><computeroutput>
 pppd[26921]: pppd 2.3.5 started by me, uid 500
 pppd[26921]: Using interface ppp0
-pppd[26921]: Connect: ppp0 <--> /dev/ttyS0
+pppd[26921]: Connect: ppp0 &lt;--&gt; /dev/ttyS0
 pppd[26921]: Terminating on signal 15.
 pppd[26921]: Connection terminated.
 pppd[26921]: Exit.
@@ -3365,7 +3365,7 @@ This is a control code that most communication software translates as
       <row>
        <entry><command>&percnt;C3</command></entry>
        <entry>Data Compression Enable/Disable</entry>
-       <entry>MNP5 & V.42bis (<acronym>BTLZ</acronym>) Enabled</entry>
+       <entry>MNP5 &amp; V.42bis (<acronym>BTLZ</acronym>) Enabled</entry>
       </row>
       <row>
        <entry><command>&percnt;D0</command> or
