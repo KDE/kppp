@@ -182,7 +182,7 @@ void MiniTerm::cancelbutton() {
 
   statusbar->setText(i18n("Hanging up ..."));
   kapp->processEvents();
-  kapp->flushX();
+  KApplication::flushX();
 
   Modem::modem->hangup();
 
@@ -197,7 +197,7 @@ void MiniTerm::resetModem() {
   statusbar->setText(i18n("Resetting Modem"));
   terminal->newLine();
   kapp->processEvents();
-  kapp->flushX();
+  KApplication::flushX();
 
   Modem::modem->hangup();
 
