@@ -328,7 +328,8 @@ pid_t execute_command (const QString & cmd) {
     signal(SIGCHLD, SIG_IGN);
 
     // close file descriptors
-    for (int fd = 3; fd < 20; fd++)
+    const int open_max = sysconf( _SC_OPEN_MAX );
+    for (int fd = 3; fd < open_max; ++fd)
       close(fd);
 
     // drop privileges if running setuid root
