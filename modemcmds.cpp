@@ -27,9 +27,10 @@
 #include <qlayout.h>
 #include <qslider.h>
 #include <kbuttonbox.h>
-#include "modemcmds.h"
 #include <stdlib.h>
 #include <kwm.h>
+#include "modemcmds.h"
+#include "pppdata.h"
 
 #define ADJUSTLABEL(l) l->setMinimumSize(l->sizeHint()); l->setAlignment(AlignLeft|AlignVCenter);
 

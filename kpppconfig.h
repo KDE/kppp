@@ -114,6 +114,12 @@ const unsigned int MAX_CMDLEN = 2024;
 #define ISDNSUPPORT
 #endif
 
+#if defined(__linux__) || defined(BSD)
+#define PPP_PID_DIR "/var/run/"
+#else
+#define PPP_PID_DIR "/etc/ppp/"
+#endif
+
 #endif
 
 

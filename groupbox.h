@@ -24,6 +24,7 @@ public:
   virtual QSize minimumSize() const;
   virtual QSize maximumSize() const;
   virtual QSize sizeHint() const;
+  virtual void show();
 
 protected:
   void initBox();

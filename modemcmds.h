@@ -38,8 +38,6 @@
 #include <qpainter.h>
 #include <qlabel.h>
 
-#include "pppdata.h"
-
 class ModemCommands : public QDialog {
 
 Q_OBJECT

@@ -25,12 +25,13 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include "pppdargs.h"
 #include <qlayout.h>
-#include "macros.h"
-#include "newwidget.h"
 #include <kbuttonbox.h>
 #include <kwm.h>
+#include "pppdargs.h"
+#include "pppdata.h"
+#include "macros.h"
+#include "newwidget.h"
 
 PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
   : QDialog(parent, name, TRUE)
@@ -122,8 +123,16 @@ void PPPdArguments::removebutton() {
 
 
 void PPPdArguments::defaultsbutton() {
+  // all of this is a hack
+  // save current list
+  QStrList arglist(gpppdata.pppdArgument());
+
+  // get defaults
   gpppdata.setpppdArgumentDefaults();
   init();
+
+  // restore old list
+  gpppdata.setpppdArgument(arglist);
 }
 
 

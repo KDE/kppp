@@ -21,8 +21,8 @@
  */
 
 #include "debug.h"
-#include "stdio.h"
 #include "main.h"
+#include "pppdata.h"
 
 extern KPPPWidget *p_kppp;
 
@@ -136,6 +136,9 @@ void DebugWidget::toggleVisibility() {
     hide();
   else
     show();
+
+  bool showlog = (int)isVisible();
+  gpppdata.set_show_log_window(showlog);
 }
 
 

@@ -42,17 +42,17 @@
 #include <qmsgbox.h>
 #include <qtabdlg.h>
 #include <string.h>
+#include <qchkbox.h>
+#include <qlabel.h>
 #include "scriptedit.h"
 #include "iplined.h"
 #include "kpppconfig.h"
 #include "pppdargs.h"
-#include "pppdata.h"
 #include "edit.h"
-#include <qchkbox.h>
-#include <qlabel.h>
+#include "groupbox.h"
 
-class DialWidget : public QWidget {
-Q_OBJECT
+class DialWidget : public KGroupBox {
+  Q_OBJECT
 public:
   DialWidget( QWidget *parent=0, bool isnewaccount = true, const char *name=0 );
   ~DialWidget() {}
@@ -60,15 +60,43 @@ public:
 public slots:
   bool save();
   void pppdargsbutton();
+  void numbersChanged();
+  void selectionChanged(int);
+  void addNumber();
+  void delNumber();
+  void upNumber();
+  void downNumber();
   
 private:
   QGroupBox *box;
   QLineEdit *connectname_l;
   QLabel *connect_label;
-
-  QLineEdit *number_l;
   QLabel *number_label;
+  QPushButton *pppdargs;
+  QComboBox *auth;
+  QLabel *auth_l;
+  QCheckBox *store_password;
 
+  // for the phonenumber selection
+  QPushButton *add, *del, *up, *down;
+  QListBox *numbers;
+};
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// tab-window to select what to execute when
+//
+/////////////////////////////////////////////////////////////////////////////
+class ExecWidget : public KGroupBox {
+  Q_OBJECT
+public:
+  ExecWidget(QWidget *parent=0, bool isnewaccount=true, const char *name=0);
+
+public slots:
+  bool save();
+
+private:
   QLineEdit *command;
   QLabel *command_label;
 
@@ -77,19 +105,11 @@ private:
 
   QLineEdit *discommand;
   QLabel *discommand_label;
-
-  QPushButton *pppdargs;
-  QLabel *pppd_label;
-
-  QComboBox *auth;
-  QLabel *auth_l;
-
-  QCheckBox *store_password;
 };
 
 
-class IPWidget : public QWidget {
-Q_OBJECT
+class IPWidget : public KGroupBox {
+  Q_OBJECT
 public:
   IPWidget( QWidget *parent=0, bool isnewaccount = true, const char *name=0 );
   ~IPWidget() {}
@@ -99,13 +119,11 @@ public:
 public slots:
   void save();
 
-
 protected slots:
   void hitIPSelect( int );
   void autoname_t(bool on);
 
 private:
-
   QLabel *ipaddress_label;
   QLabel *sub_label;
   QGroupBox *box;
@@ -122,8 +140,8 @@ private:
 };
 
 
-class DNSWidget : public QWidget {
-Q_OBJECT
+class DNSWidget : public KGroupBox {
+  Q_OBJECT
 public:
   DNSWidget( QWidget *parent=0, bool isnewaccount = true, const char *name=0 );
   ~DNSWidget() {}
@@ -151,8 +169,8 @@ private:
 };
 
 
-class GatewayWidget : public QWidget {
-Q_OBJECT
+class GatewayWidget : public KGroupBox {
+  Q_OBJECT
 public:
   GatewayWidget( QWidget *parent=0, bool isnewaccount = true, const char *name=0 );
   ~GatewayWidget() {}
@@ -166,7 +184,6 @@ private slots:
   void hitGatewaySelect( int );
 
 private:
-
   QLabel *gate_label;
   QGroupBox *box;
   QGroupBox *box1;
@@ -178,8 +195,8 @@ private:
 };
 
 
-class ScriptWidget : public QWidget {
-Q_OBJECT
+class ScriptWidget : public KGroupBox {
+  Q_OBJECT
 public:
   ScriptWidget( QWidget *parent=0, bool isnewaccount = true, const char *name=0 );
   ~ScriptWidget() {}
@@ -212,5 +229,27 @@ private:
   
   QScrollBar *slb;
 };
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Used to specify a new phone number
+//
+/////////////////////////////////////////////////////////////////////////////
+class PhoneNumberDialog : public QDialog {
+  Q_OBJECT
+public:
+  PhoneNumberDialog(QWidget *parent = 0);
+  
+  QString phoneNumber();
+
+private slots:
+  void textChanged(const char *);
+
+private: 
+  QPushButton *ok, *cancel;
+  QLineEdit *le;
+};
+
 
 #endif

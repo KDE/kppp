@@ -1,3 +1,68 @@
+1999-02-08  Mario Weilguni <mweilguni@sime.com>
+
+	* Changed the tabs "DNS" and "Gateway". Somehow, it feels more
+	  logical this way.
+
+	* reworked the layout of the "DNS" widget
+
+	* pretty printed volume accounting. Using the terms KB, MB and GB
+ 	  now when appropriate.
+
+	* Now it is possible to reset phone costs, volume accounting or both
+
+	* reworked the IPWidget, the GatewayWidget and the DialWidget
+
+1999-02-07  Mario Weilguni <mweilguni@sime.com>
+
+	* reworked the phone accounting selector widget, and reworked the
+	  groupbox widget to adhere minimumSize() of the peer()
+
+	* reworked the layouting of the ScriptWidget and some usability
+   	  improvements	
+
+	* removed the disturbing "Show log window" button. The log window
+	  now remembers if it was shown or hidden last time. Now I´m
+	  waiting for feedback, if everybody is happy I´ll remove it
+	  completly.
+
+	* removed some #include from header files and moved them to the
+	  cpp files. Thus compiling for developers will be somewhat faster
+	  now, because of fewer dependencies
+
+	* DAMNED: one day before 1.1 I commited a faulty bug-fix for the
+	  graphing code. Fixed. Will make it in KDE 1.1.1 and will make
+	  a service pack
+
+1999-02-06  Mario Weilguni <mweilguni@sime.com>
+
+	* added a new tab "Execute" to the accounting dialog, including
+	  an explanation how to use it.	
+
+	* the pppd-arguments were modified (in the "Customize ppp
+	arguments" dialog if "Default" was pressed, no matter if "Cancel"
+	was pressed afterwards. Fixed.
+
+	* the phone number entry was removed and replaced by a listbox and
+	some buttons to allow easy selection of multiple phone numbers
+
+	* the label "Edit pppd arguments" and the button after are now
+	replaced with the button "Customize pppd arguments..."
+
+	* some small usability improvements
+
+	* a big, fat warning is now displayed when selecting the
+          "Auto-configure hostname" option.
+
+	* The log window is now hidden if we are connected. If a
+	connection is up and running, there´s no need for a debug
+	window
+
+	* The "/dev/cua*" devices are no longer available under Linux
+
+	* fixed a warning in requester.cpp
+
+	* pressing enter when on the "Connect" button now starts dialing
+
 1999-02-04  Harri Porten  <porten@kde.org>
 
 	* main.cpp: remove stale pidfile before creating new the
@@ -9,6 +74,8 @@
 1999-02-03  Mario Weilguni <mweilguni@kde.org>
 
 	* fixed a bug in my testing code
+
+	* fixed broken Hungarian ruleset
 
 1999-02-02  Mario Weilguni <mweilguni@kde.org>
 

@@ -122,7 +122,7 @@ METASOURCES = accounting.moc \
 	pppdargs.moc \
 	pppstatdlg.moc \
 	pwentry.moc \
-	scriptedit.moc  
+	scriptedit.moc 
 
 messages:
 	$(XGETTEXT) -C -ktranslate -ki18n -x $(includedir)/kde.pot $(kppp_SOURCES) && mv messages.po ../po/kppp.pot

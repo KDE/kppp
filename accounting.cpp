@@ -120,6 +120,16 @@ void AccountingBase::resetCosts(const char *accountname){
 }
 
 
+void AccountingBase::resetVolume(const char *accountname){
+  QString prev_account = gpppdata.accname();
+
+  gpppdata.setAccount(accountname);
+  gpppdata.setTotalBytes(0);
+
+  gpppdata.setAccount(prev_account);
+}
+
+
 void AccountingBase::logMessage(QString s, bool newline) {
   int old_umask = umask(0077);
 

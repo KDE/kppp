@@ -428,16 +428,16 @@ int main( int argc, char **argv ) {
   // Mario: testing
   if(TESTING) {
     gpppdata.open();
-//     gpppdata.setAccountbyIndex(0);
-//     ExecutableAccounting *c = new ExecutableAccounting(p_kppp);
-//     c->slotStart();
-    ModemSelector *c = new ModemSelector(0);
-    c->exec();
-    delete c;
+    gpppdata.setAccountbyIndex(0);
+    //ModemSelector *c = new ModemSelector(0);
+    //c->exec();
+
+    QueryReset *c = new QueryReset(0);
+    printf("CHECKED=%d\n", c->exec());
+    
+    a.exec();
     remove_pidfile();
     exit(0);
-    
-    return a.exec();
   }
 
   if (pid > 0) {
@@ -566,26 +566,27 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 		       "<b>Important</b>: case is important here:\n"
 		       "<i>mypassword</i> is not the same as <i>MyPassword</i>!")));
 
+  // TODO
+//   QHBoxLayout *l3 = new QHBoxLayout;
+//   tl->addSpacing(5);
+//   tl->addLayout(l3);
+//   tl->addSpacing(5);
+//   l3->addSpacing(10);
+//   log = new QCheckBox(i18n("Show Log Window"), this);
+//   connect(log, SIGNAL(toggled(bool)), 
+//  	  this, SLOT(log_window_toggled(bool)));
+//   log->setChecked(gpppdata.get_show_log_window());
+//   MIN_SIZE(log);
+//   l3->addWidget(log);
 
-  QHBoxLayout *l3 = new QHBoxLayout;
-  tl->addSpacing(5);
-  tl->addLayout(l3);
-  tl->addSpacing(5);
-  l3->addSpacing(10);
-  log = new QCheckBox(i18n("Show Log Window"), this);
-  connect(log, SIGNAL(toggled(bool)), 
-	  this, SLOT(log_window_toggled(bool)));
-  log->setChecked(gpppdata.get_show_log_window());
-  MIN_SIZE(log);
-  l3->addWidget(log);
-  KQuickHelp::add(log, 
-		  i18n("This controls whether a log window is shown.\n"
-		       "A log window shows the communication between\n"
-		       "<i>kppp</i> and your modem. This will help you\n"
-		       "in tracking down problems.\n"
-		       "\n"
-		       "Turn it off if <i>kppp</i> routinely connects without\n"
-		       "problems"));
+//   KQuickHelp::add(log, 
+// 		  i18n("This controls whether a log window is shown.\n"
+// 		       "A log window shows the communication between\n"
+// 		       "<i>kppp</i> and your modem. This will help you\n"
+// 		       "in tracking down problems.\n"
+// 		       "\n"
+// 		       "Turn it off if <i>kppp</i> routinely connects without\n"
+// 		       "problems"));
 
   fline = new QFrame(this);
   fline->setFrameStyle(QFrame::HLine |QFrame::Sunken);
@@ -620,8 +621,9 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   connect_b = new QPushButton(i18n("Connect"), 
 			      this, "connect_b");
+
   connect_b->setFocus();
-  connect(connect_b, SIGNAL(clicked()), SLOT(connectbutton()));
+  connect(connect_b, SIGNAL(clicked()), SLOT(beginConnect()));
   MIN_HEIGHT(connect_b);
   if(connect_b->sizeHint().width() > minw)
     minw = connect_b->sizeHint().width();
@@ -642,9 +644,9 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   (void)new Modem;
 
-  // we also connect cmld_start to the connectbutton so that I can run
+  // we also connect cmld_start to the beginConnect so that I can run
   // the dialer through a command line argument
-  connect(this,SIGNAL(cmdl_start()),this,SLOT(connectbutton())); 
+  connect(this,SIGNAL(cmdl_start()),this,SLOT(beginConnect())); 
 
   con_win = new ConWindow(0,"conw",this);
   KWM::setMiniIcon(con_win->winId(), kapp->getMiniIcon());
@@ -660,9 +662,6 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   debugwindow = new DebugWidget(0,"debugwindow");
   KWM::setMiniIcon(debugwindow->winId(), kapp->getMiniIcon());
-  debugwindow->setGeometry(QApplication::desktop()->width()/2+190,
-		    QApplication::desktop()->height()/2-55,
-		    debugwindow->width(),debugwindow->height());
   debugwindow->hide();
 
   // load up the accounts combo box
@@ -678,6 +677,8 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   // connect the ConnectWidgets various signals
   connect(con, SIGNAL(debugMessage(const char *)),
 	  debugwindow, SLOT(statusLabel(const char *)));
+  connect(con, SIGNAL(closeDebugWindow()),
+	  debugwindow, SLOT(hide()));
   connect(con, SIGNAL(debugMessage(QString)),
 	  debugwindow, SLOT(statusLabel(QString)));
   connect(con, SIGNAL(toggleDebugWindow()),
@@ -692,6 +693,10 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   setGeometry(QApplication::desktop()->width()/2 - width()/2,
 	      QApplication::desktop()->height()/2 - height()/2,
 	      width(), height());
+  debugwindow->setGeometry(QApplication::desktop()->width()/2+190,
+			   QApplication::desktop()->height()/2-55,
+			   debugwindow->width(),debugwindow->height());
+
 
   if(have_cmdl_account){
     bool result;
@@ -709,6 +714,19 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 }
 
 
+bool KPPPWidget::eventFilter(QObject *o, QEvent *e) {
+  if(o == connect_b) {
+    if(e->type() == Event_KeyPress) {      
+      if(connect_b->hasFocus() && ((QKeyEvent *)e)->key() == Key_Return) {
+	beginConnect();
+	return true;
+      }
+    }
+  }
+
+  return false;
+}
+
 void KPPPWidget::prepareSetupDialog() {
   if(tabWindow == 0) {
     tabWindow = new QTabDialog( 0, 0, TRUE );
@@ -723,6 +741,8 @@ void KPPPWidget::prepareSetupDialog() {
 	    this, SLOT(resetaccounts()));
     connect(accounts, SIGNAL(resetCosts(const char *)),
 	    this, SLOT(resetCosts(const char *)));
+    connect(accounts, SIGNAL(resetVolume(const char *)),
+	    this, SLOT(resetVolume(const char *)));
     modem1 = new ModemWidget(tabWindow);
     modem2 = new ModemWidget2(tabWindow);
     general = new GeneralWidget(tabWindow);
@@ -732,8 +752,8 @@ void KPPPWidget::prepareSetupDialog() {
     tabWindow->addTab( accounts, i18n("Accounts") );
     tabWindow->addTab( modem1, i18n("Device") );
     tabWindow->addTab( modem2, i18n("Modem") );
-    tabWindow->addTab( general, i18n("PPP") );
     tabWindow->addTab( graph, i18n("Graph") );
+    tabWindow->addTab( general, i18n("Misc.") );
     tabWindow->addTab( about, i18n("About") );
   }
 }
@@ -770,14 +790,18 @@ void KPPPWidget::resetaccounts() {
   if(gpppdata.count() == 0) {
     connectto_c->setEnabled(false);
     connect_b->setEnabled(false);
-    log->setEnabled(false);
+
+    // TODO
+    //log->setEnabled(false);
     ID_Edit->setEnabled(false);
     PW_Edit->setEnabled(false);
   }
   else {
     connectto_c->setEnabled(true);
     connect_b->setEnabled(true);
-    log->setEnabled(true);
+
+    // TODO
+    //log->setEnabled(true);
     ID_Edit->setEnabled(true);
     PW_Edit->setEnabled(true);
   }
@@ -945,7 +969,7 @@ void KPPPWidget::expandbutton() {
 }
 
 
-void KPPPWidget::connectbutton() {
+void KPPPWidget::beginConnect() {
 
   // make sure to connect to the account that is selected in the combo box
   // (exeption: an account given by a command line argument)
@@ -1066,18 +1090,17 @@ void KPPPWidget::connectbutton() {
   con->setCaption(tit);
 
   con->show();
-
-  if (!(log->isChecked())){
+  
+  bool show_debug = gpppdata.get_show_log_window();
+  debugwindow->clear();
+  if (!show_debug)
     debugwindow->hide();
-  }
-  else{
-    debugwindow->clear();
+  else {
     debugwindow->show();
     con->raise();
     con->debug->setText(i18n("Log")); // set Log/Hide button text to Hide
   }	
   
-  debugwindow->clear();
   emit begin_connect();
 }
 
@@ -1237,6 +1260,11 @@ void KPPPWidget::setPW_Edit(const char *pw) {
 
 void KPPPWidget::resetCosts(const char *s) {
   AccountingBase::resetCosts(s);
+}
+
+
+void KPPPWidget::resetVolume(const char *s) {
+  AccountingBase::resetVolume(s);
 }
 
 

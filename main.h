@@ -54,15 +54,11 @@
 #include <qchkbox.h> 
 #include <qpixmap.h> 
 #include <qchkbox.h>
-
 #include <kapp.h>
 #include <kwm.h>
-
 #include <kconfig.h>
 
 #include "accounting.h"
-
-
 #include "conwindow.h"
 #include "general.h"
 #include "accounts.h"
@@ -71,9 +67,7 @@
 #include "pppstatdlg.h"
 
 class KPPPWidget : public QWidget {
-
-Q_OBJECT
-
+  Q_OBJECT
 public:
 
   KPPPWidget( QWidget *parent=0, const char *name=0 );
@@ -84,11 +78,12 @@ public:
   friend void sigchld(int);
 
   void setPW_Edit(const char *);
+  virtual bool eventFilter(QObject *, QEvent *);
 
 private slots:
   void newdefaultaccount(int);
   void expandbutton();
-  void connectbutton();
+  void beginConnect();
   void quitbutton();
   void helpbutton();
   void setup();
@@ -101,6 +96,7 @@ private slots:
 public slots:
   void resetaccounts();
   void resetCosts(const char *);
+  void resetVolume(const char *);
   void disconnect();
   void log_window_toggled(bool on);
   void startAccounting();

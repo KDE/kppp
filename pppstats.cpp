@@ -155,7 +155,7 @@ int if_is_up() {
     memset(&ifr,0,sizeof(ifr));
 
     // if you change this you have to change "unit" for 0 to whatever.
-    strncpy(ifr.ifr_name, "ppp0",sizeof(ifr.ifr_name)); 
+    strncpy(ifr.ifr_name, "ppp0", sizeof(ifr.ifr_name));
 
 
     if(ioctl(s, SIOCGIFFLAGS, &ifr)<0){

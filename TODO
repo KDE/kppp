@@ -1,7 +1,6 @@
 TODO
 ====
 o deal with interfaces different from ppp0
-o button for clearing volume accounting
 o better FAQ
 o modem-setup wizard
 o provider-setup wizard
@@ -22,3 +21,4 @@ o help users with those "pppd died unexpected..." bugs
 o CHAP support
 o All modem related code should be put in one class
 o replace "$" in config entries with "$$"
+o button for clearing volume accounting

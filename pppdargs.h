@@ -36,7 +36,6 @@
 #include <qpushbt.h>
 #include <qlistbox.h>
 #include <qlabel.h>
-#include "pppdata.h"
 
 class PPPdArguments : public QDialog {
 Q_OBJECT

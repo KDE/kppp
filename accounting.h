@@ -67,6 +67,7 @@ protected:
   // static members
 public:
   static void resetCosts(const char *accountname);
+  static void resetVolume(const char *accountname);
   static QString getCosts(const char* accountname);
   static QString getAccountingFile(const char* accountname);
 };

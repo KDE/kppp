@@ -9,10 +9,13 @@ static char *devices[] = {
   "/dev/cuaa3",
 #else
   "/dev/modem",
+// Linux from 2.1.x on discourages from using this devices
+#ifndef linux
   "/dev/cua0",
   "/dev/cua1",
   "/dev/cua2",
   "/dev/cua3",
+#endif
   "/dev/ttyS0",
   "/dev/ttyS1",
   "/dev/ttyS2",

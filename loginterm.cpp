@@ -78,11 +78,10 @@ void LoginMultiLineEdit::keyPressEvent(QKeyEvent *k) {
 
 
 void LoginMultiLineEdit::readChar(char c) {
-
-  c = ((int)c & 0x7F);
+  c = ((int)c & 0x7F);  
 
   if(((int)c != 13) && ((int)c != 10) && ((int)c != 8))
-    insertChar(c);      
+    insertChar(c);
 
   if((int)c == 8)
     backspace();

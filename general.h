@@ -38,7 +38,6 @@
 #include <kslider.h>
 #include <kcolorbtn.h>
 
-#include "pppdata.h"
 #include "groupbox.h"
 
 class ModemTransfer;

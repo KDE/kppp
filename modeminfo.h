@@ -50,10 +50,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-
-#include "pppdata.h"
-
-
 const int NUM_OF_ATI = 8;
 
 

@@ -280,13 +280,9 @@ void PPPStatsDlg::paintGraph() {
   // plot scale line
   p.setPen(text);
   p.setFont(QFont("fixed", 8));
-  QRect r;
-  QString s;
-  s.sprintf(i18n("%d kb/s"), max/1024);
-  p.drawText(0, 0, pm.width(), 2*8, AlignRight|AlignVCenter, s.data(), -1, &r);
-  p.drawLine(0, 8, r.left() - 8, 8);
 
   // plot data
+  int last_idx = 0;
   for(x = 1; x < pm.width(); x++) {
     int h_in, h_out;
     
@@ -302,8 +298,18 @@ void PPPStatsDlg::paintGraph() {
     last_h_in = h_in;
     last_h_out = h_out;
 
+    last_idx = idx;
     idx = (idx + 1) % MAX_GRAPH_WIDTH;
   }
+
+  // take last value
+  int last_max = bin[last_idx]>bout[last_idx] ? bin[last_idx] : bout[last_idx];
+
+  QRect r;
+  QString s;
+  s.sprintf(i18n("%0.1f (max. %0.1f) kb/sec"), (float)last_max / 1024.0, (float)max / 1024.0);
+  p.drawText(0, 0, pm.width(), 2*8, AlignRight|AlignVCenter, s.data(), -1, &r);
+  p.drawLine(0, 8, r.left() - 8, 8);
 
   p.end();
   bitBlt(graph, 2, 2, &pm, 0, 0, pm.width(), pm.height(), CopyROP);

@@ -39,6 +39,7 @@
 #include "modeminfo.h"
 #include "modemcmds.h"
 #include "devices.h"
+#include "pppdata.h"
 
 
 /////////////////////////////////////////////////////////////////////////////

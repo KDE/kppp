@@ -31,7 +31,6 @@
 #include <qwidget.h>
 #include <qpushbt.h>
 #include <qlistbox.h>
-#include "pppdata.h"
 #include "edit.h"
 
 class AccountWidget : public QWidget {
@@ -56,8 +55,10 @@ private:
 signals:
   void resetaccounts();
   void resetCosts(const char *);
+  void resetVolume(const char *);
 
 private:
+  QString prettyPrintVolume(unsigned int);
 
   QTabDialog *tabWindow;
   DialWidget *dial_w;
@@ -80,6 +81,21 @@ private:
   QPushButton *copy_b;
   QPushButton *new_b;
   QPushButton *delete_b;
+};
+
+
+class QueryReset : public QDialog {
+  Q_OBJECT
+public:
+  QueryReset(QWidget *parent);
+
+  enum {COSTS=1, VOLUME=2};
+
+private slots:
+  void accepted();
+
+private:
+  QCheckBox *costs, *volume;
 };
 
 #endif

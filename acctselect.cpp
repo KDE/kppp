@@ -1,27 +1,36 @@
-/* -*- C++ -*-
- *
- *            kPPP: A pppd front end for the KDE project
- *
- * $Id$
- *
- *            Copyright (C) 1997 Bernd Johannes Wuebben
- *                   wuebben@math.cornell.edu
- *
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this program; if not, write to the Free
- * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */
+//---------------------------------------------------------------------------
+//
+//             kPPP: A pppd front end for the KDE project
+//
+//---------------------------------------------------------------------------
+//
+// (c) 1997-1998 Bernd Johannes Wuebben <wuebben@kde.org>
+// (c) 1997-1999 Mario Weilguni <mweilguni@kde.org>
+// (c) 1998-1999 Harri Porten <porten@kde.org>
+//
+// derived from Jay Painters "ezppp"
+//
+//---------------------------------------------------------------------------
+//  
+//  $Id: $
+//
+//---------------------------------------------------------------------------
+// 
+//  This program is free software; you can redistribute it and-or
+//  modify it under the terms of the GNU Library General Public
+//  License as published by the Free Software Foundation; either
+//  version 2 of the License, or (at your option) any later version.
+// 
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+//  Library General Public License for more details.
+// 
+//  You should have received a copy of the GNU Library General Public
+//  License along with this program; if not, write to the Free
+//  Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+//---------------------------------------------------------------------------
 
 
 #include <qdir.h>
@@ -38,29 +47,14 @@
 #include "pppdata.h"
 
 AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, const char *name)
-  : QWidget(parent, name),
+  : KCheckGroupBox(i18n("Enable accounting"), parent, name),
     isnewaccount(_isnewaccount)
 {
-  QGridLayout *l = new QGridLayout(this, 3, 3, 10, 10);
-  l->addRowSpacing(0, fontMetrics().lineSpacing() - 10);
-  QGroupBox *box = new QGroupBox(this,"box");
-  box->setTitle(i18n("Accounting Setup"));
-  l->addMultiCellWidget(box, 0, 2, 0, 2);
-
-  QVBoxLayout *l1 = new QVBoxLayout(0);
-  l->addLayout(l1, 1, 1);
-  l1->addSpacing(10);
-
-  // checkbox for enabling/disabling accounting
-  use = new QCheckBox(i18n("Enable accounting"), this);
-  use->setChecked(gpppdata.AcctEnabled());
-  use->setMinimumSize(use->sizeHint());
-  l1->addWidget(use, 0);
-  l1->addSpacing(10);
-  connect(use, SIGNAL(toggled(bool)), this, SLOT(enableItems(bool)));
+  QVBoxLayout *l1 = new QVBoxLayout(peer(), 10, 10);
+  connect(this, SIGNAL(toggled(bool)), this, SLOT(enableItems(bool)));
 
   // insert the tree widget
-  tl = new KTreeList(this);
+  tl = new KTreeList(peer());
   connect(tl, SIGNAL(selected(int)),
 	  this, SLOT(slotHighlighted(int)));
   tl->setMinimumSize(220, 200);
@@ -70,9 +64,9 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   QHBoxLayout *l11 = new QHBoxLayout;
   l1->addSpacing(10);
   l1->addLayout(l11);
-  QLabel *lsel = new QLabel(i18n("Selected:"), this);
+  QLabel *lsel = new QLabel(i18n("Selected:"), peer());
   lsel->setMinimumSize(lsel->sizeHint());
-  selected = new QLabel(this);
+  selected = new QLabel(peer());
   selected->setFrameStyle(QFrame::Sunken | QFrame::WinPanel);
   selected->setLineWidth(1);
   selected->setFixedHeight(selected->sizeHint().height() + 16);
@@ -84,10 +78,9 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   l1->addStretch(1);
   QHBoxLayout *l12 = new QHBoxLayout;
   l1->addLayout(l12);
-  QLabel *usevol_l = new QLabel(i18n("Volume accounting:"),
-				this);
+  QLabel *usevol_l = new QLabel(i18n("Volume accounting:"), peer());
   MIN_SIZE(usevol_l);
-  use_vol = new QComboBox(this);
+  use_vol = new QComboBox(peer());
   use_vol->insertItem(i18n("No accounting"), 0);
   use_vol->insertItem(i18n("Bytes in"), 1);
   use_vol->insertItem(i18n("Bytes out"), 2);
@@ -124,14 +117,8 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   choice = -1;
 
   setupTreeWidget();
-
-  l->setColStretch(0, 0);
-  l->setColStretch(2, 0);
-  l->setRowStretch(0, 0);
-  l->setRowStretch(2, 0);
-  l->setRowStretch(1, 1);
-  l->setColStretch(1, 1);
-  l->activate();
+  setChecked(gpppdata.AcctEnabled());
+  l1->activate();
 }
 
 
@@ -297,11 +284,11 @@ void AccountingSelector::setupTreeWidget() {
 }
 
 
-void AccountingSelector::enableItems(bool) {
+void AccountingSelector::enableItems(bool b) {
 
-  tl->setEnabled(use->isChecked());
+  tl->setEnabled(isChecked());
 
-  if(!use->isChecked() || (choice == -1))
+  if(!isChecked() || (choice == -1))
     selected->setText(i18n("(none)"));
   else {
     // replace underscores
@@ -339,7 +326,7 @@ void AccountingSelector::slotHighlighted(int idx) {
 
 bool AccountingSelector::save() {
 
-  if(use->isChecked() && (choice != -1)) {
+  if(isChecked() && (choice != -1)) {
 
     QString s = indexToFileName(choice);
     gpppdata.setAccountingFile(s.data());

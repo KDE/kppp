@@ -86,6 +86,7 @@ signals:
   void debugMessage(const char *);
   void debugMessage(QString);
   void toggleDebugWindow();
+  void closeDebugWindow();
   void debugPutChar(char);
   void startAccounting();
   void stopAccounting();

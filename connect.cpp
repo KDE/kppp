@@ -991,6 +991,9 @@ void ConnectWidget::if_waiting_slot() {
   if_timer->stop();
   usleep(200000);
 
+  // Close the debugging window. If we are connected, we
+  // are not really interested in debug output
+  emit closeDebugWindow();
   p_kppp->stats->take_stats(); // start taking ppp statistics
   auto_hostname();
 

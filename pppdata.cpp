@@ -172,7 +172,8 @@ int PPPData::access() {
 
 // functions to read/write date to configuration file
 const char* PPPData::readConfig(const char* group, const char* key,
-				const char* defvalue = "") {
+				const char* defvalue = "") 
+{
   static QString s;
 
   if (config) {
@@ -1129,17 +1130,13 @@ QStrList &PPPData::pppdArgument() {
 
 
 void PPPData::setpppdArgument(QStrList &args) {
-
   writeListConfig(cgroup, PPPDARG_KEY, args);
-
 }
 
 
 void PPPData::setpppdArgumentDefaults() {
-  QStrList args;
-  
-  // no default arguments currently
-  setpppdArgument(args);
+  QStrList arg;
+  setpppdArgument(arg);
 }
 
 

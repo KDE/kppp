@@ -25,6 +25,7 @@
 #include "conwindow.h"
 #include "main.h"
 #include "macros.h"
+#include "pppdata.h"
 
 extern KPPPWidget *p_kppp;
 extern PPPData gpppdata;

@@ -29,9 +29,12 @@
 #include <kmsgbox.h>
 #include <kquickhelp.h>
 #include <kwm.h>
+#include <kbuttonbox.h>
+#include "groupbox.h"
+#include "pppdata.h"
 #include "macros.h"
-#include "main.h"
-
+#include "accounts.h"
+#include "accounting.h"
 
 void parseargs(char* buf, char** args);
 
@@ -149,7 +152,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   l12->addLayout(l122);
   
   l122->addStretch(1);
-  reset = new QPushButton(i18n("Reset Costs"), this);
+  reset = new QPushButton(i18n("Reset..."), this);
   reset->setMinimumSize(reset->sizeHint());
   reset->setEnabled(FALSE);
   connect(reset,SIGNAL(clicked()),this,SLOT(resetClicked()));
@@ -191,9 +194,7 @@ void AccountWidget::slotListBoxSelect(int idx) {
     vollabel->setEnabled(TRUE);
     voledit->setEnabled(TRUE);
     int bytes = gpppdata.totalBytes();
-    QString s;
-    s.setNum(bytes);
-    voledit->setText(s.data());
+    voledit->setText(prettyPrintVolume(bytes).data());
     gpppdata.setAccount(account.data());
  } else{
     reset->setEnabled(FALSE);
@@ -220,18 +221,19 @@ void AccountWidget::viewLogClicked(){
 void AccountWidget::resetClicked(){
   if(accountlist_l->currentItem() == -1)
     return;
- 
-  int ok = QMessageBox::information(this,i18n("Reset Total"),
-       i18n("Are you sure you want to reset the accumulated\n"
-       "telephone costs for the selected account to zero?"),
-				    i18n("Yes"),
-				    i18n("No"), "", 1, 1);
 
-  if(ok)
-    return;
+  QueryReset dlg(this);
+  int what = dlg.exec();
+
+  if(what && QueryReset::COSTS) {
+    emit resetCosts(accountlist_l->text(accountlist_l->currentItem()));
+    costedit->setText("0");
+  }
   
-  emit resetCosts(accountlist_l->text(accountlist_l->currentItem()));
-  costedit->setText("");
+  if(what && QueryReset::VOLUME) {
+    emit resetVolume(accountlist_l->text(accountlist_l->currentItem()));
+    voledit->setText(prettyPrintVolume(0));
+  }
 }
 
 
@@ -339,6 +341,7 @@ int AccountWidget::doTab(){
   tabWindow->setCancelButton(i18n("Cancel"));
 
   dial_w = new DialWidget(tabWindow, isnewaccount);
+  ExecWidget *exec_w = new ExecWidget(tabWindow, isnewaccount);
   ip_w = new IPWidget(tabWindow, isnewaccount);
   dns_w = new DNSWidget(tabWindow, isnewaccount);
   gateway_w = new GatewayWidget(tabWindow, isnewaccount);
@@ -347,9 +350,10 @@ int AccountWidget::doTab(){
 
   tabWindow->addTab(dial_w, i18n("Dial"));
   tabWindow->addTab(ip_w, i18n("IP"));
-  tabWindow->addTab(dns_w, i18n("DNS"));
   tabWindow->addTab(gateway_w, i18n("Gateway"));
+  tabWindow->addTab(dns_w, i18n("DNS"));
   tabWindow->addTab(script_w, i18n("Login Script"));
+  tabWindow->addTab(exec_w, i18n("Execute"));
   tabWindow->addTab(acct, i18n("Accounting"));
 
   int result = 0;
@@ -366,6 +370,7 @@ int AccountWidget::doTab(){
 		dns_w->save();
 		gateway_w->save();
 		script_w->save();
+		exec_w->save();
 		acct->save();
          } else {
 	     QMessageBox::warning(this, i18n("Error"), 
@@ -379,9 +384,94 @@ int AccountWidget::doTab(){
       }
     }
   }
-  
+
  delete tabWindow;
  return result;
+}
+
+
+QString AccountWidget::prettyPrintVolume(unsigned int n) {
+  int idx = 0;
+  const char *quant[] = {i18n("Byte"), i18n("KB"), 
+		   i18n("MB"), i18n("GB"), 0};
+
+  float n1 = n;
+  while(n >= 1024 && quant[idx] != 0) {
+    idx++;
+    n /= 1024;
+  }
+
+  int i = idx;
+  while(i--)
+    n1 = n1 / 1024.0;
+
+  QString s;
+  if(idx==0)
+    s.sprintf("%0.0f %s", n1, quant[idx]);
+  else
+    s.sprintf("%0.1f %s", n1, quant[idx]);
+  return s;
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Queries the user what to reset: costs, volume or both
+//
+/////////////////////////////////////////////////////////////////////////////
+QueryReset::QueryReset(QWidget *parent) : QDialog(parent, 0, true) {
+  KWM::setMiniIcon(winId(), kapp->getMiniIcon());
+  setCaption(i18n("Reset accounting"));
+
+  QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
+  KGroupBox *f = new KGroupBox(i18n("What to reset..."), this);  
+  
+  QVBoxLayout *l1 = new QVBoxLayout(f->peer(), 10, 10);
+  costs = new QCheckBox(i18n("Reset the accumulated phone costs"), f->peer());
+  costs->setMinimumSize(costs->sizeHint());
+  costs->setChecked(true);
+  l1->addWidget(costs);
+  KQuickHelp::add(costs, i18n("Check this to set the phone costs\n"
+			      "to zero. Typically you´ll want to\n"
+			      "do this once a month."));
+
+  volume = new QCheckBox(i18n("Reset volume accounting"), f->peer());
+  volume->setMinimumSize(volume->sizeHint());
+  volume->setChecked(true);
+  l1->addWidget(volume);
+  KQuickHelp::add(volume, i18n("Check this to set the volume accounting\n"
+			       "to zero. Typically you´ll want to do this\n"
+			       "once a month."));
+
+  l1->activate();
+
+  // this activates the f-layout and sets minimumSize()
+  f->show();
+
+  tl->addWidget(f);
+
+  KButtonBox *bbox = new KButtonBox(this);
+  bbox->addStretch(1);
+  QPushButton *ok = bbox->addButton(i18n("OK"));
+  ok->setDefault(true);
+  QPushButton *cancel = bbox->addButton(i18n("Cancel"));
+
+  connect(ok, SIGNAL(clicked()),
+	  this, SLOT(accepted()));
+  connect(cancel, SIGNAL(clicked()),
+	  this, SLOT(reject()));
+
+  bbox->layout();  
+  tl->addWidget(bbox);
+  tl->freeze();
+}
+
+
+void QueryReset::accepted() {
+  int result = costs->isChecked() ? COSTS : 0;
+  result += volume->isChecked() ? VOLUME : 0;
+
+  done(result);
 }
 
 #include "accounts.moc"
