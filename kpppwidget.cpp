@@ -91,7 +91,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
 
-  QGridLayout *l1 = new QGridLayout(4, 4);
+  l1 = new QGridLayout(4, 4);
   tl->addLayout(l1);
   l1->addColSpacing(0, 10);
   l1->addColSpacing(3, 10);
@@ -109,13 +109,13 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   l1->addWidget(connectto_c, 0, 2);
 
   label7 = new QLabel(i18n("Use &modem: "), this);
-  l1->addWidget(label7, 1, 1);
+  // l1->addWidget(label7, 1, 1); (done in resetmodems())
   modem_c = new QComboBox(false, this);
   label7->setBuddy(connectto_c);
 
   connect(modem_c, SIGNAL(activated(int)),
 	  SLOT(newdefaultmodem(int)));
-  l1->addWidget(modem_c, 1, 2);
+  // l1->addWidget(modem_c, 1, 2); (done in resetmodems())
 
   ID_Label = new QLabel(i18n("&Login ID:"), this);
   l1->addWidget(ID_Label, 2, 1);
@@ -480,13 +480,30 @@ void KPPPWidget::resetmodems() {
   modem_c->setEnabled(count > 0);
   setButtons();
 
-  //load the accounts
+  //load the modems
   for(int i=0; i < count; i++) {
     gpppdata.setModemByIndex(i);
-     modem_c->insertItem(gpppdata.modname());
+    modem_c->insertItem(gpppdata.modname());
   }
 
-  //set the default account
+  int newState = -1;
+  if (count > 1 && modem_c->isHidden()) {
+      l1->addWidget(label7, 1, 1);
+      l1->addWidget(modem_c, 1, 2);
+      newState = 1;
+  } else if (modem_c->isShown()){
+      l1->remove(label7);
+      l1->remove(modem_c);
+      newState = 0;
+  }
+  if (newState >= 0) {
+      label7->setShown(newState);
+      modem_c->setShown(newState);
+      layout()->invalidate();
+      setFixedSize(sizeHint());
+  }
+
+  //set the default modem
   if(!gpppdata.defaultModem().isEmpty()) {
     for(int i=0; i < count; i++)
        if(gpppdata.defaultModem() == modem_c->text(i)) {

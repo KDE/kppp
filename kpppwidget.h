@@ -128,6 +128,7 @@ private:
 
   QString ruleset_load_errmsg;
 
+  QGridLayout *l1;
   KPushButton *help_b;
   KPushButton *setup_b;
   QFrame *fline;
@@ -152,7 +153,7 @@ private:
   KDialogBase *tabWindow;
   AccountWidget *accounts;
   GeneralWidget *general;
-	ModemsWidget *modems;
+  ModemsWidget *modems;
   GraphSetup *graph;
   AboutWidget *about;
 
