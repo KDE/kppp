@@ -114,7 +114,9 @@ const unsigned int MAX_CMDLEN = 2024;
 
 #if defined(__svr4__)
 #define STREAMS
-#define _XOPEN_SOURCE_EXTENDED
+#define _XOPEN_SOURCE 1
+#define _XOPEN_SOURCE_EXTENDED 1
+#define __EXTENSIONS
 #endif
 
 #ifdef _XPG4_2
