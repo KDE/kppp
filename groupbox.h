@@ -22,7 +22,6 @@ public:
 
   virtual void resizeEvent(QResizeEvent *);
   virtual QSize minimumSize() const;
-  virtual QSize maximumSize() const;
   virtual QSize sizeHint() const;
   virtual void show();
 

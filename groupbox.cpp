@@ -37,11 +37,6 @@ QSize KGroupBoxBase::minimumSize() const {
 }
 
 
-QSize KGroupBoxBase::maximumSize() const {
-  return QSize(1 << 15, 1 << 15);
-}
-
-
 QSize KGroupBoxBase::sizeHint() const {
   return minimumSize();
 }
