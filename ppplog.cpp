@@ -61,7 +61,12 @@ int PPPL_MakeLog(QStringList &list) {
 
   fd = Requester::rq->openSysLog();
   if(fd < 0) {
-    list.append("Cannot open logfile!");
+    list.append(i18n("Cannot open any of the following logfiles:"));
+    const char **logFile = &kppp_syslog[0];
+    while(*logFile) {
+      list.append(*logFile);
+      logFile++;
+    }
     return 1;
   }
 

@@ -122,6 +122,12 @@ static pid_t pppdPid = -1;
 static int pppdExitStatus = -1;
 static int checkForInterface();
 
+// processing will stop at first file that could be opened successfully
+const char *kppp_syslog[] = { "/var/log/syslog.ppp",
+			      "/var/log/syslog",
+			      "/var/log/messages",
+			      0 };
+
 Opener::Opener(int s) : socket(s), ttyfd(-1) {
   lockfile[0] = '\0';
   signal(SIGUSR1, SIG_IGN);
@@ -136,7 +142,7 @@ void Opener::mainLoop() {
   int len;
   int fd = -1;
   int flags, mode;
-  const char *device;
+  const char *device, **logFile;
   union AllRequests request;
   struct ResponseHeader response;
   struct msghdr	msg;
@@ -249,12 +255,16 @@ void Opener::mainLoop() {
 	Debug("Opener: received OpenSysLog");
 	MY_ASSERT(len == sizeof(struct OpenLogRequest));
 	response.status = 0;
-	if ((fd = open("/var/log/messages", O_RDONLY)) == -1) {
-	  if ((fd = open("/var/log/syslog.ppp", O_RDONLY)) == -1) {
-	    Debug("error opening syslog file !");
-	    fd = open(DEVNULL, O_RDONLY);
-	    response.status = -errno;
-	  }
+	logFile = &kppp_syslog[0];
+	while (*logFile) {
+	  if ((fd = open(*logFile, O_RDONLY)) >= 0)
+	    break;
+	  logFile++;
+	}
+	if (!*logFile) {
+	  Debug("No success opening a syslog file !");
+	  fd = open(DEVNULL, O_RDONLY);
+	  response.status = -errno;
         }
         sendFD(fd, &response);
 	close(fd);
