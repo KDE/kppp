@@ -54,7 +54,6 @@ public:
   void clear();
 
 public slots:
-  void statusLabel(const char *);
   void statusLabel(QString);
   void toggleVisibility();
   void addChar(char);

@@ -98,11 +98,6 @@ void DebugWidget::addChar(char c) {
 }
 
 
-void DebugWidget::statusLabel(const char *n) {
-  statuslabel->setText(n);
-}
-
-
 void DebugWidget::statusLabel(QString s) {
   statuslabel->setText(s);
 }

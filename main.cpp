@@ -49,7 +49,6 @@
 #include "acctselect.h"
 #include "main.h"
 #include "version.h"
-#include "macros.h"
 #include "auth.h"
 #include "docking.h"
 #include "runtests.h"
@@ -153,7 +152,6 @@ void showNews() {
     l2->addWidget(l);
     l2->addWidget(cb);
     tl->addWidget(bbox);
-    tl->freeze();
 
     KQuickHelp::add(cb, 
     KQuickHelp::add(l, i18n(
@@ -504,25 +502,20 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   label1 = new QLabel(this);
   label1->setText(i18n("Connect to: "));
-  MIN_SIZE(label1);
   l1->addWidget(label1, 0, 1);
 
   connectto_c = new QComboBox(false, this);
   
   connect(connectto_c, SIGNAL(activated(int)), 
 	  SLOT(newdefaultaccount(int)));
-  MIN_SIZE(connectto_c);
   l1->addWidget(connectto_c, 0, 2);  
 
   ID_Label = new QLabel(this);
   ID_Label->setText(i18n("Login ID:"));
-  MIN_SIZE(ID_Label);
   l1->addWidget(ID_Label, 1, 1);
 
   // the entry line for usernames
   ID_Edit = new QLineEdit(this);
-  MIN_WIDTH(ID_Edit);
-  FIXED_HEIGHT(ID_Edit);
   l1->addWidget(ID_Edit, 1, 2);
   connect(ID_Edit, SIGNAL(returnPressed()),
 	  this, SLOT(enterPressedInID()));
@@ -538,13 +531,10 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   PW_Label = new QLabel(this);
   PW_Label->setText(i18n("Password:"));
-  MIN_SIZE(PW_Label);
   l1->addWidget(PW_Label, 2, 1);
 
   PW_Edit= new QLineEdit(this);
   PW_Edit->setEchoMode(QLineEdit::Password);
-  MIN_WIDTH(PW_Edit);
-  FIXED_HEIGHT(PW_Edit);
   l1->addWidget(PW_Edit, 2, 2);
   connect(PW_Edit, SIGNAL(returnPressed()),
 	  this, SLOT(enterPressedInPW()));
@@ -559,27 +549,25 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 		       "<b>Important</b>: case is important here:\n"
 		       "<i>mypassword</i> is not the same as <i>MyPassword</i>!")));
 
-  // TODO
-//   QHBoxLayout *l3 = new QHBoxLayout;
-//   tl->addSpacing(5);
-//   tl->addLayout(l3);
-//   tl->addSpacing(5);
-//   l3->addSpacing(10);
-//   log = new QCheckBox(i18n("Show Log Window"), this);
-//   connect(log, SIGNAL(toggled(bool)), 
-//  	  this, SLOT(log_window_toggled(bool)));
-//   log->setChecked(gpppdata.get_show_log_window());
-//   MIN_SIZE(log);
-//   l3->addWidget(log);
+   QHBoxLayout *l3 = new QHBoxLayout;
+   tl->addSpacing(5);
+   tl->addLayout(l3);
+   tl->addSpacing(5);
+   l3->addSpacing(10);
+   log = new QCheckBox(i18n("Show Log Window"), this);
+   connect(log, SIGNAL(toggled(bool)), 
+  	  this, SLOT(log_window_toggled(bool)));
+   log->setChecked(gpppdata.get_show_log_window());
+   l3->addWidget(log);
 
-//   KQuickHelp::add(log, 
-// 		  i18n("This controls whether a log window is shown.\n"
-// 		       "A log window shows the communication between\n"
-// 		       "<i>kppp</i> and your modem. This will help you\n"
-// 		       "in tracking down problems.\n"
-// 		       "\n"
-// 		       "Turn it off if <i>kppp</i> routinely connects without\n"
-// 		       "problems"));
+   KQuickHelp::add(log, 
+ 		  i18n("This controls whether a log window is shown.\n"
+ 		       "A log window shows the communication between\n"
+ 		       "<i>kppp</i> and your modem. This will help you\n"
+ 		       "in tracking down problems.\n"
+ 		       "\n"
+ 		       "Turn it off if <i>kppp</i> routinely connects without\n"
+ 		       "problems"));
 
   fline = new QFrame(this);
   fline->setFrameStyle(QFrame::HLine |QFrame::Sunken);
@@ -592,14 +580,11 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   int minw = 0;
   quit_b = new QPushButton(i18n("Quit"), this);
   connect( quit_b, SIGNAL(clicked()), SLOT(quitbutton()));
-  MIN_HEIGHT(quit_b);
   if(quit_b->sizeHint().width() > minw)
     minw = quit_b->sizeHint().width();
 
   setup_b = new QPushButton(i18n("Setup"), this);
-  connect( setup_b, SIGNAL(clicked()), 
-	   SLOT(expandbutton()));
-  MIN_HEIGHT(setup_b);
+  connect( setup_b, SIGNAL(clicked()), SLOT(expandbutton()));
   if(setup_b->sizeHint().width() > minw)
     minw = setup_b->sizeHint().width();
 
@@ -608,32 +593,25 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   help_b = new QPushButton(i18n("?"), this);
   connect( help_b, SIGNAL(clicked()), SLOT(helpbutton()));
-  MIN_HEIGHT(help_b);
   if(help_b->sizeHint().width() > minw)
     minw = help_b->sizeHint().width();
 
-  connect_b = new QPushButton(i18n("Connect"), 
-			      this, "connect_b");
-
+  connect_b = new QPushButton(i18n("Connect"), this);
   connect_b->setFocus();
   connect(connect_b, SIGNAL(clicked()), SLOT(beginConnect()));
-  MIN_HEIGHT(connect_b);
   if(connect_b->sizeHint().width() > minw)
     minw = connect_b->sizeHint().width();
 
-  //  minw = QMAX(minw,70);
-  quit_b->setMinimumWidth(minw);
-  setup_b->setMinimumWidth(minw);
-  help_b->setMinimumWidth(help_b->sizeHint().width());
-  connect_b->setMinimumWidth(minw);
+  quit_b->setFixedWidth(minw);
+  setup_b->setFixedWidth(minw);
+  help_b->setFixedWidth(help_b->sizeHint().width());
+  connect_b->setFixedWidth(minw);
 
   l2->addWidget(quit_b);
   l2->addWidget(setup_b);
   l2->addWidget(help_b);
   l2->addSpacing(20);
   l2->addWidget(connect_b);
-
-  tl->freeze();
 
   (void)new Modem;
 
@@ -668,8 +646,6 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 		    350,110);
 
   // connect the ConnectWidgets various signals
-  connect(con, SIGNAL(debugMessage(const char *)),
-	  debugwindow, SLOT(statusLabel(const char *)));
   connect(con, SIGNAL(closeDebugWindow()),
 	  debugwindow, SLOT(hide()));
   connect(con, SIGNAL(debugMessage(QString)),
@@ -683,9 +659,6 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   connect(con, SIGNAL(stopAccounting()),
 	  this, SLOT(stopAccounting()));
     
-  setGeometry(QApplication::desktop()->width()/2 - width()/2,
-	      QApplication::desktop()->height()/2 - height()/2,
-	      width(), height());
   debugwindow->setGeometry(QApplication::desktop()->width()/2+190,
 			   QApplication::desktop()->height()/2-55,
 			   debugwindow->width(),debugwindow->height());
@@ -784,8 +757,7 @@ void KPPPWidget::resetaccounts() {
     connectto_c->setEnabled(false);
     connect_b->setEnabled(false);
 
-    // TODO
-    //log->setEnabled(false);
+    log->setEnabled(false);
     ID_Edit->setEnabled(false);
     PW_Edit->setEnabled(false);
   }
@@ -793,8 +765,7 @@ void KPPPWidget::resetaccounts() {
     connectto_c->setEnabled(true);
     connect_b->setEnabled(true);
 
-    // TODO
-    //log->setEnabled(true);
+    log->setEnabled(true);
     ID_Edit->setEnabled(true);
     PW_Edit->setEnabled(true);
   }

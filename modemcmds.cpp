@@ -32,8 +32,6 @@
 #include "modemcmds.h"
 #include "pppdata.h"
 
-#define ADJUSTLABEL(l) l->setMinimumSize(l->sizeHint()); l->setAlignment(AlignLeft|AlignVCenter);
-
 #define ADJUSTEDIT(e) e->setText("XXXXXXXXqy"); e->setMinimumSize(e->sizeHint()); e->setFixedHeight(e->sizeHint().height()); e->setText(""); e->setMaxLength(MODEMSTR_SIZE);
 
 // a little trick to make the label look like a disabled lineedit
@@ -71,13 +69,11 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   l5->addWidget(preinitslider, 1);
 
   lpreinit = new QLabel(i18n("Pre-Init Delay (sec/100):"), this);
-  ADJUSTLABEL(lpreinit);  
   l1->addWidget(lpreinit, 1, 1);
 
   initstr = new QLineEdit(this);
   label1 = new QLabel(i18n("Initialization String:"), this);
   ADJUSTEDIT(initstr);
-  ADJUSTLABEL(label1);
   l1->addWidget(label1, 2, 1);
   l1->addWidget(initstr, 2, 2);
 
@@ -94,97 +90,83 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   l2->addWidget(initslider, 1);
   
   label3 = new QLabel(i18n("Post-Init Delay (sec/100):"), this);
-  ADJUSTLABEL(label3);  
   l1->addWidget(label3, 3, 1);
 
   initresp = new QLineEdit(this);
   label2 = new QLabel(i18n("Init Response:"), this);
   ADJUSTEDIT(initresp);
-  ADJUSTLABEL(label2);
   l1->addWidget(label2, 4, 1);
   l1->addWidget(initresp, 4, 2);
 
   dialstr = new QLineEdit(this);
   label4 = new QLabel(i18n("Dial String:"),this);
   ADJUSTEDIT(dialstr);
-  ADJUSTLABEL(label4);
   l1->addWidget(label4, 5, 1);
   l1->addWidget(dialstr, 5, 2);
 
   connectresp = new QLineEdit(this);
   label5 = new QLabel(i18n("Connect Response:"), this);
   ADJUSTEDIT(connectresp);
-  ADJUSTLABEL(label5);
   l1->addWidget(label5, 6, 1);
   l1->addWidget(connectresp, 6, 2);
 
   busyresp = new QLineEdit(this);
   label6 = new QLabel(i18n("Busy Response:"), this);
   ADJUSTEDIT(busyresp);
-  ADJUSTLABEL(label6);
   l1->addWidget(label6, 7, 1);
   l1->addWidget(busyresp, 7, 2);
 
   nocarrierresp = new QLineEdit(this);
   label7 = new QLabel(i18n("No Carrier Response:"), this);
   ADJUSTEDIT(nocarrierresp);
-  ADJUSTLABEL(label7);
   l1->addWidget(label7, 8, 1);
   l1->addWidget(nocarrierresp, 8, 2);
 
   nodialtoneresp = new QLineEdit(this);
   label8 = new QLabel(i18n("No Dialtone Response:"), this);
   ADJUSTEDIT(nodialtoneresp);
-  ADJUSTLABEL(label8);
   l1->addWidget(label8, 9, 1);
   l1->addWidget(nodialtoneresp, 9, 2);
 
   hangupstr = new QLineEdit(this);
   label9 = new QLabel(i18n("Hangup String:"), this);
   ADJUSTEDIT(hangupstr);
-  ADJUSTLABEL(label9);
   l1->addWidget(label9, 10, 1);
   l1->addWidget(hangupstr, 10, 2);
 
   hangupresp = new QLineEdit(this);
   label10 = new QLabel(i18n("Hangup Response:"), this);
   ADJUSTEDIT(hangupresp);
-  ADJUSTLABEL(label10);
   l1->addWidget(label10, 11, 1);
   l1->addWidget(hangupresp, 11, 2);
 
   answerstr = new QLineEdit(this);
   label11 = new QLabel(i18n("Answer String:"), this);
   ADJUSTEDIT(answerstr);
-  ADJUSTLABEL(label11);
   l1->addWidget(label11, 12, 1);
   l1->addWidget(answerstr, 12, 2);
 
   ringresp = new QLineEdit(this);
   label12 = new QLabel(i18n("Ring Response:"), this);
   ADJUSTEDIT(ringresp);
-  ADJUSTLABEL(label12);
   l1->addWidget(label12, 13, 1);
   l1->addWidget(ringresp, 13, 2);
 
   answerresp = new QLineEdit(this);
   label13 = new QLabel(i18n("Answer Response:"), this);
   ADJUSTEDIT(answerresp);
-  ADJUSTLABEL(label13);
   l1->addWidget(label13, 14, 1);
   l1->addWidget(answerresp, 14, 2);
 
   escapestr = new QLineEdit(this);
   label14 = new QLabel(i18n("Escape String:"), this);
   ADJUSTEDIT(escapestr);
-  ADJUSTLABEL(label14);
   l1->addWidget(label14, 15, 1);
   l1->addWidget(escapestr, 15, 2);
 
   escaperesp = new QLineEdit(this);
   label15 = new QLabel(i18n("Escape Response:"), this);
   ADJUSTEDIT(escaperesp);
-  ADJUSTLABEL(label15);
   l1->addWidget(label15, 16, 1);
   l1->addWidget(escaperesp, 16, 2);
 
@@ -202,7 +184,6 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   l3->addWidget(slider, 1);
   
   label16 = new QLabel(i18n("Guard Time (sec/50):"), this);
-  ADJUSTLABEL(label16);  
   l1->addWidget(label16, 17, 1);
   
   QLabel *l = new QLabel(i18n("Volume off/low/high"), this);
@@ -240,7 +221,6 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   l1->addColSpacing(3, 10);
   l1->addRowSpacing(0, 5);
   l1->addRowSpacing(GRIDROWS-1, 5);
-  tl->freeze();
 
   //set stuff from gpppdata
   preinitslider->setValue(gpppdata.modemPreInitDelay());

@@ -27,10 +27,10 @@
 #include <qdir.h>
 #include <unistd.h>
 #include <qregexp.h>
+#include <qlayout.h>
 #include <kapp.h> 
 #include <kwm.h>
 #include "modeminfo.h"
-#include "macros.h"
 #include "modem.h"
 
 ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
@@ -54,8 +54,8 @@ ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
   // the longest english message, translate it and give it additional
   // 20 percent space. Hope this is enough.
   statusBar->setText(i18n("Sorry, can't create modem lock file."));
-  statusBar->setMinimumWidth((statusBar->sizeHint().width() * 12) / 10);
-  statusBar->setMinimumHeight(statusBar->sizeHint().height() + 4);
+  statusBar->setFixedWidth((statusBar->sizeHint().width() * 12) / 10);
+  statusBar->setFixedHeight(statusBar->sizeHint().height() + 4);
 
   // set original text
   statusBar->setText(i18n("Looking for Modem ..."));
@@ -66,7 +66,6 @@ ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
   cancel = new QPushButton(i18n("Cancel"), this);
   cancel->setFocus();
   connect(cancel, SIGNAL(clicked()), SLOT(cancelbutton()));
-  FIXED_SIZE(cancel);
 
   QHBoxLayout *l1 = new QHBoxLayout;
   tl->addLayout(l1);
@@ -86,7 +85,6 @@ ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
   timeout_timer->start(15000,TRUE); // 15 secs single shot
   QTimer::singleShot(500, this, SLOT(init()));
 
-  tl->freeze();
 }
 
 
@@ -261,13 +259,10 @@ ModemInfo::ModemInfo(QWidget *parent, const char* name)
       label_text.sprintf("ATI %d:", i );
 
     ati_label[i] = new QLabel(label_text, this);
-    MIN_SIZE(ati_label[i]);
     l1->addWidget(ati_label[i], i, 0);
 
     ati_label_result[i] =  new QLineEdit(this);
-    MIN_SIZE(ati_label_result[i]);
     ati_label_result[i]->setMinimumWidth(fontMetrics().width('H') * 24);
-    FIXED_HEIGHT(ati_label_result[i]);
     l1->addWidget(ati_label_result[i], i, 1); 
   }
   //tl->addSpacing(1);
@@ -282,16 +277,13 @@ ModemInfo::ModemInfo(QWidget *parent, const char* name)
     ok->setFixedWidth(ok->sizeHint().width() + 10);
     ok->setFixedHeight(ok->sizeHint().height() + 10);
     tl->addSpacing(8);
-  } else
-    FIXED_SIZE(ok);
+  }
 
   tl->addLayout(l2);
   l2->addStretch(1);
 
   connect(ok, SIGNAL(clicked()), SLOT(accept()));
   l2->addWidget(ok);
-  
-  tl->freeze();
 }
 
 

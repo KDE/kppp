@@ -1,3 +1,8 @@
+1999-03-05  Harri Porten  <porten@kde.org>
+
+	* geometry layout: got rid of some freeze() and setMinimum*() calls.
+	Qt 2.0 seems to make life a bit easier. A lot of work left.
+
 1999-03-03  Harri Porten  <porten@kde.org>
 
 	* kdelibs have been switched to Qt 2.0. Replaced a lot of const char *

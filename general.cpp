@@ -243,8 +243,6 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   for(k = 0; devices[k]; k++)
     modemdevice->insertItem(devices[k]);
 
-  modemdevice->setMinimumWidth(modemdevice->sizeHint().width());
-  modemdevice->setFixedHeight(modemdevice->sizeHint().height());
   tl->addWidget(modemdevice, 0, 1);
   connect(modemdevice, SIGNAL(activated(int)), 
 	  SLOT(setmodemdc(int)));
@@ -266,8 +264,6 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   flowcontrol->insertItem("CRTSCTS");
   flowcontrol->insertItem("XON/XOFF");
   flowcontrol->insertItem(i18n("None"));
-  flowcontrol->setMinimumWidth(flowcontrol->sizeHint().width());
-  flowcontrol->setFixedHeight(flowcontrol->sizeHint().height());
   tl->addWidget(flowcontrol, 1, 1);
   connect(flowcontrol, SIGNAL(activated(int)), 
 	  SLOT(setflowcontrol(int)));
@@ -287,8 +283,6 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   enter->insertItem("CR");
   enter->insertItem("LF");
   enter->insertItem("CR/LF");
-  enter->setMinimumWidth(enter->sizeHint().width());
-  enter->setFixedHeight(enter->sizeHint().height());
   tl->addWidget(enter, 2, 1);
   connect(enter, SIGNAL(activated(int)), SLOT(setenter(int)));
   KQuickHelp::add(labelenter,
@@ -338,8 +332,6 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   baud_c->setCurrentItem(3);
   connect(baud_c, SIGNAL(activated(int)),
 	  this, SLOT(speed_selection(int)));
-  FIXED_HEIGHT(baud_c);
-  MIN_WIDTH(baud_c);
   l1->addWidget(baud_c);
   l1->addStretch(1);
   KQuickHelp::add(baud_label,
@@ -387,7 +379,6 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   tl->addLayout(l2, 6, 1);
 
   modemtimeout = new KIntegerLine(peer());
-  modemtimeout->setFixedHeight(modemtimeout->sizeHint().height());
   modemtimeout->setMaxLength(TIMEOUT_SIZE);
   modemtimeout->setMinimumWidth(fontMetrics().width('8')*3);
   modemtimeout->setText(gpppdata.modemTimeout());
@@ -466,7 +457,6 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
   l10->addWidget(label4);
 
   busywait = new KIntegerLine(peer());
-  busywait->setFixedHeight(busywait->sizeHint().height());
   busywait->setMaxLength(TIMEOUT_SIZE);
   busywait->setText(gpppdata.busyWait());
   busywait->setMinimumWidth(busywait->sizeHint().width()/3);
@@ -558,12 +548,6 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 		       "can use this if you want to play around\n"
 		       "with your modem's AT command set"));
 
-  modemcmds->setMinimumWidth(modemcmds->sizeHint().width());
-  modemcmds->setFixedHeight(modemcmds->sizeHint().height());
-  modeminfo_button->setMinimumWidth(modeminfo_button->sizeHint().width());
-  modeminfo_button->setFixedHeight(modeminfo_button->sizeHint().height());
-  terminal_button->setMinimumWidth(terminal_button->sizeHint().width());
-  terminal_button->setFixedHeight(terminal_button->sizeHint().height());
   l111->addWidget(modemcmds);
   l111->addWidget(modeminfo_button);
   l111->addWidget(terminal_button);

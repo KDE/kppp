@@ -32,7 +32,6 @@
 #include <kbuttonbox.h>
 #include "groupbox.h"
 #include "pppdata.h"
-#include "macros.h"
 #include "accounts.h"
 #include "accounting.h"
 #include "providerdb.h"
@@ -65,21 +64,18 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
 
   min = edit_b->sizeHint().width();
   min = QMAX(70,min);
-  MIN_HEIGHT(edit_b);
   edit_b->setMinimumWidth(min);
 
   l111->addWidget(edit_b);
 
   new_b = new QPushButton(i18n("New..."), peer());
   connect(new_b, SIGNAL(clicked()), SLOT(newaccount()));
-  new_b->setMinimumSize(new_b->sizeHint());
   l111->addWidget(new_b);
   KQuickHelp::add(new_b, i18n("Create a new dialup connection\n"
   			      "to the internet"));
 
   copy_b = new QPushButton(i18n("Copy"), peer());
   connect(copy_b, SIGNAL(clicked()), SLOT(copyaccount()));
-  copy_b->setMinimumSize(copy_b->sizeHint());
   l111->addWidget(copy_b);
   KQuickHelp::add(copy_b, 
 		  i18n("Makes a copy of the selected account. All\n"
@@ -89,7 +85,6 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
 
   delete_b = new QPushButton(i18n("Delete"), peer());
   connect(delete_b, SIGNAL(clicked()), SLOT(deleteaccount()));
-  delete_b->setMinimumSize(delete_b->sizeHint());
   l111->addWidget(delete_b);
   KQuickHelp::add(delete_b, 
 		  i18n("Deletes the selected account\n\n<red><b>Use with care!"));
@@ -102,7 +97,6 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   l12->addLayout(l121);
   l121->addStretch(1);
   costlabel = new QLabel(i18n("Phone Costs:"), peer());
-  costlabel->setMinimumSize(costlabel->sizeHint());
   costlabel->setEnabled(FALSE);
   l121->addWidget(costlabel);
 
@@ -122,7 +116,6 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
 		       "of the phone costs of all your accounts!")));
 
   vollabel = new QLabel(i18n("Volume:"), peer());
-  vollabel->setMinimumSize(vollabel->sizeHint());
   vollabel->setEnabled(FALSE);
   l121->addWidget(vollabel);
 
@@ -146,14 +139,12 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   
   l122->addStretch(1);
   reset = new QPushButton(i18n("Reset..."), peer());
-  reset->setMinimumSize(reset->sizeHint());
   reset->setEnabled(FALSE);
   connect(reset, SIGNAL(clicked()),
 	  this, SLOT(resetClicked()));
   l122->addWidget(reset);
 
   log = new QPushButton(i18n("View Logs"), peer());
-  log->setMinimumSize(log->sizeHint());
   connect(log, SIGNAL(clicked()),
 	  this, SLOT(viewLogClicked()));
   l122->addWidget(log);
@@ -447,7 +438,6 @@ QueryReset::QueryReset(QWidget *parent) : QDialog(parent, 0, true) {
   
   QVBoxLayout *l1 = new QVBoxLayout(f->peer(), 10, 10);
   costs = new QCheckBox(i18n("Reset the accumulated phone costs"), f->peer());
-  costs->setMinimumSize(costs->sizeHint());
   costs->setChecked(true);
   l1->addWidget(costs);
   KQuickHelp::add(costs, i18n("Check this to set the phone costs\n"
@@ -455,7 +445,6 @@ QueryReset::QueryReset(QWidget *parent) : QDialog(parent, 0, true) {
 			      "do this once a month."));
 
   volume = new QCheckBox(i18n("Reset volume accounting"), f->peer());
-  volume->setMinimumSize(volume->sizeHint());
   volume->setChecked(true);
   l1->addWidget(volume);
   KQuickHelp::add(volume, i18n("Check this to set the volume accounting\n"
