@@ -1,5 +1,6 @@
 pkg_DATA =	Poland.rst \
-		Poland_Local.rst
+		Poland_Local.rst \
+		Poland_New.rst
 
 pkgdir = $(kde_datadir)/kppp/Rules/Poland
 
