@@ -1,3 +1,13 @@
+2000-11-27  Harri Porten  <harri@trolltech.com>
+
+	* applied 7 bit fix from KDE 1.x for CompuServe users.
+
+2000-11-21  Harri Porten  <harri@trolltech.com>
+
+	* modem.cpp: writeLine() fix from Wolfgang Grandegger. Hit USB modem
+	owners and probably more.
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>> KDE 2.0 released <<<<<<<<<<<<<<<<<<<<<<<<<<<<<	
 1999-11-18  Harri Porten  <porten@kde.org>
 
 	* main.cpp: cleaned up signal handlers by posting a user defined

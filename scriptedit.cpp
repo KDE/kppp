@@ -50,7 +50,6 @@ ScriptEdit::ScriptEdit( QWidget *parent, const char *name )
   st->insertItem("LoopEnd");
   st->insertItem("Scan");
   st->insertItem("Save");
-  st->insertItem("Mode");
   st->insertItem("SendNoEcho");
   connect(st, SIGNAL(activated(int)), SLOT(setType(int)));
 
@@ -161,11 +160,6 @@ void ScriptEdit::setType(int i) {
   case Save:
     se->setText("password");
     se->setEnabled(FALSE);
-    break;
-
-  case Mode:
-    se->setText("");
-    se->setEnabled(TRUE);
     break;
 
   default: break;

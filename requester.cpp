@@ -1,7 +1,6 @@
 /*
  *              kPPP: A pppd Front End for the KDE project
  *
- * $Id$
  *
  *              Copyright (C) 1997,98 Bernd Johannes Wuebben,
  *		                      Mario Weilguni,
@@ -113,7 +112,7 @@ int Requester::recvFD() {
   if(len <= 0) {
     kdError(5002) << "recvmsg failed " << strerror(errno) << endl;
     return -1;
-  } else if (msg.msg_controllen != cmsglen) {
+  } else if (msg.msg_controllen < cmsglen) {
     kdError(5002) << "recvmsg: truncated message " << strerror(errno) << endl;
     exit(1);
   } else {

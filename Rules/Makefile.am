@@ -8,6 +8,7 @@ SUBDIRS = Argentina \
 	Czechia \
 	Denmark \
 	England \
+	Estonia \
 	France \
 	Germany \
 	Greece \

@@ -1,4 +1,5 @@
 pkg_DATA = AddCom_by_Call.rst Addcom.rst \
+	Callino_Surf_Basic.rst  Callino_Surf_Plus.rst \
 	CallOkaynet.rst \
 	City_Activ_Plus_Option.rst \
 	Mobilcom_Freenet.rst \

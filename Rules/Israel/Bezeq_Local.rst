@@ -67,10 +67,10 @@ on (saturday) between () use (0.015, 60)
 # On holiday eves from 13:00 and on holidays
 # costs are 1.5 Agorot per minute
 
-# Holidays left in 2000 are:
-# Independence day (May 10), Lag Ba'Omer (May 23), Shavuot (June 9)
-on (05/09, 05/22, 06/08) between (13:00..23:59) use (0.015, 60)
-on (05/10, 05/23, 06/09) between () use (0.015, 60)
-# Rosh HaShana (September 30), Yom Kippur (October 9), Sukkot (October 14, 21)
-on (09/30, 10/09, 10/14, 10/21) between (13:00..23:59) use (0.015, 60)
-on (09/30, 10/09, 10/14, 10/21) between () use (0.015, 60)
+# Holidays for 2001:
+# Passover (8,14/4) Independence day (26/4), Lag Ba'Omer (11/5), Shavuot (28/5)
+on (04/07, 04/13, 04/25, 05/10, 05/27) between (13:00..23:59) use (0.015, 60)
+on (04/08, 04/14, 04/26, 05/11, 05/28) between () use (0.015, 60)
+# Rosh HaShana (18-19/9), Yom Kippur (27/9)
+on (09/17, 09/26) between (13:00..23:59) use (0.015, 60)
+on (09/18, 08/19, 09/27) between () use (0.015, 60)
