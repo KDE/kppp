@@ -788,9 +788,9 @@ int PPPData::copyaccount(int i) {
   setAccountbyIndex(i);
 
   QMap <QString, QString> map = config->entryMap(cgroup);
-  QMap <QString, QString>::Iterator it = map.begin();
+  QMap <QString, QString>::ConstIterator it = map.begin();
 
-  QString newname = QString("%1_copy").arg(accname());
+  QString newname = i18n("%1_copy").arg(accname());
 
   newaccount();
 
