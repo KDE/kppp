@@ -843,7 +843,7 @@ void KPPPWidget::sigPPPDDied() {
 	con->hide();
 
         gpppdata.setpppdRunning(false);
-	KNotifyClient::beep();
+	// // not in a signal handler !!!  KNotifyClient::beep();
 	QString msg;
 	if (gpppdata.pppdError() == E_IF_TIMEOUT)
 	    msg = i18n("Timeout expired while waiting for the PPP interface "
@@ -873,7 +873,7 @@ void KPPPWidget::sigPPPDDied() {
 	con_win->stopClock();
 	stopAccounting();
 	gpppdata.setpppdRunning(false);
-	KNotifyClient::beep();
+	// not in a signal handler !!!	KNotifyClient::beep();
 	emit cmdl_start();
     }
   }
