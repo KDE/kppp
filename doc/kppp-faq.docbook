@@ -76,7 +76,7 @@ log by issuing:</para>
 </qandaentry>
 
 <qandaentry>
-<question><para>Why does &kppp; tell me <errorname>Sorry, can't open the
+<question><para>Why does &kppp; tell me <errorname>Unable to open the
 modem</errorname>?</para></question>
 
 <answer><para>This means that &kppp; doesn't have permissions to open the modem
