@@ -1,14 +1,13 @@
 # KDE Config File
-# http://home.euronet.nl/tools/help/algemeen.php?lang=ned&textonly=no
+#
 ExDNSDisabled=0
 AutoName=0
 ScriptArguments=
-AccountingEnabled=0
-AutoDNS=1
-Phonenumber=0676022203
+AccountingEnabled=1
+Phonenumber=8500015
 IPAddr=0.0.0.0
-Domain=euronet.nl
-Name=Euronet Anytime
+Domain=
+Name=KeyAcces
 VolumeAccountingEnabled=1
 pppdArguments=
 BeforeDisconnect=
@@ -16,11 +15,12 @@ Password=%PASSWORD%
 Command=
 ScriptCommands=
 Authentication=4
-DNS=194.134.5.5,194.134.0.97
+DNS=
 SubnetMask=0.0.0.0
-AccountingFile=
+AccountingFile=Netherlands/BelBasis_Regio.rst
 DefaultRoute=1
 Username=%USERNAME%
 Gateway=0.0.0.0
 StorePassword=1
 DisconnectCommand=
+AutoDNS=1

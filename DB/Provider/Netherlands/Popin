@@ -1,25 +1,26 @@
 # KDE Config File
+# http://www.popin.nl/helpdeskinbel.htm
 ExDNSDisabled=0
-AutoDNS=1
 AutoName=0
 ScriptArguments=
 AccountingEnabled=1
-Phonenumber=06760-75030
+Phonenumber=0748507010
 IPAddr=0.0.0.0
-Domain=zonnet.nl
-Name=Zonnet
+Domain=
+Name=Popin
 VolumeAccountingEnabled=1
-pppdArguments=10.1.1.1,
+pppdArguments=
 BeforeDisconnect=
-Password=%USERNAME%
+Password=%PASSWORD%
 Command=
 ScriptCommands=
-Authentication=1
-DNS=:62.58.50.5,62.58.50.6
+Authentication=4
+DNS=194.229.143.15,194.229.143.5
 SubnetMask=0.0.0.0
-AccountingFile=/Netherlands/BelBasis_Lokaal.rst
+AccountingFile=/Netherlands/BelBasis_Regio.rst
 DefaultRoute=1
-Username=%PASSWORD%
+Username=%USERNAME%
 Gateway=0.0.0.0
 StorePassword=1
 DisconnectCommand=
+AutoDNS=0

@@ -1,4 +1,6 @@
 # KDE Config File
+# http://www.freeler.nl/service/service_instellingen.html
+# 
 ExDNSDisabled=0
 AutoName=0
 ScriptArguments=
@@ -6,7 +8,7 @@ AccountingEnabled=1
 Phonenumber=0676043210
 IPAddr=0.0.0.0
 Domain=
-Name=Freeler
+Name=Freeler Compleet
 VolumeAccountingEnabled=1
 pppdArguments=
 BeforeDisconnect=
@@ -16,7 +18,7 @@ ScriptCommands=
 Authentication=1
 DNS=213.218.76.150,213.218.76.151
 SubnetMask=0.0.0.0
-AccountingFile=
+AccountingFile=/Netherlands/BelBasis_Regio.rst
 DefaultRoute=1
 Username=%USERNAME%
 Gateway=0.0.0.0

@@ -1,14 +1,17 @@
 # KDE Config File
-# http://home.euronet.nl/tools/help/algemeen.php?lang=ned&textonly=no
+#informatie van http://www.betuwe.net/kop/inbel.html
+# en van http://www.betuwe.net/kop/faq.html#F
+
 ExDNSDisabled=0
+DNS=212.29.160.1,212.29.161.254
+AccountingEnabled=0
+AccountingFile=
 AutoName=0
 ScriptArguments=
-AccountingEnabled=0
-AutoDNS=1
-Phonenumber=0676022203
+Phonenumber=0877880001
 IPAddr=0.0.0.0
-Domain=euronet.nl
-Name=Euronet Anytime
+Domain=
+Name=Betuwenet BFree
 VolumeAccountingEnabled=1
 pppdArguments=
 BeforeDisconnect=
@@ -16,9 +19,7 @@ Password=%PASSWORD%
 Command=
 ScriptCommands=
 Authentication=4
-DNS=194.134.5.5,194.134.0.97
 SubnetMask=0.0.0.0
-AccountingFile=
 DefaultRoute=1
 Username=%USERNAME%
 Gateway=0.0.0.0

@@ -1,25 +1,26 @@
 # KDE Config File
+# http://www.zonnet.nl/helpdesk/topic/0,1890,l43,00.html#43
 ExDNSDisabled=0
+AutoDNS=1
 AutoName=0
 ScriptArguments=
 AccountingEnabled=1
-AutoDNS=1
-Phonenumber=0676022202
+Phonenumber=0676075030
 IPAddr=0.0.0.0
-Domain=
-Name=Wannadoo hometime
+Domain=zonnet.nl
+Name=Zon Gratis
 VolumeAccountingEnabled=1
-pppdArguments=
+pppdArguments=10.1.1.1,
 BeforeDisconnect=
-Password=%PASSWORD%
+Password=%USERNAME%
 Command=
 ScriptCommands=
 Authentication=1
-DNS=194.134.5.55,194.134.5.5
+DNS=:62.58.50.5,62.58.50.6
 SubnetMask=0.0.0.0
-AccountingFile=
+AccountingFile=/Netherlands/BelBasis_Regio.rst
 DefaultRoute=1
-Username=%USERNAME%
+Username=%PASSWORD%
 Gateway=0.0.0.0
 StorePassword=1
 DisconnectCommand=

@@ -1,5 +1,7 @@
+# KDE Config File
+# http://www.iaf.nl/support/instellingen.html
 AccountingEnabled=1
-AccountingFile=/Netherlands/BelBasis_Lokaal.rst
+AccountingFile=/Netherlands/BelBasis_Regio.rst
 Authentication=1
 AutoName=0
 BeforeDisconnect=
@@ -21,5 +23,3 @@ SubnetMask=0.0.0.0
 Username=%USERNAME%
 VolumeAccountingEnabled=1
 pppdArguments=
-[Desktop Entry]
-Icon=

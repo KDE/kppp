@@ -1,24 +1,26 @@
 # KDE Config File
+# http://home.telebyte.nl/?op=help&sec_id=1
 ExDNSDisabled=0
 AutoName=0
 ScriptArguments=
 AccountingEnabled=1
-Phonenumber=8805390,7500450
+Phonenumber=
 IPAddr=0.0.0.0
 Domain=
-Name=Wish
-VolumeAccountingEnabled=0
+Name=Telebyte Internet
+VolumeAccountingEnabled=1
 pppdArguments=
 BeforeDisconnect=
 Password=%PASSWORD%
 Command=
 ScriptCommands=
-Authentication=1
-DNS=212.123.129.79,212.123.128.16
+Authentication=4
+DNS=213.211.129.21,213.211.129.22
 SubnetMask=0.0.0.0
-AccountingFile=/Netherlands/BelBasis_Lokaal.rst
+AccountingFile=/Netherlands/BelBasis_Regio.rst
 DefaultRoute=1
 Username=%USERNAME%
 Gateway=0.0.0.0
 StorePassword=1
 DisconnectCommand=
+AutoDNS=1
