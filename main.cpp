@@ -1137,8 +1137,10 @@ void KPPPWidget::stopAccounting() {
 
 
 void KPPPWidget::showStats() {
-  if(statdlg)
+  if(statdlg) {
     statdlg->show();
+    statdlg->raise();
+  }
 }
 
 
