@@ -220,6 +220,7 @@ void PPPStatsDlg::take_stats() {
 
   update_data();
 
+  stats.start();
   if(gpppdata.graphingEnabled())
     graphTimer->start(GRAPH_UPDATE_TIME);  
 }
