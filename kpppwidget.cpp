@@ -53,6 +53,7 @@
 #include <khelpmenu.h>
 #include <kpushbutton.h>
 #include <kguiitem.h>
+#include <kstdguiitem.h>
 
 #include <stdlib.h>
 #include <errno.h>
@@ -522,7 +523,7 @@ void KPPPWidget::sigPPPDDied() {
 	    }
 	}
 
-	if(KMessageBox::warningYesNo(0, msg, i18n("Error"), i18n("&OK"), i18n("&Details...")) == KMessageBox::No)
+	if(KMessageBox::warningYesNo(0, msg, i18n("Error"), KStdGuiItem::ok().text(), i18n("&Details...")) == KMessageBox::No)
 	  PPPL_ShowLog();
       } else { /* reconnect on disconnect */
 	kdDebug(5002) << "Trying to reconnect... " << endl;

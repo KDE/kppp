@@ -38,7 +38,7 @@
 #include <qlabel.h>
 #include <kstdguiitem.h>
 #include <kpushbutton.h>
-
+#include <kstdguiitem.h>
 
 PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
   : QDialog(parent, name, TRUE)
@@ -90,9 +90,9 @@ PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
 
   KButtonBox *bbox = new KButtonBox(this);
   bbox->addStretch(1);
-  closebtn = bbox->addButton(i18n("&OK"));
+  closebtn = bbox->addButton(KStdGuiItem::ok().text());
   connect(closebtn, SIGNAL(clicked()), SLOT(closebutton()));
-  QPushButton *cancel = bbox->addButton(i18n("&Cancel"));
+  QPushButton *cancel = bbox->addButton(KStdGuiItem::cancel().text());
   connect(cancel, SIGNAL(clicked()),
 	  this, SLOT(reject()));
   bbox->layout();
