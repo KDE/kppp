@@ -4,21 +4,21 @@
 #
 # by Giovanni Venturi (jumpyj@libero.it)
 #
-# Tele2_Interurbane.rst
+# Tele2_Internet.rst
 #
-# INTERURBANE.
+# URBANE.
 #
-# Ultimo aggiornamento: 15 Gennaio 2003.
-# 
+# Ultimo aggiornamento: 26 Giugno 2003.
+#
 ################################################################
 ##							      ##
-## Addebito alla risposta di 0,0775 EUR.	  	      ##
+## Addebito alla risposta di 0,0619 EUR.	  	      ##
 ## 	     						      ##
 ## Tutti i prezzi si intendono in EUR/min IVA COMPRESA.       ##
 ##							      ##
 ##							      ##
-## 		Tariffa RIDOTTA: 0,02 EUR		      ##
-## 		Tariffa INTERA : 0,07 EUR		      ##
+## 		Tariffa RIDOTTA: 0,0093 EUR		      ##
+## 		Tariffa INTERA : 0,0167 EUR		      ##
 ##		   					      ##
 ##		    | Ridotta  dalle 18:30 alle 08:00	      ##
 ## Giorni FERIALI : |					      ##
@@ -32,33 +32,33 @@
 
 
 # Nome del ruleset
-name=Tele2_Interurbane
+name=Tele2_Altri_ISP
 
 # Impostazioni della valuta
 currency_symbol=EUR
-currency_position=right 
+currency_position=right
 currency_digits=2
 
 # Addebito alla risposta
-per_connection=0.0775
+per_connection=0.0619
 
 # Giorni feriali, sabato e domenica a tariffa ridotta
-default=(0.02, 60)
+default=(0.0093, 60)
 
 # Giorni feriali a tariffa intera
-on (monday..friday) between (08:00..18:30) use (0.07, 60)
+on (monday..friday) between (08:00..18:30) use (0.0167, 60)
 
 # Giorni festivi a tariffa ridotta
-on (01/01) between () use (0.02, 60)
-on (01/06) between () use (0.02, 60)
-on (04/25) between () use (0.02, 60)
-on (05/01) between () use (0.02, 60)
-on (08/15) between () use (0.02, 60)
-on (11/01) between () use (0.02, 60)
-on (12/08) between () use (0.02, 60)
-on (12/25) between () use (0.02, 60)
-on (12/26) between () use (0.02, 60)
-on (easter) between () use (0.02, 60)
-on (easter + 1) between () use (0.02, 60)
+on (01/01) between () use (0.0093, 60)
+on (01/06) between () use (0.0093, 60)
+on (04/25) between () use (0.0093, 60)
+on (05/01) between () use (0.0093, 60)
+on (08/15) between () use (0.0093, 60)
+on (11/01) between () use (0.0093, 60)
+on (12/08) between () use (0.0093, 60)
+on (12/25) between () use (0.0093, 60)
+on (12/26) between () use (0.0093, 60)
+on (easter) between () use (0.0093, 60)
+on (easter + 1) between () use (0.0093, 60)
 
 # Fine
