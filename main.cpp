@@ -1,8 +1,6 @@
 /*
  *            kPPP: A pppd front end for the KDE project
  *
- * $Id$
- *
  *            Copyright (C) 1997 Bernd Johannes Wuebben
  *                   wuebben@math.cornell.edu
  *            Copyright (C) 1998-2002 Harri Porten <porten@kde.org>
@@ -361,22 +359,25 @@ pid_t create_pidfile() {
 
     int sz = read(fd, &pidstr, 32);
     close (fd);
-    if (sz <= 0)
+    if (sz < 0)
       return -1;
     pidstr[sz] = '\0';
 
     kdDebug(5002) << "found kppp.pid containing: " << pidstr << endl;
 
-    int oldpid;
-    int match = sscanf(pidstr, "%d", &oldpid);
+    // non-empty file ?
+    if (sz > 0) {
+      int oldpid;
+      int match = sscanf(pidstr, "%d", &oldpid);
 
-    // found a pid in pidfile ?
-    if (match < 1 || oldpid <= 0)
-      return -1;
+      // found a pid in pidfile ?
+      if (match < 1 || oldpid <= 0)
+        return -1;
 
-    // check if process exists
-    if (kill((pid_t)oldpid, 0) == 0 || errno != ESRCH)
-      return oldpid;
+      // check if process exists
+      if (kill((pid_t)oldpid, 0) == 0 || errno != ESRCH)
+        return oldpid;
+    }
 
     kdDebug(5002) << "pidfile is stale\n" << endl;
     remove_pidfile();
