@@ -1,21 +1,44 @@
-##################Mobilcom-01019freenet Internet by call##################
-#                                                                        #
-# German  Mobilcom-Freenet Juni 1999                                     #
-#                                                                        #
-# created 99/05/25 by Olaf Doering <olaf.doering@muenster.de> and        #
-#         99/06/12 by Alexander Schmidt <APSchmidt@gmx.de>               #
-#                                                                        #
-#    Mobilcom Angebot für Internet by call, stand vom 12.06.99           #
-##########################################################################
+################################################################
+#
+# German Mobilcom Freenet accounting rules
+# 
+# created 1999/11/27 by Sebastian Linz <Sebastian.Linz@gmx.net>
+#
+################################################################
 
-name=Mobilcom_freenet
-currency_symbol=DM 
+
+################################################################
+#
+# NAME OF THE RULESET. This is NEEDED for accounting purposes.
+#
+################################################################
+
+name=Mobilcom_Freenet
+
+
+################################################################
+# currency settings
+################################################################
+
+currency_symbol=DM
 currency_position=right 
-currency_digits=2 
-minimum_costs=0.00
-per_connection=0.00
-default=(0.05, 60) 
+currency_digits=2
 
-# Montag bis Sonntag 
-on (monday..sunday) between (0:00..23:59)   use (0.05, 60) 
+
+################################################################
+# connection settings
+################################################################
+
+per_connection=0
+minimum_costs=0.0
+# flat_init_costs=(0.74,180)
+
+# This is the default rule which is used when no other rule
+# applies. The first component "0.1" is the price of one
+# "unit", while "72" is the duration in seconds.
+# Therefore the following rule means: "Every 72 seconds 0.1 
+# ATS are added to the bill"
+default=(0.05, 60)
+
+
 
