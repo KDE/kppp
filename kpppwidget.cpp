@@ -249,7 +249,8 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   QRect desk;
   KConfig gc("kdeglobals", false, false);
   gc.setGroup("Windows");
-  if (gc.readBoolEntry("XineramaEnabled", true) &&
+  if (QApplication::desktop()->isVirtualDesktop() &&
+      gc.readBoolEntry("XineramaEnabled", true) &&
       gc.readBoolEntry("XineramaPlacementEnabled", true)) {
     // Is this the best we can do here?  it's not right.
     desk = QApplication::desktop()->screenGeometry(

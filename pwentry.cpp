@@ -46,7 +46,8 @@ PWEntry::PWEntry( QWidget *parent, const char *name )
      KConfig gc("kdeglobals", false, false);
      gc.setGroup("Windows");
      QRect desk;
-     if (gc.readBoolEntry("XineramaEnabled", true) &&
+     if (QApplication::desktop()->isVirtualDesktop() &&
+         gc.readBoolEntry("XineramaEnabled", true) &&
          gc.readBoolEntry("XineramaPlacementEnabled", true)) {
        int scnum = QApplication::desktop()->screenNumber(parent);
        desk = QApplication::desktop()->screenGeometry(scnum);
