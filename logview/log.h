@@ -33,7 +33,7 @@ public:
   virtual int compareItems(Item, Item);
 };
 
-extern QList<LogInfo> log;
+extern QList<LogInfo> logList;
 
 int loadLogs();
 int loadLog(QString);

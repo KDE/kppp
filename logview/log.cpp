@@ -28,7 +28,7 @@
 #include <klocale.h>
 #include <kstddirs.h>
 
-QList<LogInfo> log;
+QList<LogInfo> logList;
 QProgressDialog *dlg;
 
 int loadLogs() {
@@ -99,9 +99,9 @@ int loadLog(QString fname) {
 	       fname.data(), lineno, buffer, li->error());
 	delete li;
       } else
-	log.append(li);
+	logList.append(li);
     } else
-      log.append(li);    
+      logList.append(li);    
   }
 
   fclose(f);
