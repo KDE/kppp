@@ -23,6 +23,8 @@
 #	instead of spaces and use ".rst  as extension
 #	   i.e. "Austria city calls"
 #          --> file should be saved as "Austria_city_calls.rst"
+#	As of KDE 3.2 non-ascii characters can be encoded 
+#	with the %xy escapes known from URLs.
 #
 # NOTE ON ENCODING:
 #	As of KDE 3.1 kppp assumes rule set files to be in UTF-8

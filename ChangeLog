@@ -1,5 +1,10 @@
+2002-12-22  Harri Porten  <porten@kde.org>
+
+	* acctselect.cpp: allow %xx escapes in ruleset file names.
+
 2002-10-27  Harri Porten  <porten@trolltech.com>
 
+	* kpppconfig.h: increased MAX_ACCOUNTS to 100
 	* connect.cpp: fix for race condition in Expect command by
 	Dag Nygren dag at newtech.fi
 

@@ -71,7 +71,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   l1->addWidget(tl, 1);
 
   KURLLabel *up = new KURLLabel(parent);
-  up->setText(i18n("Check for rule updates")); 
+  up->setText(i18n("Check for rule updates"));
   up->setURL("http://devel-home.kde.org/~kppp/rules.html");
   connect(up, SIGNAL(leftClickedURL(const QString&)), SLOT(openURL(const QString&)));
 
@@ -134,15 +134,15 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
 
 QString AccountingSelector::fileNameToName(QString s) {
 
-  s.replace(QRegExp("_"), " ");
-  return s;
+  s.replace('_', " ");
+  return KURL::decode_string(s);
 
 }
 
 
 QString AccountingSelector::nameToFileName(QString s) {
 
-  s.replace(QRegExp(" "), "_");
+  s.replace(' ', "_");
   return s;
 
 }
