@@ -1,0 +1,22 @@
+# KDE Config File
+ExDNSDisabled=0
+AutoName=0
+ScriptArguments=,username>,%USERNAME%,password>,%PASSWORD%,arrow keys:,7,
+AccountingEnabled=0
+Phonenumber=55584750
+IPAddr=0.0.0.0
+Domain=ii.uib.no
+Name=Institutt for informatikk
+pppdArguments=-detach,
+Password=%PASSWORD%
+Command=
+ScriptCommands=Send,Expect,Send,Expect,Send,Expect,Send,
+Authentication=0
+DNS=129.177.16.3,129.177.19.6,
+SubnetMask=0.0.0.0
+AccountingFile=
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=

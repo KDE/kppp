@@ -1,0 +1,25 @@
+# KDE Config File
+Name=SimonMedia
+DNS=193.228.80.12,193.228.80.13,
+Domain=sime.com
+AccountingEnabled=1
+ScriptArguments=
+ScriptCommands=
+AccountingFile=/Austria/Standard/Online.rst
+VolumeAccountingEnabled=1
+AutoName=0
+pppdArguments=-detach,defaultroute,modem,debug,crtscts,
+Authentication=3
+Gateway=0.0.0.0
+Phonenumber=0718915250
+Username=%USERNAME%
+Password=%PASSWORD%
+BeforeConnect=
+DisconnectCommand=
+BeforeDisconnect=
+Command=
+StorePassword=1
+DefaultRoute=1
+ExDNSDisabled=0
+IPAddr=0.0.0.0
+SubnetMask=0.0.0.0

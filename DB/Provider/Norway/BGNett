@@ -1,0 +1,24 @@
+# KDE Config File
+ExDNSDisabled=0
+AutoName=1
+ScriptArguments=ogin:,%USERNAME% ppp,assword:,%PASSWORD%,
+AccountingEnabled=0
+Phonenumber=55104290
+IPAddr=0.0.0.0
+Domain=bgnett.no
+Name=bgnett
+VolumeAccountingEnabled=0
+pppdArguments=-detach,
+Password=%PASSWORD%
+BeforeDisconnect=
+Command=
+ScriptCommands=Expect,Send,Expect,Send,
+Authentication=0
+DNS=194.19.41.3,
+SubnetMask=0.0.0.0
+AccountingFile=
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=194.19.41.1
+StorePassword=1
+DisconnectCommand=

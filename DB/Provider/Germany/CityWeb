@@ -1,0 +1,23 @@
+# KDE Config File
+AutoName=0
+ExDNSDisabled=0
+ScriptArguments=ogin:,%USERNAME%,word:,%PASSWORD%,ppp,
+AccountingEnabled=1
+Phonenumber=0029315267000
+IPAddr=0.0.0.0
+Name=cityweb
+Domain=cityweb.de
+VolumeAccountingEnabled=0
+pppdArguments=-detach,
+Password=%PASSWORD%
+Command=
+ScriptCommands=Expect,Send,Expect,Send,Send,
+Authentication=0
+SubnetMask=0.0.0.0
+DNS=193.189.224.2,193.189.231.2,
+AccountingFile=/Germany/Telekom_City.rst
+DefaultRoute=1
+Username=%USERNAME%
+StorePassword=1
+Gateway=0.0.0.0
+DisconnectCommand=

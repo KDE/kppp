@@ -1,0 +1,24 @@
+# KDE Config File
+ExDNSDisabled=0
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=0224193400
+IPAddr=0.0.0.0
+Domain=fh-rhein-sieg.de
+Name=FH Rhein Sieg
+VolumeAccountingEnabled=0
+pppdArguments=-detach,
+Password=%PASSWORD%
+BeforeDisconnect=
+Command=
+ScriptCommands=
+Authentication=1
+DNS=194.95.66.9
+SubnetMask=0.0.0.0
+AccountingFile=/Germany/Telekom_City.rst
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=

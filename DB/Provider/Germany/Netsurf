@@ -1,0 +1,24 @@
+# KDE Config File
+ExDNSDisabled=0
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=0228964590
+IPAddr=0.0.0.0
+Domain=ivm.de
+Name=IVM
+VolumeAccountingEnabled=0
+pppdArguments=-detach,
+BeforeDisconnect=
+Password=%PASSWORD%
+Command=
+ScriptCommands=
+Authentication=1
+DNS=192.168.1.1
+SubnetMask=0.0.0.0
+AccountingFile=/Germany/Telekom_City.rst
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=
