@@ -23,6 +23,7 @@
 
 #include <qdir.h>
 #include <qapplication.h>
+#include <qtooltip.h>
 #include "conwindow.h"
 #include "docking.h"
 #include "pppdata.h"
@@ -40,7 +41,9 @@ ConWindow::ConWindow(QWidget *parent, const char *name,QWidget *mainwidget,
     hours(0),
     days(0),
     tl1(0),
-    stats(st)
+    stats(st),
+    accountingEnabled(false),
+    volumeAccountingEnabled(false)
 {
   info1 = new QLabel(i18n("Connected at:"), this);
   info2 = new QLabel("", this);
@@ -78,6 +81,10 @@ ConWindow::~ConWindow() {
 
 
 void ConWindow::accounting(bool on) {
+  // cache accounting settings
+  accountingEnabled = on;
+  volumeAccountingEnabled = gpppdata.VolAcctEnabled();
+
   // delete old layout
   if(tl1 != 0)
     delete tl1;
@@ -94,7 +101,7 @@ void ConWindow::accounting(bool on) {
   if(gpppdata.VolAcctEnabled())
     vol_lines = 1;
 
-  if(on)
+  if(accountingEnabled)
     l1 = new QGridLayout(4 + vol_lines, 2, 5);
   else
     l1 = new QGridLayout(2 + vol_lines, 2, 5);
@@ -126,7 +133,7 @@ void ConWindow::accounting(bool on) {
   l1->addWidget(info2, 0, 1);
   l1->addWidget(timelabel1, 1, 0);
   l1->addWidget(timelabel2, 1, 1);
-  if(on) {
+  if(accountingEnabled) {
     session_bill_l->show();
     session_bill->show();
     total_bill_l->show();
@@ -136,7 +143,7 @@ void ConWindow::accounting(bool on) {
     l1->addWidget(total_bill_l, 3, 0);
     l1->addWidget(total_bill, 3, 1);
 
-    if(gpppdata.VolAcctEnabled()) {
+    if(volumeAccountingEnabled) {
       vollabel->show();
       volinfo->show();
       l1->addWidget(vollabel, 4, 0);
@@ -152,7 +159,7 @@ void ConWindow::accounting(bool on) {
     total_bill_l->hide();
     total_bill->hide();
 
-    if(gpppdata.VolAcctEnabled()) {
+    if(volumeAccountingEnabled) {
       vollabel->show();
       volinfo->show();
       l1->addWidget(vollabel, 2, 0);
@@ -217,8 +224,17 @@ void ConWindow::stopClock() {
 
 
 void ConWindow::timeclick() {
+  QString tooltip = i18n("Connection: %1\n"
+			 "Connected at: %2\n"
+			 "Time connected: %3")
+		    .arg(gpppdata.accname()).arg(info2->text())
+		    .arg(time_string2);
+
+  if(accountingEnabled)
+      tooltip += i18n("\nSession Bill: %1\nTotal Bill: %2")
+		 .arg(session_bill->text()).arg(total_bill->text());
   // volume accounting
-  if(gpppdata.VolAcctEnabled()) {
+  if(volumeAccountingEnabled) {
     QString s;
     if(stats->totalbytes < 1024*10)
       s = i18n("%1 Byte").arg(stats->totalbytes);
@@ -228,6 +244,7 @@ void ConWindow::timeclick() {
       s = i18n("%1 MB").arg(KGlobal::locale()->formatNumber(((float)stats->totalbytes)/(1024.0*1024.0), 1));
 
     volinfo->setText(s);
+    tooltip += i18n("\nVolume: %1").arg(s);
   }
 
   seconds++;
@@ -254,7 +271,7 @@ void ConWindow::timeclick() {
 			   days,hours,minutes,seconds);
 
   else
-    time_string2.sprintf("%02d:%02d:%02d",hours,minutes,seconds);  
+    time_string2.sprintf("%02d:%02d:%02d",hours,minutes,seconds);
 
   caption_string = gpppdata.accname();
   caption_string += " ";
@@ -268,6 +285,8 @@ void ConWindow::timeclick() {
     // otherwise I get a flickering icon
     this->setCaption(caption_string);
   }
+
+  QToolTip::add(DockWidget::dock_widget, tooltip);
 }
 
 

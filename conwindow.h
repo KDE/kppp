@@ -82,6 +82,8 @@ private:
   QLabel *vollabel;
   QLabel *volinfo;
   PPPStats *stats;
+  bool accountingEnabled;
+  bool volumeAccountingEnabled;
 };
 
 
