@@ -112,12 +112,12 @@ void ProviderDB::pageSelected() {
   if(page == page2) {
     next = page2->lb->currentItem() != -1;
   } else if(page == page3) {
-    page3->setDir(page2->lb->text(page2->lb->currentItem()));
+    page3->setDir(*page2->list->at(page2->lb->currentItem()));
     next = page3->lb->currentItem() != -1;
   } else if(page == page4) {
     loadProviderInfo();
-    next = page4->username().length() > 0 &&
-      page4->password().length() > 0;
+    next = !page4->username().isEmpty() &&
+      !page4->password().isEmpty();
   }
 
   setBackEnabled(page, prev);
@@ -129,9 +129,7 @@ void ProviderDB::loadProviderInfo() {
   if(cfg)
     delete cfg;
 
-  QRegExp re(" ");
-  QString loc = page2->lb->text(page2->lb->currentItem());
-  loc = loc.replace(re, "_");
+  QString loc = *page2->list->at(page2->lb->currentItem());
   QString provider = page3->lb->text(page3->lb->currentItem());
   urlEncode(provider);
   QString prov = "kppp/Provider/" + loc;
@@ -213,6 +211,8 @@ PDB_Country::PDB_Country(QWidget *parent) : QWidget(parent) {
   l1->addWidget(lb, 2);
   l1->addStretch(1);
 
+  list = new QStringList;
+
   // fill the listbox
   // set up filter
   QDir d(KGlobal::dirs()->findDirs("appdata", "Provider").first());
@@ -220,24 +220,34 @@ PDB_Country::PDB_Country(QWidget *parent) : QWidget(parent) {
   d.setSorting(QDir::Name);
 
   // read the list of files
-  const QFileInfoList *list = d.entryInfoList();
-  if(list) {
-    QFileInfoListIterator it( *list );
+  const QFileInfoList *flist = d.entryInfoList();
+  if(flist) {
+    QFileInfoListIterator it( *flist );
     QFileInfo *fi;
+    // traverse the flist and insert into the widget
+    for(; (fi = it.current()) != 0; ++it) {
+      if(fi->fileName() != "." && fi->fileName() != "..") {
+        QString dirFile(fi->absFilePath()+"/.directory");
+        QString entryName;
+        if(QFile::exists(dirFile)){
+          KSimpleConfig config(dirFile);
+          config.setDesktopGroup();
+          entryName = config.readEntry("Name");
+        }
+        if (entryName.isNull()) entryName = fi->fileName();
 
-    // traverse the list and insert into the widget
-    QRegExp re("_");
-    while((fi = it.current()) != 0) {      
-      QString fname = fi->fileName();
-      if(fname.length() && fname[0] != '.') {
-        fname = fname.replace(re, " ");
-        lb->insertItem(fname);
+        lb->insertItem(entryName);
+        list->append(fi->fileName());
       }
-      ++it;
     }
   }
 
   tl->activate();
+}
+
+PDB_Country::~PDB_Country()
+{
+  delete list;
 }
 
 void PDB_Country::selectionChanged(int idx) {

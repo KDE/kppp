@@ -52,7 +52,9 @@ class PDB_Country : public QWidget {
   Q_OBJECT
 public:
   PDB_Country(QWidget *parent);
+  ~PDB_Country();
   QListBox *lb;
+  QStringList *list;
 
 public slots:
   void selectionChanged(int);
