@@ -323,7 +323,7 @@ bool AccountingSelector::save() {
 }
 
 void AccountingSelector::openURL(const QString &url) {
-  new KRun( url );
+  new KRun( KURL( url ) );
 }
 
 #include "acctselect.moc"
