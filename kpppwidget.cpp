@@ -275,16 +275,16 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   }
 
   if(m_bCmdlAccount){
-    bool result;
-    result = gpppdata.setAccount(m_strCmdlAccount);
+    bool result = gpppdata.setAccount(m_strCmdlAccount);
     if (!result){
       QString string;
       string = i18n("No such Account:\n%1").arg(m_strCmdlAccount);
       KMessageBox::error(this, string);
       m_bCmdlAccount = false;
       this->show();
-    } else
-      emit cmdl_start();
+    } else {
+      beginConnect();
+    }
   } else
     show();
 
@@ -529,7 +529,7 @@ void KPPPWidget::sigPPPDDied() {
 	   gpppdata.authMethod() == AUTH_PAPCHAP)
           Requester::rq->setSecret(gpppdata.authMethod(),
 				   encodeWord(gpppdata.storedUsername()),
-				   encodeWord(gpppdata.password));
+				   encodeWord(gpppdata.password()));
 
 	con_win->hide();
 	con_win->stopClock();
@@ -575,8 +575,12 @@ void KPPPWidget::expandbutton() {
 void KPPPWidget::beginConnect() {
   // make sure to connect to the account that is selected in the combo box
   // (exeption: an account given by a command line argument)
-  if(!m_bCmdlAccount)
+  if(!m_bCmdlAccount) {
     gpppdata.setAccount(connectto_c->currentText());
+    gpppdata.setPassword(PW_Edit->text());
+  } else {
+    gpppdata.setPassword(gpppdata.storedPassword());
+  }
 
   QFileInfo info(pppdPath());
 
@@ -613,8 +617,6 @@ void KPPPWidget::beginConnect() {
     return;
   }
 
-  gpppdata.setPassword(PW_Edit->text());
-
   // if this is a PAP or CHAP account, ensure that username is
   // supplied
   if(gpppdata.authMethod() == AUTH_PAP ||
@@ -628,10 +630,9 @@ void KPPPWidget::beginConnect() {
 			   "supply a username and a password!"));
       return;
     } else {
-      gpppdata.password = PW_Edit->text();
       if(!Requester::rq->setSecret(gpppdata.authMethod(),
 				   encodeWord(gpppdata.storedUsername()),
-				   encodeWord(gpppdata.password))) {
+				   encodeWord(gpppdata.password()))) {
 	QString s;
 	s = i18n("Cannot create PAP/CHAP authentication\n"
 				     "file \"%1\"").arg(PAP_AUTH_FILE);
