@@ -97,7 +97,8 @@ int ppp_disc = N_PPP;
 static void decode_version (const char *_buf, int *version,
 			    int *modification, int *patch)
   {
-    char *buf = qstrdup(_buf);
+    char *buffer = qstrdup(_buf);
+    char *buf = buffer;
     *version      = (int) strtoul (buf, &buf, 10);
     *modification = 0;
     *patch        = 0;
@@ -120,7 +121,7 @@ static void decode_version (const char *_buf, int *version,
 	*patch        = 0;
       }
 
-    delete [] buf;
+    delete [] buffer;
   }
 
 
