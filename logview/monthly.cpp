@@ -80,7 +80,7 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
   title->setFont(f);
   title->setFixedHeight(title->sizeHint().height()*2);
 
-  bbox = new KButtonBox(this, KButtonBox::VERTICAL);
+  bbox = new KButtonBox(this, Qt::Vertical);
   prev = bbox->addButton(i18n("Prev month"));
   next = bbox->addButton(i18n("Next month"));
   bbox->addStretch(1);
