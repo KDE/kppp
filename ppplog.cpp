@@ -245,7 +245,7 @@ void PPPL_ShowLog() {
   KButtonBox *bbox = new KButtonBox(dlg);
   bbox->addStretch(1);
   QPushButton *write = bbox->addButton(i18n("Write to File"));
-  QPushButton *close = bbox->addButton(i18n("Close"));
+  QPushButton *close = bbox->addButton(KStdGuiItem::close());
   bbox->layout();
   edit->setMinimumSize(600, 250);
   label->setMinimumSize(600, 15);

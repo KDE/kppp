@@ -40,6 +40,7 @@
 #include <qpushbutton.h>
 #include <qlistbox.h>
 #include <kconfig.h>
+#include <kstdguiitem.h>
 
 ModemSelector::ModemSelector(QWidget *parent) : QDialog(parent, 0, true) {
   // set up widgets and such
@@ -68,10 +69,10 @@ ModemSelector::ModemSelector(QWidget *parent) : QDialog(parent, 0, true) {
 
   KButtonBox *bbox = new KButtonBox(this);
   bbox->addStretch(1);
-  ok = bbox->addButton(i18n("OK"));
+  ok = bbox->addButton(KStdGuiItem::ok());
   ok->setDefault(true);
   ok->setEnabled(false);
-  cancel =   bbox->addButton(i18n("Cancel"));
+  cancel =   bbox->addButton(KStdGuiItem::cancel());
   bbox->layout();
   tl->addWidget(bbox);
   setFixedSize(sizeHint());

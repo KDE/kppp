@@ -896,7 +896,7 @@ void KPPPWidget::showNews() {
 
     KButtonBox *bbox = new KButtonBox(&dlg);
     bbox->addStretch(1);
-    QPushButton *ok = bbox->addButton(i18n("OK"));
+    QPushButton *ok = bbox->addButton(KStdGuiItem::ok());
     ok->setDefault(true);
     dlg.connect(ok, SIGNAL(clicked()),
 		&dlg, SLOT(accept()));
