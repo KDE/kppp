@@ -1,8 +1,13 @@
 # KDE Config File
+# $Id$
+# $Source$
+#
+Name=AmisNet
 AccountingEnabled=1
 AccountingFile=/Slovenia/omrezje_0889.rst
 Authentication=1
-AutoName=0
+AutoName=1
+AutoDNS=1
 Command=
 DNS=
 DefaultRoute=1
@@ -11,7 +16,6 @@ Domain=amis.net
 ExDNSDisabled=0
 Gateway=0.0.0.0
 IPAddr=0.0.0.0
-Name=AmisNet
 Password=%PASSWORD%
 ScriptArguments=
 ScriptCommands=

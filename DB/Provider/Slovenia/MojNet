@@ -9,6 +9,7 @@ Authentication=1
 AutoName=0
 Command=
 DNS=
+AutoDNS=1
 DefaultRoute=1
 DisconnectCommand=
 Domain=moj.net
