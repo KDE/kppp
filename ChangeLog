@@ -1,3 +1,10 @@
+2000-02-23  Harri Porten  <porten@kde.org>
+
+	* pppdata.cpp: M1L4 was an invalid command to set the modem
+	volume. Appearently it was even responsible for timeouts. Thanks
+	to "Brian Rolfe" <brianr@corel.com> and drdave1@wwnet.net for
+	their reports.
+
 1999-10-27  Harri Porten  <porten@kde.org>
 
 	* pppstatdlg.cpp: emit cancel() event instead of ignoring attempts

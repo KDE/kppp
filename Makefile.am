@@ -138,7 +138,7 @@ install-data-local:
 	@echo "telecom company/country/region. Thanks."
 	@echo ""
 	@echo "We will be maintaining an archive on the kppp page at"
-	@echo "http://devel-home.kde.org/kppp/index.html"
+	@echo "http://devel-home.kde.org/~kppp/index.html"
 	@echo "WARNING: kppp is by default installed with SETUID bit on!"
 	@echo  "If you are concerned about the SETUID bit, create a modem"
 	@echo "group instead."

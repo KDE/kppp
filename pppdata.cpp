@@ -557,6 +557,10 @@ void PPPData::setVolumeMedium(const char *s) {
 
 
 const char *PPPData::volumeHigh() {
+  // previous versions had a buggy default
+  if(strcmp(readConfig(MODEM_GRP, VOLUME_HIGH, "M1L3"), "M1L4") == 0)
+    return "M1L3";
+
   return readConfig(MODEM_GRP, VOLUME_HIGH, "M1L3");
 }
 
