@@ -1,0 +1,47 @@
+################################################################
+#
+#        Chamadas Nacionais via Teleweb (1011)
+#        origem: Ilhas
+#        
+#        changes 2000-01-07
+#        José Carlos Monteiro
+#        jcm@oninet.pt
+################################################################
+
+name=Teleweb Nacional (Ilhas)
+
+currency_symbol=$
+currency_position=right 
+currency_digits=0
+
+# No Activation
+per_connection=0
+
+# Preço mínimo
+minimum_costs=11.2
+
+# Económico: semana das 21:00 às 09:00; fim-de-semana todo o dia
+#
+default=(0.56, 3)
+
+# Horário Normal (dias úteis das 09:00 às 21:00)
+on (monday..friday) between (9:00..21:00) use (22.4, 60)
+on (monday..friday) between (9:00..21:00) use (1.12, 3, 60)
+
+# Feriados Nacionais (tarifa económica):
+# 1/1        Ano Novo
+# easter-47  Carnaval
+# easter-2   Sexta-feira Santa
+# easter     Páscoa
+# 4/25       25 de Abril
+# 5/1        Dia do Trabalhador
+# easter+60  Corpo de Deus
+# 6/10       Dia de Portugal
+# 8/15       Nossa Senhora da Assunção
+# 10/5       Dia da República
+# 11/1       Dia de Todos os Santos
+# 12/1       Dia da Independência
+# 12/8       Imaculada Conceição
+# 12/25      Natal
+#
+on (1/1, easter-47, easter-2, easter, 4/25, 5/1, easter+60, 6/10, 8/15, 10/5, 11/1, 12/1,12/8, 12/25) between () use (0.56, 3)
