@@ -375,7 +375,7 @@ int AccountWidget::doTab(){
 		exec_w->save();
 		acct->save();
          } else {
-	     KMessageBox::error(this, i18n( "You must enter an unique\n"
+	     KMessageBox::error(this, i18n( "You must enter a unique\n"
 					    "account name"));
 		ok = false;
 	 }

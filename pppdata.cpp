@@ -56,8 +56,8 @@ bool PPPData::open() {
 
   if (config->getConfigState() == KConfig::NoAccess) {
     KMessageBox::error(0L,
-                       i18n("The application-specific config file could "
-                       "not be opened neither read-write nor read-only.\n"
+                       i18n("The application-specific config file could not "
+                       "be opened in either read-write or read-only mode.\n"
                        "The superuser might have to change its ownership "
                        "by issuing the following command in your home directory:\n"
                        "chown {YourUsername} .kde/share/config/kppprc"),

@@ -168,8 +168,8 @@ void ProviderDB::accept() {
 //
 /////////////////////////////////////////////////////////////////////////////
 PDB_Intro::PDB_Intro(QWidget *parent) : QWidget(parent) {
-  QLabel *l = new QLabel(i18n("You will be asked a few questions on informations\n"
-			    "which are needed to establish an Internet connection\n"
+  QLabel *l = new QLabel(i18n("You will be asked a few questions on information\n"
+			    "which is needed to establish an Internet connection\n"
 			    "with your Internet Service Provider (ISP).\n\n"
 			    "Make sure you have the registration form from your\n"
 			    "ISP handy. If you have any problems, try the online\n"
@@ -390,7 +390,7 @@ PDB_DialPrefix::PDB_DialPrefix(QWidget *parent) : QWidget(parent) {
 			    "are using a telephone switch) you can specify\n"
 			    "this here. This prefix is dialed just before the\n"
 			    "phone number.\n\n"
-			    "If you have a telephone switch, you probly need\n"
+			    "If you have a telephone switch, you probably need\n"
 			    "to write \"0\" or \"0,\" here."),
 		       this);
   tl->addWidget(l);

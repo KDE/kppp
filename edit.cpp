@@ -281,8 +281,8 @@ i18n("Here you can select commands to run at certain stages of the\n"
      "connection. The commands are run with your real user id, so\n"
      "you cannot run any commands here requiring root permissions\n"
      "(unless, of course, you are root).\n\n"
-     "Make sure to supply the whole path to the program otherwise\n"
-     "kppp might be unable to find it!"), parent);
+     "Be sure to supply the whole path to the program otherwise\n"
+     "kppp might be unable to find it."), parent);
   l->setMinimumHeight(l->sizeHint().height());
   tl->addWidget(l);
   tl->addStretch(1);
@@ -299,9 +299,9 @@ i18n("Here you can select commands to run at certain stages of the\n"
   before_connect->setMaxLength(COMMAND_SIZE);
   l1->addWidget(before_connect, 0, 1);
   QString tmp = i18n("Allows you to run a program <b>before</b> a connection\n"
-	     "is established. It is called immediatly before\n"
-	     "dialling is begun.\n\n"
-	     "Might be useful, e.g. to stop HylaFAX blocking the\n"
+	     "is established. It is called immediately before\n"
+	     "dialing has begun.\n\n"
+	     "This might be useful, e.g. to stop HylaFAX blocking the\n"
 	     "modem.");
 
   QWhatsThis::add(before_connect_l,tmp);
@@ -400,7 +400,7 @@ IPWidget::IPWidget( QWidget *parent, bool isnewaccount, const char *name )
   dynamicadd_rb->setText(i18n("Dynamic IP address"));
   QWhatsThis::add(dynamicadd_rb,
 		  i18n("Select this option when your computer gets an\n"
-		       "internet address (IP) everytime a\n"
+		       "internet address (IP) every time a\n"
 		       "connection is made.\n"
 		       "\n"
 		       "Almost every Internet Service Provider uses\n"
@@ -596,7 +596,7 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
 	     "removed again.\n"
 	     "\n"
 	     "To add a DNS server, type in the IP address of\n"
-	     "of the DNS server here and click on <b>Add</b>");
+	     "the DNS server here and click on <b>Add</b>");
 
   QWhatsThis::add(dns_label, tmp);
   QWhatsThis::add(dnsipaddr, tmp);
@@ -752,7 +752,7 @@ GatewayWidget::GatewayWidget( QWidget *parent, bool isnewaccount, const char *na
 		       "you are connected to with your modem) to act as\n"
 		       "a gateway. Your computer will send all packets not\n"
 		       "going to a computer inside your local net to this\n"
-		       "computer, which will route this packets.\n"
+		       "computer, which will route these packets.\n"
 		       "\n"
 		       "This is the default for most ISPs, so you should\n"
 		       "probably leave this option on."));
@@ -763,7 +763,7 @@ GatewayWidget::GatewayWidget( QWidget *parent, bool isnewaccount, const char *na
   rb->insert(staticgateway, 1);
   QWhatsThis::add(staticgateway,
 		  i18n("<p>Allows you to specify which computer you want\n"
-		       "to use as gateway (see <i>Default Gateway</i> above"));
+		       "to use as gateway (see <i>Default Gateway</i> above)"));
 
   QHBox *gateBox = new QHBox(box);
   gate_label = new QLabel(i18n("Gateway IP address:"), gateBox);

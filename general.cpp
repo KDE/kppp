@@ -281,7 +281,7 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   enter->insertItem("CR/LF");
   tl->addWidget(enter, 2, 1);
   connect(enter, SIGNAL(activated(int)), SLOT(setenter(int)));
-  tmp = i18n("<p>Specifies how AT commands are send to your\n"
+  tmp = i18n("<p>Specifies how AT commands are sent to your\n"
 	     "modem. Most modems will work fine with the\n"
 	     "default <i>CR/LF</i>. If your modem does not react\n"
 	     "to the init string, you should try different\n"
@@ -447,12 +447,12 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
   l1->addWidget(waitfordt);
   QWhatsThis::add(waitfordt,
 		  i18n("<p>Normally the modem waits for a dial tone\n"
-		       "from your phone line indicating that it can\n"
-		       "start to dial a number. If your modem doesn't\n"
-		       "recognize this sound or your local phone system\n"
-		       "doesn't emit such a tone, uncheck this option\n"
+		       "from your phone line, indicating that it can\n"
+		       "start to dial a number. If your modem does not\n"
+		       "recognize this sound, or your local phone system\n"
+		       "does not emit such a tone, uncheck this option\n"
 		       "\n"
-		       "<b>Default:</b>: on"));
+		       "<b>Default:</b>: On"));
 
   busywait = new KIntNumInput(gpppdata.busyWait(), parent);
   busywait->setLabel(i18n("B&usy wait:"));
@@ -512,7 +512,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 		       "is not responding. Unless you are having\n"
 		       "problems with this, do not modify this setting.\n"
 		       "\n"
-		       "<b>Default</b>: off"));
+		       "<b>Default</b>: Off"));
 #endif
 
   modemcmds = new QPushButton(i18n("Mod&em Commands..."), parent);
