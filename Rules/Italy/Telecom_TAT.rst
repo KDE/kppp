@@ -33,10 +33,10 @@ per_connection=120.0
 default=(0.354, 1)
 on (monday..friday) between (18:30..8:00) use (0.318, 1, 900)
 on (monday..friday) between (8:00..18:30) use (0.612, 1)
-on (monday..friday) between (8:00..18:30) use (0.54, 1, 900)
+on (monday..friday) between (8:00..18:30) use (0.552, 1, 900)
 on (saturday) between (13:00..8:00) use (0.318, 1, 900)
 on (saturday) between (8:00..13:00) use (0.612, 1)
-on (saturday) between (8:00..13:00) use (0.54, 1, 900)
+on (saturday) between (8:00..13:00) use (0.552, 1, 900)
 on (sunday) between () use (0.318, 1, 900)
 
 # Nelle festivita' (Natale, S.Stefano, Capodanno, Pasquetta, ecc) si applica
