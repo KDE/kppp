@@ -1,5 +1,6 @@
 SUBDIRS = Argentina \
 	Austria \
+	Australia \
 	Bangladesh \
 	Belgium \
 	Brasil \
