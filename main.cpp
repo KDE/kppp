@@ -55,6 +55,7 @@
 #include <kconfig.h>
 #include <kmessagebox.h>
 #include <knotifyclient.h>
+#include <kseparator.h>
 #include <qdir.h>
 #include <qwhatsthis.h>
 #include <qmessagebox.h>
@@ -440,9 +441,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
 
-  fline1 = new QFrame(this);
-  fline1->setFrameStyle(QFrame::HLine |QFrame::Sunken);
-  fline1->setFixedHeight(3);
+  fline1 = new KSeparator( KSeparator::HLine, this);
   tl->addWidget(fline1);
 
   QGridLayout *l1 = new QGridLayout(3, 4);
@@ -520,9 +519,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
  		       "Turn it off if <i>kppp</i> routinely connects without\n"
  		       "problems"));
 
-  fline = new QFrame(this);
-  fline->setFrameStyle(QFrame::HLine |QFrame::Sunken);
-  fline->setFixedHeight(3);
+  fline = new KSeparator( KSeparator::HLine, this);
   tl->addWidget(fline);
 
   QHBoxLayout *l2 = new QHBoxLayout;
