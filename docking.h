@@ -29,11 +29,11 @@
 #define _DOCKING_H_
 
 #include <qpixmap.h>
-#include <kdockwindow.h>
+#include <ksystemtray.h>
 
 class PPPStats;
 
-class DockWidget : public KDockWindow {
+class DockWidget : public KSystemTray {
   Q_OBJECT
 public:
   DockWidget(QWidget * parent, const char *name, PPPStats *st);
