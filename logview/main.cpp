@@ -31,7 +31,7 @@
 #define F_EXIT     101
 
 
-static const char *description = 
+static const char *description =
 	I18N_NOOP("KPPP log viewer");
 
 static const char *version = "v0.0.2";
@@ -39,7 +39,7 @@ static const char *version = "v0.0.2";
 static KCmdLineOptions option[] =
 {
    { "kppp", I18N_NOOP("Run in KPPP mode"), 0 },
-   { 0, 0, 0 }
+   KCmdLineLastOption
 };
 
 
@@ -63,12 +63,12 @@ TopWidget::TopWidget() : KMainWindow(0, "") {
 
   // remove buttons
   if(!kpppmode) {
-    // create menu 
+    // create menu
     mb = new KMenuBar(this);
     QPopupMenu *fm = new QPopupMenu;
     fm->insertItem(i18n("E&xit"), F_EXIT);
     mb->insertItem(i18n("&File"), fm);
-    
+
     mb->setAccel(CTRL + Key_X, F_EXIT);
     connect(mb, SIGNAL(activated(int)),
 	    this, SLOT(menuCallback(int)));
@@ -84,7 +84,7 @@ TopWidget::TopWidget() : KMainWindow(0, "") {
 	    kapp, SLOT(quit()));
   }
 
-  setMinimumSize(mw->sizeHint().width() + 15, 
+  setMinimumSize(mw->sizeHint().width() + 15,
                  mw->sizeHint().height() + 120);
   setCentralWidget(w);
 }
