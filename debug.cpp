@@ -25,6 +25,8 @@
 #include "pppdata.h"
 #include <klocale.h>
 
+#include <assert.h>
+
 extern KPPPWidget *p_kppp;
 
 myMultiEdit::myMultiEdit(QWidget *parent, const char *name)
