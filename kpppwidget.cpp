@@ -121,7 +121,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 		     "terminal-based or script-based authentication.\n"
 		     "\n"
 		     "<b>Important</b>: case is important here:\n"
-		     "<i>myusername</i> is not the same as <i>MyUserName</i>!");
+		     "<i>myusername</i> is not the same as <i>MyUserName</i>.");
 
   QWhatsThis::add(ID_Label,tmp);
   QWhatsThis::add(ID_Edit,tmp);
@@ -142,7 +142,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 	     "terminal-based or script-based authentication.\n"
 	     "\n"
 	     "<b>Important</b>: case is important here:\n"
-	     "<i>mypassword</i> is not the same as <i>MyPassword</i>!");
+	     "<i>mypassword</i> is not the same as <i>MyPassword</i>.");
 
   QWhatsThis::add(PW_Label,tmp);
   QWhatsThis::add(PW_Edit,tmp);
@@ -509,7 +509,7 @@ void KPPPWidget::sigPPPDDied() {
 	QString msg;
 	if (gpppdata.pppdError() == E_IF_TIMEOUT)
 	    msg = i18n("Timeout expired while waiting for the PPP interface "
-                       "to come up!");
+                       "to come up.");
 	else {
 	    msg = i18n("<p>The pppd daemon died unexpectedly!</p>");
 	    Requester::rq->pppdExitStatus();
@@ -630,7 +630,7 @@ void KPPPWidget::beginConnect() {
 			   i18n(
                            "You have selected the authentication "
 			   "method PAP or CHAP. This requires that you "
-			   "supply a username and a password!"));
+			   "supply a username and a password."));
       return;
     } else {
       if(!Requester::rq->setSecret(gpppdata.authMethod(),
@@ -646,7 +646,7 @@ void KPPPWidget::beginConnect() {
   }
 
   if (gpppdata.phonenumber().isEmpty()) {
-    QString s = i18n("You must specify a telephone number!");
+    QString s = i18n("You must specify a telephone number.");
     KMessageBox::error(this, s);
     return;
   }
@@ -776,7 +776,7 @@ void KPPPWidget::startAccounting() {
 
   if(!acct->loadRuleSet(gpppdata.accountingFile())) {
     QString s= i18n("Can not load the accounting "
-    		    "ruleset \"%1\"!").arg(gpppdata.accountingFile());
+    		    "ruleset \"%1\".").arg(gpppdata.accountingFile());
 
     // starting the messagebox with a timer will prevent us
     // from blocking the calling function ConnectWidget::timerEvent

@@ -760,7 +760,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 		bm += i18n("ERROR: Nested too deep, ignored.");
 		vmain=20;
 		cancelbutton();
-	        KMessageBox::error(0, i18n("Loops nested too deeply!"));
+	        KMessageBox::error(0, i18n("Loops nested too deeply."));
 	} else {
         	setExpect(scriptArgument);
 		loopstartindex[loopnest] = scriptindex;
@@ -776,7 +776,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       if (scriptCommand == "LoopEnd") {
         QString bm = i18n("Loop End %1").arg(scriptArgument);
 	if ( loopnest <= 0 ) {
-		bm = i18n("LoopEnd without matching Start! Line: %1").arg(bm);
+		bm = i18n("LoopEnd without matching Start. Line: %1").arg(bm);
 		vmain=20;
 		cancelbutton();
 	        KMessageBox::error(0, bm);
@@ -1041,7 +1041,7 @@ void ConnectWidget::script_timed_out() {
     prompt->hide();
 
   prompt->setConsumed();
-  messg->setText(i18n("Script timed out!"));
+  messg->setText(i18n("Script timed out."));
   Modem::modem->hangup();
   emit stopAccounting();
   p_kppp->con_win->stopClock();
