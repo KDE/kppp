@@ -191,6 +191,15 @@ bool RuleSet::parseEntry(RULE &ret, QString s, int year) {
     ret.date.until = QDate(year, m, d);
     return TRUE;
   }
+  
+  if(s.contains(QRegExp("^[0-9]+.[0-9]+$"))) {
+    int d, m;
+    sscanf(s.ascii(), "%d.%d", &d, &m);
+    ret.type = 1;
+    ret.date.from = QDate(year, m, d);
+    ret.date.until = QDate(year, m, d);
+    return TRUE;
+  }
 
   if(s.right(3) == "day") {
     int d = dayNameToInt(s.ascii());
