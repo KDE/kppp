@@ -235,9 +235,10 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   con = new ConnectWidget(0, "con", stats);
   KWin::setIcons(con->winId(), kapp->icon(), kapp->miniIcon() );
   connect(this, SIGNAL(begin_connect()),con, SLOT(preinit()));
-  con->setGeometry(QApplication::desktop()->width()/2-175,
-		    QApplication::desktop()->height()/2-55,
-		    350,110);
+  // Is this the best we can do here?  it's not right.
+  QRect desk = QApplication::desktop()->screenGeometry(
+               QApplication::desktop()->screenNumber(topLevelWidget()));
+  con->setGeometry(desk.center().x()-175, desk.center().y()-55, 350,110);
 
   // connect the ConnectWidgets various signals
   connect(con, SIGNAL(closeDebugWindow()),
@@ -257,12 +258,10 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   connect(KApplication::kApplication(), SIGNAL(shutDown()),
 	  this, SLOT(shutDown()));
 	  
-  debugwindow->setGeometry(QApplication::desktop()->width()/2+190,
-			   QApplication::desktop()->height()/2-55,
+  debugwindow->setGeometry(desk.center().x()+190, desk.center().y()-55,
 			   debugwindow->width(),debugwindow->height());
 
-  move(QApplication::desktop()->width()/2-width()/2,
-       QApplication::desktop()->height()/2-height()/2);
+  move(desk.center().x()-width()/2, desk.center().y()-height()/2);
 
 
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs();

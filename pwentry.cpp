@@ -43,8 +43,9 @@ PWEntry::PWEntry( QWidget *parent, const char *name )
 		 90);
    }
    else{
-     setGeometry( QApplication::desktop()->width()/2 - 150,
-		  QApplication::desktop()->height()/2 - 50, 300, 90 );
+     int scnum = QApplication::desktop()->screenNumber(parent);
+     QRect desk = QApplication::desktop()->screenGeometry(scnum);
+     setGeometry( desk.center().x() - 150, desk.center().y() - 50, 300, 90 );
    }
 
    frame = new QGroupBox(name, this );
