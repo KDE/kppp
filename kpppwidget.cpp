@@ -607,8 +607,8 @@ void KPPPWidget::sigPPPDDied() {
 		msg += i18n("<p>Exit status: %1").arg(Requester::rq->lastStatus);
 		msg += i18n("</p><p>See 'man pppd' for an explanation of the error "
 			    "codes or take a look at the kppp FAQ on "
-			    "  <a href=http://devel-home.kde.org/~kppp/index.html>"
-			    "http://devel-home.kde.org/~kppp/index.html</a></p>");
+			    "  <a href=\"%1\">%1</a></p>")
+                       .arg("http://developer.kde.org/~kppp/index.html");
 	    }
 	}
 
