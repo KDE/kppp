@@ -2,8 +2,8 @@
  *            kPPP: A pppd front end for the KDE project
  *
  * $Id$
- * 
- *            Copyright (C) 1997 Bernd Johannes Wuebben 
+ *
+ *            Copyright (C) 1997 Bernd Johannes Wuebben
  *                   wuebben@math.cornell.edu
  *
  *
@@ -54,13 +54,13 @@
 
 // Every PPP_STATS_INTERVAL milli seconds kppp will read
 // and display the ppp statistics IF the stats window
-// is visible. If the stats window is not visible 
+// is visible. If the stats window is not visible
 // the stats are not taken.
 // 200 milli secs is 5 times per second and results in
-// 0 load on my machine. Play with this parameter if 
+// 0 load on my machine. Play with this parameter if
 // you feel like it.
 
-#define PPP_STATS_INTERVAL 200 
+#define PPP_STATS_INTERVAL 200
 // comment this out to get some more debugging info
 /*
 #define MY_DEBUG
@@ -91,7 +91,7 @@ const unsigned int MAX_CMDLEN = 2024;
 # ifdef BSD
 #  define	LOCK_DIR "/var/spool/lock"
 # else  /* BSD */
-#  define	LOCK_DIR "/usr/spool/locks"
+#  define	LOCK_DIR "/var/spool/locks"
 # endif /* BSD */
 #endif  /* linux */
 

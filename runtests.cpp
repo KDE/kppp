@@ -2,8 +2,8 @@
  *            kPPP: A pppd front end for the KDE project
  *
  * $Id$
- * 
- *            Copyright (C) 1997 Bernd Johannes Wuebben 
+ *
+ *            Copyright (C) 1997 Bernd Johannes Wuebben
  *                   wuebben@math.cornell.edu
  *
  * This file was contributed by Mario Weilguni <mweilguni@sime.com>
@@ -36,6 +36,7 @@
 #include <netinet/in.h>
 
 #ifdef HAVE_RESOLV_H
+#include <arpa/nameser.h>
 #include <resolv.h>
 #endif
 
@@ -66,7 +67,7 @@ static void decode_version (const char *_buf, int *version,
     *version      = (int) strtoul (buf, &buf, 10);
     *modification = 0;
     *patch        = 0;
-    
+
     if (*buf == '.')
       {
 	++buf;
@@ -77,7 +78,7 @@ static void decode_version (const char *_buf, int *version,
 	    *patch = (int) strtoul (buf, &buf, 10);
 	  }
       }
-    
+
     if (*buf != '\0')
       {
 	*version      =
@@ -147,7 +148,7 @@ int uidFromName(const char *uname) {
       return uid;
     }
   }
-  
+
   endpwent();
   return -1;
 }
@@ -178,7 +179,7 @@ const char* getHomeDir() {
     hd = homedirFromUid(getuid());
     ranTest = true;
   }
-  
+
   return hd;
 }
 

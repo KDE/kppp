@@ -39,13 +39,13 @@
 
 #ifdef __osf__
 #define _POSIX_PII_SOCKET
-extern "C" int sethostname(char *name, int name_len); 
+extern "C" int sethostname(char *name, int name_len);
 #endif
 
 #include <sys/types.h>
 #include <sys/uio.h>
 #include <sys/stat.h>
-#include <sys/socket.h> 
+#include <sys/socket.h>
 #include <sys/ioctl.h>
 #include <sys/un.h>
 #include <sys/wait.h>
@@ -87,11 +87,19 @@ extern "C" int sethostname(char *name, int name_len);
 #include "devices.h"
 
 #ifdef HAVE_RESOLV_H
+#include <arpa/nameser.h>
 #include <resolv.h>
 #endif
 
 #ifndef _PATH_RESCONF
 #define _PATH_RESCONF "/etc/resolv.conf"
+#endif
+
+#ifdef _XPG4_2
+extern "C" {
+  ssize_t recvmsg(int, struct msghdr *, int);
+  ssize_t sendmsg(int, const struct msghdr *, int);
+}
 #endif
 
 #define MY_ASSERT(x)  if (!(x)) { \
@@ -133,7 +141,7 @@ void Opener::mainLoop() {
 
   iov.iov_base = IOV_BASE_CAST &request;
   iov.iov_len = sizeof(request);
-  
+
   msg.msg_name = 0L;
   msg.msg_namelen = 0;
   msg.msg_iov = &iov;
@@ -176,7 +184,7 @@ void Opener::mainLoop() {
 	Debug("Opener: received OpenLock\n");
 	MY_ASSERT(len == sizeof(struct OpenLockRequest));
 	flags = request.lock.flags;
-	MY_ASSERT(flags == O_RDONLY || flags == O_WRONLY|O_TRUNC|O_CREAT); 
+	MY_ASSERT(flags == O_RDONLY || flags == O_WRONLY|O_TRUNC|O_CREAT);
 	if(flags == O_WRONLY|O_TRUNC|O_CREAT)
 	  mode = 0644;
 	else
@@ -196,7 +204,7 @@ void Opener::mainLoop() {
 	//       return -1;
 	//   } else {
 	//     // make sure that this is a regular file
-	//     if(!S_ISREG(st.st_mode)) 
+	//     if(!S_ISREG(st.st_mode))
 	//       return -1;
 	//   }
 	if ((fd = open(lockfile, flags, mode)) == -1) {
@@ -294,7 +302,7 @@ void Opener::mainLoop() {
 	response.status = pppdExitStatus;
 	sendResponse(&response);
 	break;
-	
+
       case Stop:
 	Debug("Opener: received STOP command");
 	_exit(0);
@@ -414,7 +422,7 @@ bool Opener::createAuthFile(Auth method, char *username, char *password) {
            continue;
         fputs(line, fout);
       }
-      fclose(fin);    
+      fclose(fin);
     }
 
     // append user/pass pair
@@ -508,8 +516,13 @@ bool Opener::execpppd(const char *arguments) {
       // become a session leader and let /dev/ttySx
       // be the controlling terminal.
       pgrpid = setsid();
+#ifdef TIOCSCTTY
       if(ioctl(ttyfd, TIOCSCTTY, 0)<0)
         fprintf(stderr, "ioctl() failed.\n");
+#elif defined (TIOCSPGRP)
+       if(ioctl(ttyfd, TIOCSPGRP, &pgrpid)<0)
+       fprintf(stderr, "ioctl() failed.\n");
+#endif
       if(tcsetpgrp(ttyfd, pgrpid)<0)
         fprintf(stderr, "tcsetpgrp() failed.\n");
 
@@ -544,7 +557,7 @@ bool Opener::execpppd(const char *arguments) {
 
 bool Opener::killpppd() {
   if(pppdPid > 0) {
-    Debug2("In killpppd(): Sending SIGTERM to %d\n", pppdPid);    
+    Debug2("In killpppd(): Sending SIGTERM to %d\n", pppdPid);
     if(kill(pppdPid, SIGTERM) < 0) {
       Debug2("Error terminating %d. Sending SIGKILL\n", pppdPid);
       if(kill(pppdPid, SIGKILL) < 0) {
@@ -562,15 +575,15 @@ void Opener::parseargs(char* buf, char** args) {
   int quotes;
 
   while(nargs < MaxArgs-1 && *buf != '\0') {
-    
+
     quotes = 0;
-    
+
     // Strip whitespace. Use nulls, so that the previous argument is
     // terminated automatically.
-     
+
     while ((*buf == ' ' ) || (*buf == '\t' ) || (*buf == '\n' ) )
       *buf++ = '\0';
-    
+
     // detect begin of quoted argument
     if (*buf == '"' || *buf == '\'') {
       quotes = *buf;
@@ -582,7 +595,7 @@ void Opener::parseargs(char* buf, char** args) {
       *args++ = buf;
       nargs++;
     }
-    
+
     if (!quotes)
       while ((*buf != '\0') && (*buf != '\n') &&
 	     (*buf != '\t') && (*buf != ' '))
@@ -591,9 +604,9 @@ void Opener::parseargs(char* buf, char** args) {
       while ((*buf != '\0') && (*buf != quotes))
 	buf++;
       *buf++ = '\0';
-    } 
+    }
   }
- 
+
   *args = 0L;
 }
 

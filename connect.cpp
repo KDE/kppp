@@ -1,10 +1,10 @@
 /*
  *            kPPP: A pppd front end for the KDE project
  *
- * $Id$
- * 
- *            Copyright (C) 1997 Bernd Johannes Wuebben 
+ *
+ *            Copyright (C) 1997 Bernd Johannes Wuebben
  *                   wuebben@math.cornell.edu
+ *            Copyright (C) 1998-2000 Harri Porten <porten@kde.org>
  *
  * based on EzPPP:
  * Copyright (C) 1997  Jay Painter
@@ -27,7 +27,7 @@
 #include <config.h>
 
 #include <qdir.h>
-#include <qregexp.h> 
+#include <qregexp.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 
@@ -40,6 +40,10 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <sys/ioctl.h>
+
+#ifdef _XPG4_2
+#define __xnet_connect	connect
+#endif
 
 #include <errno.h>
 
@@ -76,7 +80,7 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
     // initialize some important variables
     myreadbuffer(""),
     main_timer_ID(0),
-    vmain(0),  
+    vmain(0),
     scriptindex(0),
     loopnest(0),
     loopend(false),
@@ -102,7 +106,7 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   messg = new QLabel(this, "messg");
   messg->setFrameStyle(QFrame::Panel|QFrame::Sunken);
   messg->setAlignment(AlignCenter);
-  messg->setText(i18n("Sorry, can't create modem lock file."));  
+  messg->setText(i18n("Sorry, can't create modem lock file."));
   messg->setMinimumHeight(messg->sizeHint().height() + 5);
   int messw = (messg->sizeHint().width() * 12) / 10;
   messw = QMAX(messw,280);
@@ -115,7 +119,7 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   QHBoxLayout *l1 = new QHBoxLayout(10);
   tl->addLayout(l1);
   l1->addStretch(1);
-  
+
   debug = new QPushButton(i18n("Log"), this);
   connect(debug, SIGNAL(clicked()), SLOT(debugbutton()));
 
@@ -140,16 +144,16 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
 
   timeout_timer = new QTimer(this);
   connect(timeout_timer, SIGNAL(timeout()), SLOT(script_timed_out()));
-  
+
   inittimer = new QTimer(this);
   connect(inittimer, SIGNAL(timeout()), SLOT(init()));
 
   if_timeout_timer = new QTimer(this);
   connect(if_timeout_timer, SIGNAL(timeout()), SLOT(if_waiting_timed_out()));
-  
+
   connect(this,SIGNAL(if_waiting_signal()),this,SLOT(if_waiting_slot()));
 
-  prompt = new PWEntry( this, "pw" );         
+  prompt = new PWEntry( this, "pw" );
   if_timer = new QTimer(this);
   connect(if_timer,SIGNAL(timeout()), SLOT(if_waiting_slot()));
 }
@@ -219,7 +223,7 @@ void ConnectWidget::init() {
     return;
   }
 
-  if (lock == -1) {    
+  if (lock == -1) {
     messg->setText(i18n("Sorry, can't create modem lock file."));
     vmain = 20; // wait until cancel is pressed
     return;
@@ -236,10 +240,10 @@ void ConnectWidget::init() {
 
       Modem::modem->stop();
       Modem::modem->notify(this, SLOT(readChar(unsigned char)));
-      
+
       // if we are stuck anywhere we will time out
-      timeout_timer->start(gpppdata.modemTimeout()*1000); 
-      
+      timeout_timer->start(gpppdata.modemTimeout()*1000);
+
       // this timer will run the script etc.
       main_timer_ID = startTimer(10);
 
@@ -251,7 +255,7 @@ void ConnectWidget::init() {
   messg->setText(Modem::modem->modemMessage());
   vmain = 20; // wait until cancel is pressed
   Modem::modem->unlockdevice();
-}                  
+}
 
 
 void ConnectWidget::timerEvent(QTimerEvent *) {
@@ -276,7 +280,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
     }
     setExpect(gpppdata.modemInitResp());
     writeline(gpppdata.modemInitStr());
-    usleep(gpppdata.modemInitDelay() * 10000); // 0.01 - 3.0 sec       
+    usleep(gpppdata.modemInitDelay() * 10000); // 0.01 - 3.0 sec
     vmain = 3;
     return;
   }
@@ -321,9 +325,9 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       if(++dialnumber >= plist.count())
         dialnumber = 0;
       writeline(pn);
-      
+
       setExpect(gpppdata.modemConnectResp());
-      vmain = 100;  
+      vmain = 100;
       return;
     }
   }
@@ -338,7 +342,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       return;
     }
 
-    if(readbuffer.contains(gpppdata.modemBusyResp())) {      
+    if(readbuffer.contains(gpppdata.modemBusyResp())) {
       timeout_timer->stop();
       timeout_timer->start(gpppdata.modemTimeout()*1000);
 
@@ -350,14 +354,14 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	QString bm = i18n("Line Busy. Waiting: %1 seconds").arg(gpppdata.busyWait());
 	messg->setText(bm);
 	emit debugMessage(bm);
-      
+
 	pausing = true;
-      
+
 	pausetimer->start(gpppdata.busyWait()*1000, true);
 	timeout_timer->stop();
       }
 
-      Modem::modem->setDataMode(false); 
+      Modem::modem->setDataMode(false);
       vmain = 0;
       return;
     }
@@ -479,12 +483,12 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	QString bm = i18n("Pause %1 seconds").arg(scriptArgument);
 	messg->setText(bm);
 	emit debugMessage(bm);
-	
+
 	pausing = true;
-	
+
 	pausetimer->start(scriptArgument.toInt()*1000, true);
 	timeout_timer->stop();
-	
+
 	scriptindex++;
 	return;
       }
@@ -496,10 +500,10 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	QString bm = i18n("Timeout %1 seconds").arg(scriptArgument);
 	messg->setText(bm);
 	emit debugMessage(bm);
-	
+
 	scriptTimeout=scriptArgument.toInt()*1000;
         timeout_timer->start(scriptTimeout);
-	
+
 	scriptindex++;
 	return;
       }
@@ -510,13 +514,13 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
 	writeline(gpppdata.modemHangupStr());
 	setExpect(gpppdata.modemHangupResp());
-	
+
 	scriptindex++;
 	return;
       }
 
       if (scriptCommand == "Answer") {
-	
+
 	timeout_timer->stop();
 
 	messg->setText(i18n("Answer"));
@@ -533,7 +537,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	emit debugMessage(bm);
 
 	QString idstring = gpppdata.storedUsername();
-	
+
 	if(!idstring.isEmpty() && firstrunID) {
 	  // the user entered an Id on the main kppp dialog
 	  writeline(idstring);
@@ -569,7 +573,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	emit debugMessage(bm);
 
 	QString pwstring = gpppdata.Password();
-	
+
 	if(!pwstring.isEmpty() && firstrunPW) {
 	  // the user entered a password on the main kppp dialog
 	  writeline(pwstring);
@@ -599,14 +603,14 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	     }
 	}
       }
- 
+
       if (scriptCommand == "Prompt") {
 	QString bm = i18n("Prompting %1");
 
-        // if the scriptindex (aka the prompt text) includes a ## marker 
-        // this marker should get substituted with the contents of our stored 
+        // if the scriptindex (aka the prompt text) includes a ## marker
+        // this marker should get substituted with the contents of our stored
         // variable (from the subsequent scan).
-	
+
 	QString ts = scriptArgument;
 	int vstart = ts.find( "##" );
 	if( vstart != -1 ) {
@@ -720,7 +724,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
   }
 
   if(vmain == 30) {
-    if (termwindow->isVisible()) 
+    if (termwindow->isVisible())
       return;
     if (termwindow->pressedContinue())
       vmain = 10;
@@ -728,7 +732,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       cancelbutton();
   }
 
-  if(vmain == 10) { 
+  if(vmain == 10) {
     if(!expecting) {
 
       int result;
@@ -752,7 +756,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	  return;
 	}
       }
-      
+
       // Close the tty. This prevents the QTimer::singleShot() in
       // Modem::readtty() from re-enabling the socket notifier.
       // The port is still held open by the helper process.
@@ -775,7 +779,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
       if(result) {
         if(!gpppdata.autoDNS())
-          adddns(); 
+          adddns();
 
 	// O.K we are done here, let's change over to the if_waiting loop
 	// where we wait for the ppp if (interface) to come up.
@@ -783,7 +787,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	emit if_waiting_signal();
       } else {
 
-	// starting pppd wasn't successful. Error messages were 
+	// starting pppd wasn't successful. Error messages were
 	// handled by execppp();
 	if_timeout_timer->stop();
 	this->hide();
@@ -831,7 +835,7 @@ void ConnectWidget::readChar(unsigned char c) {
     // for use in the prompt command
     if( scanning )
        scanbuffer += c;
- 
+
     // add to debug window
     emit debugPutChar(c);
 
@@ -911,10 +915,10 @@ void ConnectWidget::cancelbutton() {
   Requester::rq->removeSecret(AUTH_PAP);
   Requester::rq->removeSecret(AUTH_CHAP);
   removedns();
-  
+
   kapp->processEvents();
 
-  Requester::rq->killPPPDaemon();  
+  Requester::rq->killPPPDaemon();
   Modem::modem->hangup();
 
   this->hide();
@@ -932,7 +936,7 @@ void ConnectWidget::cancelbutton() {
   }
   prompt->setConsumed();
 
-  if(quit_on_disconnect) 
+  if(quit_on_disconnect)
     kapp->exit(0);
 }
 
@@ -947,7 +951,7 @@ void ConnectWidget::script_timed_out() {
 
   if (prompt->isVisible())
     prompt->hide();
-  
+
   prompt->setConsumed();
   messg->setText(i18n("Script timed out!"));
   Modem::modem->hangup();
@@ -990,7 +994,7 @@ void ConnectWidget::if_waiting_timed_out() {
   if_timer->stop();
   if_timeout_timer->stop();
   kdDebug(5002) << "if_waiting_timed_out()" << endl;
-  
+
   gpppdata.setpppdError(E_IF_TIMEOUT);
 
   // let's kill the stuck pppd
@@ -1001,7 +1005,7 @@ void ConnectWidget::if_waiting_timed_out() {
 
 
   // killing ppp will generate a SIGCHLD which will be caught in pppdie()
-  // in main.cpp what happens next will depend on the boolean 
+  // in main.cpp what happens next will depend on the boolean
   // reconnect_on_disconnect which is set in ConnectWidget::init();
 }
 
@@ -1019,13 +1023,13 @@ void ConnectWidget::if_waiting_slot() {
       return;
     }
 
-    if_timer->start(100, TRUE); // single shot 
+    if_timer->start(100, TRUE); // single shot
     return;
   }
 
   // O.K the ppp interface is up and running
   // give it a few time to come up completly (0.2 seconds)
-  if_timeout_timer->stop(); 
+  if_timeout_timer->stop();
   if_timer->stop();
   usleep(200000);
 
@@ -1042,7 +1046,7 @@ void ConnectWidget::if_waiting_slot() {
     messg->setText(i18n("Running Startup Command ..."));
 
     // make sure that we don't get any async errors
-    kapp->flushX(); 
+    kapp->flushX();
     execute_command(gpppdata.command_on_connect());
     messg->setText(i18n("Done"));
   }
@@ -1069,10 +1073,10 @@ void ConnectWidget::if_waiting_slot() {
     DockWidget::dock_widget->show();
     DockWidget::dock_widget->take_stats();
     this->hide();
-  } 
+  }
   else {
     p_kppp->con_win->show();
-    
+
     if(gpppdata.get_iconify_on_connect()) {
       p_kppp->con_win->showMinimized();
     }
@@ -1102,7 +1106,7 @@ bool ConnectWidget::execppp() {
   if(gpppdata.ipaddr() != "0.0.0.0" ||
      gpppdata.gateway() != "0.0.0.0") {
     if(gpppdata.ipaddr() != "0.0.0.0") {
-      command += " "; 
+      command += " ";
       command += gpppdata.ipaddr();
       command +=  ":";
     }
@@ -1226,7 +1230,7 @@ void auto_hostname() {
     }
   }
 
-}  
+}
 
 // Replace the DNS domain entry in the /etc/resolv.conf file and
 // disable the nameserver entries if option is enabled
@@ -1262,9 +1266,9 @@ void add_domain(const QString &domain) {
 
       for(int j=0; j < i; j++) {
 	if((resolv[j].contains("domain") ||
-	      ( resolv[j].contains("nameserver") 
-		&& !resolv[j].contains("#kppp temp entry") 
-		&& gpppdata.exDNSDisabled())) 
+	      ( resolv[j].contains("nameserver")
+		&& !resolv[j].contains("#kppp temp entry")
+		&& gpppdata.exDNSDisabled()))
 	        && !resolv[j].contains("#entry disabled by kppp")) {
 
           write(fd, "# ", 2);
@@ -1281,7 +1285,7 @@ void add_domain(const QString &domain) {
     }
     close(fd);
   }
-}  
+}
 
 
 // adds the DNS entries in the /etc/resolv.conf file
@@ -1303,7 +1307,7 @@ void adddns()
     close(fd);
   }
   add_domain(gpppdata.domain());
-}  
+}
 
 void addpeerdns() {
   int fd, fd2;
@@ -1324,7 +1328,7 @@ void addpeerdns() {
     close(fd);
   }
   add_domain(gpppdata.domain());
-}  
+}
 
 // remove the dns entries from the /etc/resolv.conf file
 void removedns() {
@@ -1370,6 +1374,6 @@ void removedns() {
     modified_hostname = FALSE;
   }
 
-}  
+}
 
 #include "connect.moc"

@@ -35,6 +35,11 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
+#ifdef _XPG4_2
+extern "C" int __xnet_socketpair(int, int, int, int *);
+#define __xnet_connect	connect
+#endif
+
 #ifdef HAVE_SYS_PARAM_H
 #include <sys/param.h>
 #endif
@@ -743,7 +748,7 @@ void KPPPWidget::resetaccounts() {
        if(gpppdata.defaultAccount() == connectto_c->text(i)) {
  	connectto_c->setCurrentItem(i);
 	gpppdata.setAccountbyIndex(i);
-	
+
 	ID_Edit->setText(gpppdata.storedUsername());
 	PW_Edit->setText(gpppdata.storedPassword());
     }
@@ -836,7 +841,6 @@ void KPPPWidget::sigPPPDDied() {
 	con->hide();
 
         gpppdata.setpppdRunning(false);
-	
 	KNotifyClient::beep();
 	QString msg;
 	if (gpppdata.pppdError() == E_IF_TIMEOUT)
@@ -852,7 +856,7 @@ void KPPPWidget::sigPPPDDied() {
 			    "  http://devel-home.kde.org/~kppp/index.html");
 	    }
 	}
-	
+
 	if(QMessageBox::critical(0, i18n("Error"), msg, i18n("OK"), i18n("Details...")))
 	  PPPL_ShowLog();
       } else { /* reconnect on disconnect */
@@ -993,7 +997,7 @@ void KPPPWidget::beginConnect() {
     debugwindow->show();
     con->raise();
     con->debug->setText(i18n("Log")); // set Log/Hide button text to Hide
-  }	
+  }
 
   emit begin_connect();
 }
@@ -1190,7 +1194,7 @@ pid_t execute_command (const QString & cmd) {
 
     system(command);
     _exit(0);
-  }	
+  }
 
   return id;
 }

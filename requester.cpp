@@ -35,7 +35,7 @@
 #include <signal.h>
 #include <sys/uio.h>
 #include <sys/types.h>
-#include <sys/socket.h> 
+#include <sys/socket.h>
 #include <sys/un.h>
 #include <fcntl.h>
 #include <assert.h>
@@ -45,6 +45,13 @@
 #ifdef __osf__
 #undef accept
 extern "C" unsigned int alarm(unsigned int);
+#endif
+
+#ifdef _XPG4_2
+extern "C" {
+  ssize_t sendmsg(int, const struct msghdr *, int);
+  ssize_t recvmsg(int, struct msghdr *, int);
+}
 #endif
 
 #include <kdebug.h>
@@ -68,9 +75,9 @@ Requester::Requester(int s) : socket(s) {
 Requester::~Requester() {
 }
 
-// 
+//
 // Receive file name and file descriptors from envoy
-//  
+//
 int Requester::recvFD() {
   struct { struct cmsghdr cmsg; int fd; } control;
   struct msghdr	msg;
@@ -101,7 +108,7 @@ int Requester::recvFD() {
 
   fd = -1;
 
-  // set alarm in case recvmsg() hangs 
+  // set alarm in case recvmsg() hangs
   signal(SIGALRM, recv_timeout);
   alarm(2);
 
@@ -109,7 +116,7 @@ int Requester::recvFD() {
 
   alarm(0);
   signal(SIGALRM, SIG_DFL);
-  
+
   if(len <= 0) {
     kdError(5002) << "recvmsg failed " << strerror(errno) << endl;
     return -1;
@@ -319,7 +326,7 @@ bool Requester::sendRequest(struct RequestHeader *request, int len) {
 
   iov.iov_base = IOV_BASE_CAST request;
   iov.iov_len = len;
-  
+
   msg.msg_name = 0L;
   msg.msg_namelen = 0;
   msg.msg_iov = &iov;

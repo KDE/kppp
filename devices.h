@@ -9,10 +9,10 @@ static const char *devices[] = {
   "/dev/cuaa1",
   "/dev/cuaa2",
   "/dev/cuaa3",
-#else
+#elif defined (__LINUX__)
   "/dev/modem",
 // Linux from 2.1.x on discourages from using this devices
-#ifndef __linux__
+#if 1
   "/dev/cua0",
   "/dev/cua1",
   "/dev/cua2",
@@ -29,6 +29,11 @@ static const char *devices[] = {
   "/dev/ttyI2",
   "/dev/ttyI3",
 #endif
+#elif defined(__svr4__)
+  "/dev/cua/a",
+  "/dev/cua/b",
+  "/dev/ttya",
+  "/dev/ttyb",
 #endif
   0};
 
