@@ -68,7 +68,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
 
   QVBoxLayout *l111 = new QVBoxLayout;
   l11->addLayout(l111, 1);
-  edit_b = new QPushButton(i18n("Edit..."), parent);
+  edit_b = new QPushButton(i18n("&Edit..."), parent);
   connect(edit_b, SIGNAL(clicked()), SLOT(editaccount()));
   QWhatsThis::add(edit_b, i18n("Allows you to modify the selected account"));
 
@@ -78,13 +78,13 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
 
   l111->addWidget(edit_b);
 
-  new_b = new QPushButton(i18n("New..."), parent);
+  new_b = new QPushButton(i18n("&New..."), parent);
   connect(new_b, SIGNAL(clicked()), SLOT(newaccount()));
   l111->addWidget(new_b);
   QWhatsThis::add(new_b, i18n("Create a new dialup connection\n"
   			      "to the internet"));
 
-  copy_b = new QPushButton(i18n("Copy"), parent);
+  copy_b = new QPushButton(i18n("Co&py"), parent);
   connect(copy_b, SIGNAL(clicked()), SLOT(copyaccount()));
   l111->addWidget(copy_b);
   QWhatsThis::add(copy_b,
@@ -93,7 +93,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
 		       "to a new account, that you can modify to fit your\n"
 		       "needs"));
 
-  delete_b = new QPushButton(i18n("Delete"), parent);
+  delete_b = new QPushButton(i18n("De&lete"), parent);
   connect(delete_b, SIGNAL(clicked()), SLOT(deleteaccount()));
   l111->addWidget(delete_b);
   QWhatsThis::add(delete_b,
@@ -150,13 +150,13 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   l12->addLayout(l122);
 
   l122->addStretch(1);
-  reset = new QPushButton(i18n("Reset..."), parent);
+  reset = new QPushButton(i18n("&Reset..."), parent);
   reset->setEnabled(FALSE);
   connect(reset, SIGNAL(clicked()),
 	  this, SLOT(resetClicked()));
   l122->addWidget(reset);
 
-  log = new QPushButton(i18n("View Logs"), parent);
+  log = new QPushButton(i18n("&View Logs"), parent);
   connect(log, SIGNAL(clicked()),
 	  this, SLOT(viewLogClicked()));
   l122->addWidget(log);

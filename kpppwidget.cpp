@@ -85,9 +85,6 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
 
-  fline1 = new KSeparator( KSeparator::HLine, this);
-  tl->addWidget(fline1);
-
   QGridLayout *l1 = new QGridLayout(3, 4);
   tl->addLayout(l1);
   l1->addColSpacing(0, 10);
@@ -95,20 +92,22 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   l1->setColStretch(1, 3);
   l1->setColStretch(2, 4);
 
-  label1 = new QLabel(i18n("Connect to: "), this);
+  label1 = new QLabel(i18n("C&onnect to: "), this);
   l1->addWidget(label1, 0, 1);
 
   connectto_c = new QComboBox(false, this);
+  label1->setBuddy(connectto_c);
 
   connect(connectto_c, SIGNAL(activated(int)),
 	  SLOT(newdefaultaccount(int)));
   l1->addWidget(connectto_c, 0, 2);
 
-  ID_Label = new QLabel(i18n("Login ID:"), this);
+  ID_Label = new QLabel(i18n("&Login ID:"), this);
   l1->addWidget(ID_Label, 1, 1);
 
   // the entry line for usernames
   ID_Edit = new QLineEdit(this);
+  ID_Label->setBuddy(ID_Edit);
   l1->addWidget(ID_Edit, 1, 2);
   connect(ID_Edit, SIGNAL(returnPressed()),
 	  this, SLOT(enterPressedInID()));
@@ -123,10 +122,11 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   QWhatsThis::add(ID_Label,tmp);
   QWhatsThis::add(ID_Edit,tmp);
 
-  PW_Label = new QLabel(i18n("Password:"), this);
+  PW_Label = new QLabel(i18n("&Password:"), this);
   l1->addWidget(PW_Label, 2, 1);
 
   PW_Edit= new QLineEdit(this);
+  PW_Label->setBuddy(PW_Edit);
   PW_Edit->setEchoMode(QLineEdit::Password);
   l1->addWidget(PW_Edit, 2, 2);
   connect(PW_Edit, SIGNAL(returnPressed()),
@@ -148,7 +148,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
    tl->addLayout(l3);
    tl->addSpacing(5);
    l3->addSpacing(10);
-   log = new QCheckBox(i18n("Show log window"), this);
+   log = new QCheckBox(i18n("Show lo&g window"), this);
    connect(log, SIGNAL(toggled(bool)),
   	  this, SLOT(log_window_toggled(bool)));
    log->setChecked(gpppdata.get_show_log_window());
@@ -175,7 +175,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   if(quit_b->sizeHint().width() > minw)
     minw = quit_b->sizeHint().width();
 
-  setup_b = new QPushButton(i18n("&Setup"), this);
+  setup_b = new QPushButton(i18n("&Setup..."), this);
   connect( setup_b, SIGNAL(clicked()), SLOT(expandbutton()));
   if(setup_b->sizeHint().width() > minw)
     minw = setup_b->sizeHint().width();
@@ -183,7 +183,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   if(gpppdata.access() != KConfig::ReadWrite)
     setup_b->setEnabled(false);
 
-  help_b = new QPushButton(i18n("?"), this);
+  help_b = new QPushButton(i18n("&Help"), this);
   connect( help_b, SIGNAL(clicked()), SLOT(helpbutton()));
   if(help_b->sizeHint().width() > minw)
     minw = help_b->sizeHint().width();
@@ -342,7 +342,7 @@ void KPPPWidget::prepareSetupDialog() {
 
     //    tabWindow->setFixedSize( 365, 375 );
 
-    accounts = new AccountWidget(tabWindow->addPage( i18n("Accounts"), i18n("Account Setup") ) );
+    accounts = new AccountWidget(tabWindow->addPage( i18n("&Accounts"), i18n("Account Setup") ) );
     connect(accounts, SIGNAL(resetaccounts()),
 	    this, SLOT(resetaccounts()));
     connect(accounts, SIGNAL(resetCosts(const QString &)),
@@ -350,11 +350,11 @@ void KPPPWidget::prepareSetupDialog() {
     connect(accounts, SIGNAL(resetVolume(const QString &)),
 	    this, SLOT(resetVolume(const QString &)));
 
-    modem1 = new ModemWidget( tabWindow->addPage( i18n("Device"), i18n("Serial Device") ) );
-    modem2 = new ModemWidget2( tabWindow->addPage( i18n("Modem"), i18n("Modem Settings") ) );
-    graph = new GraphSetup( tabWindow->addPage( i18n("Graph"), i18n("Throughput Graph" ) ) );
-    general = new GeneralWidget( tabWindow->addPage( i18n("Misc."), i18n("Miscellaneous Settings") ) );
-    about  = new AboutWidget( tabWindow->addPage( i18n("About"), i18n("About KPPP") ) );
+    modem1 = new ModemWidget( tabWindow->addPage( i18n("&Device"), i18n("Serial Device") ) );
+    modem2 = new ModemWidget2( tabWindow->addPage( i18n("&Modem"), i18n("Modem Settings") ) );
+    graph = new GraphSetup( tabWindow->addPage( i18n("&Graph"), i18n("Throughput Graph" ) ) );
+    general = new GeneralWidget( tabWindow->addPage( i18n("M&isc"), i18n("Miscellaneous Settings") ) );
+    about  = new AboutWidget( tabWindow->addPage( i18n("A&bout"), i18n("About KPPP") ) );
   }
 }
 

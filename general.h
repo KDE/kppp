@@ -27,7 +27,6 @@
 #define _GENERAL_H_
 
 #include <qwidget.h>
-#include <qpainter.h>
 #include <qcombobox.h>
 #include <qlabel.h>
 #include <qcheckbox.h>
@@ -52,26 +51,6 @@ private slots:
   void  quit_toggled(bool);
   void  docking_toggled(bool on);
 
-private:
-  QGroupBox 	*box;
-
-  QLabel        *label1;
-  QLabel 	*label3;
-  QLabel 	*label4;
-  QLabel 	*label5;
-  QLabel 	*label6;
-  QLabel 	*labeltmp;
-
-  QCheckBox 	*chkbox1;
-  QCheckBox 	*chkbox2;
-  QCheckBox 	*chkbox3;
-  QCheckBox 	*chkbox4;
-  QCheckBox 	*chkbox5;
-  QCheckBox 	*chkbox6;
-  QCheckBox 	*chkbox7;
-
-  QLabel        *versionlabel;
-  KIntNumInput 	*pppdtimeout;
 };
 
 
@@ -143,6 +122,7 @@ private slots:
 private:
   void save();
 
+  QGroupBox *grpColor;
   QCheckBox *enable_check;
 
   KColorButton *bg_color;
@@ -150,10 +130,6 @@ private:
   KColorButton *in_color;
   KColorButton *out_color;
 
-  QLabel *bg_text;
-  QLabel *text_text;
-  QLabel *in_text;
-  QLabel *out_text;
 };
 
 class AboutWidget : public QWidget {

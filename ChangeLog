@@ -1,3 +1,6 @@
+2002-04-12  Nadeem Hasan  <nhasan@kde.org>
+    * Lots of GUI and layout cleanups. Added accels.
+
 2002-01-27  Per Winkvist  <nd96pwt@student.hig.se>
 
 	* Add option to tune ATS11 "tone duration".
