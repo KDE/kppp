@@ -1,6 +1,6 @@
-pkg_DATA = 	Czech_Telecom_City.rst \
-		Czech_Telecom_Internet.rst \
-	        Czech_Telecom_Internet_2002_Home_Standard.rst
+pkg_DATA = 	Tarif_INTERNET_2002_INTERNET_MAXI_PLUS.rst \
+		Tarif_INTERNET_2002_MINI.rst \
+	        Tarif_INTERNET_2002_STANDARD_MAXI.rst
                 
 pkgdir = $(kde_datadir)/kppp/Rules/Czechia
 
