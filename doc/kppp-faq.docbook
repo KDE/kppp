@@ -79,6 +79,12 @@ log by issuing:</para>
 <question><para>pppd died - The remote system is required to authenticate itself ...</para></question>
 
 <answer>
+<para>Typical error message in system log:</para>
+<screen>
+pppd[699]: The remote system is required to authenticate itself
+pppd[699]: but I couldn't find any suitable secret (password) for it to use to do so.
+pppd[699]: (None of the available passwords would let it use an IP address.)
+</screen>
 <para>As far as I can tell there are two causes for this problem: </para>
 <itemizedlist>
 <listitem><para><filename>/etc/ppp/options</filename> contains the
