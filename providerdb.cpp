@@ -36,13 +36,9 @@
 #include <qdir.h>
 #include <qlabel.h>
 #include <qlayout.h>
-#include <qlistbox.h>
-#include <qpushbutton.h>
 #include <qregexp.h>
-#include <qlineedit.h>
 #include <klocale.h>
-#include <kglobal.h>
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 #include <kdebug.h>
 #include "providerdb.h"
 #include "newwidget.h"
@@ -57,7 +53,7 @@ ProviderDB::ProviderDB(QWidget *parent) :
   KWizard(parent, "", true),
   cfg(0)
 {
-  setCaption(i18n("Create new account..."));
+  setCaption(i18n("Create New Account..."));
 
   wiz = this;
 

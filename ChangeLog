@@ -1,3 +1,48 @@
+2002-01-27  Per Winkvist  <nd96pwt@student.hig.se>
+
+	* Add option to tune ATS11 "tone duration".
+
+2002-01-22  Per Winkvist  <nd96pwt@student.hig.se>
+
+	* Make "Connect To" button default.
+	* Move KPPPWidget in main.cpp to an own file which reduced
+        the size of main.cpp with almost 1000 lines.
+
+2002-01-21 Chris Howells <howells@kde.org>
+	* Made the QMultiLineEdit on the  Login Debug Window
+	   read-only
+	* Fixed the bug in the connected window that meant
+	  that the volume valued didn't display when volume
+	  was >~2.5GB
+
+2002-01-21  Per Winkvist  <nd96pwt@student.hig.se>
+
+	* Set focus correctly to ID/PWD on startup if one of the fields
+        are empty.
+
+2002-01-01  Harri Porten  <porten@kde.org>
+
+	* don't ignore SIGHUP anymore. Forbidding Ctrl-Z is crazy.
+	* a bit more respect for Session Managment by adding handlers
+	  for KApplication::saveYourSelf() and shutDown(). A user
+          had reported corrupted config data.
+	* made 'Log' a toggle button to represent debug window state
+
+2001-11-30  Harri Porten  <porten@kde.org>
+
+	* main.cpp: set focus to password field if it's missing on startup.
+	Patch by Per Winkvist <nd96pwt at adeptus.student.hig.se>.
+
+2001-11-26  Harri Porten  <porten@kde.org>
+
+	* applied patch for USB modems by Oliver Gantz <Oliver.Gantz@epost.de>
+
+2001-11-23  Harri Porten  <porten@kde.org>
+
+	* connect.cpp: finally implemented often requested feature:
+	multiple init strings. Only two for now but it's now easy
+	to increase (PPPData::NumInitStrings + GUI)
+
 2001-11-08  Harri Porten  <porten@kde.org>
 
 	* pppdata.cpp: fixed renaming of default account. Bug reported

@@ -25,16 +25,14 @@
 
 #include <qlayout.h>
 #include <qpainter.h>
-#include <kapp.h>
 #include <kwin.h>
-#include <kglobal.h>
 #include <kiconloader.h>
+#include <kapplication.h>
+#include <klocale.h>
 
 #include "pppdata.h"
 #include "pppstatdlg.h"
-#include "kpppconfig.h"
 #include "iplined.h"
-#include <klocale.h>
 #include "pppstats.h"
 
 extern PPPData gpppdata;

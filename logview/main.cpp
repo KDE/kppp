@@ -20,15 +20,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <kapp.h>
-#include <qkeycode.h>
-#include <qlayout.h>
-#include <qpushbutton.h>
+#include <kapplication.h>
 #include "log.h"
 #include "monthly.h"
 #include "main.h"
 #include <klocale.h>
 #include <kcmdlineargs.h>
+#include <kaboutdata.h>
 
 #define F_EXIT     101
 
@@ -52,7 +50,7 @@ TopWidget::TopWidget() : KMainWindow(0, "") {
   bool kpppmode = args->isSet("kppp");
   args->clear();
 
-  setCaption(i18n("kPPP log viewer"));
+  setCaption(i18n("KPPP Log Viewer"));
 
   w = new QWidget(this);
 
@@ -60,7 +58,7 @@ TopWidget::TopWidget() : KMainWindow(0, "") {
 
   td = new QTabWidget(w, "");
   mw = new MonthlyWidget(td);
-  td->addTab(mw, i18n("Monthly log"));
+  td->addTab(mw, i18n("Monthly Log"));
   l->addWidget(td);
 
   // remove buttons
@@ -103,7 +101,13 @@ void TopWidget::menuCallback(int id) {
 }
 
 int main(int argc, char **argv) {
-  KCmdLineArgs::init(argc, argv, "kppplogview", description, version);
+  KAboutData aboutData("kppplogview", I18N_NOOP("KPPP Log Viewer"),
+    version, description, KAboutData::License_GPL,
+    I18N_NOOP("(c) 1999-2002, The KPPP Developers"));
+  aboutData.addAuthor("Bernd Wuebben",0, "wuebben@kde.org");
+  aboutData.addAuthor("Mario Weilguni",0, "");
+  aboutData.addAuthor("Harri Porten",0, "porten@kde.org");
+  KCmdLineArgs::init(argc, argv, &aboutData);
 
   KCmdLineArgs::addCmdLineOptions( option );
 

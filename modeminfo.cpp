@@ -24,13 +24,12 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include <qdir.h>
 #include <unistd.h>
 #include <qregexp.h>
 #include <qlayout.h>
-#include <kapp.h>
 #include <kwin.h>
 #include <kmessagebox.h>
+#include <kapplication.h>
 #include "modeminfo.h"
 #include "modem.h"
 #include <klocale.h>
@@ -43,8 +42,8 @@ ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
 
-  progressBar = new KProgress(0, 8, 0, KProgress::Horizontal, this, "bar");
-  progressBar->setBarStyle(KProgress::Blocked);
+  progressBar = new KProgress(this, "bar");
+  progressBar->setTotalSteps(8);
 
   statusBar = new QLabel(this,"sBar");
   statusBar->setFrameStyle(QFrame::Panel|QFrame::Sunken);

@@ -24,15 +24,13 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include <qmap.h>
 #include "pppdata.h"
 #include "runtests.h"
-#include "kpppconfig.h"
 #include "devices.h"
-#include <kapp.h>
 #include <klocale.h>
 #include <kconfig.h>
 #include <kmessagebox.h>
+#include <kapplication.h>
 #include <assert.h>
 
 PPPData gpppdata;
@@ -59,9 +57,9 @@ bool PPPData::open() {
   if (config->getConfigState() == KConfig::NoAccess) {
     KMessageBox::error(0L,
                        i18n("The application-specific config file could "
-                       "not be\nopened neither read-write nor read-only.\n\n"
-                       "The superuser might have to change its ownership\n"
-                       "by issuing the following command in your home directory:\n\n"
+                       "not be opened neither read-write nor read-only.\n"
+                       "The superuser might have to change its ownership "
+                       "by issuing the following command in your home directory:\n"
                        "chown {YourUsername} .kde/share/config/kppprc"),
 			 kapp->name());
     return false;
@@ -409,6 +407,16 @@ void PPPData::setModemTimeout(int n) {
 }
 
 
+int PPPData::modemToneDuration() {
+  return readNumConfig(MODEM_GRP, TONEDURATION_KEY,MODEM_TONEDURATION);
+}
+
+
+void PPPData::setModemToneDuration(int n) {
+  writeConfig(MODEM_GRP, TONEDURATION_KEY, n);
+}
+
+
 int PPPData::busyWait() {
   return readNumConfig(MODEM_GRP, BUSYWAIT_KEY, BUSY_WAIT);
 }
@@ -422,13 +430,20 @@ void PPPData::setbusyWait(int n) {
 //
 //Advanced "Modem" dialog
 //
-const QString PPPData::modemInitStr() {
-  return readConfig(MODEM_GRP, INITSTR_KEY, "ATZ");
+// defaults: InitString=ATZ, InitString1="" etc.
+const QString PPPData::modemInitStr(int i) {
+  assert(i >= 0 && i < NumInitStrings);
+  if(i == 0)
+    return readConfig(MODEM_GRP, INITSTR_KEY, "ATZ");
+  else
+    return readConfig(MODEM_GRP, INITSTR_KEY + QString::number(i), "");
 }
 
 
-void PPPData::setModemInitStr(const QString &n) {
-  writeConfig(MODEM_GRP, INITSTR_KEY, n);
+void PPPData::setModemInitStr(int i, const QString &n) {
+  assert(i >= 0 && i < NumInitStrings);
+  QString k = INITSTR_KEY + (i > 0 ? QString::number(i) : "");
+  writeConfig(MODEM_GRP, k, n);
 }
 
 

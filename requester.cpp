@@ -30,7 +30,6 @@
 #define _XOPEN_SOURCE_EXTENDED 1
 #endif
 
-#include "kpppconfig.h"
 
 #include <unistd.h>
 #include <stdlib.h>

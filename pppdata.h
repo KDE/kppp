@@ -79,6 +79,7 @@ class KConfig;
 #define FLOWCONTROL_KEY    "FlowControl"
 #define SPEED_KEY          "Speed"
 #define TIMEOUT_KEY        "Timeout"
+#define TONEDURATION_KEY   "ToneDuration"
 #define BUSYWAIT_KEY       "BusyWait"
 #define INITSTR_KEY        "InitString"
 #define INITRESP_KEY       "InitResponse"
@@ -160,6 +161,8 @@ class PPPData {
 public:
   PPPData();
   ~PPPData() {};
+
+  enum { NumInitStrings = 2 };
 
   // general functions
   bool open();
@@ -244,6 +247,9 @@ public:
   int modemTimeout();
   void setModemTimeout(int);
 
+  int modemToneDuration();
+  void setModemToneDuration(int);
+
   QString volumeInitString();
   int volume();
   void setVolume(int);
@@ -252,8 +258,8 @@ public:
   void setWaitForDialTone(int i);
 
   // modem command strings/responses
-  const QString modemInitStr();
-  void setModemInitStr(const QString &);
+  const QString modemInitStr(int i);
+  void setModemInitStr(int i, const QString &);
 
   const QString modemInitResp();
   void setModemInitResp(const QString &);

@@ -29,12 +29,10 @@
 #include <kmessagebox.h>
 #include <qwhatsthis.h>
 #include <qregexp.h>
-#include <kapp.h>
-#include <kglobal.h>
+#include <kapplication.h>
 #include <kiconloader.h>
 #include <kbuttonbox.h>
 #include <klocale.h>
-#include <kconfig.h>
 #include <kwin.h>
 
 #include "edit.h"
@@ -146,7 +144,7 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
 		       "readable only to you. Make sure nobody\n"
 		       "gains access to this file!"));
 
-  pppdargs = new QPushButton(i18n("Customize pppd arguments..."), peer());
+  pppdargs = new QPushButton(i18n("Customize pppd Arguments..."), peer());
   connect(pppdargs, SIGNAL(clicked()), SLOT(pppdargsbutton()));
   tl->addMultiCellWidget(pppdargs, 5, 5, 0, 1, AlignCenter);
 
@@ -526,12 +524,12 @@ void IPWidget::autoname_t(bool on) {
   // big-fat warning when selecting the auto configure hostname option
   if(on && !was_warned) {
     KMessageBox::information(this,
-			 i18n("Selecting this option might cause some weird\n"
-			      "problems with the X-server and applications\n"
-			      "while kppp is connected. Don't use it until\n"
-			      "you know what you are doing!\n\n"
-			      "For more information take a look at the\n"
-			      "handbook (or help) in the section \"Frequently\n"
+			 i18n("Selecting this option might cause some weird "
+			      "problems with the X-server and applications "
+			      "while kppp is connected. Don't use it until "
+			      "you know what you are doing!\n"
+			      "For more information take a look at the "
+			      "handbook (or help) in the section \"Frequently "
 			      "asked questions\"."),
 			 i18n("Warning"));
     was_warned = true;
@@ -1217,7 +1215,7 @@ void ScriptWidget::removeButton() {
 /////////////////////////////////////////////////////////////////////////////
 PhoneNumberDialog::PhoneNumberDialog(QWidget *parent) : QDialog(parent, 0, true) {
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
-  setCaption(i18n("Add a phone number..."));
+  setCaption(i18n("Add a Phone Number..."));
   KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
   tl->addSpacing(5);
 

@@ -53,11 +53,9 @@ public slots:
   void toggleVisibility();
   void addChar(unsigned char);
 
-private slots:
-  void hideit();
-
-private:
-  void resizeEvent(QResizeEvent *e);
+protected:
+  virtual void hideEvent(QHideEvent *);
+  virtual void resizeEvent(QResizeEvent *e);
 
 private:
   void enter();

@@ -36,6 +36,7 @@
 #include <qlineedit.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
+#include <pppdata.h>
 
 class ModemCommands : public QDialog {
 
@@ -45,7 +46,6 @@ public:
 
   ModemCommands(QWidget *parent=0, const char *name=0);
   ~ModemCommands() {}
-
 
 private slots:
   void cancelbutton();
@@ -58,8 +58,7 @@ private:
   QPushButton *ok;
   QPushButton *cancel;
 
-  QLineEdit *initstr;
-  QLabel *label1;
+  QLineEdit *initstr[int(PPPData::NumInitStrings)];
 
   QLineEdit *initresp;
   QLabel *label2;
@@ -69,6 +68,9 @@ private:
 
   QLabel *linitslider;
   QLabel *label3;
+
+  QLabel *ldurationslider;
+  QLabel *lduration;
 
   QLineEdit *nodetectdialtone;
   QLabel *lnodetectdialtone;

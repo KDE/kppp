@@ -32,13 +32,16 @@ static const char *devices[] = {
   "/dev/ttyS1",
   "/dev/ttyS2",
   "/dev/ttyS3",
-
 #ifdef ISDNSUPPORT
   "/dev/ttyI0",
   "/dev/ttyI1",
   "/dev/ttyI2",
   "/dev/ttyI3",
 #endif
+  "/dev/usb/ttyACM0",          /* USB stuff modems */
+  "/dev/usb/ttyACM1",
+  "/dev/usb/ttyACM2",
+  "/dev/usb/ttyACM3",
 #elif defined(__svr4__)
   "/dev/cua/a",
   "/dev/cua/b",

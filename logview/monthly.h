@@ -24,7 +24,6 @@
 
 #include "log.h"
 #include <qwidget.h>
-#include <kapp.h>
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qpushbutton.h>

@@ -38,7 +38,6 @@
  *	- Initial distribution.
  */
 
-#include "pppstats.h"
 
 #include <ctype.h>
 #include <errno.h>
@@ -55,35 +54,38 @@
 #include <netinet/in.h>
 #include <net/ppp_defs.h>
 
+#include "config.h"
+
 #ifndef STREAMS
-#if defined(__linux__) && defined(__powerpc__) \
+ #if defined(__linux__) && defined(__powerpc__) \
     && (__GLIBC__ == 2 && __GLIBC_MINOR__ == 0)
-/* kludge alert! */
-#undef __GLIBC__
-#endif
-#include <sys/socket.h>		/* *BSD, Linux, NeXT, Ultrix etc. */
-#ifndef HAVE_NET_IF_PPP_H
-#ifdef HAVE_LINUX_IF_PPP_H
-#include <linux/if.h>
-#include <linux/if_ppp.h>
-#endif
-#else
-#include <net/if.h>
-#include <net/if_ppp.h>
-#endif
+  /* kludge alert! */
+  #undef __GLIBC__
+ #endif
+ #include <sys/socket.h>		/* *BSD, Linux, NeXT, Ultrix etc. */
+ #ifndef HAVE_NET_IF_PPP_H
+  #ifdef HAVE_LINUX_IF_PPP_H
+   #include <linux/if.h>
+   #include <linux/if_ppp.h>
+  #endif
+ #else
+  #include <net/if.h>
+  #include <net/if_ppp.h>
+ #endif
 
 #else	/* STREAMS */
-#include <sys/socket.h>
-#include <sys/stropts.h>	/* SVR4, Solaris 2, SunOS 4, OSF/1, etc. */
-#include <net/ppp_defs.h>
-#include <net/pppio.h>
-#include <net/if.h>
-#include <sys/sockio.h>
+ #include <sys/socket.h>
+ #include <sys/stropts.h>	/* SVR4, Solaris 2, SunOS 4, OSF/1, etc. */
+ #include <net/ppp_defs.h>
+ #include <net/pppio.h>
+ #include <net/if.h>
+ #include <sys/sockio.h>
 
 #endif	/* STREAMS */
 
 #include <qtimer.h>
 #include <kdebug.h>
+
 #include "pppstats.h"
 
 PPPStats::PPPStats() {

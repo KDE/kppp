@@ -32,13 +32,13 @@
 #include <qlabel.h>
 #include <qcheckbox.h>
 #include <qgroupbox.h>
-#include <kcolorbtn.h>
+#include <qpushbutton.h>
+#include <kcolorbutton.h>
 
 #include "groupbox.h"
 
 class QSlider;
 
-class ModemTransfer;
 class KIntNumInput;
 
 class GeneralWidget : public KGroupBox {
@@ -123,7 +123,6 @@ private slots:
   void  volumeChanged(int);
 
 private:
-  ModemTransfer *modemtrans;
   QLabel 	*labeltmp;
   QPushButton 	*modemcmds;
   QPushButton 	*modeminfo_button;

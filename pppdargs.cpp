@@ -28,7 +28,7 @@
 #include <qlayout.h>
 #include <kbuttonbox.h>
 #include <kwin.h>
-#include <kapp.h>
+#include <kapplication.h>
 #include "pppdargs.h"
 #include "pppdata.h"
 #include <klocale.h>

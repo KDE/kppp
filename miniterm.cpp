@@ -22,12 +22,10 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include <qdir.h>
 #include <unistd.h>
 #include <sys/ioctl.h>
 #include <termios.h>
 #include <sys/types.h>
-#include <kapp.h>
 #include <kwin.h>
 #include <khelpmenu.h>
 #include <kiconloader.h>
@@ -35,8 +33,8 @@
 #include "modem.h"
 #include "miniterm.h"
 #include <klocale.h>
-#include <kglobal.h>
 #include <kpopupmenu.h>
+#include <kapplication.h>
 
 extern PPPData gpppdata;
 
@@ -95,20 +93,15 @@ MiniTerm::~MiniTerm() {
 void MiniTerm::setupToolbar() {
   toolbar = new KToolBar( this );
 
-  QPixmap pixmap;
-
-  pixmap = BarIcon("exit");
-  toolbar->insertButton(pixmap, 0,
+  toolbar->insertButton("exit", 0,
 		      SIGNAL(clicked()), this,
 		      SLOT(cancelbutton()), TRUE, i18n("Close MiniTerm"));
 
-  pixmap = BarIcon("back");
-  toolbar->insertButton(pixmap, 0,
+  toolbar->insertButton("back", 0,
 		      SIGNAL(clicked()), this,
 		      SLOT(resetModem()), TRUE, i18n("Reset Modem"));
 
-  pixmap = BarIcon("help");
-  toolbar->insertButton(pixmap, 0,
+  toolbar->insertButton("help", 0,
 		      SIGNAL(clicked()), this,
 		      SLOT(help()), TRUE, i18n("Help"));
 
@@ -143,7 +136,7 @@ void MiniTerm::init() {
       Modem::modem->writeLine("");
       usleep(gpppdata.modemPreInitDelay() * 5000);
     }
-    Modem::modem->writeLine(gpppdata.modemInitStr().local8Bit());
+    Modem::modem->writeLine(gpppdata.modemInitStr(0).local8Bit());
     usleep(gpppdata.modemInitDelay() * 10000);
 
       statusbar->setText(i18n("Modem Ready"));

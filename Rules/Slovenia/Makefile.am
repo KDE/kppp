@@ -1,5 +1,4 @@
-pkg_DATA = 	moj_net.rst \
-		omrezje_0880.rst \
+pkg_DATA = 	omrezje_0880.rst \
 		omrezje_0889.rst \
 		stacionarno_omrezje.rst
 

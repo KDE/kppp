@@ -37,6 +37,7 @@
 
 #include <qwidget.h>
 #include <qpixmap.h>
+#include <qdir.h>
 #include "groupbox.h"
 
 class QComboBox;

@@ -26,8 +26,11 @@
 
 #include <config.h>
 
-#include <qdir.h>
+#include <qlayout.h>
 #include <qregexp.h>
+
+#include <kapplication.h>
+#include <kdebug.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 
@@ -41,6 +44,7 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <sys/ioctl.h>
+#include <assert.h>
 
 #ifdef _XPG4_2
 #define __xnet_connect	connect
@@ -57,20 +61,16 @@
 #endif
 
 #include "auth.h"
-#include "requester.h"
 #include "connect.h"
-#include "main.h"
-#include "kpppconfig.h"
-#include "pppdata.h"
 #include "docking.h"
+#include "main.h"
 #include "modem.h"
-#include "utils.h"
+#include "pppdata.h"
 #include "pppstats.h"
-#include <kapp.h>
-#include <kdebug.h>
+#include "requester.h"
+#include "utils.h"
 
 extern KPPPWidget *p_kppp;
-extern bool quit_on_disconnect;
 
 QString old_hostname;
 bool modified_hostname;
@@ -82,6 +82,7 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
     myreadbuffer(""),
     main_timer_ID(0),
     vmain(0),
+    substate(-1),
     scriptindex(0),
     loopnest(0),
     loopend(false),
@@ -122,6 +123,7 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   l1->addStretch(1);
 
   debug = new QPushButton(i18n("Log"), this);
+  debug->setToggleButton(true);
   connect(debug, SIGNAL(clicked()), SIGNAL(toggleDebugWindow()));
 
   cancel = new QPushButton(i18n("Cancel"), this);
@@ -176,6 +178,7 @@ void ConnectWidget::init() {
   gpppdata.setpppdError(0);
   inittimer->stop();
   vmain = 0;
+  substate = -1;
   expecting = false;
   pausing = false;
   scriptindex = 0;
@@ -189,7 +192,7 @@ void ConnectWidget::init() {
 
   p_kppp->con_speed = "";
 
-  quit_on_disconnect = quit_on_disconnect || gpppdata.quit_on_disconnect();
+  p_kppp->setQuitOnDisconnect (p_kppp->quitOnDisconnect() || gpppdata.quit_on_disconnect());
 
   comlist = &gpppdata.scriptType();
   arglist = &gpppdata.script();
@@ -269,25 +272,55 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
     return;
 #endif
 
-    messg->setText(i18n("Initializing Modem..."));
-    emit debugMessage(i18n("Initializing Modem..."));
-
-    // send a carriage return and then wait a bit so that the modem will
-    // let us issue commands.
-    if(gpppdata.modemPreInitDelay() > 0) {
-      usleep(gpppdata.modemPreInitDelay() * 5000);
-      writeline("");
-      usleep(gpppdata.modemPreInitDelay() * 5000);
+    assert(PPPData::NumInitStrings > 0);
+    // first init string ?
+    if(substate == -1) {
+      messg->setText(i18n("Initializing Modem..."));
+      emit debugMessage(i18n("Initializing Modem..."));
+      substate = 0;
     }
-    setExpect(gpppdata.modemInitResp());
-    writeline(gpppdata.modemInitStr());
-    usleep(gpppdata.modemInitDelay() * 10000); // 0.01 - 3.0 sec
+
+    QString initStr = gpppdata.modemInitStr(substate);
+    if (!initStr.isEmpty()) {
+	// send a carriage return and then wait a bit so that the modem will
+	// let us issue commands.
+	if(gpppdata.modemPreInitDelay() > 0) {
+	    usleep(gpppdata.modemPreInitDelay() * 5000);
+	    writeline("");
+	    usleep(gpppdata.modemPreInitDelay() * 5000);
+	}
+	setExpect(gpppdata.modemInitResp());
+	writeline(initStr);
+	usleep(gpppdata.modemInitDelay() * 10000); // 0.01 - 3.0 sec
+    }
+
+    substate++;
+    vmain = 5;
+
+    return;
+  }
+
+  if (vmain == 5) {
+    if(!expecting) {
+        QString sToneDuration = "ATS11=" + QString::number(gpppdata.modemToneDuration());
+        QString msg = i18n("Setting ") + sToneDuration;
+        messg->setText(msg);
+	emit debugMessage(msg);
+	setExpect(gpppdata.modemInitResp());
+	writeline(sToneDuration);
+      }
     vmain = 3;
     return;
   }
 
   if(vmain == 3) {
     if(!expecting) {
+      // done with all init strings ?
+      if(substate < PPPData::NumInitStrings) {
+	vmain = 0;
+	return;
+      }
+      substate = -1;
       // skip setting the volume if command is empty
       if(gpppdata.volumeInitString().isEmpty()) {
         vmain = 4;
@@ -378,6 +411,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
       Modem::modem->setDataMode(false);
       vmain = 0;
+      substate = -1;
       return;
     }
 
@@ -952,7 +986,7 @@ void ConnectWidget::cancelbutton() {
   }
   prompt->setConsumed();
 
-  if(quit_on_disconnect)
+  if(p_kppp->quitOnDisconnect())
     kapp->exit(0);
 }
 
@@ -975,6 +1009,7 @@ void ConnectWidget::script_timed_out() {
   p_kppp->con_win->stopClock();
 
   vmain = 0; // let's try again.
+  substate = -1;
 }
 
 
@@ -1181,7 +1216,7 @@ bool ConnectWidget::execppp() {
 
   if (command.length() > MAX_CMDLEN) {
     KMessageBox::error(this, i18n(
-			      "pppd command + command-line arguments exeed\n"
+			      "pppd command + command-line arguments exceed "
 			      "2024 characters in length. What are you doing?"
 			      ));
 

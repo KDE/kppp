@@ -14,7 +14,7 @@ ToneDial=DT
 PulseDial=DP
 ConnectResponse=CONNECT
 BusyResponse=BUSY
-NoCarrierResponese=NO CARRIER
+NoCarrierResponse=NO CARRIER
 NoDialTone=NO DIALTONE
 SupportsCD=true
 

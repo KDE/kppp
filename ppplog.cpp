@@ -30,7 +30,6 @@
 #include <qlabel.h>
 #include <qdir.h>
 #include <qpushbutton.h>
-#include <qstring.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -38,16 +37,13 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
-#include <qstringlist.h>
 #include <qdialog.h>
 #include <qregexp.h>
-#include <qglobal.h>
 #include <qmultilineedit.h>
 #include <qlayout.h>
 
 #include <kbuttonbox.h>
 #include <kmessagebox.h>
-#include <kapp.h>
 
 #include "pppdata.h"
 #include "requester.h"
@@ -63,7 +59,7 @@ int PPPL_MakeLog(QStringList &list) {
   fd = Requester::rq->openSysLog();
   if(fd < 0) {
     list.append(i18n("Cannot open any of the following logfiles:"));
-    const char **logFile = &kppp_syslog[0];
+    const char * const * logFile = &kppp_syslog[0];
     while(*logFile) {
       list.append(*logFile);
       logFile++;
@@ -216,18 +212,18 @@ void PPPL_ShowLog() {
   }
   if(foundConnect && !foundLCP) {
     int result = KMessageBox::warningYesNo(0,
-				i18n("KPPP could not prepare a PPP log. It's very likely\n"
-				     "that pppd was started without the \"debug\" option.\n\n"
-				     "Without this option it's difficult to find out PPP\n"
-				     "problems, so you should turn on the debug option.\n\n"
+				i18n("KPPP could not prepare a PPP log. It's very likely "
+				     "that pppd was started without the \"debug\" option.\n"
+				     "Without this option it's difficult to find out PPP "
+				     "problems, so you should turn on the debug option.\n"
 				     "Shall I turn it on now?"));
 
     if(result == KMessageBox::Yes) {
       gpppdata.setPPPDebug(TRUE);
       KMessageBox::information(0,
-		       i18n("The \"debug\" option has been added. You\n"
-			    "should now try to reconnect. If that fails\n"
-			    "again, you will get a PPP log that may help\n"
+		       i18n("The \"debug\" option has been added. You "
+			    "should now try to reconnect. If that fails "
+			    "again, you will get a PPP log that may help "
 					"you to track down the connection problem."));
       //      return;
     }
@@ -248,7 +244,7 @@ void PPPL_ShowLog() {
   diagnosis->setReadOnly(TRUE);
   KButtonBox *bbox = new KButtonBox(dlg);
   bbox->addStretch(1);
-  QPushButton *write = bbox->addButton(i18n("Write to file"));
+  QPushButton *write = bbox->addButton(i18n("Write to File"));
   QPushButton *close = bbox->addButton(i18n("Close"));
   bbox->layout();
   edit->setMinimumSize(600, 250);

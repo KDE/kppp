@@ -51,6 +51,9 @@
 // Define the default modem response timeout
 #define MODEM_TIMEOUT 60
 
+// Define the default modem tone duration (ATS11=)
+#define MODEM_TONEDURATION 70
+
 // Define the default time for pppd to get the interface up
 #define PPPD_TIMEOUT 30
 
@@ -120,7 +123,7 @@ const unsigned int MAX_CMDLEN = 2024;
 #endif
 
 // defined in opener.cpp
-extern const char *kppp_syslog[];
+extern const char * const kppp_syslog[];
 
 #ifdef _XPG4_2
 #define __xnet_connect connect

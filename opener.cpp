@@ -5,11 +5,8 @@
  * $Id$
  *
  *              Copyright (C) 1997,98 Bernd Johannes Wuebben,
- *		                      Mario Weilguni,
- *                                    Harri Porten
- *
- *
- * This file was contributed by Harri Porten <porten@tu-harburg.de>
+ *		                      Mario Weilguni
+ *              Copyright (C) 1998-2002 Harri Porten <porten@kde.org>  
  *
  *
  * This program is free software; you can redistribute it and/or
@@ -42,8 +39,8 @@
 #if defined(__osf__) || defined(__svr4__)
 #define _POSIX_PII_SOCKET
 extern "C" int sethostname(char *name, int name_len);
-extern "C" int _Psendmsg();
-extern "C" int _Precvmsg();
+extern "C" int _Psendmsg(int, void*, int);
+extern "C" int _Precvmsg(int, void*, int);
 #endif
 
 #include <sys/types.h>
@@ -124,7 +121,7 @@ static int pppdExitStatus = -1;
 static int checkForInterface();
 
 // processing will stop at first file that could be opened successfully
-const char *kppp_syslog[] = { "/var/log/syslog.ppp",
+const char * const kppp_syslog[] = { "/var/log/syslog.ppp",
 			      "/var/log/syslog",
 			      "/var/log/messages",
 			      0 };
@@ -143,7 +140,7 @@ void Opener::mainLoop() {
   int len;
   int fd = -1;
   int flags, mode;
-  const char *device, **logFile;
+  const char *device, * const *logFile;
   union AllRequests request;
   struct ResponseHeader response;
   struct msghdr	msg;
@@ -203,7 +200,7 @@ void Opener::mainLoop() {
 	device = deviceByIndex(request.lock.deviceNum);
 	MY_ASSERT(strlen(LOCK_DIR)+strlen(device) < MaxPathLen);
 	strncpy(lockfile, LOCK_DIR"/LCK..", MaxPathLen);
-	strncat(lockfile, device + strlen("/dev/"),
+	strncat(lockfile, strrchr(device, '/') + 1,
 		MaxPathLen - strlen(lockfile));
 	lockfile[MaxPathLen] = '\0';
 	response.status = 0;

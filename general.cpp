@@ -24,11 +24,8 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include <qdir.h>
 #include <termios.h>
 #include <string.h>
-#include <kapp.h>
-#include <qlayout.h>
 #include <qwhatsthis.h>
 
 #include <knuminput.h>
@@ -542,7 +539,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
 		       "find out vendor and revision of your modem.\n"
 		       "\n"
 		       "Press this button to query your modem for\n"
-		       "this information.  It can be useful to help\n"
+		       "this information. It can be useful to help\n"
 		       "you setup the modem"));
 
   terminal_button = new QPushButton(i18n("Terminal"), peer());
@@ -575,9 +572,8 @@ void ModemWidget2::modemcmdsbutton() {
 
 
 void ModemWidget2::query_modem() {
-  modemtrans = new ModemTransfer(this);
-  modemtrans->exec();
-  delete modemtrans;
+  ModemTransfer mt(this);
+  mt.exec();
 }
 
 
