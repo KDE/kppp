@@ -1,4 +1,5 @@
 # KDE Config File
+# http://www.raketnet.nl/
 ExDNSDisabled=0
 AutoName=0
 ScriptArguments=
@@ -17,7 +18,7 @@ ScriptCommands=
 Authentication=4
 DNS=
 SubnetMask=0.0.0.0
-AccountingFile=/Netherlands/BelBasis_Lokaal.rst
+AccountingFile=/Netherlands/BelBasis_Regio.rst
 DefaultRoute=1
 Username=%USERNAME%
 Gateway=0.0.0.0

@@ -1,16 +1,17 @@
 ################################################################
 #
 # NAME OF THE RULESET. This is NEEDED for accounting purposes.
+# Updated by zapov (zapov at yahoo com)
 #
 ################################################################
-name=iskon_lokalni_poziv.rst
+name=CARNet.rst
 
 ################################################################
 # currency settings
 ################################################################
 
-currency_symbol=KN
-currency_position=right 
+currency_symbol=HRK
+currency_position=right
 currency_digits=2
 
 ################################################################
@@ -27,14 +28,14 @@ minimum_costs=0.0
 # have a look at costgraphs.gif in the docs directory
 # of the kppp distribution for a graphic illustration.
 
-flat_init_costs=(0.2684,180)
+flat_init_costs=(0.061, 60)
 
 # This is the default rule which is used when no other rule
 # applies. The first component "0.1" is the price of one
 # "unit", while "72" is the duration in seconds.
-# Therefore the following rule means: "Every 72 seconds 0.1 
+# Therefore the following rule means: "Every 72 seconds 0.1
 # ATS are added to the bill"
-default=(0.2684, 180)
+default=(0.061, 60)
 
 # more complicated rules:
 
@@ -44,23 +45,23 @@ default=(0.2684, 180)
 
 # same as above. You must use 24 hour notation, or the accounting
 # will not work correctly. (Example: write 15:00 for 3 pm)
-on (monday..saturday) between (0:00..6:59) use (0.2684, 180)
-on (monday..saturday) between (7:00..15:59) use (0.2684, 90)
-on (monday..saturday) between (16:00..21:59) use (0.2684, 120)
-on (monday..saturday) between (22:00..23:59) use (0.2684, 180)
-on (sunday) between () use (0.2684, 180)
+on (monday..saturday) between (0:00..6:59) use (0.0305, 60)
+on (monday..saturday) between (7:00..18:59) use (0.061, 60)
+on (monday..saturday) between (19:00..23:59) use (0.0305, 60)
+on (sunday) between () use (0.0305, 60)
 
 # Sluzbeni praznici, najjeftinija tarifa
 # 1.1. Nova Godina
 # Easter - Uskrs
-# 30.5. - Dan drzavnosti
-# 4.8. - Dan domovinske zahvalnosti
+# 6.1. - Tri kralja
+# 1.5. - Medjunarodni praznik rada
+# Easter+60 - Tijelovo
+# 22.6. - Dan antifasisticke borbe
+# 25.6. - Dan drzavnosti
+# 5.8. - Dan domovinske zahvalnosti
 # 15.8. - Velika Gospa
+# 8.10. - Dan neovisnosti
+# 1.11. - Svi sveti
 # 25.12. - Bozic
-on (01/01, easter, 05/30, 08/04, 08/15, 12/25) between () use (0.2684,180)
-
-# a range of dates and one weekday
-#on (12/25..12/27, 12/31, 07/04, monday) between () use (0.4, 72)
-
-# easter + 50 days (Pfingstmontag/ Pentecost Monday )
-#on (easter+50) between () use (0.3,72)
+# 26.12. - Dan iza :)
+on (01/01, 01/06, easter+1, 05/1, easter+60, 06/22, 06/25, 08/05, 08/15, 11/01, 12/25, 12/26) between () use (0.0305, 60)
