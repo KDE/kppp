@@ -4,39 +4,50 @@
 # Wind con piano telefonico '1088 light'
 # Tariffa: urbana
 #
-# by Filippo Gioachin (gioachin@ieee.org)
+# by Giovanni Venturi (jumpyj@libero.it)
 ################################################################
 
-
+# Nome del ruleset
 name=Wind_1088_light
 
-currency_symbol=L.
-currency_position=left
-currency_digits=0
+# Impostazioni della valuta
+currency_symbol=EUR
+currency_position=right
+currency_digits=2
 
 
 
 ################################################################
 # connection settings
 #
-# The cost is L. 720 every hour of connection.
-# Il costo e` L. 720 ogni ora di connessione.
+# The cost is ¤ 0,3719 every hour of connection.
+# Il costo e` ¤ 0,3719 ogni ora di connessione.
 ################################################################
 
-
+# Nessun addebito alla risposta
 per_connection=0.0
 minimum_costs=0.0
 
-default=(0.2, 1)
+default=(0.0001, 1)
 
 
-# Il costo e` di L. 1440 l'ora nei giorni feriali
-on (monday..friday) between (09:00..19:00) use (0.4, 1)
+# Il costo e` di ¤ 0,7437 l'ora nei giorni feriali
+on (monday..friday) between (09:00..19:00) use (0.0002, 1)
 
-# Il costo e` di L. 720 l'ora nelle festivita`
-on (01/01, 01/06, 04/25, 05/01, 08/15) between () use (0.2, 1)
-on (11/01, 12/08, 12/25, 12/26) between () use (0.2, 1)
-
+# Giorni festivi, sabato e domenica
+on (saturday) between () use (0.0001, 1)
+on (sunday) between () use (0.0001, 1)
+on (01/01) between () use (0.0001, 1)
+on (01/06) between () use (0.0001, 1)
+on (04/25) between () use (0.0001, 1)
+on (05/01) between () use (0.0001, 1)
+on (08/15) between () use (0.0001, 1)
+on (11/01) between () use (0.0001, 1)
+on (12/08) between () use (0.0001, 1)
+on (12/25) between () use (0.0001, 1)
+on (12/26) between () use (0.0001, 1)
+on (easter) between () use (0.0001, 1)
+on (easter + 1) between () use (0.0001, 1)
 # NOTA: IVA inclusa
 
 # End of file
