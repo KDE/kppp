@@ -1,0 +1,24 @@
+# KDE Config File
+ExDNSDisabled=0
+AutoName=0
+ScriptArguments=
+AccountingEnabled=1
+Phonenumber=08456651575
+IPAddr=0.0.0.0
+Domain=
+Name=UK Free Software Network Modem
+VolumeAccountingEnabled=0
+pppdArguments=
+Password=%PASSWORD%
+BeforeDisconnect=
+Command=
+ScriptCommands=Expect,ID,Expect,Password,
+Authentication=1
+DNS=
+SubnetMask=0.0.0.0
+AccountingFile=/England/BritishTelecom_Local.rst
+DefaultRoute=1
+Username=%USERNAME%
+Gateway=0.0.0.0
+StorePassword=1
+DisconnectCommand=

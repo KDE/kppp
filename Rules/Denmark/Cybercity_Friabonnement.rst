@@ -4,7 +4,7 @@
 # PRODUCT  : Friabonnement
 # CURRENCY : DKR
 # PHONENO  : 1033 ?
-# AUTHOR   : Peter Thorsager <thorsager@post.tele.dk>
+# AUTHOR   : Michael Falk Hansen
 # SOURCE   : http://www.cybercity.dk/produkter/privat/friabonnement/
 #
 # Since the ISP market changes fast these rates may be outdated
@@ -18,25 +18,25 @@
   currency_digits=2
 
 ### RATES ########################################################
-# Date:               February 21st - 2000
-# Initial expense:    0.20 DKR
-# Minimum expense:    0.00 DKR
+# Date:               Septmeber 14, 2002
+# Initial expense:    0.25 DKR
+# Minimum expense:    0.25 DKR
 #
-# Peak hours:         0.28 DKR/min      ( 08:00-16:00 on weekdays )
-# Off-peak hours:     0.14 DKR/min      ( 16:00-08:00 on weekdays,
+# Peak hours:         0.22 DKR/min      ( 08:00-19:00 on weekdays )
+# Off-peak hours:     0.11 DKR/min      ( 19:00-08:00 on weekdays,
 #                                         all Saturday and Sunday )
 ### NOTES ########################################################
 # No special rates for national holidays!
 ##################################################################
 
 # INITIAL EXPENSE
-  per_connection=0.20
-  minimum_costs=0.00
+  per_connection=0.25
+  minimum_costs=0.25
 
 # OFF-PEAK
-  default=(0.002333, 1)
-  default=(0.002333, 1, 3600)
+  default=(0.0018333, 1)
+  default=(0.0018333, 1, 3600)
 
 # PEAK
-  on (monday..friday) between (8:00..15:59) use (0.004667, 1)
+  on (monday..friday) between (8:00..18:59) use (0.00366667, 1)
 
