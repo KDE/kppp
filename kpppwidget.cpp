@@ -807,6 +807,7 @@ void KPPPWidget::stopAccounting() {
 
 void KPPPWidget::showStats() {
   if(statdlg) {
+    statdlg->toCurrentDesktop();
     statdlg->show();
     statdlg->raise();
   }

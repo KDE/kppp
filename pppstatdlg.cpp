@@ -411,5 +411,10 @@ void PPPStatsDlg::update_data() {
     ip_address_label4->setText(remote_addr);
 }
 
+
+void PPPStatsDlg::toCurrentDesktop() {
+  KWin::setOnDesktop(winId(), KWin::currentDesktop());
+}
+
 #include "pppstatdlg.moc"
 

@@ -68,8 +68,8 @@ public slots:
 
 public:
 
-  void startClock();
   void update_data();
+  void toCurrentDesktop();
 
 private:
   void paintGraph();
