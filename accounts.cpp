@@ -423,7 +423,7 @@ QueryReset::QueryReset(QWidget *parent) : QDialog(parent, 0, true) {
   setCaption(i18n("Reset Accounting"));
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
-  QVGroupBox *f = new QVGroupBox(i18n("What To Reset"), this);
+  QVGroupBox *f = new QVGroupBox(i18n("What to Reset"), this);
 
   QVBoxLayout *l1 = new QVBoxLayout(parent, 10, 10);
   costs = new QCheckBox(i18n("Reset the accumulated phone costs"), f);
