@@ -35,7 +35,6 @@
 #ifndef PROVIDER_DB
 #define PROVIDER_DB
 
-#include <qwizard.h>
 #include <kwizard.h>
 #include <ksimpleconfig.h>
 #include <qwidget.h>
@@ -114,7 +113,7 @@ public:
 };
 
 
-class ProviderDB : public QWizard {
+class ProviderDB : public KWizard {
   Q_OBJECT
 public:
   ProviderDB(QWidget *parent);

@@ -54,7 +54,7 @@
 QWizard* ProviderDB::wiz = 0L;
 
 ProviderDB::ProviderDB(QWidget *parent) : 
-  QWizard(parent, "", true),
+  KWizard(parent, "", true),
   cfg(0)
 {
   setCaption(i18n("Create new account..."));
@@ -87,12 +87,6 @@ ProviderDB::ProviderDB(QWidget *parent) :
   setHelpEnabled(page9, false);
   setFinish(page9, true);
   setFinishEnabled(page9, true);
-
-  backButton()->setText("<< " + i18n("Back"));
-  nextButton()->setText(i18n("Next") + " >>");
-  helpButton()->setText(i18n("Help"));
-  finishButton()->setText(i18n("Finish"));
-  cancelButton()->setText(i18n("Cancel"));
 
   connect((const QObject *)nextButton(), SIGNAL(clicked()),
   	  this, SLOT(pageSelected()));

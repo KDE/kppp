@@ -895,6 +895,7 @@ ScriptWidget::ScriptWidget( QWidget *parent, bool isnewaccount, const char *name
     }
   }
 
+  insert->setEnabled(false);
   remove->setEnabled(false);
   adjustScrollBar();
   tl->activate();
@@ -948,13 +949,15 @@ void ScriptWidget::scrolling(int i) {
 
 
 void ScriptWidget::slhighlighted(int i) {
-  remove->setEnabled(i != -1);
+  insert->setEnabled(true);
+  remove->setEnabled(true);
   stl->setCurrentItem(i);
 }
 
 
 void ScriptWidget::stlhighlighted(int i) {
-  remove->setEnabled(i != -1);
+  insert->setEnabled(true);
+  remove->setEnabled(true);
   sl->setCurrentItem(i);
 }
 
@@ -1150,6 +1153,7 @@ void ScriptWidget::removeButton() {
    sl->removeItem(sl->currentItem());
    stl->removeItem(stlc);
    adjustScrollBar();
+   insert->setEnabled(sl->currentItem() != -1);
    remove->setEnabled(sl->currentItem() != -1);
  }
 }
