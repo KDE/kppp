@@ -329,6 +329,7 @@ bool Modem::hangup() {
   // kppp. If people complain about kppp being stuck, this piece of code
   // is most likely the reason.
   struct termios temptty;
+  int  modemstat;
 
   if(modemfd >= 0) {
 
@@ -360,10 +361,19 @@ bool Modem::hangup() {
       return false;
     }
 
+#if 0 // drops DTR but doesn't set it afterwards again. not good for init.
     tcgetattr(modemfd, &temptty);
     cfsetospeed(&temptty, B0);
     cfsetispeed(&temptty, B0);
     tcsetattr(modemfd, TCSAFLUSH, &temptty);
+#else
+    ioctl(modemfd, TIOCMGET, &modemstat);
+    modemstat &= ~TIOCM_DTR;
+    ioctl(modemfd, TIOCMSET, &modemstat);
+    ioctl(modemfd, TIOCMGET, &modemstat);
+    modemstat |= TIOCM_DTR;
+    ioctl(modemfd, TIOCMSET, &modemstat);
+#endif
 
     usleep(gpppdata.modemInitDelay() * 10000); // 0.01 - 3.0 secs
 
