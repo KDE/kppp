@@ -140,7 +140,7 @@ void DockWidget::toggle_window_state() {
       p_kppp->con_win->hide();
     else {
       p_kppp->con_win->show();
-      KWin::setActiveWindow(p_kppp->con_win->winId());
+      KWin::activateWindow(p_kppp->con_win->winId());
     }
   }
 }
