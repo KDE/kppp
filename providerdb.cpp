@@ -40,6 +40,7 @@
 #include <kwm.h>
 #include <qregexp.h>
 #include <kapp.h>
+#include <klocale.h>
 #include <qlineedit.h>
 #include "providerdb.h"
 #include "newwidget.h"
@@ -102,7 +103,8 @@ ProviderDB::ProviderDB(QWidget *parent) :
   connect(getCancelButton(), SIGNAL(clicked()),
 	  this, SLOT(reject()));
 
-  resize(minimumSize());
+  //  resize(minimumSize());
+  adjustSize();
 }
 
 
@@ -464,7 +466,7 @@ void urlDecode(QString &s) {
         + s[i+3].digitValue();
       i += 4;
     } else {
-      s1 += s.data()[i];
+      s1 += s[i];
       i++;
     }
   }

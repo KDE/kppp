@@ -43,6 +43,7 @@
 #include <kquickhelp.h>
 #include <kbuttonbox.h>
 #include <kiconloader.h>
+#include <klocale.h>
 
 #include "providerdb.h"
 

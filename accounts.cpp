@@ -30,6 +30,7 @@
 #include <kquickhelp.h>
 #include <kwm.h>
 #include <kbuttonbox.h>
+#include <klocale.h>
 #include "groupbox.h"
 #include "pppdata.h"
 #include "accounts.h"

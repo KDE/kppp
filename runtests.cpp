@@ -414,20 +414,9 @@ int runTests() {
 			"Contact your system administrator\n"
 			"and ask to get access to pppd."));
       return TEST_CRITICAL;
-    } else {
-      struct stat st;
-      stat(f, &st);
-      if((st.st_mode & S_ISUID) == 0 && getuid() != 0 ) {
-	QMessageBox::warning(0,
-		     i18n("Error"),
-		     i18n("pppd is not properly installed!\n\n"
-			  "The pppd binary must be installed\n"
-			  "with the SUID bit set. Contact your\n"
-			  "system administrator."));
-	warning++;
-      }
     }
 #endif
+
     if(euid != 0) {
       struct stat st;
       stat(f, &st);
@@ -444,28 +433,14 @@ int runTests() {
   }
 
   // Test 5: check for existence of /etc/resolv.conf
-  int fd;
-  if ((fd = open(_PATH_RESCONF, O_RDONLY)) >= 0)
-    close(fd);
-  else {
-    if (geteuid() == 0) {
-      if ((fd = open(_PATH_RESCONF, O_WRONLY|O_CREAT)) >= 0) {
-	// file will be owned by root and world readable
-	fchown(fd, 0, 0);
-	fchmod(fd, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	close (fd);
-      }
-    } else {
-      QString msgstr;
-      msgstr = _PATH_RESCONF" ";
-      msgstr += i18n("is missing!\n\n"
-		     "Ask your system administrator to create\n"
-		     "a non-empty file that has appropriate\n"
-		     "read and write permissions.");
-      QMessageBox::warning
-	(0, i18n("Error"), msgstr);
-      warning ++;
-    }
+  if (access(_PATH_RESCONF, R_OK) != 0) {
+    QString msgstr = _PATH_RESCONF" ";
+    msgstr += i18n("is missing or can't be read !\n\n"
+                   "Ask your system administrator to create\n"
+                   "a non-empty file that has appropriate\n"
+                   "read and write permissions.");
+    QMessageBox::warning(0, i18n("Error"), msgstr);
+    warning ++;
   }
 
   if(warning == 0)
