@@ -40,7 +40,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/uio.h>
-#include <sys/socket.h> 
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/socket.h> 

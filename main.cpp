@@ -45,7 +45,6 @@
 #include <klocale.h>
 #include <kstddirs.h>
 #include <kglobal.h>
-#include <kapp.h>
 #include <kconfig.h>
 #include <kmessagebox.h>
 #include <qdir.h>

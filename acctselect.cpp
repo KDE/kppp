@@ -35,7 +35,6 @@
 
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include <qdir.h>
 #include <qgroupbox.h>
 #include <qlabel.h>
 #include <qlayout.h>

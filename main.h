@@ -40,7 +40,6 @@
 #include <signal.h>
 
 #include <qapp.h>
-#include <qchkbox.h>
 #include <qdialog.h>
 #include <qlabel.h>
 #include <qwidget.h>
@@ -51,7 +50,6 @@
 #include <qpainter.h>
 #include <qtabdlg.h>
 #include <qradiobt.h>
-#include <qchkbox.h> 
 #include <qpixmap.h> 
 #include <qchkbox.h>
 

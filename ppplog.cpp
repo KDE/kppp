@@ -29,7 +29,6 @@
 
 #include <qlabel.h>
 #include <qdir.h>
-#include <qglobal.h>
 #include <qstring.h>
 #include <stdio.h>
 #include <stdlib.h>
