@@ -19,6 +19,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <kapp.h>
 #include <qkeycode.h>
 #include <qlayout.h>
