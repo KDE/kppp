@@ -103,11 +103,14 @@ ModemsWidget::ModemsWidget( QWidget *parent, const char *name )
 		       "<font color=\"red\"><b>Use with care!</b></font>"));
 
   //load up account list from gppdata to the list box
+  // but keep the current one selected in gpppdata
   if(gpppdata.modemCount() > 0) {
+    const QString currentmodem = gpppdata.modname();
     for(int i=0; i <= gpppdata.modemCount()-1; i++) {
       gpppdata.setModemByIndex(i);
       modemlist_l->insertItem(gpppdata.modname());
     }
+    gpppdata.setModem(currentmodem);
   }
 
   slotListBoxSelect(modemlist_l->currentItem());
