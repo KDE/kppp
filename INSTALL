@@ -1,9 +1,7 @@
 $Id$
 
 It is assumed that you have already successfully installed pppd.
-For more info see the PPP-HOWTO as well as the pppfaq in the docs directory
-
-NOTE: You need Qt 1.31 for version 0.5.9
+For more info see the PPP-HOWTO.
 
 INSTALLATION:
 
@@ -15,15 +13,17 @@ then:
 make 
 make install
 
-o Once kppp is in place you have to give kppp setuid permission:
-  cd $(KDEDIR)/bin ; chmod +s kppp. This might not 
+o If you run "make install" as root the kppp binary will be installed
+  setuid root. Otherwise you can do this on your own:
+  cd $(KDEDIR)/bin ; chown root kppp; chmod +s kppp. This might not 
   be absolutely necessary ( depending on the permissions 
-  set on the modem device and /etc/resolv.conf but if you can 
+  set on the modem device, /etc/resolv.conf etc. but if you can 
   afford to, this will make your life much easier.
 
 o if you can't give kppp setuid permission, here is the deal:
-  In order for kppp to be able to update /etc/resolv.conf
-  the users of kppp must have write permissions to this file 
+  In order for kppp to be able to update /etc/resolv.conf,
+  /etc/ppp/pap-secrets or /etc/ppp/chap-secrets, respectively,
+  the users of kppp must have write permissions to these files 
   and of course the modem device. It's up to you to figure
   the right permissions. ;-)
 
@@ -42,5 +42,5 @@ o when you run kppp for the first time you need to create and
 that's it, 
 happy dialing!
 
-Bernd Wuebben
-wuebben@math.cornell.edu
+Bernd Wuebben           Mario Weilguni          Harri Porten
+wuebben@kde.org         mweilguni@kde.org       porten@kde.org
