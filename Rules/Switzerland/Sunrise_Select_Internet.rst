@@ -28,7 +28,7 @@ minimum_costs=0.0
 default=(0.00023056, 1)
 
 # Normaltarif, Niedertarif tarif normal
-on (monday..friday) between (8:00..22:59) use (0.0004639, 1)
+on (monday..sunday) between (8:00..22:59) use (0.0004639, 1)
 
 # "Nationale Feiertage"
 # easter+39 = Ascension Day (Auffahrt), easter+50 = Whit Monday (Pfingstmontag)
