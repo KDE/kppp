@@ -27,6 +27,8 @@
 #include <klocale.h>
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>
+#include <kpushbutton.h>
+#include <kstdguiitem.h>
 
 #define F_EXIT     101
 
@@ -74,8 +76,7 @@ TopWidget::TopWidget() : KMainWindow(0, "") {
 	    this, SLOT(menuCallback(int)));
   } else {
     mb = 0;
-    QPushButton *but = new QPushButton(w);
-    but->setText(i18n("&Close"));
+    QPushButton *but = new KPushButton(KStdGuiItem::close(),w);
     QHBoxLayout *lh = new QHBoxLayout(l);
     lh->addStretch(10);
     lh->addWidget(but);

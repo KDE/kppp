@@ -180,7 +180,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   if(quit_b->sizeHint().width() > minw)
       minw = quit_b->sizeHint().width();
 
-  setup_b = new KPushButton(KGuiItem(i18n("Co&nfigure...")), this);
+  setup_b = new KPushButton(KGuiItem(i18n("Co&nfigure..."), "configure"), this);
   connect( setup_b, SIGNAL(clicked()), SLOT(expandbutton()));
   if(setup_b->sizeHint().width() > minw)
       minw = setup_b->sizeHint().width();
@@ -523,7 +523,7 @@ void KPPPWidget::sigPPPDDied() {
 	    }
 	}
 
-	if(KMessageBox::warningYesNo(0, msg, i18n("Error"), KStdGuiItem::ok().text(), i18n("&Details...")) == KMessageBox::No)
+	if(KMessageBox::warningYesNo(0, msg, i18n("Error"), KStdGuiItem::ok(), i18n("&Details...")) == KMessageBox::No)
 	  PPPL_ShowLog();
       } else { /* reconnect on disconnect */
 	kdDebug(5002) << "Trying to reconnect... " << endl;

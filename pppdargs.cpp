@@ -90,9 +90,9 @@ PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
 
   KButtonBox *bbox = new KButtonBox(this);
   bbox->addStretch(1);
-  closebtn = bbox->addButton(KStdGuiItem::ok().text());
+  closebtn = bbox->addButton(KStdGuiItem::ok());
   connect(closebtn, SIGNAL(clicked()), SLOT(closebutton()));
-  QPushButton *cancel = bbox->addButton(KStdGuiItem::cancel().text());
+  QPushButton *cancel = bbox->addButton(KStdGuiItem::cancel());
   connect(cancel, SIGNAL(clicked()),
 	  this, SLOT(reject()));
   bbox->layout();

@@ -127,7 +127,7 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   debug->setToggleButton(true);
   connect(debug, SIGNAL(clicked()), SIGNAL(toggleDebugWindow()));
 
-  cancel = new QPushButton(i18n("&Cancel"), this);
+  cancel = new KPushButton(KStdGuiItem::cancel(), this);
   cancel->setFocus();
   connect(cancel, SIGNAL(clicked()), SLOT(cancelbutton()));
 

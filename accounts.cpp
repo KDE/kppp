@@ -320,7 +320,7 @@ void AccountWidget::deleteaccount() {
   QString s = i18n("Are you sure you want to delete\nthe account \"%1\"?")
     .arg(accountlist_l->text(accountlist_l->currentItem()));
 
-  if(KMessageBox::warningYesNo(this, s, i18n("Confirm")) != KMessageBox::Yes)
+  if(KMessageBox::warningYesNo(this, s, i18n("Confirm"), KGuiItem(i18n("Delete"), "editdelete"), KStdGuiItem::cancel()) != KMessageBox::Yes)
     return;
 
   if(gpppdata.deleteAccount(accountlist_l->text(accountlist_l->currentItem())))
@@ -451,9 +451,9 @@ QueryReset::QueryReset(QWidget *parent) : QDialog(parent, 0, true) {
 
   KButtonBox *bbox = new KButtonBox(this);
   bbox->addStretch(1);
-  QPushButton *ok = bbox->addButton(KStdGuiItem::ok().text());
+  QPushButton *ok = bbox->addButton(KStdGuiItem::ok());
   ok->setDefault(true);
-  QPushButton *cancel = bbox->addButton(KStdGuiItem::cancel().text());
+  QPushButton *cancel = bbox->addButton(KStdGuiItem::cancel());
 
   connect(ok, SIGNAL(clicked()),
 	  this, SLOT(accepted()));
