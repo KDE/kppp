@@ -808,6 +808,16 @@ void PPPData::setPhonenumber( const char *n ) {
 }
 
 
+const char *PPPData::dialPrefix() {
+  return readConfig(cgroup, DIAL_PREFIX_KEY, "");
+}
+
+
+void PPPData::setDialPrefix(const char *s) {
+  writeConfig(cgroup, DIAL_PREFIX_KEY, s);
+}
+
+
 const int PPPData::authMethod() {
     return readNumConfig(cgroup, AUTH_KEY, 0);
 }

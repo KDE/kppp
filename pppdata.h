@@ -108,6 +108,7 @@
 // account
 #define NAME_KEY           "Name"
 #define PHONENUMBER_KEY    "Phonenumber"
+#define DIAL_PREFIX_KEY    "DialPrefix"
 #define AUTH_KEY           "Authentication"
 #define STORED_PASSWORD_KEY "Password"
 #define STORED_USERNAME_KEY "Username"
@@ -165,6 +166,9 @@ public:
   void writeConfig(const char *, const char *, const char *);
   void writeConfig(const char *, const char *, int);
   void writeListConfig(const char *, const char *, QStrList &, char sep = ',');
+
+  // return the current account group
+  QString currentGroup() { return cgroup; }
 
   // functions to set/get general kppp info
   const char* Password();
@@ -307,6 +311,9 @@ public:
   QStrList &phonenumbers();
   const char *phonenumber();
   void setPhonenumber(const char *);
+
+  const char *dialPrefix();
+  void setDialPrefix(const char *);
 
   const int authMethod();
   void setAuthMethod(int);

@@ -70,7 +70,9 @@ public:
 		 LoopStart = 10,
 		 LoopEnd = 11, 
 		 Scan = 12,
-                 Save = 13 };
+                 Save = 13,
+		 SendNoEcho = 14		 
+  };
 };
 
 #endif

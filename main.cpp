@@ -44,7 +44,7 @@
 #include <kbuttonbox.h>
 #include <kiconloader.h>
 
-#include "utils.h"
+#include "providerdb.h"
 
 #include "acctselect.h"
 #include "main.h"
@@ -424,7 +424,11 @@ int main( int argc, char **argv ) {
   if(TESTING) {
     gpppdata.open();
     gpppdata.setAccountbyIndex(0);
-    a.exec();
+
+    QString s = argv[2];
+    urlEncode(s);
+    printf("%s\n", s.data());
+
     remove_pidfile();
     exit(0);
   }

@@ -1001,6 +1001,11 @@ void ScriptWidget::addButton() {
       sl->insertItem(se->text());
       break;
 
+    case ScriptEdit::SendNoEcho:
+      stl->insertItem("SendNoEcho");
+      sl->insertItem(se->text());
+      break;
+
     case ScriptEdit::Pause:
       stl->insertItem("Pause");
       sl->insertItem(se->text());
@@ -1040,7 +1045,6 @@ void ScriptWidget::addButton() {
       stl->insertItem("PWPrompt");
       sl->insertItem(se->text());
       break;
-
 
     case ScriptEdit::LoopStart:
       stl->insertItem("LoopStart");
@@ -1093,6 +1097,11 @@ void ScriptWidget::insertButton() {
       sl->insertItem(se->text(), sl->currentItem());
       break;
 
+    case ScriptEdit::SendNoEcho:
+      stl->insertItem("SendNoEcho", stl->currentItem());
+      sl->insertItem(se->text(), sl->currentItem());
+      break;
+
     case ScriptEdit::Pause:
       stl->insertItem("Pause", stl->currentItem());
       sl->insertItem(se->text(), sl->currentItem());
@@ -1132,7 +1141,6 @@ void ScriptWidget::insertButton() {
       stl->insertItem("PWPrompt", stl->currentItem());
       sl->insertItem(se->text(), sl->currentItem());
       break;
-
 
     case ScriptEdit::LoopStart:
       stl->insertItem("LoopStart", stl->currentItem());
@@ -1201,7 +1209,7 @@ PhoneNumberDialog::PhoneNumberDialog(QWidget *parent) : QDialog(parent, 0, true)
   ok->setDefault(true);
   connect(ok, SIGNAL(clicked()),
 	  this, SLOT(accept()));
-  cancel = bbox->addButton(i18n("Abbrechen"));
+  cancel = bbox->addButton(i18n("Cancel"));
   connect(cancel, SIGNAL(clicked()),
 	  this, SLOT(reject()));
   bbox->layout();

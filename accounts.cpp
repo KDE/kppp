@@ -35,6 +35,7 @@
 #include "macros.h"
 #include "accounts.h"
 #include "accounting.h"
+#include "providerdb.h"
 
 void parseargs(char* buf, char** args);
 
@@ -256,10 +257,34 @@ void AccountWidget::newaccount() {
     return;
   }
 
-  if (gpppdata.newaccount() == -1) 
-    return;
+  int result;
+  int query = KMsgBox::yesNoCancel(this,
+				   i18n("Create a new account..."),
+   i18n("Do you want to use the wizard to create the new account or the\n"
+	"standard, dialog-based setup?\n\n"
+	"The wizard is easier and sufficient in most cases. If you need\n"
+	"very special settings, you might want to try the standard,\n"
+	"dialog-based setup.\n\n"
+	"Use \"Yes\" for the wizard, \"No\" for the dialog setup, and\n"
+	"\"Cancel\" to stop.\n"));
 
-  int result = doTab();
+  switch(query) {
+  case 1: 
+    {
+      if (gpppdata.newaccount() == -1) 
+	return;
+      ProviderDB pdb(this);
+      result = pdb.exec();
+      break;
+    }
+  case 2:
+    if (gpppdata.newaccount() == -1) 
+      return;
+    result = doTab();
+    break;
+  default:
+    return;
+  }
 
   if(result == QDialog::Accepted) {
     accountlist_l->insertItem(gpppdata.accname());

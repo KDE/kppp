@@ -313,11 +313,13 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       QString bm = i18n("Dialing");
       QStrList &plist = gpppdata.phonenumbers();
       bm += " ";
+      bm += gpppdata.dialPrefix();
       bm += plist.at(dialnumber);
       messg->setText(bm);
       emit debugMessage(bm);
 
       QString pn = gpppdata.modemDialStr();
+      pn += gpppdata.dialPrefix();
       pn += plist.at(dialnumber);
       if(++dialnumber >= plist.count())
         dialnumber = 0;
@@ -443,9 +445,23 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       }
 
 
-      if(strcmp(scriptCommand, "Send") == 0) {
+      if(strcmp(scriptCommand, "Send") == 0 || strcmp(scriptCommand, "SendNoEcho") == 0) {
 	QString bm = i18n("Sending ");
-	bm += scriptArgument;
+
+	// replace %USERNAME% and %PASSWORD%
+	QString arg = scriptArgument;
+	QRegExp re1("%USERNAME%");
+	QRegExp re2("%PASSWORD%");
+	arg = arg.replace(re1, gpppdata.Username());
+	arg = arg.replace(re2, gpppdata.Password());
+
+	if(strcmp(scriptCommand, "Send") == 0)
+	  bm += scriptArgument;
+	else {
+	  for(uint i = 0; i < strlen(scriptArgument); i++)
+	    bm += "*";
+	}
+
 	messg->setText(bm);
 	emit debugMessage(bm);
 

@@ -65,3 +65,4 @@ int pppInterfaceNumber() {
   fprintf(stderr, "pppInterfaceNumber: cannot detect ppp interface number!\n");
   return 0;
 }
+

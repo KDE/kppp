@@ -23,7 +23,7 @@ EXTRA_DIST = $(apps_DATA)
 # set the include path for X, qt and KDE
 INCLUDES= $(all_includes)
 # claim, which subdirectories you want to install
-SUBDIRS = docs pixmaps icons logview Rules
+SUBDIRS = docs pixmaps icons logview Rules DB
 
 # This one gets installed 
 bin_PROGRAMS = 	kppp
@@ -60,7 +60,8 @@ kppp_SOURCES	= accounts.cpp \
 		requester.cpp \
 		opener.cpp \
 		modemdb.cpp \
-		utils.cpp
+		utils.cpp \
+		providerdb.cpp
 
 # the library search path
 kppp_LDFLAGS = $(all_libraries) $(KDE_RPATH)
@@ -102,7 +103,8 @@ noinst_HEADERS = accounts.h \
 		groupbox.h \
 		newwidget.h \
 		modemdb.h \
-		utils.h
+		utils.h \
+		providerdb.h
 
 METASOURCES = accounting.moc \
 	accounts.moc \
@@ -124,7 +126,8 @@ METASOURCES = accounting.moc \
 	pppdargs.moc \
 	pppstatdlg.moc \
 	pwentry.moc \
-	scriptedit.moc
+	scriptedit.moc \
+	providerdb.moc
 
 messages:
 	$(XGETTEXT) -C -ktranslate -ki18n -x $(includedir)/kde.pot $(kppp_SOURCES) && mv messages.po ../po/kppp.pot

@@ -49,6 +49,7 @@ ScriptEdit::ScriptEdit( QWidget *parent, const char *name )
   st->insertItem("LoopEnd");
   st->insertItem("Scan");
   st->insertItem("Save");
+  st->insertItem("SendNoEcho");
   connect(st, SIGNAL(activated(int)), SLOT(setType(int)));
   st->setMinimumSize(st->sizeHint());
   st->setFixedHeight(st->sizeHint().height());

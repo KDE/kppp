@@ -1,3 +1,23 @@
+1999-02-15  Harri Porten  <porten@kde.org>
+
+	* the phonenumber widget had a german "Abbrechen" button instead
+	  of a "Cancel" button
+
+	* new Script command "SendNoEcho". Usefull for sending passwords,
+	  the command works like "Send", but the actual content is shown
+	  as "*" in the status line.
+
+	* added a DialPrefix to the provider dialog; kppp now handles the
+	  DialPrefix value for every connection, defaults to ""
+
+	* if a script argument contains %PASSWORD% or %USERNAME%, it is
+	  replaced by the corresponding value
+
+1999-02-13  Harri Porten  <porten@kde.org>
+
+	* there´s no a provider database (just one entry for now) and a
+	  wizard for this.
+
 1999-02-11  Harri Porten  <porten@kde.org>
 
 	* runtests.cpp: removed local header file if_ppp.h
@@ -10,6 +30,11 @@
 
 	* replaced the "Help" button with a questionmark. Makes the window
 	  much smaller, especially in other languages than english
+
+	* the version number raised to 2.0pre4 (from 1.6.4). This version
+	  is mainly the development version, whilest there is still a 
+	  "stable" 1.6.3 in the KDE 1.1 branch. Once KDE 2.0 is out (or
+	  however it will named), the release will be 2.0
 
 1999-02-09  Mario Weilguni <mweilguni@sime.com>	
 
