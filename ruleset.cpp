@@ -129,9 +129,9 @@ int RuleSet::load(const QString &filename) {
     } while(!f.atEnd() && backslashed);
 
     // strip whitespace
-    line = line.replace(QRegExp("[ \t]"), "");
+    line = line.replace(QRegExp("[ \t\r]"), "");
     // skip comment lines
-    if((line.left(1) == "#") || (line.length()==0))
+    if((line.left(1) == "#") || line.isEmpty())
       continue;
 
     // parse line
@@ -209,7 +209,7 @@ bool RuleSet::parseEntry(RULE &ret, QString s, int year) {
     int off;
     bool ok = TRUE;
     QString val = s.mid(6, 1000);
-    if(val.length() == 0)
+    if(val.isEmpty())
       off = 0;
     else
       off = val.toInt(&ok);
@@ -287,7 +287,7 @@ bool RuleSet::parseEntries(QString s, int year,
 }
 
 bool RuleSet::parseTime(QTime &t1, QTime &t2, QString s) {
-  if(s.length() == 0) {
+  if(s.isEmpty()) {
     t1 = midnight();
     t2 = beforeMidnight();
     return TRUE;
@@ -363,7 +363,7 @@ bool RuleSet::parseLine(QString &s) {
   // check for the name
   if(s.contains(QRegExp("name=.*"))) {
     _name = s.right(s.length()-5);
-    return (bool)(_name.length() > 0);
+    return !_name.isEmpty();
   }
 
 
