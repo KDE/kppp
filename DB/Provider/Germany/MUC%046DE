@@ -1,0 +1,26 @@
+# KDE Config File
+Authentication=1
+AccountingFile=
+AutoDNS=1
+AutoName=0
+BeforeConnect=
+BeforeDisconnect=
+Command=
+DNS=
+DefaultRoute=1
+DialPrefix=
+DisconnectCommand=
+Domain=muc.de
+ExDNSDisabled=0
+Gateway=0.0.0.0
+IPAddr=0.0.0.0
+Name=MUC.DE
+Password=%PASSWORD%
+Phonenumber=32479752
+ScriptArguments=
+ScriptCommands=
+StorePassword=1
+SubnetMask=0.0.0.0
+Username=%USERNAME%
+VolumeAccountingEnabled=0
+pppdArguments=-detach,
