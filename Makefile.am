@@ -115,8 +115,8 @@ METASOURCES = accounting.moc \
 	scriptedit.moc \
 	providerdb.moc
 
-messages:
-	$(XGETTEXT) $(kppp_SOURCES) -o $(podir)/kppp.pot
+messages: 
+	$(XGETTEXT) *.cpp -o $(podir)/kppp.pot
 
 # just install datas here. Use install-exec-data for scripts and etc.
 # the binary itself is already installed from automake
