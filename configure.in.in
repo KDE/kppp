@@ -42,3 +42,5 @@ else
   AC_MSG_RESULT(no)
 fi
 rm -r conftest.*
+
+AC_CHECK_HEADERS(sys/param.h string.h)
