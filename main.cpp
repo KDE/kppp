@@ -62,6 +62,7 @@
 #include "modemdb.h"
 #include "iplined.h"
 #include "pppstats.h"
+#include "pppdata.h"
 
 #include <X11/Xlib.h>
 #include <kglobal.h>

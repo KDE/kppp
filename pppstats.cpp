@@ -275,11 +275,10 @@ bool PPPStats::get_ppp_stats(struct ppp_stats *curp){
 
 #ifdef linux
     req.stats_ptr = (caddr_t) &req.stats;
-#undef ifr_name
-#define ifr_name ifr__name
-#endif
-
+    sprintf(req.ifr__name, "ppp%d", unit);
+#else
     sprintf(req.ifr_name, "ppp%d", unit);
+#endif
     if (ioctl(s, SIOCGPPPSTATS, &req) < 0) {
 	if (errno == ENOTTY)
 	    fprintf(stderr, "pppstats: kernel support missing\n");

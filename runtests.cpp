@@ -70,6 +70,7 @@
 #endif // linux
 
 #include <klocale.h>
+#include "pppdata.h"
 
 // initial effective uid (main.cpp)
 extern uid_t euid;
@@ -437,7 +438,7 @@ int runTests() {
     QString msgstr = _PATH_RESCONF" ";
     msgstr += i18n("is missing or can't be read !\n\n"
                    "Ask your system administrator to create\n"
-                   "a non-empty file that has appropriate\n"
+                   "this file (can be empty) with appropriate\n"
                    "read and write permissions.");
     QMessageBox::warning(0, i18n("Error"), msgstr);
     warning ++;

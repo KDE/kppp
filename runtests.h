@@ -27,9 +27,6 @@
 #ifndef __RUNTESTS__H__
 #define __RUNTESTS__H__
 
-#include <qstring.h>
-#include "pppdata.h"
-
 #define SYSOPTIONS "/etc/ppp/options"
 
 const int TEST_OK = 0;
