@@ -1,11 +1,12 @@
-######################################################################
-# Swedish rate ruleset for local calls /w Telebonus 1 (10% discount) #
-# Created 1998-04-26 by Anders Widell  <d95-awi@nada.kth.se>         #
-# May be distributed freely. I take no responsibility for            #
-# the correctness of the information in this file.                   #
-######################################################################
+##############################################################
+# Swedish rate ruleset for local calls /w Telebonus 1 (10% discount)
+# Created 1998-04-26 by Anders Widell  <d95-awi@nada.kth.se>
+# Updated 2000-08-01 by Fredrik Ismyren <myrn@despammed.com>
+# May be distributed freely. I take no responsibility for
+# the correctness of the information in this file.
+##############################################################
 
-name=Swedish_Local_Telebonus_1
+name=Telia_Lokalt_Telebonus1
 currency_symbol=SEK
 currency_position=right 
 currency_digits=2
@@ -26,40 +27,40 @@ currency_digits=2
 #   att "aftnar" typ julafton och nyårsafton inte räknas som vardagar.
 
 
-# Öppningsavgift: 36 öre
-per_connection=0.36
+# Öppningsavgift: 40,5 öre
+per_connection=0.405
 minimum_costs=0.0
 
 # Låg taxa: 10,35 öre/min (räknat per sekund)
-default=(0.01035, 6)
+default=(0.001725, 1)
 
 # Hög taxa: 20,7 öre/min måndag-fredag 8-18
-on (monday..friday) between (8:00..17:59) use (0.01035, 3)
+on (monday..friday) between (8:00..17:59) use (0.00345, 1)
 
 # Röda helgdagar (de som infaller på en lördag/söndag utelämnade)
 # nyårsdagen
-on (01/01) between () use (0.01035, 6)
+on (01/01) between () use (0.00345, 1)
 # trettondag jul
-on (01/06) between () use (0.01035, 6)
+on (01/06) between () use (0.00345, 1)
 # långfredagen
-on (easter-2) between () use (0.01035, 6)
+on (easter-2) between () use (0.00345, 1)
 # annandag påsk
-on (easter+1) between () use (0.01035, 6)
+on (easter+1) between () use (0.00345, 1)
 # första maj
-on (05/01) between () use (0.01035, 6)
+on (05/01) between () use (0.00345, 1)
 # kristi himmelfärds dag
-on (easter+39) between () use (0.01035, 6)
+on (easter+39) between () use (0.00345, 1)
 # annandag pingst
-on (easter+50) between () use (0.01035, 6)
+on (easter+50) between () use (0.00345, 1)
 # juldagen
-on (12/25) between () use (0.01035, 6)
+on (12/25) between () use (0.00345, 1)
 # annandag jul
-on (12/26) between () use (0.01035, 6)
+on (12/26) between () use (0.00345, 1)
 
 # "aftnar" (osäkert om följande är korrekt & fullständigt)
 # trettondagsafton
-on (01/05) between () use (0.01035, 6)
+on (01/05) between () use (0.00345, 1)
 # julafton
-on (12/24) between () use (0.01035, 6)
+on (12/24) between () use (0.00345, 1)
 # nyårsafton
-on (12/31) between () use (0.01035, 6)
+on (12/31) between () use (0.00345, 1)
