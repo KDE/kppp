@@ -1,30 +1,25 @@
 ##################################################################
-# RomTelecom Interjudetean - Tarife cu TVA (25 mai 2004)         #
-# Claudiu Costin <claudiuc@kde.org>                              #
-# cu actualizari de la Sorin Batariuc <sorin@bonbon.net>         #
+# RomTelecom Interjudetean - Tarife cu TVA (20 martie 2005)      #
+#                                                                #
+# actualizat de Sorin Batariuc <sorin@bonbon.net>                #
 ##################################################################
 
 # Nota:
-# 1) Tarif I (normal): 60 secunde = 0.060 Euro (fara TVA)
+# 1) Tarif I (normal): 60 secunde = 0.054 Euro (fara TVA)
 # 2) Tarif II (redus): 60 secunde = 0.040 Euro (fara TVA)
-# 3) Tariful este valabil de la 1 Iunie 2004
-#
+# 
 # TVA = 19%
-#
-#
-# Referinta: "Anexa II Apeluri de la abonat in centrale automate cu Call Colection si Acces Internet.doc"
-#
 
 name=Romtelecom Interjudetean
 currency_symbol=Euro
 currency_position=right
-currency_digits=6
+currency_digits=5
 per_connection=0.00
 minimum_costs=0.0476
-default=(0.0714, 60)
+default=(0.06426, 60)
 
 # TARIFUL I
-on (monday..friday) between (08:00..19:59) use (0.0714, 60)
+on (monday..friday) between (08:00..19:59) use (0.06426, 60)
 
 # TARIFUL II
 on (1/1) between () use (0.0476, 60)
