@@ -118,12 +118,12 @@ void MiniTerm::init() {
 
   int lock = Modem::modem->lockdevice();
   if (lock == 1) {
-    statusbar->setText(i18n("Sorry, modem device is locked."));
+    statusbar->setText(i18n("Modem device is locked."));
     return;
   }
 
   if (lock == -1) {
-    statusbar->setText(i18n("Sorry, can't create modem lock file."));
+    statusbar->setText(i18n("Unable to create modem lock file."));
     return;
   }
 

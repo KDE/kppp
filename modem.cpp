@@ -114,20 +114,20 @@ bool Modem::opentty() {
   //  int flags;
 
   if((modemfd = Requester::rq->openModem(gpppdata.modemDevice()))<0) {
-    errmsg = i18n("Sorry, can't open modem.");
+    errmsg = i18n("Unable to open modem.");
     return false;
   }
 
 #if 0
   if(gpppdata.UseCDLine()) {
     if(ioctl(modemfd, TIOCMGET, &flags) == -1) {
-      errmsg = i18n("Sorry, can't detect state of CD line.");
+      errmsg = i18n("Unable to detect state of CD line.");
       ::close(modemfd);
       modemfd = -1;
       return false;
     }
     if ((flags&TIOCM_CD) == 0) {
-      errmsg = i18n("Sorry, the modem is not ready.");
+      errmsg = i18n("The modem is not ready.");
       ::close(modemfd);
       modemfd = -1;
       return false;
@@ -143,7 +143,7 @@ bool Modem::opentty() {
     tcsendbreak(modemfd, 0);
     sleep(1);
     if(tcgetattr(modemfd, &tty) < 0){
-      errmsg = i18n("Sorry, the modem is busy.");
+      errmsg = i18n("The modem is busy.");
       ::close(modemfd);
       modemfd = -1;
       return false;
@@ -188,7 +188,7 @@ bool Modem::opentty() {
   tcdrain(modemfd);
 
   if(tcsetattr(modemfd, TCSANOW, &tty) < 0){
-    errmsg = i18n("Sorry, the modem is busy.");
+    errmsg = i18n("The modem is busy.");
     ::close(modemfd);
     modemfd=-1;
     return false;
@@ -355,7 +355,7 @@ bool Modem::hangup() {
       closetty();
       close(modemfd);
       modemfd = -1;
-      errmsg = i18n("Sorry, the modem doesn't respond.");
+      errmsg = i18n("The modem does not respond.");
       return false;
     }
 

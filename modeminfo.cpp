@@ -54,7 +54,7 @@ ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
   // search all these messages. This is a little overkill, so I take
   // the longest english message, translate it and give it additional
   // 20 percent space. Hope this is enough.
-  statusBar->setText(i18n("Sorry, can't create modem lock file."));
+  statusBar->setText(i18n("Unable to create modem lock file."));
   statusBar->setFixedWidth((statusBar->sizeHint().width() * 12) / 10);
   statusBar->setFixedHeight(statusBar->sizeHint().height() + 4);
 
@@ -125,13 +125,13 @@ void ModemTransfer::init() {
   int lock = Modem::modem->lockdevice();
   if (lock == 1) {
 
-    statusBar->setText(i18n("Sorry, modem device is locked."));
+    statusBar->setText(i18n("Modem device is locked."));
     return;
   }
 
   if (lock == -1) {
 
-    statusBar->setText(i18n("Sorry, can't create modem lock file."));
+    statusBar->setText(i18n("Unable to create modem lock file."));
     return;
   }
 

@@ -151,7 +151,7 @@ void PPPL_AnalyseLog(QStringList &list, QStringList &result) {
 	  "configuration request! Contact your provider!") },
 
     {"unrecognized option",
-     I18N_NOOP("You have passed an invalid option to pppd. See `man pppd' "
+     I18N_NOOP("You have passed an invalid option to pppd. See 'man pppd' "
           "for a complete list of valid arguments.") },
 
     // terminator
@@ -188,7 +188,7 @@ void PPPL_AnalyseLog(QStringList &list, QStringList &result) {
   }
 
   if (result.isEmpty())
-    result.append(i18n("Sorry. Can't help you here."));
+    result.append(i18n("Unable to provide help."));
 }
 
 

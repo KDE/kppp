@@ -549,9 +549,9 @@ void KPPPWidget::sigChld() {
   //  if(id == helperPid && helperPid != -1) {
   //    kdDebug(5002) << "It was the setuid child that died" << endl;
  // helperPid = -1;
-    QString msg = i18n("Sorry. kppp's helper process just died.\n"
+    QString msg = i18n("kppp's helper process just died.\n"
                        "Since a further execution would be pointless, "
-                       "kppp will shut down right now.");
+                       "kppp will shut down now.");
     KMessageBox::error(0L, msg);
     remove_pidfile();
     exit(1);

@@ -109,7 +109,7 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   messg = new QLabel(this, "messg");
   messg->setFrameStyle(QFrame::Panel|QFrame::Sunken);
   messg->setAlignment(AlignCenter);
-  messg->setText(i18n("Sorry, can't create modem lock file."));
+  messg->setText(i18n("Unable to create modem lock file."));
   messg->setMinimumHeight(messg->sizeHint().height() + 5);
   int messw = (messg->sizeHint().width() * 12) / 10;
   messw = QMAX(messw,280);
@@ -223,13 +223,13 @@ void ConnectWidget::init() {
   int lock = Modem::modem->lockdevice();
 
   if (lock == 1) {
-    messg->setText(i18n("Sorry, modem device is locked."));
+    messg->setText(i18n("Modem device is locked."));
     vmain = 20; // wait until cancel is pressed
     return;
   }
 
   if (lock == -1) {
-    messg->setText(i18n("Sorry, can't create modem lock file."));
+    messg->setText(i18n("Unable to create modem lock file."));
     vmain = 20; // wait until cancel is pressed
     return;
   }
