@@ -111,6 +111,9 @@ private:
   QLabel *label14;
 
   QLineEdit *escaperesp;
+  QLineEdit *dlpresp;
+  QLabel *label17;
+
   QLabel *label15;
 
   QLabel *lslider;

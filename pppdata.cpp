@@ -553,6 +553,17 @@ void PPPData::setModemHangupResp(const QString &n) {
 }
 
 
+QString PPPData::modemDLPResp() {
+  return readConfig(MODEM_GRP, DLPRESP_KEY, "DIGITAL LINE DETECTED");
+}
+
+void PPPData::setModemDLPResp(const QString &n) {
+  writeConfig(MODEM_GRP, DLPRESP_KEY, n);
+}
+
+
+
+
 const QString PPPData::modemAnswerStr() {
   return readConfig(MODEM_GRP, ANSWERSTR_KEY, "ATA");
 }

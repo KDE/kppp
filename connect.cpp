@@ -444,6 +444,24 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       Modem::modem->unlockdevice();
       return;
     }
+
+    if(readbuffer.contains(gpppdata.modemDLPResp())) {
+      timeout_timer->stop();
+
+      messg->setText(i18n("Digital Line Protection Detected."));
+      vmain = 20;
+      Modem::modem->unlockdevice();
+      KMessageBox::error(this,
+                         i18n("A Digital Line Protection (DLP) error response "
+			      "has been detected.\n"
+                              "Please disconnect the phone line.\n\n"
+                              "Do NOT connect this modem to a digital phone "
+			      "line or the modem could get permanently "
+			      "damaged"));
+      return;
+    }
+
+
   }
 
   // wait for newline after CONNECT response (so we get the speed)

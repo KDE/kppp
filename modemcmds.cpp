@@ -202,6 +202,12 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   l1->addWidget(label13, row, 1);
   l1->addWidget(answerresp, row++, 2);
 
+  dlpresp = new QLineEdit(dummyWidget);
+  label17 = new QLabel(i18n("DLP response:"), dummyWidget);
+  ADJUSTEDIT(dlpresp);
+  l1->addWidget(label17, row, 1);
+  l1->addWidget(dlpresp, row++, 2);
+
   escapestr = new QLineEdit(dummyWidget);
   label14 = new QLabel(i18n("Escape strin&g:"), dummyWidget);
   label14->setBuddy(escapestr);
@@ -269,6 +275,8 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
 
   nodetectdialtone->setText(gpppdata.modemNoDialToneDetectionStr());
   dialstr->setText(gpppdata.modemDialStr());
+  dlpresp->setText(gpppdata.modemDLPResp());
+
   connectresp->setText(gpppdata.modemConnectResp());
   busyresp->setText(gpppdata.modemBusyResp());
   nocarrierresp->setText(gpppdata.modemNoCarrierResp());
@@ -303,6 +311,8 @@ void ModemCommands::slotOk() {
   gpppdata.setModemToneDuration(ldurationslider->text().toInt());
   gpppdata.setModemNoDialToneDetectionStr(nodetectdialtone->text());
   gpppdata.setModemDialStr(dialstr->text());
+  gpppdata.setModemDLPResp(dlpresp->text());
+
   gpppdata.setModemConnectResp(connectresp->text());
   gpppdata.setModemBusyResp(busyresp->text());
   gpppdata.setModemNoCarrierResp(nocarrierresp->text());

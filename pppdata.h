@@ -94,6 +94,7 @@ class KConfig;
 #define NODIALTONERESP_KEY "NoDialToneResp"
 #define HANGUPSTR_KEY      "HangupString"
 #define HANGUPRESP_KEY     "HangUpResponse"
+#define DLPRESP_KEY        "DLPResponse"
 #define ANSWERSTR_KEY      "AnswerString"
 #define RINGRESP_KEY       "RingResponse"
 #define ANSWERRESP_KEY     "AnswerResponse"
@@ -293,6 +294,9 @@ public:
 
   const QString modemHangupResp();
   void setModemHangupResp(const QString &);
+
+  QString modemDLPResp();
+  void setModemDLPResp(const QString &);
 
   const QString modemAnswerStr();
   void setModemAnswerStr(const QString &);
