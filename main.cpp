@@ -418,8 +418,8 @@ int main( int argc, char **argv ) {
   signal(SIGTERM, SIG_IGN);
   signal(SIGHUP, SIG_IGN);
 
-  XSetErrorHandler( kppp_x_errhandler );
-  XSetIOErrorHandler( kppp_xio_errhandler );
+  //  XSetErrorHandler( kppp_x_errhandler );
+  //  XSetIOErrorHandler( kppp_xio_errhandler );
 
   int ret = a.exec();
 
