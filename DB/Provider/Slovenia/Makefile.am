@@ -1,4 +1,4 @@
-pkg_DATA =	AmisNet SiOL
+pkg_DATA =	AmisNet Arnes Kiss MojNet SiOL Volja
 
 pkgdir = $(kde_datadir)/kppp/Provider/Slovenia
 
