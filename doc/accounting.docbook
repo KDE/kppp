@@ -8,7 +8,7 @@ easy.</para>
 <para>Don't forget to submit your newly created rules file to &kppp;'s
 maintainer. The newly created rules file can be checked for valid syntax with
 the <userinput><option>-r</option>
-<replaceable>rule_file</replaceable></userinput> command line option to 6kppp;
+<replaceable>rule_file</replaceable></userinput> command line option to &kppp;
 and must be installed in <filename
 class="directory">${KDEDIR}/share/apps/kppp/Rules</filename> or in <filename
 class="directory">${HOME}/.kde/share/apps/kppp/Rules</filename> before you will
