@@ -184,7 +184,7 @@ public:
   QString currentGroup() { return cgroup; }
 
   // functions to set/get general kppp info
-  const QString Password();
+  QString password() const;
   void setPassword(const QString &);
 
   const QString defaultAccount();
@@ -445,10 +445,8 @@ public:
   void winPosStatWin(int &, int &);
   void setWinPosStatWin(int, int);
 
-public:
-  QString password;
-
 private:
+  QString passwd;
   KConfig* config;                       // configuration object
   int highcount;                         // index of highest account
   int caccount;                          // index of the current account

@@ -633,7 +633,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	messg->setText(bm);
 	emit debugMessage(bm);
 
-	QString pwstring = gpppdata.Password();
+	QString pwstring = gpppdata.password();
 
 	if(!pwstring.isEmpty() && firstrunPW) {
 	  // the user entered a password on the main kppp dialog
