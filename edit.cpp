@@ -41,6 +41,7 @@
 #include "pppdata.h"
 #include "newwidget.h"
 #include "iplined.h"
+#include "auth.h"
 
 DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
   : KGroupBox(i18n("Dial Setup"), parent, name)
@@ -173,7 +174,7 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
     store_password->setChecked(gpppdata.storePassword());
   } else {
     // select PAP/CHAP as default
-    auth->setCurrentItem(5);
+    auth->setCurrentItem(AUTH_PAPCHAP);
   }
 
   numbersChanged();

@@ -261,10 +261,10 @@ bool Requester::setSecret(int method, const QString &name, const QString &passwo
 bool Requester::removeSecret(int authMethod) {
   struct RemoveSecretRequest req;
   req.header.type = Opener::RemoveSecret;
-  if(authMethod == AUTH_PAP && gpppdata.authMethod() == AUTH_PAP)
+  if(authMethod == AUTH_PAP)
     req.method = Opener::PAP;
   else
-    if(authMethod == AUTH_CHAP && gpppdata.authMethod() == AUTH_CHAP)
+    if(authMethod == AUTH_CHAP)
       req.method = Opener::CHAP;
     else
       return false;
