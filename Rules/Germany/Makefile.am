@@ -9,6 +9,7 @@ pkg_DATA = 2.5min.rst 2.5s.rst \
 	CompuservePro.rst \
 	Easynet_easy-call.rst \
 	expressnet.rst Netcom_Kassel.rst \
+	Freenet_Sorglos.rst \
 	Mobilcom_Freenet.rst \
 	Nikoma.rst Nikoma_Internet_by_Call.rst Nikoma_Study_and_Surf.rst \
 	Telekom_City_Select_5_30.rst \
