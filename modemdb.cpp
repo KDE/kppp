@@ -207,26 +207,25 @@ void ModemDatabase::load() {
   QStringList::Iterator it = list.begin();
   while(it != list.end()) {
     modemDB->setGroup(*it);
-    CharDict c;
-    c.setAutoDelete(true);
-    loadModem(*it, c);
+    CharDict *c = new CharDict;
+    c->setAutoDelete(true);
+    loadModem(*it, *c);
 
     //    if(strcmp(it->latin1(), "Common") == 0) {
     if(*it == "Common") {
       QString s = i18n("Hayes(tm) compatible modem");
-      c.replace("Name", new QString (s));
+      c->replace("Name", new QString (s));
 
       s = i18n("<Generic>");
-      c.replace("Vendor", new QString(s));
+      c->replace("Vendor", new QString(s));
     }
-    modems.append(&c);
+    modems.append(c);
 
     if(modemDB->hasKey("Vendor")) {
       QString vendor = modemDB->readEntry("Vendor");
       if(lvendors->findIndex(vendor) == -1)
 	lvendors->append(vendor);
     }
-
     ++it;
   }
 
