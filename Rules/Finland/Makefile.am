@@ -1,4 +1,4 @@
-pkg_DATA = Vaasan_LP.rst
+pkg_DATA = VLP.rst
 
 pkgdir = $(kde_datadir)/kppp/Rules/Finland
 

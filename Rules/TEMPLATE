@@ -13,7 +13,7 @@
 # other users to check your ruleset more easily.
 # 
 # Please sign the the tarif file with your name an email address
-# so that I can contact you if necessary.
+# so that we can contact you if necessary.
 #
 # NOTE: the rules in this rule set do not make much sense and
 #       are only for demonstration purposes
@@ -24,8 +24,14 @@
 #	   i.e. "Austria city calls"
 #          --> file should be saved as "Austria_city_calls.rst"
 #
+# NOTE ON ENCODING:
+#	As of KDE 3.1 kppp assumes rule set files to be in UTF-8
+#       encoding. See the currency_symbol entry for an example
+#	of a non-ASCII character.
+#
 # Thanks, Bernd Wuebben
-# wuebben@math.cornell.edu / wuebben@kde.org
+# wuebben@kde.org
+# Current maintainer: Harri Porten, porten@kde.org
 ################################################################
 
 
@@ -40,9 +46,9 @@ name=default
 # currency settings
 ################################################################
 
-# defines ATS (Austrian Schilling) to be used as currency
+# defines ¤ (Euro) to be used as currency
 # symbol (not absolutely needed, default = "$")
-currency_symbol=ATS
+currency_symbol=¤
 
 # Define the position of the currency symbol.
 # (not absolutely needed, default is "right")
