@@ -26,8 +26,9 @@
 
 #include <qdir.h>
 #include <qlayout.h>
+#include <qwhatsthis.h>
+
 #include <kapp.h> // TODO: needed for getMiniIcon() only
-#include <kquickhelp.h>
 #include <kbuttonbox.h>
 #include <klocale.h>
 #include "groupbox.h"
@@ -61,7 +62,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   l11->addLayout(l111, 1);  
   edit_b = new QPushButton(i18n("Edit..."), peer());
   connect(edit_b, SIGNAL(clicked()), SLOT(editaccount()));
-  KQuickHelp::add(edit_b, i18n("Allows you to modify the selected account"));
+  QWhatsThis::add(edit_b, i18n("Allows you to modify the selected account"));
 
   min = edit_b->sizeHint().width();
   min = QMAX(70,min);
@@ -72,13 +73,13 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   new_b = new QPushButton(i18n("New..."), peer());
   connect(new_b, SIGNAL(clicked()), SLOT(newaccount()));
   l111->addWidget(new_b);
-  KQuickHelp::add(new_b, i18n("Create a new dialup connection\n"
+  QWhatsThis::add(new_b, i18n("Create a new dialup connection\n"
   			      "to the internet"));
 
   copy_b = new QPushButton(i18n("Copy"), peer());
   connect(copy_b, SIGNAL(clicked()), SLOT(copyaccount()));
   l111->addWidget(copy_b);
-  KQuickHelp::add(copy_b, 
+  QWhatsThis::add(copy_b, 
 		  i18n("Makes a copy of the selected account. All\n"
 		       "settings of the selected account are copied\n"
 		       "to a new account, that you can modify to fit your\n"
@@ -87,7 +88,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   delete_b = new QPushButton(i18n("Delete"), peer());
   connect(delete_b, SIGNAL(clicked()), SLOT(deleteaccount()));
   l111->addWidget(delete_b);
-  KQuickHelp::add(delete_b, 
+  QWhatsThis::add(delete_b, 
 		  i18n("Deletes the selected account\n\n<red><b>Use with care!"));
 
   QHBoxLayout *l12 = new QHBoxLayout;
@@ -107,14 +108,14 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   costedit->setEnabled(FALSE);
   l121->addWidget(costedit);
   l121->addStretch(1);
-  KQuickHelp::add(costlabel,
-  KQuickHelp::add(costedit, 
-		  i18n("This shows the accumulated phone costs\n"
-		       "for the selected account.\n"
-		       "\n"
-		       "<b>Important</b>: If you have more than one \n"
-		       "account - beware, this is <b>NOT</b> the sum \n"
-		       "of the phone costs of all your accounts!")));
+  QString tmp = i18n("This shows the accumulated phone costs\n"
+		     "for the selected account.\n"
+		     "\n"
+		     "<b>Important</b>: If you have more than one \n"
+		     "account - beware, this is <b>NOT</b> the sum \n"
+		     "of the phone costs of all your accounts!");
+  QWhatsThis::add(costlabel, tmp);
+  QWhatsThis::add(costedit, tmp);
 
   vollabel = new QLabel(i18n("Volume:"), peer());
   vollabel->setEnabled(FALSE);
@@ -125,14 +126,15 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   voledit->setFixedHeight(voledit->sizeHint().height());
   voledit->setEnabled(FALSE);
   l121->addWidget(voledit);
-  KQuickHelp::add(vollabel,
-  KQuickHelp::add(voledit, 
-		  i18n("This shows the number of bytes transferred\n"
-		       "for the selected account (not for all of your\n"
-		       "accounts. You can select what to display in\n"
-		       "the accounting dialog.\n"
-		       "\n"
-		       "<link #volaccounting>More on volume accounting</link>")));
+  tmp = i18n("This shows the number of bytes transferred\n"
+	     "for the selected account (not for all of your\n"
+	     "accounts. You can select what to display in\n"
+	     "the accounting dialog.\n"
+	     "\n"
+	     "<link #volaccounting>More on volume accounting</link>");
+
+  QWhatsThis::add(vollabel,tmp);
+  QWhatsThis::add(voledit, tmp);
 
   QVBoxLayout *l122 = new QVBoxLayout;
   l12->addStretch(1);
@@ -443,14 +445,14 @@ QueryReset::QueryReset(QWidget *parent) : QDialog(parent, 0, true) {
   costs = new QCheckBox(i18n("Reset the accumulated phone costs"), f->peer());
   costs->setChecked(true);
   l1->addWidget(costs);
-  KQuickHelp::add(costs, i18n("Check this to set the phone costs\n"
+  QWhatsThis::add(costs, i18n("Check this to set the phone costs\n"
 			      "to zero. Typically you´ll want to\n"
 			      "do this once a month."));
 
   volume = new QCheckBox(i18n("Reset volume accounting"), f->peer());
   volume->setChecked(true);
   l1->addWidget(volume);
-  KQuickHelp::add(volume, i18n("Check this to set the volume accounting\n"
+  QWhatsThis::add(volume, i18n("Check this to set the volume accounting\n"
 			       "to zero. Typically you´ll want to do this\n"
 			       "once a month."));
 

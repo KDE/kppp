@@ -39,7 +39,6 @@
 #include <sys/param.h>
 #endif
 
-#include <kquickhelp.h>
 #include <kbuttonbox.h>
 #include <kiconloader.h>
 #include <klocale.h>
@@ -48,6 +47,7 @@
 #include <kapp.h>
 #include <kconfig.h>
 #include <qdir.h>
+#include <qwhatsthis.h>
 #include <kwm.h>
 
 #include "providerdb.h"
@@ -160,11 +160,12 @@ void showNews() {
     l2->addWidget(cb);
     tl->addWidget(bbox);
 
-    KQuickHelp::add(cb, 
-    KQuickHelp::add(l, i18n(
-			    "This is an example for <b>QuickHelp</b>.\n"
-			    "This window will stay open until you\n"
-			    "click a mouse button or a hit a key.\n")));
+    QString tmp = i18n("This is an example for <b>QuickHelp</b>.\n"
+		       "This window will stay open until you\n"
+		       "click a mouse button or a hit a key.\n");
+
+    QWhatsThis::add(cb,tmp);
+    QWhatsThis::add(l, tmp);
 
     dlg.exec();
     if(cb->isChecked()) {
@@ -461,15 +462,16 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   l1->addWidget(ID_Edit, 1, 2);
   connect(ID_Edit, SIGNAL(returnPressed()),
 	  this, SLOT(enterPressedInID()));
-  KQuickHelp::add(ID_Label, 
-  KQuickHelp::add(ID_Edit,
-		  i18n("Type in the username that you got from your\n"
-		       "ISP. This is especially important for PAP\n"
-		       "and CHAP. You may omit this when you use\n"
-		       "terminal-based or script-based authentication.\n"
-		       "\n"
-		       "<b>Important</b>: case is important here:\n"
-		       "<i>myusername</i> is not the same as <i>MyUserName</i>!")));
+  QString tmp = i18n("Type in the username that you got from your\n"
+		     "ISP. This is especially important for PAP\n"
+		     "and CHAP. You may omit this when you use\n"
+		     "terminal-based or script-based authentication.\n"
+		     "\n"
+		     "<b>Important</b>: case is important here:\n"
+		     "<i>myusername</i> is not the same as <i>MyUserName</i>!");
+
+  QWhatsThis::add(ID_Label,tmp);
+  QWhatsThis::add(ID_Edit,tmp);
 
   PW_Label = new QLabel(i18n("Password:"), this);
   l1->addWidget(PW_Label, 2, 1);
@@ -479,16 +481,17 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   l1->addWidget(PW_Edit, 2, 2);
   connect(PW_Edit, SIGNAL(returnPressed()),
 	  this, SLOT(enterPressedInPW()));
- 
-  KQuickHelp::add(PW_Label, 
-  KQuickHelp::add(PW_Edit,
-		  i18n("Type in the password that you got from your\n"
-		       "ISP. This is especially important for PAP\n"
-		       "and CHAP. You may omit this when you use\n"
-		       "terminal-based or script-based authentication.\n"
-		       "\n"
-		       "<b>Important</b>: case is important here:\n"
-		       "<i>mypassword</i> is not the same as <i>MyPassword</i>!")));
+  
+  tmp = i18n("Type in the password that you got from your\n"
+	     "ISP. This is especially important for PAP\n"
+	     "and CHAP. You may omit this when you use\n"
+	     "terminal-based or script-based authentication.\n"
+	     "\n"
+	     "<b>Important</b>: case is important here:\n"
+	     "<i>mypassword</i> is not the same as <i>MyPassword</i>!");
+
+  QWhatsThis::add(PW_Label,tmp);
+  QWhatsThis::add(PW_Edit,tmp);
 
    QHBoxLayout *l3 = new QHBoxLayout;
    tl->addSpacing(5);
@@ -501,7 +504,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
    log->setChecked(gpppdata.get_show_log_window());
    l3->addWidget(log);
 
-   KQuickHelp::add(log, 
+   QWhatsThis::add(log, 
  		  i18n("This controls whether a log window is shown.\n"
  		       "A log window shows the communication between\n"
  		       "<i>kppp</i> and your modem. This will help you\n"
