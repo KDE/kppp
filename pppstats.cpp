@@ -53,6 +53,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <netinet/in.h>
+#include <net/ppp_defs.h>
 
 #ifndef STREAMS
 #if defined(__linux__) && defined(__powerpc__) \
@@ -63,10 +64,10 @@
 #include <sys/socket.h>		/* *BSD, Linux, NeXT, Ultrix etc. */
 #ifndef HAVE_NET_IF_PPP_H
 #ifdef HAVE_LINUX_IF_PPP_H
+#include <linux/if.h>
 #include <linux/if_ppp.h>
 #endif
 #else
-#include <net/ppp_defs.h>
 #include <net/if.h>
 #include <net/if_ppp.h>
 #endif
