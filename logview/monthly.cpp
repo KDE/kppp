@@ -59,13 +59,31 @@ public:
 	  li(l)
 	{
 	}
+  virtual void paintCell( QPainter *p, const QColorGroup & cg,
+			  int column, int width, int alignment );
+
     virtual QString key(int, bool) const;    
 private:
     LogInfo *li;
 };
 
-QString LogListItem::key(int c, bool) const
+void LogListItem::paintCell( QPainter *p, const QColorGroup & cg,
+			     int column, int width, int alignment )
 {
+  QListViewItem::paintCell(p, cg, column, width, alignment);    
+
+  // double line above sum
+  if(!li) {
+    p->drawLine(0, 0, width, 0);
+    p->drawLine(0, 2, width, 2);    
+  }
+}
+
+QString LogListItem::key(int c, bool ascending) const
+{
+  if (!li)	// we want the sum to be always at the bottom
+    return ascending ? "z" : " ";
+  
   QString k;
   switch (c) {
   case 0:
@@ -187,9 +205,7 @@ void MonthlyWidget::plotMonth() {
   double costs = 0;
   int bin = 0, bout = 0;
   int duration = 0;
-  LogListItem* last = 0;
   lv->clear();
-  
 
   for(int i = 0; i < (int)logList.count(); i++) {
     LogInfo *li = logList.at(i);
@@ -244,13 +260,12 @@ void MonthlyWidget::plotMonth() {
       s_costs.sprintf("%6.2f",
                       li->sessionCosts());
 
-      last = new LogListItem(li, lv, con, day, s_lifrom, s_liuntil, s_duration,
+      (void) new LogListItem(li, lv, con, day, s_lifrom, s_liuntil, s_duration,
 			     s_costs, _bin, _bout);
     }
   }
 
   if(count) {
-    QString s;
     QString _bin, _bout, _b;
 
     if(bin < 0)
@@ -273,14 +288,12 @@ void MonthlyWidget::plotMonth() {
                    s_duration);
 
     QString s_costs;
-    s.sprintf("%6.2f", costs);
+    s_costs.sprintf("%6.2f", costs);
 
-#if 0
-    last = new QListViewItem(lv, last,
-                             i18n("%1 connections").arg(count),
-                             " ", " ", " ",
-                             s_duration, s_costs, _bin, _bout);
-#endif
+    (void) new LogListItem(0, lv,
+			   i18n("%1 connections").arg(count),
+			   QString::null, QString::null, QString::null,
+			   s_duration, s_costs, _bin, _bout);
   }
 
   QString t;
