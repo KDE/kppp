@@ -457,11 +457,11 @@ PDB_Finished::PDB_Finished(QWidget *parent) : QWidget(parent) {
 
 void urlDecode(QString &s) {
   QString s1;
-  int i = 0;
 
-  while(s[i]) {
+  for(uint i = 0; i < s.length(); i++) {
     if(s[i] == '%') {
-      s1 += 100*(s[i+1]-'0') + 10*(s[i+2]-'0') + (s[i+3]-'0');
+      s1 += 100*s[i+1].digitValue() + 10*s[i+2].digitValue()
+        + s[i+3].digitValue();
       i += 4;
     } else {
       s1 += s[i];
@@ -474,17 +474,14 @@ void urlDecode(QString &s) {
 
 
 void urlEncode(QString &s) {
-  QString s1;  
-  
+  QString s1, tmp;
+
   for(uint i = 0; i < s.length(); i++) {
-    if(strchr(UNENCODED_CHARS, s[i]))
+    if(QString(UNENCODED_CHARS).find(s[i]) >= 0)
       s1 += s[i];
     else {
-      unsigned char ch=(unsigned char)s[i];
-      s1 += "%";
-      s1 += ch / 100 + '0';
-      s1 += (ch / 10)%10 + '0';
-      s1 += ch % 10 + '0';
+      tmp.sprintf("\%03i", s[i].unicode());
+      s1 += tmp;
     }
   }
   s = s1;
