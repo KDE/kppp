@@ -38,6 +38,7 @@
 #include <kglobal.h>
 #include <kwin.h>
 #include <kdialogbase.h>
+#include <kstdguiitem.h>
 #include <qvgroupbox.h>
 
 #include "pppdata.h"
@@ -262,7 +263,7 @@ void AccountWidget::newaccount() {
 	"standard, dialog-based setup?\n"
 	"The wizard is easier and sufficient in most cases. If you need "
 	"very special settings, you might want to try the standard, "
-		"dialog-based setup."), 
+		"dialog-based setup."),
 		i18n("Create New Account"),
 		i18n("&Wizard"), i18n("&Manual Setup"), i18n("Cancel"));
 
@@ -449,9 +450,9 @@ QueryReset::QueryReset(QWidget *parent) : QDialog(parent, 0, true) {
 
   KButtonBox *bbox = new KButtonBox(this);
   bbox->addStretch(1);
-  QPushButton *ok = bbox->addButton(i18n("&OK"));
+  QPushButton *ok = bbox->addButton(KStdGuiItem::ok().text());
   ok->setDefault(true);
-  QPushButton *cancel = bbox->addButton(i18n("&Cancel"));
+  QPushButton *cancel = bbox->addButton(KStdGuiItem::cancel().text());
 
   connect(ok, SIGNAL(clicked()),
 	  this, SLOT(accepted()));
