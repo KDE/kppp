@@ -1,4 +1,4 @@
-# Elisan hinnat Helsingissä 22.12.2002
+# VLP:n hinnat 2.1.2003 VLP:n asiakaspalvelun mukaan
 # Mikko Korhonen mjkorhon@cc.hut.fi
 ################################################################
 
@@ -8,7 +8,7 @@
 # NAME OF THE RULESET. This is NEEDED for accounting purposes.
 #
 ################################################################
-name=Elisa lähipuhelu 1
+name=VLP
 
 ################################################################
 # currency settings
@@ -58,7 +58,7 @@ per_connection=0.0821
 # "unit", while "72" is the duration in seconds.
 # Therefore the following rule means: "Every 72 seconds 0.1
 # ATS are added to the bill"
-# cost is 1 cent per minute with accuracy of 1 second
+# cost is 1.34 cents per minute with accuracy of 1 second
 # 8 significant digits should be enough
-default=(0.00022333333, 60)
+default=(0.00022333333, 1)
 
