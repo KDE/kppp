@@ -27,7 +27,8 @@
 #define _PPPSTATS_H_
 
 #include <qobject.h>
-#include <qtimer.h>
+
+class QTimer;
 
 class PPPStats : public QObject {
   Q_OBJECT

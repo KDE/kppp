@@ -43,10 +43,6 @@
 #include <ctype.h>
 #include <errno.h>
 
-#if !(__GLIBC__ >= 2)
-#include <nlist.h>
-#endif  
-
 #include <stdio.h>
 #include <signal.h>
 #include <fcntl.h>
@@ -56,35 +52,43 @@
 #include <string.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include <net/ppp_defs.h>
+// #include <net/ppp_defs.h>
 #include <netinet/in.h>
 
 #include "kpppconfig.h"
 
-#ifdef __svr4__
-#include <sys/stropts.h>
-#include <net/pppio.h>		/* SVR4, Solaris 2, etc. */
-
-#else
-#include <sys/time.h>
-#include <sys/socket.h>
-#include <net/if.h>
-
 #ifndef STREAMS
-
-#if defined(linux)
-#include <linux/if_ppp.h>
+#if defined(_linux_) && defined(__powerpc__) \
+    && (__GLIBC__ == 2 && __GLIBC_MINOR__ == 0)
+/* kludge alert! */
+#undef __GLIBC__
+#endif
+#include <sys/socket.h>		/* *BSD, Linux, NeXT, Ultrix etc. */
+#ifndef _linux_
+#include <net/if.h>
+#include <net/ppp_defs.h>
+#include <net/if_ppp.h>
 #else
-#include <net/if_ppp.h>                /* BSD, NeXT, etc. */
+/* Linux */
+#if __GLIBC__ >= 2
+#include <asm/types.h>		/* glibc 2 conflicts with linux/types.h */
+#include <net/if.h>
+#else
+#include <linux/types.h>
+#include <linux/if.h>
 #endif
+#include <linux/ppp_defs.h>
+#include <linux/if_ppp.h>
+#endif /* _linux_ */
 
-#else				/* SunOS 4, AIX 4, OSF/1, etc. */
-#define PPP_STATS	1	/* should be defined iff it is in ppp_if.c */
-#include <sys/stream.h>
-#include <net/ppp_str.h>
-#endif
-#endif
+#else	/* STREAMS */
+#include <sys/stropts.h>	/* SVR4, Solaris 2, SunOS 4, OSF/1, etc. */
+#include <net/ppp_defs.h>
+#include <net/pppio.h>
 
+#endif	/* STREAMS */
+
+#include <qtimer.h>
 #include "log.h"
 #include "pppstats.h"
 
