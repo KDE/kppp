@@ -221,7 +221,7 @@ int ModemsWidget::doTab(){
   }
 
   modem1 = new ModemWidget(tabWindow->addPage( i18n("&Device"), i18n("Serial Device")), isnewmodem );
-  modem2 = new ModemWidget2(tabWindow->addPage( i18n("&Modem"), i18n("Modem Settings")), isnewmodem );
+  modem2 = new ModemWidget2(tabWindow->addPage( i18n("&Modem"), i18n("Modem Settings")));
 
   int result = 0;
   bool ok = false;

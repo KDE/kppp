@@ -87,7 +87,7 @@ private:
 class ModemWidget2 : public QWidget {
   Q_OBJECT
 public:
-  ModemWidget2(QWidget *parent=0, bool isnewmodem=true, const char *name=0);
+  ModemWidget2(QWidget *parent=0, const char *name=0);
 	bool save();
 
 private slots:

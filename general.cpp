@@ -437,7 +437,7 @@ bool ModemWidget::save()
 }
 
 
-ModemWidget2::ModemWidget2(QWidget *parent, bool isnewmodem, const char *name)
+ModemWidget2::ModemWidget2(QWidget *parent, const char *name)
   : QWidget(parent, name)
 {
   QVBoxLayout *l1 = new QVBoxLayout(parent, 0, KDialog::spacingHint());
@@ -590,6 +590,7 @@ bool ModemWidget2::save()
   gpppdata.setWaitForDialTone(waitfordt->isOn());
   gpppdata.setbusyWait(busywait->value());
   gpppdata.setVolume(volume->value());
+  return true;
 }
 
 
