@@ -1,6 +1,4 @@
-pkg_DATA = EUnet EUnetlite YUBCnet VeratNet InfoSKY SCnet DrenikNet \
-    Sezampro BeoTelNet PTT CG.yu
-
+pkg_DATA = 041Net.rst 9819.rst
 
 pkgdir = $(kde_datadir)/kppp/Provider/Yugoslavia
 
