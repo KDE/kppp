@@ -31,6 +31,7 @@ SUBDIRS = Argentina \
 	Poland \
 	Portugal \
 	Romania \
+	Russia \
 	Singapore \
 	Slovakia \
 	SouthAfrika \
