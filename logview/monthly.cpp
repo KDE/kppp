@@ -47,6 +47,25 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
   tl = 0;
 
   lv = new KListView(this);
+  lv->addColumn(i18n("Connection"));
+  lv->addColumn(i18n("Day"));
+  lv->addColumn(i18n("From"));
+  lv->addColumn(i18n("Until"));
+  lv->addColumn(i18n("Seconds"));
+  lv->addColumn(i18n("Costs"));
+  lv->addColumn(i18n("Bytes in"));
+  lv->addColumn(i18n("Bytes out"));
+  lv->setColumnAlignment(1, AlignRight);
+  lv->setColumnAlignment(2, AlignRight);
+  lv->setColumnAlignment(3, AlignRight);
+  lv->setColumnAlignment(4, AlignRight);
+  lv->setColumnAlignment(5, AlignRight);
+  lv->setColumnAlignment(6, AlignRight);
+  lv->setColumnAlignment(7, AlignRight);
+  lv->setAllColumnsShowFocus(true);
+  lv->setShowSortIndicator(true);
+  lv->setItemMargin(2);
+  lv->setSorting(1);
   lv->setMinimumWidth(320);
   lv->setMinimumHeight(200);
 
@@ -109,15 +128,6 @@ void MonthlyWidget::plotMonth() {
 		      i18n("November"),
 		      i18n("December")};
 
-  lv->addColumn(i18n("Connection"));
-  lv->addColumn(i18n("Day"));
-  lv->addColumn(i18n("From"));
-  lv->addColumn(i18n("Until"));
-  lv->addColumn(i18n("Seconds"));
-  lv->addColumn(i18n("Costs"));
-  lv->addColumn(i18n("Bytes in"));
-  lv->addColumn(i18n("Bytes out"));
-
   // search the entries for this month
   QString s;
   int lastday = -1;
@@ -172,10 +182,9 @@ void MonthlyWidget::plotMonth() {
       QString day;
       QString con;
       if(li->from().date().day() != lastday) {
-        day.setNum(li->from().date().day());
+        day.sprintf("%2d", li->from().date().day());
         lastday = li->from().date().day();
-      } else
-        day = " ";
+      }
 
       if(li->connectionName() != lastConn) {
         con = li->connectionName();
@@ -195,14 +204,8 @@ void MonthlyWidget::plotMonth() {
       s_costs.sprintf("%6.2f",
                       li->sessionCosts());
 
-      last = new QListViewItem(lv,
-                               QString::fromLocal8Bit(con.data()),
-                               QString::fromLocal8Bit(day.data()),
-                               s_lifrom, s_liuntil,
-                               QString::fromLocal8Bit(s_duration.data()),
-                               s_costs,
-                               QString::fromLocal8Bit(bin.data()),
-                               QString::fromLocal8Bit(bout.data()));
+      last = new QListViewItem(lv, con, day, s_lifrom, s_liuntil, s_duration,
+                               s_costs, bin, bout);
     }
   }
 
@@ -229,40 +232,15 @@ void MonthlyWidget::plotMonth() {
     formatDuration(duration,
                    s_duration);
 
-
-    s.sprintf(i18n("%d connections\t%s\t%s\t%s\t%s\t%6.2f\t%s\t%s\t%s"),
-              count,
-              " ",
-              " ",
-              " ",
-              s_duration.data(),
-              costs,
-              _bin.data(),
-              _bout.data(),
-              _b.data());
-
-    last = new QListViewItem(lv, last,
-                             QString::fromLocal8Bit("==================================="),
-                             QString::fromLocal8Bit("==================================="),
-                             QString::fromLocal8Bit("==================================="),
-                             QString::fromLocal8Bit("==================================="),
-                             QString::fromLocal8Bit("==================================="),
-                             QString::fromLocal8Bit("==================================="),
-                             QString::fromLocal8Bit("==================================="),
-                             QString::fromLocal8Bit("==================================="));
-
     QString s_costs;
     s.sprintf("%6.2f", costs);
 
+#if 0
     last = new QListViewItem(lv, last,
-                             i18n("%d connections"),
-                             " ",
-                             " ",
-                             " ",
-                             QString::fromLocal8Bit(s_duration.data()),
-                             s_costs,
-                             QString::fromLocal8Bit(_bin.data()),
-                             QString::fromLocal8Bit(_bout.data()));
+                             i18n("%1 connections").arg(count),
+                             " ", " ", " ",
+                             s_duration, s_costs, _bin, _bout);
+#endif
   }
 
   QString t;
