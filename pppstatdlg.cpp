@@ -83,12 +83,10 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *)
   l11->addLayout(l111);
 
   QString pixdir = KApplication::kde_datadir() + "/kppp/pics/";
-  QString tmp;
+  QString tmp = i18n("Could not load %1 !");
 
 #define PMERROR(pm) \
-  { tmp.sprintf(i18n("Could not load %s !"), pm); \
-  QMessageBox::warning(this, i18n("Error"), tmp); \
-  }
+  QMessageBox::warning(this, i18n("Error"), tmp.arg(pm));
 
   if ( !big_modem_both_pixmap.load(pixdir + "modemboth.xpm") )
     PMERROR("modemboth.xpm");
@@ -122,11 +120,6 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *)
 
   ip_address_label4 = new IPLineEdit(this);
   ip_address_label4->setFocusPolicy(QWidget::NoFocus);
-
-  MIN_SIZE(ip_address_label1);
-  MIN_SIZE(ip_address_label2);
-  MIN_SIZE(ip_address_label3);
-  MIN_SIZE(ip_address_label4);
 
   l1112->addWidget(ip_address_label1, 0, 0);
   l1112->addWidget(ip_address_label2, 0, 1);
@@ -168,8 +161,6 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *)
   for(i = 0; i < 5; i++) {
     labela2[i]->setText("88888888");
     labelb2[i]->setText("88888888");
-    MIN_SIZE(labela1[i]);
-    MIN_SIZE(labela2[i]);
     MIN_SIZE(labelb1[i]);
     MIN_SIZE(labelb2[i]);
     labela2[i]->setText("");
@@ -219,7 +210,7 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *)
     connect(graphTimer, SIGNAL(timeout()), SLOT(updateGraph()));
   }
 
-  tl->freeze();
+  setFixedSize(sizeHint());
 }
 
 

@@ -50,10 +50,9 @@ DebugWidget::DebugWidget(QWidget *parent, const char *name)
   text_window->setGeometry(2,5,400, 300);
   //  text_window->setReadOnly(FALSE);
 
-  statuslabel = new QLabel( this, "statuslabel" );
+  statuslabel = new QLabel("", this, "statuslabel");
 
   statuslabel->setFrameStyle( QFrame::Panel | QFrame::Sunken );
-  statuslabel->setText( "" );
   statuslabel->setAlignment( AlignLeft|AlignVCenter );
   statuslabel->setGeometry(2, 307, 400, 20);
   //statusPageLabel->setFont( QFont("helvetica",12,QFont::Normal) );

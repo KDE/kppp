@@ -1,3 +1,9 @@
+1999-03-10  Harri Porten  <porten@kde.org>
+
+	* conwindow.cpp (ConWindow): initialize volinfo with "" do prevent
+	segfault. Strange.
+	* more porting to Qt 2.0 (layout and QString)
+
 1999-03-05  Harri Porten  <porten@kde.org>
 
 	* geometry layout: got rid of some freeze() and setMinimum*() calls.

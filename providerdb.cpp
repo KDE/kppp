@@ -199,7 +199,7 @@ void ProviderDB::accept() {
 //
 /////////////////////////////////////////////////////////////////////////////
 PDB_Intro::PDB_Intro(QWidget *parent) : QWidget(parent) {
-  QLabel *l = newLabel(i18n("You will be asked a few questions on informations\n"
+  QLabel *l = new QLabel(i18n("You will be asked a few questions on informations\n"
 			    "which are needed to establish an Internet connection\n"
 			    "with your Internet Service Provider (ISP).\n\n"
 			    "Make sure you have the registration form from your\n"
@@ -217,7 +217,7 @@ PDB_Intro::PDB_Intro(QWidget *parent) : QWidget(parent) {
 //
 /////////////////////////////////////////////////////////////////////////////
 PDB_Country::PDB_Country(QWidget *parent) : QWidget(parent) {
-  QLabel *l = newLabel(i18n("Select the location where you plan to use this\n"
+  QLabel *l = new QLabel(i18n("Select the location where you plan to use this\n"
 			    "account from the list below. If your country or\n"
 			    "location is not listed, you have to create the\n"
 			    "account with the normal, dialog based setup.\n\n"
@@ -276,7 +276,7 @@ void PDB_Country::selectionChanged(int idx) {
 /////////////////////////////////////////////////////////////////////////////
 PDB_Provider::PDB_Provider(QWidget *parent) : QWidget(parent) {
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
-  QLabel *l = newLabel(i18n("Select your Internet Service Provider (ISP) from\n"
+  QLabel *l = new QLabel(i18n("Select your Internet Service Provider (ISP) from\n"
 			    "the list below. If the ISP is not in this list,\n"
 			    "you have to click on \"Cancel\" and create this\n"
 			    "account using the normal, dialog-based setup.\n\n"
@@ -353,7 +353,7 @@ const char *PDB_Provider::getDir() {
 /////////////////////////////////////////////////////////////////////////////
 PDB_UserInfo::PDB_UserInfo(QWidget *parent) : QWidget(parent) {
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
-  QLabel *l = newLabel(i18n("To log on to your ISP, kppp needs the username\n"
+  QLabel *l = new QLabel(i18n("To log on to your ISP, kppp needs the username\n"
 			    "and the password you got from your ISP. Type\n"
 			    "in this information in the fields below.\n\n"
 			    "Word case is important here."),
@@ -362,9 +362,9 @@ PDB_UserInfo::PDB_UserInfo(QWidget *parent) : QWidget(parent) {
 
   QGridLayout *l1 = new QGridLayout(2, 2);
   tl->addLayout(l1);
-  l = newLabel(i18n("Username:"), this);
+  l = new QLabel(i18n("Username:"), this);
   l1->addWidget(l, 0, 0);
-  l = newLabel(i18n("Password:"), this);
+  l = new QLabel(i18n("Password:"), this);
   l1->addWidget(l, 1, 0);
   _username = newLineEdit(24, this);
   connect(_username, SIGNAL(textChanged(const QString &)),
@@ -408,7 +408,7 @@ void PDB_UserInfo::activate() {
 /////////////////////////////////////////////////////////////////////////////
 PDB_DialPrefix::PDB_DialPrefix(QWidget *parent) : QWidget(parent) {
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
-  QLabel *l = newLabel(i18n("If you need a special dial prefix (e.g. if you\n"
+  QLabel *l = new QLabel(i18n("If you need a special dial prefix (e.g. if you\n"
 			    "are using a telephone switch) you can specify\n"
 			    "this here. This prefix is dialed just before the\n"
 			    "phone number.\n\n"
@@ -419,7 +419,7 @@ PDB_DialPrefix::PDB_DialPrefix(QWidget *parent) : QWidget(parent) {
 
   QGridLayout *l1 = new QGridLayout(1, 2);
   tl->addLayout(l1);
-  l = newLabel(i18n("Dial prefix:"), this);
+  l = new QLabel(i18n("Dial prefix:"), this);
   l1->addWidget(l, 0, 0);
   _prefix = newLineEdit(24, this);
   l1->addWidget(_prefix, 0, 1);
@@ -444,7 +444,7 @@ void PDB_DialPrefix::activate() {
 /////////////////////////////////////////////////////////////////////////////
 PDB_Finished::PDB_Finished(QWidget *parent) : QWidget(parent) {
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
-  QLabel *l = newLabel(i18n("Finished!\n\n"
+  QLabel *l = new QLabel(i18n("Finished!\n\n"
 			    "A new account has been created. Hit \"OK\" to\n"
 			    "go back to the setup dialog. If you want to\n"
 			    "check the settings of the newly created account,\n"

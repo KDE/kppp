@@ -56,7 +56,6 @@
 #include "ppplog.h"
 #include "log.h"
 #include "groupbox.h"
-#include "newwidget.h"
 #include "opener.h"
 #include "requester.h"
 #include "modemdb.h"
@@ -125,7 +124,7 @@ void showNews() {
     l1->addWidget(icon);
     l1->addLayout(l2);
 
-    QLabel *l = newLabel(i18n("From version 1.4.8 on, kppp has a new feature\n"
+    QLabel *l = new QLabel(i18n("From version 1.4.8 on, kppp has a new feature\n"
 			      "called \"Quickhelp\". It's similar to a tooltip,\n"
 			      "but you can activate it whenever you want.\n"
 			      "\n"
@@ -500,8 +499,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   l1->setColStretch(1, 3);
   l1->setColStretch(2, 4);
 
-  label1 = new QLabel(this);
-  label1->setText(i18n("Connect to: "));
+  label1 = new QLabel(i18n("Connect to: "), this);
   l1->addWidget(label1, 0, 1);
 
   connectto_c = new QComboBox(false, this);
@@ -510,8 +508,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 	  SLOT(newdefaultaccount(int)));
   l1->addWidget(connectto_c, 0, 2);  
 
-  ID_Label = new QLabel(this);
-  ID_Label->setText(i18n("Login ID:"));
+  ID_Label = new QLabel(i18n("Login ID:"), this);
   l1->addWidget(ID_Label, 1, 1);
 
   // the entry line for usernames
@@ -529,8 +526,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 		       "<b>Important</b>: case is important here:\n"
 		       "<i>myusername</i> is not the same as <i>MyUserName</i>!")));
 
-  PW_Label = new QLabel(this);
-  PW_Label->setText(i18n("Password:"));
+  PW_Label = new QLabel(i18n("Password:"), this);
   l1->addWidget(PW_Label, 2, 1);
 
   PW_Edit= new QLineEdit(this);
@@ -626,7 +622,6 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   con_win->setGeometry(QApplication::desktop()->width()/2-160,
 		    QApplication::desktop()->height()/2-55,
 		    320,110);
-  KWM::setMiniIcon(con_win->winId(), kapp->getMiniIcon());
 
   stats = new PPPStatsDlg(0,"stats",this);
   stats->hide();
@@ -702,7 +697,7 @@ void KPPPWidget::prepareSetupDialog() {
     tabWindow->setCaption( i18n("kppp Configuration") );
     tabWindow->setOkButton(i18n("OK"));
     tabWindow->setCancelButton(i18n("Cancel"));
-    tabWindow->setFixedSize( 355, 350 );
+    tabWindow->setFixedSize( 365, 375 );
 
     accounts = new AccountWidget(tabWindow,"accounts");
     connect(accounts, SIGNAL(resetaccounts()),
@@ -936,7 +931,6 @@ void KPPPWidget::expandbutton() {
 
 
 void KPPPWidget::beginConnect() {
-
   // make sure to connect to the account that is selected in the combo box
   // (exeption: an account given by a command line argument)
   if(!have_cmdl_account) 

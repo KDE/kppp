@@ -40,20 +40,14 @@ ConWindow::ConWindow(QWidget *parent, const char *name,QWidget *mainwidget)
   hours = 0;
   days = 0;
 
-  info1 = new QLabel(this,"infolabel1");
-  info1->setText(i18n("Connected at:"));
+  info1 = new QLabel(i18n("Connected at:"), this);
+  info2 = new QLabel("", this,"infolabel");
 
-  info2 = new QLabel(this,"infolabel");
-  info2->setText("");
-
-  timelabel1 = new QLabel(this,"timelabel1");
-  timelabel1->setText(i18n("Time connected:"));
-
-  timelabel2 = new QLabel(this,"timelabel");
-  timelabel2->setText("000:00:00");
+  timelabel1 = new QLabel(i18n("Time connected:"), this);
+  timelabel2 = new QLabel("000:00:00", this,"timelabel");
 
   vollabel = new QLabel(i18n("Volume:"), this);
-  volinfo  = new QLabel(this);
+  volinfo  = new QLabel("", this);
 
   // now the stuff for accounting
   session_bill_l = new QLabel(i18n("Session Bill:"), this);
@@ -107,24 +101,16 @@ void ConWindow::accounting(bool on) {
   l1->setColStretch(0, 0);
   l1->setColStretch(1, 1);
 
-  MIN_SIZE(info1);
-  MIN_SIZE(timelabel1);
-  MIN_SIZE(session_bill_l);
-  MIN_SIZE(total_bill_l);
-  MIN_SIZE(info2);
-  MIN_SIZE(timelabel2);
-  MIN_SIZE(vollabel);
-
   info2->setAlignment(AlignRight|AlignVCenter);
   timelabel2->setAlignment(AlignRight|AlignVCenter);
   session_bill->setAlignment(AlignRight|AlignVCenter);
   total_bill->setAlignment(AlignRight|AlignVCenter);
   volinfo->setAlignment(AlignRight|AlignVCenter);
-
   // make sure that there's enough space for the bills
   QString s1 = session_bill->text();
   QString s2 = total_bill->text();
   QString s3 = volinfo->text();
+
   session_bill->setText("888888.88 XXX");
   total_bill->setText("888888.88 XXX");
   volinfo->setText("8888.8 MB");
@@ -180,10 +166,6 @@ void ConWindow::accounting(bool on) {
   QVBoxLayout *l2 = new QVBoxLayout(5);
   tl->addLayout(l2);
   l2->addStretch(1);
-  MIN_WIDTH(cancelbutton);
-  FIXED_HEIGHT(cancelbutton);
-  MIN_WIDTH(statsbutton);
-  FIXED_HEIGHT(statsbutton);
   l2->addWidget(statsbutton);
   l2->addWidget(cancelbutton);
 
@@ -191,7 +173,7 @@ void ConWindow::accounting(bool on) {
 
   tl1->addSpacing(5);
 
-  tl1->freeze();
+  setFixedSize(sizeHint());
   setGeometry((QApplication::desktop()->width() - width()) / 2,
 	      (QApplication::desktop()->height() - height())/2,
 	      width(),

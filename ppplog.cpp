@@ -46,7 +46,6 @@
 #include <kmsgbox.h>
 #include <qregexp.h>
 
-#include "macros.h"
 #include "pppdata.h"
 #include "requester.h"
 
@@ -244,7 +243,7 @@ void PPPL_ShowLog() {
   tl->addWidget(label);
   tl->addWidget(diagnosis, 1);
   tl->addWidget(bbox);
-  tl->freeze();
+  dlg->setFixedSize(dlg->sizeHint());
 
   for(uint i = 0; i < sl.count(); i++)
     edit->append(sl.at(i));

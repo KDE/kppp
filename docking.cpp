@@ -47,11 +47,10 @@ DockWidget::DockWidget(const char *name)
   docked = false;
 
   QString pixdir = KApplication::kde_datadir() + "/kppp/pics/";
-  QString tmp;
+  QString tmp = i18n("Could not load %1 !");
 
 #define PMERROR(pm) \
-  tmp.sprintf(i18n("Could not load %s !"), pm); \
-  QMessageBox::warning(this, i18n("Error"), tmp);
+  QMessageBox::warning(this, i18n("Error"), tmp.arg(pm));
 
   // load pixmaps
   if (!dock_none_pixmap.load(pixdir + "dock_none.xpm")){

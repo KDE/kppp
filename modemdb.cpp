@@ -39,7 +39,6 @@
 #include <kapp.h>
 #include "modemdb.h"
 #include "log.h"
-#include "newwidget.h"
 
 ModemSelector::ModemSelector(QWidget *parent) : QDialog(parent, 0, true) {
   // set up widgets and such
@@ -74,7 +73,7 @@ ModemSelector::ModemSelector(QWidget *parent) : QDialog(parent, 0, true) {
   cancel =   bbox->addButton(i18n("Cancel"));
   bbox->layout();
   tl->addWidget(bbox);
-  tl->freeze();
+  setFixedSize(sizeHint());
 
   // setup modem database
   db = new ModemDatabase();

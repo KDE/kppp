@@ -4,7 +4,7 @@ o modem-setup wizard
 o provider-setup wizard
 o Create an own dialer communicating with slots. This will allow non-X kppp´s
 o Separate GUI and non-GUI code in different classes
-
+o Enhance "Send" to allow special (control) characters
 
 Dropped
 =======

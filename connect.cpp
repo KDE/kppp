@@ -53,7 +53,6 @@
 #include "main.h"
 #include "kpppconfig.h"
 #include "pppdata.h"
-#include "macros.h"
 #include "docking.h"
 #include "log.h"
 #include "modem.h"
@@ -122,11 +121,9 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name)
   l1->addStretch(1);
   
   debug = new QPushButton(i18n("Log"), this);
-  FIXED_HEIGHT(debug);
   connect(debug, SIGNAL(clicked()), SLOT(debugbutton()));
 
   cancel = new QPushButton(i18n("Cancel"), this);
-  FIXED_HEIGHT(cancel);
   cancel->setFocus();
   connect(cancel, SIGNAL(clicked()), SLOT(cancelbutton()));
 
@@ -138,7 +135,7 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name)
   l1->addWidget(debug);
   l1->addWidget(cancel);
 
-  tl->freeze();
+  setFixedSize(sizeHint());
 
   pausetimer = new QTimer(this);
   connect(pausetimer, SIGNAL(timeout()), SLOT(pause()));

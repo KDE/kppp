@@ -42,7 +42,6 @@
 #include <qwmatrix.h>
 #include <stdio.h>
 
-#include "macros.h"
 #include "acctselect.h"
 #include "pppdata.h"
 
@@ -79,13 +78,11 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   QHBoxLayout *l12 = new QHBoxLayout;
   l1->addLayout(l12);
   QLabel *usevol_l = new QLabel(i18n("Volume accounting:"), peer());
-  MIN_SIZE(usevol_l);
   use_vol = new QComboBox(peer());
   use_vol->insertItem(i18n("No accounting"), 0);
   use_vol->insertItem(i18n("Bytes in"), 1);
   use_vol->insertItem(i18n("Bytes out"), 2);
   use_vol->insertItem(i18n("Bytes in and out"), 3);
-  MIN_SIZE(use_vol);
   use_vol->setCurrentItem(gpppdata.VolAcctEnabled());
   l12->addWidget(usevol_l);
   l12->addWidget(use_vol);

@@ -309,10 +309,8 @@ void AccountWidget::copyaccount() {
 
 void AccountWidget::deleteaccount() {
 
-  QString s;
-  s.sprintf(i18n("Are you sure you want to delete\n" 
-			       "the account \"%s\"?"),
-	    accountlist_l->text(accountlist_l->currentItem()).data());
+  QString s = i18n("Are you sure you want to delete\nthe account \"%1\"?")
+    .arg(accountlist_l->text(accountlist_l->currentItem()));
 
   if(KMsgBox::yesNo(this, 
 		    i18n("Confirm"), 
@@ -402,11 +400,11 @@ int AccountWidget::doTab(){
 
 QString AccountWidget::prettyPrintVolume(unsigned int n) {
   int idx = 0;
-  const char *quant[] = {i18n("Byte"), i18n("KB"), 
-		   i18n("MB"), i18n("GB"), 0};
+  const QString quant[] = {i18n("Byte"), i18n("KB"), 
+		   i18n("MB"), i18n("GB"), QString::null};
 
   float n1 = n;
-  while(n >= 1024 && quant[idx] != 0) {
+  while(n >= 1024 && quant[idx] != QString::null) {
     idx++;
     n /= 1024;
   }
@@ -417,9 +415,10 @@ QString AccountWidget::prettyPrintVolume(unsigned int n) {
 
   QString s;
   if(idx==0)
-    s.sprintf("%0.0f %s", n1, quant[idx]);
+    s.sprintf("%0.0f ", n1);
   else
-    s.sprintf("%0.1f %s", n1, quant[idx]);
+    s.sprintf("%0.1f ", n1);
+  s += quant[idx];
   return s;
 }
 
@@ -471,7 +470,9 @@ QueryReset::QueryReset(QWidget *parent) : QDialog(parent, 0, true) {
 
   bbox->layout();  
   tl->addWidget(bbox);
-  tl->freeze();
+
+  // TODO: activate if KGroupBox is fixed
+  //  setFixedSize(sizeHint());
 }
 
 
