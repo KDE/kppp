@@ -1,3 +1,9 @@
+1999-02-11  Harri Porten  <porten@kde.org>
+
+	* runtests.cpp: removed local header file if_ppp.h
+
+	* pppstats.cpp:	cleaned up
+
 1999-02-10  Mario Weilguni <mweilguni@sime.com>
 
 	* the PPP interface name is now autodetected

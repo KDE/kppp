@@ -53,22 +53,21 @@
 #include <sys/file.h>
 #include <sys/stat.h>
 #include <sys/utsname.h>
+#include <sys/types.h>
 
 #if __GLIBC__ >= 2
 #include <net/if.h>
 #include <net/if_arp.h>
 #include <net/route.h>
-#include <netinet/if_ether.h>
+#include <net/if_ppp.h>
 #else
 #include <linux/if.h>
 #include <linux/if_arp.h>
 #include <linux/route.h>
-#include <linux/if_ether.h>
+#include <linux/if_ppp.h>
 #endif
 
-#include <sys/types.h>
 #include <net/ppp_defs.h>
-#include "if_ppp.h"
 #include "requester.h"
 #endif // linux
 

@@ -88,22 +88,12 @@
 
 #include "log.h"
 
-
-#define V(offset) (line % 20? cur.offset - old.offset: cur.offset)
-#define W(offset) (line % 20? ccs.offset - ocs.offset: ccs.offset)
-#define CRATE(comp, inc, unc) ((unc) == 0? 0.0: 1.0 - (double)((comp) + (inc)) / (unc))
-
-#define FLAGS_GOOD (IFF_UP | IFF_BROADCAST)
-#define FLAGS_MASK (IFF_UP | IFF_BROADCAST | IFF_POINTOPOINT | IFF_LOOPBACK  | IFF_NOARP)
-
-int	vflag, rflag, cflag, aflag;
-unsigned interval = 5;
+int	rflag, cflag;
 
 int	unit;
 char    unitName[5];
 
 int	s = 0;			/* socket file descriptor */
-int	signalled;		/* set if alarm goes off "early" */
 bool    ppp_stats_available;
 int 	ibytes;
 int 	ipackets;
@@ -115,9 +105,6 @@ int	opackets;
 int 	compressed;
 int 	packetsunc;
 int 	packetsoutunc;
-bool    have_local_address;
-
-QString tmp_address;
 
 struct ifreq ifr;
 struct sockaddr_in *sinp;
@@ -126,8 +113,6 @@ struct ppp_comp_stats ccs, ocs;
 
 extern QString local_ip_address;
 extern QString remote_ip_address;
-
-extern	char *malloc();
 
 bool get_ppp_stats(struct ppp_stats *curp);
 bool get_ppp_stats(struct ppp_stats *curp);
@@ -155,20 +140,17 @@ int if_is_up() {
     }
 #endif
 
-    memset(&ifr,0,sizeof(ifr));
-
-    // if you change this you have to change "unit" for 0 to whatever.
     strncpy(ifr.ifr_name, unitName, sizeof(ifr.ifr_name));
 
-
-    if(ioctl(s, SIOCGIFFLAGS, &ifr)<0){
-    	perror("Couldn't find interface ppp0");
+    if(ioctl(s, SIOCGIFFLAGS, (caddr_t) &ifr) < 0) {
+        fprintf(stderr, "Couldn't find interface %s: %s\n",
+                unitName, sys_errlist[sys_nerr]);
 	::close(s);
 	s = 0;
 	return 0;
     }
 
-    if ((ifr.ifr_flags  & IFF_UP ) != 0L){
+    if ((ifr.ifr_flags & (IFF_UP|IFF_RUNNING)) != 0) {
 	is_up = 1;
 	Debug("Interface is up\n");
     } 
@@ -184,8 +166,6 @@ int if_is_up() {
 
 
 bool init_stats() {
-  // autodetected now!
-  //  unit = 0; // carefull here this is the zero of ppp0
 
   ibytes = 0;
   ipackets = 0;
@@ -198,10 +178,7 @@ bool init_stats() {
   packetsunc = 0;
   packetsoutunc = 0;
 
-  have_local_address = false;
-  tmp_address = "";
-
-  strcpy(ifr.ifr_name, unitName); // if you change this you have to change "unit"
+  strcpy(ifr.ifr_name, unitName);
     
   if (ioctl(s, SIOCGIFADDR, &ifr) < 0) {	
   }
