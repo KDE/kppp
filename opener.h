@@ -10,6 +10,9 @@
 # define MY_SCM_RIGHTS SCM_RIGHTS
 #endif
 
+// ### add by bhughes - FreeBSD defines 'BSD' in sys/param.h
+#include <sys/param.h>
+
 #ifdef BSD
 # define IOV_BASE_CAST (char *)
 #else
