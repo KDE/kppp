@@ -29,10 +29,6 @@
 	  cpp files. Thus compiling for developers will be somewhat faster
 	  now, because of fewer dependencies
 
-	* DAMNED: one day before 1.1 I commited a faulty bug-fix for the
-	  graphing code. Fixed. Will make it in KDE 1.1.1 and will make
-	  a service pack
-
 1999-02-06  Mario Weilguni <mweilguni@sime.com>
 
 	* added a new tab "Execute" to the accounting dialog, including
