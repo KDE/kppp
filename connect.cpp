@@ -1314,7 +1314,7 @@ void adddns()
   if ((fd = Requester::rq->openResolv(O_WRONLY|O_APPEND)) >= 0) {
     QStringList &dnslist = gpppdata.dns();
     for ( QStringList::Iterator it = dnslist.begin();
-          it != dnslist.begin();
+          it != dnslist.end();
           ++it )
     {
       write(fd, "nameserver ", 11);
