@@ -306,10 +306,12 @@ bool RuleSet::parseRate(double &costs, double &len, double &after, QString s) {
   return (fields == 2) || (fields == 3);
 }
 
-bool RuleSet::parseLine(QString &s) {
+bool RuleSet::parseLine(const QString &s) {
+
+  // ### use QRegExp::cap() instead of mid() and find()
 
   // for our french friends -- Bernd
-  if(s.contains(QRegExp("flat_init_costs=(.*"))) {
+  if(s.contains(QRegExp("flat_init_costs=\\(.*"))) {
     // parse the time fields
     QString token = s.mid(s.find("flat_init_costs=(") + 17,
 			  s.find(")")-s.find("flat_init_costs=(") - 17);
@@ -323,7 +325,7 @@ bool RuleSet::parseLine(QString &s) {
 
     if(! (flat_init_costs >= 0.0) )
       return FALSE;
-    if(! (flat_init_duration > 0.0))
+    if(! (flat_init_duration >= 0.0))
       return FALSE;
 
     have_flat_init_costs = true;
@@ -331,7 +333,7 @@ bool RuleSet::parseLine(QString &s) {
   }
 
 
-  if(s.contains(QRegExp("on(.*)between(.*)use(.*)"))) {
+  if(s.contains(QRegExp("on\\(.*\\)between\\(.*\\)use\\(.*\\)"))) {
     // parse the time fields
     QString token = s.mid(s.find("between(") + 8,
 			  s.find(")use")-s.find("between(") - 8);
@@ -366,7 +368,7 @@ bool RuleSet::parseLine(QString &s) {
 
 
   // check default entry
-  if(s.contains(QRegExp("default=(.*)"))) {
+  if(s.contains(QRegExp("default=\\(.*\\)"))) {
     QString token = s.mid(9, s.length() - 10);
     double after;
     if(parseRate(default_costs, default_len, after, token))
@@ -396,7 +398,7 @@ bool RuleSet::parseLine(QString &s) {
   }
 
   // "currency_position" is deprecated so we'll simply ignore it
-  if(s.contains(QRegExp("currency_position=.*"))) 
+  if(s.contains(QRegExp("currency_position=.*")))
     return TRUE;
 
   // check per connection fee
