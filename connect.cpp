@@ -703,28 +703,6 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
 	scriptindex++;
       }
-
-      if (scriptCommand == "Mode") {
-	QString bm = i18n("Setting mode to %1").arg(scriptArgument); // i18n
-	messg->setText(bm);
-	emit debugMessage(bm);
-	scriptindex++;
-
-	if (scriptArgument.lower() == "7bit") {
-	  Modem::modem->setReadMask(0x7F);
-	  return;
-	}
-	if (scriptArgument.lower(), "8bit") {
-	  Modem::modem->setReadMask(0xFF);
-	  return;
-	}
-	cancelbutton();
-	QString msg = i18n("Unknown mode `%1'!\n\n"
-                           "Valid modes are `7bit' and `8bit'.")
-                           .arg(scriptArgument);
-	KMessageBox::error(0, msg);
-        return;
-      }
     }
   }
 

@@ -1089,11 +1089,6 @@ void ScriptWidget::addButton() {
       sl->insertItem(se->text());
       break;
 
-    case ScriptEdit::Mode:
-      stl->insertItem("Mode");
-      sl->insertItem(se->text());
-      break;
-
     default:
       break;
   }
@@ -1187,11 +1182,6 @@ void ScriptWidget::insertButton() {
 
     case ScriptEdit::Save:
       stl->insertItem("Save", stl->currentItem());
-      sl->insertItem(se->text(), sl->currentItem());
-      break;
-
-    case ScriptEdit::Mode:
-      stl->insertItem("Mode", stl->currentItem());
       sl->insertItem(se->text(), sl->currentItem());
       break;
 
