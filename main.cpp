@@ -895,8 +895,9 @@ void KPPPWidget::beginConnect() {
   if(!info.isExecutable()){
 
     QString string;   
-    string = i18n("kppp can not execute:\n %1\nPlease make sure that"
-		   "you have given kppp setuid permission and that\n"
+    string = i18n("kppp can not execute:\n %1\n"
+    		   "Please make sure that you have given kppp "
+		   "setuid permission and that\n"
 		   "pppd is executable.").arg(gpppdata.pppdPath());
     KMessageBox::error(this, string);
     return;
@@ -952,8 +953,7 @@ void KPPPWidget::beginConnect() {
 
   this->hide();
 
-  QString tit = i18n("Connecting to: ");
-  tit += gpppdata.accname();
+  QString tit = i18n("Connecting to: %1").arg(gpppdata.accname());
   con->setCaption(tit);
 
   con->show();
@@ -1075,9 +1075,8 @@ void KPPPWidget::startAccounting() {
 	  con_win, SLOT(slotAccounting(QString, QString)));
 
   if(!acct->loadRuleSet(gpppdata.accountingFile())) {
-    QString s= i18n("Can not load the accounting\nruleset \"");
-    s += gpppdata.accountingFile();
-    s += "\"!";
+    QString s= i18n("Can not load the accounting\n"
+    		    "ruleset \"%1\"!").arg(gpppdata.accountingFile());
 
     // starting the messagebox with a timer will prevent us
     // from blocking the calling function ConnectWidget::timerEvent
