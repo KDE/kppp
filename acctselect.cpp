@@ -116,7 +116,6 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   }
   
   setChecked(gpppdata.AcctEnabled());
-  setChecked(true);
   
   setupTreeWidget();
 
@@ -193,7 +192,7 @@ void AccountingSelector::insertDir(QDir d, QListViewItem *root) {
 
     // check if this is the item we are searching for
     // (only in "Edit"-mode, not in "New"-mode
-    if(!isnewaccount &&
+    if(!isnewaccount && !edit_s.isEmpty() &&
        (edit_s == QString(fi->filePath()).right(edit_s.length()))) {
       edit_item = tli;
     }
