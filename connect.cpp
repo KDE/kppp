@@ -168,13 +168,24 @@ ConnectWidget::~ConnectWidget() {
 }
 
 
+void ConnectWidget::disableButtons()
+{
+  debug->setEnabled(false);
+  cancel->setEnabled(false);
+}
+
+void ConnectWidget::enableButtons()
+{
+  debug->setEnabled(true);
+  cancel->setEnabled(true);
+}
+
 void ConnectWidget::preinit() {
   // this is all just to keep the GUI nice and snappy ....
   // you have to see to believe ...
   messg->setText(i18n("Looking for modem..."));
   inittimer->start(100);
 }
-
 
 void ConnectWidget::init() {
   gpppdata.setpppdError(0);
@@ -203,6 +214,9 @@ void ConnectWidget::init() {
   setCaption(tit);
 
   kapp->processEvents();
+
+  // signal other applications that we are about to get connected
+  kapp->dcopClient()->emitDCOPSignal("KpppIface", "aboutToConnect()", QByteArray());
 
   // run the "before-connect" command
   if (!gpppdata.command_before_connect().isEmpty()) {
@@ -1129,6 +1143,9 @@ void ConnectWidget::if_waiting_slot() {
   emit closeDebugWindow();
   p_kppp->statdlg->take_stats(); // start taking ppp statistics
   auto_hostname();
+
+  // signal other applications that we are connected now
+  kapp->dcopClient()->emitDCOPSignal("KpppIface", "connected()", QByteArray());
 
   if(!gpppdata.command_on_connect().isEmpty()) {
     messg->setText(i18n("Running startup command..."));

@@ -54,6 +54,11 @@ public:
   void setMsg(const QString &);
   void pppdDied();
 
+  // these are only necessary to prevent the user from clicking in the cancel 
+  // button during the disconnect delay in KPPPWidget
+  void disableButtons();
+  void enableButtons();
+
 protected:
   void timerEvent(QTimerEvent *);
   void closeEvent( QCloseEvent *e );

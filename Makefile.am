@@ -46,7 +46,8 @@ kppp_SOURCES	= kpppwidget.cpp \
 		opener.cpp \
 		modemdb.cpp \
 		utils.cpp \
-		providerdb.cpp
+		providerdb.cpp \
+		KPPPIface.skel
 
 # the library search path
 kppp_LDFLAGS = $(all_libraries) $(KDE_RPATH)
@@ -88,7 +89,8 @@ noinst_HEADERS = kpppwidget.h \
 		newwidget.h \
 		modemdb.h \
 		utils.h \
-		providerdb.h
+		providerdb.h \
+		KPPPIface.h
 
 METASOURCES = accounting.moc \
 	accounts.moc \

@@ -29,12 +29,16 @@
 
 #include <qstring.h>
 
+#include <dcopclient.h>
+
 #include "accounting.h"
 #include "conwindow.h"
 #include "accounts.h"
 #include "connect.h"
 #include "debug.h"
 #include "pppstatdlg.h"
+
+#include "KPPPIface.h"
 
 class GeneralWidget;
 class ModemWidget;
@@ -54,7 +58,7 @@ private:
 };
 
 
-class KPPPWidget : public QWidget {
+class KPPPWidget : public QWidget, virtual public KpppIface {
   Q_OBJECT
 public:
 
@@ -81,6 +85,8 @@ private slots:
   void enterPressedInPW();
   void saveMyself();
   void shutDown();
+
+  void delayedDisconnect();
 
 public slots:
   void resetaccounts();
@@ -149,6 +155,9 @@ private:
   QString m_strCmdlAccount;
   bool m_bQuitOnDisconnect;
   bool m_bCmdlAccount;
+
+
+  QTimer *disconnectTimer;
 };
 
 

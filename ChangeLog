@@ -1,3 +1,8 @@
+2004-04-12  Gerardo Puga  <gpuga@gioia.ing.unlp.edu.ar>
+
+	* Now kppp will notify other applications using DCOP about 
+	  connection status changes.
+
 2004-01-07  Harri Porten  <porten@kde.org>
 
 	* modem.cpp: fix a bug in writing of modem commands. EAGAIN errors

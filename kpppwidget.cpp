@@ -1,5 +1,4 @@
 /*
- *
  *            kPPP: A pppd front end for the KDE project
  *
  * $Id$
@@ -70,11 +69,13 @@
 #include "pppdata.h"
 #include "general.h"
 
+// delay disconnection for a second
+#define DISCONNECT_DELAY 1000
 
 extern KPPPWidget *p_kppp;
 
 KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
-  : QWidget(parent, name)
+  : QWidget(parent, name), DCOPObject( "KpppIface" )
   , acct(0)
   , m_bCmdlAccount (false)
 {
@@ -303,6 +304,17 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   if(!m_bCmdlAccount)
     showNews();
 #endif
+
+  // attach to the DCOP server, if possible
+  if (!kapp->dcopClient()->attach())
+    kdDebug(5002) << "Error: Could not connect to the DCOP server" << endl;
+  else 
+    kapp->dcopClient()->registerAs(kapp->name(), true);	
+
+  // this timer will delay the actual disconnection DISCONNECTION_DELAY ms
+  // to give applications time to shutdown, logout, whatever..
+  disconnectTimer = new QTimer(this);
+  connect(disconnectTimer, SIGNAL(timeout()), this, SLOT(delayedDisconnect()));
 }
 
 KPPPWidget::~KPPPWidget()
@@ -457,9 +469,8 @@ void KPPPWidget::interruptConnection() {
 
   // disconnect if online
   if (gpppdata.pppdRunning())
-    emit disconnect();
+    emit disconnect();		/* FIXME: are we emitting a slot here!!!??? */
 }
-
 
 void KPPPWidget::sigPPPDDied() {
   kdDebug(5002) << "Received a SIGUSR1" << endl;
@@ -479,6 +490,11 @@ void KPPPWidget::sigPPPDDied() {
       Requester::rq->removeSecret(AUTH_CHAP);
 
       gpppdata.setpppdRunning(false);
+
+      // stop the disconnect timer (just in case)
+      disconnectTimer->stop();
+      // signal other applications that we are disconnected now
+      kapp->dcopClient()->emitDCOPSignal("KpppIface", "disconnected()", QByteArray());
 
       kdDebug(5002) << "Executing command on disconnect since pppd has died." << endl;
       QApplication::flushX();
@@ -655,7 +671,7 @@ void KPPPWidget::beginConnect() {
 
   QString tit = i18n("Connecting to: %1").arg(gpppdata.accname());
   con->setCaption(tit);
-
+  con->enableButtons();
   con->show();
 
   bool show_debug = gpppdata.get_show_log_window();
@@ -671,12 +687,17 @@ void KPPPWidget::beginConnect() {
   emit begin_connect();
 }
 
-
 void KPPPWidget::disconnect() {
+  if (disconnectTimer->isActive()) return; // you had already pressed disconnect before
+
+  // signal other applications that we are about to go offline now
+  kapp->dcopClient()->emitDCOPSignal("KpppIface", "aboutToDisconnect()", QByteArray());
+  con_win->hide();
+  con->show();
+  con->disableButtons(); // will reenable them later in delayedDisconnect()
+  con->setCaption(i18n("Disconnecting..."));
+
   if (!gpppdata.command_before_disconnect().isEmpty()) {
-    con_win->hide();
-    con->show();
-    con->setCaption(i18n("Disconnecting..."));
     con->setMsg(i18n("Executing command before disconnection."));
 
     kapp->processEvents();
@@ -689,14 +710,26 @@ void KPPPWidget::disconnect() {
       i = waitpid(id, &status, WNOHANG);
       usleep(500000);
     } while (i == 0 && errno == 0);
-
-    con->hide();
   }
 
-  kapp->processEvents();
+  con->setMsg(i18n("Announcing disconnection."));
+
+  // this is no longer necessary since I'm delaying disconnection usign a QTimer
+  //  kapp->processEvents();
+
+  // set the timer to call delayedDisconnect() in DISCONNECT_DELAY ms
+  disconnectTimer->start(DISCONNECT_DELAY, true);
+}
+
+void KPPPWidget::delayedDisconnect() {
+  // this is where the actual disconnection takes place
+  con->hide();
 
   statdlg->stop_stats();
   Requester::rq->killPPPDaemon();
+
+  // signal other applications that we are disconnected now
+  kapp->dcopClient()->emitDCOPSignal("KpppIface", "disconnected()", QByteArray());
 
   QApplication::flushX();
   execute_command(gpppdata.command_on_disconnect());
@@ -735,6 +768,13 @@ void KPPPWidget::quitbutton() {
 			    i18n("Quit kPPP?"));
     if(ok == KMessageBox::Yes) {
       Requester::rq->killPPPDaemon();
+
+      // stop the disconnect delay timer
+      disconnectTimer->stop();      
+
+      // signal other applications that we are disconnected now
+      kapp->dcopClient()->emitDCOPSignal("KpppIface", "disconnected()", QByteArray());
+
       QApplication::flushX();
       execute_command(gpppdata.command_on_disconnect());
       removedns();
