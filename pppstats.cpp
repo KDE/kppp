@@ -54,7 +54,6 @@
 #include <sys/types.h>
 #include <sys/ioctl.h>
 #include <string.h>
-#include <qstring.h>
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <net/ppp_defs.h>
@@ -73,10 +72,10 @@
 
 #ifndef STREAMS
 
-#if defined(linux) && !(__GLIBC__ >= 2)
+#if defined(linux)
 #include <linux/if_ppp.h>
 #else
-#include <net/if_ppp.h>                /* BSD, Linux, NeXT, etc. */
+#include <net/if_ppp.h>                /* BSD, NeXT, etc. */
 #endif
 
 #else				/* SunOS 4, AIX 4, OSF/1, etc. */
