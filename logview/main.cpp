@@ -57,7 +57,7 @@ TopWidget::TopWidget() : KMainWindow(0, "") {
 
   td = new QTabWidget(w, "");
   mw = new MonthlyWidget(td);
-  td->addTab(mw, i18n("Monthly log"));
+  td->addTab(mw, i18n("Monthly Log"));
   l->addWidget(td);
 
   // remove buttons
