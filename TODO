@@ -5,6 +5,7 @@ o provider-setup wizard
 o Create an own dialer communicating with slots. This will allow non-X kppp´s
 o Separate GUI and non-GUI code in different classes
 o Enhance "Send" to allow special (control) characters
+o version detection of pppd fails on debian (rwsr-x---). Allow manual conf.
 
 Dropped
 =======
