@@ -183,7 +183,7 @@ void AccountingSelector::insertDir(QDir d, QListViewItem *root) {
       continue;
 
     // check if this is the file we should mark
-    QString name = fileNameToName(fi->baseName());
+    QString name = fileNameToName(fi->baseName(true));
     if(root)
       tli = new QListViewItem(root, name);
     else
