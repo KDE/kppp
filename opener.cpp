@@ -661,7 +661,7 @@ void sighandler_child(int) {
   pid_t pid;
   int status;
 
-  signal(SIGCHLD, sighandler);
+  signal(SIGCHLD, sighandler_child);
   if(pppdPid>0) {
     pid = waitpid(pppdPid, &status, WNOHANG);
     if(pid != pppdPid) {
