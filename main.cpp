@@ -82,14 +82,6 @@
 static const char *description = 
 	I18N_NOOP("A dialer and front-end to pppd.");
 
-static const char *version = KPPPVERSION "\n"
-  "(c) 1997-1999 Bernd Johannes Wuebben "
-  "<wuebben@kde.org>\n"
-  "(c) 1997-1999 Mario Weilguni "
-  "<mweilguni@kde.org>\n"
-  "(c) 1998-2000 Harri Porten "
-  "<porten@kde.org>\n";
-
 static KCmdLineOptions option[] = 
 {
    { "c <account_name>", I18N_NOOP("Connect using 'account_name'"), 0 },
@@ -304,7 +296,7 @@ int main( int argc, char **argv ) {
   (void) new Requester(sockets[0]);
 
   KAboutData aboutData("kppp", I18N_NOOP("KPPP"),
-    version, description, KAboutData::License_GPL,
+    KPPPVERSION, description, KAboutData::License_GPL,
     "(c) 1999-2000, The KPPP Developers");
   aboutData.addAuthor("Bernd Wuebben",0, "wuebben@kde.org");
   aboutData.addAuthor("Mario Weilguni",0, "mweilguni@kde.org");
