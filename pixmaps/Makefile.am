@@ -1,7 +1,7 @@
 
 # add here all files
 data_DATA =	Terminal.xpm back.xpm exit.xpm fileopen.xpm \
-		finish.xpm help.xpm kppplogo.xpm modemboth.xpm \
+		finish.xpm folder.xpm help.xpm kppplogo.xpm modemboth.xpm \
 		modemleft.xpm modemnone.xpm modemright.xpm phone.xpm \
 		start.xpm terminal_both.xpm terminal_left.xpm \
 		terminal_right.xpm dock_none.xpm dock_left.xpm \
