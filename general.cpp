@@ -198,8 +198,9 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   label1 = new QLabel(i18n("Modem de&vice:"), parent);
   tl->addWidget(label1, 0, 0);
 
-  modemdevice = new QComboBox(true, parent);
+  modemdevice = new QComboBox(false, parent);
   label1->setBuddy(modemdevice);
+  // ### deviceExist mechanism not functional right now
   bool deviceExist = false;
   for(k = 0; devices[k]; k++)
   {

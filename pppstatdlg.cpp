@@ -29,12 +29,13 @@
 #include <kiconloader.h>
 #include <kapplication.h>
 #include <klocale.h>
-#include <qpushbutton.h>
 #include <qlabel.h>
 #include <qframe.h>
 #include <qgroupbox.h>
 #include <qlineedit.h>
 #include <qtimer.h>
+#include <kpushbutton.h>
+#include <kstdguiitem.h>
 
 #include "pppdata.h"
 #include "pppstatdlg.h"
@@ -169,8 +170,7 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
     graph->setBackgroundColor(bg);
   }
 
-  cancelbutton = new QPushButton(this, "cancelbutton");
-  cancelbutton->setText(i18n("&Close"));
+  cancelbutton = new KPushButton(KStdGuiItem::close(),this, "cancelbutton");
   cancelbutton->setFocus();
   connect(cancelbutton, SIGNAL(clicked()), this,SLOT(cancel()));
   cancelbutton->setFixedHeight(cancelbutton->sizeHint().height());

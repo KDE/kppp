@@ -30,9 +30,10 @@
 #include <kwin.h>
 #include <kmessagebox.h>
 #include <kapplication.h>
+#include <klocale.h>
+#include <kpushbutton.h>
 #include "modeminfo.h"
 #include "modem.h"
-#include <klocale.h>
 
 ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
   : QDialog(parent, name,TRUE, WStyle_Customize|WStyle_NormalBorder)
@@ -64,7 +65,7 @@ ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
   tl->addWidget(progressBar);
   tl->addWidget(statusBar);
 
-  cancel = new QPushButton(i18n("&Cancel"), this);
+  cancel = new KPushButton(KStdGuiItem::cancel(), this);
   cancel->setFocus();
   connect(cancel, SIGNAL(clicked()), SLOT(cancelbutton()));
 
@@ -269,7 +270,7 @@ ModemInfo::ModemInfo(QWidget *parent, const char* name)
   //tl->addSpacing(1);
 
   QHBoxLayout *l2 = new QHBoxLayout;
-  QPushButton *ok = new QPushButton(i18n("&Close"), this);
+  QPushButton *ok = new KPushButton(KStdGuiItem::close(), this);
   ok->setDefault(TRUE);
   ok->setFocus();
 

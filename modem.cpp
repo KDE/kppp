@@ -166,9 +166,9 @@ bool Modem::opentty() {
   tty.c_lflag &= ~ICANON;                  // non-canonical mode
   tty.c_lflag &= ~(ECHO|ECHOE|ECHOK|ECHOKE);
 
-
-  if(gpppdata.flowcontrol() != "None") {
-    if(gpppdata.flowcontrol() == "CRTSCTS") {
+  QString flowCtrl = gpppdata.flowcontrol();
+  if(flowCtrl != "None" && flowCtrl != i18n("None")) {
+    if(flowCtrl == "CRTSCTS" || flowCtrl == i18n("Hardware [CRTSCTS]")) {
       tty.c_cflag |= CRTSCTS;
     }
     else {

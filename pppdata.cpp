@@ -322,7 +322,7 @@ void PPPData::setModemDevice(const QString &n) {
 
 
 const QString PPPData::flowcontrol() {
-  return readConfig(MODEM_GRP, FLOWCONTROL_KEY, "CRTSCTS");
+  return readConfig(MODEM_GRP, FLOWCONTROL_KEY, i18n("Hardware [CRTSCTS]"));
 }
 
 
