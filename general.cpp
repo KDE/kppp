@@ -27,7 +27,7 @@
 #include <qdir.h>
 #include <kapp.h>
 #include <qlayout.h>
-#include <kintegerline.h>
+#include <kintlineedit.h>
 #include <kquickhelp.h>
 #include "general.h"
 #include "version.h"
@@ -56,7 +56,7 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
   label6 = new QLabel(i18n("pppd Timeout:"), peer());
   l1->addWidget(label6);
   
-  pppdtimeout = new KIntegerLine(peer());
+  pppdtimeout = new KIntLineEdit(peer());
   pppdtimeout->setFixedHeight(pppdtimeout->sizeHint().height());
   pppdtimeout->setMaxLength(TIMEOUT_SIZE);
   pppdtimeout->setMinimumWidth(pppdtimeout->sizeHint().width()/4);
@@ -377,7 +377,7 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   QHBoxLayout *l2 = new QHBoxLayout;
   tl->addLayout(l2, 6, 1);
 
-  modemtimeout = new KIntegerLine(peer());
+  modemtimeout = new KIntLineEdit(peer());
   modemtimeout->setMaxLength(TIMEOUT_SIZE);
   modemtimeout->setMinimumWidth(fontMetrics().width('8')*3);
   modemtimeout->setText(gpppdata.modemTimeout());
@@ -455,7 +455,7 @@ ModemWidget2::ModemWidget2( QWidget *parent, const char *name)
   l10->addStretch(1);
   l10->addWidget(label4);
 
-  busywait = new KIntegerLine(peer());
+  busywait = new KIntLineEdit(peer());
   busywait->setMaxLength(TIMEOUT_SIZE);
   busywait->setText(gpppdata.busyWait());
   busywait->setMinimumWidth(busywait->sizeHint().width()/3);
