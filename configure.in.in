@@ -2,7 +2,9 @@ AC_MSG_CHECKING(if kppp's headers are installed)
 # this is a little piece of code out of kppp. If it doesn't compile,
 # kppp is not good for this system. It doesn't do anything, but enough
 # to fail ;)
-cat > conftest.C <<EOF
+AC_LANG_SAVE
+AC_LANG_CPLUSPLUS
+AC_TRY_LINK([
 #if defined(__osf__) || defined(__svr4__)
   #define _POSIX_PII_SOCKET
   extern "C" int sethostname(char *name, int name_len);
@@ -34,17 +36,12 @@ cat > conftest.C <<EOF
     #include <net/ppp_str.h>
   #endif
 #endif
-
-  int main() { sethostname("", 1); /* never run this program! :*/ }
-EOF
-
-AC_LANG_CPLUSPLUS
-if AC_TRY_EVAL(ac_link); then
-  AC_MSG_RESULT(yes)
-else
-  DO_NOT_COMPILE="$DO_NOT_COMPILE kppp"
+],[
+  sethostname("", 1); /* never run this program! :*/ 
+], 
+[ AC_MSG_RESULT(yes) ],
+[ DO_NOT_COMPILE="$DO_NOT_COMPILE kppp"
   AC_MSG_RESULT(no)
-fi
-rm -r conftest.*
-
+])
+AC_LANG_RESTORE
 AC_CHECK_HEADERS(sys/param.h string.h)
