@@ -11,21 +11,17 @@
 // derived from Jay Painters "ezppp"
 //
 //---------------------------------------------------------------------------
-//  
-//  $Id$
-//
-//---------------------------------------------------------------------------
 //
 //  This program is free software; you can redistribute it and-or
 //  modify it under the terms of the GNU Library General Public
 //  License as published by the Free Software Foundation; either
 //  version 2 of the License, or (at your option) any later version.
-// 
+//
 //  This program is distributed in the hope that it will be useful,
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 //  Library General Public License for more details.
-// 
+//
 //  You should have received a copy of the GNU Library General Public
 //  License along with this program; if not, write to the Free
 //  Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
@@ -49,7 +45,7 @@
 
 QWizard* ProviderDB::wiz = 0L;
 
-ProviderDB::ProviderDB(QWidget *parent) : 
+ProviderDB::ProviderDB(QWidget *parent) :
   KWizard(parent, "", true),
   cfg(0)
 {
@@ -218,7 +214,8 @@ PDB_Country::PDB_Country(QWidget *parent) : QWidget(parent) {
   if(flist) {
     QFileInfoListIterator it( *flist );
     QFileInfo *fi;
-    // traverse the flist and insert into the widget
+    // traverse the flist and insert into a map for sorting
+    QMap<QString, QString> countries;
     for(; (fi = it.current()) != 0; ++it) {
       if(fi->fileName() != "." && fi->fileName() != "..") {
         QString dirFile(fi->absFilePath()+"/.directory");
@@ -229,10 +226,16 @@ PDB_Country::PDB_Country(QWidget *parent) : QWidget(parent) {
           entryName = config.readEntry("Name");
         }
         if (entryName.isNull()) entryName = fi->fileName();
-
-        lb->insertItem(entryName);
-        list->append(fi->fileName());
+	countries.insert(entryName, fi->fileName());
       }
+    }
+    // insert sorted entries into list box and string list
+    QMap<QString, QString>::const_iterator mit = countries.begin();
+    QMap<QString, QString>::const_iterator mend = countries.end();
+    while(mit != mend) {
+        lb->insertItem(mit.key());
+        list->append(*mit);
+	++mit;
     }
   }
 
@@ -260,7 +263,7 @@ PDB_Provider::PDB_Provider(QWidget *parent) : QWidget(parent) {
 			    "you have to click on \"Cancel\" and create this\n"
 			    "account using the normal, dialog-based setup.\n\n"
 			    "Click on \"Next\" when you have finished your\n"
-			    "selection."), this); 
+			    "selection."), this);
   tl->addWidget(l);
 
   QHBoxLayout *l1 = new QHBoxLayout;
@@ -272,7 +275,7 @@ PDB_Provider::PDB_Provider(QWidget *parent) : QWidget(parent) {
 	  this, SLOT(selectionChanged(int)));
   lb->setMinimumSize(220, 100);
   l1->addWidget(lb, 2);
-  l1->addStretch(1);  
+  l1->addStretch(1);
 }
 
 void PDB_Provider::selectionChanged(int idx) {
@@ -283,25 +286,25 @@ void PDB_Provider::selectionChanged(int idx) {
 void PDB_Provider::setDir(const QString &_dir) {
   if(dir != _dir) {
     lb->clear();
-    
+
     // fill the listbox
     // set up filter
     dir = _dir;
-    
+
     QString dir1 = KGlobal::dirs()->findDirs("appdata", "Provider").first();
     QRegExp re1(" ");
     dir = dir.replace(re1, "_");
     dir1 += dir;
-    
+
     QDir d(dir1);
     d.setFilter(QDir::Files);
     d.setSorting(QDir::Name);
-    
+
     // read the list of files
     const QFileInfoList *list = d.entryInfoList();
     QFileInfoListIterator it( *list );
     QFileInfo *fi;
-    
+
     // traverse the list and insert into the widget
     QRegExp re("_");
     while((fi = it.current()) != NULL) {
@@ -312,7 +315,7 @@ void PDB_Provider::setDir(const QString &_dir) {
       }
       ++it;
     }
-    
+
     // TODO: Qt 1.x needs this if list is empty
     lb->update();
   }
@@ -443,7 +446,7 @@ void urlDecode(QString &s) {
       s1 += s[i];
     }
   }
-  
+
   s = s1;
 }
 
