@@ -126,7 +126,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   l1->addWidget(ID_Edit, 2, 2);
   connect(ID_Edit, SIGNAL(returnPressed()),
 	  this, SLOT(enterPressedInID()));
-  QString tmp = i18n("<p>Type in the username that you got from your\n"
+  QString tmp = i18n("<p>Type in the user name that you got from your\n"
 		     "ISP. This is especially important for PAP\n"
 		     "and CHAP. You may omit this when you use\n"
 		     "terminal-based or script-based authentication.\n"
@@ -729,7 +729,7 @@ void KPPPWidget::beginConnect() {
 			   i18n(
                            "You have selected the authentication "
 			   "method PAP or CHAP. This requires that you "
-			   "supply a username and a password."));
+			   "supply a user name and a password."));
       return;
     } else {
       if(!Requester::rq->setSecret(gpppdata.authMethod(),

@@ -86,7 +86,7 @@ ExportWizard::ExportWizard(QWidget *parent, const QString &_date)
   QVBoxLayout *filenameLayout = new QVBoxLayout( filenamePage );
 
   QLabel *fnLbl = new QLabel(filenamePage);
-  fnLbl->setText(i18n("Filename:"));
+  fnLbl->setText(i18n("File name:"));
   filenameLayout->addWidget(fnLbl);
 
   fnLine = new QLineEdit(filenamePage);
@@ -98,12 +98,12 @@ ExportWizard::ExportWizard(QWidget *parent, const QString &_date)
   fnGet = new QPushButton(filenamePage);
   fnGet->setText(i18n("&Select File..."));
   fnGet->setMaximumWidth(200);
-  QToolTip::add(fnGet, i18n("Select the filename of the exported output file"));
+  QToolTip::add(fnGet, i18n("Select the file name of the exported output file"));
   filenameLayout->addWidget(fnGet);
   connect(fnGet, SIGNAL(clicked()), SLOT(getFilename()));
   filenameLayout->addStretch(2);
 
-  addPage(filenamePage, i18n("Selection of Filename"));
+  addPage(filenamePage, i18n("Selection of File Name"));
   setNextEnabled( filenamePage, false );
   setHelpEnabled( filenamePage, false );
 
