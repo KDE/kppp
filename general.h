@@ -2,7 +2,6 @@
  *
  *            kPPP: A pppd front end for the KDE project
  *
- * $Id$
  *
  *            Copyright (C) 1997 Bernd Johannes Wuebben
  *                   wuebben@math.cornell.edu
