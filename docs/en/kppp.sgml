@@ -89,7 +89,7 @@ Public License"> (GPL). There is <ref id=warranty name="no warranty"> that this 
 It is part of the kdenetwork package that can be found on <url url="ftp://ftp.kde.org/pub/kde/">, the main ftp site
 of the KDE project. The homepage linked to from
 <url url="http://www.kde.org/apphomepages.html"> is currently located at
-<url url="http://devel-home.kde.org/kppp/index.html">.
+<url url="http://devel-home.kde.org/~kppp/index.html">.
 
 <sect1>Requirements
 <p>
@@ -942,6 +942,17 @@ If nothing helps, you might obtain some debugging info from your systems log by 
 # tail /var/log/messages
 </verb></tscreen>
 
+<sect2><em/kppp/ always pops up a dialog asking for the root password.
+<p>
+RedHat put that in to rule out potential security problems. If you want the
+old behaviour back you may want to do this:
+<tscreen><verb>
+# rm /usr/bin/kppp
+# chmod u+s /usr/sbin/kppp
+# ln -s /usr/sbin/kppp /usr/bin/kppp
+</verb></tscreen> 
+See <ref id="security" name="Security"> for further details.
+
 <sect2><em/kppp/ tells me ``Sorry, can't open the modem''.
 <p>
 
@@ -1143,7 +1154,7 @@ rules file.
 submit it so that others can make use of it?
 <p>
 We would love to receive any rule files written. We will make them available
-on our <em/kppp/ <url url="http://devel-home.kde.org/kppp/index.html" name="web page">.
+on our <em/kppp/ <url url="http://devel-home.kde.org/~kppp/index.html" name="web page">.
 Before you send me a new rules file make sure it is not already available on 
 the <em/kppp/ web page. Then email the new rules file to one of the current
 maintainers.

@@ -66,6 +66,21 @@ launch PPP. Some users even reported, that they had to append "Pause 1" or
 </PRE>
 </CODE></BLOCKQUOTE>
 <P>
+<H4><EM>kppp</EM> always pops up a dialog asking for the root password.</H4>
+
+<P>RedHat put that in to rule out potential security problems. If you want the
+old behaviour back you may want to do this:
+<BLOCKQUOTE><CODE>
+<PRE>
+# rm /usr/bin/kppp
+# chmod u+s /usr/sbin/kppp
+# ln -s /usr/sbin/kppp /usr/bin/kppp
+</PRE>
+</CODE></BLOCKQUOTE>
+ 
+See 
+<A HREF="kppp-8.html#security">Security</A> for further details.
+<P>
 <H4><EM>kppp</EM> tells me ``Sorry, can't open the modem''.</H4>
 
 <P>
@@ -281,7 +296,7 @@ rules file.
 
 <P>I would love to receive any rule files written. I will make them available
 on my <EM>kppp</EM> 
-<A HREF="http://devel-home.kde.org/kppp/index.html">web page</A>.
+<A HREF="http://devel-home.kde.org/~kppp/index.html">web page</A>.
 Before you send me a new rules file make sure it is not already available on 
 the <EM>kppp</EM> web page. Then email the new rules file one of the current
 maintainers.
