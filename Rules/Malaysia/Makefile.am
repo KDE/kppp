@@ -1,4 +1,4 @@
-pkg_DATA = malaysia.rst
+pkg_DATA = malaysia.rst TMNet_Jaring.rst
 
 pkgdir = $(kde_datadir)/kppp/Rules/Malaysia
 
