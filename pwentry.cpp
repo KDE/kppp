@@ -27,7 +27,7 @@
 
 #include <stdio.h>
 #include <qapplication.h>
-#include <kconfig.h>
+#include <kglobalsettings.h>
 #include "pwentry.h"
 
 PWEntry::PWEntry( QWidget *parent, const char *name )
@@ -43,17 +43,7 @@ PWEntry::PWEntry( QWidget *parent, const char *name )
 		 300,
 		 90);
    } else {
-     KConfig gc("kdeglobals", false, false);
-     gc.setGroup("Windows");
-     QRect desk;
-     if (QApplication::desktop()->isVirtualDesktop() &&
-         gc.readBoolEntry("XineramaEnabled", true) &&
-         gc.readBoolEntry("XineramaPlacementEnabled", true)) {
-       int scnum = QApplication::desktop()->screenNumber(parent);
-       desk = QApplication::desktop()->screenGeometry(scnum);
-     } else {
-       desk = QApplication::desktop()->geometry();
-     }
+     QRect desk = KGlobalSettings::desktopGeometry(parent);
      setGeometry( desk.center().x() - 150, desk.center().y() - 50, 300, 90 );
    }
 

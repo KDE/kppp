@@ -40,6 +40,7 @@
 #include <kaboutdata.h>
 #include <kapplication.h>
 #include <kbuttonbox.h>
+#include <kglobalsettings.h>
 #include <kcmdlineargs.h>
 #include <kconfig.h>
 #include <kdebug.h>
@@ -246,19 +247,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   KWin::setIcons(con->winId(), kapp->icon(), kapp->miniIcon() );
   connect(this, SIGNAL(begin_connect()),con, SLOT(preinit()));
 
-  QRect desk;
-  KConfig gc("kdeglobals", false, false);
-  gc.setGroup("Windows");
-  if (QApplication::desktop()->isVirtualDesktop() &&
-      gc.readBoolEntry("XineramaEnabled", true) &&
-      gc.readBoolEntry("XineramaPlacementEnabled", true)) {
-    // Is this the best we can do here?  it's not right.
-    desk = QApplication::desktop()->screenGeometry(
-               QApplication::desktop()->screenNumber(topLevelWidget()));
-  } else {
-    desk = QApplication::desktop()->geometry();
-  }
-
+  QRect desk = KGlobalSettings::desktopGeometry(topLevelWidget());
   con->setGeometry(desk.center().x()-175, desk.center().y()-55, 350,110);
 
   // connect the ConnectWidgets various signals
