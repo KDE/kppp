@@ -1,26 +1,32 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
 <HTML>
 <HEAD>
- <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.7">
- <TITLE>The kppp Handbook: Configuring kppp for callback</TITLE>
- <LINK HREF="index-10.html" REL=next>
- <LINK HREF="index-8.html" REL=previous>
- <LINK HREF="index.html#toc9" REL=contents>
+<TITLE>The kppp Handbook: Configuring kppp for callback</TITLE>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="keywords" CONTENT="KPPP Dialer Internet PPP IP PAP CHAP">
+<META NAME="description" CONTENT="KPPP Internet Dialer">
 </HEAD>
-<BODY>
+<BODY BGCOLOR="#ffffff" LINK="#aa0000" TEXT="#000000" > 
+<FONT FACE="Helvetica">
+<A HREF="http://www.kde.org/"><IMG SRC="logotp3.png" BORDER="0" ALT="The K Desktop Environment"></A>
+<HR WIDTH="100%" SIZE=2 ALIGN="CENTER" NOSHADE>
+
+ 
+<P ALIGN="RIGHT">
+
 <A HREF="index-10.html">Next</A>
-<A HREF="index-8.html">Previous</A>
-<A HREF="index.html#toc9">Contents</A>
-<HR>
-<H2><A NAME="cb"></A> <A NAME="s9">9. Configuring <EM>kppp</EM> for callback</A></H2>
+ <A HREF="index-8.html">Previous</A>
+ <A HREF="index.html#toc9">Table of Contents</A>
+</P>
+<H3><A NAME="cb"></A> <A NAME="s9">9. Configuring <EM>kppp</EM> for callback</A></H3>
 
 <P>The following section was provided by 
 <A HREF="mailto:mh@ap-dec717c.physik.uni-karlsruhe.de">Martin Häfner</A>.
 <P>This chapter descibes the configuration of kppp for callback. The following
 servers are supported: 
 <P>
-<H2><A NAME="ss9.1">9.1 Unix (Linux) callback server</A>
-</H2>
+<H3><A NAME="ss9.1">9.1 Unix (Linux) callback server</A>
+</H3>
 
 <P>This section introduces in Unix (Linux) callback proceeding and how kppp 
 can be configured to connect to a Unix callback server, especially to a 
@@ -29,7 +35,7 @@ scripting based Linux
 <P>If you have any questions or problems please feel free  to contact the 
 <A HREF="mailto:mh@ap-dec717c.physik.uni-karlsruhe.de">author</A> of this section.
 <P>
-<A NAME="cb_intro"></A> <H3>Introduction in callback</H3>
+<A NAME="cb_intro"></A> <H4>Introduction in callback</H4>
 
 <P>
 <P>To increase the security of your local network or to reduce the expenses
@@ -78,7 +84,7 @@ AT&amp;C0
 <P>If you want to test this you can first use an ordinary terminal program like
 minicom and call your callback server.
 <P>
-<A NAME="cb_kppp"></A> <H3>The <EM>kppp</EM> setup</H3>
+<A NAME="cb_kppp"></A> <H4>The <EM>kppp</EM> setup</H4>
 
 <P>Setting up <EM>kppp</EM> to connect to a Linux callback server is quite straight 
 forward. 
@@ -188,7 +194,7 @@ as <EM>kppp</EM> creates a Lock-file which will indicate the getty program that 
 program (<EM>kppp</EM>) is using the line at the moment. See problems with mgetty in 
 the general 
 <A HREF="#cb_trouble">troubleshooting</A> below.
-<A NAME="cb_trouble"></A> <H3>Troubleshooting</H3>
+<A NAME="cb_trouble"></A> <H4>Troubleshooting</H4>
 
 <P>
 <P>There are some known problems with <EM>kppp</EM> in callback mode:
@@ -216,7 +222,7 @@ get rid of that you will have to hardcode your user ID within your
 login script (not very nice, but it helps).</LI>
 </UL>
 <P>
-<A NAME="cb_ressources"></A> <H3>Internet Resources for server software</H3>
+<A NAME="cb_ressources"></A> <H4>Internet Resources for server software</H4>
 
 <P>
 <P>Linux callback server software bundles are available throughout the
@@ -230,17 +236,25 @@ The site is maintained by
 <A HREF="mailto:frank@icce.rug.nl">Frank B. Brokken</A>. As the package is not very easy to set up (although the setup is straight forward), I have written a 
 <A HREF="http://ap-dec717c.physik.uni-karlsruhe.de/~mh/callback/">short introduction</A> for it. 
 Also have a look in it if you need further general introduction to callback.
-<H2><A NAME="ss9.2">9.2 Windows NT RAS callback</A>
-</H2>
+<H3><A NAME="ss9.2">9.2 Windows NT RAS callback</A>
+</H3>
 
 <P>
 <P>Windows NT uses a completly different approach than the one described here (as usual). NT requires an extension to the PPP protocol itself called CBCP (Call Back Control Protocol). <CODE>pppd</CODE> has support for this protocol, but you have to recompile <CODE>pppd</CODE>.
 <P>If anybody has experience how to do this with <EM>kppp</EM>, please drop 
 <A HREF="mailto:mweilguni@kde.org">me</A> a line.
 <P>
-<HR>
+<P ALIGN="RIGHT">
+
 <A HREF="index-10.html">Next</A>
-<A HREF="index-8.html">Previous</A>
-<A HREF="index.html#toc9">Contents</A>
+ <A HREF="index-8.html">Previous</A>
+ <A HREF="index.html#toc9">Table of Contents</A>
+</P>
+<CENTER>
+<HR WIDTH="100%" SIZE=3 ALIGN=CENTER NOSHADE>
+</CENTER>    
+</FONT>
+
+ 
 </BODY>
 </HTML>

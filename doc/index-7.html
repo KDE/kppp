@@ -1,25 +1,31 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
 <HTML>
 <HEAD>
- <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.7">
- <TITLE>The kppp Handbook: Questions and answers</TITLE>
- <LINK HREF="index-8.html" REL=next>
- <LINK HREF="index-6.html" REL=previous>
- <LINK HREF="index.html#toc7" REL=contents>
+<TITLE>The kppp Handbook: Questions and answers</TITLE>
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="keywords" CONTENT="KPPP Dialer Internet PPP IP PAP CHAP">
+<META NAME="description" CONTENT="KPPP Internet Dialer">
 </HEAD>
-<BODY>
+<BODY BGCOLOR="#ffffff" LINK="#aa0000" TEXT="#000000" > 
+<FONT FACE="Helvetica">
+<A HREF="http://www.kde.org/"><IMG SRC="logotp3.png" BORDER="0" ALT="The K Desktop Environment"></A>
+<HR WIDTH="100%" SIZE=2 ALIGN="CENTER" NOSHADE>
+
+ 
+<P ALIGN="RIGHT">
+
 <A HREF="index-8.html">Next</A>
-<A HREF="index-6.html">Previous</A>
-<A HREF="index.html#toc7">Contents</A>
-<HR>
-<H2><A NAME="s7">7. Questions and answers</A></H2>
+ <A HREF="index-6.html">Previous</A>
+ <A HREF="index.html#toc7">Table of Contents</A>
+</P>
+<H3><A NAME="s7">7. Questions and answers</A></H3>
 
 <P>
-<H2><A NAME="ss7.1">7.1 Frequently Asked Questions</A>
-</H2>
+<H3><A NAME="ss7.1">7.1 Frequently Asked Questions</A>
+</H3>
 
 <P>
-<A NAME="&lt;em/kppp/ FAQ"></A> <H3>I can't get <EM>kppp</EM> to work. <EM>kppp</EM> tells me that pppd has died or that a timeout has expired! </H3>
+<A NAME="&lt;em/kppp/ FAQ"></A> <H4>I can't get <EM>kppp</EM> to work. <EM>kppp</EM> tells me that pppd has died or that a timeout has expired! </H4>
 
 <P>Did you read the this manual carefully? Here are once more the most common
 pitfalls.
@@ -66,7 +72,7 @@ launch PPP. Some users even reported, that they had to append "Pause 1" or
 </PRE>
 </CODE></BLOCKQUOTE>
 <P>
-<H3><EM>kppp</EM> tells me ``Sorry, can't open the modem''.</H3>
+<H4><EM>kppp</EM> tells me ``Sorry, can't open the modem''.</H4>
 
 <P>
 <P>This means that <EM>kppp</EM> doesn't have permissions to open the modem
@@ -90,7 +96,7 @@ out what the right permissions are for your purposes. In order to give
 </CODE></BLOCKQUOTE>
 <P>
 <P>
-<H3><EM>kppp</EM> tells me it can't create a modem lock file.</H3>
+<H4><EM>kppp</EM> tells me it can't create a modem lock file.</H4>
 
 <P>This in most instances means that you have installed <EM>kppp</EM>
 without SETUID bit on while you, the person executing <EM>kppp</EM>, 
@@ -103,7 +109,7 @@ users write access to <CODE>/var/lock</CODE> or create a modem group
 that will have access to the <CODE>/var/lock</CODE> file.
 <P>
 <P>
-<A NAME="setuid"></A> <H3>Why is <EM>kppp</EM> installed with the SETUID bit on?</H3>
+<A NAME="setuid"></A> <H4>Why is <EM>kppp</EM> installed with the SETUID bit on?</H4>
 
 <P>
 <P>There is no need for the SETUID bit, if you know a bit of Unix systems 
@@ -123,7 +129,7 @@ up to you to decide if you install and how you install it.
 <P>You might also want to read the 
 <A HREF="index-8.html#security">Security</A> section.
 <P>
-<H3><EM>kppp</EM> just sits there and waits: Expecting OK</H3>
+<H4><EM>kppp</EM> just sits there and waits: Expecting OK</H4>
 
 <P>
 <P>
@@ -137,7 +143,7 @@ their values and do some fine tuning later.
 </LI>
 </UL>
 <P>
-<H3><A NAME="autohostname"></A> The connection works fine but I can´t start any applications.</H3>
+<H4><A NAME="autohostname"></A> The connection works fine but I can´t start any applications.</H4>
 
 <P>
 <P>You probably have activated the 
@@ -147,7 +153,7 @@ Issuing <I>xhost +</I> before starting the connection would do the job, but be <
 <P> 
 <P>
 <P>
-<H3><EM>kppp</EM> reports a successful connection, but Netscape just says "The server does not have a DNS entry"</H3>
+<H4><EM>kppp</EM> reports a successful connection, but Netscape just says "The server does not have a DNS entry"</H4>
 
 <P>Try pinging another server by its IP number, e.g. <CODE>ping 195.0.254.76</CODE>. If that
 works you should
@@ -163,7 +169,7 @@ performing an address lookup.
 <P>
 <P>
 <P>
-<H3>How do I make <EM>kppp</EM> send a \n or a \r?</H3>
+<H4>How do I make <EM>kppp</EM> send a \n or a \r?</H4>
 
 <P>Just send an empty string such as in the following script:
 <BLOCKQUOTE><CODE>
@@ -179,7 +185,7 @@ Send        ppp
 </PRE>
 </CODE></BLOCKQUOTE>
 <P>
-<H3><EM>kppp</EM> complains: "Can't create lock file"</H3>
+<H4><EM>kppp</EM> complains: "Can't create lock file"</H4>
 
 <P>
 <P>This means that you don't have permissions to create a lock file.
@@ -191,7 +197,7 @@ given <EM>kppp</EM> setuid permissions. Please read the section on
 <P>
 <P>
 <P>
-<H3>My modem makes much noise when dialling!</H3>
+<H4>My modem makes much noise when dialling!</H4>
 
 <P>Click on "Setup", "Modem". You can control the modem volume here in three
 steps: off, medium and high. For most modems "medium" and "high" result in the
@@ -199,7 +205,7 @@ same volume. If that doesn't work, make sure that the correct settings for
 your modem are specified in "Setup"/"Modem"/"Modem commands"!
 <P>
 <P>
-<H3>I turned the modem volume "off" and verified the modem commands,but I still hear that noise when dialling!</H3>
+<H4>I turned the modem volume "off" and verified the modem commands,but I still hear that noise when dialling!</H4>
 
 <P>The volume initialisation string can get lost if your modem can't cope with
 the speed it revives its command from <EM>kppp</EM>. Increase the value of
@@ -211,7 +217,7 @@ same volume. If that doesn't work, make sure that the correct settings for
 your modem are specified in "Setup"/"Modem"/"Modem commands"!
 <P>
 <P>
-<H3><EM>kppp</EM> reports an unusual modem speed like 115200, 57600 or similar </H3>
+<H4><EM>kppp</EM> reports an unusual modem speed like 115200, 57600 or similar </H4>
 
 <P>Many modems only report the speed of the serial line and not the speed over
 the telephone line as default. You must configure these modems to report the
@@ -220,7 +226,7 @@ command is "ATW2". If you want to add it to the dial-string (typical "ATD"), the
 string would be "ATW2D".
 <P>
 <P>
-<H3><EM>kppp</EM> reports "Unknown speed"</H3>
+<H4><EM>kppp</EM> reports "Unknown speed"</H4>
 
 <P>New modems often have very complex connection messages like "CONNECT
 LAP.M/V42.bis/115000:RX/31200:TX", and <EM>kppp</EM> cannot parse this message
@@ -229,7 +235,7 @@ currently working on a solution for this, and the parser is now much better,
 but still not perfect.
 <P>
 <P>
-<H3>Slow connection speed</H3>
+<H4>Slow connection speed</H4>
 
 <P>If you are not satisfied with the modem speed, make sure you've set the 
 connection speed ("Setup" / "Device" / "Speed") to 57600 or higher. Make sure
@@ -240,7 +246,7 @@ chip, it won't work. If you have a 16550 or 16550A it should work flawlessly.
 high speed mode.
 <P>
 <P>
-<H3>REALLY slow connection speed</H3>
+<H4>REALLY slow connection speed</H4>
 
 <P>If data drips in at a rate of just a few bytes per second you should check
 your hardware setup. If moving your mouse speeds up the transmission this is
@@ -250,7 +256,7 @@ definitely a hardware issue.
 components of your system.
 <P>
 <P>
-<H3>My phone line needs pulse dialling instead of tone dialling (or vice-versa)</H3>
+<H4>My phone line needs pulse dialling instead of tone dialling (or vice-versa)</H4>
 
 <P>You must modify you modem dial string. Nearly all modems support the 
 following AT-commands:
@@ -260,13 +266,13 @@ following AT-commands:
 </UL>
 <P>
 <P>
-<H3><EM>kppp</EM> makes really strange things (whatever)</H3>
+<H4><EM>kppp</EM> makes really strange things (whatever)</H4>
 
 <P>Did you compile it or the libraries with gcc-2.8? This version of gcc is
 somewhat broken, and it will not work as expected.
 <P>
 <P>
-<H3>How do I write a telephone cost rules file?</H3>
+<H4>How do I write a telephone cost rules file?</H4>
 
 <P>Just follow the TEMPLATE rules files supplied with <EM>kppp</EM>. You should be
 able to find a copy in the <CODE>${KDEDIR}/doc/HTML/kppp</CODE>. 
@@ -274,7 +280,7 @@ Use the <CODE>-r</CODE> <EM>kppp</EM> command line options to check the syntax o
 rules file.
 <P>
 <P>
-<H3>I have written a telephone cost rules file for my region. Where can I submit it so that others can make use of it?</H3>
+<H4>I have written a telephone cost rules file for my region. Where can I submit it so that others can make use of it?</H4>
 
 <P>I would love to receive any rule files written. I will make them available
 on my <EM>kppp</EM> 
@@ -284,13 +290,13 @@ the <EM>kppp</EM> web page. Then email the new rules file  to
 <A HREF="mailto:wuebben@math.cornell.edu">me</A>.
 <P>
 <P>
-<H3>Can my phone cost rulefile contain fractional time units, e.g. "(0.17,45.5)"?</H3>
+<H4>Can my phone cost rulefile contain fractional time units, e.g. "(0.17,45.5)"?</H4>
 
 <P>Yes this is possible. But you should not use unusual small time units (below
 tenth of a second), because this would result in higher CPU load (though I
 doubt you'll notice with a modern CPU :-)
 <P>
-<H3>My country observes a moving holiday different from easter.</H3>
+<H4>My country observes a moving holiday different from easter.</H4>
 
 <P>In that case you need to write new code that allows for the computation of that
 holiday. Please have a look at ruleset.cpp and emulate the ``easter'' example.
@@ -298,18 +304,18 @@ Then send
 <A HREF="mailto:wuebben@math.cornell.edu">me</A> the patches.
 <P>
 <P>
-<H2><A NAME="ss7.2">7.2 How to interpret the system's log</A>
-</H2>
+<H3><A NAME="ss7.2">7.2 How to interpret the system's log</A>
+</H3>
 
 <P>
-<H3>Serial line is looped back</H3>
+<H4>Serial line is looped back</H4>
 
 <P>Short answer: You haven't started the PPP software on the peer system.
 <P>See a posting from Al Longyear on 
 <A HREF="http://www.dejanews.com/getdoc.xp?AN=184945314">http://www.dejanews.com/getdoc.xp?AN=184945314</A> for a more detailed explanation.
 <P>
 <P>
-<H3>Signal 15</H3>
+<H4>Signal 15</H4>
 
 <P>If you see the following lines you've probably just received a timeout error
 from <EM>kppp</EM>, too. <EM>kppp</EM> has been waiting for the PPP interface to
@@ -326,7 +332,7 @@ pppd[26921]: Exit.
 </PRE>
 </CODE></BLOCKQUOTE>
 <P>
-<H3>Receive serial link is not 8-bit clean</H3>
+<H4>Receive serial link is not 8-bit clean</H4>
 
 <P>The PPP daemon is alarmed by the fact that all data it receives has bit 8 set
 to zero. In most cases this simply indicates that the remote PPP server isn't
@@ -334,7 +340,7 @@ running yet. You might be still confronted with a login prompt that echoes
 back all data sent by your pppd.
 <P>
 <P>
-<H3>can't locate module ppp-compress</H3>
+<H4>can't locate module ppp-compress</H4>
 
 <P>Do you get the following messages ?
 <BLOCKQUOTE><CODE>
@@ -357,9 +363,17 @@ alias ppp-compress-26 ppp_deflate
 to your /etc/conf.modules file. 
 <P>
 <P>
-<HR>
+<P ALIGN="RIGHT">
+
 <A HREF="index-8.html">Next</A>
-<A HREF="index-6.html">Previous</A>
-<A HREF="index.html#toc7">Contents</A>
+ <A HREF="index-6.html">Previous</A>
+ <A HREF="index.html#toc7">Table of Contents</A>
+</P>
+<CENTER>
+<HR WIDTH="100%" SIZE=3 ALIGN=CENTER NOSHADE>
+</CENTER>    
+</FONT>
+
+ 
 </BODY>
 </HTML>

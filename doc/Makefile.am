@@ -2,7 +2,7 @@
 docs_DATA = index.html index-1.html index-2.html index-3.html \
 	   index-4.html index-5.html index-6.html index-7.html \
 	   index-8.html index-9.html index-10.html \
-	   hayes.html logotp3.gif  
+	   hayes.html logotp3.png  
 
 # this is the directory, where all datas are installed
 # you have given the datas in data_DATA
