@@ -7,7 +7,6 @@ SUBDIRS = Argentina \
 	Czechia \
 	Denmark \
 	England \
-	Estonia \
 	France \
 	Germany \
 	Greece \
@@ -32,6 +31,8 @@ SUBDIRS = Argentina \
 	Spain \
 	Sweden \
 	Switzerland
+
+#	Estonia 
 
 pkg_DATA = TEMPLATE 
 pkg_SCRIPTS = checkrules
