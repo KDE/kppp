@@ -364,7 +364,6 @@ void KPPPWidget::prepareSetupDialog() {
     modem2 = new ModemWidget2( tabWindow->addPage( i18n("&Modem"), i18n("Modem Settings") ) );
     graph = new GraphSetup( tabWindow->addPage( i18n("&Graph"), i18n("Throughput Graph" ) ) );
     general = new GeneralWidget( tabWindow->addPage( i18n("M&isc"), i18n("Miscellaneous Settings") ) );
-    about  = new AboutWidget( tabWindow->addPage( i18n("A&bout"), i18n("About KPPP") ) );
   }
 }
 

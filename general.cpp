@@ -186,39 +186,6 @@ void GeneralWidget::pppdtimeoutchanged(int n) {
 }
 
 
-/////////////////////////////////////////////////////////////////////////////
-//
-// The About Dialog
-//
-/////////////////////////////////////////////////////////////////////////////
-AboutWidget::AboutWidget( QWidget *parent, const char *name)
-  : QWidget(parent, name)
-{
-  QVBoxLayout *tl = new QVBoxLayout(parent);
-  QLabel *label1 = new QLabel(parent);
-  label1->setAlignment(AlignLeft|ExpandTabs);
-
-  QString string;
-  string = "kppp "KPPPVERSION;
-  string += i18n("\nA dialer and front-end to pppd\n\n"
-		 "(c) 1997, 1998\n"
-		 "    Bernd Johannes Wuebben <wuebben@kde.org>\n"
-		 "    Mario Weilguni\n"
-		 "(c) 1998-2001\n"
-		 "    Harri Porten <porten@kde.org>\n\n"
-		 "Original author: Bernd Johannes Wuebben\n"
-		 "Currently maintained by Harri Porten.\n"
-		 "Bug reports can be submitted on\n"
-		 "http://bugs.kde.org.\n\n"
-		 "This program is distributed under the GNU GPL\n"
-		 "(GNU General Public License)."
-		 );
-  label1->setText(string);
-  label1->setMinimumSize(label1->sizeHint());
-  tl->addWidget(label1);
-  //tl->activate();
-}
-
 ModemWidget::ModemWidget( QWidget *parent, const char *name)
   : QWidget(parent, name)
 {

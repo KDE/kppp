@@ -132,12 +132,6 @@ private:
 
 };
 
-class AboutWidget : public QWidget {
-  Q_OBJECT
-public:
-  AboutWidget( QWidget *parent=0, const char *name=0 );
-};
-
 #endif
 
 

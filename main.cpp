@@ -194,9 +194,9 @@ int main( int argc, char **argv ) {
   KAboutData aboutData("kppp", I18N_NOOP("KPPP"),
     KPPPVERSION, description, KAboutData::License_GPL,
     I18N_NOOP("(c) 1999-2002, The KPPP Developers"));
-  aboutData.addAuthor("Bernd Wuebben",0, "wuebben@kde.org");
+  aboutData.addAuthor("Harri Porten", I18N_NOOP("Current maintainer"), "porten@kde.org");
+  aboutData.addAuthor("Bernd Wuebben", I18N_NOOP("Original author"), "wuebben@kde.org");
   aboutData.addAuthor("Mario Weilguni",0, "");
-  aboutData.addAuthor("Harri Porten",0, "porten@kde.org");
 
   KCmdLineArgs::init( argc, argv, &aboutData );
   KCmdLineArgs::addCmdLineOptions( options );
