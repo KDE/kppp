@@ -54,7 +54,12 @@
      #include <sys/linker.h>
 #endif
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 
+#include <net/ppp_defs.h>
+#include <net/if.h>
 #ifdef HAVE_LINUX_IF_PPP_H
 #include <linux/if_ppp.h>
 #endif
