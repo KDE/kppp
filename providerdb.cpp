@@ -174,7 +174,7 @@ void ProviderDB::accept() {
   QRegExp re_password("%PASSWORD%");
 
   QMap <QString, QString> map;
-  QMapIterator< QString, QString, QString&, QString* > it;
+  QMap <QString, QString>::Iterator it;
   map = cfg->entryMap("<Default>");
   it = map.begin();
   while(it.key() != QString::null) {
@@ -186,9 +186,7 @@ void ProviderDB::accept() {
     if(value.contains(re_password))
       value.replace(re_password, page4->password());
 
-    gpppdata.writeConfig(gpppdata.currentGroup(),
-			 key.data(),
-			 value.data());
+    gpppdata.writeConfig(gpppdata.currentGroup(), key, value);
 
     if(key == "Name")
       gpppdata.setAccname(value);
@@ -467,11 +465,9 @@ void urlDecode(QString &s) {
     if(s[i] == '%') {
       s1 += 100*s[i+1].digitValue() + 10*s[i+2].digitValue()
         + s[i+3].digitValue();
-      i += 4;
-    } else {
+      i += 3;
+    } else
       s1 += s[i];
-      i++;
-    }
   }
   
   s = s1;
