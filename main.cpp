@@ -192,6 +192,16 @@ void showNews() {
 #endif
 }
 
+/**
+ * pppd's getword() function knows about escape characters.
+ * If we write the username and password to the secrets file
+ * we'll therefore have to escape back slashes.
+ */
+QString encodeWord(const QString &s) {
+    QString r = s;
+    r.replace(QRegExp("\\"), "\\\\");
+    return r;
+}
 
 extern "C" {
   static int kppp_x_errhandler( Display *dpy, XErrorEvent *err ) {
@@ -848,8 +858,8 @@ void KPPPWidget::sigPPPDDied() {
         if(gpppdata.authMethod() == AUTH_PAP ||
 	   gpppdata.authMethod() == AUTH_CHAP)
           Requester::rq->setSecret(gpppdata.authMethod(),
-				   gpppdata.storedUsername(),
-				   gpppdata.password);
+				   encodeWord(gpppdata.storedUsername()),
+				   encodeWord(gpppdata.password));
 	con_win->hide();
 	con_win->stopClock();
 	stopAccounting();
@@ -948,8 +958,8 @@ void KPPPWidget::beginConnect() {
     } else {
       gpppdata.password = PW_Edit->text();
       if(!Requester::rq->setSecret(gpppdata.authMethod(),
-				   gpppdata.storedUsername(),
-				   gpppdata.password)) {
+				   encodeWord(gpppdata.storedUsername()),
+				   encodeWord(gpppdata.password))) {
 	QString s;
 	s = i18n("Cannot create PAP/CHAP authentication\n"
 				     "file \"%1\"").arg(PAP_AUTH_FILE);
