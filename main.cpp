@@ -44,6 +44,7 @@
 #endif
 
 #include <qfileinfo.h>
+#include <qregexp.h>
 
 #include <kdebug.h>
 #include <kbuttonbox.h>
