@@ -451,7 +451,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   l1->addWidget(ID_Edit, 1, 2);
   connect(ID_Edit, SIGNAL(returnPressed()),
 	  this, SLOT(enterPressedInID()));
-  QString tmp = i18n("Type in the username that you got from your\n"
+  QString tmp = i18n("<p>Type in the username that you got from your\n"
 		     "ISP. This is especially important for PAP\n"
 		     "and CHAP. You may omit this when you use\n"
 		     "terminal-based or script-based authentication.\n"
@@ -471,7 +471,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   connect(PW_Edit, SIGNAL(returnPressed()),
 	  this, SLOT(enterPressedInPW()));
   
-  tmp = i18n("Type in the password that you got from your\n"
+  tmp = i18n("<p>Type in the password that you got from your\n"
 	     "ISP. This is especially important for PAP\n"
 	     "and CHAP. You may omit this when you use\n"
 	     "terminal-based or script-based authentication.\n"
@@ -494,7 +494,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
    l3->addWidget(log);
 
    QWhatsThis::add(log, 
- 		  i18n("This controls whether a log window is shown.\n"
+ 		  i18n("<p>This controls whether a log window is shown.\n"
  		       "A log window shows the communication between\n"
  		       "<i>kppp</i> and your modem. This will help you\n"
  		       "in tracking down problems.\n"

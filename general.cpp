@@ -91,9 +91,9 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
 
   chkbox6 = new QCheckBox(i18n("Dock into Panel on Connect"), peer());
   QWhatsThis::add(chkbox6,
-		  i18n("After a connection is established, the\n"
+		  i18n("<p>After a connection is established, the\n"
 		       "window is minimized and a small icon\n"
-		       "in the <i>kpanel</i> represents this window.\n"
+		       "in the KDE panel represents this window.\n"
 		       "\n"
 		       "Clicking on this icon will restore the\n"
 		       "window to it's original location and\n"
@@ -110,11 +110,11 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
 	  this, SLOT(redial_toggled(bool)));
   l3->addWidget(chkbox2);
   QWhatsThis::add(chkbox2,
-		  i18n("When a connection is established and\n"
+		  i18n("<p>When a connection is established and\n"
 		       "it somehow gets disconnected, <i>kppp</i>\n"
 		       "will try to reconnect to the same account.\n"
 		       "\n"
-		       "See <link #redial>here</link> for more on this topic."));
+		       "See <a href=\"#redial\">here</a> for more on this topic."));
 
   chkbox3 = new QCheckBox(i18n("Show Clock on Caption"), peer());
   chkbox3->setChecked(gpppdata.get_show_clock_on_caption());
@@ -133,12 +133,12 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
 	  this, SLOT(xserver_toggled(bool)));
   l3->addWidget(chkbox4);
   QWhatsThis::add(chkbox4,
-		  i18n("Checking this option will close any\n"
+		  i18n("<p>Checking this option will close any\n"
 		       "open connection when the X-server is\n"
 		       "shut down. You should enable this option\n"
 		       "unless you know what you are doing.\n"
 		       "\n"
-		       "See <link #disxserver>here</link> for more on this."));
+		       "See <a href=\"#disxserver\">here</a> for more on this."));
 
   chkbox7 = new QCheckBox(i18n("Quit on Disconnect"), peer());
   chkbox7->setChecked(gpppdata.quit_on_disconnect());
@@ -271,7 +271,7 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   connect(flowcontrol, SIGNAL(activated(int)),
 	  SLOT(setflowcontrol(int)));
 
-  tmp = i18n("Specifies how the serial port and modem\n"
+  tmp = i18n("<p>Specifies how the serial port and modem\n"
 	     "communicate. You should not change this unless\n"
 	     "you know what you are doing.\n"
 	     "\n"
@@ -289,7 +289,7 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   enter->insertItem("CR/LF");
   tl->addWidget(enter, 2, 1);
   connect(enter, SIGNAL(activated(int)), SLOT(setenter(int)));
-  tmp = i18n("Specifies how AT commands are send to your\n"
+  tmp = i18n("<p>Specifies how AT commands are send to your\n"
 	     "modem. Most modems will work fine with the\n"
 	     "default <i>CR/LF</i>. If your modem does not react\n"
 	     "to the init string, you should try different\n"
@@ -367,11 +367,11 @@ ModemWidget::ModemWidget( QWidget *parent, const char *name)
   l12->addWidget(modemlockfile);
   //  l12->addStretch(1);
   QWhatsThis::add(modemlockfile,
-		  i18n("To prevent other programs from accessing the\n"
+		  i18n("<p>To prevent other programs from accessing the\n"
 		       "modem while a connection is established, a\n"
 		       "file can be created to indicate that the modem\n"
 		       "is in use. On Linux an example file would be\n"
-                       "<i>/var/lock/LCK..ttyS1</i>\n"
+                       "<tt>/var/lock/LCK..ttyS1</tt>\n"
                        "Here you can select whether this locking will\n"
 		       "be done.\n"
 		       "\n"

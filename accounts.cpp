@@ -95,7 +95,8 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   connect(delete_b, SIGNAL(clicked()), SLOT(deleteaccount()));
   l111->addWidget(delete_b);
   QWhatsThis::add(delete_b, 
-		  i18n("Deletes the selected account\n\n<red><b>Use with care!"));
+		  i18n("<p>Deletes the selected account\n\n"
+		       "<font color=\"red\"><b>Use with care!</b></font>"));
 
   QHBoxLayout *l12 = new QHBoxLayout;
   l1->addStretch(1);
@@ -114,7 +115,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   costedit->setEnabled(FALSE);
   l121->addWidget(costedit);
   l121->addStretch(1);
-  QString tmp = i18n("This shows the accumulated phone costs\n"
+  QString tmp = i18n("<p>This shows the accumulated phone costs\n"
 		     "for the selected account.\n"
 		     "\n"
 		     "<b>Important</b>: If you have more than one \n"
@@ -132,12 +133,12 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   voledit->setFixedHeight(voledit->sizeHint().height());
   voledit->setEnabled(FALSE);
   l121->addWidget(voledit);
-  tmp = i18n("This shows the number of bytes transferred\n"
+  tmp = i18n("<p>This shows the number of bytes transferred\n"
 	     "for the selected account (not for all of your\n"
 	     "accounts. You can select what to display in\n"
 	     "the accounting dialog.\n"
 	     "\n"
-	     "<link #volaccounting>More on volume accounting</link>");
+	     "<a href=\"#volaccounting\">More on volume accounting</a>");
 
   QWhatsThis::add(vollabel,tmp);
   QWhatsThis::add(voledit, tmp);

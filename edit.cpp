@@ -98,12 +98,12 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
 	  this, SLOT(selectionChanged(int)));
   numbersChanged();
   
-  tmp = i18n("Specifies the phone numbers to dial. You\n"
+  tmp = i18n("<p>Specifies the phone numbers to dial. You\n"
 	     "can supply multiple numbers here, simply\n"
 	     "click on \"Add\". You can arrange the\n"
 	     "order the numbers are tried by using the\n"
 	     "arrow buttons.\n\n"
-	     "When a number is busy or fails, <i>kppp</i>will \n"
+	     "When a number is busy or fails, <i>kppp</i> will \n"
 	     "try the next number and so on");
 
   QWhatsThis::add(number_label,tmp);
@@ -118,7 +118,7 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
   auth->insertItem(i18n("Terminal-based"));
   auth->insertItem(i18n("CHAP"));
   tl->addWidget(auth, 3, 1);
-  tmp = i18n("Specifies the method used to identify yourself to\n"
+  tmp = i18n("<p>Specifies the method used to identify yourself to\n"
 	     "the PPP server. Most universities still use\n"
 	     "<b>Terminal</b>- or <b>Script</b>-based authtentication,\n"
 	     "while most ISP use <b>PAP</b> and/or <b>CHAP</b>. If\n"
@@ -134,11 +134,11 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
   store_password->setChecked(true);
   tl->addMultiCellWidget(store_password, 4, 4, 0, 1, AlignRight);
   QWhatsThis::add(store_password,
-		  i18n("When this is turned on, your ISP password\n"
+		  i18n("<p>When this is turned on, your ISP password\n"
 		       "will be saved in <i>kppp</i>'s config file, so\n"
 		       "you do not need to type it in everytime.\n"
 		       "\n"
-		       "<b><red>Warning:<black> your password will be stored as\n"
+		       "<b><font color=\"red\">Warning:</font> your password will be stored as\n"
 		       "plain text in the config file, which is\n"
 		       "readable only to you. Make sure nobody\n"
 		       "gains access to this file!"));
@@ -396,7 +396,7 @@ IPWidget::IPWidget( QWidget *parent, bool isnewaccount, const char *name )
   subnetmask_l = new IPLineEdit(peer());
 
   sub_label = new QLabel(i18n("Subnet Mask:"), peer());
-  tmp = i18n("If your computer has a static Internet address,\n"
+  tmp = i18n("<p>If your computer has a static Internet address,\n"
 	     "you must supply a network mask here. In almost\n"
 	     "all cases this netmask will be <b>255.255.255.0</b>,\n"
 	     "but your mileage may vary.\n"
@@ -436,12 +436,12 @@ IPWidget::IPWidget( QWidget *parent, bool isnewaccount, const char *name )
   connect(autoname,SIGNAL(toggled(bool)),
 	  this,SLOT(autoname_t(bool)));
   QWhatsThis::add(autoname,
-		  i18n("Whenever you connect, this reconfigures\n"
+		  i18n("<p>Whenever you connect, this reconfigures\n"
 		       "your hostname to match the IP address you\n"
 		       "got from the PPP server. This may be useful\n"
 		       "if you need to use a protocol which depends\n"
 		       "on this information, but it can also cause several\n"
-		       "<link kppp-7.html#autohostname>problems</link>.\n"
+		       "<a href=\"kppp-7.html#autohostname\">problems</a>.\n"
 		       "\n"
 		       "Don't enable this unless you really need it"));
 
@@ -620,7 +620,7 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
 	  SLOT(DNS_Edit_Changed(const QString &)));
   l2->addWidget(dnsipaddr, 1);
   l2->addStretch(1);
-  tmp = i18n("Allows you to specify a new DNS server to be\n"
+  tmp = i18n("<p>Allows you to specify a new DNS server to be\n"
 	     "used while you are connected. When the\n"
 	     "connection is closed, this DNS entry will be\n"
 	     "removed again.\n"
@@ -664,7 +664,7 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
   connect(dnsservers, SIGNAL(highlighted(int)),
 	  SLOT(DNS_Entry_Selected(int)));
   tl->addWidget(dnsservers, 5, 1);
-  tmp = i18n("This shows all defined DNS servers to use\n"
+  tmp = i18n("<p>This shows all defined DNS servers to use\n"
 	     "while you are connected. Use the <b>Add</b> and\n"
 	     "<b>Remove</b> buttons to modify the list");
 
@@ -677,8 +677,8 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
   exdnsdisabled_toggle->setChecked(gpppdata.exDNSDisabled());
   tl->addMultiCellWidget(exdnsdisabled_toggle, 6, 6, 0, 1, AlignCenter);
   QWhatsThis::add(exdnsdisabled_toggle,
-		  i18n("When this option is selected, all DNS\n"
-		       "servers specified in <i>/etc/resolv.conf</i> are\n"
+		  i18n("<p>When this option is selected, all DNS\n"
+		       "servers specified in <tt>/etc/resolv.conf</tt> are\n"
 		       "temporary disabled while the dialup connection\n"
 		       "is established. After the connection is\n"
 		       "closed, the servers will be re-enabled\n"
@@ -787,7 +787,7 @@ GatewayWidget::GatewayWidget( QWidget *parent, bool isnewaccount, const char *na
   staticgateway->setText(i18n("Static Gateway"));
   rb->insert(staticgateway, 1);
   QWhatsThis::add(staticgateway,
-		  i18n("Allows you to specify which computer you want\n"
+		  i18n("<p>Allows you to specify which computer you want\n"
 		       "to use as gateway (see <i>Default Gateway</i> above"));
 
   gatewayaddr = new IPLineEdit(peer());
