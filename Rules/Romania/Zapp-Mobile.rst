@@ -1,8 +1,15 @@
-########################################################
-# Tarife pt. seriviciul Zapp Online, $0.02/minut + TVA #
-# Taxare pe secunda, inca de la primul minut.          #
-# Andras Mantia <amantia@freemail.hu>                  #
-########################################################
+##################################################################
+# Zapp Online    - Tarife cu TVA (8 martie 2004)                 #
+# Andras Mantia <amantia@freemail.hu>                            #
+# modificari de Claudiu Costin <claudiuc@kde.org>                #
+##################################################################
+
+# Nota:
+# 1) Cost: 0.02$/minut
+# 2) Taxarea se face la secunda
+# TVA = 19%
+#
+
 name=Zapp-Mobile
 currency_symbol=$
 currency_position=right

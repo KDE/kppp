@@ -1,7 +1,7 @@
 ################################################################
 # Ruleset for Easynet (inclusiv TVA)                           #
 # written by Sorin Batariuc <sorin@bonbon.net>                 #
-# actualizat la 5 Ianuarie 2004 (pentru convorbiri 89(3)0123   #
+# actualizat la 5 Ianuarie 2004, pentru convorbiri 89(3)0123   #
 ################################################################
 
 name=Easynet
