@@ -1,3 +1,9 @@
+2001-11-23  Harri Porten  <porten@kde.org>
+
+	* connect.cpp: finally implemented often requested feature:
+	multiple init strings. Only two for now but it's now easy
+	to increase (PPPData::NumInitStrings + GUI)
+
 2001-11-08  Harri Porten  <porten@kde.org>
 
 	* pppdata.cpp: fixed renaming of default account. Bug reported

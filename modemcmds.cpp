@@ -74,7 +74,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   lpreinit = new QLabel(i18n("Pre-Init Delay (sec/100):"), this);
   l1->addWidget(lpreinit, row++, 1);
 
-  for(int i = 0; i < NumInitStrings; i++) {
+  for(int i = 0; i < PPPData::NumInitStrings; i++) {
       initstr[i] = new QLineEdit(this);
       QLabel *initLabel = new QLabel(i18n("Initialization String %1:").arg(i),
 				    this);
@@ -239,7 +239,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   //set stuff from gpppdata
   preinitslider->setValue(gpppdata.modemPreInitDelay());
   lpreinitslider->setNum(gpppdata.modemPreInitDelay());
-  for(int i = 0; i < NumInitStrings; i++)
+  for(int i = 0; i < PPPData::NumInitStrings; i++)
       initstr[i]->setText(gpppdata.modemInitStr(i));
   initslider->setValue(gpppdata.modemInitDelay());
   linitslider->setNum(gpppdata.modemInitDelay());
@@ -273,7 +273,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
 
 void ModemCommands::okbutton() {
   gpppdata.setModemPreInitDelay(lpreinitslider->text().toInt());
-  for(int i = 0; i < NumInitStrings; i++)
+  for(int i = 0; i < PPPData::NumInitStrings; i++)
       gpppdata.setModemInitStr(i, initstr[i]->text());
   gpppdata.setModemInitResp(initresp->text());
   gpppdata.setModemInitDelay(linitslider->text().toInt());

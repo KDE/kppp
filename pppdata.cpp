@@ -424,6 +424,7 @@ void PPPData::setbusyWait(int n) {
 //
 // defaults: InitString=ATZ, InitString1="" etc.
 const QString PPPData::modemInitStr(int i) {
+  assert(i >= 0 && i < NumInitStrings);
   if(i == 0)
     return readConfig(MODEM_GRP, INITSTR_KEY, "ATZ");
   else
@@ -432,6 +433,7 @@ const QString PPPData::modemInitStr(int i) {
 
 
 void PPPData::setModemInitStr(int i, const QString &n) {
+  assert(i >= 0 && i < NumInitStrings);
   QString k = INITSTR_KEY + (i > 0 ? QString::number(i) : "");
   writeConfig(MODEM_GRP, k, n);
 }

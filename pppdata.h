@@ -161,6 +161,8 @@ public:
   PPPData();
   ~PPPData() {};
 
+  enum { NumInitStrings = 2 };
+
   // general functions
   bool open();
   void save();

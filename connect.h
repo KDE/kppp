@@ -3,8 +3,8 @@
  *            kPPP: A pppd front end for the KDE project
  *
  * $Id$
- * 
- *            Copyright (C) 1997 Bernd Johannes Wuebben 
+ *
+ *            Copyright (C) 1997 Bernd Johannes Wuebben
  *                   wuebben@math.cornell.edu
  *
  * based on EzPPP:
@@ -45,10 +45,10 @@ class PPPStats;
 
 class ConnectWidget : public QWidget {
   Q_OBJECT
-public:  
+public:
   ConnectWidget(QWidget *parent, const char *name, PPPStats *st);
   ~ConnectWidget();
-  
+
 public:
   void set_con_speed_string();
   void setMsg(const QString &);
@@ -56,7 +56,7 @@ public:
 
 protected:
   void timerEvent(QTimerEvent *);
-  void closeEvent( QCloseEvent *e );  
+  void closeEvent( QCloseEvent *e );
 
 private slots:
   void readChar(unsigned char);
@@ -80,14 +80,15 @@ signals:
   void stopAccounting();
 
 public:
-  QString myreadbuffer;  // we want to keep every thing in order to fish for the 
-  
+  QString myreadbuffer;  // we want to keep every thing in order to fish for the
+
   // connection speed later on
   QPushButton *debug;
   int main_timer_ID;
-  
+
 private:
   int vmain;
+  int substate;
   int scriptindex;
   QString scriptCommand, scriptArgument;
   QStringList *comlist, *arglist;
@@ -97,7 +98,7 @@ private:
   int loopstartindex[MAXLOOPNEST];
   bool loopend;
   QString loopstr[MAXLOOPNEST];
-  
+
   bool semaphore;
   QTimer *inittimer;
 
@@ -105,11 +106,11 @@ private:
   bool execppp();
   void writeline(const QString &);
   void checkBuffers();
-  
+
   void setExpect(const QString &);
   bool expecting;
   QString expectstr;
-  
+
   QString readbuffer;
 
   void setScan(const QString &);

@@ -82,6 +82,7 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
     myreadbuffer(""),
     main_timer_ID(0),
     vmain(0),
+    substate(-1),
     scriptindex(0),
     loopnest(0),
     loopend(false),
@@ -176,6 +177,7 @@ void ConnectWidget::init() {
   gpppdata.setpppdError(0);
   inittimer->stop();
   vmain = 0;
+  substate = -1;
   expecting = false;
   pausing = false;
   scriptindex = 0;
@@ -269,25 +271,42 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
     return;
 #endif
 
-    messg->setText(i18n("Initializing Modem..."));
-    emit debugMessage(i18n("Initializing Modem..."));
-
-    // send a carriage return and then wait a bit so that the modem will
-    // let us issue commands.
-    if(gpppdata.modemPreInitDelay() > 0) {
-      usleep(gpppdata.modemPreInitDelay() * 5000);
-      writeline("");
-      usleep(gpppdata.modemPreInitDelay() * 5000);
+    assert(PPPData::NumInitStrings > 0);
+    // first init string ?
+    if(substate == -1) {
+      messg->setText(i18n("Initializing Modem..."));
+      emit debugMessage(i18n("Initializing Modem..."));
+      substate = 0;
     }
-    setExpect(gpppdata.modemInitResp());
-    writeline(gpppdata.modemInitStr(0));
-    usleep(gpppdata.modemInitDelay() * 10000); // 0.01 - 3.0 sec
+
+    QString initStr = gpppdata.modemInitStr(substate);
+    if (!initStr.isEmpty()) {
+	// send a carriage return and then wait a bit so that the modem will
+	// let us issue commands.
+	if(gpppdata.modemPreInitDelay() > 0) {
+	    usleep(gpppdata.modemPreInitDelay() * 5000);
+	    writeline("");
+	    usleep(gpppdata.modemPreInitDelay() * 5000);
+	}
+	setExpect(gpppdata.modemInitResp());
+	writeline(initStr);
+	usleep(gpppdata.modemInitDelay() * 10000); // 0.01 - 3.0 sec
+    }
+
+    substate++;
     vmain = 3;
+
     return;
   }
 
   if(vmain == 3) {
     if(!expecting) {
+      // done with all init strings ?
+      if(substate < PPPData::NumInitStrings) {
+	vmain = 0;
+	return;
+      }
+      substate = -1;
       // skip setting the volume if command is empty
       if(gpppdata.volumeInitString().isEmpty()) {
         vmain = 4;
@@ -378,6 +397,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
       Modem::modem->setDataMode(false);
       vmain = 0;
+      substate = -1;
       return;
     }
 
@@ -975,6 +995,7 @@ void ConnectWidget::script_timed_out() {
   p_kppp->con_win->stopClock();
 
   vmain = 0; // let's try again.
+  substate = -1;
 }
 
 
