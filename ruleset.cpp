@@ -24,23 +24,24 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+#include "ruleset.h"
+#include "log.h"
 
 #include <qregexp.h>
 #include <qstring.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include <qfile.h>
-#include <math.h>
+
 #include <kapp.h>
-#include "ruleset.h"
-#include "log.h"
 #include <klocale.h>
+#include <kglobal.h>
 
 RuleSet::RuleSet() {
   default_costs = -1;
   default_len = -1;
   _currency_symbol = "$";
-  _currency_position = CURRENCY_RIGHT;
   _currency_digits = 2;
   _minimum_costs = 0;
   flat_init_costs = 0.0;
@@ -396,17 +397,6 @@ bool RuleSet::parseLine(QString &s) {
     return ok && (_currency_digits >= 0);
   }
 
-  if(s.contains(QRegExp("currency_position=.*"))) {
-    QString token = s.mid(18, s.length() - 18);
-    if(token == "left") {
-      _currency_position = CURRENCY_LEFT;
-      return TRUE;
-    } else if(token == "right") {
-      _currency_position = CURRENCY_RIGHT;
-      return TRUE;
-    }
-  }
-
   // check per connection fee
   if(s.contains(QRegExp("per_connection="))) {
     QString token = s.mid(15, s.length()-15);
@@ -503,18 +493,7 @@ QString RuleSet::currencySymbol() {
 }
 
 QString RuleSet::currencyString(double f) {
-  QString s, fmt;
-
-  if(_currency_position == CURRENCY_RIGHT) {
-    fmt.sprintf("%%0.%df %%s", _currency_digits);
-    s.sprintf(fmt.data(), round(f, _currency_digits),
-	      _currency_symbol.data());
-  } else {
-    fmt.sprintf("%%s %%0.%df", _currency_digits);
-    s.sprintf(fmt.data(), _currency_symbol.data(),
-	      round(f, _currency_digits));
-  }
-  return s;
+  return KGlobal::locale()->formatMoney(f, _currency_symbol, _currency_digits);
 }
 
 

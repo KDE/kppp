@@ -31,9 +31,6 @@
 #include <qdatetime.h>
 #include <qstring.h>
 
-#define CURRENCY_LEFT	1
-#define CURRENCY_RIGHT	2
-
 // this structure is used to save
 // accounting rules
 typedef struct RULE {
@@ -71,9 +68,6 @@ public:
 
   /// returns the currency symbol
   QString currencySymbol();
-
-  /// returns the desired currency position
-  int currencyPosition();
 
   /** returns a string representation of the
    *  of a doubleingpoint number using the
@@ -137,7 +131,6 @@ protected:
   QString _name;
   QString _currency_symbol;
   QDateTime starttime;
-  int _currency_position;
   int _currency_digits;
   double default_costs;
   double _minimum_costs;
