@@ -113,7 +113,7 @@ void ModemTransfer::time_out_slot() {
   timeout_timer->stop();
   scripttimer->stop();
 
-  KMessageBox::error(this, i18n("Modem Query timed out."));
+  KMessageBox::error(this, i18n("Modem query timed out."));
   reject();
 }
 

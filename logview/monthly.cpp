@@ -634,7 +634,7 @@ void MonthlyWidget::exportWizard() {
 
     // write buffer to file and close file
     if (!exportIFace->closeFile())  {
-      KMessageBox::sorry(0, i18n("An error occurred while trying to write to this file"), i18n("Sorry"), true);
+      KMessageBox::sorry(0, i18n("An error occurred while trying to write to this file."), i18n("Sorry"), true);
       delete exportIFace;
       return;
     }
