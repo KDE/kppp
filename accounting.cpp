@@ -84,7 +84,7 @@ AccountingBase::AccountingBase(QObject *parent) :
     .arg(dt.monthName(dt.month()))
     .arg(dt.year(), 4);
 
-  LogFileName = KGlobal::dirs()->getSaveLocation("appdata", "Log")
+  LogFileName = KGlobal::dirs()->saveLocation("appdata", "Log")
     + "/" + LogFileName;
 
   debug("LogFileName: %s", LogFileName.latin1());

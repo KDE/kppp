@@ -45,14 +45,14 @@ MiniTerm::MiniTerm(QWidget *parent, const char *name)
   : QDialog(parent, name, TRUE)
 {
   setCaption(i18n("Kppp Mini-Terminal"));
-  KWM::setMiniIcon(winId(), kapp->getMiniIcon());
+  KWM::setMiniIcon(winId(), kapp->miniIcon());
 
   m_file = new QPopupMenu;
   m_file->insertItem( i18n("&Close"),this, SLOT(cancelbutton()) );
   m_options = new QPopupMenu;
   m_options->insertItem(i18n("&Reset Modem"),this,SLOT(resetModem()));
   m_help = 
-    kapp->getHelpMenu(TRUE, 
+    kapp->helpMenu(TRUE, 
 		      i18n("MiniTerm - A terminal emulation for KPPP\n\n"
 			   "(c) 1997 Bernd Johannes Wuebben <wuebben@kde.org>\n"
 			   "(c) 1998 Harri Porten <porten@kde.org>\n"

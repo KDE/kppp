@@ -53,7 +53,7 @@ PPPData::PPPData()
 //
 bool PPPData::open() {
 
-  config = kapp->getConfig();
+  config = kapp->config();
 
   if (config->getConfigState() == KConfig::NoAccess) {
     KMessageBox::error(0L,

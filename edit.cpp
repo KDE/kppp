@@ -1222,7 +1222,7 @@ void ScriptWidget::removeButton() {
 PhoneNumberDialog::PhoneNumberDialog(QWidget *parent) : QDialog(parent, 0, true) {
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
   setCaption(i18n("Add a phone number..."));
-  KWM::setMiniIcon(winId(), kapp->getMiniIcon());
+  KWM::setMiniIcon(winId(), kapp->miniIcon());
   tl->addSpacing(5);
 
   QHBoxLayout *l1 = new QHBoxLayout;

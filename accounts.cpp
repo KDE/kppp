@@ -332,7 +332,7 @@ void AccountWidget::deleteaccount() {
 
 int AccountWidget::doTab(){
   tabWindow = new QTabDialog(0,0,TRUE);
-  KWM::setMiniIcon(tabWindow->winId(), kapp->getMiniIcon());
+  KWM::setMiniIcon(tabWindow->winId(), kapp->miniIcon());
   bool isnewaccount;
  
   if(gpppdata.accname().isEmpty()) {
@@ -430,7 +430,7 @@ QString AccountWidget::prettyPrintVolume(unsigned int n) {
 //
 /////////////////////////////////////////////////////////////////////////////
 QueryReset::QueryReset(QWidget *parent) : QDialog(parent, 0, true) {
-  KWM::setMiniIcon(winId(), kapp->getMiniIcon());
+  KWM::setMiniIcon(winId(), kapp->miniIcon());
   setCaption(i18n("Reset accounting"));
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);

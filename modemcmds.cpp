@@ -43,7 +43,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   : QDialog(parent, name, TRUE, WStyle_Customize|WStyle_NormalBorder)
 {
   setCaption(i18n("Edit Modem Commands"));
-  KWM::setMiniIcon(winId(), kapp->getMiniIcon());
+  KWM::setMiniIcon(winId(), kapp->miniIcon());
 
   const int GRIDROWS = 20;
 

@@ -48,7 +48,7 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *)
   max = 1024;
 
   setCaption(i18n("kppp Statistics"));
-  KWM::setMiniIcon(winId(), kapp->getMiniIcon());
+  KWM::setMiniIcon(winId(), kapp->miniIcon());
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10);
   QGridLayout *l1 = new QGridLayout(4, 4);

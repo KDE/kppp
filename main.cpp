@@ -341,13 +341,13 @@ int main( int argc, char **argv ) {
 
   // make sure that nobody can read the password from the
   // config file
-  QString configFile = KGlobal::dirs()->getSaveLocation("config")
+  QString configFile = KGlobal::dirs()->saveLocation("config")
     + QString(kapp->name()) + "rc";
   if(access(configFile.data(), F_OK) == 0)
     chmod(configFile.data(), S_IRUSR | S_IWUSR);
 
   // do we really need to generate an empty directory structure here ?
-  KGlobal::dirs()->getSaveLocation("appdata", "Rules");
+  KGlobal::dirs()->saveLocation("appdata", "Rules");
 
   QString msg;
   int pid = create_pidfile();
@@ -570,7 +570,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   connect(this,SIGNAL(cmdl_start()),this,SLOT(beginConnect())); 
 
   con_win = new ConWindow(0,"conw",this);
-  KWM::setMiniIcon(con_win->winId(), kapp->getMiniIcon());
+  KWM::setMiniIcon(con_win->winId(), kapp->miniIcon());
   con_win->setGeometry(QApplication::desktop()->width()/2-160,
 		    QApplication::desktop()->height()/2-55,
 		    320,110);
@@ -581,14 +581,14 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   (void)new DockWidget(this, "dockw");
 
   debugwindow = new DebugWidget(0,"debugwindow");
-  KWM::setMiniIcon(debugwindow->winId(), kapp->getMiniIcon());
+  KWM::setMiniIcon(debugwindow->winId(), kapp->miniIcon());
   debugwindow->hide();
 
   // load up the accounts combo box
 
   resetaccounts();
   con = new ConnectWidget(0, "con");
-  KWM::setMiniIcon(con->winId(), kapp->getMiniIcon());
+  KWM::setMiniIcon(con->winId(), kapp->miniIcon());
   connect(this, SIGNAL(begin_connect()),con, SLOT(preinit()));
   con->setGeometry(QApplication::desktop()->width()/2-175,
 		    QApplication::desktop()->height()/2-55,
@@ -647,7 +647,7 @@ bool KPPPWidget::eventFilter(QObject *o, QEvent *e) {
 void KPPPWidget::prepareSetupDialog() {
   if(tabWindow == 0) {
     tabWindow = new QTabDialog( 0, 0, TRUE );
-    KWM::setMiniIcon(tabWindow->winId(), kapp->getMiniIcon());
+    KWM::setMiniIcon(tabWindow->winId(), kapp->miniIcon());
     tabWindow->setCaption( i18n("kppp Configuration") );
     tabWindow->setOkButton(i18n("OK"));
     tabWindow->setCancelButton(i18n("Cancel"));
@@ -1168,7 +1168,7 @@ pid_t create_pidfile() {
   int fd = -1;
   char pidstr[40]; // safe
   
-  pidfile = KGlobal::dirs()->getSaveLocation("appdata") + "kppp.pid";
+  pidfile = KGlobal::dirs()->saveLocation("appdata") + "kppp.pid";
 
   if(access(pidfile.data(), F_OK) == 0) {
     

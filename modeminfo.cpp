@@ -39,7 +39,7 @@ ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
   : QDialog(parent, name,TRUE, WStyle_Customize|WStyle_NormalBorder)
 {
   setCaption(i18n("ATI Query"));
-  KWM::setMiniIcon(winId(), kapp->getMiniIcon());
+  KWM::setMiniIcon(winId(), kapp->miniIcon());
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
   
@@ -246,7 +246,7 @@ ModemInfo::ModemInfo(QWidget *parent, const char* name)
   QString label_text;
 
   setCaption(i18n("Modem Query Results"));
-  KWM::setMiniIcon(winId(), kapp->getMiniIcon());
+  KWM::setMiniIcon(winId(), kapp->miniIcon());
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
 
