@@ -1,0 +1,26 @@
+# KDE Config File
+# $Id$
+# $Source$
+#
+Name=SiOL
+AccountingEnabled=1
+AccountingFile=/Slovenia/omrezje_0880.rst
+Authentication=1
+AutoName=0
+Command=
+DNS=193.189.160.11
+DefaultRoute=1
+DisconnectCommand=
+Domain=siol.net
+ExDNSDisabled=0
+Gateway=0.0.0.0
+IPAddr=0.0.0.0
+Password=%PASSWORD%
+ScriptArguments=
+ScriptCommands=
+StorePassword=1
+SubnetMask=0.0.0.0
+Username=%USERNAME%
+VolumeAccountingEnabled=0
+pppdArguments=
+Phonenumber=088032320

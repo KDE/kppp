@@ -1,0 +1,27 @@
+# KDE Config File
+# $Id$
+# $Source$
+#
+Name=AmisNet
+AccountingEnabled=1
+AccountingFile=/Slovenia/omrezje_0889.rst
+Authentication=1
+AutoName=1
+AutoDNS=1
+Command=
+DNS=
+DefaultRoute=1
+DisconnectCommand=
+Domain=amis.net
+ExDNSDisabled=0
+Gateway=0.0.0.0
+IPAddr=0.0.0.0
+Password=%PASSWORD%
+ScriptArguments=
+ScriptCommands=
+StorePassword=1
+SubnetMask=0.0.0.0
+Username=%USERNAME%
+VolumeAccountingEnabled=0
+pppdArguments=
+Phonenumber=088932410
