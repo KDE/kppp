@@ -61,6 +61,6 @@ Exec=kppplogview
 Icon=kppp
 Path=
 Type=Application
-Terminal=
+Terminal=false
 X-DCOP-ServiceType=Multi
 Categories=Qt;KDE;Network;X-KDE-More;
