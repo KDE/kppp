@@ -45,6 +45,10 @@
 #include <klocale.h>
 #include <kstddirs.h>
 #include <kglobal.h>
+#include <kapp.h>
+#include <kconfig.h>
+#include <qdir.h>
+#include <kwm.h>
 
 #include "providerdb.h"
 
@@ -66,6 +70,7 @@
 #include "pppdata.h"
 
 #include <X11/Xlib.h>
+#include <kapp.h>
 
 
 KPPPWidget*	p_kppp;

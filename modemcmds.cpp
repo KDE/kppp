@@ -28,11 +28,11 @@
 #include <qslider.h>
 #include <kbuttonbox.h>
 #include <stdlib.h>
-#include <kwm.h>
 #include <kapp.h> // for getMiniIcon()
+#include <klocale.h>
 #include "modemcmds.h"
 #include "pppdata.h"
-#include <klocale.h>
+#include <kwm.h>
 
 #define ADJUSTEDIT(e) e->setText("XXXXXXXXqy"); e->setMinimumSize(e->sizeHint()); e->setFixedHeight(e->sizeHint().height()); e->setText(""); e->setMaxLength(MODEMSTR_SIZE);
 

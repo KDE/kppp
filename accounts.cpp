@@ -28,7 +28,6 @@
 #include <qlayout.h>
 #include <kapp.h> // TODO: needed for getMiniIcon() only
 #include <kquickhelp.h>
-#include <kwm.h>
 #include <kbuttonbox.h>
 #include <klocale.h>
 #include "groupbox.h"
@@ -36,6 +35,7 @@
 #include "accounts.h"
 #include "accounting.h"
 #include "providerdb.h"
+#include <kwm.h>
 
 void parseargs(char* buf, char** args);
 

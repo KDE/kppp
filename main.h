@@ -54,9 +54,6 @@
 #include <qchkbox.h> 
 #include <qpixmap.h> 
 #include <qchkbox.h>
-#include <kapp.h>
-#include <kwm.h>
-#include <kconfig.h>
 
 #include "accounting.h"
 #include "conwindow.h"

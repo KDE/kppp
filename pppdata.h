@@ -38,9 +38,10 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <pwd.h>
-#include <kconfig.h>
 
 #include "kpppconfig.h"
+
+class KConfig;
 
 // string lengths
 

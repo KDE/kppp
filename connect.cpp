@@ -58,6 +58,7 @@
 #include "modem.h"
 #include "utils.h"
 #include "pppstats.h"
+#include <kapp.h>
 
 extern KPPPWidget *p_kppp;
 extern bool quit_on_disconnect;
