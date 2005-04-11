@@ -32,7 +32,7 @@
 
 
 # Nome del ruleset
-name=Tele2_ISP
+name=Tele2_Internet
 
 # Impostazioni della valuta
 currency_symbol=EUR
