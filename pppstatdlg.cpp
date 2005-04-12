@@ -137,6 +137,8 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
   for(i = 0; i < 5; i++) {
     labela2[i]->setText("888888888");	// TODO: resize automatically
     labelb2[i]->setText("888888888");
+    labela2[i]->setAlignment(Qt::AlignRight);
+    labelb2[i]->setAlignment(Qt::AlignRight);
     labela2[i]->setFixedSize(labela2[i]->sizeHint());
     labelb2[i]->setFixedSize(labelb2[i]->sizeHint());
     labela2[i]->setText("");
@@ -376,12 +378,12 @@ void PPPStatsDlg::closeEvent(QCloseEvent *) {
 void PPPStatsDlg::update_data() {
   timeclick();
 
-  ibytes_string.setNum(stats->ibytes);
+  ibytes_string = KGlobal::locale()->formatNumber(stats->ibytes, 0);
   ipackets_string.setNum(stats->ipackets);
   compressedin_string.setNum(stats->compressedin);
   uncompressedin_string.setNum(stats->uncompressedin);
   errorin_string.setNum(stats->errorin);
-  obytes_string.setNum(stats->obytes);
+  obytes_string = KGlobal::locale()->formatNumber(stats->obytes, 0);
   opackets_string.setNum(stats->opackets);
   compressed_string.setNum(stats->compressed);
   packetsunc_string.setNum(stats->packetsunc);
