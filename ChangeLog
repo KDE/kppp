@@ -1,3 +1,7 @@
+2005-04-12  Harri Porten  <porten@kde.org>
+
+	* pppstatdlg.cpp: improved byte number formatting patch by 'Walter'
+
 2005-03-18  Harri Porten  <porten@kde.org>
 
 	* connect.cpp: fixed another occurence of a i18n bug with the flow
