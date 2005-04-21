@@ -15,7 +15,7 @@ Dialer</guimenuitem>.</para>
 <screeninfo>The &kppp; dialer startup screen</screeninfo>
 <mediaobject>
 <imageobject>
-<imagedata fileref="kppp-dialer-tab.png" format="PNG"/>
+<imagedata fileref="kppp-dialler-tab.png" format="PNG"/>
 </imageobject>
 <textobject><phrase>The &kppp; dialer startup screen</phrase>
 </textobject>
