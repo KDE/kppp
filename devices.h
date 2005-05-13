@@ -5,11 +5,19 @@
 
 static const char *devices[] = {
 #ifdef __FreeBSD__
+#if __FreeBSD_version > 600004
+  "/dev/cuad0",
+  "/dev/cuad1",
+  "/dev/cuad2",
+  "/dev/cuad3",
+  "/dev/cuad4",
+#else
   "/dev/cuaa0",
   "/dev/cuaa1",
   "/dev/cuaa2",
   "/dev/cuaa3",
   "/dev/cuaa4",
+#endif
 #elif defined(__NetBSD__)
   "/dev/tty00",                /* "normal" modem lines */
   "/dev/tty01",
