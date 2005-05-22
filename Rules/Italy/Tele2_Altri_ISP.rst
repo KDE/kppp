@@ -2,7 +2,7 @@
 #
 # kppp ruleset for Italy
 #
-# by Giovanni Venturi (jumpyj@libero.it)
+# by Giovanni Venturi (gventuri73@tiscali.it)
 #
 # Tele2_Alti_ISP.rst
 #
@@ -11,23 +11,23 @@
 # Ultimo aggiornamento: 26 Giugno 2003.
 #
 ################################################################
-##							      ##
-## Addebito alla risposta di 0,0619 EUR.	  	      ##
-## 	     						      ##
+##                                                            ##
+## Addebito alla risposta di 0,0619 EUR.                      ##
+##                                                            ##
 ## Tutti i prezzi si intendono in EUR/min IVA COMPRESA.       ##
-##							      ##
-##							      ##
-## 		Tariffa RIDOTTA: 0,017 EUR		      ##
-## 		Tariffa INTERA : 0,026 EUR		      ##
-##		   					      ##
-##		    | Ridotta  dalle 18:30 alle 08:00	      ##
-## Giorni FERIALI : |					      ##
-##		    | Intera   dalle 08:00 alle 18:30	      ##
-##							      ##
-##			          			      ##
-## Giorni FESTIVI : | Ridotta 	dalle 00:00 alle 24:00        ##
-##	 e SABATO : | 	      	      			      ##
-##							      ##
+##                                                            ##
+##                                                            ##
+##              Tariffa RIDOTTA: 0,017 EUR                    ##
+##              Tariffa INTERA : 0,026 EUR                    ##
+##                                                            ##
+##                  | Ridotta  dalle 18:30 alle 08:00         ##
+## Giorni FERIALI : |                                         ##
+##                  | Intera   dalle 08:00 alle 18:30         ##
+##                                                            ##
+##                                                            ##
+## Giorni FESTIVI : | Ridotta   dalle 00:00 alle 24:00        ##
+##       e SABATO : |                                         ##
+##                                                            ##
 ################################################################
 
 
