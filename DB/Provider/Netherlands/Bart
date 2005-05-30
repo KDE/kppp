@@ -1,4 +1,5 @@
 # KDE Config File
+# www.bart.nl
 ExDNSDisabled=0
 AutoDNS=0
 AutoName=0

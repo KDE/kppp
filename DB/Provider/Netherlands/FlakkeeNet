@@ -1,6 +1,6 @@
 # KDE Config File
 # http://www.flakkee.net/flakkeenet/helpdesk/helpdesk.htm
-
+# http://www.flakkee.net/flakkeenet/helpdesk/inbelnrs.htm
 ExDNSDisabled=0
 AutoDNS=1
 AutoName=0

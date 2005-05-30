@@ -5,7 +5,6 @@ pkg_DATA = .directory \
 	FlakkeeNet \
 	IntroWeb%032Hengelo%032e.o. \
 	Support%032Net \
-	Avades \
 	FreeAcces \
 	IntroWeb%032met%0323-cijferig%032kengetal \
 	Telebyte \
@@ -35,7 +34,6 @@ pkg_DATA = .directory \
 	HetNet%032Regelmatig%032Surfen \
 	Nederland.net \
 	Wannadoo%032smartpack \
-	Cybercomm \
 	IAE \
 	Planet%032Internet%032Premium \
 	Wirehub \

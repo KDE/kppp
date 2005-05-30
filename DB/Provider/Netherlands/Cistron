@@ -1,6 +1,7 @@
 # KDE Config File
 # gegevens van 
 # http://www.cistron.nl/node.php?id=70&sqlcistron=b9093c0a65c4836c62715eb05bcf71f4
+# cistron is nu xs4all, echter onderstaand inbelnummer werkt nog steeds
 ExDNSDisabled=0
 AutoDNS=1
 AutoName=0
