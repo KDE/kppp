@@ -1,4 +1,6 @@
 # KDE Config File
+# http://www.freeler.nl/service/service_instellingen.html
+AutoDNS=1
 ExDNSDisabled=0
 AutoName=0
 ScriptArguments=
@@ -14,7 +16,7 @@ Password=%PASSWORD%
 Command=
 ScriptCommands=
 Authentication=4
-DNS=213.218.76.150,213.218.76.151
+DNS=213.218.75.90,213.218.75.91
 SubnetMask=0.0.0.0
 AccountingFile=/Netherlands/Freeler_Basis.rst
 DefaultRoute=1
