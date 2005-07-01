@@ -1,3 +1,8 @@
+2005-07-01  Harri Porten  <porten@kde.org>
+
+	* connect.cpp: fixing the flow control fix. Ivan Vasilyev spotted
+	yet another issue with translated strings.
+
 2005-04-12  Harri Porten  <porten@kde.org>
 
 	* pppstatdlg.cpp: improved byte number formatting patch by 'Walter'
