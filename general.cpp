@@ -403,7 +403,7 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem, const char *name)
   }
 
   for(int i=0; i <= flowcontrol->count()-1; i++)
-    if(gpppdata.flowcontrol() == flowcontrol->text(i))
+    if(gpppdata.flowcontrol() == flowListItem[i])
       flowcontrol->setCurrentItem(i);
 
 	//set the modem speed
