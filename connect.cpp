@@ -1277,7 +1277,8 @@ bool ConnectWidget::execppp() {
   // after someone changed the code to use i18n'ed config values
   QString flowCtrl = gpppdata.flowcontrol();
   if(flowCtrl != "None" || flowCtrl != i18n("None")) {
-    if(flowCtrl == "CRTSCTS" || flowCtrl == i18n("Hardware [CRTSCTS]"))
+    if(flowCtrl == "CRTSCTS" || flowCtrl == "Hardware [CRTSCTS]" ||
+       flowCtrl == i18n("Hardware [CRTSCTS]"))
       command += " crtscts";
     else
       command += " xonxoff";
