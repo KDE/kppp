@@ -1,3 +1,10 @@
+2005-07-03  Harri Porten  <porten@kde.org>
+
+	* pppstats.cpp: patch by Ivan that makes the PPP interface check
+	more portable. On the BSD IFF_RUNNING is already set right after
+	pppd starts - too early for our purposes. Avoids potential
+	authentication problems.
+
 2005-07-01  Harri Porten  <porten@kde.org>
 
 	* connect.cpp: fixing the flow control fix. Ivan Vasilyev spotted
