@@ -194,7 +194,7 @@ bool PPPStats::ifIsUp() {
 	return 0;
     }
 
-    if ((ifr.ifr_flags & (IFF_UP|IFF_RUNNING)) != 0) {
+    if ((ifr.ifr_flags & IFF_UP) && (ifr.ifr_flags & IFF_RUNNING)) {
 	is_up = true;
 	kdDebug(5002) << "Interface is up" << endl;
     }
