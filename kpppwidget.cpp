@@ -628,7 +628,7 @@ void KPPPWidget::sigPPPDDied() {
 	    }
 	}
 
-	if(KMessageBox::warningYesNo(0, msg, i18n("Error"), KStdGuiItem::ok(), i18n("&Details...")) == KMessageBox::No)
+	if(KMessageBox::warningYesNo(0, msg, i18n("Error"), KStdGuiItem::ok(), i18n("&Details")) == KMessageBox::No)
 	  PPPL_ShowLog();
       } else { /* reconnect on disconnect */
         if(gpppdata.waitCallback())
@@ -869,10 +869,10 @@ void KPPPWidget::helpbutton() {
 
 void KPPPWidget::quitbutton() {
   if(gpppdata.pppdRunning()) {
-    int ok = KMessageBox::warningYesNo(this,
+    int ok = KMessageBox::warningContinueCancel(this,
 			    i18n("Exiting kPPP will close your PPP Session."),
-			    i18n("Quit kPPP?"));
-    if(ok == KMessageBox::Yes) {
+			    i18n("Quit kPPP?"), KStdGuiItem::quit());
+    if(ok == KMessageBox::Continue) {
       Requester::rq->killPPPDaemon();
 
       // stop the disconnect delay timer

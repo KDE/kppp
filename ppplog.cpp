@@ -216,7 +216,7 @@ void PPPL_ShowLog() {
 				     "that pppd was started without the \"debug\" option.\n"
 				     "Without this option it's difficult to find out PPP "
 				     "problems, so you should turn on the debug option.\n"
-				     "Shall I turn it on now?"));
+				     "Shall I turn it on now?"), QString::null, i18n("Restart pppd"), i18n("Do Not Restart"));
 
     if(result == KMessageBox::Yes) {
       gpppdata.setPPPDebug(TRUE);
