@@ -42,7 +42,12 @@
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qtimer.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <Q3Frame>
+#include <QKeyEvent>
+#include <QCloseEvent>
 
 
 extern PPPData gpppdata;
@@ -53,9 +58,9 @@ MiniTerm::MiniTerm(QWidget *parent, const char *name)
   setCaption(i18n("Kppp Mini-Terminal"));
   KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
 
-  m_file = new QPopupMenu(this);
+  m_file = new Q3PopupMenu(this);
   m_file->insertItem( SmallIcon("fileclose"), i18n("&Close"), this, SLOT(cancelbutton()) );
-  m_options = new QPopupMenu(this);
+  m_options = new Q3PopupMenu(this);
   m_options->insertItem(i18n("&Reset Modem"),this,SLOT(resetModem()));
   m_help =
     new KHelpMenu(this,
@@ -73,7 +78,7 @@ MiniTerm::MiniTerm(QWidget *parent, const char *name)
   menubar->insertItem( KStdGuiItem::help().text(), m_help->menu());
 
   statusbar = new QLabel(this);
-  statusbar->setFrameStyle(QFrame::Panel | QFrame::Sunken);
+  statusbar->setFrameStyle(Q3Frame::Panel | Q3Frame::Sunken);
 
   terminal = new MyTerm(this, "term");
 
@@ -226,7 +231,7 @@ void MiniTerm::help() {
 
 
 MyTerm::MyTerm(QWidget *parent, const char* name)
-  : QMultiLineEdit(parent, name)
+  : Q3MultiLineEdit(parent, name)
 {
    setFont(KGlobalSettings::fixedFont());
 }
@@ -244,22 +249,22 @@ void MyTerm::keyPressEvent(QKeyEvent *k) {
 
 
 void MyTerm::insertChar(unsigned char c) {
-  QMultiLineEdit::insert(QChar(c));
+	Q3MultiLineEdit::insert(QString(c));
 }
 
 
 void MyTerm::newLine() {
-  QMultiLineEdit::newLine();
+  Q3MultiLineEdit::newLine();
 }
 
 
 void MyTerm::del() {
-  QMultiLineEdit::del();
+  Q3MultiLineEdit::del();
 }
 
 
 void MyTerm::backspace() {
-  QMultiLineEdit::backspace();
+  Q3MultiLineEdit::backspace();
 }
 
 
@@ -269,13 +274,13 @@ void MyTerm::myreturn() {
 
   getCursorPosition(&line,&column);
   for (int i = 0; i < column;i++)
-    QMultiLineEdit::cursorLeft();
+    Q3MultiLineEdit::cursorLeft();
 }
 
 
 void MyTerm::mynewline() {
-  QMultiLineEdit::end(FALSE);
-  QMultiLineEdit::newLine();
+  Q3MultiLineEdit::end(FALSE);
+  Q3MultiLineEdit::newLine();
 }
 
 #include "miniterm.moc"

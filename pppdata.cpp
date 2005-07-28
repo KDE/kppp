@@ -956,7 +956,7 @@ bool PPPData::deleteAccount() {
   it = map.begin();
   while (it != map.end()) {
     config->writeEntry(it.key(), "");
-    it++;
+    ++it;
   }
 
   // shift the succeeding accounts
@@ -968,7 +968,7 @@ bool PPPData::deleteAccount() {
     config->setGroup(caccountgroup);
     while (it != map.end()) {
       config->writeEntry(it.key(), *it);
-      it++;
+      ++it;
     }
   }
 
@@ -977,9 +977,9 @@ bool PPPData::deleteAccount() {
   map = config->entryMap(caccountgroup);
   it = map.begin();
   config->setGroup(caccountgroup);
-  while (!it.key().isNull()) {
+  while (it != map.end() && !it.key().isNull()) {
     config->writeEntry(it.key(), "");
-    it++;
+    ++it;
   }
 
   accounthighcount--;

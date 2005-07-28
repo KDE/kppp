@@ -27,6 +27,9 @@
 
 #include <stdio.h>
 #include <qapplication.h>
+//Added by qt3to4:
+#include <QFocusEvent>
+#include <QResizeEvent>
 #include <kglobalsettings.h>
 #include "pwentry.h"
 
@@ -47,9 +50,9 @@ PWEntry::PWEntry( QWidget *parent, const char *name )
      setGeometry( desk.center().x() - 150, desk.center().y() - 50, 300, 90 );
    }
 
-   frame = new QGroupBox(name, this );
+   frame = new Q3GroupBox(name, this );
    
-   setFocusPolicy( QWidget::StrongFocus );
+   setFocusPolicy( Qt::StrongFocus );
    
    pw = new QLineEdit( this, "le" );
    pw->setEchoMode( QLineEdit::Password ); 

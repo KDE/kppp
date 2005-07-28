@@ -105,7 +105,7 @@ int RuleSet::load(const QString &filename) {
   if(!f.exists())
     return -1;
 
-  if(!f.open(IO_ReadOnly))
+  if(!f.open(QIODevice::ReadOnly))
     return -1;
 
   char buffer[2048]; // safe
@@ -534,7 +534,7 @@ QTime RuleSet::beforeMidnight() const {
 }
 
 int RuleSet::checkRuleFile(const QString &rulefile) {
-  if(rulefile == NULL) {
+  if(rulefile.isEmpty()) {
     fputs(i18n("kppp: no rulefile specified\n").local8Bit(), stderr);
     return 1;
   }

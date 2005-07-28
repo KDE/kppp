@@ -38,12 +38,14 @@
 #include <qwidget.h>
 #include <qpixmap.h>
 #include <qdir.h>
+//Added by qt3to4:
+#include <QLabel>
 
 class QCheckBox;
 class QComboBox;
 class QLabel;
-class QListView;
-class QListViewItem;
+class Q3ListView;
+class Q3ListViewItem;
 
 class AccountingSelector : public QWidget {
   Q_OBJECT
@@ -54,25 +56,25 @@ public:
   bool save();
 
 private:
-  QListViewItem *findByName(QString name);
+  Q3ListViewItem *findByName(QString name);
   void setupTreeWidget();
-  void insertDir(QDir, QListViewItem * = 0);
+  void insertDir(QDir, Q3ListViewItem * = 0);
   QString fileNameToName(QString);
   QString nameToFileName(QString);
 
 private slots:
   void openURL(const QString &);
   void enableItems(bool);
-  void slotSelectionChanged(QListViewItem* i);
+  void slotSelectionChanged(Q3ListViewItem* i);
 
 private:
   QCheckBox *enable_accounting;
-  QListView *tl;
+  Q3ListView *tl;
   QComboBox *use_vol;
   QPixmap pmfolder, pmfile;
   QLabel *selected;
 
-  QListViewItem *edit_item;
+  Q3ListViewItem *edit_item;
   QString edit_s;
   bool isnewaccount;
 };

@@ -23,7 +23,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include <qprogressdialog.h>
+#include <q3progressdialog.h>
 #include <qdir.h>
 
 #include <kapplication.h>
@@ -31,8 +31,8 @@
 #include <kstandarddirs.h>
 #include <kdebug.h>
 
-QPtrList<LogInfo> logList;
-QProgressDialog *dlg;
+Q3PtrList<LogInfo> logList;
+Q3ProgressDialog *dlg;
 
 int loadLogs() {
   int logsize = 0;
@@ -43,27 +43,31 @@ int loadLogs() {
   kdDebug(5002) << "logdirname: " << logdirname << endl;
   
   // get log file size
-  const QFileInfoList *list = logdir.entryInfoList();
-  QFileInfoListIterator it( *list );
-  QFileInfo *fi;
+  QFileInfoList list = logdir.entryInfoList();
+  QFileInfoList::const_iterator it = list.begin();
+  QFileInfoList::const_iterator itEnd = list.end();
+  QFileInfo fi;
 
-  while ((fi = it.current()) != 0) {
-    logsize += fi->size();
+  while (it != itEnd) {
+    fi = *it;
+    logsize += fi.size();
     ++it;
   }
 
-  dlg = new QProgressDialog(i18n("Loading log files"),
+  dlg = new Q3ProgressDialog(i18n("Loading log files"),
 			     QString::null,
-			     logsize);
+			     logsize,0, 0);
   dlg->setProgress(0);
 
   // load logs
   list = logdir.entryInfoList();
-  QFileInfoListIterator it1( *list );
+  QFileInfoListIterator it1 = list.begin();
+  QFileInfoListIterator it1End = list.end();
 
   int retval = 0;
-  while ((fi = it1.current()) != 0) {
-    retval += loadLog(fi->absFilePath());
+  while (it1 != it1End) {
+    fi = *it1;
+    retval += loadLog(fi.absFilePath());
     ++it1;
   }
 

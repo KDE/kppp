@@ -31,20 +31,19 @@
 
 #include <qdialog.h>
 #include <qpushbutton.h>
-#include <qgroupbox.h> 
+#include <q3groupbox.h> 
 #include <qscrollbar.h>
 #include <qcombobox.h>
 #include <qlineedit.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qradiobutton.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qcheckbox.h>
 #include <qlabel.h>
 #include <kdialogbase.h>
 #include "scriptedit.h"
 #include "kpppconfig.h"
 #include "pppdargs.h"
-
 class IPLineEdit;
 
 class DialWidget : public QWidget {
@@ -80,7 +79,7 @@ private:
   QLabel *cbphone_l;
   // for the phonenumber selection
   QPushButton *add, *del, *up, *down;
-  QListBox *numbers;
+  Q3ListBox *numbers;
 };
 
 
@@ -128,10 +127,10 @@ protected slots:
 private:
   QLabel *ipaddress_label;
   QLabel *sub_label;
-  QGroupBox *box1;
-  QVGroupBox *box;
+  Q3GroupBox *box1;
+  Q3GroupBox *box;
 
-  QButtonGroup *rb;
+  Q3ButtonGroup *rb;
   QRadioButton *dynamicadd_rb;
   QRadioButton *staticadd_rb;
 
@@ -160,14 +159,14 @@ protected slots:
 
 private:
   QLabel *conf_label;
-  QButtonGroup *bg;
+  Q3ButtonGroup *bg;
   QRadioButton *autodns, *mandns;
   QLabel *dns_label;
   QLabel *servers_label;
   IPLineEdit *dnsipaddr;
   QPushButton *add;
   QPushButton *remove;
-  QListBox *dnsservers;
+  Q3ListBox *dnsservers;
   QLineEdit *dnsdomain;
   QLabel *dnsdomain_label;
   QCheckBox *exdnsdisabled_toggle;
@@ -187,10 +186,10 @@ private slots:
   void hitGatewaySelect( int );
 
 private:
-  QGroupBox *box;
+  Q3GroupBox *box;
   QLabel *gate_label;
-  QGroupBox *box1;
-  QButtonGroup *rb;
+  Q3GroupBox *box1;
+  Q3ButtonGroup *rb;
   QRadioButton *defaultgateway;
   QRadioButton *staticgateway;
   IPLineEdit *gatewayaddr;
@@ -227,7 +226,7 @@ private:
   QPushButton *add;
   QPushButton *remove;
   QPushButton *insert;
-  QListBox *sl, *stl;
+  Q3ListBox *sl, *stl;
   
   QScrollBar *slb;
 };

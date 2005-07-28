@@ -27,6 +27,13 @@
 #include <unistd.h>
 #include <qregexp.h>
 #include <qlayout.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <Q3Frame>
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <QCloseEvent>
 #include <kwin.h>
 #include <kmessagebox.h>
 #include <kapplication.h>
@@ -36,7 +43,7 @@
 #include <klocale.h>
 
 ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
-  : QDialog(parent, name,TRUE, WStyle_Customize|WStyle_NormalBorder)
+  : QDialog(parent, name,TRUE, Qt::WStyle_Customize|Qt::WStyle_NormalBorder)
 {
   setCaption(i18n("ATI Query"));
   KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
@@ -47,8 +54,8 @@ ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
   progressBar->setTotalSteps(8);
 
   statusBar = new QLabel(this,"sBar");
-  statusBar->setFrameStyle(QFrame::Panel|QFrame::Sunken);
-  statusBar->setAlignment(AlignCenter);
+  statusBar->setFrameStyle(Q3Frame::Panel|Q3Frame::Sunken);
+  statusBar->setAlignment(Qt::AlignCenter);
 
   // This is a rather complicated case. Since we do not know which
   // message is the widest in the national language, we'd to
@@ -241,7 +248,7 @@ void ModemTransfer::closeEvent( QCloseEvent *e ) {
 
 
 ModemInfo::ModemInfo(QWidget *parent, const char* name)
-  : QDialog(parent, name, TRUE, WStyle_Customize|WStyle_NormalBorder)
+  : QDialog(parent, name, TRUE, Qt::WStyle_Customize|Qt::WStyle_NormalBorder)
 {
   QString label_text;
 

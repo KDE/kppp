@@ -39,7 +39,7 @@
 #include <qwidget.h>
 
 class QLineEdit;
-class QListBox;
+class Q3ListBox;
 class KSimpleConfig;
 
 class PDB_Intro : public QWidget {
@@ -54,7 +54,7 @@ class PDB_Country : public QWidget {
 public:
   PDB_Country(QWidget *parent);
   ~PDB_Country();
-  QListBox *lb;
+  Q3ListBox *lb;
   QStringList *list;
 
 public slots:
@@ -70,7 +70,7 @@ public:
   void setDir(const QString &d);
   QString getDir();
 
-  QListBox *lb;
+  Q3ListBox *lb;
 
 public slots:
   void selectionChanged(int);
@@ -121,7 +121,7 @@ class ProviderDB : public KWizard {
 public:
   ProviderDB(QWidget *parent);
   ~ProviderDB();
-  static QWizard *wiz;
+  static Q3Wizard *wiz;
 
 public slots:
   void pageSelected();

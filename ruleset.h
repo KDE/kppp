@@ -27,10 +27,10 @@
 #ifndef __RULESET__H__
 #define __RULESET__H__
 
-#include <qmemarray.h>
+
 #include <qdatetime.h>
 #include <qstring.h>
-
+#include <QVector>
 // this structure is used to save
 // accounting rules
 typedef struct RULE {
@@ -140,7 +140,7 @@ protected:
   double flat_init_duration;
   double flat_init_costs;
 
-  QMemArray<RULE> rules;
+  QVector<RULE> rules;
 };
 
 #endif

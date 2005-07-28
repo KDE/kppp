@@ -230,8 +230,9 @@ int Requester::openSysLog() {
 
 
 bool Requester::setSecret(int method, const QString &name, const QString &password) {
-  assert(name!=0);
-  assert(password!=0);
+#warning check if QString != 0 means using isNull or isEmpty
+  assert(!name.isNull());
+  assert(!password.isNull());
 
   if(method == AUTH_PAPCHAP)
     return setSecret(AUTH_PAP, name, password) &&

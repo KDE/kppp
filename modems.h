@@ -30,13 +30,15 @@
 
 #include <qwidget.h>
 #include <qpushbutton.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
+//Added by qt3to4:
+#include <QLabel>
 #include "acctselect.h"
 
 class KDialogBase;
 class QCheckBox;
 class QLineEdit;
-class QTabDialog;
+class Q3TabDialog;
 class DialWidget;
 class ScriptWidget;
 class IPWidget;
@@ -81,7 +83,7 @@ private:
   QLabel *vollabel;
   QLineEdit *voledit;
 
-  QListBox *modemlist_l;
+  Q3ListBox *modemlist_l;
   QPushButton *edit_b;
   QPushButton *copy_b;
   QPushButton *new_b;

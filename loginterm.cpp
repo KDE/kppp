@@ -32,11 +32,15 @@
 
 #include <stdio.h>
 #include <klocale.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QGridLayout>
+#include <QKeyEvent>
 
 extern KPPPWidget *p_kppp;
 
 LoginMultiLineEdit::LoginMultiLineEdit(QWidget *parent, const char *name)
-  : QMultiLineEdit(parent, name)
+  : Q3MultiLineEdit(parent, name)
 {
 }
 
@@ -47,19 +51,19 @@ LoginMultiLineEdit::~LoginMultiLineEdit() {
 
 
 void LoginMultiLineEdit::insertChar(unsigned char c) {
-  QMultiLineEdit::insert(QChar(c));
+  Q3MultiLineEdit::insert(QString(c));
   p_kppp->debugwindow->addChar(c);
 }
 
 
 void LoginMultiLineEdit::myreturn() {
-  QMultiLineEdit::home();
+  Q3MultiLineEdit::home();
 }
 
 
 void LoginMultiLineEdit::mynewline() {
-  QMultiLineEdit::end(FALSE);
-  QMultiLineEdit::newLine();
+  Q3MultiLineEdit::end(FALSE);
+  Q3MultiLineEdit::newLine();
 
     p_kppp->debugwindow->addChar('\n');
 }
@@ -131,8 +135,8 @@ LoginTerm::LoginTerm (QWidget *parent, const char *name)
   cancel_b->setFixedWidth(mwidth + 20);
   continue_b->setFixedWidth(mwidth + 20);
 
-  hgr->addWidget(cancel_b, 0, 0, AlignCenter);
-  hgr->addWidget(continue_b, 0, 1, AlignCenter);
+  hgr->addWidget(cancel_b, 0, 0, Qt::AlignCenter);
+  hgr->addWidget(continue_b, 0, 1, Qt::AlignCenter);
 
   cont = false;
 

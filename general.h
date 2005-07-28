@@ -29,8 +29,10 @@
 #include <qcombobox.h>
 #include <qlabel.h>
 #include <qcheckbox.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qpushbutton.h>
+//Added by qt3to4:
+#include <Q3Frame>
 #include <kcolorbutton.h>
 
 class QSlider;
@@ -101,7 +103,7 @@ private:
   QPushButton 	*modemcmds;
   QPushButton 	*modeminfo_button;
   QPushButton 	*terminal_button;
-  QFrame 	*fline;
+  Q3Frame 	*fline;
   QCheckBox     *waitfordt;
   KIntNumInput 	*busywait;
   QCheckBox 	*chkbox1;
@@ -122,7 +124,7 @@ private slots:
 private:
   void save();
 
-  QGroupBox *grpColor;
+  Q3GroupBox *grpColor;
   QCheckBox *enable_check;
 
   KColorButton *bg_color;

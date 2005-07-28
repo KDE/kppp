@@ -24,11 +24,12 @@
 
 #include <qdatetime.h>
 #include <qstring.h>
+#include <q3cstring.h>
 #include <time.h>
 
 class LogInfo {
 public:
-  LogInfo(QCString data);
+  LogInfo(Q3CString data);
 
   int error() const;
 
@@ -49,7 +50,7 @@ public:
 #endif
 
 private:
-  void parse(QCString );
+  void parse(Q3CString );
 
   int errorfield;
 

@@ -37,12 +37,12 @@
 
 #include <qdialog.h>
 #include <qstringlist.h>
-#include <qdict.h>
-#include <qptrlist.h>
+#include <q3dict.h>
+#include <q3ptrlist.h>
 class KConfig;
-class QListBox;
+class Q3ListBox;
 
-typedef QDict<QString> CharDict;
+typedef Q3Dict<QString> CharDict;
 
 class ModemDatabase {
 public:
@@ -57,7 +57,7 @@ public:
 private:
   void load();
   void loadModem(const QString & key, CharDict &dict);
-  QPtrList<CharDict> modems;
+  Q3PtrList<CharDict> modems;
 
   QStringList *lvendors;
 
@@ -78,7 +78,7 @@ private slots:
 
 private:
   QPushButton *ok, *cancel;
-  QListBox *vendor, *model;
+  Q3ListBox *vendor, *model;
   ModemDatabase *db;
 };
 

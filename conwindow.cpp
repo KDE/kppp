@@ -22,6 +22,13 @@
  */
 
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <QEvent>
+#include <QCloseEvent>
 #include "conwindow.h"
 #include "docking.h"
 #include "pppdata.h"
@@ -142,11 +149,11 @@ void ConWindow::accounting(bool on) {
   l1->setColStretch(0, 0);
   l1->setColStretch(1, 1);
 
-  info2->setAlignment(AlignRight|AlignVCenter);
-  timelabel2->setAlignment(AlignRight|AlignVCenter);
-  session_bill->setAlignment(AlignRight|AlignVCenter);
-  total_bill->setAlignment(AlignRight|AlignVCenter);
-  volinfo->setAlignment(AlignRight|AlignVCenter);
+  info2->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
+  timelabel2->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
+  session_bill->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
+  total_bill->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
+  volinfo->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
   // make sure that there's enough space for the bills
   QString s1 = session_bill->text();
   QString s2 = total_bill->text();

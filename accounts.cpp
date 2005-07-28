@@ -25,10 +25,14 @@
  */
 
 #include <qdir.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <stdlib.h>
 #include <qlayout.h>
-#include <qtabdialog.h>
-#include <qwhatsthis.h>
+#include <q3tabdialog.h>
+
 #include <qmessagebox.h>
 
 #include <kapplication.h>
@@ -39,8 +43,8 @@
 #include <kwin.h>
 #include <kdialogbase.h>
 #include <kstdguiitem.h>
-#include <qvgroupbox.h>
-
+//#include <qvgroupbox.h>
+#include <QBoxLayout>
 #include "pppdata.h"
 #include "accounts.h"
 #include "accounting.h"
@@ -59,7 +63,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   QHBoxLayout *l11 = new QHBoxLayout;
   l1->addLayout(l11);
 
-  accountlist_l = new QListBox(parent);
+  accountlist_l = new Q3ListBox(parent);
   accountlist_l->setMinimumSize(160, 128);
   connect(accountlist_l, SIGNAL(highlighted(int)),
 	  this, SLOT(slotListBoxSelect(int)));
@@ -71,7 +75,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   l11->addLayout(l111, 1);
   edit_b = new QPushButton(i18n("&Edit..."), parent);
   connect(edit_b, SIGNAL(clicked()), SLOT(editaccount()));
-  QWhatsThis::add(edit_b, i18n("Allows you to modify the selected account"));
+  edit_b->setWhatsThis( i18n("Allows you to modify the selected account"));
 
   min = edit_b->sizeHint().width();
   min = QMAX(70,min);
@@ -82,13 +86,13 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   new_b = new QPushButton(i18n("&New..."), parent);
   connect(new_b, SIGNAL(clicked()), SLOT(newaccount()));
   l111->addWidget(new_b);
-  QWhatsThis::add(new_b, i18n("Create a new dialup connection\n"
+  new_b->setWhatsThis( i18n("Create a new dialup connection\n"
   			      "to the Internet"));
 
   copy_b = new QPushButton(i18n("Co&py"), parent);
   connect(copy_b, SIGNAL(clicked()), SLOT(copyaccount()));
   l111->addWidget(copy_b);
-  QWhatsThis::add(copy_b,
+  copy_b->setWhatsThis(
 		  i18n("Makes a copy of the selected account. All\n"
 		       "settings of the selected account are copied\n"
 		       "to a new account that you can modify to fit your\n"
@@ -97,7 +101,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   delete_b = new QPushButton(i18n("De&lete"), parent);
   connect(delete_b, SIGNAL(clicked()), SLOT(deleteaccount()));
   l111->addWidget(delete_b);
-  QWhatsThis::add(delete_b,
+  delete_b->setWhatsThis(
 		  i18n("<p>Deletes the selected account\n\n"
 		       "<font color=\"red\"><b>Use with care!</b></font>"));
 
@@ -113,7 +117,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   l121->addWidget(costlabel);
 
   costedit = new QLineEdit(parent);
-  costedit->setFocusPolicy(QWidget::NoFocus);
+  costedit->setFocusPolicy(Qt::NoFocus);
   costedit->setFixedHeight(costedit->sizeHint().height());
   costedit->setEnabled(FALSE);
   l121->addWidget(costedit);
@@ -124,15 +128,15 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
 		     "<b>Important</b>: If you have more than one \n"
 		     "account - beware, this is <b>NOT</b> the sum \n"
 		     "of the phone costs of all your accounts!");
-  QWhatsThis::add(costlabel, tmp);
-  QWhatsThis::add(costedit, tmp);
+  costlabel->setWhatsThis( tmp);
+  costedit->setWhatsThis( tmp);
 
   vollabel = new QLabel(i18n("Volume:"), parent);
   vollabel->setEnabled(FALSE);
   l121->addWidget(vollabel);
 
   voledit = new QLineEdit(parent,"voledit");
-  voledit->setFocusPolicy(QWidget::NoFocus);
+  voledit->setFocusPolicy(Qt::NoFocus);
   voledit->setFixedHeight(voledit->sizeHint().height());
   voledit->setEnabled(FALSE);
   l121->addWidget(voledit);
@@ -143,8 +147,8 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
 	     "\n"
 	     "<a href=\"#volaccounting\">More on volume accounting</a>");
 
-  QWhatsThis::add(vollabel,tmp);
-  QWhatsThis::add(voledit, tmp);
+  vollabel->setWhatsThis(tmp);
+  voledit->setWhatsThis( tmp);
 
   QVBoxLayout *l122 = new QVBoxLayout;
   l12->addStretch(1);
@@ -425,20 +429,20 @@ QueryReset::QueryReset(QWidget *parent) : QDialog(parent, 0, true) {
   setCaption(i18n("Reset Accounting"));
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
-  QVGroupBox *f = new QVGroupBox(i18n("What to Reset"), this);
-
+  Q3GroupBox *f = new Q3GroupBox(1, Qt::Horizontal,i18n("What to Reset"), this);
+  
   QVBoxLayout *l1 = new QVBoxLayout(parent, 10, 10);
   costs = new QCheckBox(i18n("Reset the accumulated p&hone costs"), f);
   costs->setChecked(true);
   l1->addWidget(costs);
-  QWhatsThis::add(costs, i18n("Check this to set the phone costs\n"
+  costs->setWhatsThis( i18n("Check this to set the phone costs\n"
 			      "to zero. Typically you will want to\n"
 			      "do this once a month."));
 
   volume = new QCheckBox(i18n("Reset &volume accounting"), f);
   volume->setChecked(true);
   l1->addWidget(volume);
-  QWhatsThis::add(volume, i18n("Check this to set the volume accounting\n"
+  volume->setWhatsThis( i18n("Check this to set the volume accounting\n"
 			       "to zero. Typically you will want to do this\n"
 			       "once a month."));
 

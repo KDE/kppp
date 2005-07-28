@@ -30,6 +30,9 @@
 #include <qlabel.h>
 #include <qdir.h>
 #include <qpushbutton.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <Q3CString>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -39,7 +42,7 @@
 
 #include <qdialog.h>
 #include <qregexp.h>
-#include <qmultilineedit.h>
+#include <q3multilineedit.h>
 #include <qlayout.h>
 
 #include <kbuttonbox.h>
@@ -103,7 +106,7 @@ int PPPL_MakeLog(QStringList &list) {
 
   for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
   {
-    QCString tmp = (*it).local8Bit();
+    Q3CString tmp = (*it).local8Bit();
     for(int j = 0; keyword[j] != 0; j++) {
       char *p;
 
@@ -237,10 +240,10 @@ void PPPL_ShowLog() {
 
   dlg->setCaption(i18n("PPP Log"));
   QVBoxLayout *tl = new QVBoxLayout(dlg, 10, 10);
-  QMultiLineEdit *edit = new QMultiLineEdit(dlg);
+  Q3MultiLineEdit *edit = new Q3MultiLineEdit(dlg);
   edit->setReadOnly(TRUE);
   QLabel *label = new QLabel(i18n("kppp's diagnosis (just guessing):"), dlg);
-  QMultiLineEdit *diagnosis = new QMultiLineEdit(dlg);
+  Q3MultiLineEdit *diagnosis = new Q3MultiLineEdit(dlg);
   diagnosis->setReadOnly(TRUE);
   KButtonBox *bbox = new KButtonBox(dlg);
   bbox->addStretch(1);
@@ -257,10 +260,10 @@ void PPPL_ShowLog() {
   tl->addWidget(bbox);
   dlg->setFixedSize(dlg->sizeHint());
 
-  for(uint i = 0; i < sl.count(); i++)
-    edit->append(*sl.at(i));
-  for(uint i = 0; i < result.count(); i++)
-    diagnosis->append(*result.at(i));
+  for(int i = 0; i < sl.count(); i++)
+    edit->append(sl.at(i));
+  for(int i = 0; i < result.count(); i++)
+    diagnosis->append(result.at(i));
 
   dlg->connect(close, SIGNAL(clicked()),
 	       dlg, SLOT(reject()));
@@ -273,8 +276,8 @@ void PPPL_ShowLog() {
     int old_umask = umask(0077);
 
     FILE *f = fopen(QFile::encodeName(s), "w");
-    for(uint i = 0; i < sl.count(); i++)
-      fprintf(f, "%s\n", (*sl.at(i)).local8Bit().data());
+    for(int i = 0; i < sl.count(); i++)
+      fprintf(f, "%s\n", sl.at(i).local8Bit().data());
     fclose(f);
     umask(old_umask);
 

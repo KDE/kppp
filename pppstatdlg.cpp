@@ -25,13 +25,21 @@
 
 #include <qlayout.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QPaintEvent>
+#include <QGridLayout>
+#include <QCloseEvent>
+#include <QEvent>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <kwin.h>
 #include <kiconloader.h>
 #include <kapplication.h>
 #include <klocale.h>
 #include <qlabel.h>
-#include <qframe.h>
-#include <qgroupbox.h>
+#include <q3frame.h>
+#include <q3groupbox.h>
 #include <qlineedit.h>
 #include <qtimer.h>
 #include <kpushbutton.h>
@@ -58,7 +66,7 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
   QVBoxLayout *tl = new QVBoxLayout(this, 10);
   QGridLayout *l1 = new QGridLayout(4, 4);
   tl->addLayout(l1, 1);
-  box = new QGroupBox(i18n("Statistics"), this);
+  box = new Q3GroupBox(i18n("Statistics"), this);
   l1->addMultiCellWidget(box, 0, 3, 0, 3);
   l1->addRowSpacing(0, fontMetrics().lineSpacing() - 10);
   l1->setRowStretch(1, 1);
@@ -80,7 +88,7 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
   pixmap_l = new QLabel(this);
   pixmap_l->setMinimumSize(big_modem_both_pixmap.size());
   l111->addWidget(pixmap_l, 1);
-  pixmap_l->setAlignment(AlignVCenter|AlignLeft);
+  pixmap_l->setAlignment(Qt::AlignVCenter|Qt::AlignLeft);
 
   QGridLayout *l1112 = new QGridLayout(3, 2);
   l111->addLayout(l1112);
@@ -89,13 +97,13 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
   ip_address_label1->setText(i18n("Local Addr:"));
 
   ip_address_label2 = new IPLineEdit(this);
-  ip_address_label2->setFocusPolicy(QWidget::NoFocus);
+  ip_address_label2->setFocusPolicy(Qt::NoFocus);
 
   ip_address_label3 = new QLabel(this);
   ip_address_label3->setText(i18n("Remote Addr:"));
 
   ip_address_label4 = new IPLineEdit(this);
-  ip_address_label4->setFocusPolicy(QWidget::NoFocus);
+  ip_address_label4->setFocusPolicy(Qt::NoFocus);
 
   l1112->addWidget(ip_address_label1, 0, 0);
   l1112->addWidget(ip_address_label2, 0, 1);
@@ -111,12 +119,12 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
     labela1[i] = new QLabel(this);
 
     labela2[i] = new QLabel(this);
-    labela2[i]->setFrameStyle(QFrame::WinPanel | QFrame::Sunken);
+    labela2[i]->setFrameStyle(Q3Frame::WinPanel | Q3Frame::Sunken);
 
     labelb1[i] = new QLabel(this);
 
     labelb2[i] = new QLabel(this);
-    labelb2[i]->setFrameStyle(QFrame::WinPanel | QFrame::Sunken);
+    labelb2[i]->setFrameStyle(Q3Frame::WinPanel | Q3Frame::Sunken);
  }
 
   labela1[0]->setText(i18n("bytes in"));
@@ -164,8 +172,8 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
 
     gpppdata.graphingOptions(dummy, bg, text, in, out);
 
-    graph = new QFrame(this);
-    graph->setFrameStyle(QFrame::Box | QFrame::Sunken);
+    graph = new Q3Frame(this);
+    graph->setFrameStyle(Q3Frame::Box | Q3Frame::Sunken);
     l1->addMultiCellWidget(graph, 2, 2, 1, 2);
     graph->setMinimumWidth(300);
     graph->setFixedHeight(76+4);
@@ -292,11 +300,11 @@ void PPPStatsDlg::paintGraph() {
   QString s = i18n("%1 (max. %2) kb/sec")
 		.arg(KGlobal::locale()->formatNumber((float)last_max / 1024.0, 1))
 		.arg(KGlobal::locale()->formatNumber((float)max / 1024.0, 1));
-  p.drawText(0, 0, pm.width(), 2*8, AlignRight|AlignVCenter, s, -1, &r);
+  p.drawText(0, 0, pm.width(), 2*8, Qt::AlignRight|Qt::AlignVCenter, s, -1, &r);
   p.drawLine(0, 8, r.left() - 8, 8);
 
   p.end();
-  bitBlt(graph, 2, 2, &pm, 0, 0, pm.width(), pm.height(), CopyROP);
+  bitBlt(graph, 2, 2, &pm, 0, 0, pm.width(), pm.height());
 }
 
 void PPPStatsDlg::updateGraph() {

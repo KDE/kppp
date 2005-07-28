@@ -31,7 +31,7 @@
 #ifndef _MODEMCMDS_H_
 #define _MODEMCMDS_H_
 
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <kdialogbase.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
@@ -41,7 +41,7 @@
 class QLineEdit;
 class QLabel;
 class QPushButton;
-class QGroupBox;
+class Q3GroupBox;
 
 class ModemCommands : public KDialogBase {
 
@@ -58,7 +58,7 @@ private slots:
 
 private:
 
-  QGroupBox *box;
+  Q3GroupBox *box;
 
   QLineEdit *initstr[int(PPPData::NumInitStrings)];
 

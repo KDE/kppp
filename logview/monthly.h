@@ -27,7 +27,7 @@
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
-#include <qvaluelist.h>
+#include <qlist.h>
 #include <qdatetime.h>
 
 #include <kbuttonbox.h>
@@ -72,7 +72,7 @@ private:
   LogListItem* selectionItem;
   QLabel *title;
   QPushButton *next, *prev, *today, *exportBttn;
-  QValueList<QString> lstConnections;
+  QList<QString> lstConnections;
   QGridLayout *tl;
   QDateTime *dt;
 };

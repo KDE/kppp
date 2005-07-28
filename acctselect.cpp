@@ -35,12 +35,16 @@
 
 #include <qcombobox.h>
 #include <qlabel.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <Q3Frame>
+#include <QHBoxLayout>
 #include <kurllabel.h>
 #include <qlayout.h>
-#include <qlistview.h>
+#include <q3listview.h>
 #include <qdir.h>
 #include <qregexp.h>
-#include <qwmatrix.h>
+#include <qmatrix.h>
 #include <qcheckbox.h>
 #include <kdialog.h>
 #include <kstandarddirs.h>
@@ -63,10 +67,10 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   connect(enable_accounting, SIGNAL(toggled(bool)), this, SLOT(enableItems(bool)));
 
   // insert the tree widget
-  tl = new QListView(parent, "treewidget");
+  tl = new Q3ListView(parent, "treewidget");
 
-  connect(tl, SIGNAL(selectionChanged(QListViewItem*)), this,
-          SLOT(slotSelectionChanged(QListViewItem*)));
+  connect(tl, SIGNAL(selectionChanged(Q3ListViewItem*)), this,
+          SLOT(slotSelectionChanged(Q3ListViewItem*)));
   tl->setMinimumSize(220, 200);
   l1->addWidget(tl, 1);
 
@@ -83,7 +87,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   l1->addLayout(l11);
   QLabel *lsel = new QLabel(i18n("Selected:"), parent);
   selected = new QLabel(parent);
-  selected->setFrameStyle(QFrame::Sunken | QFrame::WinPanel);
+  selected->setFrameStyle(Q3Frame::Sunken | Q3Frame::WinPanel);
   selected->setLineWidth(1);
   selected->setFixedHeight(selected->sizeHint().height() + 16);
   l11->addWidget(lsel, 0);
@@ -109,7 +113,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
 
   // scale the pixmap
   if(pmfolder.width() > 0) {
-    QWMatrix wm;
+    QMatrix wm;
     wm.scale(16.0/pmfolder.width(), 16.0/pmfolder.width());
     pmfolder = pmfolder.xForm(wm);
   }
@@ -119,7 +123,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
 
   // scale the pixmap
   if(pmfile.width() > 0) {
-    QWMatrix wm;
+    QMatrix wm;
     wm.scale(16.0/pmfile.width(), 16.0/pmfile.width());
     pmfile = pmfile.xForm(wm);
   }
@@ -147,9 +151,9 @@ QString AccountingSelector::nameToFileName(QString s) {
 
 }
 
-QListViewItem *AccountingSelector::findByName(QString name)
+Q3ListViewItem *AccountingSelector::findByName(QString name)
 {
-  QListViewItem *ch = tl->firstChild();
+  Q3ListViewItem *ch = tl->firstChild();
   while(ch) {
     if(ch->text(0) == name)
       return ch;
@@ -159,9 +163,9 @@ QListViewItem *AccountingSelector::findByName(QString name)
 }
 
 
-void AccountingSelector::insertDir(QDir d, QListViewItem *root) {
+void AccountingSelector::insertDir(QDir d, Q3ListViewItem *root) {
 
-  QListViewItem* tli = 0;
+  Q3ListViewItem* tli = 0;
 
   // sanity check
   if(!d.exists() || !d.isReadable())
@@ -174,68 +178,72 @@ void AccountingSelector::insertDir(QDir d, QListViewItem *root) {
   d.setSorting(QDir::Name);
 
   // read the list of files
-  const QFileInfoList *list = d.entryInfoList();
-  QFileInfoListIterator it( *list );
-  QFileInfo *fi;
+  const QFileInfoList list = d.entryInfoList();
+  QFileInfoList::const_iterator it = list.begin();
+  QFileInfoList::const_iterator itEnd = list.end();
+  QFileInfo fi;
 
   // traverse the list and insert into the widget
-  while((fi = it.current())) {
-    ++it;
+  while(it != itEnd) {
+    fi = *it;
+	  
+    QString samename = fi.fileName();
 
-    QString samename = fi->fileName();
-
-    QListViewItem *i = findByName(samename);
+    Q3ListViewItem *i = findByName(samename);
 
     // skip this file if already in tree
     if(i)
       continue;
 
     // check if this is the file we should mark
-    QString name = fileNameToName(fi->baseName(true));
+    QString name = fileNameToName(fi.baseName(true));
     if(root)
-      tli = new QListViewItem(root, name);
+      tli = new Q3ListViewItem(root, name);
     else
-      tli = new QListViewItem(tl, name);
+      tli = new Q3ListViewItem(tl, name);
 
     tli->setPixmap(0, pmfile);
 
     // check if this is the item we are searching for
     // (only in "Edit"-mode, not in "New"-mode
     if(!isnewaccount && !edit_s.isEmpty() &&
-       (edit_s == QString(fi->filePath()).right(edit_s.length()))) {
+       (edit_s == QString(fi.filePath()).right(edit_s.length()))) {
       edit_item = tli;
     }
+    ++it;
   }
 
   // set up a filter for the directories
   d.setFilter(QDir::Dirs);
   d.setNameFilter("*");
-  const QFileInfoList *dlist = d.entryInfoList();
-  QFileInfoListIterator dit(*dlist);
+  const QFileInfoList dlist = d.entryInfoList();
+  QFileInfoList::const_iterator dit= dlist.begin();
+  QFileInfoList::const_iterator ditEnd = dlist.end();
 
-  while((fi = dit.current())) {
+  while(dit != ditEnd) {
+    fi = *dit;
     // skip "." and ".." directories
-    if(fi->fileName().left(1) != ".") {
+    if(fi.fileName().left(1) != ".") {
       // convert to human-readable name
-      QString name = fileNameToName(fi->fileName());
+      QString name = fileNameToName(fi.fileName());
 
       // if the tree already has an item with this name,
       // skip creation and use this one, otherwise
       // create a new entry
-      QListViewItem *i = findByName(name);
+      Q3ListViewItem *i = findByName(name);
       if(!i) {
-        QListViewItem* item;
+        Q3ListViewItem* item;
 
         if(root)
-          item = new QListViewItem(root, name);
+          item = new Q3ListViewItem(root, name);
         else
-          item = new QListViewItem(tl, name);
+          item = new Q3ListViewItem(tl, name);
 
         item->setPixmap(0, pmfolder);
 
-	insertDir(QDir(fi->filePath()), item);
+	insertDir(QDir(fi.filePath()), item);
       } else
-	insertDir(QDir(fi->filePath()), i);
+	insertDir(QDir(fi.filePath()), i);
     }
     ++dit;
   }
@@ -281,7 +289,7 @@ void AccountingSelector::enableItems(bool enabled) {
   if(!enabled || (!tl->currentItem()))
     selected->setText(i18n("(none)"));
   else {
-    QListViewItem* i = tl->currentItem();
+    Q3ListViewItem* i = tl->currentItem();
     QString s;
     while(i) {
       s = "/" + i->text(0) + s;
@@ -295,7 +303,7 @@ void AccountingSelector::enableItems(bool enabled) {
 }
 
 
-void AccountingSelector::slotSelectionChanged(QListViewItem* i) {
+void AccountingSelector::slotSelectionChanged(Q3ListViewItem* i) {
 
   if(!i || i->childCount())
     return;

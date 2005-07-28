@@ -29,10 +29,15 @@
 #include <qdialog.h>
 #include <qevent.h>
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <Q3Frame>
+#include <QPaintEvent>
+#include <QCloseEvent>
 
 class QLabel;
-class QFrame;
-class QGroupBox;
+class Q3Frame;
+class Q3GroupBox;
 class QLineEdit;
 class QTimer;
 class QPushButton;
@@ -114,10 +119,10 @@ private:
   QString	compressed_string;
   QString 	packetsunc_string;
   QString 	packetsoutunc_string;
-  QGroupBox    *box;
+  Q3GroupBox    *box;
 
   // graph widget
-  QFrame *graph;
+  Q3Frame *graph;
   int bin[MAX_GRAPH_WIDTH];
   int bout[MAX_GRAPH_WIDTH];
   int bin_last;

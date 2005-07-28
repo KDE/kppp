@@ -61,6 +61,9 @@
 #include "requester.h"
 
 #include <X11/Xlib.h>
+//Added by qt3to4:
+#include <QEvent>
+#include <Q3CString>
 
 static const char description[] =
 	I18N_NOOP("A dialer and front-end to pppd");
@@ -316,7 +319,7 @@ int main( int argc, char **argv ) {
 
 
 pid_t execute_command (const QString & cmd) {
-  QCString command = QFile::encodeName(cmd);
+  Q3CString command = QFile::encodeName(cmd);
   if (command.isEmpty() || command.length() > COMMAND_SIZE)
     return (pid_t) -1;
 

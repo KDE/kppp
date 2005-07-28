@@ -28,6 +28,11 @@
 #define __KPPPWIDGET_H__
 
 #include <qstring.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <Q3Frame>
+#include <QGridLayout>
+#include <QEvent>
 
 #include <dcopclient.h>
 

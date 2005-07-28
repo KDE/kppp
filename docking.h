@@ -29,6 +29,10 @@
 #define _DOCKING_H_
 
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QShowEvent>
+#include <QPaintEvent>
 #include <ksystemtray.h>
 
 class PPPStats;

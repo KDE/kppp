@@ -28,6 +28,14 @@
 
 #include <qlayout.h>
 #include <qregexp.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QTimerEvent>
+#include <QVBoxLayout>
+#include <Q3Frame>
+#include <QHBoxLayout>
+#include <Q3CString>
+#include <QCloseEvent>
 
 #include <kapplication.h>
 #include <kdebug.h>
@@ -108,8 +116,8 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   tl->addLayout(l0);
   l0->addSpacing(10);
   messg = new QLabel(this, "messg");
-  messg->setFrameStyle(QFrame::Panel|QFrame::Sunken);
-  messg->setAlignment(AlignCenter);
+  messg->setFrameStyle(Q3Frame::Panel|Q3Frame::Sunken);
+  messg->setAlignment(Qt::AlignCenter);
   messg->setText(i18n("Unable to create modem lock file."));
   messg->setMinimumHeight(messg->sizeHint().height() + 5);
   int messw = (messg->sizeHint().width() * 12) / 10;
@@ -397,14 +405,14 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
       QStringList &plist = gpppdata.phonenumbers();
       QString bmarg= gpppdata.dialPrefix();
-      bmarg += *plist.at(dialnumber);
+      bmarg += plist.at(dialnumber);
       QString bm = i18n("Dialing %1").arg(bmarg);
       messg->setText(bm);
       emit debugMessage(bm);
 
       QString pn = gpppdata.modemDialStr();
       pn += gpppdata.dialPrefix();
-      pn += *plist.at(dialnumber);
+      pn += plist.at(dialnumber);
       if(++dialnumber >= plist.count())
         dialnumber = 0;
       writeline(pn);
@@ -543,9 +551,9 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       timeout_timer->stop();
       timeout_timer->start(scriptTimeout);
 
-      if((unsigned) scriptindex < comlist->count()) {
-        scriptCommand = *(comlist->at(scriptindex));
-        scriptArgument = *(arglist->at(scriptindex));
+      if(scriptindex < comlist->count()) {
+        scriptCommand = (comlist->at(scriptindex));
+        scriptArgument = (arglist->at(scriptindex));
       } else {
         kdDebug(5002) << "End of script" << endl;
 	vmain = 10;
@@ -593,7 +601,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	if (scriptCommand == "Send")
 	  bm = bm.arg(scriptArgument);
 	else {
-	  for(uint i = 0; i < scriptArgument.length(); i++)
+	  for(int i = 0; i < scriptArgument.length(); i++)
 	    bm = bm.arg("*");
 	}
 
@@ -1421,7 +1429,7 @@ void add_domain(const QString &domain) {
     if ((c != '\n') && (i < MAX_RESOLVCONF_LINES)) i++;
 
     if((fd = Requester::rq->openResolv(O_WRONLY|O_TRUNC)) >= 0) {
-      QCString tmp = "domain " + domain.local8Bit() +
+      Q3CString tmp = "domain " + domain.local8Bit() +
 		     " \t\t#kppp temp entry\n";
       write(fd, tmp.data(), tmp.length());
 
@@ -1431,12 +1439,12 @@ void add_domain(const QString &domain) {
 		&& !resolv[j].contains("#kppp temp entry")
 		&& gpppdata.exDNSDisabled()))
 	        && !resolv[j].contains("#entry disabled by kppp")) {
-	  QCString tmp = "# " + resolv[j].local8Bit() +
+	  Q3CString tmp = "# " + resolv[j].local8Bit() +
 			 " \t#entry disabled by kppp\n";
 	  write(fd, tmp, tmp.length());
 	}
 	else {
-	  QCString tmp = resolv[j].local8Bit() + "\n";
+	  Q3CString tmp = resolv[j].local8Bit() + "\n";
 	  write(fd, tmp, tmp.length());
 	}
       }
@@ -1457,7 +1465,7 @@ void adddns()
           it != dnslist.end();
           ++it )
     {
-      QCString dns = "nameserver " + (*it).local8Bit() +
+      Q3CString dns = "nameserver " + (*it).local8Bit() +
 		     " \t#kppp temp entry\n";
       write(fd, dns.data(), dns.length());
     }
@@ -1511,12 +1519,12 @@ void removedns() {
       for(int j=0; j < i; j++) {
 	if(resolv[j].contains("#kppp temp entry")) continue;
 	if(resolv[j].contains("#entry disabled by kppp")) {
-          QCString tmp = resolv[j].local8Bit();
+          Q3CString tmp = resolv[j].local8Bit();
 	  write(fd, tmp.data()+2, tmp.length() - 27);
 	  write(fd, "\n", 1);
 	}
 	else {
-	  QCString tmp = resolv[j].local8Bit() + "\n";
+	  Q3CString tmp = resolv[j].local8Bit() + "\n";
 	  write(fd, tmp, tmp.length());
 	}
       }

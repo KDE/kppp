@@ -27,17 +27,20 @@
 #include <qdialog.h>
 #include <qstring.h>
 #include <qlabel.h>
-#include <qmultilineedit.h>
+#include <q3multilineedit.h>
 #include <qpushbutton.h>
+//Added by qt3to4:
+#include <QHideEvent>
+#include <Q3Frame>
+#include <QResizeEvent>
 
 
-class myMultiEdit : public QMultiLineEdit {
+class myMultiEdit : public Q3MultiLineEdit {
 public:
 
   myMultiEdit(QWidget *parent=0, const char *name=0);
 
   void newLine();
-  void insertChar(unsigned char c);
 };
 
 
@@ -59,7 +62,7 @@ protected:
 
 private:
   void enter();
-  QFrame *fline;
+  Q3Frame *fline;
   QPushButton *dismiss;
   myMultiEdit *text_window;
 

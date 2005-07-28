@@ -26,6 +26,10 @@
 
 #include <qlayout.h>
 #include <qslider.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 #include <kbuttonbox.h>
 #include <stdlib.h>
 #include <kapplication.h> // for getMiniIcon()
@@ -34,7 +38,7 @@
 #include "pppdata.h"
 #include <kwin.h>
 
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
@@ -43,7 +47,7 @@
 #define ADJUSTEDIT(e) e->setText("XXXXXXXXqy"); e->setMinimumSize(e->sizeHint()); e->setFixedHeight(e->sizeHint().height()); e->setText(""); e->setMaxLength(MODEMSTR_SIZE);
 
 // a little trick to make the label look like a disabled lineedit
-#define FORMATSLIDERLABEL(l) l->setFixedWidth(l->sizeHint().width()); l->setFixedHeight(QLineEdit(dummyWidget).sizeHint().height()); l->setAlignment(AlignCenter); l->setFrameStyle(QFrame::WinPanel|QFrame::Sunken); l->setLineWidth(2);
+#define FORMATSLIDERLABEL(l) l->setFixedWidth(l->sizeHint().width()); l->setFixedHeight(QLineEdit(dummyWidget).sizeHint().height()); l->setAlignment(Qt::AlignCenter); l->setFrameStyle(Q3Frame::WinPanel|Q3Frame::Sunken); l->setLineWidth(2);
 
 ModemCommands::ModemCommands(QWidget *parent, const char *name)
   : KDialogBase(parent, name, true, i18n("Edit Modem Commands"), Ok|Cancel)
@@ -61,7 +65,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   // add grid + frame
   QGridLayout *l1 = new QGridLayout(GRIDROWS, 4);
   tl->addLayout(l1);
-  box = new QGroupBox(dummyWidget, "box");
+  box = new Q3GroupBox(dummyWidget, "box");
   l1->addMultiCellWidget(box, row++, GRIDROWS, 0, 3);
 
   // put slider and label into a separate H-Box
@@ -71,7 +75,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   FORMATSLIDERLABEL(lpreinitslider);
 
   preinitslider = new QSlider(0, 300, 1, 0,
-                                       QSlider::Horizontal, dummyWidget);
+                                       Qt::Horizontal, dummyWidget);
   preinitslider->setFixedHeight(preinitslider->sizeHint().height());
   connect(preinitslider, SIGNAL(valueChanged(int)),
 	  lpreinitslider, SLOT(setNum(int)));
@@ -95,7 +99,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   linitslider = new QLabel("MMMM", dummyWidget);
   FORMATSLIDERLABEL(linitslider);
   initslider = new QSlider(1, 300, 1, 0,
-				QSlider::Horizontal, dummyWidget);
+				Qt::Horizontal, dummyWidget);
   initslider->setFixedHeight(initslider->sizeHint().height());
   connect(initslider, SIGNAL(valueChanged(int)),
 	  linitslider, SLOT(setNum(int)));
@@ -111,7 +115,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   ldurationslider = new QLabel("MMMM", dummyWidget);
   FORMATSLIDERLABEL(ldurationslider);
   durationslider = new QSlider(1, 255, 1, 0,
-				QSlider::Horizontal, dummyWidget);
+				Qt::Horizontal, dummyWidget);
   durationslider->setFixedHeight(durationslider->sizeHint().height());
   connect(durationslider, SIGNAL(valueChanged(int)),
 	  ldurationslider, SLOT(setNum(int)));
@@ -227,7 +231,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   FORMATSLIDERLABEL(lslider);
 
   slider = new QSlider(0, 255, 1, 0,
-				QSlider::Horizontal, dummyWidget);
+				Qt::Horizontal, dummyWidget);
   slider->setFixedHeight(slider->sizeHint().height());
   connect(slider, SIGNAL(valueChanged(int)),
 	  lslider, SLOT(setNum(int)));

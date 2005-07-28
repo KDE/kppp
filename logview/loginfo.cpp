@@ -33,7 +33,7 @@
 
 char *mystrsep (char **stringp, const char *delim);
 
-LogInfo::LogInfo(QCString data) {
+LogInfo::LogInfo(Q3CString data) {
   parse(data);
 }
 
@@ -84,7 +84,7 @@ int LogInfo::error() const {
   return errorfield;
 }
 
-void LogInfo::parse(QCString s) {
+void LogInfo::parse(Q3CString s) {
   errorfield = 0;
   char *c = (char *)malloc(s.length() + 1), *csep;
   strcpy(c, s);

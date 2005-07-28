@@ -33,12 +33,15 @@
 //---------------------------------------------------------------------------
 
 #include <qlabel.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <kbuttonbox.h>
 #include <qlayout.h>
 #include "modemdb.h"
 #include <klocale.h>
 #include <qpushbutton.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <kconfig.h>
 #include <kstdguiitem.h>
 
@@ -51,7 +54,7 @@ ModemSelector::ModemSelector(QWidget *parent) : QDialog(parent, 0, true) {
 			       "right list. If you don't know which modem you have, "
 			       "you can try out one of the \"Generic\" modems."),
 			this);
-  l1->setAlignment(AlignLeft | WordBreak);
+  l1->setAlignment(Qt::AlignLeft | Qt::WordBreak);
   l1->setFixedWidth(400);
   l1->setMinimumHeight(50);
   tl->addWidget(l1, 0);
@@ -60,8 +63,8 @@ ModemSelector::ModemSelector(QWidget *parent) : QDialog(parent, 0, true) {
 
   QHBoxLayout *tl1 = new QHBoxLayout(10);
   tl->addLayout(tl1, 1);
-  vendor = new QListBox(this);
-  model  = new QListBox(this);
+  vendor = new Q3ListBox(this);
+  model  = new Q3ListBox(this);
   vendor->setMinimumSize(200, 130);
   model->setMinimumSize(200, 130);
   tl1->addWidget(vendor, 2);

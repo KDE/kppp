@@ -26,6 +26,9 @@
  */
 
 #include <qlayout.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <kbuttonbox.h>
 #include <kwin.h>
 #include <kapplication.h>
@@ -34,7 +37,7 @@
 #include <klocale.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qlabel.h>
 #include <kstdguiitem.h>
 #include <kpushbutton.h>
@@ -67,7 +70,7 @@ PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
   connect(argument, SIGNAL(textChanged(const QString &)),
 	  this, SLOT(textChanged(const QString &)));
 
-  arguments = new QListBox(this);
+  arguments = new Q3ListBox(this);
   arguments->setMinimumSize(1, fontMetrics().lineSpacing()*10);
   connect(arguments, SIGNAL(highlighted(int)),
 	  this, SLOT(itemSelected(int)));

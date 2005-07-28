@@ -26,22 +26,22 @@
 #include <klocale.h>
 
 #include <assert.h>
+//Added by qt3to4:
+#include <QHideEvent>
+#include <QLabel>
+#include <Q3Frame>
+#include <QResizeEvent>
 
 extern KPPPWidget *p_kppp;
 
 myMultiEdit::myMultiEdit(QWidget *parent, const char *name)
-  : QMultiLineEdit(parent, name)
+  : Q3MultiLineEdit(parent, name)
 {
  setReadOnly(true);
 }
 
-void myMultiEdit::insertChar(unsigned char c) {
-  QMultiLineEdit::insert(QChar(c));
-}
-
-
 void myMultiEdit::newLine() {
-  QMultiLineEdit::newLine();
+  Q3MultiLineEdit::newLine();
 }
 
 
@@ -56,8 +56,8 @@ DebugWidget::DebugWidget(QWidget *parent, const char *name)
 
   statuslabel = new QLabel("", this, "statuslabel");
 
-  statuslabel->setFrameStyle( QFrame::Panel | QFrame::Sunken );
-  statuslabel->setAlignment( AlignLeft|AlignVCenter );
+  statuslabel->setFrameStyle( Q3Frame::Panel | Q3Frame::Sunken );
+  statuslabel->setAlignment( Qt::AlignLeft|Qt::AlignVCenter );
   statuslabel->setGeometry(2, 307, 400, 20);
   //statusPageLabel->setFont( KGlobalSettings::generalFont() );
 
@@ -94,7 +94,7 @@ void DebugWidget::addChar(unsigned char c) {
     if(c == '\n')
       text_window->newLine();    
   } else
-    text_window->insertChar(c);
+    text_window->insert(QString(c));
 }
 
 

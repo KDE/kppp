@@ -30,6 +30,9 @@
 #define _CONNECT_H_
 
 #include <qtimer.h>
+//Added by qt3to4:
+#include <QTimerEvent>
+#include <QCloseEvent>
 #include <kpushbutton.h>
 #include <qlabel.h>
 #include <qevent.h>

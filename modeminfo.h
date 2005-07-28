@@ -34,6 +34,8 @@
 #include <qlabel.h>
 #include <qevent.h>
 #include <qtimer.h>
+//Added by qt3to4:
+#include <QCloseEvent>
 #include <kprogress.h>
 
 const int NUM_OF_ATI = 8;

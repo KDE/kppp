@@ -32,8 +32,14 @@
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qregexp.h>
+//Added by qt3to4:
+#include <QGridLayout>
+#include <QKeyEvent>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <Q3PopupMenu>
 #include <kdialogbase.h>
-#include <qwhatsthis.h>
+
 
 #include <kaboutdata.h>
 #include <kapplication.h>
@@ -136,8 +142,8 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 		     "<b>Important</b>: case is important here:\n"
 		     "<i>myusername</i> is not the same as <i>MyUserName</i>.");
 
-  QWhatsThis::add(ID_Label,tmp);
-  QWhatsThis::add(ID_Edit,tmp);
+  ID_Label->setWhatsThis(tmp);
+  ID_Edit->setWhatsThis(tmp);
 
   PW_Label = new QLabel(i18n("&Password:"), this);
   l1->addWidget(PW_Label, 3, 1);
@@ -157,8 +163,8 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 	     "<b>Important</b>: case is important here:\n"
 	     "<i>mypassword</i> is not the same as <i>MyPassword</i>.");
 
-  QWhatsThis::add(PW_Label,tmp);
-  QWhatsThis::add(PW_Edit,tmp);
+  PW_Label->setWhatsThis(tmp);
+  PW_Edit->setWhatsThis(tmp);
 
    QHBoxLayout *l3 = new QHBoxLayout;
    tl->addSpacing(5);
@@ -171,7 +177,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
    log->setChecked(gpppdata.get_show_log_window());
    l3->addWidget(log);
 
-   QWhatsThis::add(log,
+   log->setWhatsThis(
  		  i18n("<p>This controls whether a log window is shown.\n"
  		       "A log window shows the communication between\n"
  		       "<i>kppp</i> and your modem. This will help you\n"
@@ -204,7 +210,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   connect( help_b, SIGNAL(clicked()), SLOT(helpbutton()));
 
   KHelpMenu *helpMenu = new KHelpMenu(this, KGlobal::instance()->aboutData(), true);
-  help_b->setPopup((QPopupMenu*)helpMenu->menu());
+  help_b->setPopup((Q3PopupMenu*)helpMenu->menu());
 
   if(help_b->sizeHint().width() > minw)
       minw = help_b->sizeHint().width();
@@ -1056,8 +1062,8 @@ void KPPPWidget::showNews() {
 		       "This window will stay open until you\n"
 		       "click a mouse button or a press a key.\n");
 
-    QWhatsThis::add(cb,tmp);
-    QWhatsThis::add(l, tmp);
+    cb->setWhatsThis(tmp);
+    l->setWhatsThis( tmp);
 
     dlg.exec();
     if(cb->isChecked()) {

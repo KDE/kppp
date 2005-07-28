@@ -30,7 +30,10 @@
 #include <qwidget.h>
 #include <qlineedit.h>
 #include <qlabel.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
+//Added by qt3to4:
+#include <QFocusEvent>
+#include <QResizeEvent>
 
 class PWEntry : public QWidget {
 
@@ -62,7 +65,7 @@ protected:
 
 private:
 
-    QGroupBox *frame;
+    Q3GroupBox *frame;
     QLineEdit *pw;
     QLabel *pl;
     bool isconsumed;

@@ -2,11 +2,13 @@
 #define _LOGINTERM_H_
 
 #include <qdialog.h>
-#include <qmultilineedit.h>
+#include <q3multilineedit.h>
 #include <qapplication.h>
 #include <qtimer.h>
+//Added by qt3to4:
+#include <QKeyEvent>
 
-class LoginMultiLineEdit : public QMultiLineEdit {
+class LoginMultiLineEdit : public Q3MultiLineEdit {
 
   Q_OBJECT
 

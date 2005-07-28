@@ -32,6 +32,10 @@
 #include "docking.h"
 #include "main.h"
 #include "pppstats.h"
+//Added by qt3to4:
+#include <QPixmap>
+#include <QMouseEvent>
+#include <QPaintEvent>
 
 extern KPPPWidget   *p_kppp;
 
@@ -114,19 +118,19 @@ void DockWidget::stop_stats() {
 
 void DockWidget::mousePressEvent(QMouseEvent *e) {
   // open/close connect-window on right mouse button
-  if ( e->button() == LeftButton ) {
+  if ( e->button() == Qt::LeftButton ) {
     toggle_window_state();
   }
 
   // open popup menu on left mouse button
-  if ( e->button() == RightButton ) {
+  if ( e->button() == Qt::RightButton ) {
     QString text;
     if(p_kppp->con_win->isVisible())
       text = i18n("Minimize");
     else
       text = i18n("Restore");
 
-    popup_m->changeItem(text, toggleID);
+    popup_m->changeItem(toggleID, text);
     popup_m->popup(e->globalPos());
     popup_m->exec();
   }

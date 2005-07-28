@@ -30,6 +30,9 @@
 #include <sys/types.h>
 
 #include <qdir.h>
+//Added by qt3to4:
+#include <QTimerEvent>
+#include <Q3CString>
 
 #include <kstandarddirs.h>
 #include <klocale.h>
@@ -126,7 +129,7 @@ void AccountingBase::logMessage(QString s, bool newline) {
 
   QFile f(LogFileName);
 
-  bool result = f.open(IO_ReadWrite);
+  bool result = f.open(QIODevice::ReadWrite);
   if(result) {
     // move to eof, and place \n if necessary
     if(f.size() > 0) {
@@ -140,7 +143,7 @@ void AccountingBase::logMessage(QString s, bool newline) {
 	f.at(f.size());
     }
 
-    QCString tmp = s.local8Bit();
+    Q3CString tmp = s.local8Bit();
     f.writeBlock(tmp, tmp.length());
     f.close();
   }

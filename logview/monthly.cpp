@@ -21,7 +21,7 @@
 #include <qpainter.h>
 #include <qcombobox.h>
 #include <qfile.h>
-#include <qheader.h>
+#include <q3header.h>
 
 #include <kcalendarsystem.h>
 #include <klocale.h>
@@ -104,15 +104,15 @@ static void costsMonth(double costs, double &result) {
 
 }
 
-class LogListItem : public QListViewItem {
+class LogListItem : public Q3ListViewItem {
 public:
     LogListItem(LogInfo *l,
-		QListView * parent,
+		Q3ListView * parent,
 		QString s1, QString s2,
 		QString s3, QString s4,
 		QString s5, QString s6,
 		QString s7, QString s8)
-	: QListViewItem(parent, s1, s2, s3, s4, s5, s6, s7, s8),
+	: Q3ListViewItem(parent, s1, s2, s3, s4, s5, s6, s7, s8),
 	  li(l)
 	{
 	}
@@ -127,7 +127,7 @@ public:
 void LogListItem::paintCell( QPainter *p, const QColorGroup & cg,
 			     int column, int width, int alignment )
 {
-  QListViewItem::paintCell(p, cg, column, width, alignment);
+  Q3ListViewItem::paintCell(p, cg, column, width, alignment);
 
   // double line above sum
   //if(!li) {
@@ -181,20 +181,20 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
   lv->addColumn(i18n("Costs"));
   lv->addColumn(i18n("Bytes In"));
   lv->addColumn(i18n("Bytes Out"));
-  lv->setColumnAlignment(1, AlignRight);
-  lv->setColumnAlignment(2, AlignRight);
-  lv->setColumnAlignment(3, AlignRight);
-  lv->setColumnAlignment(4, AlignRight);
-  lv->setColumnAlignment(5, AlignRight);
-  lv->setColumnAlignment(6, AlignRight);
-  lv->setColumnAlignment(7, AlignRight);
+  lv->setColumnAlignment(1, Qt::AlignRight);
+  lv->setColumnAlignment(2, Qt::AlignRight);
+  lv->setColumnAlignment(3, Qt::AlignRight);
+  lv->setColumnAlignment(4, Qt::AlignRight);
+  lv->setColumnAlignment(5, Qt::AlignRight);
+  lv->setColumnAlignment(6, Qt::AlignRight);
+  lv->setColumnAlignment(7, Qt::AlignRight);
   lv->setAllColumnsShowFocus(true);
   lv->setShowSortIndicator(true);
   lv->setItemMargin(1);
   lv->setSorting(1);
   lv->setMinimumWidth(180);
   lv->setMinimumHeight(280);
-  lv->setSelectionMode(QListView::Extended);
+  lv->setSelectionMode(Q3ListView::Extended);
   selectionItem = 0L;
   connect(lv, SIGNAL(selectionChanged()), SLOT(slotSelectionChanged()));
 
@@ -204,16 +204,16 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
   lv2->addColumn(i18n("Costs"));
   lv2->addColumn(i18n("Bytes In"));
   lv2->addColumn(i18n("Bytes Out"));
-  lv2->setColumnAlignment(1, AlignRight);
-  lv2->setColumnAlignment(2, AlignRight);
-  lv2->setColumnAlignment(3, AlignRight);
-  lv2->setColumnAlignment(4, AlignRight);
+  lv2->setColumnAlignment(1, Qt::AlignRight);
+  lv2->setColumnAlignment(2, Qt::AlignRight);
+  lv2->setColumnAlignment(3, Qt::AlignRight);
+  lv2->setColumnAlignment(4, Qt::AlignRight);
   lv2->setAllColumnsShowFocus(true);
   lv2->setSorting(-1);
   lv2->setItemMargin(2);
   lv2->setMaximumHeight(100);
   lv2->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
-  lv2->setSelectionMode(QListView::NoSelection);
+  lv2->setSelectionMode(Q3ListView::NoSelection);
 
   title = new QLabel("X", this);
   QFont f = title->font();
@@ -266,7 +266,7 @@ void MonthlyWidget::layoutWidget() {
   f2.setBold(TRUE);
   l->setFont(f2);
   l->setFixedHeight(l->sizeHint().height());
-  l->setAlignment( AlignLeft );
+  l->setAlignment( Qt::AlignLeft );
   tl->addWidget(l, 5, 0);
   tl->addWidget(bbox, 1, 2);
   tl->addMultiCellWidget(lv, 1, 4, 0, 1);
@@ -416,7 +416,7 @@ void MonthlyWidget::plotMonth() {
 	costsMonth(costs, costs);
     QString m_costs(KGlobal::locale()->formatMoney(costs, QString::null, 2));
 
-    (void) new QListViewItem(lv2, selectionItem,
+    (void) new Q3ListViewItem(lv2, selectionItem,
 			   i18n("Monthly estimates"), m_duration, m_costs, m_bin, m_bout,
 			   QString::null, QString::null, QString::null);
 	}
@@ -666,7 +666,7 @@ void MonthlyWidget::slotSelectionChanged()
     int duration = 0;
     LogListItem *item;
     LogInfo *li;
-    QListViewItemIterator it(lv);
+    Q3ListViewItemIterator it(lv);
     while ( it.current() )
     {
       item = dynamic_cast<LogListItem*>(it.current());

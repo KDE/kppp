@@ -31,7 +31,12 @@
 #include <qdialog.h>
 #include <qpixmap.h>
 #include <qevent.h>
-#include <qmultilineedit.h>
+#include <q3multilineedit.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QKeyEvent>
+#include <Q3PopupMenu>
+#include <QCloseEvent>
 #include <ktoolbar.h>
 
 class KHelpMenu;
@@ -43,7 +48,7 @@ class KHelpMenu;
 class QPushButton;
 class QLabel;
 
-class MyTerm : public QMultiLineEdit {
+class MyTerm : public Q3MultiLineEdit {
   Q_OBJECT
 public:
   MyTerm(QWidget *parent=0, const char *name=0);
@@ -83,9 +88,9 @@ protected:
 
   QMenuBar    * menubar;
   KToolBar     * toolbar;
-  QPopupMenu  * m_file;
-  QPopupMenu  * m_edit;
-  QPopupMenu  * m_options;
+  Q3PopupMenu  * m_file;
+  Q3PopupMenu  * m_edit;
+  Q3PopupMenu  * m_options;
   KHelpMenu  * m_help;
   QLabel      * statusbar;
   QPushButton *pb1;

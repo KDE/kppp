@@ -27,7 +27,7 @@
 #include <qfile.h>
 #include <qlayout.h>
 #include <qlabel.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qlineedit.h>
 #include <qtooltip.h>
 
@@ -56,7 +56,7 @@ public slots:
 
 private:
    QWidget  *formatPage;
-   QListBox *typeList;
+   Q3ListBox *typeList;
    QLabel   *typeInfo;
 
    QWidget     *filenamePage;

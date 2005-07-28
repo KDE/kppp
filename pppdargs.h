@@ -29,8 +29,10 @@
 #define _PPPDARGS_H_
 
 #include <qdialog.h>
+//Added by qt3to4:
+#include <QLabel>
 
-class QListBox;
+class Q3ListBox;
 class QLabel;
 class QPushButton;
 class QLineEdit;
@@ -62,7 +64,7 @@ private:
   QPushButton *remove;
   KPushButton *defaults;
 
-  QListBox *arguments;
+  Q3ListBox *arguments;
 
   QPushButton *closebtn;
 };

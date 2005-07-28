@@ -27,6 +27,8 @@
 #define __ACCOUNTING__H__
 
 #include <qobject.h>
+//Added by qt3to4:
+#include <QTimerEvent>
 #include <kprocess.h>
 #include "ruleset.h"
 

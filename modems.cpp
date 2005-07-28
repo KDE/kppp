@@ -26,10 +26,13 @@
  */
 
 #include <qdir.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <stdlib.h>
 #include <qlayout.h>
-#include <qtabdialog.h>
-#include <qwhatsthis.h>
+#include <q3tabdialog.h>
+
 #include <qmessagebox.h>
 
 #include <kapplication.h>
@@ -39,7 +42,6 @@
 #include <kglobal.h>
 #include <kwin.h>
 #include <kdialogbase.h>
-#include <qvgroupbox.h>
 
 #include "general.h"
 #include "pppdata.h"
@@ -60,7 +62,7 @@ ModemsWidget::ModemsWidget( QWidget *parent, const char *name )
   QHBoxLayout *l11 = new QHBoxLayout;
   l1->addLayout(l11);
 
-  modemlist_l = new QListBox(parent);
+  modemlist_l = new Q3ListBox(parent);
   modemlist_l->setMinimumSize(160, 128);
   connect(modemlist_l, SIGNAL(highlighted(int)),
 	  this, SLOT(slotListBoxSelect(int)));
@@ -72,7 +74,7 @@ ModemsWidget::ModemsWidget( QWidget *parent, const char *name )
   l11->addLayout(l111, 1);
   edit_b = new QPushButton(i18n("&Edit..."), parent);
   connect(edit_b, SIGNAL(clicked()), SLOT(editmodem()));
-  QWhatsThis::add(edit_b, i18n("Allows you to modify the selected account"));
+  edit_b->setWhatsThis( i18n("Allows you to modify the selected account"));
 
   min = edit_b->sizeHint().width();
   min = QMAX(70,min);
@@ -83,13 +85,13 @@ ModemsWidget::ModemsWidget( QWidget *parent, const char *name )
   new_b = new QPushButton(i18n("&New..."), parent);
   connect(new_b, SIGNAL(clicked()), SLOT(newmodem()));
   l111->addWidget(new_b);
-  QWhatsThis::add(new_b, i18n("Create a new dialup connection\n"
+  new_b->setWhatsThis( i18n("Create a new dialup connection\n"
   			      "to the Internet"));
 
   copy_b = new QPushButton(i18n("Co&py"), parent);
   connect(copy_b, SIGNAL(clicked()), SLOT(copymodem()));
   l111->addWidget(copy_b);
-  QWhatsThis::add(copy_b,
+  copy_b->setWhatsThis(
 		  i18n("Makes a copy of the selected account. All\n"
 		       "settings of the selected account are copied\n"
 		       "to a new account that you can modify to fit your\n"
@@ -98,7 +100,7 @@ ModemsWidget::ModemsWidget( QWidget *parent, const char *name )
   delete_b = new QPushButton(i18n("De&lete"), parent);
   connect(delete_b, SIGNAL(clicked()), SLOT(deletemodem()));
   l111->addWidget(delete_b);
-  QWhatsThis::add(delete_b,
+  delete_b->setWhatsThis(
 		  i18n("<p>Deletes the selected account\n\n"
 		       "<font color=\"red\"><b>Use with care!</b></font>"));
 

@@ -30,9 +30,12 @@
 #include <qpushbutton.h>
 #include <qlabel.h>
 #include <qdialog.h>
-#include <qframe.h>
+#include <q3frame.h>
 #include <qevent.h>
 #include <qlayout.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QCloseEvent>
 
 class PPPStats;
 
@@ -70,7 +73,7 @@ private:
   int seconds;
   int hours;
   int days;
-  QFrame *fline;
+  Q3Frame *fline;
   QLabel *timelabel1;
   QLabel *timelabel2;
   QLabel *total_bill, *total_bill_l;

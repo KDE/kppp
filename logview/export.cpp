@@ -59,7 +59,7 @@ ExportWizard::ExportWizard(QWidget *parent, const QString &_date)
   formatPage = new QWidget();
   QHBoxLayout *formatLayout = new QHBoxLayout(formatPage);
 
-  typeList = new QListBox(formatPage);
+  typeList = new Q3ListBox(formatPage);
   connect(typeList, SIGNAL(highlighted(int)), SLOT (typeHighlighted(int)));
   typeList->setMinimumSize(50, 200);
   QToolTip::add(typeList, i18n("List with possible output formats"));

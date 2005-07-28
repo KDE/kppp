@@ -33,20 +33,24 @@
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qregexp.h>
+//Added by qt3to4:
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <klocale.h>
 #include <kstandarddirs.h>
 #include <kdebug.h>
 #include "providerdb.h"
 #include "newwidget.h"
 #include "pppdata.h"
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qlineedit.h>
 #include <ksimpleconfig.h>
 
 
 #define UNENCODED_CHARS "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_"
 
-QWizard* ProviderDB::wiz = 0L;
+Q3Wizard* ProviderDB::wiz = 0L;
 
 ProviderDB::ProviderDB(QWidget *parent) :
   KWizard(parent, "", true),
@@ -106,7 +110,7 @@ void ProviderDB::pageSelected() {
   if(page == page2) {
     next = page2->lb->currentItem() != -1;
   } else if(page == page3) {
-    page3->setDir(*page2->list->at(page2->lb->currentItem()));
+    page3->setDir(page2->list->at(page2->lb->currentItem()));
     next = page3->lb->currentItem() != -1;
   } else if(page == page4) {
     loadProviderInfo();
@@ -122,7 +126,7 @@ void ProviderDB::pageSelected() {
 void ProviderDB::loadProviderInfo() {
   delete cfg;
 
-  QString loc = *page2->list->at(page2->lb->currentItem());
+  QString loc = page2->list->at(page2->lb->currentItem());
   QString provider = page3->lb->text(page3->lb->currentItem());
   urlEncode(provider);
   QString prov = "Provider/" + loc;
@@ -197,7 +201,7 @@ PDB_Country::PDB_Country(QWidget *parent) : QWidget(parent) {
   tl->addLayout(l1);
   l1->addStretch(1);
 
-  lb = new QListBox(this);
+  lb = new Q3ListBox(this);
   connect(lb, SIGNAL(highlighted(int)),
 	  this, SLOT(selectionChanged(int)));
   lb->setMinimumSize(220, 100);
@@ -213,23 +217,25 @@ PDB_Country::PDB_Country(QWidget *parent) : QWidget(parent) {
   d.setSorting(QDir::Name);
 
   // read the list of files
-  const QFileInfoList *flist = d.entryInfoList();
-  if(flist) {
-    QFileInfoListIterator it( *flist );
-    QFileInfo *fi;
+  const QFileInfoList flist = d.entryInfoList();
+  if(flist.size()) {
+    QFileInfoList::const_iterator it = flist.begin();
+    QFileInfoList::const_iterator itEnd = flist.end();
+    QFileInfo fi;
     // traverse the flist and insert into a map for sorting
     QMap<QString, QString> countries;
-    for(; (fi = it.current()) != 0; ++it) {
-      if(fi->fileName() != "." && fi->fileName() != "..") {
-        QString dirFile(fi->absFilePath()+"/.directory");
+    for(; it != itEnd; ++it) {
+      fi = *it;
+      if(fi.fileName() != "." && fi.fileName() != "..") {
+        QString dirFile(fi.absFilePath()+"/.directory");
         QString entryName;
         if(QFile::exists(dirFile)){
           KSimpleConfig config(dirFile);
           config.setDesktopGroup();
           entryName = config.readEntry("Name");
         }
-        if (entryName.isNull()) entryName = fi->fileName();
-	countries.insert(entryName, fi->fileName());
+        if (entryName.isNull()) entryName = fi.fileName();
+	countries.insert(entryName, fi.fileName());
       }
     }
     // insert sorted entries into list box and string list
@@ -273,7 +279,7 @@ PDB_Provider::PDB_Provider(QWidget *parent) : QWidget(parent) {
   tl->addLayout(l1);
   l1->addStretch(1);
 
-  lb = new QListBox(this);
+  lb = new Q3ListBox(this);
   connect(lb, SIGNAL(highlighted(int)),
 	  this, SLOT(selectionChanged(int)));
   lb->setMinimumSize(220, 100);
@@ -304,14 +310,16 @@ void PDB_Provider::setDir(const QString &_dir) {
     d.setSorting(QDir::Name);
 
     // read the list of files
-    const QFileInfoList *list = d.entryInfoList();
-    QFileInfoListIterator it( *list );
-    QFileInfo *fi;
+    const QFileInfoList list = d.entryInfoList();
+    QFileInfoList::const_iterator it = list.begin();
+    QFileInfoList::const_iterator itEnd = list.end();
+    QFileInfo fi;
 
     // traverse the list and insert into the widget
     QRegExp re("_");
-    while((fi = it.current()) != NULL) {
-      QString fname = fi->fileName();
+    while(it != itEnd) {
+      fi = *it;
+      QString fname = fi.fileName();
       if(fname.length() && fname[0] != '.') {
 	urlDecode(fname);
 	lb->insertItem(fname);
@@ -440,7 +448,7 @@ PDB_Finished::PDB_Finished(QWidget *parent) : QWidget(parent) {
 void urlDecode(QString &s) {
   QString s1;
 
-  for(uint i = 0; i < s.length(); i++) {
+  for(int i = 0; i < s.length(); i++) {
     if(s[i] == '%') {
       s1 += 100*s[i+1].digitValue() + 10*s[i+2].digitValue()
         + s[i+3].digitValue();
@@ -457,7 +465,7 @@ void urlDecode(QString &s) {
 void urlEncode(QString &s) {
   QString s1, tmp;
 
-  for(uint i = 0; i < s.length(); i++) {
+  for(int i = 0; i < s.length(); i++) {
     if(QString(UNENCODED_CHARS).find(s[i]) >= 0)
       s1 += s[i];
     else {
