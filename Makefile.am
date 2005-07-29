@@ -11,6 +11,8 @@ INCLUDES= $(all_includes)
 # claim, which subdirectories you want to install
 SUBDIRS = pixmaps icons logview Rules DB
 
+KDE_CXXFLAGS = $(KDE_USE_FPIE)
+
 # This one gets installed 
 bin_PROGRAMS = 	kppp
 
@@ -51,7 +53,7 @@ kppp_SOURCES	= kpppwidget.cpp \
 		KPPPIface.skel
 
 # the library search path
-kppp_LDFLAGS = $(all_libraries) $(KDE_RPATH)
+kppp_LDFLAGS = $(KDE_USE_PIE) $(all_libraries) $(KDE_RPATH)
 
 # the libraries to link against. Be aware of the order. First the libraries,
 # that depend on the following ones.
