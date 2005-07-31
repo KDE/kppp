@@ -1,7 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KPPPLogview
-Name[de]=KPPP-Log-Betrachter
+Name[de]=KPPP-Protokoll-Betrachter
 Name[is]=KPPP annálaskoðari
 Name[it]=Visualizzatore log KPPP
 Name[pl]=Dziennik połączeń KPPP
@@ -14,7 +14,7 @@ GenericName[bg]=Преглед на журнала на KPPP
 GenericName[ca]=Visor de la bitàcola de l'eina de connexió telefònica a Internet
 GenericName[cs]=Prohlížeč záznamů připojení přes vytáčenou linku
 GenericName[da]=Internet-opkaldsværktøj-logviser
-GenericName[de]=Log-Betrachter für die Einwahl ins Internet
+GenericName[de]=Protokoll-Betrachter für die Einwahl ins Internet
 GenericName[el]=Προβολέας Καταγραφής Εργαλείου Σύνδεσης Μέσω Τηλεφώνου του Διαδικτύου
 GenericName[es]=Visor del registro de conexión telefónica a Internet
 GenericName[et]=Interneti sissehelistamise rakenduse logide näitaja
