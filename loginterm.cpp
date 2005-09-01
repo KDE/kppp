@@ -36,11 +36,11 @@
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include <QKeyEvent>
-
+#include <QTextCursor>
 extern KPPPWidget *p_kppp;
 
 LoginMultiLineEdit::LoginMultiLineEdit(QWidget *parent, const char *name)
-  : Q3MultiLineEdit(parent, name)
+  : QTextEdit(parent, name)
 {
 }
 
@@ -51,20 +51,24 @@ LoginMultiLineEdit::~LoginMultiLineEdit() {
 
 
 void LoginMultiLineEdit::insertChar(unsigned char c) {
-  Q3MultiLineEdit::insert(QString(c));
+  insertPlainText(QString(c));
   p_kppp->debugwindow->addChar(c);
 }
 
 
 void LoginMultiLineEdit::myreturn() {
-  Q3MultiLineEdit::home();
+    textCursor().movePosition( QTextCursor::Start );
 }
 
 
 void LoginMultiLineEdit::mynewline() {
+    textCursor().movePosition( QTextCursor::End );
+    insertPlainText(QString("\n"));
+
+#if 0
   Q3MultiLineEdit::end(FALSE);
   Q3MultiLineEdit::newLine();
-
+#endif
     p_kppp->debugwindow->addChar('\n');
 }
 
@@ -86,13 +90,11 @@ void LoginMultiLineEdit::readChar(unsigned char c) {
   if(((int)c != 13) && ((int)c != 10) && ((int)c != 8))
     insertChar(c);
 
-  if((int)c == 8)
-    backspace();
-  if((int)c == 127)
-    backspace();
-  if((int)c == 10)
+  if((int)c == 8 || ( int )c == 127)
+      textCursor().deleteChar ();
+  else if((int)c == 10)
     mynewline();
-  if((int)c == 13)
+  else if((int)c == 13)
     myreturn();
 }
 
