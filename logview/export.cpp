@@ -222,9 +222,9 @@ HTMLExport::HTMLExport(const QString &filename, const QString &date)
   QString title = i18n("Connection log for %1").arg(date);
   buffer = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n";
   buffer.append("<html>\n<head>\n  <title>"+title+"</title>\n");
-  buffer.append(QString::fromLatin1("  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=")
+  buffer.append(QLatin1String("  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=")
                 + QTextCodec::codecForLocale()->mimeName() +
-                QString::fromLatin1("\">"));
+                QLatin1String("\">"));
   buffer.append("\n</head>\n<body>\n<h1>"+title+"</h1>\n\n");
   buffer.append("<table width=\"100%\" border=\"1\">\n");
 
