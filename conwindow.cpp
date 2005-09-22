@@ -324,7 +324,7 @@ void ConWindow::timeclick() {
     setCaption(caption_string);
   }
 
-  QToolTip::add(DockWidget::dock_widget, tooltip);
+  DockWidget::dock_widget->setToolTip( tooltip);
 }
 
 

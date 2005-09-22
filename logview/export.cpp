@@ -62,7 +62,7 @@ ExportWizard::ExportWizard(QWidget *parent, const QString &_date)
   typeList = new Q3ListBox(formatPage);
   connect(typeList, SIGNAL(highlighted(int)), SLOT (typeHighlighted(int)));
   typeList->setMinimumSize(50, 200);
-  QToolTip::add(typeList, i18n("List with possible output formats"));
+  typeList->setToolTip( i18n("List with possible output formats"));
   int i=0;
   while (ExportFormats[i].id) { // add each format to the list
     typeList->insertItem(i18n(ExportFormats[i].name.utf8()));
@@ -98,7 +98,7 @@ ExportWizard::ExportWizard(QWidget *parent, const QString &_date)
   fnGet = new QPushButton(filenamePage);
   fnGet->setText(i18n("&Select File..."));
   fnGet->setMaximumWidth(200);
-  QToolTip::add(fnGet, i18n("Select the filename of the exported output file"));
+  fnGet->setToolTip( i18n("Select the filename of the exported output file"));
   filenameLayout->addWidget(fnGet);
   connect(fnGet, SIGNAL(clicked()), SLOT(getFilename()));
   filenameLayout->addStretch(2);
