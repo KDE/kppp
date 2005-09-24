@@ -106,7 +106,7 @@ int PPPL_MakeLog(QStringList &list) {
 
   for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
   {
-    Q3CString tmp = (*it).local8Bit();
+    Q3CString tmp = (*it).toLocal8Bit();
     for(int j = 0; keyword[j] != 0; j++) {
       char *p;
 
@@ -277,7 +277,7 @@ void PPPL_ShowLog() {
 
     FILE *f = fopen(QFile::encodeName(s), "w");
     for(int i = 0; i < sl.count(); i++)
-      fprintf(f, "%s\n", sl.at(i).local8Bit().data());
+      fprintf(f, "%s\n", sl.at(i).toLocal8Bit().data());
     fclose(f);
     umask(old_umask);
 

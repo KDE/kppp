@@ -352,7 +352,7 @@ bool RuleSet::parseLine(const QString &s) {
 
     // parse the rate fields
     token = s.mid(s.find("use(") + 4,
-			  s.findRev(")")-s.find("use(") - 4);
+			  s.lastIndexOf(")")-s.find("use(") - 4);
     double costs;
     double len;
     double after;
@@ -535,18 +535,18 @@ QTime RuleSet::beforeMidnight() const {
 
 int RuleSet::checkRuleFile(const QString &rulefile) {
   if(rulefile.isEmpty()) {
-    fputs(i18n("kppp: no rulefile specified\n").local8Bit(), stderr);
+    fputs(i18n("kppp: no rulefile specified\n").toLocal8Bit(), stderr);
     return 1;
   }
 
   QFile fl(rulefile);
   if(!fl.exists()) {
-    fprintf(stderr, i18n("kppp: rulefile \"%s\" not found\n").local8Bit(), rulefile.local8Bit().data());
+    fprintf(stderr, i18n("kppp: rulefile \"%s\" not found\n").toLocal8Bit(), rulefile.local8Bit().data());
     return 1;
   }
 
   if(rulefile.right(4) != ".rst") {
-    fputs(i18n("kppp: rulefiles must have the extension \".rst\"\n").local8Bit(), stderr);
+    fputs(i18n("kppp: rulefiles must have the extension \".rst\"\n").toLocal8Bit(), stderr);
     return 1;
   }
 
@@ -555,27 +555,27 @@ int RuleSet::checkRuleFile(const QString &rulefile) {
   fl.close();
 
   if(err == -1) {
-    fputs(i18n("kppp: error parsing the ruleset\n").local8Bit(), stderr);
+    fputs(i18n("kppp: error parsing the ruleset\n").toLocal8Bit(), stderr);
     return 1;
   }
 
   if(err > 0) {
-    fprintf(stderr, i18n("kppp: parse error in line %d\n").local8Bit(), err);
+    fprintf(stderr, i18n("kppp: parse error in line %d\n").toLocal8Bit(), err);
     return 1;
   }
 
   // check for the existance of a default rule
   if((r.default_costs < 0) || (r.default_len < 0)) {
-    fputs(i18n("kppp: rulefile does not contain a default rule\n").local8Bit(), stderr);
+    fputs(i18n("kppp: rulefile does not contain a default rule\n").toLocal8Bit(), stderr);
     return 1;
   }
 
   if(r.name().length() == 0) {
-    fputs(i18n("kppp: rulefile does not contain a \"name=...\" line\n").local8Bit(), stderr);
+    fputs(i18n("kppp: rulefile does not contain a \"name=...\" line\n").toLocal8Bit(), stderr);
     return 1;
   }
 
-  fputs(i18n("kppp: rulefile is ok\n").local8Bit(), stderr);
+  fputs(i18n("kppp: rulefile is ok\n").toLocal8Bit(), stderr);
   return 0;
 }
 

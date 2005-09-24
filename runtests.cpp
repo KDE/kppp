@@ -199,7 +199,7 @@ int runTests() {
 	if(fgets(buf, sizeof(buf), f) != NULL) {
 	  QString s(buf);
 
-	  s = s.stripWhiteSpace();
+	  s = s.trimmed();
 	  if(s[0] == '#' || s.length() == 0)
 	    continue;
 

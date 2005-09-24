@@ -65,7 +65,7 @@ ExportWizard::ExportWizard(QWidget *parent, const QString &_date)
   typeList->setToolTip( i18n("List with possible output formats"));
   int i=0;
   while (ExportFormats[i].id) { // add each format to the list
-    typeList->insertItem(i18n(ExportFormats[i].name.utf8()));
+    typeList->insertItem(i18n(ExportFormats[i].name.toUtf8()));
     i++;
   }
 
@@ -120,8 +120,8 @@ Export * ExportWizard::createExportFilter() {
 }
 
 void ExportWizard::typeHighlighted(int index) {
-  typeInfo->setText("<qt><b>"+i18n(ExportFormats[index].name.utf8())+" " +
-                    i18n("File Format") + "</b><p></p>" + i18n(ExportFormats[index].desc.utf8())
+  typeInfo->setText("<qt><b>"+i18n(ExportFormats[index].name.toUtf8())+" " +
+                    i18n("File Format") + "</b><p></p>" + i18n(ExportFormats[index].desc.toUtf8())
                     +"</qt>");
   setNextEnabled(formatPage, true );
 }
@@ -132,7 +132,7 @@ void ExportWizard::getFilename() {
       return;
   // prepare filter: e.g.: HTML (*.html *.HTML)
   QString filter = "*." + ExportFormats[i].ext + " *." + ExportFormats[i].ext.upper() + "|" +
-                   i18n(ExportFormats[i].name.utf8()) + " (*." + ExportFormats[i].ext + " *." +
+                   i18n(ExportFormats[i].name.toUtf8()) + " (*." + ExportFormats[i].ext + " *." +
                    ExportFormats[i].ext.upper() + ")";
 
   filename = KFileDialog::getSaveFileName(date + "." + ExportFormats[i].ext, filter, 0, i18n("Please Choose File"));
@@ -171,7 +171,7 @@ bool Export::openFile() {
 
 bool Export::closeFile() {
   bool ok = true;
-  if (file.writeBlock(buffer.local8Bit(), buffer.length())<0)
+  if (file.writeBlock(buffer.toLocal8Bit(), buffer.length())<0)
     ok = false;
   file.close();
   return ok;

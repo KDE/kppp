@@ -1008,7 +1008,7 @@ void ConnectWidget::checkBuffers() {
 
       int vstart = scanbuffer.find( scanstr ) + scanstr.length();
       scanvar = scanbuffer.mid( vstart, scanbuffer.length() - vstart);
-      scanvar = scanvar.stripWhiteSpace();
+      scanvar = scanvar.trimmed();
 
       // Show the Variabel content in the debug window
       QString sv = i18n("Scan Var: %1").arg(scanvar);
@@ -1368,7 +1368,7 @@ void ConnectWidget::setMsg(const QString &msg) {
 }
 
 void ConnectWidget::writeline(const QString &s) {
-  Modem::modem->writeLine(s.local8Bit());
+  Modem::modem->writeLine(s.toLocal8Bit());
 }
 
 // Set the hostname and domain from DNS Server
@@ -1429,7 +1429,7 @@ void add_domain(const QString &domain) {
     if ((c != '\n') && (i < MAX_RESOLVCONF_LINES)) i++;
 
     if((fd = Requester::rq->openResolv(O_WRONLY|O_TRUNC)) >= 0) {
-      Q3CString tmp = "domain " + domain.local8Bit() +
+      Q3CString tmp = "domain " + domain.toLocal8Bit() +
 		     " \t\t#kppp temp entry\n";
       write(fd, tmp.data(), tmp.length());
 
@@ -1439,12 +1439,12 @@ void add_domain(const QString &domain) {
 		&& !resolv[j].contains("#kppp temp entry")
 		&& gpppdata.exDNSDisabled()))
 	        && !resolv[j].contains("#entry disabled by kppp")) {
-	  Q3CString tmp = "# " + resolv[j].local8Bit() +
+	  Q3CString tmp = "# " + resolv[j].toLocal8Bit() +
 			 " \t#entry disabled by kppp\n";
 	  write(fd, tmp, tmp.length());
 	}
 	else {
-	  Q3CString tmp = resolv[j].local8Bit() + "\n";
+	  Q3CString tmp = resolv[j].toLocal8Bit() + "\n";
 	  write(fd, tmp, tmp.length());
 	}
       }
@@ -1465,7 +1465,7 @@ void adddns()
           it != dnslist.end();
           ++it )
     {
-      Q3CString dns = "nameserver " + (*it).local8Bit() +
+      Q3CString dns = "nameserver " + (*it).toLocal8Bit() +
 		     " \t#kppp temp entry\n";
       write(fd, dns.data(), dns.length());
     }
@@ -1519,12 +1519,12 @@ void removedns() {
       for(int j=0; j < i; j++) {
 	if(resolv[j].contains("#kppp temp entry")) continue;
 	if(resolv[j].contains("#entry disabled by kppp")) {
-          Q3CString tmp = resolv[j].local8Bit();
+          Q3CString tmp = resolv[j].toLocal8Bit();
 	  write(fd, tmp.data()+2, tmp.length() - 27);
 	  write(fd, "\n", 1);
 	}
 	else {
-	  Q3CString tmp = resolv[j].local8Bit() + "\n";
+	  Q3CString tmp = resolv[j].toLocal8Bit() + "\n";
 	  write(fd, tmp, tmp.length());
 	}
       }

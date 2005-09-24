@@ -352,7 +352,7 @@ bool Modem::hangup() {
     if (data_mode) escape_to_command_mode();
 
     // Then hangup command
-    writeLine(gpppdata.modemHangupStr().local8Bit());
+    writeLine(gpppdata.modemHangupStr().toLocal8Bit());
 
     usleep(gpppdata.modemInitDelay() * 10000); // 0.01 - 3.0 sec
 
@@ -414,7 +414,7 @@ void Modem::escape_to_command_mode() {
 
   // +3 because quiet time must be greater than guard time.
   usleep((gpppdata.modemEscapeGuardTime()+3)*20000);
-  Q3CString tmp = gpppdata.modemEscapeStr().local8Bit();
+  Q3CString tmp = gpppdata.modemEscapeStr().toLocal8Bit();
   write(modemfd, tmp.data(), tmp.length());
   tcflush(modemfd, TCIOFLUSH);
   usleep((gpppdata.modemEscapeGuardTime()+3)*20000);

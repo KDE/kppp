@@ -194,7 +194,7 @@ void ModemTransfer::do_script() {
     query.sprintf("ATI%d\n", step);
     statusBar->setText(msg);
     progressBar->advance(1);
-    Modem::modem->writeLine(query.local8Bit());
+    Modem::modem->writeLine(query.toLocal8Bit());
     break;
 
   default:
@@ -215,7 +215,7 @@ void ModemTransfer::readtty() {
     return;
 
   readbuffer.replace(QRegExp("[\n\r]")," ");         // remove stray \n and \r
-  readbuffer = readbuffer.stripWhiteSpace(); // strip of leading or trailing white
+  readbuffer = readbuffer.trimmed(); // strip of leading or trailing white
                                                  // space
 
   if(step <= NUM_OF_ATI)

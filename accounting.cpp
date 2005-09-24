@@ -143,7 +143,7 @@ void AccountingBase::logMessage(QString s, bool newline) {
 	f.at(f.size());
     }
 
-    Q3CString tmp = s.local8Bit();
+    Q3CString tmp = s.toLocal8Bit();
     f.writeBlock(tmp, tmp.length());
     f.close();
   }
@@ -310,7 +310,7 @@ void Accounting::slotStop() {
 
     QString s;
     s.sprintf(":%s:%0.4e:%0.4e:%u:%u\n",
-	      timet2qstring(time(0)).utf8().data(),
+	      timet2qstring(time(0)).toUtf8().data(),
 	      session(),
 	      total(),
 	      stats->ibytes,
@@ -395,7 +395,7 @@ void ExecutableAccounting::gotData(KProcess */*proc*/, char *buffer, int /*bufle
   }
 
   for(int i = 0; i < nFields;i++)
-    fprintf(stderr, "FIELD[%d] = %s\n", i, field[i].local8Bit().data());
+    fprintf(stderr, "FIELD[%d] = %s\n", i, field[i].toLocal8Bit().data());
   
   QString __total, __session;
   QString s(buffer);
@@ -424,8 +424,8 @@ void ExecutableAccounting::gotData(KProcess */*proc*/, char *buffer, int /*bufle
   }
 
   printf("PROVIDER=%s, CURRENCY=%s, TOTAL=%0.3e, SESSION=%0.3e\n", 
-	 provider.local8Bit().data(),
-	 currency.local8Bit().data(),
+	 provider.toLocal8Bit().data(),
+	 currency.toLocal8Bit().data(),
 	 _total,
 	 _session);
 }
@@ -465,7 +465,7 @@ void ExecutableAccounting::slotStop() {
 
     QString s;
     s.sprintf(":%s:%0.4e:%0.4e:%u:%u\n",
-	      timet2qstring(time(0)).local8Bit().data(),
+	      timet2qstring(time(0)).toLocal8Bit().data(),
 	      session(),
 	      total(),
 	      stats->ibytes,
