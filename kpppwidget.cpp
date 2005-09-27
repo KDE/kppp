@@ -40,7 +40,7 @@
 #include <Q3PopupMenu>
 #include <kdialogbase.h>
 
-
+#include <QMenu>
 #include <kaboutdata.h>
 #include <kapplication.h>
 #include <kbuttonbox.h>
@@ -211,7 +211,9 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   KHelpMenu *helpMenu = new KHelpMenu(this, KGlobal::instance()->aboutData(), true);
   help_b->setPopup((Q3PopupMenu*)helpMenu->menu());
-
+#if 0 //After move kdelibs trunk to kdelibs-snapshot 
+  help_b->setMenu(helpMenu->menu());
+#endif  
   if(help_b->sizeHint().width() > minw)
       minw = help_b->sizeHint().width();
 
