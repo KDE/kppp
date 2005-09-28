@@ -1,4 +1,5 @@
 pkg_DATA = Atlanet.rst \
+	Cheapnet.rst \
 	Infostrada_Internet_SpZero.rst \
 	Infostrada_Libero1055_Base.rst \
 	Infostrada_Libero1055_SpZero.rst \
