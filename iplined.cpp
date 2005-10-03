@@ -27,8 +27,9 @@
 #include "iplined.h"
 
 IPLineEdit::IPLineEdit( QWidget *parent, const char *name )
-  : KRestrictedLine(parent, name, "0123456789.")
+  : KRestrictedLine(QString("0123456789."), parent)
 {
+  setObjectName(name);
   setMaxLength(3 * 4 + 1 * 3);
 }
 

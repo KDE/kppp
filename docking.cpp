@@ -27,7 +27,7 @@
 #include <kwin.h>
 #include <klocale.h>
 #include <kiconloader.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 
 #include "docking.h"
 #include "main.h"

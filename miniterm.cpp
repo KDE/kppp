@@ -33,12 +33,12 @@
 #include "modem.h"
 #include "miniterm.h"
 #include <klocale.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 #include <kglobalsettings.h>
 #include <kapplication.h>
 #include <kmenubar.h>
 #include <kstdguiitem.h>
-
+#include <kguiitem.h>
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qtimer.h>
@@ -48,6 +48,7 @@
 #include <Q3Frame>
 #include <QKeyEvent>
 #include <QCloseEvent>
+#include <ktoolinvocation.h>
 
 
 extern PPPData gpppdata;
@@ -226,7 +227,7 @@ void MiniTerm::closeEvent( QCloseEvent *e ) {
 
 
 void MiniTerm::help() {
-  kapp->invokeHelp();
+  KToolInvocation::invokeHelp();
 }
 
 

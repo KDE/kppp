@@ -61,6 +61,7 @@
 
 #include <stdlib.h>
 #include <errno.h>
+#include <ktoolinvocation.h>
 
 #include "runtests.h"
 
@@ -871,7 +872,7 @@ void KPPPWidget::delayedDisconnect() {
 
 
 void KPPPWidget::helpbutton() {
-  kapp->invokeHelp();
+  KToolInvocation::invokeHelp();
 }
 
 

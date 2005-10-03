@@ -44,6 +44,7 @@
 #include <q3listbox.h>
 #include <kconfig.h>
 #include <kstdguiitem.h>
+#include <kguiitem.h>
 
 ModemSelector::ModemSelector(QWidget *parent) : QDialog(parent, 0, true) {
   // set up widgets and such

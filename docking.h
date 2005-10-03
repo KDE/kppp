@@ -63,7 +63,7 @@ private:
   int toggleID;
   PPPStats *stats;
 
-  KPopupMenu *popup_m;
+  KMenu *popup_m;
 
   QPixmap dock_none_pixmap;
   QPixmap dock_left_pixmap;
