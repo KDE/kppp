@@ -180,7 +180,7 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
     graph->setBackgroundColor(bg);
   }
 
-  cancelbutton = new KPushButton(KStdGuiItem::close(),this, "cancelbutton");
+  cancelbutton = new KPushButton(KStdGuiItem::close(),this);
   cancelbutton->setFocus();
   connect(cancelbutton, SIGNAL(clicked()), this,SLOT(cancel()));
   cancelbutton->setFixedHeight(cancelbutton->sizeHint().height());
