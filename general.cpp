@@ -628,22 +628,26 @@ GraphSetup::GraphSetup(QWidget *parent, const char *name) :
   QLabel *label;
 
   label = new QLabel(i18n("Bac&kground:"), grpColor);
-  bg_color = new KColorButton(bg, grpColor);
+  bg_color = new KColorButton( bg );
+bg_color->setObjectName( grpColor );
   bg_color->setFixedSize(80, 24);
   label->setBuddy(bg_color);
 
   label = new QLabel(i18n("&Text:"), grpColor);
-  text_color = new KColorButton(text, grpColor);
+  text_color = new KColorButton( text );
+text_color->setObjectName( grpColor );
   text_color->setFixedSize(80, 24);
   label->setBuddy(text_color);
 
   label = new QLabel(i18n("I&nput bytes:"), grpColor);
-  in_color = new KColorButton(in, grpColor);
+  in_color = new KColorButton( in );
+in_color->setObjectName( grpColor );
   in_color->setFixedSize(80, 24);
   label->setBuddy(in_color);
 
   label = new QLabel(i18n("O&utput bytes:"), grpColor);
-  out_color = new KColorButton(out, grpColor);
+  out_color = new KColorButton( out );
+out_color->setObjectName( grpColor );
   out_color->setFixedSize(80, 24);
   label->setBuddy(out_color);
 
