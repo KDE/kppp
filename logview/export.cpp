@@ -73,7 +73,7 @@ ExportWizard::ExportWizard(QWidget *parent, const QString &_date)
   formatLayout->addSpacing(10);
 
   typeInfo = new QLabel(formatPage);
-  typeInfo->setAlignment(Qt::AlignTop | Qt::WordBreak);
+  typeInfo->setAlignment(Qt::AlignTop | Qt::TextWordWrap);
   typeInfo->setText(i18n("<qt><b>Please choose the output format on the left side.</b></qt>"));
   typeInfo->setMinimumSize(350, 200);
   formatLayout->addWidget(typeInfo);
