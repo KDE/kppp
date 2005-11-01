@@ -33,6 +33,7 @@
 #include <kapplication.h>
 #include <kglobalsettings.h>
 #include <assert.h>
+#include <kglobal.h>
 
 PPPData gpppdata;
 
@@ -56,7 +57,7 @@ PPPData::PPPData()
 //
 bool PPPData::open() {
 
-  config = kapp->config();
+  config = KGlobal::config();
 
   if (config->getConfigState() == KConfig::NoAccess) {
     KMessageBox::error(0L,

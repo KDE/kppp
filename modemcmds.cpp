@@ -42,6 +42,7 @@
 #include <qlineedit.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
+#include <kiconloader.h>
 
 
 #define ADJUSTEDIT(e) e->setText("XXXXXXXXqy"); e->setMinimumSize(e->sizeHint()); e->setFixedHeight(e->sizeHint().height()); e->setText(""); e->setMaxLength(MODEMSTR_SIZE);
@@ -52,7 +53,7 @@
 ModemCommands::ModemCommands(QWidget *parent, const char *name)
   : KDialogBase(parent, name, true, i18n("Edit Modem Commands"), Ok|Cancel)
 {
-  KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
+  KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(KIcon::Desktop),IconSize(KIcon::Desktop)), qApp->windowIcon().pixmap(IconSize(KIcon::Small),IconSize(KIcon::Small)));
   QWidget *dummyWidget = new QWidget(this);
   setMainWidget(dummyWidget);
 

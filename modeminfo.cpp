@@ -41,12 +41,13 @@
 #include "modeminfo.h"
 #include "modem.h"
 #include <klocale.h>
+#include <kiconloader.h>
 
 ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
   : QDialog(parent, name,TRUE, Qt::WStyle_Customize|Qt::WStyle_NormalBorder)
 {
   setCaption(i18n("ATI Query"));
-  KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
+  KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(KIcon::Desktop),IconSize(KIcon::Desktop)), qApp->windowIcon().pixmap(IconSize(KIcon::Small),IconSize(KIcon::Small)));
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
 
@@ -253,7 +254,7 @@ ModemInfo::ModemInfo(QWidget *parent, const char* name)
   QString label_text;
 
   setCaption(i18n("Modem Query Results"));
-  KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
+  KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(KIcon::Desktop),IconSize(KIcon::Desktop)), qApp->windowIcon().pixmap(IconSize(KIcon::Small),IconSize(KIcon::Small)));
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
 

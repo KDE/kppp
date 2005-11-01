@@ -45,6 +45,7 @@
 #include <kstdguiitem.h>
 //#include <qvgroupbox.h>
 #include <QBoxLayout>
+#include <kiconloader.h>
 #include "pppdata.h"
 #include "accounts.h"
 #include "accounting.h"
@@ -342,7 +343,7 @@ int AccountWidget::doTab(){
   tabWindow = new KDialogBase( KDialogBase::Tabbed, QString::null,
                                KDialogBase::Ok|KDialogBase::Cancel, KDialogBase::Ok,
                                0, 0, true);
-  KWin::setIcons(tabWindow->winId(), kapp->icon(), kapp->miniIcon());
+  KWin::setIcons(tabWindow->winId(), qApp->windowIcon().pixmap(IconSize(KIcon::Desktop),IconSize(KIcon::Desktop)), qApp->windowIcon().pixmap(IconSize(KIcon::Small),IconSize(KIcon::Small)));
   bool isnewaccount;
 
   if(gpppdata.accname().isEmpty()) {
@@ -425,7 +426,7 @@ QString AccountWidget::prettyPrintVolume(unsigned int n) {
 //
 /////////////////////////////////////////////////////////////////////////////
 QueryReset::QueryReset(QWidget *parent) : QDialog(parent, 0, true) {
-  KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
+  KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(KIcon::Desktop),IconSize(KIcon::Desktop)), qApp->windowIcon().pixmap(IconSize(KIcon::Small),IconSize(KIcon::Small)));
   setCaption(i18n("Reset Accounting"));
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);

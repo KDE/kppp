@@ -1208,7 +1208,7 @@ void ScriptWidget::removeButton() {
 //
 /////////////////////////////////////////////////////////////////////////////
 PhoneNumberDialog::PhoneNumberDialog(QWidget *parent) : KDialogBase(parent, 0, true, i18n("Add Phone Number"), Ok|Cancel) {
-  KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
+  KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(KIcon::Desktop),IconSize(KIcon::Desktop)), qApp->windowIcon().pixmap(IconSize(KIcon::Small),IconSize(KIcon::Small)));
 
   QWidget *hbox = new QWidget(this);
   QHBoxLayout *hboxLayout2 = new QHBoxLayout(hbox);

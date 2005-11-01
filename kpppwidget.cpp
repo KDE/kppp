@@ -187,7 +187,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
  		       "Turn it off if <i>kppp</i> routinely connects without\n"
  		       "problems"));
 
-  fline = new KSeparator( KSeparator::HLine, this);
+  fline = new KSeparator( Qt::Horizontal, this);
   tl->addWidget(fline);
 
   QHBoxLayout *l2 = new QHBoxLayout;
@@ -246,17 +246,17 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   stats = new PPPStats;
 
-  KWin::setIcons(winId(), kapp->icon(), kapp->miniIcon());
+  KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(KIcon::Desktop),IconSize(KIcon::Desktop)), qApp->windowIcon().pixmap(IconSize(KIcon::Small),IconSize(KIcon::Small)));
 
   // constructor of con_win reads position from config file
   con_win = new ConWindow(0, "conw", this, stats);
-  KWin::setIcons(con_win->winId(), kapp->icon(), kapp->miniIcon());
+  KWin::setIcons(con_win->winId(), qApp->windowIcon().pixmap(IconSize(KIcon::Desktop),IconSize(KIcon::Desktop)), qApp->windowIcon().pixmap(IconSize(KIcon::Small),IconSize(KIcon::Small)));
 
   statdlg = new PPPStatsDlg(0, "stats", this, stats);
   statdlg->hide();
 
   debugwindow = new DebugWidget(0,"debugwindow");
-  KWin::setIcons(debugwindow->winId(), kapp->icon(), kapp->miniIcon());
+  KWin::setIcons(debugwindow->winId(), qApp->windowIcon().pixmap(IconSize(KIcon::Desktop),IconSize(KIcon::Desktop)), qApp->windowIcon().pixmap(IconSize(KIcon::Small),IconSize(KIcon::Small)));
   debugwindow->hide();
 
   // load up the accounts combo box
@@ -264,7 +264,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   resetaccounts();
   resetmodems();
   con = new ConnectWidget(0, "con", stats);
-  KWin::setIcons(con->winId(), kapp->icon(), kapp->miniIcon() );
+  KWin::setIcons(con->winId(), qApp->windowIcon().pixmap(IconSize(KIcon::Desktop),IconSize(KIcon::Desktop)), qApp->windowIcon().pixmap(IconSize(KIcon::Small),IconSize(KIcon::Small)) );
   connect(this, SIGNAL(begin_connect()),con, SLOT(preinit()));
 
   QRect desk = KGlobalSettings::desktopGeometry(topLevelWidget());
@@ -395,7 +395,7 @@ void KPPPWidget::prepareSetupDialog() {
                                  kapp->mainWidget(), 0, true);
 
 
-    KWin::setIcons(tabWindow->winId(), kapp->icon(), kapp->miniIcon());
+    KWin::setIcons(tabWindow->winId(), qApp->windowIcon().pixmap(IconSize(KIcon::Desktop),IconSize(KIcon::Desktop)), qApp->windowIcon().pixmap(IconSize(KIcon::Small),IconSize(KIcon::Small)));
 
     //    tabWindow->setFixedSize( 365, 375 );
 
