@@ -227,7 +227,7 @@ PDB_Country::PDB_Country(QWidget *parent) : QWidget(parent) {
     for(; it != itEnd; ++it) {
       fi = *it;
       if(fi.fileName() != "." && fi.fileName() != "..") {
-        QString dirFile(fi.absFilePath()+"/.directory");
+        QString dirFile(fi.absoluteFilePath()+"/.directory");
         QString entryName;
         if(QFile::exists(dirFile)){
           KSimpleConfig config(dirFile);

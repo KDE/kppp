@@ -67,7 +67,7 @@ int loadLogs() {
   int retval = 0;
   while (it1 != it1End) {
     fi = *it1;
-    retval += loadLog(fi.absFilePath());
+    retval += loadLog(fi.absoluteFilePath());
     ++it1;
   }
 

@@ -166,7 +166,7 @@ Export::~Export()
 
 bool Export::openFile() {
   file.setName(filename);
-  return file.open(IO_WriteOnly);
+  return file.open(QIODevice::WriteOnly);
 }
 
 bool Export::closeFile() {
