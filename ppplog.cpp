@@ -272,7 +272,7 @@ void PPPL_ShowLog() {
 
   if(dlg->exec()) {
     QDir d = QDir::home();
-    QString s = d.absPath() + "/PPP-logfile";
+    QString s = d.absolutePath() + "/PPP-logfile";
     int old_umask = umask(0077);
 
     FILE *f = fopen(QFile::encodeName(s), "w");

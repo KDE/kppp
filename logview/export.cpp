@@ -131,9 +131,9 @@ void ExportWizard::getFilename() {
   if ( i == -1 )
       return;
   // prepare filter: e.g.: HTML (*.html *.HTML)
-  QString filter = "*." + ExportFormats[i].ext + " *." + ExportFormats[i].ext.upper() + "|" +
+  QString filter = "*." + ExportFormats[i].ext + " *." + ExportFormats[i].ext.toUpper() + "|" +
                    i18n(ExportFormats[i].name.toUtf8()) + " (*." + ExportFormats[i].ext + " *." +
-                   ExportFormats[i].ext.upper() + ")";
+                   ExportFormats[i].ext.toUpper() + ")";
 
   filename = KFileDialog::getSaveFileName(date + "." + ExportFormats[i].ext, filter, 0, i18n("Please Choose File"));
   if (filename.isEmpty()) // no file selected
@@ -171,7 +171,7 @@ bool Export::openFile() {
 
 bool Export::closeFile() {
   bool ok = true;
-  if (file.writeBlock(buffer.toLocal8Bit(), buffer.length())<0)
+  if (file.write(buffer.toLocal8Bit(), buffer.length())<0)
     ok = false;
   file.close();
   return ok;

@@ -138,13 +138,13 @@ void AccountingBase::logMessage(QString s, bool newline) {
 	char c = 0;
 	f.readBlock(&c, 1);
 	if(c != '\n')
-	  f.writeBlock("\n", 1);
+	  f.write("\n", 1);
       } else
 	f.at(f.size());
     }
 
     Q3CString tmp = s.toLocal8Bit();
-    f.writeBlock(tmp, tmp.length());
+    f.write(tmp, tmp.length());
     f.close();
   }
 

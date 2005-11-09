@@ -660,7 +660,7 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
   add = new QPushButton(i18n("&Add"), parent);
   connect(add, SIGNAL(clicked()), SLOT(adddns()));
   int width = add->sizeHint().width();
-  width = QMAX(width,60);
+  width = qMax(width,60);
   add->setMinimumWidth(width);
   l1->addWidget(add);
   l1->addStretch(1);
@@ -672,7 +672,7 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
   remove = new QPushButton(i18n("&Remove"), parent);
   connect(remove, SIGNAL(clicked()), SLOT(removedns()));
   width = remove->sizeHint().width();
-  width = QMAX(width,60);
+  width = qMax(width,60);
   remove->setMinimumWidth(width);
   l1->addWidget(remove);
   remove->setWhatsThis(

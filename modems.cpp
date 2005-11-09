@@ -78,7 +78,7 @@ ModemsWidget::ModemsWidget( QWidget *parent, const char *name )
   edit_b->setWhatsThis( i18n("Allows you to modify the selected account"));
 
   min = edit_b->sizeHint().width();
-  min = QMAX(70,min);
+  min = qMax(70,min);
   edit_b->setMinimumWidth(min);
 
   l111->addWidget(edit_b);

@@ -121,7 +121,7 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   messg->setText(i18n("Unable to create modem lock file."));
   messg->setMinimumHeight(messg->sizeHint().height() + 5);
   int messw = (messg->sizeHint().width() * 12) / 10;
-  messw = QMAX(messw,280);
+  messw = qMax(messw,280);
   messg->setMinimumWidth(messw);
   messg->setText(i18n("Looking for modem..."));
   l0->addWidget(messg);
@@ -139,9 +139,9 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   cancel->setFocus();
   connect(cancel, SIGNAL(clicked()), SLOT(cancelbutton()));
 
-  int maxw = QMAX(cancel->sizeHint().width(),
+  int maxw = qMax(cancel->sizeHint().width(),
 		 debug->sizeHint().width());
-  maxw = QMAX(maxw,65);
+  maxw = qMax(maxw,65);
   debug->setFixedWidth(maxw);
   cancel->setFixedWidth(maxw);
   l1->addWidget(debug);
@@ -575,7 +575,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	messg->setText(bm);
 	emit debugMessage(bm);
 
-	if (scriptArgument.lower() == "password") {
+	if (scriptArgument.toLower() == "password") {
 	  gpppdata.setPassword(scanvar);
 	  p_kppp->setPW_Edit(scanvar);
 	  if(gpppdata.storePassword())

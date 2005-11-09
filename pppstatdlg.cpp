@@ -184,7 +184,7 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
   cancelbutton->setFocus();
   connect(cancelbutton, SIGNAL(clicked()), this,SLOT(cancel()));
   cancelbutton->setFixedHeight(cancelbutton->sizeHint().height());
-  cancelbutton->setMinimumWidth(QMAX(cancelbutton->sizeHint().width(), 70));
+  cancelbutton->setMinimumWidth(qMax(cancelbutton->sizeHint().width(), 70));
   l12->addWidget(cancelbutton);
 
   if(gpppdata.graphingEnabled()) {
