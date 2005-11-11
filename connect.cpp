@@ -232,7 +232,7 @@ void ConnectWidget::init() {
     emit debugMessage(i18n("Running pre-startup command..."));
 
     kapp->processEvents();
-    QApplication::flushX();
+    QApplication::flush();
     pid_t id = execute_command(gpppdata.command_before_connect());
     int i, status;
 
@@ -923,7 +923,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       // find out PPP interface and notify the stats module
       stats->setUnit(pppInterfaceNumber());
 
-      kapp->flushX();
+      kapp->flush();
       semaphore = true;
       result = execppp();
 
@@ -1206,7 +1206,7 @@ void ConnectWidget::if_waiting_slot() {
     messg->setText(i18n("Running startup command..."));
 
     // make sure that we don't get any async errors
-    kapp->flushX();
+    kapp->flush();
     execute_command(gpppdata.command_on_connect());
     messg->setText(i18n("Done"));
   }
@@ -1351,7 +1351,7 @@ bool ConnectWidget::execppp() {
     return false; // nonsensically long command which would bust my buffer buf.
   }
 
-  kapp->flushX();
+  kapp->flush();
 
   return Requester::rq->execPPPDaemon(command);
 }

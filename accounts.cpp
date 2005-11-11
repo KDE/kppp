@@ -214,7 +214,7 @@ void AccountWidget::slotListBoxSelect(int idx) {
 
 void AccountWidget::viewLogClicked(){
 
-    QApplication::flushX();
+    QApplication::flush();
     if(fork() == 0) {
       setgid(getgid());
       setuid(getuid());

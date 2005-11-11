@@ -115,7 +115,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   if(pmfolder.width() > 0) {
     QMatrix wm;
     wm.scale(16.0/pmfolder.width(), 16.0/pmfolder.width());
-    pmfolder = pmfolder.xForm(wm);
+    pmfolder = pmfolder.transformed(wm);
   }
 
   // load the pmfolder pixmap from KDEdir
@@ -125,7 +125,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   if(pmfile.width() > 0) {
     QMatrix wm;
     wm.scale(16.0/pmfile.width(), 16.0/pmfile.width());
-    pmfile = pmfile.xForm(wm);
+    pmfile = pmfile.transformed(wm);
   }
 
   enable_accounting->setChecked(gpppdata.AcctEnabled());

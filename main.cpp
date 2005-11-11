@@ -327,7 +327,7 @@ pid_t execute_command (const QString & cmd) {
 
   kdDebug(5002) << "Executing command: " << command << endl;
 
-  QApplication::flushX();
+  QApplication::flush();
   if((id = fork()) == 0) {
     // don't bother dieppp()
     signal(SIGCHLD, SIG_IGN);
