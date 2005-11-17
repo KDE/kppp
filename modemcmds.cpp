@@ -37,7 +37,7 @@
 #include "modemcmds.h"
 #include "pppdata.h"
 #include <kwin.h>
-
+#include <Q3Frame>
 #include <q3groupbox.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
