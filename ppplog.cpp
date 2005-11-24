@@ -32,7 +32,6 @@
 #include <qpushbutton.h>
 //Added by qt3to4:
 #include <QVBoxLayout>
-#include <Q3CString>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -106,7 +105,7 @@ int PPPL_MakeLog(QStringList &list) {
 
   for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
   {
-    Q3CString tmp = (*it).toLocal8Bit();
+    QByteArray tmp = (*it).toLocal8Bit();
     for(int j = 0; keyword[j] != 0; j++) {
       char *p;
 

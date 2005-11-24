@@ -32,7 +32,6 @@
 #include <setjmp.h>
 #include <qregexp.h>
 //Added by qt3to4:
-#include <Q3CString>
 #include <assert.h>
 
 #include "modem.h"
@@ -414,7 +413,7 @@ void Modem::escape_to_command_mode() {
 
   // +3 because quiet time must be greater than guard time.
   usleep((gpppdata.modemEscapeGuardTime()+3)*20000);
-  Q3CString tmp = gpppdata.modemEscapeStr().toLocal8Bit();
+  QByteArray tmp = gpppdata.modemEscapeStr().toLocal8Bit();
   write(modemfd, tmp.data(), tmp.length());
   tcflush(modemfd, TCIOFLUSH);
   usleep((gpppdata.modemEscapeGuardTime()+3)*20000);
