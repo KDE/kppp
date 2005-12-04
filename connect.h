@@ -142,7 +142,7 @@ private:
   bool firstrunID;
   bool firstrunPW;
 
-  unsigned int dialnumber; // the current number to dial
+  int dialnumber; // the current number to dial
 
   PPPStats *stats;
 };
