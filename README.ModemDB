@@ -23,7 +23,7 @@ PreInitDelay:	Delay after opening the modem, before sending the Init
 PostInitDelay:	Delay after sending the Init command (30)
 InitResponse:	Modem response to the Init command (OK)
 BlindDialOn:	To dial without waiting for line carrier (ATX3)
-BlindDialOff:	Don´t dial without waiting for line carrier (ATX4)
+BlindDialOff:	Don't dial without waiting for line carrier (ATX4)
 ToneDial:	The command to dial out, number is appended (ATDT)
 PulseDial:	The command to use impulse dialing (ATDP)
 ConnectResponse:The modems answer to "Dial" when connection is established

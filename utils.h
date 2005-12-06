@@ -38,7 +38,7 @@
 // return the number the PPP interface will get (HACK: of course this
 // may fail, if another interface comes up between the result of this
 // function and the desired ppp interface to come up. If used rightly,
-// it´s very unlikely that this fails)
+// it's very unlikely that this fails)
 int pppInterfaceNumber();
 
 #endif

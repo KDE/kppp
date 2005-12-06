@@ -315,7 +315,7 @@
 
 	* modem.cpp: dropped ISTRIP option and made everything else "8-bit
 	clean" by using unsigned char and removing 0x7F AND'ing. Characters
-	like [§´°öäü] will work now.
+	like [Â§'Â°Ã¶Ã¤Ã¼] will work now.
 	* modem.cpp: use usleep() replacement from kdecore/fakes.cpp
 
 1999-03-10  Harri Porten  <porten@kde.org>
@@ -358,7 +358,7 @@
 
 1999-02-13  Harri Porten  <porten@kde.org>
 
-	* there´s no a provider database (just one entry for now) and a
+	* there's no a provider database (just one entry for now) and a
 	  wizard for this.
 
 1999-02-11  Harri Porten  <porten@kde.org>
@@ -428,8 +428,8 @@
    	  improvements	
 
 	* removed the disturbing "Show log window" button. The log window
-	  now remembers if it was shown or hidden last time. Now I´m
-	  waiting for feedback, if everybody is happy I´ll remove it
+	  now remembers if it was shown or hidden last time. Now I'm
+	  waiting for feedback, if everybody is happy I'll remove it
 	  completly.
 
 	* removed some #include from header files and moved them to the
@@ -457,7 +457,7 @@
           "Auto-configure hostname" option.
 
 	* The log window is now hidden if we are connected. If a
-	connection is up and running, there´s no need for a debug
+	connection is up and running, there's no need for a debug
 	window
 
 	* The "/dev/cua*" devices are no longer available under Linux
@@ -617,7 +617,7 @@
 1998-12-27  Mario Weilguni <mweilguni@kde.org>
 
 	* moved gpppdata.setpppdError(0) to end of dieppp()
-	* the "Don´t show this hint again" option is now immediatly saved
+	* the "Don't show this hint again" option is now immediatly saved
 
 1998-12-26  Mario Weilguni <mweilguni@kde.org>
 
@@ -1033,7 +1033,7 @@
 	is turned on
 	* Improved the response time for modem output. Modem output is
 	polled in longer intervals, if data is pending the polling time
-	is shortened, otherwise the polling time is set back to it´s 
+	is shortened, otherwise the polling time is set back to it's 
 	original, rather high value
 	* re-worked the "About" widget. It was time to save poor old Bernd
 	from receiving bug-reports.
@@ -1056,7 +1056,7 @@
 	to separate the dialer and the setup later
 	* general.cpp: code cleanups
 	* accounts.cpp: removed as many references to p_kppp as possible,
-	using signal/slots instead of. There´s only on occurence of p_kppp
+	using signal/slots instead of. There's only on occurence of p_kppp
 	left
 	* general.cpp: removed the mysterious function itoa (nowhere used)
 	* various files: a lot of code cleanups, removed many references
@@ -1163,7 +1163,7 @@
 1998-07-11  Harri Porten  <porten@tu-harburg.de>
 
 	* main.cpp: replaced ~/.kde with kdelocaldir() 
-	* connect.cpp: hardcoded ´-detach´ as pppd argument
+	* connect.cpp: hardcoded '-detachÂ´ as pppd argument
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>> KDE 1.0 released <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	
@@ -1181,9 +1181,9 @@
 
 	* replaced klocale->translate() with i18n() and every reference to
 	XPPP with KPPP
-	* utilize ´kapp´ (defined in kapp.h) instead of the global ´extern
-	KApplication *app´
-	(Sorry about the large amount of changes, but I couldn´t resist to 
+	* utilize 'kappÂ´ (defined in kapp.h) instead of the global Â´extern
+	KApplication *app'
+	(Sorry about the large amount of changes, but I couldn't resist to 
         clean up the code)
 
 1998-06-02  Harri Porten  <porten@tu-harburg.de>
@@ -1192,7 +1192,7 @@
 
 Mon Jun  1 16:13:06 1998    Mario Weilguni <mweilguni@kde.org>
 
-	* kppp did´nt like "$" in modem strings, fixed that
+	* kppp did'nt like "$" in modem strings, fixed that
 	
 Sun May 24 23:39:42 1998  Bernd Johannes Wuebben  <wuebben@math.cornell.edu>
 
@@ -1228,7 +1228,7 @@ Tue May 12 18:55:02 1998    Mario Weilguni <mweilguni@kde.org>
 	  CONNECT_TIME_FROM:CONNECTION_PEER:CURRENCY_SYMBOL: \
 	  CONNECT_TIME_UNTIL:SUBTOTAL:TOTAL:BYTES_IN_BYTES_OUT	
 
-	  there´s a small tcl script which converts the log files. Simply
+	  there's a small tcl script which converts the log files. Simply
 	  use "tclsh convlog.tcl" will convert all log-files, but NOT
 	  delete the old ones.
 
@@ -1303,7 +1303,7 @@ Mon Apr  6 20:18:40 1998    <mweilguni@kde.org>
 
 	* fixed a volume accounting bug
 	* volume accounting is now configureable (bytes in, out, in/out)
-	* added new feature (very usefull for sysadmins). If there´s a
+	* added new feature (very usefull for sysadmins). If there's a
 	file /etc/kppp.allow, only users from that file may use kppp to
 	dial out. Format is one entry per line, comments begin with "#",
 	users specified by their login names
@@ -1326,7 +1326,7 @@ Tue Mar 31 18:54:13 1998  Harri Porten  <porten@tu-harburg.de>
 Mon Mar 30 22:02:07 1998    <mweilguni@kde.org>
 
 	* added volume accounting (currently, only inbytes are counted,
-	but should be very easy to change). Unfortunatly, there´s no
+	but should be very easy to change). Unfortunatly, there's no
 	method yet to reset the number of bytes, so you have to fiddle
 	around in kppprc.	
 

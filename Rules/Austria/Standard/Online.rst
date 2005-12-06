@@ -5,9 +5,9 @@
 # created by Mario Weilguni <mweilguni@sime.com>
 #
 # Version 2
-# lt. österreichischer Post gelten an Feiertagen anders als auf der
-# PTA Homepage angekündigt der Spar- bzw. Superspartarif. Daher habe ich
-# einige der österreichischen Feiertage eingetragen. Sollte mir einer
+# lt. Ã¶sterreichischer Post gelten an Feiertagen anders als auf der
+# PTA Homepage angekÃ¼ndigt der Spar- bzw. Superspartarif. Daher habe ich
+# einige der Ã¶sterreichischen Feiertage eingetragen. Sollte mir einer
 # entgangen sein, so bitte an mich melden.
 #
 # Sollte die Information nicht stimmen, so flames bitte an:
