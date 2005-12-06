@@ -23,7 +23,7 @@ on (monday..friday) between (21:00..5:00)   use (0.12, 240)
 on (saturday..sunday) between (21:00..5:00)   use (0.12, 240) 
 on (saturday..sunday) between (5:00..21:00)   use (0.12, 150) 
 
-# Feiertage  ein Dankeschön an Joachim Wesner,Stefan Markgraf,Stefan Troeger für die Feiertage
+# Feiertage  ein DankeschÃ¶n an Joachim Wesner,Stefan Markgraf,Stefan Troeger fÃ¼r die Feiertage
 on (01/01, easter-2, easter, easter+1, 05/01, easter+39, easter+49, easter+50, 10/03, 12/24, 12/25, 12/26, 12/31) between (21:00..5:00) use (0.12, 240)
 on (01/01, easter-2, easter, easter+1, 05/01, easter+39, easter+49, easter+50, 10/03, 12/24, 12/25, 12/26, 12/31) between (5:00..21:00) use (0.12, 150)
 

@@ -1,8 +1,8 @@
 ################################################################
 # Slovak Telecom rate ruleset
 #
-# created 98/01/29 by Juraj Bednár <juraj@bednar.sk>
-# updated 01/07/03 by Juraj Bednár <juraj@bednar.sk>
+# created 98/01/29 by Juraj BednÃ¡r <juraj@bednar.sk>
+# updated 01/07/03 by Juraj BednÃ¡r <juraj@bednar.sk>
 #
 # no extensive testing...
 # updated 00/03/04 by carcass <carcass@gmx.net>

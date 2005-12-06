@@ -51,7 +51,7 @@
   on (01/01) between () use (0.001667, 1)
   on (01/01) between () use (0.001333, 1, 3600)
 
-# "Skærtorsdag"
+# "SkÃ¦rtorsdag"
   on (easter-3) between () use (0.001667, 1)
   on (easter-3) between () use (0.001333, 1, 3600)
 
@@ -59,7 +59,7 @@
   on (easter-2) between () use (0.001667, 1)
   on (easter-2) between () use (0.001333, 1, 3600)
 
-# "2. påskedag"
+# "2. pÃ¥skedag"
   on (easter+1) between () use (0.001667, 1)
   on (easter+1) between () use (0.001333, 1, 3600)
 

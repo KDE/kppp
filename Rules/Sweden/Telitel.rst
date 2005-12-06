@@ -11,44 +11,44 @@ currency_symbol=SEK
 currency_position=right 
 currency_digits=2
 
-# Så här beräknar Telia samtalskostnaden (enligt vad jag förstår...)
+# SÃ¥ hÃ¤r berÃ¤knar Telia samtalskostnaden (enligt vad jag fÃ¶rstÃ¥r...)
 #
-# * en öppningsavgift debiteras för alla samtal så fort man fått svar
-# * därefter beräknas kostnaden per sekund
+# * en Ã¶ppningsavgift debiteras fÃ¶r alla samtal sÃ¥ fort man fÃ¥tt svar
+# * dÃ¤refter berÃ¤knas kostnaden per sekund
 #
 # Kostnaden per sekund beror av tiden:
-# * hög taxa vardagar kl 08:00-18:00
-# * låg taxa övrig tid
+# * hÃ¶g taxa vardagar kl 08:00-18:00
+# * lÃ¥g taxa Ã¶vrig tid
 #
-# Som vardagar räknas måndag till fredag. Dock ej:
-# * röda dagar i almanackan
-# * Vissa övriga dagar. Vilka dessa är verkar något oklart, och kan kanske
-#   variera från år till år efter Telias tycke och smak. Men en tumregel är
-#   att "aftnar" typ julafton och nyårsafton inte räknas som vardagar.
+# Som vardagar rÃ¤knas mÃ¥ndag till fredag. Dock ej:
+# * rÃ¶da dagar i almanackan
+# * Vissa Ã¶vriga dagar. Vilka dessa Ã¤r verkar nÃ¥got oklart, och kan kanske
+#   variera frÃ¥n Ã¥r till Ã¥r efter Telias tycke och smak. Men en tumregel Ã¤r
+#   att "aftnar" typ julafton och nyÃ¥rsafton inte rÃ¤knas som vardagar.
 
 
-# Öppningsavgift: 50 öre
+# Ã–ppningsavgift: 50 Ã¶re
 per_connection=0.50
 minimum_costs=0.0
 
-# Hög taxa: 20 öre/min måndag-fredag 8-18
+# HÃ¶g taxa: 20 Ã¶re/min mÃ¥ndag-fredag 8-18
 on (monday..friday) between (8:00..17:59) use (0.0033333333333, 1)
 
-# Låg taxa: 9 öre/min (räknat per sekund)
+# LÃ¥g taxa: 9 Ã¶re/min (rÃ¤knat per sekund)
 default=(0.0015, 1)
 
-# Röda helgdagar (de som infaller på en lördag/söndag utelämnade)
-# nyårsdagen
+# RÃ¶da helgdagar (de som infaller pÃ¥ en lÃ¶rdag/sÃ¶ndag utelÃ¤mnade)
+# nyÃ¥rsdagen
 on (01/01) between () use (0.0015, 1)
 # trettondag jul
 on (01/06) between () use (0.0015, 1)
-# långfredagen
+# lÃ¥ngfredagen
 on (easter-2) between () use (0.0015, 1)
-# annandag påsk
+# annandag pÃ¥sk
 on (easter+1) between () use (0.0015, 1)
-# första maj
+# fÃ¶rsta maj
 on (05/01) between () use (0.0015, 1)
-# kristi himmelfärds dag
+# kristi himmelfÃ¤rds dag
 on (easter+39) between () use (0.0015, 1)
 # annandag pingst
 on (easter+50) between () use (0.0015, 1)
@@ -57,10 +57,10 @@ on (12/25) between () use (0.0015, 1)
 # annandag jul
 on (12/26) between () use (0.0015, 1)
 
-# "aftnar" (osäkert om följande är korrekt & fullständigt)
+# "aftnar" (osÃ¤kert om fÃ¶ljande Ã¤r korrekt & fullstÃ¤ndigt)
 # trettondagsafton
 on (01/05) between () use (0.0015, 1)
 # julafton
 on (12/24) between () use (0.0015, 1)
-# nyårsafton
+# nyÃ¥rsafton
 on (12/31) between () use (0.0015, 1)

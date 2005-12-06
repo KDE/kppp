@@ -33,10 +33,10 @@ on (saturday)       between (08:00..19:00) use (0.018, 6)
 
 # National holidays:
 
-# Newyear (nytårsdag)
+# Newyear (nytÃ¥rsdag)
 on (01/01)     between () use (0.010, 6)
 on (01/01)     between () use (0.008, 6, 3600)
-# Easter (påske)
+# Easter (pÃ¥ske)
 on (easter -3) between () use (0.010, 6)
 on (easter -3) between () use (0.008, 6, 3600)
 on (easter -2) between () use (0.010, 6)

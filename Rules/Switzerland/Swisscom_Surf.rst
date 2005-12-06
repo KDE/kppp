@@ -1,11 +1,11 @@
 # Swisscom surfing rates of 0840 Business NumbersISP, Switzerland
 # Created by J. Wezel (jwezel@access.ch)
 # Sun Sep 14 01:30:33 1997
-# Changed by Daniel Brönnimann (dbroenni@g26.ethz.ch)
+# Changed by Daniel BrÃ¶nnimann (dbroenni@g26.ethz.ch)
 # Thu Nov 19 1998
 # Valid from 1-Aug-97
 # Changed by Uli Pfeiffer (uli@bluewin.ch), 29/04/2000
-# Changed by Günther Palfinger (guenther.palfinger@gmx.net), 2001-09-08
+# Changed by GÃ¼nther Palfinger (guenther.palfinger@gmx.net), 2001-09-08
 # see http://www.swisscom.ch/gd/services/voice_com/call_charges/charges_internet-en.html
 # corrected Business surf 90 -> 129 s/0.1 CHF
 

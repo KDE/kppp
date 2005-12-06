@@ -8,19 +8,19 @@
 # Created on February 2, 1999                                  #
 # Last updated on 5. September, 1999                           #
 #                                                              #
-# Ath. Höfundar bera EKKI ábyrgğ á röngum útreikningum !       #
+# Ath. HÃ¶fundar bera EKKI Ã¡byrgÃ° Ã¡ rÃ¶ngum Ãºtreikningum !       #
 #                                                              #
-# Vitağ er ağ útreikningar eru ónákvæmir, şví Landssíminn      #
-# rukkar fyrir skrefiğ, ekki mínútuna.  Şessi gjaldskrá miğast #
-# hinsvegar viğ mínútur, og byggir á upplısingum úr síma-      #
-# skránni frá 1999.                                            #
+# VitaÃ° er aÃ° Ãºtreikningar eru Ã³nÃ¡kvÃ¦mir, Ã¾vÃ­ LandssÃ­minn      #
+# rukkar fyrir skrefiÃ°, ekki mÃ­nÃºtuna.  Ãessi gjaldskrÃ¡ miÃ°ast #
+# hinsvegar viÃ° mÃ­nÃºtur, og byggir Ã¡ upplÃ½singum Ãºr sÃ­ma-      #
+# skrÃ¡nni frÃ¡ 1999.                                            #
 #                                                              #
 ################################################################
 
 ###  Name of ruleset ###
 name=Island_almennur_taxti
 
-###  Currency symbol  ### (ekki şağ alşjóğlega heldur şağ sem birtist)
+###  Currency symbol  ### (ekki Ã¾aÃ° alÃ¾jÃ³Ã°lega heldur Ã¾aÃ° sem birtist)
 currency_symbol=kr.
 
 # Define the position of the currency symbol.
@@ -38,21 +38,21 @@ currency_digits=2
 #       cost computations.
 
 #
-# Kostnağur viğ tengingu  (1 skref)
+# KostnaÃ°ur viÃ° tengingu  (1 skref)
 #
  
 per_connection=3.32
 
 #
-# Lágmarkskostnağur (şarf ekki ağ nota şví 3.32 kemur á hverja tengingu)
+# LÃ¡gmarkskostnaÃ°ur (Ã¾arf ekki aÃ° nota Ã¾vÃ­ 3.32 kemur Ã¡ hverja tengingu)
 #
 
 minimum_costs=0.0
 
 #
-# Sjálfgefinn kostnağur - Alla virka daga á daginn.
-# Virka daga bætast 1.56 kr. viğ á hverjum 60 sekúndum
-# (eğa 128 sek. í skrefi)
+# SjÃ¡lfgefinn kostnaÃ°ur - Alla virka daga Ã¡ daginn.
+# Virka daga bÃ¦tast 1.56 kr. viÃ° Ã¡ hverjum 60 sekÃºndum
+# (eÃ°a 128 sek. Ã­ skrefi)
 #
 default=(1.56, 60)
 
@@ -62,9 +62,9 @@ default=(1.56, 60)
 ###################
 
 #
-# Kvöld og næturtaxti alla virka daga
+# KvÃ¶ld og nÃ¦turtaxti alla virka daga
 #
-# 0.78 kr. á mín. (eğa 256 sek. í skrefi)
+# 0.78 kr. Ã¡ mÃ­n. (eÃ°a 256 sek. Ã­ skrefi)
 #
 
 on (monday..friday) between (19:00..07:59) use (0.78, 60)
@@ -72,39 +72,39 @@ on (monday..friday) between (19:00..07:59) use (0.78, 60)
 #
 # Helgartaxti
 #
-# Sama og K&N taxti eğa 0.78 kr. á mín.
+# Sama og K&N taxti eÃ°a 0.78 kr. Ã¡ mÃ­n.
 #
 
 on (saturday..sunday) between () use (0.78, 60)
 
 
 #
-# Hátíğisdagar:  Nota kvöld- og næturtaxta
+# HÃ¡tÃ­Ã°isdagar:  Nota kvÃ¶ld- og nÃ¦turtaxta
 #
-# Jóladagur
+# JÃ³ladagur
 #
 
 on (12/25) between () use (0.78, 60)
 
 #
-# Hátíğisdagar nota kvöld- og næturtaxta
+# HÃ¡tÃ­Ã°isdagar nota kvÃ¶ld- og nÃ¦turtaxta
 #
-# Hér eru nokkrir...
+# HÃ©r eru nokkrir...
 
 on (12/1, 12/24..12/26, 12/31, 01/01, 05/01, 06/17) between () use (0.78, 60)
 
 #
-# og ağrir tengdir páskum
+# og aÃ°rir tengdir pÃ¡skum
 #
 
-# Skírdagur
+# SkÃ­rdagur
 on (easter-3) between() use (0.78, 60)
 
-# Föstudagurinn langi
+# FÃ¶studagurinn langi
 on (easter-2) between() use (0.78, 60)
 
-# Annar í Páskum
+# Annar Ã­ PÃ¡skum
 on (easter+1) between () use (0.78, 60)
 
-# Hvítasunnudagur
+# HvÃ­tasunnudagur
 on (easter+50) between () use (0.78, 60)

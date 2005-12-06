@@ -10,10 +10,10 @@
 #
 # Name:
 #
-name=E-Plus-Online_für_Jedermann
+name=E-Plus-Online_fÃ¼r_Jedermann
 #
 #
-# Währungseinstellungen
+# WÃ¤hrungseinstellungen
 #
 currency_symbol=EUR
 currency_position=right 
@@ -28,7 +28,7 @@ minimum_costs=0.0
 #
 # Kosten pro Zeit                                   EUR/Min
 #   Mo. - Fr. 9 -18 Uhr                              0,0175
-#   übrige Zeit sowie an bundeseinh. Feiertagen      0,0125
+#   Ã¼brige Zeit sowie an bundeseinh. Feiertagen      0,0125
 #
 default=(0.002083, 10)
 on (monday..friday) between (9:00..18:00) use (0.002917, 10)

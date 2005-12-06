@@ -1,5 +1,5 @@
 ################################################################
-# Regu³y obliczania kosztów po³±czeñ modemowych w Netii dla u¿ytkowników TP S.A.
+# ReguÅ‚y obliczania kosztÃ³w poÅ‚Ä…czeÅ„ modemowych w Netii dla uÅ¼ytkownikÃ³w TP S.A.
 # Aktualizacja: 4.03.2002
 # autor: Dariusz Dobosz <D.Dobosz@pik-net.pl>
 # aktualizacje: http:/www.dobex.prv.pl/
@@ -12,8 +12,8 @@ currency_digits=2
 per_connection=0.0
 minimum_costs=0.0
 
-# Co 360 sekund bêdzie naliczany impuls o warto¶ci 25 grosze.
-# To znaczy miêdzy 22,00 a 8,00
+# Co 360 sekund bÄ™dzie naliczany impuls o wartoÅ›ci 25 grosze.
+# To znaczy miÄ™dzy 22,00 a 8,00
 default=(0.25, 360)
 # poza tym co 180 sekund.
 on (monday..friday) between (8:00..21:59) use (0.25, 180)

@@ -3,7 +3,7 @@
 # This is the cost rule for Local calls in Argentina, 
 # if your carrier are Telecom or Telefonica, as of Sep.2000. 
 # 
-# Matías Alejo García
+# MatÃ­as Alejo GarcÃ­a
 # matiu00@yahoo.com 
 ################################################################
 

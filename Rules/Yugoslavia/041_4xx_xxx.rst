@@ -2,7 +2,7 @@
 # POSEBAN SAOBRACAJ
 # Telefonski brojevi sa negeografskim kodom (041)
 # sa prvom cifrom 9 (041 4xx xxx) tarifni interval je 3 sekunde
-# u jakom i 6 sekundi u slabom saobraæaju
+# u jakom i 6 sekundi u slabom saobraÄ‡aju
 ################################################################
 #
 # NAME OF THE RULESET. This is NEEDED for accounting purposes.

@@ -1,7 +1,7 @@
 ################################################################
 #
 # This is a kppp ruleset for Eircom (formerly Telecom Eireann)
-# for a special Esat deal of £17/month flat rate to get you their
+# for a special Esat deal of Â£17/month flat rate to get you their
 # ISP calls uncharged and unrated evenings and weekends. Other times
 # they cost a regular phone call from your Telco (eg Eircom)
 #
@@ -37,7 +37,7 @@ name=Ireland_Eircom_Special
 # Define IEP (Irish Pounds) to be used as currency symbol
 # ??? There is no way to define the currency code AND the symbol !!!
 # WARNING this will have to be changed to EUR from 2002-01-01
-currency_symbol=Â£
+currency_symbol=Ã‚Â£
 
 # Define the position of the currency symbol.
 # (not absolutely needed, default is "right")
@@ -66,7 +66,7 @@ flat_init_costs=(0,0)
 
 # All subsequent charging is done per-second, based on the unit
 # charge of 11.5p for 3mins (peak hours) or 11.5p for 15mins
-# (off-peak), which works out at £0.000638889/sec and £0.000127778p/sec
+# (off-peak), which works out at Â£0.000638889/sec and Â£0.000127778p/sec
 # respectively...that's what they claim, anyway.
 
 # Rather than expect kppp to check the rate every second and add
@@ -77,9 +77,9 @@ flat_init_costs=(0,0)
 # bean-counters will round up half-penny amounts to the nearest
 # whole penny anyway (anal-retentive, are we? :-)
 
-# Thus the base rate for peak-time calls is £0.005111 for 8 secs
+# Thus the base rate for peak-time calls is Â£0.005111 for 8 secs
 # (0.115 / 180 = 0.000638889 / 0.005 = 0.127778 inv = 7.8261)
-# and off-peak is £0.005111  for 40 secs 
+# and off-peak is Â£0.005111  for 40 secs 
 # (0.115 / 900 = 0.000127778 / 0.005 = 0.25556 inv = 39.1304)
 # so accounting should happen in approx 1/2p increments...
 

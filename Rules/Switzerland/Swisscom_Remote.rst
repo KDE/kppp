@@ -1,7 +1,7 @@
 # Calls outside own area code
 # Created by J. Wezel (jwezel@access.ch)
 # Sun Sep 14 01:30:33 1997
-# Changed by Daniel Brönnimann (dbreonni@g26.ethz.ch)
+# Changed by Daniel BrÃ¶nnimann (dbreonni@g26.ethz.ch)
 # Thu Nov 19 1998
 # Changed by Fritz Zaucker (zaucker@ee.ethz.ch)
 # Sun Oct 24 1999

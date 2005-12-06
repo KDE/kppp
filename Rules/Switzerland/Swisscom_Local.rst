@@ -1,4 +1,4 @@
-# Changed by Daniel Brönnimann (dbroenni@g26.ethz.ch)# Thu Nov 19 1998
+# Changed by Daniel BrÃ¶nnimann (dbroenni@g26.ethz.ch)# Thu Nov 19 1998
 # Changed by Fritz Zaucker (zaucker@ee.ethz.ch)
 # Sun Oct 24 1999
 # Valid from 1-Oct-1999

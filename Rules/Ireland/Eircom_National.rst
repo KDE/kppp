@@ -35,7 +35,7 @@ name=Ireland_Eircom_National
 # Define IEP (Irish Pounds) to be used as currency symbol
 # ??? There is no way to define the currency code AND the symbol !!!
 # WARNING this will have to be changed to EUR from 2002-01-01
-currency_symbol=Â£
+currency_symbol=Ã‚Â£
 
 # Define the position of the currency symbol.
 # (not absolutely needed, default is "right")
@@ -65,7 +65,7 @@ flat_init_costs=(0.115,69)
 # All subsequent charging is done per-second, based on the unit
 # charge of 11.5p for 69.01 sec (peak hours) or 11.5p for 103.64 sec
 # (evenings) or 11.5p for 600 sec (weekends), which works out at 
-# £0.0016664/sec, £0.00110961p/sec, and £0.0001916667p/sec
+# Â£0.0016664/sec, Â£0.00110961p/sec, and Â£0.0001916667p/sec
 # respectively...that's what they claim, anyway.
 
 # Rather than expect kppp to check the rate every second and add
@@ -76,11 +76,11 @@ flat_init_costs=(0.115,69)
 # bean-counters will round up half-penny amounts to the nearest
 # whole penny anyway (anal-retentive, are we? :-)
 
-# Thus the base rate for peak-time calls is £0.004999 for 3 secs
+# Thus the base rate for peak-time calls is Â£0.004999 for 3 secs
 # (0.115 / 69.01 = 0.0016664251 / 0.005 = 0.3332850 inv = 3.0004)
-# evenings is £0.0055481 for 5 secs
+# evenings is Â£0.0055481 for 5 secs
 # (0.115 / 103.64 = 0.00110961 / 0.005 = 0.2219220 inv = 4.5060869565)
-# and weekends is £0.005175 for 27 secs
+# and weekends is Â£0.005175 for 27 secs
 # (0.115 / 600 = 0.0001916667 / 0.005 = 0.0383333 inv = 26.086956522)
 # so accounting should happen in approx 1/2p increments...
 

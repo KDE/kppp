@@ -1,9 +1,9 @@
 ################################################################
 # II ZONA
-# Obuhvata telefonske razgovore izmeğu mre¾nih grupa meğusobno
-# udaljenih do 200 km impulsni interval u jakom saobraæaju je
+# Obuhvata telefonske razgovore izmeÄ‘u mreÅ¾nih grupa meÄ‘usobno
+# udaljenih do 200 km impulsni interval u jakom saobraÄ‡aju je
 # 15 sekundi, a u slabom 15 sekundi.
-# Primer (za fizièka lica): 1 minut u jakom saobraæaju: 
+# Primer (za fiziÄka lica): 1 minut u jakom saobraÄ‡aju: 
 # 4 impulsa x 0,3644 = 1,46 din
 ################################################################
 #

@@ -61,13 +61,13 @@ on (monday..friday) between (08:00..18:00) use (1.67,60)
 on (01/01, easter, easter+1, 05/01, easter+39, easter+49, easter+50,07/21,08/15, 11/01, 11/11, 12/25) between () use (0.67,60)
 #
 # 01/01     Nieuwjaar		;Jour de l'An
-# easter    Pasen		;Pâques
-# easter+1  Paasmaandag		;Lundi de Pâques
-# 05/01     Feest van de arbeid	;Fête du Travail
+# easter    Pasen		;PÃ¢ques
+# easter+1  Paasmaandag		;Lundi de PÃ¢ques
+# 05/01     Feest van de arbeid	;FÃªte du Travail
 # easter+39 O.H.-Hemelvaart	;Ascension
-# easter+49 Pinksteren		;Pentecôte
-# easter+50 Pinkstermaandag	;Lundi de Pentecôte
-# 07/21     Nationale Feestdag	;Fête Nationale
+# easter+49 Pinksteren		;PentecÃ´te
+# easter+50 Pinkstermaandag	;Lundi de PentecÃ´te
+# 07/21     Nationale Feestdag	;FÃªte Nationale
 # 08/15     O.L.V.-Hemelvaart	;Assomption
 # 11/01     Allerheiligen	;Toussaint
 # 11/11     Wapenstilstand 1918	;Armistice

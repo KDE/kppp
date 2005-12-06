@@ -1,8 +1,8 @@
 # Suitable for State of Rio de Janeiro - Brazil
 #
-# Cobranca aplicada pela Intelig para conexıes via Ligbr em todo o territÛrio 
+# Cobranca aplicada pela Intelig para conex√µes via Ligbr em todo o territ√≥rio 
 # nacional. Os valores foram obtidos na pagina da Ligbr (www.ligbr.com.br) e 
-# sao de 27 de marÁo de 2002.
+# sao de 27 de mar√ßo de 2002.
 #
 # Renato G. dos Santos
 # mailto:linuxiado@rba.omnqf.nom.br

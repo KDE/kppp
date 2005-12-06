@@ -1,6 +1,6 @@
 ################################################################
-# Regu³ki obliczania kosztów po³±czeñ miêdzymiastowych w sieci Netia,
-# na odleg³o¶æ do 100 km miêdzy centralami wojewódzkimi.
+# ReguÅ‚ki obliczania kosztÃ³w poÅ‚Ä…czeÅ„ miÄ™dzymiastowych w sieci Netia,
+# na odlegÅ‚oÅ›Ä‡ do 100 km miÄ™dzy centralami wojewÃ³dzkimi.
 # Taryfa zielona
 # autor: Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>
 ################################################################
@@ -20,20 +20,20 @@ on (monday..friday)  between (22:00..8:00)  use (0.28, 60)
 on (saturday..sunday)  between (8:00..22:00)  use (0.43, 60)
 on (saturday..sunday)  between (22:00..8:00)  use (0.28, 60)
 
-# ¦wiêta (taryfa sobotnio-niedzielna)
+# ÅšwiÄ™ta (taryfa sobotnio-niedzielna)
 on (01/01, easter, easter+1, 05/01, 05/03, 08/15, 11/01, 11/11, 12/25, 12/26) between (8:00..22:00) use (0.43, 60)
 on (01/01, easter, easter+1, 05/01, 05/03, 08/15, 11/01, 11/11, 12/25, 12/26) between (22:00..8:00) use (0.28, 60)
 
-#obja¶nienia dni ¶wi±tecznych
+#objaÅ›nienia dni Å›wiÄ…tecznych
 # 01/01		Nowy Rok
 # easter		Niedziela Wielkanocna
-# easter+1	Poniedzia³ek Wielkanocny
-# 05/01		¦wiêto Pracy
-# 05/03		Dzieñ Konstytucji 3 Maja
-# 08/15		Wniebowziêcie
-# 11/01		Wszystkich ¦wiêtych
-# 11/11		¦wiêto Niepodleg³o¶ci
-# 12/25		Bo¿e Narodzenie
-# 12/26		Bo¿e Narodzenie
-# niestety na li¶cie brakuje Bo¿ego Cia³a - nie wiem jaka regu³a rz±dzi jego
+# easter+1	PoniedziaÅ‚ek Wielkanocny
+# 05/01		ÅšwiÄ™to Pracy
+# 05/03		DzieÅ„ Konstytucji 3 Maja
+# 08/15		WniebowziÄ™cie
+# 11/01		Wszystkich ÅšwiÄ™tych
+# 11/11		ÅšwiÄ™to NiepodlegÅ‚oÅ›ci
+# 12/25		BoÅ¼e Narodzenie
+# 12/26		BoÅ¼e Narodzenie
+# niestety na liÅ›cie brakuje BoÅ¼ego CiaÅ‚a - nie wiem jaka reguÅ‚a rzÄ…dzi jego
 # wyborem tego czwartku

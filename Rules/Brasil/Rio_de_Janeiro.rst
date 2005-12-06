@@ -1,7 +1,7 @@
 # Suitable for State of Rio de Janeiro - Brazil
 #
 # Cobranca aplicada pela Telemar no Rio de Janeiro. Os valores foram obtidos
-# na pagina da Telemar (www.telemar.com.br) e sao de 27 de março de 2002.
+# na pagina da Telemar (www.telemar.com.br) e sao de 27 de marÃ§o de 2002.
 #
 # Renato G. dos Santos
 # mailto:linuxiado@rba.omnqf.nom.br

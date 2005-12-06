@@ -11,6 +11,6 @@ currency_position=right
 currency_digits=2
 default=(0.009, 60)
 
-# Täglich von 18:00 bis 08:59
+# TÃ¤glich von 18:00 bis 08:59
 on (monday..sunday) between (18:00..08:59) use (0.014, 60)
 

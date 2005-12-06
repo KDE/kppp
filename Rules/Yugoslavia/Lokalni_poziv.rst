@@ -1,9 +1,9 @@
 ################################################################
 # LOKALNI SAOBRACAJ
-# Obuhvata razgovore obavljene u okviru mesne mreæe.
+# Obuhvata razgovore obavljene u okviru mesne mre≈æe.
 # Ovi razgovori tarifiraju se impulsnim intervalom od 2 minuta
-# u jakom saobraÊaju i impulsnim intervalom od 4 minuta u period
-# u slabog saobraÊaja.
+# u jakom saobraƒáaju i impulsnim intervalom od 4 minuta u period
+# u slabog saobraƒáaja.
 #
 # JAK SAOBRACAJ
 # Podrazumeva razgovore obavljene u vremenskom periodu
@@ -14,10 +14,10 @@
 #  15-17 h i od 21-07 h narednog dana
 # * Razgovore obavljene vikendom:
 #   od subote u 21 h do ponedeljka do 07 h
-# * Razgovore obavljene u dane dræavnih praznika
+# * Razgovore obavljene u dane dr≈æavnih praznika
 #
 # CENA IMPULSA
-# za fiziËka lica iznosi 0,3644 din
+# za fiziƒçka lica iznosi 0,3644 din
 # za pravna lica iznosi 0,6023 din.
 #
 ################################################################

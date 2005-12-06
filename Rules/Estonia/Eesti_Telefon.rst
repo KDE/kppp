@@ -1,7 +1,7 @@
 ################################################################
 # Viimati muudetud : 31/10/2002
 # Autor : Rivo Laks <rivolaks@hot.ee>
-# Tariifid Eesti Telefonile (kohalik kõne)
+# Tariifid Eesti Telefonile (kohalik kÃµne)
 ################################################################
 
 
@@ -9,50 +9,50 @@
 name=Eesti_Telefon
 
 ### Valuuta
-#Sümbol
+#SÃ¼mbol
 currency_symbol=kr
 # Positsioon
 currency_position=right
 # Kohti peale koma
 currency_digits=2
 
-# Ühenduse loomise tasu (pole)
+# Ãœhenduse loomise tasu (pole)
 per_connection=0.0
-# Miinimumtasu ühenduse eest (pole)
+# Miinimumtasu Ã¼henduse eest (pole)
 minimum_costs=0.0
 
-### Kõnealustustasu 48 senti peale 1. sekundit
+### KÃµnealustustasu 48 senti peale 1. sekundit
 flat_init_costs=(0.48,1)
 
 ### Normaaltariif 34 senti/minutis (0.56666666... senti/sekundis)
 default=(0.005666, 1)
 
 ### Soodustariif 28 senti/minutis (0.4666... senti/sek)
-# Tööpäevadel 19 - 01
+# TÃ¶Ã¶pÃ¤evadel 19 - 01
 on (monday..friday) between (19:00..00:59) use (0.004666, 1)
-# Puhkepäevadel 07 - 01
+# PuhkepÃ¤evadel 07 - 01
 on (saturday..sunday) between (07:00..00:59) use (0.004666, 1)
 
-### Öötariif 14 senti/minutis (0.23333333... senti/sek)
-# Iga päev 01 - 07
+### Ã–Ã¶tariif 14 senti/minutis (0.23333333... senti/sek)
+# Iga pÃ¤ev 01 - 07
 on (monday..sunday) between (01:00..06:59) use (0.002333, 1)
 
-### Pühad (soodustariif 07 - 01)
-# Iseseisvuspäev
+### PÃ¼had (soodustariif 07 - 01)
+# IseseisvuspÃ¤ev
 on (02/24) between (07:00..00:59) use (0.004666, 1)
 # Uusaasta
 on (01/01) between (07:00..00:59) use (0.004666, 1)
-# Kevadpüha
+# KevadpÃ¼ha
 on (05/01) between (07:00..00:59) use (0.004666, 1)
-# Võidupüha
+# VÃµidupÃ¼ha
 on (06/23) between (07:00..00:59) use (0.004666, 1)
-# Jaanipäev
+# JaanipÃ¤ev
 on (06/24) between (07:00..00:59) use (0.004666, 1)
-# Taasiseseisvumispäev
+# TaasiseseisvumispÃ¤ev
 on (08/20) between (07:00..00:59) use (0.004666, 1)
-# Esimene jõulupüha
+# Esimene jÃµulupÃ¼ha
 on (12/25) between (07:00..00:59) use (0.004666, 1)
-# Teine jõulupüha
+# Teine jÃµulupÃ¼ha
 on (12/26) between (07:00..00:59) use (0.004666, 1)
 # Suur reede
 on (easter-2) between (07:00..00:59) use (0.004666, 1)

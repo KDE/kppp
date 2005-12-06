@@ -7,7 +7,7 @@
 #
 ################################################################
 #
-#  2,5 Pfennige ganztags sind heute Standard für byCall-
+#  2,5 Pfennige ganztags sind heute Standard fÃ¼r byCall-
 #  Verbindungen in Deutschland. Darum dieser Rule-Datei.
 #
 ################################################################

@@ -1,9 +1,9 @@
 ################################################################
 # I ZONA
-# Obuhvata telefonske razgovore u okviru iste mre¾ne grupe 
-# impulsni interval u jakom saobraæaju je 30 sekundi, a u
+# Obuhvata telefonske razgovore u okviru iste mreÅ¾ne grupe 
+# impulsni interval u jakom saobraÄ‡aju je 30 sekundi, a u
 # slabom 60 sekundi.
-# Primer (za fizièka lica): 1 minut u jakom saobraæaju: 2 impulsa
+# Primer (za fiziÄka lica): 1 minut u jakom saobraÄ‡aju: 2 impulsa
 # x 0,3644 = 0,73 din
 ################################################################
 #

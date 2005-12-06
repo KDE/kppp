@@ -1,5 +1,5 @@
 ################################################################
-# Regu³ki obliczania kosztów po³±czeñ lokalnych w sieci Netia
+# ReguÅ‚ki obliczania kosztÃ³w poÅ‚Ä…czeÅ„ lokalnych w sieci Netia
 # Taryfa niebieska (abonament 24.40PLN)
 # Napisane na podstawie http://www.netia.pl/dom/taryfa.html
 # autor: Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>
@@ -15,6 +15,6 @@ minimum_costs=0.0
 # Co 360 sekund dodawane bedzie 33 groszy do rachunku.
 # Jest to taryfa nocna
 default=(0.33, 360)
-# niestety w ci±gu dnia czas miêdzy impulsami jest 2x krótszy
+# niestety w ciÄ…gu dnia czas miÄ™dzy impulsami jest 2x krÃ³tszy
 on (monday..sunday) between (8:00..21:59) use (0.33, 180)
 

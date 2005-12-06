@@ -20,8 +20,8 @@ currency_digits=2
 ################################################################
 # connection settings
 #
-# The cost is ¤ 0,3719 every hour of connection.
-# Il costo e` ¤ 0,3719 ogni ora di connessione.
+# The cost is Â¤ 0,3719 every hour of connection.
+# Il costo e` Â¤ 0,3719 ogni ora di connessione.
 ################################################################
 
 # Nessun addebito alla risposta
@@ -31,7 +31,7 @@ minimum_costs=0.0
 default=(0.0001, 1)
 
 
-# Il costo e` di ¤ 0,7437 l'ora nei giorni feriali
+# Il costo e` di Â¤ 0,7437 l'ora nei giorni feriali
 on (monday..friday) between (09:00..19:00) use (0.0002, 1)
 
 # Giorni festivi, sabato e domenica

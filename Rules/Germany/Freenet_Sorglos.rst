@@ -25,7 +25,7 @@ currency_digits=2
 
 ################################################################
 # Connection settings
-# 1,29 ¢/Min mit minutengenauer Abrechnung
+# 1,29 Â¢/Min mit minutengenauer Abrechnung
 ################################################################
 
 per_connection=0.0
