@@ -35,7 +35,7 @@
 //Added by qt3to4:
 #include <QLabel>
 #include <QKeyEvent>
-#include <Q3PopupMenu>
+#include <QMenu>
 #include <QCloseEvent>
 #include <ktoolbar.h>
 
@@ -88,9 +88,9 @@ protected:
 
   QMenuBar    * menubar;
   KToolBar     * toolbar;
-  Q3PopupMenu  * m_file;
-  Q3PopupMenu  * m_edit;
-  Q3PopupMenu  * m_options;
+  QMenu  * m_file;
+  QMenu  * m_edit;
+  QMenu  * m_options;
   KHelpMenu  * m_help;
   QLabel      * statusbar;
   QPushButton *pb1;

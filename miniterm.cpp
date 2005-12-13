@@ -59,10 +59,10 @@ MiniTerm::MiniTerm(QWidget *parent, const char *name)
   setCaption(i18n("Kppp Mini-Terminal"));
   KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(KIcon::Desktop),IconSize(KIcon::Desktop)), qApp->windowIcon().pixmap(IconSize(KIcon::Small),IconSize(KIcon::Small)));
 
-  m_file = new Q3PopupMenu(this);
-  m_file->insertItem( SmallIcon("fileclose"), i18n("&Close"), this, SLOT(cancelbutton()) );
-  m_options = new Q3PopupMenu(this);
-  m_options->insertItem(i18n("&Reset Modem"),this,SLOT(resetModem()));
+  m_file = new QMenu(this);
+  m_file->addAction( SmallIcon("fileclose"), i18n("&Close"), this, SLOT(cancelbutton()) );
+  m_options = new QMenu(this);
+  m_options->addAction(i18n("&Reset Modem"),this,SLOT(resetModem()));
   m_help =
     new KHelpMenu(this,
 		      i18n("MiniTerm - A terminal emulation for KPPP\n\n"
