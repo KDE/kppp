@@ -1418,7 +1418,7 @@ void PPPData::graphingOptions(bool &enable,
 
   if(config) {
     config->setGroup(GRAPH_GRP);
-    enable = config->readBoolEntry(GENABLED, true);
+    enable = config->readEntry(GENABLED, QVariant(true)).toBool();
     c = Qt::white;
     bg = config->readColorEntry(GCOLOR_BG, &c);
     c = Qt::black;
@@ -1434,7 +1434,7 @@ void PPPData::graphingOptions(bool &enable,
 bool PPPData::graphingEnabled() {
   if(config) {
     config->setGroup(GRAPH_GRP);
-    return config->readBoolEntry(GENABLED, true);
+    return config->readEntry(GENABLED, QVariant(true)).toBool();
   }
   else return true;
 }
