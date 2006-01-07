@@ -30,7 +30,7 @@
 //Added by qt3to4:
 #include <QLabel>
 #include <QVBoxLayout>
-#include <Q3Frame>
+#include <QFrame>
 #include <QHBoxLayout>
 #include <QGridLayout>
 #include <QCloseEvent>
@@ -55,7 +55,7 @@ ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
   progressBar->setTotalSteps(8);
 
   statusBar = new QLabel(this,"sBar");
-  statusBar->setFrameStyle(Q3Frame::Panel|Q3Frame::Sunken);
+  statusBar->setFrameStyle(QFrame::Panel|QFrame::Sunken);
   statusBar->setAlignment(Qt::AlignCenter);
 
   // This is a rather complicated case. Since we do not know which
