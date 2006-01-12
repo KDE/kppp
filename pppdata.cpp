@@ -1418,15 +1418,15 @@ void PPPData::graphingOptions(bool &enable,
 
   if(config) {
     config->setGroup(GRAPH_GRP);
-    enable = config->readEntry(GENABLED, QVariant(true)).toBool();
+    enable = config->readEntry(GENABLED,true);
     c = Qt::white;
-    bg = config->readColorEntry(GCOLOR_BG, &c);
+    bg = config->readEntry(GCOLOR_BG, c);
     c = Qt::black;
-    text = config->readColorEntry(GCOLOR_TEXT, &c);
+    text = config->readEntry(GCOLOR_TEXT, c);
     c = Qt::blue;
-    in = config->readColorEntry(GCOLOR_IN, &c);
+    in = config->readEntry(GCOLOR_IN, c);
     c = Qt::red;
-    out = config->readColorEntry(GCOLOR_OUT, &c);
+    out = config->readEntry(GCOLOR_OUT, c);
   }
 }
 
