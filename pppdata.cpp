@@ -179,7 +179,7 @@ int PPPData::readNumConfig(const QString &group, const QString &key,
 			   int defvalue) {
   if (config) {
     config->setGroup(group);
-    return config->readNumEntry(key, defvalue);
+    return config->readEntry(key, defvalue);
   } else
     return defvalue;
 
