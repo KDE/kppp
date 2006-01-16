@@ -306,6 +306,10 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem, const char *name)
 
   static const char *baudrates[] = {
 
+#ifdef B921600
+    "921600",
+#endif
+
 #ifdef B460800
     "460800",
 #endif

@@ -105,6 +105,12 @@ speed_t Modem::modemspeed() {
     break;
 #endif
 
+#ifdef B921600
+  case 9216:
+    return B921600;
+    break;
+#endif
+
   default:
     return B38400;
     break;
@@ -354,6 +360,7 @@ bool Modem::hangup() {
 
     usleep(gpppdata.modemInitDelay() * 10000); // 0.01 - 3.0 sec
 
+
 #ifndef DEBUG_WO_DIALING
     if (sigsetjmp(jmp_buffer, 1) == 0) {
       // set alarm in case tcsendbreak() hangs
@@ -365,12 +372,15 @@ bool Modem::hangup() {
       alarm(0);
       signal(SIGALRM, SIG_IGN);
     } else {
+      kdWarning(5002) << "Modem did not respond properly." << endl;
+#if 0 // observed false alarms with some modems
       // we reach this point if the alarm handler got called
       closetty();
       close(modemfd);
       modemfd = -1;
       errmsg = i18n("The modem does not respond.");
       return false;
+#endif      
     }
 
 #ifndef __svr4__ // drops DTR but doesn't set it afterwards again. not good for init.
