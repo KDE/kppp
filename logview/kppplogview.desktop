@@ -45,6 +45,7 @@ GenericName[sv]=Loggvisning för Internetuppringningsverktyg
 GenericName[tr]=İnternet Çevirmeli Ağ Aracı Kayıt Görüntüleyici
 GenericName[uk]=Переглядач журналу засобу дозвону в Інтернет
 GenericName[zh_CN]=Internet 拨号工具日志查看器
+GenericName[zh_HK]=互聯網撥號工具記錄檢視器
 MimeType=
 Exec=kppplogview
 Icon=kppp
