@@ -229,8 +229,7 @@ bool PPPStats::initStats() {
     local_ip_address = "";
   kdDebug(5002) << "Local IP: " << local_ip_address << endl;
 
-  if (ioctl(s, SIOCGIFDSTADDR, &ifr) < 0)
-    ;
+  (void) ioctl(s, SIOCGIFDSTADDR, &ifr);
 
   sinp = (struct sockaddr_in*)&ifr.ifr_dstaddr;
 
