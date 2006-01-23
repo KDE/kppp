@@ -2,6 +2,7 @@
 Encoding=UTF-8
 GenericName=Internet Dial-Up Tool
 GenericName[bg]=Включване в Интернет
+GenericName[bn]=ইন্টারনেট ডায়াল-আপ সরঞ্জাম
 GenericName[bs]=Program za spajanje na Internet
 GenericName[ca]=Eina per a la connexió telefònica a Internet
 GenericName[cs]=Připojení přes vytáčenou linku
@@ -42,6 +43,7 @@ GenericName[zh_CN]=Internet 拨号工具
 GenericName[zh_HK]=互聯網撥號工具
 Name=KPPP
 Name[af]=Kppp
+Name[bn]=কে-পি-পি-পি
 Name[eo]=Interretkonektilo
 Name[hi]=केपीपीपी
 Name[sv]=Kppp
