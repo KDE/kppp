@@ -65,15 +65,15 @@ double LogInfo::totalCosts() const {
   return _total_cost;
 }
 
-int LogInfo::bytesIn() const {
+double LogInfo::bytesIn() const {
   return _bytes_in;
 }
 
-int LogInfo::bytesOut() const {
+double LogInfo::bytesOut() const {
   return _bytes_out;
 }
 
-int LogInfo::bytes() const {
+double LogInfo::bytes() const {
   if(bytesIn() == -1 || bytesOut() == -1)
     return -1;
   else

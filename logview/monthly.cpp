@@ -34,7 +34,7 @@
 #include "export.h"
 #include <qstringlist.h>
 
-static void formatBytes(int bytes, QString &result) {
+static void formatBytes(double bytes, QString &result) {
   if(bytes < 1024)
     result.setNum(bytes);
   else if(bytes < 1024*1024)
@@ -43,7 +43,7 @@ static void formatBytes(int bytes, QString &result) {
     result = i18n("%1 MB").arg(KGlobal::locale()->formatNumber((float)bytes / 1024.0 / 1024.0, 1));
 }
  
-static void formatBytesMonth(int bytes, QString &result) {
+static void formatBytesMonth(double bytes, QString &result) {
 
   int day, days;
   day = QDate::currentDate().day();
@@ -158,10 +158,10 @@ QString LogListItem::key(int c, bool ascending) const
     k.sprintf("%012.2f", li->sessionCosts());
     break;
   case 6:
-    k.sprintf("%012d", li->bytesIn());
+    k.sprintf("%012f", li->bytesIn());
     break;
   case 7:
-    k.sprintf("%012d", li->bytesOut());
+    k.sprintf("%012f", li->bytesOut());
     break;
   }
   return k;
@@ -286,7 +286,7 @@ void MonthlyWidget::plotMonth() {
   // for collecting monthly statistics
   int count = 0;
   double costs = 0;
-  int bin = 0, bout = 0;
+  double bin = 0, bout = 0;
   int duration = 0;
   lv->clear();
   selectionItem = 0L;
@@ -501,7 +501,7 @@ void MonthlyWidget::exportWizard() {
   // for collecting monthly statistics
   int count = 0;
   double costs = 0;
-  int bin = 0, bout = 0;
+  double bin = 0, bout = 0;
   int duration = 0;
 
   for(int i = 0; i < (int)logList.count(); i++) {
@@ -662,7 +662,7 @@ void MonthlyWidget::slotSelectionChanged()
   {
     int count = 0;
     double costs = 0;
-    int bin = 0, bout = 0;
+    double bin = 0, bout = 0;
     int duration = 0;
     LogListItem *item;
     LogInfo *li;
