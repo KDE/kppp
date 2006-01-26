@@ -51,8 +51,8 @@ ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
 
-  progressBar = new KProgress(this, "bar");
-  progressBar->setTotalSteps(8);
+  progressBar = new KProgressBar(this);
+  progressBar->setMaximum(8);
 
   statusBar = new QLabel(this,"sBar");
   statusBar->setFrameStyle(QFrame::Panel|QFrame::Sunken);

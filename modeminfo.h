@@ -65,7 +65,7 @@ private:
   QString readbuffer;
 
   QPushButton *cancel;
-  KProgress *progressBar;
+  KProgressBar *progressBar;
   QLabel *statusBar;
 
   QTimer *timeout_timer;

@@ -139,7 +139,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
 QString AccountingSelector::fileNameToName(QString s) {
 
   s.replace('_', " ");
-  return KURL::decode_string(s);
+  return KUrl::decode_string(s);
 
 }
 
