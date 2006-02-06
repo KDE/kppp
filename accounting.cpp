@@ -83,7 +83,7 @@ AccountingBase::AccountingBase(QObject *parent) :
   LogFileName = KGlobal::dirs()->saveLocation("appdata", "Log")
     + "/" + LogFileName;
 
-  kdDebug(5002) << "LogFileName: " << LogFileName << endl;
+  kDebug(5002) << "LogFileName: " << LogFileName << endl;
 }
 
 AccountingBase::~AccountingBase() {
@@ -247,7 +247,7 @@ void Accounting::timerEvent(QTimerEvent *t) {
     // duration
     if((newCosts != _lastcosts) || (newLen != _lastlen)) {
 
-      kdDebug(5002).form("SWITCHING RULES, new costs = %0.2f, new len = %0.2f\n",
+      kDebug(5002).form("SWITCHING RULES, new costs = %0.2f, new len = %0.2f\n",
 	     newCosts, newLen);
 
       killTimer(acct_timer_id);

@@ -40,7 +40,7 @@ int loadLogs() {
   QString logdirname = locateLocal("data", "kppp/Log/");
   QDir logdir(logdirname, "*.log");
 
-  kdDebug(5002) << "logdirname: " << logdirname << endl;
+  kDebug(5002) << "logdirname: " << logdirname << endl;
   
   // get log file size
   QFileInfoList list = logdir.entryInfoList();
@@ -104,7 +104,7 @@ int loadLog(QString fname) {
       // check if the connection has been terminated abnormally
       if(li->error() != 3) {
 	warning++;    
-	kdError() << "ERROR IN FILE " << fname << " LINE " << lineno << "\"" << buffer << "\" (" << li->error() << ")" << endl;
+	kError() << "ERROR IN FILE " << fname << " LINE " << lineno << "\"" << buffer << "\" (" << li->error() << ")" << endl;
 	delete li;
       } else
 	logList.append(li);

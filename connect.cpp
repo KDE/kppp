@@ -555,7 +555,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
         scriptCommand = (comlist->at(scriptindex));
         scriptArgument = (arglist->at(scriptindex));
       } else {
-        kdDebug(5002) << "End of script" << endl;
+        kDebug(5002) << "End of script" << endl;
 	vmain = 10;
         return;
       }
@@ -918,7 +918,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       killTimer( main_timer_ID );
 
       if_timeout_timer->start(gpppdata.pppdTimeout()*1000);
-      kdDebug(5002) << "started if timeout timer with " << gpppdata.pppdTimeout()*1000 << endl;
+      kDebug(5002) << "started if timeout timer with " << gpppdata.pppdTimeout()*1000 << endl;
 
       // find out PPP interface and notify the stats module
       stats->setUnit(pppInterfaceNumber());
@@ -928,7 +928,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       result = execppp();
 
       emit debugMessage(i18n("Starting pppd..."));
-      kdDebug(5002) << "execppp() returned with return-code " << result << endl;
+      kDebug(5002) << "execppp() returned with return-code " << result << endl;
 
       if(result) {
         if(!gpppdata.autoDNS())
@@ -1146,7 +1146,7 @@ void ConnectWidget::setExpect(const QString &n) {
 void ConnectWidget::if_waiting_timed_out() {
   if_timer->stop();
   if_timeout_timer->stop();
-  kdDebug(5002) << "if_waiting_timed_out()" << endl;
+  kDebug(5002) << "if_waiting_timed_out()" << endl;
 
   gpppdata.setpppdError(E_IF_TIMEOUT);
 

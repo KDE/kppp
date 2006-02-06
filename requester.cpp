@@ -119,10 +119,10 @@ int Requester::recvFD() {
   signal(SIGALRM, SIG_DFL);
 
   if(len <= 0) {
-    kdError(5002) << "recvmsg failed " << strerror(errno) << endl;
+    kError(5002) << "recvmsg failed " << strerror(errno) << endl;
     return -1;
   } else if (msg.msg_controllen < cmsglen) {
-    kdError(5002) << "recvmsg: truncated message " << strerror(errno) << endl;
+    kError(5002) << "recvmsg: truncated message " << strerror(errno) << endl;
     exit(1);
   } else {
 #ifdef CMSG_DATA
@@ -130,7 +130,7 @@ int Requester::recvFD() {
 #else
     fd = *((int *) control.cmsg.cmsg_data);
 #endif
-    kdDebug(5002) << "response.status: " << response.status << endl;
+    kDebug(5002) << "response.status: " << response.status << endl;
     assert(response.status <= 0);
     if(response.status < 0)
       return response.status;
@@ -155,16 +155,16 @@ bool Requester::recvResponse() {
 
   iov.iov_base = IOV_BASE_CAST &response;
   iov.iov_len = sizeof(struct ResponseHeader);
-  kdDebug(5002) << "recvResponse(): waiting for message" << endl;
+  kDebug(5002) << "recvResponse(): waiting for message" << endl;
   len = recvmsg(socket, &msg, flags);
-  kdDebug(5002) << "recvResponse(): received message" << endl;
+  kDebug(5002) << "recvResponse(): received message" << endl;
   if (len <= 0) {
     if (errno == EINTR)
-      kdDebug(5002) << "Interrupted system call. Continuing." << endl;
+      kDebug(5002) << "Interrupted system call. Continuing." << endl;
     else
       perror("recvmsg failed");
   } else {
-    kdDebug(5002) << "response.status: " << response.status << endl;
+    kDebug(5002) << "response.status: " << response.status << endl;
   }
 
   lastStatus = response.status;
@@ -342,9 +342,9 @@ bool Requester::sendRequest(struct RequestHeader *request, int len) {
   msg.msg_iovlen = 1;
   msg.msg_control = 0L;
   msg.msg_controllen = 0;
-  kdDebug(5002) << "sendRequest: trying to send msg type " << request->type << endl;
+  kDebug(5002) << "sendRequest: trying to send msg type " << request->type << endl;
   sendmsg(socket, &msg, 0);
-  kdDebug(5002) << "sendRequest: sent message" << endl;
+  kDebug(5002) << "sendRequest: sent message" << endl;
 
   return true;
 }
@@ -362,5 +362,5 @@ int Requester::indexDevice(const QString &dev) {
 
 
 void recv_timeout(int) {
-  kdDebug(5002) << "timeout()" << endl;
+  kDebug(5002) << "timeout()" << endl;
 }

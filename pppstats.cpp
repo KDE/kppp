@@ -196,13 +196,13 @@ bool PPPStats::ifIsUp() {
 
     if ((ifr.ifr_flags & IFF_UP) && (ifr.ifr_flags & IFF_RUNNING)) {
 	is_up = true;
-	kdDebug(5002) << "Interface is up" << endl;
+	kDebug(5002) << "Interface is up" << endl;
     }
     else{
       is_up = false;
       ::close(s);
       s = 0;
-      kdDebug(5002) << "Interface is down" << endl;
+      kDebug(5002) << "Interface is down" << endl;
     }
 
     return is_up;
@@ -227,7 +227,7 @@ bool PPPStats::initStats() {
     local_ip_address = inet_ntoa(sinp->sin_addr);
   else
     local_ip_address = "";
-  kdDebug(5002) << "Local IP: " << local_ip_address << endl;
+  kDebug(5002) << "Local IP: " << local_ip_address << endl;
 
   if (ioctl(s, SIOCGIFDSTADDR, &ifr) < 0)
     ;
@@ -238,7 +238,7 @@ bool PPPStats::initStats() {
     remote_ip_address = inet_ntoa(sinp->sin_addr);
   else
     remote_ip_address = "";
-  kdDebug(5002) << "Remote IP: " << remote_ip_address << endl;
+  kDebug(5002) << "Remote IP: " << remote_ip_address << endl;
 
   return true;
 

@@ -120,7 +120,7 @@ bool Modem::opentty() {
     device = args->getOption("dev");
   else
     device = gpppdata.modemDevice();
-  kdDebug() << "Opening Device: " << device << endl;
+  kDebug() << "Opening Device: " << device << endl;
 
   if((modemfd = Requester::rq->openModem(device))<0) {
     errmsg = i18n("Unable to open modem.");
@@ -264,7 +264,7 @@ void Modem::startNotifier() {
     if(sn == 0) {
       sn = new QSocketNotifier(modemfd, QSocketNotifier::Read, this);
       connect(sn, SIGNAL(activated(int)), SLOT(readtty(int)));
-      kdDebug(5002) << "QSocketNotifier started!" << endl;
+      kDebug(5002) << "QSocketNotifier started!" << endl;
     } else {
       //    Debug("QSocketNotifier re-enabled!");
       sn->setEnabled(true);
@@ -279,7 +279,7 @@ void Modem::stopNotifier() {
     disconnect(sn);
     delete sn;
     sn = 0;
-    kdDebug(5002) << "QSocketNotifier stopped!" << endl;
+    kDebug(5002) << "QSocketNotifier stopped!" << endl;
   }
 }
 
@@ -295,7 +295,7 @@ bool Modem::writeChar(unsigned char c) {
   do {
     s = write(modemfd, &c, 1);
     if (s < 0) {
-      kdError(5002) << "write() in Modem::writeChar failed" << endl;
+      kError(5002) << "write() in Modem::writeChar failed" << endl;
       return false;
     }
   } while(s == 0);
@@ -325,7 +325,7 @@ bool Modem::writeLine(const char *buf) {
       if (errno == EAGAIN)
         continue;
       // TODO do something meaningful with the error code (or ignore it
-      kdError(5002) << "write() in Modem::writeLine failed" << endl;
+      kError(5002) << "write() in Modem::writeLine failed" << endl;
       delete[] b;
       return false;
     }
@@ -434,7 +434,7 @@ QString Modem::parseModemSpeed(const QString &s) {
   int i;
   QString result;
 
-  kdDebug(5002) << "Modem reported result string: " << s << endl;
+  kDebug(5002) << "Modem reported result string: " << s << endl;
 
   const int RXMAX = 7;
   const int TXMAX = 2;
@@ -516,7 +516,7 @@ QString Modem::parseModemSpeed(const QString &s) {
   else
     result.sprintf("%d/%d", rx, tx);
 
-  kdDebug(5002) << "The parsed result is: " << result << endl;
+  kDebug(5002) << "The parsed result is: " << result << endl;
 
   return result;
 }
@@ -529,7 +529,7 @@ int Modem::lockdevice() {
   char newlock[80]=""; // safe
 
   if(!gpppdata.modemLockFile()) {
-    kdDebug(5002) << "The user doesn't want a lockfile." << endl;
+    kDebug(5002) << "The user doesn't want a lockfile." << endl;
     return 0;
   }
 
@@ -556,7 +556,7 @@ int Modem::lockdevice() {
         return 1;
       oldlock[sz] = '\0';
 
-      kdDebug(5002) << "Device is locked by: " << &oldlock << endl;
+      kDebug(5002) << "Device is locked by: " << &oldlock << endl;
 
       int oldpid;
       int match = sscanf(oldlock, "%d", &oldpid);
@@ -569,7 +569,7 @@ int Modem::lockdevice() {
       if (kill((pid_t)oldpid, 0) == 0 || errno != ESRCH)
         return 1;
 
-      kdDebug(5002) << "lockfile is stale" << endl;
+      kDebug(5002) << "lockfile is stale" << endl;
     }
   }
 
@@ -577,7 +577,7 @@ int Modem::lockdevice() {
                                    O_WRONLY|O_TRUNC|O_CREAT);
   if(fd >= 0) {
     sprintf(newlock,"%010d\n", getpid());
-    kdDebug(5002) << "Locking Device: " << newlock << endl;
+    kDebug(5002) << "Locking Device: " << newlock << endl;
 
     write(fd, newlock, strlen(newlock));
     close(fd);
@@ -594,7 +594,7 @@ int Modem::lockdevice() {
 // UnLock modem device
 void Modem::unlockdevice() {
   if (modem_is_locked) {
-    kdDebug(5002) << "UnLocking Modem Device" << endl;
+    kDebug(5002) << "UnLocking Modem Device" << endl;
     Requester::rq->removeLockfile();
     modem_is_locked=false;
   }

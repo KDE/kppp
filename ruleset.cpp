@@ -135,7 +135,7 @@ int RuleSet::load(const QString &filename) {
     // parse line
     if(!parseLine(line)) {
       f.close();
-      kdError(5002) << "ERROR IN LINE " << lineno << endl;
+      kError(5002) << "ERROR IN LINE " << lineno << endl;
       return lineno;
     }
   }
@@ -145,7 +145,7 @@ int RuleSet::load(const QString &filename) {
   if(_name.length() > 0)
     return 0;
   else {
-    kdError(5002) << "NO NAME DEFINED" << endl;
+    kError(5002) << "NO NAME DEFINED" << endl;
     return -1;
   }
 }
