@@ -31,14 +31,14 @@
 #include <qlineedit.h>
 #include <qtooltip.h>
 
-#include <kwizard.h>
+#include <k3wizard.h>
 #include <klocale.h>
 #include <kfiledialog.h>
 
 class Export;
 
 /***** ExportWizard *****/
-class ExportWizard : public KWizard {
+class ExportWizard : public K3Wizard {
   Q_OBJECT
 public:
    ExportWizard(QWidget *parent, const QString &_date);

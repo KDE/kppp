@@ -48,7 +48,7 @@ ExportFormats [] = {
 
 /***** ExportWizard *****/
 ExportWizard::ExportWizard(QWidget *parent, const QString &_date)
-  : KWizard(parent, "", true) {
+  : K3Wizard(parent, "", true) {
   date = _date;
 
   filterID = 0;

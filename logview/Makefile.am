@@ -33,7 +33,7 @@ kppplogview_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 
 # the libraries to link against. Be aware of the order. First the libraries,
 # that depend on the following ones.
-kppplogview_LDADD = -lm $(LIB_KDEUI) $(LIB_KFILE)
+kppplogview_LDADD = -lm $(LIB_KDEUI) $(LIB_KFILE) $(LIB_KDE3SUPPORT)
 
 # this option you can leave out. Just, if you use "make dist", you need it
 noinst_HEADERS = export.h loginfo.h log.h monthly.h main.h

@@ -53,7 +53,7 @@
 Q3Wizard* ProviderDB::wiz = 0L;
 
 ProviderDB::ProviderDB(QWidget *parent) :
-  KWizard(parent, "", true),
+  K3Wizard(parent, "", true),
   cfg(0)
 {
   setCaption(i18n("Create New Account"));

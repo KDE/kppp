@@ -57,7 +57,7 @@ kppp_LDFLAGS = $(KDE_USE_PIE) $(all_libraries) $(KDE_RPATH)
 
 # the libraries to link against. Be aware of the order. First the libraries,
 # that depend on the following ones.
-kppp_LDADD   =       -lm $(LIB_KIO) $(LIB_KDEUI)
+kppp_LDADD   =       -lm $(LIB_KIO) $(LIB_KDEUI) $(LIB_KDE3SUPPORT)
 
 # this option you can leave out. Just, if you use "make dist", you need it
 noinst_HEADERS = kpppwidget.h \

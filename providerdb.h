@@ -35,7 +35,7 @@
 #ifndef PROVIDER_DB
 #define PROVIDER_DB
 
-#include <kwizard.h>
+#include <k3wizard.h>
 #include <qwidget.h>
 
 class QLineEdit;
@@ -116,7 +116,7 @@ public:
 };
 
 
-class ProviderDB : public KWizard {
+class ProviderDB : public K3Wizard {
   Q_OBJECT
 public:
   ProviderDB(QWidget *parent);
