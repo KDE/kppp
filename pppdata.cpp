@@ -191,7 +191,7 @@ bool PPPData::readListConfig(const QString &group, const QString &key,
   list.clear();
   if (config) {
     config->setGroup(group);
-    list = config->readListEntry(key, sep);
+    list = config->readEntry(key, QStringList(),sep);
     return true;
   } else
     return false;
