@@ -3,6 +3,7 @@ Encoding=UTF-8
 Name=KPPPLogview
 Name[x-test]=xxKPPPLogviewxx
 GenericName=Internet Dial-Up Tool Log Viewer
+GenericName[fr]=Afficheur de l'historique des connexion internet par modem
 GenericName[x-test]=xxInternet Dial-Up Tool Log Viewerxx
 MimeType=
 Exec=kppplogview
