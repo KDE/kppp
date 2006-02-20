@@ -486,7 +486,7 @@ void MonthlyWidget::exportWizard() {
   }
 
   if (!exportIFace->openFile()) {  // error opening
-    KMessageBox::sorry(0, i18n("An error occurred while trying to open this file"), i18n("Sorry"), true);
+    KMessageBox::sorry(0, i18n("An error occurred while trying to open this file"), i18n("Sorry"), KMessageBox::Notify);
     delete exportIFace;
     return; // abort...
   }
@@ -634,7 +634,7 @@ void MonthlyWidget::exportWizard() {
 
     // write buffer to file and close file
     if (!exportIFace->closeFile())  {
-      KMessageBox::sorry(0, i18n("An error occurred while trying to write to this file."), i18n("Sorry"), true);
+      KMessageBox::sorry(0, i18n("An error occurred while trying to write to this file."), i18n("Sorry"),  KMessageBox::Notify);
       delete exportIFace;
       return;
     }
