@@ -26,7 +26,7 @@
 #include <kcalendarsystem.h>
 #include <klocale.h>
 #include <kglobal.h>
-#include <klistview.h>
+#include <k3listview.h>
 #include <kdebug.h>
 #include <kmessagebox.h>
 
@@ -172,7 +172,7 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
 {
   tl = 0;
 
-  lv = new KListView(this);
+  lv = new K3ListView(this);
   lv->addColumn(i18n("Connection"));
   lv->addColumn(i18n("Day"));
   lv->addColumn(i18n("From"));
@@ -198,7 +198,7 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
   selectionItem = 0L;
   connect(lv, SIGNAL(selectionChanged()), SLOT(slotSelectionChanged()));
 
-  lv2 = new KListView(this);
+  lv2 = new K3ListView(this);
   lv2->addColumn(i18n("Connection"));
   lv2->addColumn(i18n("Duration"));
   lv2->addColumn(i18n("Costs"));

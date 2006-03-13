@@ -32,7 +32,7 @@
 
 #include <kbuttonbox.h>
 
-class KListView;
+class K3ListView;
 class QComboBox;
 class LogListItem;
 
@@ -67,8 +67,8 @@ private:
 
   QComboBox *cboConnections;
   KButtonBox *bbox;
-  KListView *lv;
-  KListView *lv2;
+  K3ListView *lv;
+  K3ListView *lv2;
   LogListItem* selectionItem;
   QLabel *title;
   QPushButton *next, *prev, *today, *exportBttn;
