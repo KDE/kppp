@@ -213,7 +213,7 @@ int ModemsWidget::doTab(){
   tabWindow = new KDialogBase( KDialogBase::Tabbed, QString::null,
                                KDialogBase::Ok|KDialogBase::Cancel, KDialogBase::Ok,
                                0, 0, true);
-  KWin::setIcons(tabWindow->winId(), qApp->windowIcon().pixmap(IconSize(KIcon::Desktop),IconSize(KIcon::Desktop)), qApp->windowIcon().pixmap(IconSize(KIcon::Small),IconSize(KIcon::Small)));
+  KWin::setIcons(tabWindow->winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
   bool isnewmodem;
 
   if(gpppdata.modname().isEmpty()) {

@@ -57,7 +57,7 @@ MiniTerm::MiniTerm(QWidget *parent, const char *name)
   : QDialog(parent, name, true)
 {
   setCaption(i18n("Kppp Mini-Terminal"));
-  KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(KIcon::Desktop),IconSize(KIcon::Desktop)), qApp->windowIcon().pixmap(IconSize(KIcon::Small),IconSize(KIcon::Small)));
+  KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
 
   m_file = new QMenu(this);
   m_file->addAction( SmallIcon("fileclose"), i18n("&Close"), this, SLOT(cancelbutton()) );

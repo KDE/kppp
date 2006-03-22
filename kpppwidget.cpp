@@ -246,17 +246,17 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   stats = new PPPStats;
 
-  KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(KIcon::Desktop),IconSize(KIcon::Desktop)), qApp->windowIcon().pixmap(IconSize(KIcon::Small),IconSize(KIcon::Small)));
+  KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
 
   // constructor of con_win reads position from config file
   con_win = new ConWindow(0, "conw", this, stats);
-  KWin::setIcons(con_win->winId(), qApp->windowIcon().pixmap(IconSize(KIcon::Desktop),IconSize(KIcon::Desktop)), qApp->windowIcon().pixmap(IconSize(KIcon::Small),IconSize(KIcon::Small)));
+  KWin::setIcons(con_win->winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
 
   statdlg = new PPPStatsDlg(0, "stats", this, stats);
   statdlg->hide();
 
   debugwindow = new DebugWidget(0,"debugwindow");
-  KWin::setIcons(debugwindow->winId(), qApp->windowIcon().pixmap(IconSize(KIcon::Desktop),IconSize(KIcon::Desktop)), qApp->windowIcon().pixmap(IconSize(KIcon::Small),IconSize(KIcon::Small)));
+  KWin::setIcons(debugwindow->winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
   debugwindow->hide();
 
   // load up the accounts combo box
@@ -264,7 +264,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   resetaccounts();
   resetmodems();
   con = new ConnectWidget(0, "con", stats);
-  KWin::setIcons(con->winId(), qApp->windowIcon().pixmap(IconSize(KIcon::Desktop),IconSize(KIcon::Desktop)), qApp->windowIcon().pixmap(IconSize(KIcon::Small),IconSize(KIcon::Small)) );
+  KWin::setIcons(con->winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)) );
   connect(this, SIGNAL(begin_connect()),con, SLOT(preinit()));
 
   QRect desk = KGlobalSettings::desktopGeometry(topLevelWidget());
@@ -395,7 +395,7 @@ void KPPPWidget::prepareSetupDialog() {
                                  kapp->mainWidget(), 0, true);
 
 
-    KWin::setIcons(tabWindow->winId(), qApp->windowIcon().pixmap(IconSize(KIcon::Desktop),IconSize(KIcon::Desktop)), qApp->windowIcon().pixmap(IconSize(KIcon::Small),IconSize(KIcon::Small)));
+    KWin::setIcons(tabWindow->winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
 
     //    tabWindow->setFixedSize( 365, 375 );
 

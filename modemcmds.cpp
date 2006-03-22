@@ -53,7 +53,7 @@
 ModemCommands::ModemCommands(QWidget *parent, const char *name)
   : KDialogBase(parent, name, true, i18n("Edit Modem Commands"), Ok|Cancel)
 {
-  KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(KIcon::Desktop),IconSize(KIcon::Desktop)), qApp->windowIcon().pixmap(IconSize(KIcon::Small),IconSize(KIcon::Small)));
+  KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
   QWidget *dummyWidget = new QWidget(this);
   setMainWidget(dummyWidget);
 
