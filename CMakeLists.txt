@@ -52,7 +52,7 @@ kde4_add_dcop_skels(kppp_SRCS KPPPIface.h )
 
 kde4_add_executable(kppp ${kppp_SRCS})
 
-target_link_libraries(kppp  ${QT_AND_KDECORE_LIBS} m kio kdeui kde3support )
+target_link_libraries(kppp  ${KDE4_KDECORE_LIBS} m kio kdeui kde3support )
 
 install_targets(/bin kppp )
 
