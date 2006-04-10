@@ -768,7 +768,7 @@ void KPPPWidget::beginConnect() {
 				   encodeWord(gpppdata.password()))) {
 	QString s;
 	s = i18n("Cannot create PAP/CHAP authentication\n"
-				     "file \"%1\"", PAP_AUTH_FILE);
+				     "file \"%1\"", QString(PAP_AUTH_FILE));
 	KMessageBox::error(this, s);
 	return;
       }
