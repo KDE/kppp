@@ -270,13 +270,13 @@ void ConWindow::stopClock() {
 void ConWindow::timeclick() {
   QString tooltip = i18n("Connection: %1\n"
 			 "Connected at: %2\n"
-			 "Time connected: %3")
-		    .arg(gpppdata.accname()).arg(info2->text())
-		    .arg(time_string2);
+			 "Time connected: %3",
+		     gpppdata.accname(), info2->text(),
+		     time_string2);
 
   if(accountingEnabled)
-      tooltip += i18n("\nSession Bill: %1\nTotal Bill: %2")
-		 .arg(session_bill->text()).arg(total_bill->text());
+      tooltip += i18n("\nSession Bill: %1\nTotal Bill: %2",
+		  session_bill->text(), total_bill->text());
   // volume accounting
   if(volumeAccountingEnabled) {
     

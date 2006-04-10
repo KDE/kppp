@@ -297,9 +297,9 @@ void PPPStatsDlg::paintGraph() {
   p.setFont(QFont(KGlobalSettings::fixedFont().family(), 8));
 
   QRect r;
-  QString s = i18n("%1 (max. %2) kb/sec")
-		.arg(KGlobal::locale()->formatNumber((float)last_max / 1024.0, 1))
-		.arg(KGlobal::locale()->formatNumber((float)max / 1024.0, 1));
+  QString s = i18n("%1 (max. %2) kb/sec",
+		 KGlobal::locale()->formatNumber((float)last_max / 1024.0, 1),
+		 KGlobal::locale()->formatNumber((float)max / 1024.0, 1));
   p.drawText(0, 0, pm.width(), 2*8, Qt::AlignRight|Qt::AlignVCenter, s, -1, &r);
   p.drawLine(0, 8, r.left() - 8, 8);
 

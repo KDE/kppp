@@ -499,7 +499,7 @@ int PPPData::copymodem(int i) {
   QMap <QString, QString> map = config->entryMap(cmodemgroup);
   QMap <QString, QString>::ConstIterator it = map.begin();
 
-  QString newname = i18n("%1_copy").arg(modname());
+  QString newname = i18n("%1_copy", modname());
 
   newmodem();
 
@@ -1027,7 +1027,7 @@ int PPPData::copyaccount(int i) {
   QMap <QString, QString> map = config->entryMap(caccountgroup);
   QMap <QString, QString>::ConstIterator it = map.begin();
 
-  QString newname = i18n("%1_copy").arg(accname());
+  QString newname = i18n("%1_copy", accname());
 
   newaccount();
 

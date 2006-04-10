@@ -38,9 +38,9 @@ static void formatBytes(int bytes, QString &result) {
   if(bytes < 1024)
     result.setNum(bytes);
   else if(bytes < 1024*1024)
-    result = i18n("%1 KB").arg(KGlobal::locale()->formatNumber((float)bytes / 1024.0, 1));
+    result = i18n("%1 KB", KGlobal::locale()->formatNumber((float)bytes / 1024.0, 1));
   else
-    result = i18n("%1 MB").arg(KGlobal::locale()->formatNumber((float)bytes / 1024.0 / 1024.0, 1));
+    result = i18n("%1 MB", KGlobal::locale()->formatNumber((float)bytes / 1024.0 / 1024.0, 1));
 }
  
 static void formatBytesMonth(int bytes, QString &result) {
@@ -54,23 +54,23 @@ static void formatBytesMonth(int bytes, QString &result) {
   if(bytes < 1024)
     result.setNum(bytes);
   else if(bytes < 1024*1024)
-    result = i18n("%1 KB").arg(KGlobal::locale()->formatNumber((float)bytes / 1024.0, 1));
+    result = i18n("%1 KB", KGlobal::locale()->formatNumber((float)bytes / 1024.0, 1));
   else
-    result = i18n("%1 MB").arg(KGlobal::locale()->formatNumber((float)bytes / 1024.0 / 1024.0, 1));
+    result = i18n("%1 MB", KGlobal::locale()->formatNumber((float)bytes / 1024.0 / 1024.0, 1));
 }
 
 static void formatDuration(int seconds, QString &result) {
   QString sec;
   sec.sprintf("%02d", seconds%60);
   if(seconds < 60)
-    result = i18n("%1s").arg(sec);
+    result = i18n("%1s", sec);
   else if(seconds < 3600)
-    result = i18n("%1m %2s").arg(seconds/60).arg(sec);
+    result = i18n("%1m %2s", seconds/60, sec);
   else
-    result = i18n("%1h %2m %3s")
-        .arg(seconds/3600)
-        .arg((seconds % 3600)/60)
-        .arg(sec);
+    result = i18n("%1h %2m %3s",
+         seconds/3600,
+         (seconds % 3600)/60,
+         sec);
 }
  
 static void formatDurationMonth(int seconds, QString &result) {
@@ -84,14 +84,14 @@ static void formatDurationMonth(int seconds, QString &result) {
 	QString sec;
 	sec.sprintf("%02d", seconds%60);
 	if(seconds < 60)
-		result = i18n("%1s").arg(sec);
+		result = i18n("%1s", sec);
 	else if(seconds < 3600)
-		result = i18n("%1m %2s").arg(seconds/60).arg(sec);
+		result = i18n("%1m %2s", seconds/60, sec);
 	else
-		result = i18n("%1h %2m %3s")
-			.arg(seconds/3600)
-			.arg((seconds % 3600)/60)
-			.arg(sec);
+		result = i18n("%1h %2m %3s",
+			 seconds/3600,
+			 (seconds % 3600)/60,
+			 sec);
 }
 
 static void costsMonth(double costs, double &result) {
@@ -387,11 +387,11 @@ void MonthlyWidget::plotMonth() {
     QString s_costs(KGlobal::locale()->formatMoney(costs, QString::null, 2));
 
     selectionItem =  new LogListItem(0, lv2,
-			   i18n("Selection (%n connection)", "Selection (%n connections)", 0),
+			   i18np("Selection (%n connection)", "Selection (%n connections)", 0),
 			   QString::null, QString::null, QString::null,
 			   QString::null, QString::null, QString::null, QString::null);
     (void) new LogListItem(0, lv2,
-			   i18n("%n connection", "%n connections", count),
+			   i18np("%n connection", "%n connections", count),
 			   s_duration, s_costs, _bin, _bout, QString::null, QString::null, QString::null);
 
 	const KCalendarSystem * calendar = KGlobal::locale()->calendar();
@@ -425,14 +425,14 @@ void MonthlyWidget::plotMonth() {
   QString t;
   if(lv->childCount() > 0) {
     exportBttn->setEnabled(true); // export possibility
-    t = i18n("Connection log for %1 %2")
-	      .arg(calendar->monthName(startDate))
-	      .arg(calendar->year(startDate));
+    t = i18n("Connection log for %1 %2",
+	       calendar->monthName(startDate),
+	       calendar->year(startDate));
   } else {
     exportBttn->setEnabled(false); // nothing to export
-    t = i18n("No connection log for %1 %2 available")
-	      .arg(calendar->monthName(startDate))
-	      .arg(calendar->year(startDate));
+    t = i18n("No connection log for %1 %2 available",
+	       calendar->monthName(startDate),
+	       calendar->year(startDate));
   }
 
   title->setText(t);
@@ -598,7 +598,7 @@ void MonthlyWidget::exportWizard() {
 	QString datetime = KGlobal::locale()->formatDateTime( QDateTime::currentDateTime(), true);
 
 	exportIFace->addEmptyLine();
-	exportIFace->addDataline(i18n("Monthly estimates (%1)").arg(datetime), 
+	exportIFace->addDataline(i18n("Monthly estimates (%1)", datetime), 
 		QString::null, QString::null, QString::null, m_duration, m_costs, m_bin, m_bout);
 	}
 
@@ -628,7 +628,7 @@ void MonthlyWidget::exportWizard() {
 
     // call export methods
     exportIFace->addEmptyLine();
-    exportIFace->addDataline(i18n("%n connection", "%n connections", count), QString::null, QString::null, QString::null, s_duration,
+    exportIFace->addDataline(i18np("%n connection", "%n connections", count), QString::null, QString::null, QString::null, s_duration,
 			     s_costs, _bin, _bout);
     exportIFace->setFinishCode();
 
@@ -717,7 +717,7 @@ void MonthlyWidget::slotSelectionChanged()
                     s_duration);
 
       QString s_costs(KGlobal::locale()->formatMoney(costs, QString::null, 2));
-      selectionItem->setText(0, i18n("Selection (%n connection)", "Selection (%n connections)", count));
+      selectionItem->setText(0, i18np("Selection (%n connection)", "Selection (%n connections)", count));
       selectionItem->setText(1, s_duration);
       selectionItem->setText(2, s_costs);
       selectionItem->setText(3, _bin);

@@ -218,7 +218,7 @@ void ConnectWidget::init() {
   comlist = &gpppdata.scriptType();
   arglist = &gpppdata.script();
 
-  QString tit = i18n("Connecting to: %1").arg(gpppdata.accname());
+  QString tit = i18n("Connecting to: %1", gpppdata.accname());
   setCaption(tit);
 
   kapp->processEvents();
@@ -406,7 +406,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       QStringList &plist = gpppdata.phonenumbers();
       QString bmarg= gpppdata.dialPrefix();
       bmarg += plist.at(dialnumber);
-      QString bm = i18n("Dialing %1").arg(bmarg);
+      QString bm = i18n("Dialing %1", bmarg);
       messg->setText(bm);
       emit debugMessage(bm);
 
@@ -442,7 +442,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       Modem::modem->hangup();
 
       if(gpppdata.busyWait() > 0) {
-	QString bm = i18n("Line busy. Waiting: %1 seconds").arg(gpppdata.busyWait());
+	QString bm = i18n("Line busy. Waiting: %1 seconds", gpppdata.busyWait());
 	messg->setText(bm);
 	emit debugMessage(bm);
 
@@ -475,7 +475,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
         timeout_timer->start(gpppdata.modemTimeout()*1000);
 
         if(gpppdata.busyWait() > 0) {
-	  QString bm = i18n("No carrier. Waiting: %1 seconds").arg(gpppdata.busyWait());
+	  QString bm = i18n("No carrier. Waiting: %1 seconds", gpppdata.busyWait());
 	  messg->setText(bm);
 	  emit debugMessage(bm);
 
@@ -561,7 +561,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       }
 
       if (scriptCommand == "Scan") {
-	QString bm = i18n("Scanning %1").arg(scriptArgument);
+	QString bm = i18n("Scanning %1", scriptArgument);
 	messg->setText(bm);
 	emit debugMessage(bm);
 
@@ -571,7 +571,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       }
 
       if (scriptCommand == "Save") {
-	QString bm = i18n("Saving %1").arg(scriptArgument);
+	QString bm = i18n("Saving %1", scriptArgument);
 	messg->setText(bm);
 	emit debugMessage(bm);
 
@@ -589,8 +589,6 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
 
       if (scriptCommand == "Send" || scriptCommand == "SendNoEcho") {
-	QString bm = i18n("Sending %1");
-
 	// replace %USERNAME% and %PASSWORD%
 	QString arg = scriptArgument;
 	QRegExp re1("%USERNAME%");
@@ -598,12 +596,14 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	arg = arg.replace(re1, gpppdata.storedUsername());
 	arg = arg.replace(re2, gpppdata.storedPassword());
 
+	QString scriptarg;
 	if (scriptCommand == "Send")
-	  bm = bm.arg(scriptArgument);
+	  scriptarg = scriptArgument;
 	else {
 	  for(int i = 0; i < scriptArgument.length(); i++)
-	    bm = bm.arg("*");
+	    scriptarg += "*";
 	}
+	QString bm = i18n("Sending %1", scriptarg);
 
 	messg->setText(bm);
 	emit debugMessage(bm);
@@ -614,7 +614,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       }
 
       if (scriptCommand == "Expect") {
-        QString bm = i18n("Expecting %1").arg(scriptArgument);
+        QString bm = i18n("Expecting %1", scriptArgument);
 	messg->setText(bm);
 	emit debugMessage(bm);
 
@@ -628,7 +628,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
 
       if (scriptCommand == "Pause") {
-	QString bm = i18n("Pause %1 seconds").arg(scriptArgument);
+	QString bm = i18n("Pause %1 seconds", scriptArgument);
 	messg->setText(bm);
 	emit debugMessage(bm);
 
@@ -645,7 +645,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
 	timeout_timer->stop();
 
-	QString bm = i18n("Timeout %1 seconds").arg(scriptArgument);
+	QString bm = i18n("Timeout %1 seconds", scriptArgument);
 	messg->setText(bm);
 	emit debugMessage(bm);
 
@@ -680,7 +680,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       }
 
       if (scriptCommand == "ID") {
-	QString bm = i18n("ID %1").arg(scriptArgument);
+	QString bm = i18n("ID %1", scriptArgument);
 	messg->setText(bm);
 	emit debugMessage(bm);
 
@@ -716,7 +716,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       }
 
       if (scriptCommand == "Password") {
-	QString bm = i18n("Password %1").arg(scriptArgument);
+	QString bm = i18n("Password %1", scriptArgument);
 	messg->setText(bm);
 	emit debugMessage(bm);
 
@@ -753,8 +753,6 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       }
 
       if (scriptCommand == "Prompt") {
-	QString bm = i18n("Prompting %1");
-
         // if the scriptindex (aka the prompt text) includes a ## marker
         // this marker should get substituted with the contents of our stored
         // variable (from the subsequent scan).
@@ -766,7 +764,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 		ts.insert( vstart, scanvar );
 	}
 
-	bm = bm.arg(ts);
+	QString bm = i18n("Prompting %1", ts);
 	messg->setText(bm);
 	emit debugMessage(bm);
 
@@ -790,7 +788,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       }
 
       if (scriptCommand == "PWPrompt") {
-	QString bm = i18n("PW Prompt %1").arg(scriptArgument);
+	QString bm = i18n("PW Prompt %1", scriptArgument);
 	messg->setText(bm);
 	emit debugMessage(bm);
 
@@ -815,7 +813,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
       if (scriptCommand == "LoopStart") {
 
-        QString bm = i18n("Loop Start %1").arg(scriptArgument);
+        QString bm = i18n("Loop Start %1", scriptArgument);
 
 	// The incrementing of the scriptindex MUST be before the
 	// call to setExpect otherwise the expect will miss a string that is
@@ -840,9 +838,9 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
       }
 
       if (scriptCommand == "LoopEnd") {
-        QString bm = i18n("Loop End %1").arg(scriptArgument);
+        QString bm = i18n("Loop End %1", scriptArgument);
 	if ( loopnest <= 0 ) {
-		bm = i18n("LoopEnd without matching Start. Line: %1").arg(bm);
+		bm = i18n("LoopEnd without matching Start. Line: %1", bm);
 		vmain=20;
 		cancelbutton();
 	        KMessageBox::error(0, bm);
@@ -1011,7 +1009,7 @@ void ConnectWidget::checkBuffers() {
       scanvar = scanvar.trimmed();
 
       // Show the Variabel content in the debug window
-      QString sv = i18n("Scan Var: %1").arg(scanvar);
+      QString sv = i18n("Scan Var: %1", scanvar);
       emit debugMessage(sv);
   }
 
@@ -1021,7 +1019,7 @@ void ConnectWidget::checkBuffers() {
       // keep everything after the expected string
       readbuffer.remove(0, readbuffer.find(expectstr) + expectstr.length());
 
-      QString ts = i18n("Found: %1").arg(expectstr);
+      QString ts = i18n("Found: %1", expectstr);
       emit debugMessage(ts);
 
       if (loopend) {
@@ -1032,7 +1030,7 @@ void ConnectWidget::checkBuffers() {
     if (loopend && readbuffer.contains(loopstr[loopnest])) {
       expecting = false;
       readbuffer = "";
-      QString ts = i18n("Looping: %1").arg(loopstr[loopnest]);
+      QString ts = i18n("Looping: %1", loopstr[loopnest]);
       emit debugMessage(ts);
       scriptindex = loopstartindex[loopnest];
       loopend = false;
@@ -1125,7 +1123,7 @@ void ConnectWidget::setScan(const QString &n) {
   scanstr = n;
   scanbuffer = "";
 
-  QString ts = i18n("Scanning: %1").arg(n);
+  QString ts = i18n("Scanning: %1", n);
   emit debugMessage(ts);
 }
 
@@ -1134,7 +1132,7 @@ void ConnectWidget::setExpect(const QString &n) {
   expecting = true;
   expectstr = n;
 
-  QString ts = i18n("Expecting: %1").arg(n);
+  QString ts = i18n("Expecting: %1", n);
   ts.replace(QRegExp("\n"), "<LF>");
   emit debugMessage(ts);
 

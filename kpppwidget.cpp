@@ -314,7 +314,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
     bool result = gpppdata.setModem(m_strCmdlModem);
     if (!result){
       QString string;
-      string = i18n("No such Modem:\n%1\nFalling back to default").arg(m_strCmdlModem);
+      string = i18n("No such Modem:\n%1\nFalling back to default", m_strCmdlModem);
       KMessageBox::error(this, string);
       m_bCmdlModem = false;
     }
@@ -324,7 +324,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
     bool result = gpppdata.setAccount(m_strCmdlAccount);
     if (!result){
       QString string;
-      string = i18n("No such Account:\n%1").arg(m_strCmdlAccount);
+      string = i18n("No such Account:\n%1", m_strCmdlAccount);
       KMessageBox::error(this, string);
       m_bCmdlAccount = false;
       show();
@@ -628,12 +628,11 @@ void KPPPWidget::sigPPPDDied() {
 	    msg = i18n("<p>The pppd daemon died unexpectedly!</p>");
 	    Requester::rq->pppdExitStatus();
 	    if (Requester::rq->lastStatus != 99) {	// more recent pppds only
-		msg += i18n("<p>Exit status: %1").arg(Requester::rq->lastStatus);
+		msg += i18n("<p>Exit status: %1", Requester::rq->lastStatus);
 		msg += i18n("</p><p>See 'man pppd' for an explanation of the error "
 			    "codes or take a look at the kppp FAQ on "
-			    "  <a href=\"%1\">%2</a></p>")
-                       .arg("http://developer.kde.org/~kppp/index.html")
-                       .arg("http://developer.kde.org/~kppp/index.html");
+			    "  <a href=\"%1\">%1</a></p>",
+                        QString("http://developer.kde.org/~kppp/index.html"));
 	    }
 	}
 
@@ -724,7 +723,7 @@ void KPPPWidget::beginConnect() {
     string = i18n("kppp cannot execute:\n %1\n"
     		   "Please make sure that you have given kppp "
 		   "setuid permission and that "
-		   "pppd is executable.").arg(gpppdata.pppdPath());
+		   "pppd is executable.", gpppdata.pppdPath());
     KMessageBox::error(this, string);
     return;
 
@@ -746,7 +745,7 @@ void KPPPWidget::beginConnect() {
 		   "your modem device properly "
 		   "and/or adjust the location of the modem device on "
 		   "the modem tab of "
-		   "the setup dialog.").arg(device);
+		   "the setup dialog.", device);
     KMessageBox::error(this, string);
     return;
   }
@@ -769,7 +768,7 @@ void KPPPWidget::beginConnect() {
 				   encodeWord(gpppdata.password()))) {
 	QString s;
 	s = i18n("Cannot create PAP/CHAP authentication\n"
-				     "file \"%1\"").arg(PAP_AUTH_FILE);
+				     "file \"%1\"", PAP_AUTH_FILE);
 	KMessageBox::error(this, s);
 	return;
       }
@@ -784,7 +783,7 @@ void KPPPWidget::beginConnect() {
 
   hide();
 
-  QString tit = i18n("Connecting to: %1").arg(gpppdata.accname());
+  QString tit = i18n("Connecting to: %1", gpppdata.accname());
   con->setCaption(tit);
   con->enableButtons();
   con->show();
@@ -931,7 +930,7 @@ void KPPPWidget::startAccounting() {
 
   if(!acct->loadRuleSet(gpppdata.accountingFile())) {
     QString s= i18n("Can not load the accounting "
-    		    "ruleset \"%1\".").arg(gpppdata.accountingFile());
+    		    "ruleset \"%1\".", gpppdata.accountingFile());
 
     // starting the messagebox with a timer will prevent us
     // from blocking the calling function ConnectWidget::timerEvent

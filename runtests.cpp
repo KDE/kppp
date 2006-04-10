@@ -253,7 +253,7 @@ int runTests() {
                      i18n("You don't have sufficient permission to run\n"
                           "%1\n"
                           "Please make sure that kppp is owned by root "
-                          "and has the SUID bit set.").arg(f));
+                          "and has the SUID bit set.", f));
         warning++;
       }
     }
@@ -265,7 +265,7 @@ int runTests() {
     QString msgstr = i18n("%1 is missing or can't be read!\n"
                    "Ask your system administrator to create "
                    "this file (can be empty) with appropriate "
-                   "read and write permissions.").arg(file);
+                   "read and write permissions.", file);
     KMessageBox::error(0, msgstr);
     warning ++;
   }

@@ -173,7 +173,7 @@ void PPPL_AnalyseLog(QStringList &list, QStringList &result) {
       if(!str.isEmpty()) {
         msg = i18n("Notice that the remote system has sent the following"
                          " message:\n\"%1\"\nThis may give you a hint why the"
-                         " the connection has failed.").arg(str);
+                         " the connection has failed.", str);
         result.append(msg);
       }
     }
@@ -280,7 +280,7 @@ void PPPL_ShowLog() {
     fclose(f);
     umask(old_umask);
 
-    QString msg = i18n("The PPP log has been saved\nas \"%1\"!\n\nIf you want to send a bug report, or have\nproblems connecting to the Internet, please\nattach this file. It will help the maintainers\nto find the bug and to improve KPPP").arg(s);
+    QString msg = i18n("The PPP log has been saved\nas \"%1\"!\n\nIf you want to send a bug report, or have\nproblems connecting to the Internet, please\nattach this file. It will help the maintainers\nto find the bug and to improve KPPP", s);
     KMessageBox::information(0, msg);
   }
   delete dlg;

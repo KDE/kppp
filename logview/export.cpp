@@ -219,7 +219,7 @@ void CSVExport::setFinishCode() {
 /***** HTMLExport *****/
 HTMLExport::HTMLExport(const QString &filename, const QString &date)
   : Export(filename) {
-  QString title = i18n("Connection log for %1").arg(date);
+  QString title = i18n("Connection log for %1", date);
   buffer = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n";
   buffer.append("<html>\n<head>\n  <title>"+title+"</title>\n");
   buffer.append(QLatin1String("  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=")

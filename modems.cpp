@@ -192,8 +192,8 @@ void ModemsWidget::copymodem() {
 
 void ModemsWidget::deletemodem() {
 
-  QString s = i18n("Are you sure you want to delete\nthe modem \"%1\"?")
-    .arg(modemlist_l->text(modemlist_l->currentItem()));
+  QString s = i18n("Are you sure you want to delete\nthe modem \"%1\"?",
+     modemlist_l->text(modemlist_l->currentItem()));
 
   if(KMessageBox::warningContinueCancel(this, s, i18n("Confirm"), KStdGuiItem::del()) != KMessageBox::Continue)
     return;

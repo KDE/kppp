@@ -88,7 +88,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
 
   for(int i = 0; i < PPPData::NumInitStrings; i++) {
       initstr[i] = new QLineEdit(dummyWidget);
-      QLabel *initLabel = new QLabel(i18n("Initialization string %1:").arg(i + 1),
+      QLabel *initLabel = new QLabel(i18n("Initialization string %1:", i + 1),
 				    dummyWidget);
       ADJUSTEDIT(initstr[i]);
       l1->addWidget(initLabel, row, 1);

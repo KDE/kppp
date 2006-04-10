@@ -236,7 +236,7 @@ int main( int argc, char **argv ) {
   KGlobal::dirs()->saveLocation("appdata", "Rules");
 
   int pid = create_pidfile();
-  QString err_msg = i18n("kppp can't create or read from\n%1.").arg(pidfile);
+  QString err_msg = i18n("kppp can't create or read from\n%1.", pidfile);
 
   if(pid < 0) {
     KMessageBox::error(0L, err_msg);
@@ -275,8 +275,8 @@ int main( int argc, char **argv ) {
                        "file, and restart kppp.\n"
                        "Alternatively, if you have determined that "
                        "there is no other kppp running, please "
-                       "click Continue to begin.")
-                  .arg(pidfile).arg(pid);
+                       "click Continue to begin.",
+                   pidfile, pid);
     int button = KMessageBox::warningYesNo(0, msg, i18n("Error"),
                                       i18n("Exit"), KStdGuiItem::cont());
     if (button == KMessageBox::Yes)            /* exit */
