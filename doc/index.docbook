@@ -27,7 +27,7 @@
 <firstname>Lauri</firstname>
 <surname>Watts</surname>
 <affiliation>
-<address><email>lauri@kde.org</email></address>
+<address>&Lauri.Watts.mail;</address>
 </affiliation>
 </author>
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
@@ -35,7 +35,7 @@
 
 <copyright>
 <year>2001</year>
-<holder>Lauri Watts</holder>
+<holder>&Lauri.Watts;</holder>
 </copyright>
 
 <legalnotice>&FDLNotice;</legalnotice>
@@ -117,11 +117,11 @@ longer.</para>
 <para>Primary Developers:</para>
 
 <itemizedlist>
-<listitem><para>Bernd Johannes Wuebben <email>wuebben@kde.org</email></para>
+<listitem><para>&Bernd.Johannes.Wuebben; &Bernd.Johannes.Wuebben.mail;</para>
 </listitem>
-<listitem><para>Mario Weilguni <email>mweilguni@sime.com</email></para>
+<listitem><para>&Mario.Weilguni; &Mario.Weilguni.mail;</para>
 </listitem>
-<listitem><para>Harri Porten <email>porten@kde.org</email> (Current
+<listitem><para>&Harri.Porten; &Harri.Porten.mail; (Current
 maintainer)</para>
 </listitem>
 </itemizedlist>
@@ -150,11 +150,11 @@ to the mysteries of file descriptor passing.</para>
 </listitem>
 </itemizedlist>
 
+<para>Documentation copyright 2001 &Lauri.Watts;
+&Lauri.Watts.mail;, although largely based on the original by
+&Bernd.Johannes.Wuebben; &Bernd.Johannes.Wuebben.mail;</para>
 
-<para>Documentation copyright 2001 Lauri Watts
-<email>lauri@kde.org</email>, although largely based on the original by
-Bernd Johannes Wuebben <email>wuebben@kde.org</email></para>
-
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
 &underFDL;               <!-- FDL: do not remove -->
 
 &underGPL;        	 <!-- GPL License -->
@@ -179,7 +179,7 @@ Bernd Johannes Wuebben <email>wuebben@kde.org</email></para>
 </sect1>
 
 <sect1 id="preparing-your-computer">
-<title>Preparing your Computer for a <acronym>PPP</acronym> Connection</title>
+<title>Preparing your Computer for a &PPP; Connection</title>
 
 <para>The following sections contain some fairly generic information for several
 common operating systems which might run &kppp;.  The following sites may be of
@@ -187,10 +187,10 @@ interest for further information about the <acronym>ppp</acronym> protocol,
 <application>pppd</application> and networking in general:</para>
 
 <itemizedlist>
-<listitem><para>The &Linux; <acronym>PPP</acronym> &FAQ;: <ulink 
-url="http://metalab.unc.edu/mdw/FAQ/PPP-FAQ.html">
+<listitem><para>The &Linux; &PPP; &FAQ;: <ulink
+	url="http://metalab.unc.edu/mdw/FAQ/PPP-FAQ.html">
 http://metalab.unc.edu/mdw/FAQ/PPP-FAQ.html</ulink></para></listitem>
-<listitem><para>The &Linux; <acronym>PPP</acronym> HOWTO: <ulink 
+<listitem><para>The &Linux; &PPP; HOWTO: <ulink
 url="http://metalab.unc.edu/mdw/HOWTO/PPP-HOWTO.html">
 http://metalab.unc.edu/mdw/HOWTO/PPP-HOWTO.html</ulink></para></listitem>
 <listitem><para><ulink url="http://www.thoughtport.com:8080/PPP/index.html">
@@ -201,7 +201,7 @@ http://metalab.unc.edu/mdw/LDP/nag/nag.html</ulink></para></listitem>
 </itemizedlist>
 
 <sect2 id="preparing-linux-for-ppp">
-<title>Preparing a &Linux; system for <acronym>PPP</acronym></title>
+<title>Preparing a &Linux; system for &PPP;</title>
 
 <para>In order for &kppp; (or indeed, <application>pppd</application>) to work,
 your kernel must have ppp support compiled in.  If this is not the case, get
@@ -227,7 +227,7 @@ PPP line discipline registered
 </informalexample>
 
 <para>&kppp; tries to find out for itself if your kernel supports
-<acronym>PPP</acronym>.  If not, you will be notified as soon as &kppp; starts
+&PPP;.  If not, you will be notified as soon as &kppp; starts
 up.</para>
 
 <para>For &Linux; 2.x kernels, the <application>pppd</application> daemon should
