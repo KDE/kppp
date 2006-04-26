@@ -285,7 +285,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 	  this, SLOT(stopAccounting()));
   connect(KApplication::kApplication(), SIGNAL(saveYourself()),
 	  this, SLOT(saveMyself()));
-  connect(KApplication::kApplication(), SIGNAL(shutDown()),
+  connect(KApplication::kApplication(), SIGNAL(aboutToQuit()),
 	  this, SLOT(shutDown()));
 
   debugwindow->setGeometry(desk.center().x()+190, desk.center().y()-55,

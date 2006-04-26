@@ -37,6 +37,7 @@
 #include <kglobalsettings.h>
 #include <kapplication.h>
 #include <kmenubar.h>
+#include <kicon.h>
 #include <kstdguiitem.h>
 #include <kguiitem.h>
 #include <qlayout.h>
@@ -108,21 +109,11 @@ MiniTerm::~MiniTerm() {
 void MiniTerm::setupToolbar() {
   toolbar = new KToolBar( this );
 
-  toolbar->insertButton("exit", 0,
-		      SIGNAL(clicked()), this,
-		      SLOT(cancelbutton()), TRUE, i18n("Close MiniTerm"));
+  toolbar->addAction( KIcon("exit"), i18n("Close MiniTerm"), this, SLOT(cancelbutton()));
+  toolbar->addAction( KIcon("back"), i18n("Reset Modem"), this, SLOT(resetModem()));
+  toolbar->addAction( KIcon("help"), i18n("Help"), this, SLOT(help()));
 
-  toolbar->insertButton("back", 0,
-		      SIGNAL(clicked()), this,
-		      SLOT(resetModem()), TRUE, i18n("Reset Modem"));
-
-  toolbar->insertButton("help", 0,
-		      SIGNAL(clicked()), this,
-		      SLOT(help()), TRUE, i18n("Help"));
-
-  toolbar->setBarPos( KToolBar::Top );
-  toolbar->setMovingEnabled(false);
-  toolbar->updateRects(true);
+  toolbar->setMovable(false);
 }
 
 
