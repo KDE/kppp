@@ -121,11 +121,11 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
 
   auth = new QComboBox(parent);
   auth_l->setBuddy(auth);
-  auth->insertItem(i18n("Script-based"));
-  auth->insertItem(i18n("PAP"));
-  auth->insertItem(i18n("Terminal-based"));
-  auth->insertItem(i18n("CHAP"));
-  auth->insertItem(i18n("PAP/CHAP"));
+  auth->addItem(i18n("Script-based"));
+  auth->addItem(i18n("PAP"));
+  auth->addItem(i18n("Terminal-based"));
+  auth->addItem(i18n("CHAP"));
+  auth->addItem(i18n("PAP/CHAP"));
   tl->addWidget(auth, 3, 1);
   tmp = i18n("<p>Specifies the method used to identify yourself to\n"
 	     "the PPP server. Most universities still use\n"
@@ -158,9 +158,9 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
 
   cbtype = new QComboBox(parent);
   cbtype_l->setBuddy(cbtype);
-  cbtype->insertItem(i18n("None"));
-  cbtype->insertItem(i18n("Administrator-defined"));
-  cbtype->insertItem(i18n("User-defined"));
+  cbtype->addItem(i18n("None"));
+  cbtype->addItem(i18n("Administrator-defined"));
+  cbtype->addItem(i18n("User-defined"));
   connect(cbtype, SIGNAL(highlighted(int)),
 	  this, SLOT(cbtypeChanged(int)));
   tl->addWidget(cbtype, 5, 1);
@@ -205,18 +205,18 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
     if(tmp.length() > 0)
       numbers->insertItem(tmp);
 
-    auth->setCurrentItem(gpppdata.authMethod());
+    auth->setCurrentIndex(gpppdata.authMethod());
     store_password->setChecked(gpppdata.storePassword());
-    cbtype->setCurrentItem(gpppdata.callbackType());
+    cbtype->setCurrentIndex(gpppdata.callbackType());
     cbphone->setText(gpppdata.callbackPhone());
   } else {
     // select PAP/CHAP as default
-    auth->setCurrentItem(AUTH_PAPCHAP);
+    auth->setCurrentIndex(AUTH_PAPCHAP);
     // select NONE as default
-    cbtype->setCurrentItem(CBTYPE_NONE);
+    cbtype->setCurrentIndex(CBTYPE_NONE);
   }
 
-  emit cbtypeChanged(cbtype->currentItem());
+  emit cbtypeChanged(cbtype->currentIndex());
   numbersChanged();
   tl->activate();
 }
@@ -238,9 +238,9 @@ bool DialWidget::save() {
     }
 
     gpppdata.setPhonenumber(number);
-    gpppdata.setAuthMethod(auth->currentItem());
+    gpppdata.setAuthMethod(auth->currentIndex());
     gpppdata.setStorePassword(store_password->isChecked());
-    gpppdata.setCallbackType(cbtype->currentItem());
+    gpppdata.setCallbackType(cbtype->currentIndex());
     gpppdata.setCallbackPhone(cbphone->text());
     return true;
   }
@@ -334,8 +334,8 @@ i18n("Here you can select commands to run at certain stages of the\n"
 
   QGridLayout *l1 = new QGridLayout(4, 2, 10);
   tl->addLayout(l1);
-  l1->setColStretch(0, 0);
-  l1->setColStretch(1, 1);
+  l1->setColumnStretch(0, 0);
+  l1->setColumnStretch(1, 1);
 
   before_connect_l = new QLabel(i18n("&Before connect:"), parent);
   before_connect_l->setAlignment(Qt::AlignVCenter);
@@ -400,8 +400,8 @@ i18n("Here you can select commands to run at certain stages of the\n"
   discommand->setWhatsThis(tmp);
 
   // extra space between entries
-  l1->addRowSpacing(1, 5);
-  l1->addRowSpacing(3, 5);
+  l1->addItem(new QSpacerItem(0, 5), 1, 0);
+  l1->addItem(new QSpacerItem(0, 5), 3, 0);
 
   tl->addStretch(1);
   tl->activate();

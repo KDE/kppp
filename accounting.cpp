@@ -134,13 +134,13 @@ void AccountingBase::logMessage(QString s, bool newline) {
     // move to eof, and place \n if necessary
     if(f.size() > 0) {
       if(newline) {
-	f.at(f.size());
+	f.seek(f.size());
 	char c = 0;
 	f.readBlock(&c, 1);
 	if(c != '\n')
 	  f.write("\n", 1);
       } else
-	f.at(f.size());
+	f.seek(f.size());
     }
 
     Q3CString tmp = s.toLocal8Bit();
@@ -387,11 +387,11 @@ void ExecutableAccounting::gotData(KProcess */*proc*/, char *buffer, int /*bufle
 
   // split string
   QString b(buffer);
-  pos = b.find(':');
+  pos = b.indexOf(':');
   while(pos != -1 && nFields < 8) {
     field[nFields++] = b.mid(last_pos, pos-last_pos);
     last_pos = pos+1;
-    pos = b.find(':', last_pos);
+    pos = b.indexOf(':', last_pos);
   }
 
   for(int i = 0; i < nFields;i++)
@@ -401,9 +401,9 @@ void ExecutableAccounting::gotData(KProcess */*proc*/, char *buffer, int /*bufle
   QString s(buffer);
   int del1, del2, del3;
 
-  del1 = s.find(':');
-  del2 = s.find(':', del1+1);
-  del3 = s.find(':', del2+1);
+  del1 = s.indexOf(':');
+  del2 = s.indexOf(':', del1+1);
+  del3 = s.indexOf(':', del2+1);
   if(del1 == -1 || del2 == -1 || del3 == -1) {
     // TODO: do something usefull here
     return;

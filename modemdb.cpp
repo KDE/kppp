@@ -48,7 +48,7 @@
 
 ModemSelector::ModemSelector(QWidget *parent) : QDialog(parent, 0, true) {
   // set up widgets and such
-  setCaption(i18n("Select Modem Type"));
+  setWindowTitle(i18n("Select Modem Type"));
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
   QLabel *l1 = new QLabel(i18n("To set up your modem, first choose its vendor in the "
 			       "list to the left, and then select the model from the "
@@ -230,7 +230,7 @@ void ModemDatabase::load() {
 
     if(modemDB->hasKey("Vendor")) {
       QString vendor = modemDB->readEntry("Vendor");
-      if(lvendors->findIndex(vendor) == -1)
+      if(lvendors->indexOf(vendor) == -1)
 	lvendors->append(vendor);
     }
     ++it;

@@ -245,7 +245,7 @@ bool RuleSet::parseEntries(QString s, int year,
     s = "monday..sunday";
 
   while(s.length()) {
-    int pos = s.find(',');
+    int pos = s.indexOf(',');
     QString token;
     if(pos == -1) {
       token = s;
@@ -260,7 +260,7 @@ bool RuleSet::parseEntries(QString s, int year,
     RULE r;
     if(token.contains("..")) {
       QString left, right;
-      left = token.left(token.find(".."));
+      left = token.left(token.indexOf(".."));
       right = token.right(token.length()-2-left.length());
       RULE lr, rr;
       if(parseEntry(lr, left, year) && parseEntry(rr, right, year)) {
@@ -322,8 +322,8 @@ bool RuleSet::parseLine(const QString &s) {
   // for our french friends -- Bernd
   if(s.contains(QRegExp("flat_init_costs=\\(.*"))) {
     // parse the time fields
-    QString token = s.mid(s.find("flat_init_costs=(") + 17,
-			  s.find(")")-s.find("flat_init_costs=(") - 17);
+    QString token = s.mid(s.indexOf("flat_init_costs=(") + 17,
+			  s.indexOf(")")-s.indexOf("flat_init_costs=(") - 17);
     //    printf("TOKEN=%s\n",token.ascii());
 
     double after;
@@ -344,15 +344,15 @@ bool RuleSet::parseLine(const QString &s) {
 
   if(s.contains(QRegExp("on\\(.*\\)between\\(.*\\)use\\(.*\\)"))) {
     // parse the time fields
-    QString token = s.mid(s.find("between(") + 8,
-			  s.find(")use")-s.find("between(") - 8);
+    QString token = s.mid(s.indexOf("between(") + 8,
+			  s.indexOf(")use")-s.indexOf("between(") - 8);
     QTime t1, t2;
     if(!parseTime(t1, t2, token))
       return FALSE;
 
     // parse the rate fields
-    token = s.mid(s.find("use(") + 4,
-			  s.lastIndexOf(")")-s.find("use(") - 4);
+    token = s.mid(s.indexOf("use(") + 4,
+			  s.lastIndexOf(")")-s.indexOf("use(") - 4);
     double costs;
     double len;
     double after;
@@ -360,8 +360,8 @@ bool RuleSet::parseLine(const QString &s) {
       return FALSE;
 
     // parse the days
-    token = s.mid(s.find("on(") + 3,
-		  s.find(")betw")-s.find("on(") - 3);
+    token = s.mid(s.indexOf("on(") + 3,
+		  s.indexOf(")betw")-s.indexOf("on(") - 3);
     if(!parseEntries(token, QDate::currentDate().year(),
 		     t1, t2, costs, len, after))
       return FALSE;

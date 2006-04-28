@@ -103,8 +103,8 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   tl->addLayout(l1);
   l1->addColSpacing(0, 10);
   l1->addColSpacing(3, 10);
-  l1->setColStretch(1, 3);
-  l1->setColStretch(2, 4);
+  l1->setColumnStretch(1, 3);
+  l1->setColumnStretch(2, 4);
 
   label1 = new QLabel(i18n("C&onnect to: "), this);
   l1->addWidget(label1, 0, 1);
@@ -463,14 +463,14 @@ void KPPPWidget::resetaccounts() {
   //load the accounts
   for(int i=0; i < count; i++) {
     gpppdata.setAccountByIndex(i);
-     connectto_c->insertItem(gpppdata.accname());
+     connectto_c->addItem(gpppdata.accname());
   }
 
   //set the default account
   if(!gpppdata.defaultAccount().isEmpty()) {
     for(int i=0; i < count; i++)
-       if(gpppdata.defaultAccount() == connectto_c->text(i)) {
- 	connectto_c->setCurrentItem(i);
+       if(gpppdata.defaultAccount() == connectto_c->itemText(i)) {
+ 	connectto_c->setCurrentIndex(i);
 	gpppdata.setAccountByIndex(i);
 
 	ID_Edit->setText(gpppdata.storedUsername());
@@ -479,7 +479,7 @@ void KPPPWidget::resetaccounts() {
   }
   else
     if(count > 0) {
-       gpppdata.setDefaultAccount(connectto_c->text(0));
+       gpppdata.setDefaultAccount(connectto_c->itemText(0));
         gpppdata.save();
 	ID_Edit->setText(gpppdata.storedUsername());
 	PW_Edit->setText(gpppdata.storedPassword());
@@ -510,7 +510,7 @@ void KPPPWidget::resetmodems() {
   //load the modems
   for(int i=0; i < count; i++) {
     gpppdata.setModemByIndex(i);
-    modem_c->insertItem(gpppdata.modname());
+    modem_c->addItem(gpppdata.modname());
   }
 
   if (count > 1 && !m_bModemCShown) {
@@ -522,23 +522,23 @@ void KPPPWidget::resetmodems() {
       l1->remove(modem_c);
       m_bModemCShown = false;
   }
-  label7->setShown(m_bModemCShown);
-  modem_c->setShown(m_bModemCShown);     
+  label7->setVisible(m_bModemCShown);
+  modem_c->setVisible(m_bModemCShown);     
   layout()->invalidate();
   setFixedSize(sizeHint());
 
   //set the default modem
   if(!gpppdata.defaultModem().isEmpty()) {
     for(int i=0; i < count; i++)
-       if(gpppdata.defaultModem() == modem_c->text(i)) {
- 	modem_c->setCurrentItem(i);
+       if(gpppdata.defaultModem() == modem_c->itemText(i)) {
+ 	modem_c->setCurrentIndex(i);
 	gpppdata.setModemByIndex(i);
 
     }
   }
   else
     if(count > 0) {
-       gpppdata.setDefaultModem(modem_c->text(0));
+       gpppdata.setDefaultModem(modem_c->itemText(0));
         gpppdata.save();
     }
 }
@@ -680,14 +680,14 @@ void KPPPWidget::sigChld() {
 
 
 void KPPPWidget::newdefaultaccount(int i) {
-  gpppdata.setDefaultAccount(connectto_c->text(i));
+  gpppdata.setDefaultAccount(connectto_c->itemText(i));
   gpppdata.save();
   ID_Edit->setText(gpppdata.storedUsername());
   PW_Edit->setText(gpppdata.storedPassword());
 }
 
 void KPPPWidget::newdefaultmodem(int i) {
-  gpppdata.setDefaultModem(modem_c->text(i));
+  gpppdata.setDefaultModem(modem_c->itemText(i));
   gpppdata.save();
 }
 
@@ -784,7 +784,7 @@ void KPPPWidget::beginConnect() {
   hide();
 
   QString tit = i18n("Connecting to: %1", gpppdata.accname());
-  con->setCaption(tit);
+  con->setWindowTitle(tit);
   con->enableButtons();
   con->show();
 
@@ -809,7 +809,7 @@ void KPPPWidget::disconnect() {
   con_win->hide();
   con->show();
   con->disableButtons(); // will reenable them later in delayedDisconnect()
-  con->setCaption(i18n("Disconnecting..."));
+  con->setWindowTitle(i18n("Disconnecting..."));
 
   if (!gpppdata.command_before_disconnect().isEmpty()) {
     con->setMsg(i18n("Executing command before disconnection."));

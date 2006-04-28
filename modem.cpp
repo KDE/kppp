@@ -439,23 +439,23 @@ QString Modem::parseModemSpeed(const QString &s) {
   const int RXMAX = 7;
   const int TXMAX = 2;
   QRegExp rrx[RXMAX] = {
-    QRegExp("[0-9]+[:/ ]RX", false),
-    QRegExp("[0-9]+RX", false),
-    QRegExp("[/: -][0-9]+[/: ]", false),
-    QRegExp("[/: -][0-9]+$", false),
-    QRegExp("CARRIER [^0-9]*[0-9]+", false),
-    QRegExp("CONNECT [^0-9]*[0-9]+", false),
+    QRegExp("[0-9]+[:/ ]RX", Qt::CaseInsensitive),
+    QRegExp("[0-9]+RX", Qt::CaseInsensitive),
+    QRegExp("[/: -][0-9]+[/: ]", Qt::CaseInsensitive),
+    QRegExp("[/: -][0-9]+$", Qt::CaseInsensitive),
+    QRegExp("CARRIER [^0-9]*[0-9]+", Qt::CaseInsensitive),
+    QRegExp("CONNECT [^0-9]*[0-9]+", Qt::CaseInsensitive),
     QRegExp("[0-9]+") // panic mode
   };
 
   QRegExp trx[TXMAX] = {
-    QRegExp("[0-9]+[:/ ]TX", false),
-    QRegExp("[0-9]+TX", false)
+    QRegExp("[0-9]+[:/ ]TX", Qt::CaseInsensitive),
+    QRegExp("[0-9]+TX", Qt::CaseInsensitive)
   };
 
   for(i = 0; i < RXMAX; i++) {
     int len, idx, result;
-    if((idx = rrx[i].search(s)) > -1) {
+    if((idx = rrx[i].indexIn(s)) > -1) {
       len = rrx[i].matchedLength();
 
       //
@@ -468,7 +468,7 @@ QString Modem::parseModemSpeed(const QString &s) {
       // Now extract the digits only from the match, which will
       // then be converted to an int.
       //
-      if ((idx = rrx[RXMAX-1].search( sub )) > -1) {
+      if ((idx = rrx[RXMAX-1].indexIn( sub )) > -1) {
         len = rrx[RXMAX-1].matchedLength();
         sub = sub.mid(idx, len);
         result = sub.toInt();
@@ -482,7 +482,7 @@ QString Modem::parseModemSpeed(const QString &s) {
 
   for(i = 0; i < TXMAX; i++) {
     int len, idx, result;
-    if((idx = trx[i].search(s)) > -1) {
+    if((idx = trx[i].indexIn(s)) > -1) {
       len = trx[i].matchedLength();
 
       //
@@ -495,7 +495,7 @@ QString Modem::parseModemSpeed(const QString &s) {
       // Now extract the digits only from the match, which will then
       // be converted to an int.
       //
-      if((idx = rrx[RXMAX-1].search(sub)) > -1) {
+      if((idx = rrx[RXMAX-1].indexIn(sub)) > -1) {
         len = rrx[RXMAX-1].matchedLength();
         sub = sub.mid(idx, len);
         result = sub.toInt();

@@ -60,7 +60,7 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
   int i;
   max = 1024;
 
-  setCaption(i18n("kppp Statistics"));
+  setWindowTitle(i18n("kppp Statistics"));
   KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10);
@@ -68,9 +68,9 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
   tl->addLayout(l1, 1);
   box = new Q3GroupBox(i18n("Statistics"), this);
   l1->addMultiCellWidget(box, 0, 3, 0, 3);
-  l1->addRowSpacing(0, fontMetrics().lineSpacing() - 10);
+  l1->addItem(new QSpacerItem(0, fontMetrics().lineSpacing() - 10), 0, 0);
   l1->setRowStretch(1, 1);
-  l1->setColStretch(1, 1);
+  l1->setColumnStretch(1, 1);
 
   // inner part of the grid
   QVBoxLayout *l11 = new QVBoxLayout;
@@ -159,8 +159,8 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
     l112->addWidget(labelb2[i], i, 3);
   }
 
-  l112->setColStretch(1, 1);
-  l112->setColStretch(3, 1);
+  l112->setColumnStretch(1, 1);
+  l112->setColumnStretch(3, 1);
 
   tl->addSpacing(5);
   QHBoxLayout *l12 = new QHBoxLayout;

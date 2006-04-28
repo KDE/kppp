@@ -110,7 +110,7 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
 
   QVBoxLayout *tl = new QVBoxLayout(this, 8, 10);
   QString tit = i18n("Connecting to: ");
-  setCaption(tit);
+  setWindowTitle(tit);
 
   QHBoxLayout *l0 = new QHBoxLayout(10);
   tl->addLayout(l0);
@@ -219,7 +219,7 @@ void ConnectWidget::init() {
   arglist = &gpppdata.script();
 
   QString tit = i18n("Connecting to: %1", gpppdata.accname());
-  setCaption(tit);
+  setWindowTitle(tit);
 
   kapp->processEvents();
 
@@ -758,7 +758,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
         // variable (from the subsequent scan).
 
 	QString ts = scriptArgument;
-	int vstart = ts.find( "##" );
+	int vstart = ts.indexOf( "##" );
 	if( vstart != -1 ) {
 		ts.remove( vstart, 2 );
 		ts.insert( vstart, scanvar );
@@ -1004,7 +1004,7 @@ void ConnectWidget::checkBuffers() {
       ( scanbuffer.right(1) == "\n" || scanbuffer.right(1) == "\r") ) {
       scanning = false;
 
-      int vstart = scanbuffer.find( scanstr ) + scanstr.length();
+      int vstart = scanbuffer.indexOf( scanstr ) + scanstr.length();
       scanvar = scanbuffer.mid( vstart, scanbuffer.length() - vstart);
       scanvar = scanvar.trimmed();
 
@@ -1017,7 +1017,7 @@ void ConnectWidget::checkBuffers() {
     if(readbuffer.contains(expectstr)) {
       expecting = false;
       // keep everything after the expected string
-      readbuffer.remove(0, readbuffer.find(expectstr) + expectstr.length());
+      readbuffer.remove(0, readbuffer.indexOf(expectstr) + expectstr.length());
 
       QString ts = i18n("Found: %1", expectstr);
       emit debugMessage(ts);
@@ -1387,7 +1387,7 @@ void auto_hostname() {
 
     if (hostname_entry != 0L) {
       new_hostname=hostname_entry->h_name;
-      dot=new_hostname.find('.');
+      dot=new_hostname.indexOf('.');
       new_hostname=new_hostname.remove(dot,new_hostname.length()-dot);
       Requester::rq->setHostname(new_hostname);
       modified_hostname = TRUE;

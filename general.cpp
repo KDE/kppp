@@ -238,10 +238,10 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem, const char *name)
   {
       if ( devices[k] == gpppdata.modemDevice())
           deviceExist = true;
-    modemdevice->insertItem(devices[k]);
+    modemdevice->addItem(devices[k]);
   }
   if ( !deviceExist )
-      modemdevice->insertItem(gpppdata.modemDevice());
+      modemdevice->addItem(gpppdata.modemDevice());
 
   tl->addWidget(modemdevice, 1, 1);
 /*  connect(modemdevice, SIGNAL(activated(int)),
@@ -263,9 +263,9 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem, const char *name)
 
   flowcontrol = new QComboBox(false, parent);
   label2->setBuddy(flowcontrol);
-  flowcontrol->insertItem(i18n("Hardware [CRTSCTS]")); // sync with pppdata.cpp
-  flowcontrol->insertItem(i18n("Software [XON/XOFF]"));
-  flowcontrol->insertItem(i18n("None"));
+  flowcontrol->addItem(i18n("Hardware [CRTSCTS]")); // sync with pppdata.cpp
+  flowcontrol->addItem(i18n("Software [XON/XOFF]"));
+  flowcontrol->addItem(i18n("None"));
 
   flowListItem << "Hardware [CRTSCTS]";
   flowListItem << "Software [XON/XOFF]";
@@ -289,9 +289,9 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem, const char *name)
 
   enter = new QComboBox(false, parent);
   labelenter->setBuddy(enter);
-  enter->insertItem("CR");
-  enter->insertItem("LF");
-  enter->insertItem("CR/LF");
+  enter->addItem("CR");
+  enter->addItem("LF");
+  enter->addItem("CR/LF");
   tl->addWidget(enter, 3, 1);
  /* connect(enter, SIGNAL(activated(int)), SLOT(setenter(int)));*/
   tmp = i18n("<p>Specifies how AT commands are sent to your\n"
@@ -335,9 +335,9 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem, const char *name)
     0};
 
   for(int k = 0; baudrates[k]; k++)
-    baud_c->insertItem(baudrates[k]);
+    baud_c->addItem(baudrates[k]);
 
-  baud_c->setCurrentItem(3);
+  baud_c->setCurrentIndex(3);
   /*connect(baud_c, SIGNAL(activated(int)),
 	  this, SLOT(speed_selection(int)));*/
   tl->addWidget(baud_c, 4, 1);
@@ -353,11 +353,11 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem, const char *name)
   baud_c->setWhatsThis(tmp);
 
   for(int i=0; i <= enter->count()-1; i++) {
-    if(gpppdata.enter() == enter->text(i))
-      enter->setCurrentItem(i);
+    if(gpppdata.enter() == enter->itemText(i))
+      enter->setCurrentIndex(i);
   }
 
-  tl->addRowSpacing(4, 10);
+  tl->addItem(new QSpacerItem(0, 10), 4, 0);
 
   //Modem Lock File
   modemlockfile = new QCheckBox(i18n("&Use lock file"), parent);
@@ -399,30 +399,30 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem, const char *name)
 
   //set stuff from gpppdata
   for(int i=0; i <= enter->count()-1; i++) {
-    if(gpppdata.enter() == enter->text(i))
-      enter->setCurrentItem(i);
+    if(gpppdata.enter() == enter->itemText(i))
+      enter->setCurrentIndex(i);
   }
 
   for(int i=0; i <= modemdevice->count()-1; i++) {
-    if(gpppdata.modemDevice() == modemdevice->text(i))
-      modemdevice->setCurrentItem(i);
+    if(gpppdata.modemDevice() == modemdevice->itemText(i))
+      modemdevice->setCurrentIndex(i);
   }
 
   for(int i=0; i <= flowcontrol->count()-1; i++)
     if(gpppdata.flowcontrol() == flowListItem[i])
-      flowcontrol->setCurrentItem(i);
+      flowcontrol->setCurrentIndex(i);
 
 	//set the modem speed
   for(int i=0; i < baud_c->count(); i++)
-    if(baud_c->text(i) == gpppdata.speed())
-      baud_c->setCurrentItem(i);
+    if(baud_c->itemText(i) == gpppdata.speed())
+      baud_c->setCurrentIndex(i);
 
   } else {
 	//Set the standard Items
-		enter->setCurrentItem(0);
-		modemdevice->setCurrentItem(0);
-		flowcontrol->setCurrentItem(0);
-		baud_c->setCurrentItem(0);
+		enter->setCurrentIndex(0);
+		modemdevice->setCurrentIndex(0);
+		flowcontrol->setCurrentIndex(0);
+		baud_c->setCurrentIndex(0);
 	}
 
   tl->setRowStretch(7, 1);
@@ -436,11 +436,11 @@ bool ModemWidget::save()
     return false;
   } else {
     gpppdata.setModname(connectname_l->text());
-    gpppdata.setSpeed(baud_c->text(baud_c->currentItem()));
-    gpppdata.setEnter(enter->text(enter->currentItem()));
-    gpppdata.setModemDevice(modemdevice->text(modemdevice->currentItem()));
-    gpppdata.setFlowcontrol(flowListItem[flowcontrol->currentItem()]);
-    gpppdata.setModemLockFile(modemlockfile->isOn());
+    gpppdata.setSpeed(baud_c->itemText(baud_c->currentIndex()));
+    gpppdata.setEnter(enter->itemText(enter->currentIndex()));
+    gpppdata.setModemDevice(modemdevice->itemText(modemdevice->currentIndex()));
+    gpppdata.setFlowcontrol(flowListItem[flowcontrol->currentIndex()]);
+    gpppdata.setModemLockFile(modemlockfile->isChecked());
     gpppdata.setModemTimeout(modemtimeout->value());
     return true;
    }
@@ -597,7 +597,7 @@ void ModemWidget2::use_cdline_toggled(bool on) {
 
 bool ModemWidget2::save()
 {
-  gpppdata.setWaitForDialTone(waitfordt->isOn());
+  gpppdata.setWaitForDialTone(waitfordt->isChecked());
   gpppdata.setbusyWait(busywait->value());
   gpppdata.setVolume(volume->value());
   return true;

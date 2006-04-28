@@ -1287,7 +1287,7 @@ QStringList &PPPData::dns() {
 
   readListConfig(caccountgroup, DNS_KEY, dnslist);
   while(dnslist.count() > MAX_DNS_ENTRIES)
-    dnslist.remove(dnslist.last());
+    dnslist.removeAll(dnslist.last());
 
   return dnslist;
 }
@@ -1313,7 +1313,7 @@ QStringList &PPPData::scriptType() {
 
   readListConfig(caccountgroup, SCRIPTCOM_KEY, typelist);
   while(typelist.count() > MAX_SCRIPT_ENTRIES)
-    typelist.remove(typelist.last());
+    typelist.removeAll(typelist.last());
 
   return typelist;
 }
@@ -1329,7 +1329,7 @@ QStringList &PPPData::script() {
 
   readListConfig(caccountgroup, SCRIPTARG_KEY, scriptlist);
   while(scriptlist.count() > MAX_SCRIPT_ENTRIES)
-    scriptlist.remove(scriptlist.last());
+    scriptlist.removeAll(scriptlist.last());
 
   return scriptlist;
 }
@@ -1373,7 +1373,7 @@ QStringList &PPPData::pppdArgument() {
   static QStringList arglist;
 
   while(arglist.count() > MAX_PPPD_ARGUMENTS)
-    arglist.remove(arglist.last());
+    arglist.removeAll(arglist.last());
   readListConfig(caccountgroup, PPPDARG_KEY, arglist);
 
   return arglist;

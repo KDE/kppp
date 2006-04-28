@@ -102,7 +102,7 @@ void LoginMultiLineEdit::readChar(unsigned char c) {
 LoginTerm::LoginTerm (QWidget *parent, const char *name)
   : QDialog(parent, name, FALSE)
 {
-  setCaption(i18n("Login Terminal Window"));
+  setWindowTitle(i18n("Login Terminal Window"));
   setMinimumSize(300, 200);
   setMaximumSize(600, 400);
   resize(400, 300);
@@ -114,7 +114,7 @@ LoginTerm::LoginTerm (QWidget *parent, const char *name)
   tl->addLayout(vgr);
   vgr->addLayout(hgr, 1, 0);
   vgr->setRowStretch(0, 1);
-  vgr->addRowSpacing(1, 40);
+  vgr->addItem(new QSpacerItem(0, 40), 1, 0);
 
   text_window = new LoginMultiLineEdit(this, "term");
   text_window->setFocus();

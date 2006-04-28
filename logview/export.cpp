@@ -53,7 +53,7 @@ ExportWizard::ExportWizard(QWidget *parent, const QString &_date)
 
   filterID = 0;
 
-  setCaption(i18n("Export Wizard for kPPP Logs"));
+  setWindowTitle(i18n("Export Wizard for kPPP Logs"));
 
   /* format-page */
   formatPage = new QWidget();

@@ -165,7 +165,7 @@ void PPPL_AnalyseLog(QStringList &list, QStringList &result) {
   for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
   {
     // look for remote message
-    int pos = (*it).find(rmsg);
+    int pos = (*it).indexOf(rmsg);
     if (pos != -1)
     {
       QString str = (*it);
@@ -205,7 +205,7 @@ void PPPL_ShowLog() {
   QString conn = QLatin1String("Connect:");
   QStringList::ConstIterator it = sl.begin();
   for( ; it != sl.end(); it++) {
-    if((*it).find(lcp) >= 0) {
+    if((*it).indexOf(lcp) >= 0) {
       foundLCP = true;
       break;
     }
@@ -237,7 +237,7 @@ void PPPL_ShowLog() {
 
   QDialog *dlg = new QDialog(0, "", TRUE);
 
-  dlg->setCaption(i18n("PPP Log"));
+  dlg->setWindowTitle(i18n("PPP Log"));
   QVBoxLayout *tl = new QVBoxLayout(dlg, 10, 10);
   Q3MultiLineEdit *edit = new Q3MultiLineEdit(dlg);
   edit->setReadOnly(TRUE);

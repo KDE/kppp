@@ -427,7 +427,7 @@ QString AccountWidget::prettyPrintVolume(unsigned int n) {
 /////////////////////////////////////////////////////////////////////////////
 QueryReset::QueryReset(QWidget *parent) : QDialog(parent, 0, true) {
   KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
-  setCaption(i18n("Reset Accounting"));
+  setWindowTitle(i18n("Reset Accounting"));
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
   Q3GroupBox *f = new Q3GroupBox(1, Qt::Horizontal,i18n("What to Reset"), this);

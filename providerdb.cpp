@@ -56,7 +56,7 @@ ProviderDB::ProviderDB(QWidget *parent) :
   K3Wizard(parent, "", true),
   cfg(0)
 {
-  setCaption(i18n("Create New Account"));
+  setWindowTitle(i18n("Create New Account"));
 
   wiz = this;
 
@@ -466,7 +466,7 @@ void urlEncode(QString &s) {
   QString s1, tmp;
 
   for(int i = 0; i < s.length(); i++) {
-    if(QString(UNENCODED_CHARS).find(s[i]) >= 0)
+    if(QString(UNENCODED_CHARS).indexOf(s[i]) >= 0)
       s1 += s[i];
     else {
       tmp.sprintf("%%%03i", s[i].unicode());

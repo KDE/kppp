@@ -224,7 +224,7 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
 
   cboConnections = new QComboBox(false, this);            // add a combo box to select connections
   cboConnections->setMaximumWidth(200);                   // a resonable size
-  cboConnections->insertItem(i18n("All Connections"));    // default to all connections
+  cboConnections->addItem(i18n("All Connections"));    // default to all connections
   connect(cboConnections, SIGNAL(activated(int)),
 	  this, SLOT(slotConnections(int)));
 
@@ -304,13 +304,13 @@ void MonthlyWidget::plotMonth() {
       con = li->connectionName();
 
       // this connection name not in the list and combo box
-      if(lstConnections.findIndex(con) == -1) {
+      if(lstConnections.indexOf(con) == -1) {
 	lstConnections.append(con);
-        cboConnections->insertItem(con);
+        cboConnections->addItem(con);
       }
       // if all connections or the selected one
       if(cboConnections->currentText() != con &&
-	cboConnections->currentItem() != 0)
+	cboConnections->currentIndex() != 0)
         continue;
       count++;
       costs += li->sessionCosts();
@@ -513,13 +513,13 @@ void MonthlyWidget::exportWizard() {
       con = li->connectionName();
 
       // this connection name not in the list and combo box
-      if(lstConnections.findIndex(con) == -1) {
+      if(lstConnections.indexOf(con) == -1) {
           lstConnections.append(con);
-        cboConnections->insertItem(con);
+        cboConnections->addItem(con);
       }
       // if all connections or the selected one
       if(cboConnections->currentText() != con &&
-         cboConnections->currentItem() != 0)
+         cboConnections->currentIndex() != 0)
         continue;
 
       count++;

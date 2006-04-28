@@ -38,21 +38,21 @@ ScriptEdit::ScriptEdit( QWidget *parent, const char *name )
   QHBoxLayout *tl = new QHBoxLayout(this, 0, 10);
 
   st = new QComboBox(this, "st");
-  st->insertItem("Expect");
-  st->insertItem("Send");
-  st->insertItem("Pause (sec)");
-  st->insertItem("Hangup");
-  st->insertItem("Answer");
-  st->insertItem("Timeout (sec)");
-  st->insertItem("Password");
-  st->insertItem("ID");
-  st->insertItem("Prompt");
-  st->insertItem("PWPrompt");
-  st->insertItem("LoopStart");
-  st->insertItem("LoopEnd");
-  st->insertItem("Scan");
-  st->insertItem("Save");
-  st->insertItem("SendNoEcho");
+  st->addItem("Expect");
+  st->addItem("Send");
+  st->addItem("Pause (sec)");
+  st->addItem("Hangup");
+  st->addItem("Answer");
+  st->addItem("Timeout (sec)");
+  st->addItem("Password");
+  st->addItem("ID");
+  st->addItem("Prompt");
+  st->addItem("PWPrompt");
+  st->addItem("LoopStart");
+  st->addItem("LoopEnd");
+  st->addItem("Scan");
+  st->addItem("Save");
+  st->addItem("SendNoEcho");
   connect(st, SIGNAL(activated(int)), SLOT(setType(int)));
 
   se = new QLineEdit(this, "se");
@@ -89,7 +89,7 @@ void ScriptEdit::setText(const QString &t) {
 
 
 int ScriptEdit::type()const {
-  return st->currentItem();
+  return st->currentIndex();
 }
 
 void ScriptEdit::setType(int i) {

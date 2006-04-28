@@ -48,7 +48,7 @@ void myMultiEdit::newLine() {
 DebugWidget::DebugWidget(QWidget *parent, const char *name)
   : QDialog(parent, name, FALSE)
 {
-  setCaption(i18n("Login Script Debug Window"));
+  setWindowTitle(i18n("Login Script Debug Window"));
 
   text_window = new myMultiEdit(this,"debugwindow");
   text_window->setGeometry(2,5,400, 300);
