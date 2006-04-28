@@ -39,8 +39,8 @@
 #include <QTextCursor>
 extern KPPPWidget *p_kppp;
 
-LoginMultiLineEdit::LoginMultiLineEdit(QWidget *parent, const char *name)
-  : QTextEdit(parent, name)
+LoginMultiLineEdit::LoginMultiLineEdit(QWidget *parent)
+  : QTextEdit(parent)
 {
 }
 
@@ -116,7 +116,8 @@ LoginTerm::LoginTerm (QWidget *parent, const char *name)
   vgr->setRowStretch(0, 1);
   vgr->addItem(new QSpacerItem(0, 40), 1, 0);
 
-  text_window = new LoginMultiLineEdit(this, "term");
+  text_window = new LoginMultiLineEdit(this);
+  text_window->setObjectName("term");
   text_window->setFocus();
   vgr->addWidget(text_window, 0, 0);
 

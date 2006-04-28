@@ -14,7 +14,7 @@ class LoginMultiLineEdit : public QTextEdit {
 
 public:
 
-  LoginMultiLineEdit(QWidget *parent, const char *name);
+  LoginMultiLineEdit(QWidget *parent);
   ~LoginMultiLineEdit();
 
   void keyPressEvent(QKeyEvent *k);
