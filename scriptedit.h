@@ -36,7 +36,7 @@ class QLineEdit;
 class ScriptEdit : public QWidget {
 Q_OBJECT
 public:
-  ScriptEdit( QWidget *parent=0, const char *name=0 );
+  ScriptEdit( QWidget *parent=0 );
   ~ScriptEdit() {}
 
   QString text()const;

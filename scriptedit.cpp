@@ -32,8 +32,8 @@
 //Added by qt3to4:
 #include <QHBoxLayout>
 
-ScriptEdit::ScriptEdit( QWidget *parent, const char *name )
-  : QWidget(parent, name)
+ScriptEdit::ScriptEdit( QWidget *parent )
+  : QWidget(parent)
 {
   QHBoxLayout *tl = new QHBoxLayout(this, 0, 10);
 
