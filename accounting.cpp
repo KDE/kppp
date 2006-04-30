@@ -66,7 +66,7 @@ static QString timet2qstring(time_t t) {
 /////////////////////////////////////////////////////////////////////////////
 //
 // The base class for the accounting system provides a base set of usefull
-// and common functions, but does not do any accounting by itself. The 
+// and common functions, but does not do any accounting by itself. The
 // accounting is accomplished withing it's derived classes
 //
 /////////////////////////////////////////////////////////////////////////////
@@ -136,7 +136,7 @@ void AccountingBase::logMessage(QString s, bool newline) {
       if(newline) {
 	f.seek(f.size());
 	char c = 0;
-	f.readBlock(&c, 1);
+	f.read(&c, 1);
 	if(c != '\n')
 	  f.write("\n", 1);
       } else
@@ -215,7 +215,7 @@ QString AccountingBase::getAccountingFile(const QString &accountname) {
 // Accounting class for ruleset files
 //
 /////////////////////////////////////////////////////////////////////////////
-Accounting::Accounting(QObject *parent, PPPStats *st) : 
+Accounting::Accounting(QObject *parent, PPPStats *st) :
   AccountingBase(parent),
   acct_timer_id(0),
   update_timer_id(0),
@@ -287,7 +287,7 @@ void Accounting::slotStart() {
      if(UPDATE_TIME > 0)
        update_timer_id = startTimer(UPDATE_TIME);
 
-    start_time = time(0); 
+    start_time = time(0);
     QString s;
     s = timet2qstring(start_time);
     s += ":";
@@ -328,7 +328,7 @@ bool Accounting::loadRuleSet(const QString & name) {
     rules.load(""); // delete old rules
     return TRUE;
   }
-  
+
   QString d = AccountingBase::getAccountingFile(name);
 
   QFileInfo fg(d);
@@ -361,7 +361,7 @@ double Accounting::session() const {
 
 
 
-ExecutableAccounting::ExecutableAccounting(PPPStats *st, QObject *parent) : 
+ExecutableAccounting::ExecutableAccounting(PPPStats *st, QObject *parent) :
   AccountingBase(parent),
   proc(0),
   stats(st)
@@ -396,7 +396,7 @@ void ExecutableAccounting::gotData(KProcess */*proc*/, char *buffer, int /*bufle
 
   for(int i = 0; i < nFields;i++)
     fprintf(stderr, "FIELD[%d] = %s\n", i, field[i].toLocal8Bit().data());
-  
+
   QString __total, __session;
   QString s(buffer);
   int del1, del2, del3;
@@ -417,13 +417,13 @@ void ExecutableAccounting::gotData(KProcess */*proc*/, char *buffer, int /*bufle
   bool ok1, ok2;
   _total = __total.toDouble(&ok1);
   _session = __session.toDouble(&ok2);
-  
+
   if(!ok1 || !ok2) {
     // TODO: do something usefull here
     return;
   }
 
-  printf("PROVIDER=%s, CURRENCY=%s, TOTAL=%0.3e, SESSION=%0.3e\n", 
+  printf("PROVIDER=%s, CURRENCY=%s, TOTAL=%0.3e, SESSION=%0.3e\n",
 	 provider.toLocal8Bit().data(),
 	 currency.toLocal8Bit().data(),
 	 _total,
@@ -446,13 +446,13 @@ void ExecutableAccounting::slotStart() {
 	  this, SLOT(gotData(KProcess *, char *, int)));
   proc->start();
 
-  time_t start_time = time(0); 
+  time_t start_time = time(0);
   s = timet2qstring(start_time);
   s += ":";
   s += gpppdata.accname();
   s += ":";
   s += currency;
-  
+
   logMessage(s, TRUE);
 }
 
