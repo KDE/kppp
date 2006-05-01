@@ -40,6 +40,4 @@ noinst_HEADERS = export.h loginfo.h log.h monthly.h main.h
 
 METASOURCES = main.moc monthly.moc export.moc
 
-messages:
-	$(XGETTEXT) *.cpp *.h -o $(podir)/kppplogview.pot
 
