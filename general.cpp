@@ -209,15 +209,16 @@ void GeneralWidget::pppdtimeoutchanged(int n) {
 }
 
 
-ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem, const char *name)
-  : QWidget(parent, name)
+ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem)
+  : QWidget(parent)
 {
-  QGridLayout *tl = new QGridLayout(parent, 9, 2, 0, KDialog::spacingHint());
+  QGridLayout *tl = new QGridLayout(this );
+  tl->setSpacing( KDialog::spacingHint() );
 
-  connect_label = new QLabel(i18n("Modem &name:"), parent);
+  connect_label = new QLabel(i18n("Modem &name:"), this);
   tl->addWidget(connect_label, 0, 0);
 
-  connectname_l = new QLineEdit(parent);
+  connectname_l = new QLineEdit(this);
   connectname_l->setMaxLength(ACCNAME_SIZE);
   connect_label->setBuddy(connectname_l);
 
@@ -227,10 +228,10 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem, const char *name)
   connect_label->setWhatsThis(tmp);
   connectname_l->setWhatsThis(tmp);
 
-  label1 = new QLabel(i18n("Modem de&vice:"), parent);
+  label1 = new QLabel(i18n("Modem de&vice:"), this);
   tl->addWidget(label1, 1, 0);
 
-  modemdevice = new QComboBox(false, parent);
+  modemdevice = new QComboBox(false, this);
   label1->setBuddy(modemdevice);
   // ### deviceExist mechanism not functional right now
   bool deviceExist = false;
@@ -258,10 +259,10 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem, const char *name)
   modemdevice->setWhatsThis(tmp);
 
 
-  label2 = new QLabel(i18n("&Flow control:"), parent);
+  label2 = new QLabel(i18n("&Flow control:"), this);
   tl->addWidget(label2, 2, 0);
 
-  flowcontrol = new QComboBox(false, parent);
+  flowcontrol = new QComboBox(false, this);
   label2->setBuddy(flowcontrol);
   flowcontrol->addItem(i18n("Hardware [CRTSCTS]")); // sync with pppdata.cpp
   flowcontrol->addItem(i18n("Software [XON/XOFF]"));
@@ -284,10 +285,10 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem, const char *name)
   label2->setWhatsThis(tmp);
   flowcontrol->setWhatsThis(tmp);
 
-  labelenter = new QLabel(i18n("&Line termination:"), parent);
+  labelenter = new QLabel(i18n("&Line termination:"), this);
   tl->addWidget(labelenter, 3, 0);
 
-  enter = new QComboBox(false, parent);
+  enter = new QComboBox(false, this);
   labelenter->setBuddy(enter);
   enter->addItem("CR");
   enter->addItem("LF");
@@ -305,9 +306,9 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem, const char *name)
   labelenter->setWhatsThis(tmp);
   enter->setWhatsThis( tmp);
 
-  baud_label = new QLabel(i18n("Co&nnection speed:"), parent);
+  baud_label = new QLabel(i18n("Co&nnection speed:"), this);
   tl->addWidget(baud_label, 4, 0);
-  baud_c = new QComboBox(parent);
+  baud_c = new QComboBox(this);
   baud_label->setBuddy(baud_c);
 
   static const char *baudrates[] = {
@@ -360,7 +361,7 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem, const char *name)
   tl->addItem(new QSpacerItem(0, 10), 4, 0);
 
   //Modem Lock File
-  modemlockfile = new QCheckBox(i18n("&Use lock file"), parent);
+  modemlockfile = new QCheckBox(i18n("&Use lock file"), this);
 
   modemlockfile->setChecked(gpppdata.modemLockFile());
 /*  connect(modemlockfile, SIGNAL(toggled(bool)),
@@ -380,7 +381,7 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem, const char *name)
 
   // Modem Timeout Line Edit Box
 
-  modemtimeout = new KIntNumInput(gpppdata.modemTimeout(), parent);
+  modemtimeout = new KIntNumInput(gpppdata.modemTimeout(), this);
   modemtimeout->setLabel(i18n("Modem &timeout:"));
   modemtimeout->setRange(1, 120, 1);
   modemtimeout->setSuffix(i18n(" sec"));
@@ -450,10 +451,10 @@ bool ModemWidget::save()
 ModemWidget2::ModemWidget2(QWidget *parent, const char *name)
   : QWidget(parent, name)
 {
-  QVBoxLayout *l1 = new QVBoxLayout(parent, 0, KDialog::spacingHint());
+  QVBoxLayout *l1 = new QVBoxLayout(this, 0, KDialog::spacingHint());
 
 
-  waitfordt = new QCheckBox(i18n("&Wait for dial tone before dialing"), parent);
+  waitfordt = new QCheckBox(i18n("&Wait for dial tone before dialing"), this);
   waitfordt->setChecked(gpppdata.waitForDialTone());
  // connect(waitfordt, SIGNAL(toggled(bool)), SLOT(waitfordtchanged(bool)));
   l1->addWidget(waitfordt);
@@ -466,7 +467,7 @@ ModemWidget2::ModemWidget2(QWidget *parent, const char *name)
 		       "\n"
 		       "<b>Default:</b>: On"));
 
-  busywait = new KIntNumInput(gpppdata.busyWait(), parent);
+  busywait = new KIntNumInput(gpppdata.busyWait(), this);
   busywait->setLabel(i18n("B&usy wait:"));
   busywait->setRange(0, 300, 5, true);
   busywait->setSuffix(i18n(" sec"));
@@ -487,9 +488,9 @@ ModemWidget2::ModemWidget2(QWidget *parent, const char *name)
   QHBoxLayout *hbl = new QHBoxLayout;
   hbl->setSpacing(KDialog::spacingHint());
 
-  QLabel *volumeLabel = new QLabel(i18n("Modem &volume:"), parent);
+  QLabel *volumeLabel = new QLabel(i18n("Modem &volume:"), this);
   hbl->addWidget(volumeLabel);
-  volume = new QSlider(0, 2, 1, gpppdata.volume(), Qt::Horizontal, parent);
+  volume = new QSlider(0, 2, 1, gpppdata.volume(), Qt::Horizontal, this);
   volumeLabel->setBuddy(volume);
   volume->setTickmarks(QSlider::TicksBelow);
   hbl->addWidget(volume);
@@ -512,7 +513,7 @@ ModemWidget2::ModemWidget2(QWidget *parent, const char *name)
   l1->addSpacing(20);
 
 #if 0
-  chkbox1 = new QCheckBox(i18n("Modem asserts CD line"), parent);
+  chkbox1 = new QCheckBox(i18n("Modem asserts CD line"), this);
   chkbox1->setChecked(gpppdata.UseCDLine());
   connect(chkbox1,SIGNAL(toggled(bool)),
 	  this,SLOT(use_cdline_toggled(bool)));
@@ -527,12 +528,12 @@ ModemWidget2::ModemWidget2(QWidget *parent, const char *name)
 		       "<b>Default</b>: Off"));
 #endif
 
-  modemcmds = new QPushButton(i18n("Mod&em Commands..."), parent);
+  modemcmds = new QPushButton(i18n("Mod&em Commands..."), this);
   modemcmds->setWhatsThis(
 		  i18n("Allows you to change the AT command for\n"
 		       "your modem."));
 
-  modeminfo_button = new QPushButton(i18n("&Query Modem..."), parent);
+  modeminfo_button = new QPushButton(i18n("&Query Modem..."), this);
   modeminfo_button->setWhatsThis(
 		  i18n("Most modems support the ATI command set to\n"
 		       "find out vendor and revision of your modem.\n"
@@ -541,7 +542,7 @@ ModemWidget2::ModemWidget2(QWidget *parent, const char *name)
 		       "this information. It can be useful to help\n"
 		       "you set up the modem"));
 
-  terminal_button = new QPushButton(i18n("&Terminal..."), parent);
+  terminal_button = new QPushButton(i18n("&Terminal..."), this);
   terminal_button->setWhatsThis(
 		  i18n("Opens the built-in terminal program. You\n"
 		       "can use this if you want to play around\n"
@@ -609,20 +610,20 @@ bool ModemWidget2::save()
 // Setup widget for the graph
 //
 /////////////////////////////////////////////////////////////////////////////
-GraphSetup::GraphSetup(QWidget *parent, const char *name) :
-  QWidget(parent, name)
+GraphSetup::GraphSetup(QWidget *parent) :
+  QWidget(parent)
 {
-  QVBoxLayout *tl = new QVBoxLayout(parent);
+  QVBoxLayout *tl = new QVBoxLayout(this);
 
   bool enable;
   QColor bg, text, in, out;
   gpppdata.graphingOptions(enable, bg, text, in, out);
 
-  enable_check = new QCheckBox(i18n("&Enable throughput graph"), parent);
+  enable_check = new QCheckBox(i18n("&Enable throughput graph"), this);
   tl->addWidget(enable_check);
 
   grpColor = new Q3GroupBox(2, Qt::Horizontal,
-        i18n("Graph Colors"), parent);
+        i18n("Graph Colors"), this);
   tl->addWidget(grpColor);
 
   QLabel *label;

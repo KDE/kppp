@@ -99,7 +99,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
 
-  l1 = new QGridLayout(4, 4);
+  l1 = new QGridLayout();
   tl->addLayout(l1);
   l1->addColSpacing(0, 10);
   l1->addColSpacing(3, 10);
@@ -212,9 +212,9 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   KHelpMenu *helpMenu = new KHelpMenu(this, KGlobal::instance()->aboutData(), true);
   help_b->setPopup((Q3PopupMenu*)helpMenu->menu());
-#if 0 //After move kdelibs trunk to kdelibs-snapshot 
+#if 0 //After move kdelibs trunk to kdelibs-snapshot
   help_b->setMenu(helpMenu->menu());
-#endif  
+#endif
   if(help_b->sizeHint().width() > minw)
       minw = help_b->sizeHint().width();
 
@@ -255,7 +255,8 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   statdlg = new PPPStatsDlg(0, "stats", this, stats);
   statdlg->hide();
 
-  debugwindow = new DebugWidget(0,"debugwindow");
+  debugwindow = new DebugWidget(0);
+  debugwindow->setObjectName( "debugwindow" );
   KWin::setIcons(debugwindow->winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
   debugwindow->hide();
 
@@ -523,7 +524,7 @@ void KPPPWidget::resetmodems() {
       m_bModemCShown = false;
   }
   label7->setVisible(m_bModemCShown);
-  modem_c->setVisible(m_bModemCShown);     
+  modem_c->setVisible(m_bModemCShown);
   layout()->invalidate();
   setFixedSize(sizeHint());
 

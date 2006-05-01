@@ -47,7 +47,7 @@ public:
 class DebugWidget : public QDialog {
   Q_OBJECT
 public:
-  DebugWidget(QWidget *parent=0, const char *name=0);
+  DebugWidget(QWidget *parent=0);
 
   void clear();
 

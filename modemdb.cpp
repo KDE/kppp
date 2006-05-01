@@ -55,7 +55,8 @@ ModemSelector::ModemSelector(QWidget *parent) : QDialog(parent, 0, true) {
 			       "right list. If you don't know which modem you have, "
 			       "you can try out one of the \"Generic\" modems."),
 			this);
-  l1->setAlignment(Qt::AlignLeft | Qt::TextWordWrap);
+  l1->setAlignment(Qt::AlignLeft);
+  l1->setWordWrap( true );
   l1->setFixedWidth(400);
   l1->setMinimumHeight(50);
   tl->addWidget(l1, 0);

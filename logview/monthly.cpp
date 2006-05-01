@@ -42,7 +42,7 @@ static void formatBytes(int bytes, QString &result) {
   else
     result = i18n("%1 MB", KGlobal::locale()->formatNumber((float)bytes / 1024.0 / 1024.0, 1));
 }
- 
+
 static void formatBytesMonth(int bytes, QString &result) {
 
   int day, days;
@@ -72,7 +72,7 @@ static void formatDuration(int seconds, QString &result) {
          (seconds % 3600)/60,
          sec);
 }
- 
+
 static void formatDurationMonth(int seconds, QString &result) {
 
 	int day, days;
@@ -256,7 +256,10 @@ void MonthlyWidget::layoutWidget() {
   if(tl)
     delete tl;
 
-  tl = new QGridLayout(this, 1, 1, 11, 16, "MainLayout");
+  tl = new QGridLayout(this );
+  tl->setMargin( 11 );
+  tl->setSpacing( 16 );
+  tl->setObjectName( "MainLayout");
   tl->addWidget(title, 0, 0);
   tl->addWidget(cboConnections, 0, 1);
   QLabel *l = new QLabel(this);
@@ -271,7 +274,7 @@ void MonthlyWidget::layoutWidget() {
   tl->addWidget(bbox, 1, 2);
   tl->addMultiCellWidget(lv, 1, 4, 0, 1);
   tl->addMultiCellWidget(lv2, 6, 6, 0, 1);
-      
+
   tl->activate();
 }
 
@@ -598,7 +601,7 @@ void MonthlyWidget::exportWizard() {
 	QString datetime = KGlobal::locale()->formatDateTime( QDateTime::currentDateTime(), true);
 
 	exportIFace->addEmptyLine();
-	exportIFace->addDataline(i18n("Monthly estimates (%1)", datetime), 
+	exportIFace->addDataline(i18n("Monthly estimates (%1)", datetime),
 		QString::null, QString::null, QString::null, m_duration, m_costs, m_bin, m_bout);
 	}
 

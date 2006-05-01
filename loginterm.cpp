@@ -108,8 +108,9 @@ LoginTerm::LoginTerm (QWidget *parent, const char *name)
   resize(400, 300);
 
   QVBoxLayout *tl = new QVBoxLayout(this, 2);
-  QGridLayout *vgr = new QGridLayout(2, 1);
-  QGridLayout *hgr = new QGridLayout(1, 2, 30);
+  QGridLayout *vgr = new QGridLayout();
+  QGridLayout *hgr = new QGridLayout();
+  hgr->setMargin( 30 );
 
   tl->addLayout(vgr);
   vgr->addLayout(hgr, 1, 0);

@@ -60,9 +60,9 @@ private slots:
 class ModemWidget : public QWidget {
   Q_OBJECT
 public:
-  ModemWidget(QWidget *parent=0, bool isnewmodem=true, const char *name=0);
-	bool save();
-	QLineEdit *connectName() { return connectname_l;}
+  ModemWidget(QWidget *parent=0, bool isnewmodem=true);
+    bool save();
+    QLineEdit *connectName() { return connectname_l;}
 private slots:
 
 private:
@@ -97,7 +97,7 @@ private slots:
   void 	modemcmdsbutton();
   void 	terminal();
   void 	query_modem();
- 
+
 private:
   QLabel 	*labeltmp;
   QPushButton 	*modemcmds;
@@ -108,14 +108,14 @@ private:
   KIntNumInput 	*busywait;
   QCheckBox 	*chkbox1;
   QSlider       *volume;
-	
+
 	ModemCommands* mc;
 };
 
 class GraphSetup : public QWidget {
   Q_OBJECT
 public:
-  GraphSetup(QWidget *parent = 0, const char *name = 0);
+  GraphSetup(QWidget *parent = 0);
 
 private slots:
   void enableToggled(bool);

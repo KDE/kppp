@@ -64,7 +64,7 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
   KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10);
-  QGridLayout *l1 = new QGridLayout(4, 4);
+  QGridLayout *l1 = new QGridLayout();
   tl->addLayout(l1, 1);
   box = new Q3GroupBox(i18n("Statistics"), this);
   l1->addMultiCellWidget(box, 0, 3, 0, 3);
@@ -90,7 +90,7 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
   l111->addWidget(pixmap_l, 1);
   pixmap_l->setAlignment(Qt::AlignVCenter|Qt::AlignLeft);
 
-  QGridLayout *l1112 = new QGridLayout(3, 2);
+  QGridLayout *l1112 = new QGridLayout();
   l111->addLayout(l1112);
 
   ip_address_label1 = new QLabel(this);
@@ -113,7 +113,7 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
   // consumes space on bottom
   l1112->setRowStretch(2, 1);
 
-  QGridLayout *l112 = new QGridLayout(5, 4);
+  QGridLayout *l112 = new QGridLayout();
   l11->addLayout(l112);
   for(i =0 ; i < 5; i++) {
     labela1[i] = new QLabel(this);

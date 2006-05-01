@@ -48,17 +48,18 @@
 #include "iplined.h"
 #include "auth.h"
 
-DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
-  : QWidget(parent, name)
+DialWidget::DialWidget( QWidget *parent, bool isnewaccount )
+  : QWidget(parent)
 {
   const int GRIDROWS = 8;
 
-  QGridLayout *tl = new QGridLayout(parent, GRIDROWS, 2, 0, KDialog::spacingHint());
+  QGridLayout *tl = new QGridLayout(this );
+  tl->setSpacing( KDialog::spacingHint() );
 
-  connect_label = new QLabel(i18n("Connection &name:"), parent);
+  connect_label = new QLabel(i18n("Connection &name:"), this);
   tl->addWidget(connect_label, 0, 0);
 
-  connectname_l = new QLineEdit(parent);
+  connectname_l = new QLineEdit(this);
   connectname_l->setMaxLength(ACCNAME_SIZE);
   connect_label->setBuddy(connectname_l);
 
@@ -69,24 +70,24 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
   connectname_l->setWhatsThis(tmp);
 
 
-  number_label = new QLabel(i18n("P&hone number:"), parent);
+  number_label = new QLabel(i18n("P&hone number:"), this);
   number_label->setAlignment(Qt::AlignTop|Qt::AlignLeft);
   tl->addWidget(number_label, 1, 0);
 
   QHBoxLayout *lpn = new QHBoxLayout(5);
   tl->addLayout(lpn, 1, 1);
-  numbers = new Q3ListBox(parent);
+  numbers = new Q3ListBox(this);
   number_label->setBuddy(numbers);
   numbers->setMinimumSize(120, 70);
   lpn->addWidget(numbers);
   QVBoxLayout *lpn1 = new QVBoxLayout;
   lpn->addLayout(lpn1);
-  add = new QPushButton(i18n("&Add..."), parent);
-  del = new QPushButton(i18n("&Remove"), parent);
+  add = new QPushButton(i18n("&Add..."), this);
+  del = new QPushButton(i18n("&Remove"), this);
 
-  up = new QPushButton(parent);
+  up = new QPushButton(this);
   up->setIconSet(BarIconSet("up"));
-  down = new QPushButton(parent);
+  down = new QPushButton(this);
   down->setIconSet(BarIconSet("down"));
   lpn1->addWidget(add);
   lpn1->addWidget(del);
@@ -116,10 +117,10 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
   number_label->setWhatsThis(tmp);
   numbers->setWhatsThis(tmp);
 
-  auth_l = new QLabel(i18n("A&uthentication:"), parent);
+  auth_l = new QLabel(i18n("A&uthentication:"), this);
   tl->addWidget(auth_l, 3, 0);
 
-  auth = new QComboBox(parent);
+  auth = new QComboBox(this);
   auth_l->setBuddy(auth);
   auth->addItem(i18n("Script-based"));
   auth->addItem(i18n("PAP"));
@@ -140,7 +141,7 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
   auth_l->setWhatsThis(tmp);
   auth->setWhatsThis(tmp);
 
-  store_password = new QCheckBox(i18n("Store &password"), parent);
+  store_password = new QCheckBox(i18n("Store &password"), this);
   store_password->setChecked(true);
   tl->addMultiCellWidget(store_password, 4, 4, 0, 1, Qt::AlignRight);
   store_password->setWhatsThis(
@@ -153,10 +154,10 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
 		       "readable only to you. Make sure nobody\n"
 		       "gains access to this file!"));
 
-  cbtype_l = new QLabel(i18n("&Callback type:"), parent);
+  cbtype_l = new QLabel(i18n("&Callback type:"), this);
   tl->addWidget(cbtype_l, 5, 0);
 
-  cbtype = new QComboBox(parent);
+  cbtype = new QComboBox(this);
   cbtype_l->setBuddy(cbtype);
   cbtype->addItem(i18n("None"));
   cbtype->addItem(i18n("Administrator-defined"));
@@ -169,10 +170,10 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
   cbtype_l->setWhatsThis(tmp);
   cbtype->setWhatsThis(tmp);
 
-  cbphone_l = new QLabel(i18n("Call&back number:"), parent);
+  cbphone_l = new QLabel(i18n("Call&back number:"), this);
   tl->addWidget(cbphone_l, 6, 0);
 
-  cbphone = new QLineEdit(parent);
+  cbphone = new QLineEdit(this);
   cbphone_l->setBuddy(cbphone);
   cbphone->setMaxLength(140);
   tl->addWidget(cbphone, 6, 1);
@@ -181,7 +182,7 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount, const char *name )
   cbphone_l->setWhatsThis(tmp);
   cbphone->setWhatsThis(tmp);
 
-  pppdargs = new QPushButton(i18n("Customize &pppd Arguments..."), parent);
+  pppdargs = new QPushButton(i18n("Customize &pppd Arguments..."), this);
   connect(pppdargs, SIGNAL(clicked()), SLOT(pppdargsbutton()));
   tl->addMultiCellWidget(pppdargs, 7, 7, 0, 1, Qt::AlignCenter);
 
@@ -316,8 +317,8 @@ void DialWidget::pppdargsbutton() {
 /////////////////////////////////////////////////////////////////////////////
 // ExecWidget
 /////////////////////////////////////////////////////////////////////////////
-ExecWidget::ExecWidget(QWidget *parent, bool isnewaccount, const char *name) :
-  QWidget(parent, name)
+ExecWidget::ExecWidget(QWidget *parent, bool isnewaccount) :
+  QWidget(parent)
 {
   QVBoxLayout *tl = new QVBoxLayout(parent, 0, KDialog::spacingHint());
 
@@ -332,7 +333,8 @@ i18n("Here you can select commands to run at certain stages of the\n"
   tl->addWidget(l);
   tl->addStretch(1);
 
-  QGridLayout *l1 = new QGridLayout(4, 2, 10);
+  QGridLayout *l1 = new QGridLayout( );
+  l1->setMargin( 10 );
   tl->addLayout(l1);
   l1->setColumnStretch(0, 0);
   l1->setColumnStretch(1, 1);
@@ -467,7 +469,7 @@ IPWidget::IPWidget( QWidget *parent, bool isnewaccount, const char *name )
 		       "are doing."));
 
   QWidget *ipWidget = new QWidget(box);
-  QGridLayout *ipLayout = new QGridLayout(ipWidget, 2, 2);
+  QGridLayout *ipLayout = new QGridLayout(ipWidget);
   ipLayout->setSpacing(KDialog::spacingHint());
 
   ipaddress_label = new QLabel(i18n("&IP address:"), ipWidget);
@@ -587,16 +589,17 @@ void IPWidget::hitIPSelect( int i ) {
 
 
 
-DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
-  : QWidget(parent, name)
+DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount )
+  : QWidget(parent)
 {
-  //  box = new QGroupBox(parent);
-  QGridLayout *tl = new QGridLayout(parent, 7, 2, 0, KDialog::spacingHint());
+  //  box = new QGroupBox(this);
+  QGridLayout *tl = new QGridLayout(this );
+  tl->setSpacing( KDialog::spacingHint() );
 
-  dnsdomain_label = new QLabel(i18n("Domain &name:"), parent);
+  dnsdomain_label = new QLabel(i18n("Domain &name:"), this);
   tl->addWidget(dnsdomain_label, 0, 0);
 
-  dnsdomain = new QLineEdit(parent);
+  dnsdomain = new QLineEdit(this);
   dnsdomain_label->setBuddy(dnsdomain);
   dnsdomain->setMaxLength(DOMAIN_SIZE);
   tl->addWidget(dnsdomain, 0, 1);
@@ -612,7 +615,7 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
   dnsdomain_label->setWhatsThis(tmp);
   dnsdomain->setWhatsThis(tmp);
 
-  conf_label = new QLabel(i18n("C&onfiguration:"), parent);
+  conf_label = new QLabel(i18n("C&onfiguration:"), this);
   tl->addWidget(conf_label, 1, 0);
 
   bg = new Q3ButtonGroup("Group", this);
@@ -620,23 +623,23 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
   connect(bg, SIGNAL(clicked(int)), SLOT(DNS_Mode_Selected(int)));
   bg->hide();
 
-  autodns = new QRadioButton(i18n("Automatic"), parent);
+  autodns = new QRadioButton(i18n("Automatic"), this);
   bg->insert(autodns, 0);
   tl->addWidget(autodns, 1, 1);
   // no automatic DNS detection for pppd < 2.3.7
   if(!gpppdata.pppdVersionMin(2, 3, 7))
     autodns->setEnabled(false);
 
-  mandns = new QRadioButton(i18n("Manual"), parent);
+  mandns = new QRadioButton(i18n("Manual"), this);
   bg->insert(mandns, 1);
   tl->addWidget(mandns, 2, 1);
 
-  dns_label = new QLabel(i18n("DNS &IP address:"), parent);
+  dns_label = new QLabel(i18n("DNS &IP address:"), this);
   tl->addWidget(dns_label, 3, 0);
 
   QHBoxLayout *l2 = new QHBoxLayout;
   tl->addLayout(l2, 3, 1);
-  dnsipaddr = new IPLineEdit(parent);
+  dnsipaddr = new IPLineEdit(this);
   dns_label->setBuddy(dnsipaddr);
   connect(dnsipaddr, SIGNAL(returnPressed()),
 	  SLOT(adddns()));
@@ -657,7 +660,7 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
 
   QHBoxLayout *l1 = new QHBoxLayout;
   tl->addLayout(l1, 4, 1);
-  add = new QPushButton(i18n("&Add"), parent);
+  add = new QPushButton(i18n("&Add"), this);
   connect(add, SIGNAL(clicked()), SLOT(adddns()));
   int width = add->sizeHint().width();
   width = qMax(width,60);
@@ -669,7 +672,7 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
 		       "specified in the field above. The entry\n"
 		       "will then be added to the list below"));
 
-  remove = new QPushButton(i18n("&Remove"), parent);
+  remove = new QPushButton(i18n("&Remove"), this);
   connect(remove, SIGNAL(clicked()), SLOT(removedns()));
   width = remove->sizeHint().width();
   width = qMax(width,60);
@@ -679,11 +682,11 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
 		  i18n("Click this button to remove the selected DNS\n"
 		       "server entry from the list below"));
 
-  servers_label = new QLabel(i18n("DNS address &list:"), parent);
+  servers_label = new QLabel(i18n("DNS address &list:"), this);
   servers_label->setAlignment(Qt::AlignTop|Qt::AlignLeft);
   tl->addWidget(servers_label, 5, 0);
 
-  dnsservers = new Q3ListBox(parent);
+  dnsservers = new Q3ListBox(this);
   servers_label->setBuddy(dnsservers);
   dnsservers->setMinimumSize(150, 80);
   connect(dnsservers, SIGNAL(highlighted(int)),
@@ -698,7 +701,7 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount, const char *name )
 
   exdnsdisabled_toggle = new QCheckBox(i18n( \
 "&Disable existing DNS servers during connection"),
-				     parent);
+				     this);
   exdnsdisabled_toggle->setChecked(gpppdata.exDNSDisabled());
   tl->addMultiCellWidget(exdnsdisabled_toggle, 6, 6, 0, 1, Qt::AlignCenter);
   exdnsdisabled_toggle->setWhatsThis(
@@ -786,8 +789,8 @@ void DNSWidget::removedns() {
 //
 // GatewayWidget
 //
-GatewayWidget::GatewayWidget( QWidget *parent, bool isnewaccount, const char *name )
-  : QWidget(parent, name)
+GatewayWidget::GatewayWidget( QWidget *parent, bool isnewaccount )
+  : QWidget(parent)
 {
   QVBoxLayout *topLayout = new QVBoxLayout(parent);
   topLayout->setSpacing(KDialog::spacingHint());

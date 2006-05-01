@@ -64,7 +64,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   QVBoxLayout *tl = new QVBoxLayout(dummyWidget, 10, 4);
 
   // add grid + frame
-  QGridLayout *l1 = new QGridLayout(GRIDROWS, 4);
+  QGridLayout *l1 = new QGridLayout();
   tl->addLayout(l1);
   box = new Q3GroupBox(dummyWidget, "box");
   l1->addMultiCellWidget(box, row++, GRIDROWS, 0, 3);
@@ -303,7 +303,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   volume_off->setText(gpppdata.volumeOff());
   volume_medium->setText(gpppdata.volumeMedium());
   volume_high->setText(gpppdata.volumeHigh());
-	
+
 	// Save the data, so if it not exist we save the default
 	gpppdata.save();
 }

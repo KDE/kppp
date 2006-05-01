@@ -258,7 +258,8 @@ ModemInfo::ModemInfo(QWidget *parent, const char* name)
 
   QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
 
-  QGridLayout *l1 = new QGridLayout(NUM_OF_ATI, 2, 5);
+  QGridLayout *l1 = new QGridLayout();
+  l1->setMargin( 5 );
   tl->addLayout(l1, 1);
   for(int  i = 0 ; i < NUM_OF_ATI ; i++) {
 

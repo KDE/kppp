@@ -351,7 +351,7 @@ PDB_UserInfo::PDB_UserInfo(QWidget *parent) : QWidget(parent) {
 		       this);
   tl->addWidget(l);
 
-  QGridLayout *l1 = new QGridLayout(2, 2);
+  QGridLayout *l1 = new QGridLayout();
   tl->addLayout(l1);
   l = new QLabel(i18n("Username:"), this);
   l1->addWidget(l, 0, 0);
@@ -407,7 +407,7 @@ PDB_DialPrefix::PDB_DialPrefix(QWidget *parent) : QWidget(parent) {
 		       this);
   tl->addWidget(l);
 
-  QGridLayout *l1 = new QGridLayout(1, 2);
+  QGridLayout *l1 = new QGridLayout();
   tl->addLayout(l1);
   l = new QLabel(i18n("Dial prefix:"), this);
   l1->addWidget(l, 0, 0);

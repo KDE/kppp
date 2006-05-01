@@ -45,16 +45,18 @@ void myMultiEdit::newLine() {
 }
 
 
-DebugWidget::DebugWidget(QWidget *parent, const char *name)
-  : QDialog(parent, name, FALSE)
+DebugWidget::DebugWidget(QWidget *parent)
+  : QDialog(parent)
 {
+    setModal( false );
   setWindowTitle(i18n("Login Script Debug Window"));
 
   text_window = new myMultiEdit(this,"debugwindow");
   text_window->setGeometry(2,5,400, 300);
   //  text_window->setReadOnly(FALSE);
 
-  statuslabel = new QLabel("", this, "statuslabel");
+  statuslabel = new QLabel(QString(), this );
+  statuslabel->setObjectName("statuslabel");
 
   statuslabel->setFrameStyle( Q3Frame::Panel | Q3Frame::Sunken );
   statuslabel->setAlignment( Qt::AlignLeft|Qt::AlignVCenter );
@@ -83,7 +85,7 @@ void DebugWidget::hideEvent(QHideEvent *)
 }
 
 void DebugWidget::clear() {
-  text_window->clear(); 
+  text_window->clear();
 }
 
 
@@ -92,7 +94,7 @@ void DebugWidget::addChar(unsigned char c) {
 
   if(c == '\r' || c == '\n') {
     if(c == '\n')
-      text_window->newLine();    
+      text_window->newLine();
   } else
     text_window->insert(QString(c));
 }

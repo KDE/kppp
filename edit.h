@@ -31,7 +31,7 @@
 
 #include <qdialog.h>
 #include <qpushbutton.h>
-#include <q3groupbox.h> 
+#include <q3groupbox.h>
 #include <qscrollbar.h>
 #include <qcombobox.h>
 #include <qlineedit.h>
@@ -49,7 +49,7 @@ class IPLineEdit;
 class DialWidget : public QWidget {
   Q_OBJECT
 public:
-  DialWidget( QWidget *parent=0, bool isnewaccount = true, const char *name=0 );
+  DialWidget( QWidget *parent=0, bool isnewaccount = true);
   ~DialWidget() {}
 
 public slots:
@@ -62,7 +62,7 @@ public slots:
   void delNumber();
   void upNumber();
   void downNumber();
-  
+
 private:
   QLineEdit *connectname_l;
   QLabel *connect_label;
@@ -91,7 +91,7 @@ private:
 class ExecWidget : public QWidget {
   Q_OBJECT
 public:
-  ExecWidget(QWidget *parent=0, bool isnewaccount=true, const char *name=0);
+  ExecWidget(QWidget *parent=0, bool isnewaccount=true);
 
 public slots:
   bool save();
@@ -144,7 +144,7 @@ private:
 class DNSWidget : public QWidget {
   Q_OBJECT
 public:
-  DNSWidget( QWidget *parent=0, bool isnewaccount = true, const char *name=0 );
+  DNSWidget( QWidget *parent=0, bool isnewaccount = true );
   ~DNSWidget() {}
 
 public slots:
@@ -176,7 +176,7 @@ private:
 class GatewayWidget : public QWidget {
   Q_OBJECT
 public:
-  GatewayWidget( QWidget *parent=0, bool isnewaccount = true, const char *name=0 );
+  GatewayWidget( QWidget *parent=0, bool isnewaccount = true );
   ~GatewayWidget() {}
 
 public slots:
@@ -227,7 +227,7 @@ private:
   QPushButton *remove;
   QPushButton *insert;
   Q3ListBox *sl, *stl;
-  
+
   QScrollBar *slb;
 };
 
@@ -241,13 +241,13 @@ class PhoneNumberDialog : public KDialogBase {
   Q_OBJECT
 public:
   PhoneNumberDialog(QWidget *parent = 0);
-  
+
   QString phoneNumber();
 
 private slots:
   void textChanged(const QString &);
 
-private: 
+private:
   QLineEdit *le;
 };
 

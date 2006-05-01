@@ -141,10 +141,8 @@ void ConWindow::accounting(bool on) {
   if(gpppdata.VolAcctEnabled())
     vol_lines = 1;
 
-  if(accountingEnabled)
-    l1 = new QGridLayout(4 + vol_lines, 2, 5);
-  else
-    l1 = new QGridLayout(2 + vol_lines, 2, 5);
+  l1 = new QGridLayout();
+  l1->setMargin( 5 );
   tl->addLayout(l1);
   l1->setColumnStretch(0, 0);
   l1->setColumnStretch(1, 1);
@@ -279,7 +277,7 @@ void ConWindow::timeclick() {
 		  session_bill->text(), total_bill->text());
   // volume accounting
   if(volumeAccountingEnabled) {
-    
+
     volinfo->setEnabled(TRUE);
     int bytes = gpppdata.totalBytes();
     volinfo->setText(prettyPrintVolume(bytes));
