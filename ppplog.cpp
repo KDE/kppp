@@ -209,7 +209,7 @@ void PPPL_ShowLog() {
       foundLCP = true;
       break;
     }
-    if((*it).find(conn) >= 0)
+    if((*it).contains(conn))
       foundConnect = true;
   }
   if(foundConnect && !foundLCP) {
