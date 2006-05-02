@@ -117,6 +117,7 @@ int RuleSet::load(const QString &filename) {
     bool backslashed;
     do {
       int br = f.readLine(buffer, sizeof(buffer));
+      if (br < 0) break;
       if((br > 0) && (buffer[br-1] == '\n'))
 	buffer[br-1] = 0;
       else
