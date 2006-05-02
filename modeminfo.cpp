@@ -220,7 +220,7 @@ void ModemTransfer::readtty() {
                                                  // space
 
   if(step <= NUM_OF_ATI)
-    ati_query_strings[step-1] = readbuffer.copy();
+    ati_query_strings[step-1] = readbuffer;
 
   readbuffer = "";
 }

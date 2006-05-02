@@ -731,7 +731,7 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount )
 
 void DNSWidget::DNS_Edit_Changed(const QString &text) {
   QRegExp r("[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+");
-  add->setEnabled(text.find(r) != -1);
+  add->setEnabled(text.contains(r));
 }
 
 void DNSWidget::DNS_Entry_Selected(int) {

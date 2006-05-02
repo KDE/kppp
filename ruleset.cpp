@@ -191,7 +191,7 @@ bool RuleSet::parseEntry(RULE &ret, QString s, int year) {
     ret.date.until = QDate(year, m, d);
     return TRUE;
   }
-  
+
   if(s.contains(QRegExp("^[0-9]+\\.[0-9]+$"))) {
     int d, m;
     sscanf(s.ascii(), "%d.%d", &d, &m);
@@ -503,7 +503,7 @@ static double round(double d, int digits) {
 #endif
 
 QString RuleSet::currencySymbol() const {
-  return _currency_symbol.copy();
+  return _currency_symbol;
 }
 
 QString RuleSet::currencyString(double f) const {
