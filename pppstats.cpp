@@ -57,7 +57,7 @@
 #include <net/ppp_defs.h>
 
 #include "config.h"
-#include "kppp-config.h"
+#include "config-kppp.h"
 #include "pppstats.h"
 
 #ifndef STREAMS

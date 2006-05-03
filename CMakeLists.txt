@@ -1,6 +1,6 @@
 kde4_header()
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/kppp-config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/kppp-config.h )
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config-kppp.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kppp.h )
 
 
 add_subdirectory( pixmaps ) 

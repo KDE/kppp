@@ -35,7 +35,7 @@
  */
 
 #include <config.h>
-#include <kppp-config.h>
+#include <config-kppp.h>
 #if defined(__osf__) || defined(__svr4__)
 #define _POSIX_PII_SOCKET
 extern "C" int sethostname(char *name, int name_len);
