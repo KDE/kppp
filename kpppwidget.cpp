@@ -97,7 +97,9 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   installEventFilter(this);
 
-  QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
+  QVBoxLayout *tl = new QVBoxLayout(this);
+  tl->setSpacing(10);
+  tl->setMargin(10);
 
   l1 = new QGridLayout();
   tl->addLayout(l1);
@@ -1022,7 +1024,9 @@ void KPPPWidget::showNews() {
     QDialog dlg(0, 0, true);
     dlg.setCaption(i18n("Recent Changes in KPPP"));
 
-    QVBoxLayout *tl = new QVBoxLayout(&dlg, 10, 10);
+    QVBoxLayout *tl = new QVBoxLayout(&dlg);
+    tl->setSpacing(10);
+    tl->setMargin(10);
     QHBoxLayout *l1 = new QHBoxLayout(10);
     QVBoxLayout *l2 = new QVBoxLayout(10);
     tl->addLayout(l1);

@@ -63,7 +63,8 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
   setWindowTitle(i18n("kppp Statistics"));
   KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
 
-  QVBoxLayout *tl = new QVBoxLayout(this, 10);
+  QVBoxLayout *tl = new QVBoxLayout(this);
+  tl->setSpacing(10);
   QGridLayout *l1 = new QGridLayout();
   tl->addLayout(l1, 1);
   box = new Q3GroupBox(i18n("Statistics"), this);

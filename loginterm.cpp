@@ -107,7 +107,8 @@ LoginTerm::LoginTerm (QWidget *parent, const char *name)
   setMaximumSize(600, 400);
   resize(400, 300);
 
-  QVBoxLayout *tl = new QVBoxLayout(this, 2);
+  QVBoxLayout *tl = new QVBoxLayout(this);
+  tl->setSpacing(2);
   QGridLayout *vgr = new QGridLayout();
   QGridLayout *hgr = new QGridLayout();
   hgr->setMargin( 30 );

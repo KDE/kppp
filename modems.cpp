@@ -57,7 +57,9 @@ ModemsWidget::ModemsWidget( QWidget *parent, const char *name )
   : QWidget( parent, name )
 {
   int min = 0;
-  QVBoxLayout *l1 = new QVBoxLayout(parent, 10, 10);
+  QVBoxLayout *l1 = new QVBoxLayout(parent);
+  l1->setSpacing(10);
+  l1->setMargin(10);
 
   // add a hbox
   QHBoxLayout *l11 = new QHBoxLayout;

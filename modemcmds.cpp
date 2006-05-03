@@ -61,7 +61,9 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   int row = 0;
 
   // toplevel layout
-  QVBoxLayout *tl = new QVBoxLayout(dummyWidget, 10, 4);
+  QVBoxLayout *tl = new QVBoxLayout(dummyWidget);
+  tl->setSpacing(4);
+  tl->setMargin(10);
 
   // add grid + frame
   QGridLayout *l1 = new QGridLayout();

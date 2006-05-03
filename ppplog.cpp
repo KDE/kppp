@@ -238,7 +238,9 @@ void PPPL_ShowLog() {
   QDialog *dlg = new QDialog(0, "", TRUE);
 
   dlg->setWindowTitle(i18n("PPP Log"));
-  QVBoxLayout *tl = new QVBoxLayout(dlg, 10, 10);
+  QVBoxLayout *tl = new QVBoxLayout(dlg);
+  tl->setSpacing(10);
+  tl->setMargin(10);
   Q3MultiLineEdit *edit = new Q3MultiLineEdit(dlg);
   edit->setReadOnly(TRUE);
   QLabel *label = new QLabel(i18n("kppp's diagnosis (just guessing):"), dlg);

@@ -49,7 +49,9 @@ ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
   setWindowTitle(i18n("ATI Query"));
   KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
 
-  QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
+  QVBoxLayout *tl = new QVBoxLayout(this);
+  tl->setSpacing(10);
+  tl->setMargin(10);
 
   progressBar = new KProgressBar(this);
   progressBar->setMaximum(8);
@@ -256,7 +258,9 @@ ModemInfo::ModemInfo(QWidget *parent, const char* name)
   setWindowTitle(i18n("Modem Query Results"));
   KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
 
-  QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
+  QVBoxLayout *tl = new QVBoxLayout(this);
+  tl->setSpacing(10);
+  tl->setMargin(10);
 
   QGridLayout *l1 = new QGridLayout();
   l1->setMargin( 5 );

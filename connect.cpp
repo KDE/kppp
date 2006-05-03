@@ -108,7 +108,9 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
 {
   modified_hostname = false;
 
-  QVBoxLayout *tl = new QVBoxLayout(this, 8, 10);
+  QVBoxLayout *tl = new QVBoxLayout(this);
+  tl->setSpacing(10);
+  tl->setMargin(8);
   QString tit = i18n("Connecting to: ");
   setWindowTitle(tit);
 

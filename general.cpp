@@ -55,7 +55,9 @@
 GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
   : QWidget(parent, name)
 {
-  QVBoxLayout *tl = new QVBoxLayout(parent, 0, KDialog::spacingHint());
+  QVBoxLayout *tl = new QVBoxLayout(parent);
+  tl->setSpacing(KDialog::spacingHint());
+  tl->setMargin(0);
 
   QHBoxLayout *hbox = new QHBoxLayout(tl);
   QLabel *label;
@@ -451,7 +453,9 @@ bool ModemWidget::save()
 ModemWidget2::ModemWidget2(QWidget *parent, const char *name)
   : QWidget(parent, name)
 {
-  QVBoxLayout *l1 = new QVBoxLayout(this, 0, KDialog::spacingHint());
+  QVBoxLayout *l1 = new QVBoxLayout(this);
+  l1->setSpacing(KDialog::spacingHint());
+  l1->setMargin(0);
 
 
   waitfordt = new QCheckBox(i18n("&Wait for dial tone before dialing"), this);

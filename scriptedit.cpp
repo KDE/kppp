@@ -35,7 +35,9 @@
 ScriptEdit::ScriptEdit( QWidget *parent )
   : QWidget(parent)
 {
-  QHBoxLayout *tl = new QHBoxLayout(this, 0, 10);
+  QHBoxLayout *tl = new QHBoxLayout(this);
+  tl->setSpacing(10);
+  tl->setMargin(0);
 
   st = new QComboBox(this, "st");
   st->addItem("Expect");

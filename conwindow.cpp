@@ -130,7 +130,9 @@ void ConWindow::accounting(bool on) {
     delete tl1;
 
   // add layout now
-  tl1 = new QVBoxLayout(this, 10, 10);
+  tl1 = new QVBoxLayout(this);
+  tl1->setSpacing(10);
+  tl1->setMargin(10);
   tl1->addSpacing(5);
   QHBoxLayout *tl = new QHBoxLayout;
   tl1->addLayout(tl);
@@ -209,7 +211,8 @@ void ConWindow::accounting(bool on) {
   }
 
   tl->addSpacing(10);
-  QVBoxLayout *l2 = new QVBoxLayout(5);
+  QVBoxLayout *l2 = new QVBoxLayout();
+  l2->setSpacing( 5 );
   tl->addLayout(l2);
   l2->addStretch(1);
   l2->addWidget(statsbutton);

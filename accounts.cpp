@@ -58,7 +58,9 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   : QWidget( parent, name )
 {
   int min = 0;
-  QVBoxLayout *l1 = new QVBoxLayout(parent, 10, 10);
+  QVBoxLayout *l1 = new QVBoxLayout(parent);
+  l1->setSpacing(10);
+  l1->setMargin(10);
 
   // add a hbox
   QHBoxLayout *l11 = new QHBoxLayout;
@@ -429,10 +431,14 @@ QueryReset::QueryReset(QWidget *parent) : QDialog(parent, 0, true) {
   KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
   setWindowTitle(i18n("Reset Accounting"));
 
-  QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
+  QVBoxLayout *tl = new QVBoxLayout(this);
+  tl->setSpacing(10);
+  tl->setMargin(10);
   Q3GroupBox *f = new Q3GroupBox(1, Qt::Horizontal,i18n("What to Reset"), this);
   
-  QVBoxLayout *l1 = new QVBoxLayout(parent, 10, 10);
+  QVBoxLayout *l1 = new QVBoxLayout(parent);
+  l1->setSpacing(10);
+  l1->setMargin(10);
   costs = new QCheckBox(i18n("Reset the accumulated p&hone costs"), f);
   costs->setChecked(true);
   l1->addWidget(costs);

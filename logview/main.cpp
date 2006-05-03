@@ -58,7 +58,8 @@ TopWidget::TopWidget() : KMainWindow(0, "") {
 
   w = new QWidget(this);
 
-  QBoxLayout *l = new QVBoxLayout(w, 5);
+  QBoxLayout *l = new QVBoxLayout(w);
+  l->setSpacing(5);
 
   td = new QTabWidget(w, "");
   mw = new MonthlyWidget(td);

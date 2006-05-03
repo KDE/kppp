@@ -177,7 +177,9 @@ PDB_Intro::PDB_Intro(QWidget *parent) : QWidget(parent) {
 			    "help first. If any information is missing, contact\n"
 			    "your ISP."),
 		       this);
-  QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
+  QVBoxLayout *tl = new QVBoxLayout(this);
+  tl->setSpacing(10);
+  tl->setMargin(10);
   tl->addWidget(l);
   tl->activate();
 }
@@ -194,7 +196,9 @@ PDB_Country::PDB_Country(QWidget *parent) : QWidget(parent) {
 			    "If you click \"Cancel\", the dialog based setup\n"
 			    "will start."),
 		       this);
-  QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
+  QVBoxLayout *tl = new QVBoxLayout(this);
+  tl->setSpacing(10);
+  tl->setMargin(10);
   tl->addWidget(l);
 
   QHBoxLayout *l1 = new QHBoxLayout;
@@ -266,7 +270,9 @@ void PDB_Country::selectionChanged(int idx) {
 //
 /////////////////////////////////////////////////////////////////////////////
 PDB_Provider::PDB_Provider(QWidget *parent) : QWidget(parent) {
-  QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
+  QVBoxLayout *tl = new QVBoxLayout(this);
+  tl->setSpacing(10);
+  tl->setMargin(10);
   QLabel *l = new QLabel(i18n("Select your Internet Service Provider (ISP) from\n"
 			    "the list below. If the ISP is not in this list,\n"
 			    "you have to click on \"Cancel\" and create this\n"
@@ -343,7 +349,9 @@ QString PDB_Provider::getDir() {
 //
 /////////////////////////////////////////////////////////////////////////////
 PDB_UserInfo::PDB_UserInfo(QWidget *parent) : QWidget(parent) {
-  QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
+  QVBoxLayout *tl = new QVBoxLayout(this);
+  tl->setSpacing(10);
+  tl->setMargin(10);
   QLabel *l = new QLabel(i18n("To log on to your ISP, kppp needs the username\n"
 			    "and the password you got from your ISP. Type\n"
 			    "in this information in the fields below.\n\n"
@@ -397,7 +405,9 @@ void PDB_UserInfo::activate() {
 //
 /////////////////////////////////////////////////////////////////////////////
 PDB_DialPrefix::PDB_DialPrefix(QWidget *parent) : QWidget(parent) {
-  QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
+  QVBoxLayout *tl = new QVBoxLayout(this);
+  tl->setSpacing(10);
+  tl->setMargin(10);
   QLabel *l = new QLabel(i18n("If you need a special dial prefix (e.g. if you\n"
 			    "are using a telephone switch) you can specify\n"
 			    "it here. This prefix is dialed just before the\n"
@@ -433,7 +443,9 @@ void PDB_DialPrefix::activate() {
 //
 /////////////////////////////////////////////////////////////////////////////
 PDB_Finished::PDB_Finished(QWidget *parent) : QWidget(parent) {
-  QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
+  QVBoxLayout *tl = new QVBoxLayout(this);
+  tl->setSpacing(10);
+  tl->setMargin(10);
   QLabel *l = new QLabel(i18n("Finished!\n\n"
 			    "A new account has been created. Click \"Finish\" to\n"
 			    "go back to the setup dialog. If you want to\n"

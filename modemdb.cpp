@@ -49,7 +49,9 @@
 ModemSelector::ModemSelector(QWidget *parent) : QDialog(parent, 0, true) {
   // set up widgets and such
   setWindowTitle(i18n("Select Modem Type"));
-  QVBoxLayout *tl = new QVBoxLayout(this, 10, 10);
+  QVBoxLayout *tl = new QVBoxLayout(this);
+  tl->setSpacing(10);
+  tl->setMargin(10);
   QLabel *l1 = new QLabel(i18n("To set up your modem, first choose its vendor in the "
 			       "list to the left, and then select the model from the "
 			       "right list. If you don't know which modem you have, "

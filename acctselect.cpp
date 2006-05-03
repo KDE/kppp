@@ -60,7 +60,9 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   :  QWidget(parent, name),
     isnewaccount(_isnewaccount)
 {
-  QVBoxLayout *l1 = new QVBoxLayout(parent, 0, KDialog::spacingHint());
+  QVBoxLayout *l1 = new QVBoxLayout(parent);
+  l1->setSpacing(KDialog::spacingHint());
+  l1->setMargin(0);
 
   enable_accounting = new QCheckBox(i18n("&Enable accounting"), parent);
   l1->addWidget(enable_accounting, 1);

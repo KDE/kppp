@@ -320,7 +320,9 @@ void DialWidget::pppdargsbutton() {
 ExecWidget::ExecWidget(QWidget *parent, bool isnewaccount) :
   QWidget(parent)
 {
-  QVBoxLayout *tl = new QVBoxLayout(parent, 0, KDialog::spacingHint());
+  QVBoxLayout *tl = new QVBoxLayout(parent);
+  tl->setSpacing(KDialog::spacingHint());
+  tl->setMargin(0);
 
   QLabel *l = new QLabel(\
 i18n("Here you can select commands to run at certain stages of the\n"
@@ -886,7 +888,9 @@ void GatewayWidget::hitGatewaySelect( int i ) {
 ScriptWidget::ScriptWidget( QWidget *parent, bool isnewaccount, const char *name )
   : QWidget(parent, name)
 {
-  QVBoxLayout *tl = new QVBoxLayout(parent, 0, KDialog::spacingHint());
+  QVBoxLayout *tl = new QVBoxLayout(parent);
+  tl->setSpacing(KDialog::spacingHint());
+  tl->setMargin(0);
   se = new ScriptEdit(parent);
   connect(se, SIGNAL(returnPressed()), SLOT(addButton()));
   tl->addWidget(se);
