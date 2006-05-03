@@ -91,7 +91,7 @@ int PPPL_MakeLog(QStringList &list) {
       buffer[strlen(buffer)-1] = '\0';
     list.append(buffer);
   }
-  close(fd);
+  fclose(f);
 
   if(list.isEmpty())
     return 2;
