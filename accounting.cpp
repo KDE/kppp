@@ -369,8 +369,9 @@ ExecutableAccounting::ExecutableAccounting(PPPStats *st, QObject *parent) :
 }
 
 
-bool ExecutableAccounting::running() const {
-  return (proc != 0) || proc->isRunning();
+bool ExecutableAccounting::running() const 
+{
+  return proc && proc->isRunning();
 }
 
 
