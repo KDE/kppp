@@ -1,5 +1,8 @@
 kde4_header()
 
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/kppp-config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/kppp-config.h )
+
+
 add_subdirectory( pixmaps ) 
 add_subdirectory( icons ) 
 add_subdirectory( logview ) 
