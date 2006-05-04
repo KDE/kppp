@@ -59,7 +59,8 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
   tl->setSpacing(KDialog::spacingHint());
   tl->setMargin(0);
 
-  QHBoxLayout *hbox = new QHBoxLayout(tl);
+  QHBoxLayout *hbox = new QHBoxLayout();
+  tl->addItem(hbox);
   QLabel *label;
   label = new QLabel(i18n("pppd version:"), parent);
   hbox->addWidget(label);
