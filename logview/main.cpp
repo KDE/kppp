@@ -80,7 +80,8 @@ TopWidget::TopWidget() : KMainWindow(0, "") {
   } else {
     mb = 0;
     QPushButton *but = new KPushButton(KStdGuiItem::close(),w);
-    QHBoxLayout *lh = new QHBoxLayout(l);
+    QHBoxLayout *lh = new QHBoxLayout();
+    l->addItem(lh);
     lh->addStretch(10);
     lh->addWidget(but);
 
