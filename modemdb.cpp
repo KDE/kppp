@@ -65,7 +65,8 @@ ModemSelector::ModemSelector(QWidget *parent) : QDialog(parent, 0, true) {
 
   tl->addSpacing(10);
 
-  QHBoxLayout *tl1 = new QHBoxLayout(10);
+  QHBoxLayout *tl1 = new QHBoxLayout();
+  tl1->setSpacing( 10 );
   tl->addLayout(tl1, 1);
   vendor = new Q3ListBox(this);
   model  = new Q3ListBox(this);

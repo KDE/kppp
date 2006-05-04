@@ -74,7 +74,8 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount )
   number_label->setAlignment(Qt::AlignTop|Qt::AlignLeft);
   tl->addWidget(number_label, 1, 0);
 
-  QHBoxLayout *lpn = new QHBoxLayout(5);
+  QHBoxLayout *lpn = new QHBoxLayout();
+  lpn->setSpacing( 5 );
   tl->addLayout(lpn, 1, 1);
   numbers = new Q3ListBox(this);
   number_label->setBuddy(numbers);

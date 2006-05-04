@@ -114,7 +114,8 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   QString tit = i18n("Connecting to: ");
   setWindowTitle(tit);
 
-  QHBoxLayout *l0 = new QHBoxLayout(10);
+  QHBoxLayout *l0 = new QHBoxLayout();
+  l0->setSpacing( 10 );
   tl->addLayout(l0);
   l0->addSpacing(10);
   messg = new QLabel(this, "messg");
@@ -129,7 +130,8 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   l0->addWidget(messg);
   l0->addSpacing(10);
 
-  QHBoxLayout *l1 = new QHBoxLayout(10);
+  QHBoxLayout *l1 = new QHBoxLayout();
+  l1->setSpacing( 10 );
   tl->addLayout(l1);
   l1->addStretch(1);
 

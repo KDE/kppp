@@ -52,14 +52,16 @@ PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
   QVBoxLayout *l = new QVBoxLayout(this);
   l->setSpacing(10);
   l->setMargin(10);
-  QHBoxLayout *tl = new QHBoxLayout(10);
+  QHBoxLayout *tl = new QHBoxLayout();
+  tl->setSpacing( 10 );
   l->addLayout(tl);
   QVBoxLayout *l1 = new QVBoxLayout();
   QVBoxLayout *l2 = new QVBoxLayout();
   tl->addLayout(l1, 1);
   tl->addLayout(l2, 0);
 
-  QHBoxLayout *l11 = new QHBoxLayout(10);
+  QHBoxLayout *l11 = new QHBoxLayout();
+  l11->setSpacing( 10 );
   l1->addLayout(l11);
 
   argument_label = new QLabel(i18n("Arg&ument:"), this);
