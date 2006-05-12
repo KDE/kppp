@@ -1,4 +1,5 @@
 kde4_header()
+project(kppp)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config-kppp.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kppp.h )
 
