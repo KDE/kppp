@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -7,7 +6,6 @@ kde4_header()
 
 install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Turkey FILES Turk_Telekom_Internet.rst )
 
-kde4_footer()
 
 
 

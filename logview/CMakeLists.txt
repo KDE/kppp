@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -25,7 +24,6 @@ install_targets(/bin kppplogview )
 
 install_files( ${XDG_APPS_DIR} FILES kppplogview.desktop )
 
-kde4_footer()
 
 
 

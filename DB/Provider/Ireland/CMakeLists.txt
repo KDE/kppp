@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -7,7 +6,6 @@ kde4_header()
 
 install_files( ${DATA_INSTALL_DIR}/kppp/Provider/Irland FILES .directory Eircom  UTV  UVT IOL )
 
-kde4_footer()
 
 
 

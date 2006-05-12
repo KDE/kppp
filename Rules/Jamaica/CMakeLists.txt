@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -7,7 +6,6 @@ kde4_header()
 
 install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Jamaica FILES CWJ_InterParish.rst  		CWJ_Local.rst   )
 
-kde4_footer()
 
 
 

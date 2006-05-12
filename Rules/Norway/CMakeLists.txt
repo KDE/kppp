@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -7,7 +6,6 @@ kde4_header()
 
 install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Norway FILES Local_Area.rst  		Long_Distance.rst  		Netcom.rst )
 
-kde4_footer()
 
 
 

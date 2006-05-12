@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -7,7 +6,6 @@ kde4_header()
 
 install_files( ${DATA_INSTALL_DIR}/kppp/Provider/NewZealand FILES .directory Paradise Voyager XTRA OrconInternet ihug )
 
-kde4_footer()
 
 
 

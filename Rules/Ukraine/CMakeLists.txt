@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -7,7 +6,6 @@ kde4_header()
 
 install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Ukraine FILES TEMPLATE.uk Utel_Unet.rst IPTelecom_hourly.rst NuVse_hourly.rst )
 
-kde4_footer()
 
 
 

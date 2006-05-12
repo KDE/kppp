@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -7,7 +6,6 @@ kde4_header()
 
 install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Macedonia FILES Macedonia_GenericISP_interurban.rst  	Macedonia_GenericISP_local.rst  	Macedonia_MTnet.rst )
 
-kde4_footer()
 
 
 

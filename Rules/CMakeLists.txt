@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -55,7 +54,6 @@ add_subdirectory(Yugoslavia)
 
 install_files( ${DATA_INSTALL_DIR}/kppp/Rules FILES TEMPLATE )
 
-kde4_footer()
 
 
 

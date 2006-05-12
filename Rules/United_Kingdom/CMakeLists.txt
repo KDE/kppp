@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -7,7 +6,6 @@ kde4_header()
 
 install_files( ${DATA_INSTALL_DIR}/kppp/Rules/United_Kingdom FILES BirminghamCable_Local.rst  		BirminghamCable_National.rst  		BirminghamCable_SameTelco.rst  		BritishTelecom_Local.rst  		BritishTelecom_National.rst  		BritishTelecom_Regional.rst  		British_OneTel.rst  		Connaught_Telecom.rst )
 
-kde4_footer()
 
 
 

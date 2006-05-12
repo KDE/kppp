@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -7,7 +6,6 @@ kde4_header()
 
 install_files( ${DATA_INSTALL_DIR}/kppp/Rules/India FILES Vsnl_local.rst BSNL_Local.rst  	 BSNL_Long_101_To_200.rst  	 BSNL_Medium_51_To_100.rst )
 
-kde4_footer()
 
 
 

@@ -1,4 +1,3 @@
-kde4_header()
 
 add_subdirectory( Provider ) 
 
@@ -9,7 +8,6 @@ add_subdirectory( Provider )
 
 install_files( ${DATA_INSTALL_DIR}/kppp/Provider FILES  )
 
-kde4_footer()
 
 
 

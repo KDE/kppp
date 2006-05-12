@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -7,7 +6,6 @@ kde4_header()
 
 install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Belgium FILES Belgium_interzonal.rst Belgium_zonal.rst  	Belgium_internet_frank.rst Belgium_internet_euro.rst )
 
-kde4_footer()
 
 
 

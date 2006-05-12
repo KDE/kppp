@@ -1,4 +1,3 @@
-kde4_header()
 
 add_subdirectory( Austria ) 
 add_subdirectory( Denmark ) 
@@ -25,7 +24,6 @@ add_subdirectory( Ireland )
 ########### install files ###############
 
 
-kde4_footer()
 
 
 

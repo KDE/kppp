@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -7,7 +6,6 @@ kde4_header()
 
 install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Romania FILES Romtelecom_Acces_Special_Internet.rst             Romtelecom_Interjudetean.rst             Romtelecom_Local.rst             RomTelecom_GSM.rst             Zapp-Mobile.rst Easynet.rst )
 
-kde4_footer()
 
 
 

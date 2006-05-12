@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -7,7 +6,6 @@ kde4_header()
 
 install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Hong_Kong FILES Hong_Kong_Telecom.rst )
 
-kde4_footer()
 
 
 

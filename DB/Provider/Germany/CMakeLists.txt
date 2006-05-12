@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -7,7 +6,6 @@ kde4_header()
 
 install_files( ${DATA_INSTALL_DIR}/kppp/Provider/Germany FILES .directory CityWeb Netsurf  	FH%032Rhein%032Sieg%032%040Informatik%041 MUC%046DE )
 
-kde4_footer()
 
 
 

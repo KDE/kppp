@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -7,7 +6,6 @@ kde4_header()
 
 install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Austria/Standard FILES Local.rst  		Long_Distance.rst  		Online.rst                  UTA_easyinternet.rst )
 
-kde4_footer()
 
 
 

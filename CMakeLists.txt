@@ -1,4 +1,3 @@
-kde4_header()
 project(kppp)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config-kppp.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kppp.h )
@@ -65,7 +64,6 @@ install_targets(/bin kppp )
 
 install_files( ${XDG_APPS_DIR} FILES Kppp.desktop )
 
-kde4_footer()
 
 
 

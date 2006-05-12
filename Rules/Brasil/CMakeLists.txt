@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -7,7 +6,6 @@ kde4_header()
 
 install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Brasil FILES Brasil.rst  	SaoPaulo.rst  	Brasil_Ligbr.rst  	Rio_de_Janeiro.rst )
 
-kde4_footer()
 
 
 

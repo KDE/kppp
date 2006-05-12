@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -7,7 +6,6 @@ kde4_header()
 
 install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Slovenia FILES omrezje_0880.rst  		omrezje_0889.rst  		stacionarno_omrezje.rst )
 
-kde4_footer()
 
 
 

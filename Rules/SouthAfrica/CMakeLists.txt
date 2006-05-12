@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -7,7 +6,6 @@ kde4_header()
 
 install_files( ${DATA_INSTALL_DIR}/kppp/Rules/South_Africa FILES South_Africa_local.rst  South_Africa_long_distance.rst )
 
-kde4_footer()
 
 
 

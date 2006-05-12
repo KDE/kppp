@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -7,7 +6,6 @@ kde4_header()
 
 install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Argentina FILES Argentina_Local.rst Argentina_0610.rst )
 
-kde4_footer()
 
 
 

@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -7,7 +6,6 @@ kde4_header()
 
 install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Switzerland FILES Swisscom_Local.rst  		Swisscom_Remote.rst  		Swisscom_Surf.rst  		Sunrise_Freetime.rst  		Sunrise_Select_Internet.rst  		Sunrise_Local.rst )
 
-kde4_footer()
 
 
 
