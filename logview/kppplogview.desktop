@@ -2,6 +2,7 @@
 Encoding=UTF-8
 Name=KPPPLogview
 Name[bn]=কে-পি-পি-পি লগভিউ
+Name[bs]=Preglednik Kppp dnevnika
 Name[de]=KPPP-Protokoll-Betrachter
 Name[el]=Προβολή καταγραφής KPPP
 Name[is]=KPPP annálaskoðari
@@ -17,6 +18,7 @@ Name[tr]=KPPP Kayıt Görüntüleyici
 GenericName=Internet Dial-Up Tool Log Viewer
 GenericName[bg]=Преглед на журнала на KPPP
 GenericName[bn]=ইন্টারনেট ডায়াল-আপ সরঞ্জাম কার্যবিবরণী প্রদর্শক
+GenericName[bs]=Program za pregled dnevnika spajanja na Internet
 GenericName[ca]=Visor de la bitàcola de l'eina de connexió telefònica a Internet
 GenericName[cs]=Prohlížeč záznamů připojení přes vytáčenou linku
 GenericName[da]=Internet-opkaldsværktøj-logviser
