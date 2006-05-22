@@ -1,0 +1,26 @@
+# KDE Config File 
+AccountingEnabled=0 
+AccountingFile= 
+Authentication=1 
+AutoDNS=1 
+AutoName=0 
+BeforeConnect= 
+BeforeDisconnect= 
+Command= 
+DNS= 
+DefaultRoute=1 
+DisconnectCommand= 
+Domain=UTVIP.com 
+ExDNSDisabled=0 
+Gateway=0.0.0.0 
+IPAddr=0.0.0.0 
+Name=UTVIP 
+Password=%PASSWORD% 
+Phonenumber=1893242242 
+ScriptArguments= 
+ScriptCommands= 
+StorePassword=1 
+SubnetMask=0.0.0.0 
+Username=%USERNAME% 
+VolumeAccountingEnabled=0 
+pppdArguments=
