@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Provider/Irland FILES .directory Eircom  UTV  UVT IOL )
+install_files( ${DATA_INSTALL_DIR}/kppp/Provider/Irland FILES .directory Eircom  UTV  IOL )
 
 
 
