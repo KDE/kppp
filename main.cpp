@@ -179,8 +179,15 @@ int main( int argc, char **argv ) {
 
   // drop setuid status
   euid = geteuid();
-  setgid(getgid());
+  if (setgid(getgid()) < 0 && errno != EPERM) {
+    perror("setgid() failed");
+    exit(1);
+  }
   setuid(getuid());
+  if (geteuid() != getuid()) {
+    perror("setuid() failed");
+    exit(1);
+  }
 
   //
   // end of setuid-dropping block.

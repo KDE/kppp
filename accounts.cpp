@@ -218,8 +218,12 @@ void AccountWidget::viewLogClicked(){
 
     QApplication::flush();
     if(fork() == 0) {
-      setgid(getgid());
+      if (setgid(getgid()) < 0 && errno != EPERM)
+        _exit(2);
       setuid(getuid());
+      if( geteuid() != getuid() )
+        _exit(1);
+      // TODO: use execvp
       system("kppplogview -kppp");
       _exit(0);
     }
