@@ -41,6 +41,8 @@
 #include <kstdguiitem.h>
 #include <qvgroupbox.h>
 
+#include <errno.h>
+
 #include "pppdata.h"
 #include "accounts.h"
 #include "accounting.h"
@@ -211,8 +213,12 @@ void AccountWidget::viewLogClicked(){
 
     QApplication::flushX();
     if(fork() == 0) {
-      setgid(getgid());
+      if (setgid(getgid()) < 0 && errno != EPERM)
+        _exit(2);
       setuid(getuid());
+      if( geteuid() != getuid() )
+        _exit(1);
+      // TODO: use execvp
       system("kppplogview -kppp");
       _exit(0);
     }
