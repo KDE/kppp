@@ -218,7 +218,7 @@ bool Modem::closetty() {
     tcflush(modemfd, TCIOFLUSH);
 
     if(tcsetattr(modemfd, TCSANOW, &initial_tty) < 0){
-      errmsg = i18n("Can't restore tty settings: tcsetattr()\n");
+      errmsg = i18n("Can not restore tty settings: tcsetattr()\n");
       ::close(modemfd);
       modemfd = -1;
       return false;

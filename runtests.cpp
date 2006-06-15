@@ -216,7 +216,7 @@ int runTests() {
 
     if(!access) {
       KMessageBox::error(0,
-		 i18n("You're not allowed to dial out with "
+		 i18n("You are not allowed to dial out with "
 		      "kppp.\nContact your system administrator."));
       return TEST_CRITICAL;
     }
@@ -250,7 +250,7 @@ int runTests() {
       stat(f, &st);
       if(st.st_uid != 0 || (st.st_mode & S_ISUID) == 0) {
 	KMessageBox::error(0,
-                     i18n("You don't have sufficient permission to run\n"
+                     i18n("You do not have sufficient permission to run\n"
                           "%1\n."
                           "Please make sure that kppp is owned by root "
                           "and has the SUID bit set.", f));
@@ -262,7 +262,7 @@ int runTests() {
   // Test 5: check for existence of /etc/resolv.conf
   if (access(_PATH_RESCONF, R_OK) != 0) {
     QString file = _PATH_RESCONF" ";
-    QString msgstr = i18n("%1 is missing or can't be read.\n"
+    QString msgstr = i18n("%1 is missing or can not be read.\n"
                    "Ask your system administrator to create "
                    "this file (can be empty) with appropriate "
                    "read and write permissions.", file);

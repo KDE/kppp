@@ -139,13 +139,13 @@ void PPPL_AnalyseLog(QStringList &list, QStringList &result) {
 	  "Please use the terminal-based login to verify") },
 
     {"Serial line is looped back",
-     I18N_NOOP("You haven't started the PPP software on the peer system.") },
+     I18N_NOOP("You have not started the PPP software on the peer system.") },
 
     {"AP authentication failed",
      I18N_NOOP("Check that you supplied the correct username and password.")} ,
 
     {"is locked by pid",
-     I18N_NOOP("You shouldn't pass 'lock' as an argument to pppd. "
+     I18N_NOOP("You should not pass 'lock' as an argument to pppd. "
 	  "Check /etc/ppp/options and ~/.ppprc") },
 
     {"CP: timeout sending",
@@ -214,7 +214,7 @@ void PPPL_ShowLog() {
   }
   if(foundConnect && !foundLCP) {
     int result = KMessageBox::warningYesNo(0,
-				i18n("KPPP could not prepare a PPP log. It's very likely "
+				i18n("KPPP could not prepare a PPP log. It is very likely "
 				     "that pppd was started without the \"debug\" option.\n"
 				     "Without this option it's difficult to find out PPP "
 				     "problems, so you should turn on the debug option.\n"

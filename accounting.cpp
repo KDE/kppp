@@ -65,7 +65,7 @@ static QString timet2qstring(time_t t) {
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// The base class for the accounting system provides a base set of usefull
+// The base class for the accounting system provides a base set of useful
 // and common functions, but does not do any accounting by itself. The
 // accounting is accomplished withing it's derived classes
 //
@@ -406,7 +406,7 @@ void ExecutableAccounting::gotData(KProcess */*proc*/, char *buffer, int /*bufle
   del2 = s.indexOf(':', del1+1);
   del3 = s.indexOf(':', del2+1);
   if(del1 == -1 || del2 == -1 || del3 == -1) {
-    // TODO: do something usefull here
+    // TODO: do something useful here
     return;
   }
 
@@ -420,7 +420,7 @@ void ExecutableAccounting::gotData(KProcess */*proc*/, char *buffer, int /*bufle
   _session = __session.toDouble(&ok2);
 
   if(!ok1 || !ok2) {
-    // TODO: do something usefull here
+    // TODO: do something useful here
     return;
   }
 

@@ -243,7 +243,7 @@ int main( int argc, char **argv ) {
   KGlobal::dirs()->saveLocation("appdata", "Rules");
 
   int pid = create_pidfile();
-  QString err_msg = i18n("kppp can't create or read from\n%1.", pidfile);
+  QString err_msg = i18n("kppp can not create or read from\n%1.", pidfile);
 
   if(pid < 0) {
     KMessageBox::error(0L, err_msg);

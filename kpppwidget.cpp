@@ -1049,7 +1049,7 @@ void KPPPWidget::showNews() {
 			      "To test it, right-click somewhere in this text."),
 			 &dlg);
 
-    QCheckBox *cb = new QCheckBox(i18n("Don't show this hint again"), &dlg);
+    QCheckBox *cb = new QCheckBox(i18n("Do not show this hint again"), &dlg);
     cb->setFixedSize(cb->sizeHint());
 
     KButtonBox *bbox = new KButtonBox(&dlg);

@@ -1187,7 +1187,7 @@ void ConnectWidget::if_waiting_slot() {
   }
 
   // O.K the ppp interface is up and running
-  // give it a few time to come up completly (0.2 seconds)
+  // give it a few time to come up completely (0.2 seconds)
   if_timeout_timer->stop();
   if_timer->stop();
   usleep(200000);

@@ -565,7 +565,7 @@ int RuleSet::checkRuleFile(const QString &rulefile) {
     return 1;
   }
 
-  // check for the existance of a default rule
+  // check for the existence of a default rule
   if((r.default_costs < 0) || (r.default_len < 0)) {
     fputs(i18n("kppp: rulefile does not contain a default rule\n").toLocal8Bit(), stderr);
     return 1;

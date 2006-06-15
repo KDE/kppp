@@ -145,7 +145,7 @@ void ExportWizard::getFilename() {
 
 void ExportWizard::reject()  {
     hide();
-    filename = QString::null;
+    filename.clear();
 }
 
 void ExportWizard::accept() {

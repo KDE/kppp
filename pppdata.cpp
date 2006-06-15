@@ -89,7 +89,7 @@ bool PPPData::open() {
   if (modemhighcount > MAX_MODEMS)
     modemhighcount = MAX_MODEMS;
 
-  // if there aren't no ModemX setted and exists the [Modem] group,
+  // if there aren't any ModemX set and exists the [Modem] group,
   // probably it's the first time we are using this new version
   // with multiple modem profiles.
   // So we copy the old [Modem] to the new [Modem0]

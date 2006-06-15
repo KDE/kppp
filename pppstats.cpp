@@ -257,7 +257,7 @@ bool PPPStats::doStats() {
   // IN    PACK    VJCOMP  VJUNC     VJERR
 
   ibytes =   cur.p.ppp_ibytes; 			// bytes received
-  ipackets =   cur.p.ppp_ipackets; 		// packets recieved
+  ipackets =   cur.p.ppp_ipackets; 		// packets received
   compressedin =  cur.vj.vjs_compressedin; 	// inbound compressed packets
   uncompressedin =   cur.vj.vjs_uncompressedin; // inbound uncompressed packets
   errorin =  cur.vj.vjs_errorin; 		//receive errors
