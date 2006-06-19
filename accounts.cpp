@@ -51,7 +51,7 @@
 #include "accounting.h"
 #include "providerdb.h"
 #include "edit.h"
-
+#include <errno.h>
 void parseargs(char* buf, char** args);
 
 AccountWidget::AccountWidget( QWidget *parent, const char *name )
@@ -346,7 +346,7 @@ void AccountWidget::deleteaccount() {
 
 
 int AccountWidget::doTab(){
-  tabWindow = new KPageDialog( 0 );
+  tabWindow = new KPageDialog( this );
   tabWindow->setFaceType( KPageDialog::Tabbed );
   tabWindow->setButtons( KDialog::Ok|KDialog::Cancel );
   tabWindow->setDefaultButton( KDialog::Ok );
@@ -364,13 +364,49 @@ int AccountWidget::doTab(){
     isnewaccount = false;
   }
 
-  dial_w = new DialWidget(tabWindow->addPage(i18n("Dial"), i18n("Dial Setup")), isnewaccount);
-  ip_w = new IPWidget(tabWindow->addPage(i18n("IP"), i18n("IP Setup")), isnewaccount);
-  gateway_w = new GatewayWidget(tabWindow->addPage(i18n("Gateway"), i18n("Gateway Setup")), isnewaccount);
-  dns_w = new DNSWidget(tabWindow->addPage(i18n("DNS"), i18n("DNS Servers")), isnewaccount);
-  script_w = new ScriptWidget(tabWindow->addPage(i18n("Login Script"), i18n("Edit Login Script")), isnewaccount);
-  ExecWidget *exec_w = new ExecWidget(tabWindow->addPage(i18n("Execute"), i18n("Execute Programs")), isnewaccount);
-  acct = new AccountingSelector(tabWindow->addPage(i18n("Accounting")), isnewaccount);
+  QFrame * frame = new QFrame();
+  KPageWidgetItem *pageItem = new KPageWidgetItem( frame, i18n("Dial") );
+  pageItem->setHeader( i18n("Dial Setup") );
+  tabWindow->addPage( pageItem );
+  dial_w = new DialWidget(frame, isnewaccount);
+
+
+  frame = new QFrame();
+  pageItem = new KPageWidgetItem( frame, i18n("IP") );
+  pageItem->setHeader( i18n("IP Setup") );
+  tabWindow->addPage( pageItem );
+  ip_w = new IPWidget(frame, isnewaccount);
+
+  frame = new QFrame();
+  pageItem = new KPageWidgetItem( frame, i18n("Gateway") );
+  pageItem->setHeader( i18n("Gateway Setup") );
+  tabWindow->addPage( pageItem );
+  gateway_w = new GatewayWidget(frame, isnewaccount);
+
+  frame = new QFrame();
+  pageItem = new KPageWidgetItem( frame, i18n("DNS") );
+  pageItem->setHeader( i18n("DNS Servers") );
+  tabWindow->addPage( pageItem );
+  dns_w = new DNSWidget(frame, isnewaccount);
+
+  frame = new QFrame();
+  pageItem = new KPageWidgetItem( frame, i18n("Login Script") );
+  pageItem->setHeader( i18n("Edit Login Script") );
+  tabWindow->addPage( pageItem );
+  script_w = new ScriptWidget(frame, isnewaccount);
+
+
+  frame = new QFrame();
+  pageItem = new KPageWidgetItem( frame, i18n("Execute") );
+  pageItem->setHeader( i18n("Execute Programs") );
+  tabWindow->addPage( pageItem );
+  ExecWidget *exec_w = new ExecWidget(frame, isnewaccount);
+
+  frame = new QFrame();
+  pageItem = new KPageWidgetItem( frame, i18n("Accounting") );
+  tabWindow->addPage( pageItem );
+
+  acct = new AccountingSelector(frame, isnewaccount);
 
   int result = 0;
   bool ok = false;

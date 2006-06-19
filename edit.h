@@ -40,7 +40,7 @@
 #include <q3buttongroup.h>
 #include <qcheckbox.h>
 #include <qlabel.h>
-#include <kdialogbase.h>
+#include <kdialog.h>
 #include "scriptedit.h"
 #include "kpppconfig.h"
 #include "pppdargs.h"
@@ -237,7 +237,7 @@ private:
 // Used to specify a new phone number
 //
 /////////////////////////////////////////////////////////////////////////////
-class PhoneNumberDialog : public KDialogBase {
+class PhoneNumberDialog : public KDialog {
   Q_OBJECT
 public:
   PhoneNumberDialog(QWidget *parent = 0);

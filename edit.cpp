@@ -1215,7 +1215,12 @@ void ScriptWidget::removeButton() {
 // Used to specify a new phone number
 //
 /////////////////////////////////////////////////////////////////////////////
-PhoneNumberDialog::PhoneNumberDialog(QWidget *parent) : KDialogBase(parent, 0, true, i18n("Add Phone Number"), Ok|Cancel) {
+PhoneNumberDialog::PhoneNumberDialog(QWidget *parent)
+    : KDialog(parent) {
+    setCaption( i18n("Add Phone Number") );
+    setButtons( Ok|Cancel );
+    setDefaultButton( Ok );
+    setModal( true );
   KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
 
   QWidget *hbox = new QWidget(this);
