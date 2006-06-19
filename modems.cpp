@@ -256,7 +256,7 @@ int ModemsWidget::doTab(){
 
 void ModemsWidget::modemNameChanged(const QString & text)
 {
-  tabWindow->enableButtonOK( !text.isEmpty() );
+  tabWindow->enableButtonOk( !text.isEmpty() );
 }
 
 QString ModemsWidget::prettyPrintVolume(unsigned int n) {

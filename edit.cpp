@@ -1248,7 +1248,7 @@ QString PhoneNumberDialog::phoneNumber() {
 
 
 void PhoneNumberDialog::textChanged(const QString &s) {
-  enableButtonOK(s.length() > 0);
+  enableButtonOk(s.length() > 0);
 }
 
 
