@@ -51,8 +51,12 @@
 #define FORMATSLIDERLABEL(l) l->setFixedWidth(l->sizeHint().width()); l->setFixedHeight(QLineEdit(dummyWidget).sizeHint().height()); l->setAlignment(Qt::AlignCenter); l->setFrameStyle(Q3Frame::WinPanel|Q3Frame::Sunken); l->setLineWidth(2);
 
 ModemCommands::ModemCommands(QWidget *parent, const char *name)
-  : KDialogBase(parent, name, true, i18n("Edit Modem Commands"), Ok|Cancel)
+  : KDialog(parent)
 {
+    setCaption( i18n("Edit Modem Commands") );
+    setButtons( Ok|Cancel );
+    setDefaultButton( Ok );
+    setModal( true );
   KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
   QWidget *dummyWidget = new QWidget(this);
   setMainWidget(dummyWidget);

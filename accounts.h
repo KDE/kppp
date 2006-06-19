@@ -34,7 +34,7 @@
 #include <QLabel>
 #include "acctselect.h"
 
-class KDialogBase;
+class KPageDialog;
 class QCheckBox;
 class QLineEdit;
 class Q3TabDialog;
@@ -70,7 +70,7 @@ signals:
 private:
   QString prettyPrintVolume(unsigned int);
 
-  KDialogBase *tabWindow;
+  KPageDialog *tabWindow;
   DialWidget *dial_w;
   AccountingSelector *acct;
   IPWidget *ip_w;

@@ -34,7 +34,6 @@
 #include <QGridLayout>
 #include <QEvent>
 
-#include <dcopclient.h>
 
 #include "accounting.h"
 #include "conwindow.h"
@@ -43,7 +42,6 @@
 #include "debug.h"
 #include "pppstatdlg.h"
 
-#include "KPPPIface.h"
 
 class GeneralWidget;
 class ModemsWidget;
@@ -52,7 +50,7 @@ class ModemWidget2;
 class GraphSetup;
 class AboutWidget;
 class PPPStats;
-class KDialogBase;
+class KPageDialog;
 class KPushButton;
 
 class SignalEvent : public QEvent {
@@ -64,7 +62,7 @@ private:
 };
 
 
-class KPPPWidget : public QWidget, virtual public KpppIface {
+class KPPPWidget : public QWidget {
   Q_OBJECT
 public:
 
@@ -109,6 +107,12 @@ public slots:
 signals:
   void begin_connect();
   void cmdl_start();
+
+ signals: //dbus signal
+    void sig_aboutToConnect();
+    void sig_aboutToDisconnect();
+    void sig_connected();
+    void sig_disconnected();
 
 public:
   QCheckBox *log;
@@ -155,7 +159,7 @@ private:
   QLabel *radio_label;
 
 
-  KDialogBase *tabWindow;
+  KPageDialog *tabWindow;
   AccountWidget *accounts;
   GeneralWidget *general;
   ModemsWidget *modems;
@@ -169,7 +173,6 @@ private:
   bool m_bCmdlAccount;
   bool m_bCmdlModem;
   bool m_bModemCShown;
-
 
   QTimer *disconnectTimer;
 };

@@ -23,7 +23,7 @@
  */
 
 #include "kpppwidget.h"
-
+#include <dbus/qdbus.h>
 #include <qapplication.h>
 #include <qcombobox.h>
 #include <qdir.h>
@@ -38,7 +38,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <Q3PopupMenu>
-#include <kdialogbase.h>
+#include <kpagedialog.h>
 
 #include <QMenu>
 #include <kaboutdata.h>
@@ -76,17 +76,28 @@
 #include "general.h"
 #include "modems.h"
 
+#include "kpppadaptor.h"
+
 // delay disconnection for a second
 #define DISCONNECT_DELAY 1000
 
 extern KPPPWidget *p_kppp;
 
 KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
-  : DCOPObject( "KpppIface" ), QWidget(parent, name)
+  : QWidget(parent, name)
   , acct(0)
   , m_bCmdlAccount (false)
   , m_bCmdlModem (false)
 {
+    KpppAdaptor *kpppAdaptor = new KpppAdaptor(this);
+    QDBus::sessionBus().registerObject("/Kppp", this);
+
+    connect( this, SIGNAL(sig_aboutToConnect()), kpppAdaptor, SIGNAL(aboutToConnect()) );
+    connect( this, SIGNAL(sig_aboutToDisconnect()), kpppAdaptor, SIGNAL(aboutToDisconnect()) );
+    connect( this, SIGNAL(sig_connected()), kpppAdaptor, SIGNAL(connected()) );
+    connect( this, SIGNAL(sig_disconnected()), kpppAdaptor, SIGNAL(disconnected()) );
+
+
   tabWindow = 0;
 
   // before doing anything else, run a few tests
@@ -344,13 +355,14 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   if(!m_bCmdlAccount)
     showNews();
 #endif
-
+#warning "kde4: port to dbus"
+#if 0
   // attach to the DCOP server, if possible
   if (!kapp->dcopClient()->attach())
     kDebug(5002) << "Error: Could not connect to the DCOP server" << endl;
   else
     kapp->dcopClient()->registerAs(kapp->name(), true);
-
+#endif
   // this timer will delay the actual disconnection DISCONNECTION_DELAY ms
   // to give applications time to shutdown, logout, whatever..
   disconnectTimer = new QTimer(this);
@@ -393,16 +405,21 @@ bool KPPPWidget::eventFilter(QObject *o, QEvent *e) {
 
 void KPPPWidget::prepareSetupDialog() {
   if(tabWindow == 0) {
-    tabWindow = new KDialogBase( KDialogBase::Tabbed, i18n("KPPP Configuration"),
-                                 KDialogBase::Ok|KDialogBase::Cancel, KDialogBase::Ok,
-                                 kapp->mainWidget(), 0, true);
-
+    tabWindow = new KPageDialog( kapp->mainWidget());
+    tabWindow->setCaption( i18n("KPPP Configuration") );
+    tabWindow->setButtons( KDialog::Ok|KDialog::Cancel );
+    tabWindow->setDefaultButton(  KDialog::Ok );
+    tabWindow->setFaceType( KPageDialog::Tabbed );
+    tabWindow->setModal( true );
 
     KWin::setIcons(tabWindow->winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
 
     //    tabWindow->setFixedSize( 365, 375 );
-
-    accounts = new AccountWidget(tabWindow->addPage( i18n("&Accounts"), i18n("Account Setup") ) );
+    QFrame *frame = new QFrame();
+    KPageWidgetItem *pageItem = new KPageWidgetItem( frame, i18n("&Accounts") );
+    pageItem->setHeader( i18n("Account Setup") );
+    tabWindow->addPage( pageItem );
+    accounts = new AccountWidget(frame);
     connect(accounts, SIGNAL(resetaccounts()),
 	    this, SLOT(resetaccounts()));
     connect(accounts, SIGNAL(resetCosts(const QString &)),
@@ -410,12 +427,27 @@ void KPPPWidget::prepareSetupDialog() {
     connect(accounts, SIGNAL(resetVolume(const QString &)),
 	    this, SLOT(resetVolume(const QString &)));
 
-    modems = new ModemsWidget(tabWindow->addPage( i18n("&Modems"), i18n("Modems Setup") ) );
+
+    frame = new QFrame();
+    pageItem = new KPageWidgetItem( frame, i18n("&Modems") );
+    pageItem->setHeader( i18n("Modems Setup") );
+    tabWindow->addPage( pageItem );
+    modems = new ModemsWidget(frame);
     connect(modems, SIGNAL(resetmodems()),
 	    this, SLOT(resetmodems()));
 
-    graph = new GraphSetup( tabWindow->addPage( i18n("&Graph"), i18n("Throughput Graph" ) ) );
-    general = new GeneralWidget( tabWindow->addPage( i18n("M&isc"), i18n("Miscellaneous Settings") ) );
+    frame = new QFrame();
+    pageItem = new KPageWidgetItem( frame, i18n("&Graph") );
+    pageItem->setHeader( i18n("Throughput Graph") );
+    tabWindow->addPage( pageItem );
+
+    graph = new GraphSetup( frame );
+
+    frame = new QFrame();
+    pageItem = new KPageWidgetItem( frame, i18n("M&isc") );
+    pageItem->setHeader( i18n("Miscellaneous Settings") );
+    tabWindow->addPage( pageItem );
+    general = new GeneralWidget( frame );
   }
 }
 
@@ -592,8 +624,7 @@ void KPPPWidget::sigPPPDDied() {
       // stop the disconnect timer (just in case)
       disconnectTimer->stop();
       // signal other applications that we are disconnected now
-      kapp->dcopClient()->emitDCOPSignal("KpppIface", "disconnected()", QByteArray());
-
+      emit  sig_disconnected();
       kDebug(5002) << "Executing command on disconnect since pppd has died." << endl;
       QApplication::flush();
       execute_command(gpppdata.command_on_disconnect());
@@ -808,7 +839,8 @@ void KPPPWidget::disconnect() {
   if (disconnectTimer->isActive()) return; // you had already pressed disconnect before
 
   // signal other applications that we are about to go offline now
-  kapp->dcopClient()->emitDCOPSignal("KpppIface", "aboutToDisconnect()", QByteArray());
+  emit sig_aboutToDisconnect();
+
   con_win->hide();
   con->show();
   con->disableButtons(); // will reenable them later in delayedDisconnect()
@@ -846,8 +878,7 @@ void KPPPWidget::delayedDisconnect() {
   Requester::rq->killPPPDaemon();
 
   // signal other applications that we are disconnected now
-  kapp->dcopClient()->emitDCOPSignal("KpppIface", "disconnected()", QByteArray());
-
+  emit sig_disconnected();
   QApplication::flush();
   execute_command(gpppdata.command_on_disconnect());
 
@@ -890,8 +921,7 @@ void KPPPWidget::quitbutton() {
       disconnectTimer->stop();
 
       // signal other applications that we are disconnected now
-      kapp->dcopClient()->emitDCOPSignal("KpppIface", "disconnected()", QByteArray());
-
+      emit sig_disconnected();
       QApplication::flush();
       execute_command(gpppdata.command_on_disconnect());
       removedns();

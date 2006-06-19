@@ -41,7 +41,7 @@
 #include <klocale.h>
 #include <kglobal.h>
 #include <kwin.h>
-#include <kdialogbase.h>
+#include <kpagedialog.h>
 #include <kstdguiitem.h>
 //#include <qvgroupbox.h>
 #include <QBoxLayout>
@@ -346,9 +346,11 @@ void AccountWidget::deleteaccount() {
 
 
 int AccountWidget::doTab(){
-  tabWindow = new KDialogBase( KDialogBase::Tabbed, QString::null,
-                               KDialogBase::Ok|KDialogBase::Cancel, KDialogBase::Ok,
-                               0, 0, true);
+  tabWindow = new KPageDialog( 0 );
+  tabWindow->setFaceType( KPageDialog::Tabbed );
+  tabWindow->setButtons( KDialog::Ok|KDialog::Cancel );
+  tabWindow->setDefaultButton( KDialog::Ok );
+  tabWindow->setModal( true );
   KWin::setIcons(tabWindow->winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
   bool isnewaccount;
 
@@ -439,7 +441,7 @@ QueryReset::QueryReset(QWidget *parent) : QDialog(parent, 0, true) {
   tl->setSpacing(10);
   tl->setMargin(10);
   Q3GroupBox *f = new Q3GroupBox(1, Qt::Horizontal,i18n("What to Reset"), this);
-  
+
   QVBoxLayout *l1 = new QVBoxLayout(parent);
   l1->setSpacing(10);
   l1->setMargin(10);

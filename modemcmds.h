@@ -32,7 +32,7 @@
 #define _MODEMCMDS_H_
 
 #include <q3groupbox.h>
-#include <kdialogbase.h>
+#include <kdialog.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
@@ -43,7 +43,7 @@ class QLabel;
 class QPushButton;
 class Q3GroupBox;
 
-class ModemCommands : public KDialogBase {
+class ModemCommands : public KDialog {
 
 Q_OBJECT
 
