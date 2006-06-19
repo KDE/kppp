@@ -80,6 +80,7 @@
 #include "pppstats.h"
 #include "requester.h"
 #include "utils.h"
+#include "kpppinterface.h"
 
 extern KPPPWidget *p_kppp;
 
@@ -109,7 +110,7 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
 {
   modified_hostname = false;
   m_kpppInterface =
-         QDBus::sessionBus().findInterface("org.kde.kppp", "/Kppp");
+         QDBus::sessionBus().findInterface<OrgKdeKpppInterface>("org.kde.kppp", "/Kppp");
   connect( this, SIGNAL(aboutToConnect()), m_kpppInterface,SIGNAL(aboutToConnect()) );
   connect( this, SIGNAL(connected()), m_kpppInterface,SIGNAL(connected()) );
 
