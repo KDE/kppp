@@ -1,0 +1,15 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+"http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="org.kde.kppp">
+    <method name="beginConnect"/>
+    <method name="disconnect"/>
+    <method name="isConnected">
+      <arg type="b" direction="out"/>
+    </method>
+    <signal name="aboutToConnect"/>
+    <signal name="connected"/>
+    <signal name="aboutToDisconnect"/>
+    <signal name="disconnected"/>
+  </interface>
+</node>

@@ -14,7 +14,7 @@ add_subdirectory( DB )
 
 ########### next target ###############
 
-set(kppp_SRCS 
+set(kppp_SRCS kpppadaptor.cpp 
    kpppwidget.cpp 
    general.cpp 
    accounts.cpp 
@@ -50,8 +50,6 @@ set(kppp_SRCS
    modems.cpp )
 
 kde4_automoc(${kppp_SRCS})
-
-kde4_add_dcop_skels(kppp_SRCS KPPPIface.h )
 
 kde4_add_executable(kppp ${kppp_SRCS})
 
