@@ -41,7 +41,7 @@
 #include <klocale.h>
 #include <kglobal.h>
 #include <kwin.h>
-#include <kdialogbase.h>
+#include <kpagedialog.h>
 #include <kiconloader.h>
 
 #include "general.h"
@@ -212,9 +212,11 @@ void ModemsWidget::deletemodem() {
 
 
 int ModemsWidget::doTab(){
-  tabWindow = new KDialogBase( KDialogBase::Tabbed, QString::null,
-                               KDialogBase::Ok|KDialogBase::Cancel, KDialogBase::Ok,
-                               0, 0, true);
+  tabWindow = new KPageDialog( this );
+  tabWindow->setModal( true );
+  tabWindow->setButtons( KDialog::Ok|KDialog::Cancel );
+  tabWindow->setDefaultButton( KDialog::Ok );
+  tabWindow->setFaceType( KPageDialog::Tabbed );
   KWin::setIcons(tabWindow->winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
   bool isnewmodem;
 
@@ -227,10 +229,20 @@ int ModemsWidget::doTab(){
     tabWindow->setCaption(tit);
     isnewmodem = false;
   }
-  modem1 = new ModemWidget(tabWindow->addPage( i18n("&Device"), i18n("Serial Device")), isnewmodem );
-  modem2 = new ModemWidget2(tabWindow->addPage( i18n("&Modem"), i18n("Modem Settings")));
+  QFrame *frame = new QFrame();
+  KPageWidgetItem *pageItem = new KPageWidgetItem( frame, i18n("&Device") );
+  pageItem->setHeader( i18n("Serial Device") );
+  tabWindow->addPage( pageItem );
+  modem1 = new ModemWidget(frame, isnewmodem );
+
+  frame = new QFrame();
+  pageItem = new KPageWidgetItem( frame, i18n("&Modem") );
+  pageItem->setHeader( i18n("Modem Settings") );
+  tabWindow->addPage( pageItem );
+
+  modem2 = new ModemWidget2(frame);
   connect ( modem1->connectName(), SIGNAL(textChanged ( const QString & )), this, SLOT(modemNameChanged(const QString & )));
-  
+
   modemNameChanged(modem1->connectName()->text());
   int result = 0;
   bool ok = false;

@@ -42,6 +42,8 @@
 #include "docking.h"
 #include "loginterm.h"
 
+class QDBusInterface;
+
 #define MAXLOOPNEST (MAX_SCRIPT_ENTRIES/2)
 
 class PPPStats;
@@ -57,10 +59,15 @@ public:
   void setMsg(const QString &);
   void pppdDied();
 
-  // these are only necessary to prevent the user from clicking in the cancel 
+  // these are only necessary to prevent the user from clicking in the cancel
   // button during the disconnect delay in KPPPWidget
   void disableButtons();
   void enableButtons();
+
+signals:
+    void connected();
+    void aboutToConnect();
+
 
 protected:
   void timerEvent(QTimerEvent *);
@@ -145,6 +152,8 @@ private:
   int dialnumber; // the current number to dial
 
   PPPStats *stats;
+private:
+    QDBusInterface *m_kpppInterface;
 };
 
 

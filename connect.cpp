@@ -69,6 +69,7 @@
 #include "runtests.h"
 #endif
 
+#include <dbus/qdbus.h>
 #include "auth.h"
 #include "connect.h"
 #include "docking.h"
@@ -107,6 +108,10 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
     stats(st)
 {
   modified_hostname = false;
+  m_kpppInterface =
+         QDBus::sessionBus().findInterface("org.kde.kppp", "/Kppp");
+  connect( this, SIGNAL(aboutToConnect()), m_kpppInterface,SIGNAL(aboutToConnect()) );
+  connect( this, SIGNAL(connected()), m_kpppInterface,SIGNAL(connected()) );
 
   QVBoxLayout *tl = new QVBoxLayout(this);
   tl->setSpacing(10);
@@ -177,6 +182,7 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
 
 
 ConnectWidget::~ConnectWidget() {
+    delete m_kpppInterface;
 }
 
 
@@ -228,8 +234,7 @@ void ConnectWidget::init() {
   kapp->processEvents();
 
   // signal other applications that we are about to get connected
-  kapp->dcopClient()->emitDCOPSignal("KpppIface", "aboutToConnect()", QByteArray());
-
+  emit aboutToConnect();
   // run the "before-connect" command
   if (!gpppdata.command_before_connect().isEmpty()) {
     messg->setText(i18n("Running pre-startup command..."));
@@ -1202,7 +1207,7 @@ void ConnectWidget::if_waiting_slot() {
   auto_hostname();
 
   // signal other applications that we are connected now
-  kapp->dcopClient()->emitDCOPSignal("KpppIface", "connected()", QByteArray());
+  emit connected();
 
   if(!gpppdata.command_on_connect().isEmpty()) {
     messg->setText(i18n("Running startup command..."));

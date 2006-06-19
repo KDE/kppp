@@ -2,7 +2,7 @@
  *            kPPP: A pppd front end for the KDE project
  *
  *
- *    
+ *
  *
  *            Copyright (C) 2004 Simone Gotti
  *               <simone.gotti@email.it>
@@ -35,7 +35,7 @@
 #include <QLabel>
 #include "acctselect.h"
 
-class KDialogBase;
+class KPageDialog;
 class QCheckBox;
 class QLineEdit;
 class Q3TabDialog;
@@ -68,7 +68,7 @@ signals:
 private:
   QString prettyPrintVolume(unsigned int);
 
-  KDialogBase *tabWindow;
+  KPageDialog *tabWindow;
 	ModemWidget *modem1;
   ModemWidget2 *modem2;
  /* DialWidget *dial_w;
