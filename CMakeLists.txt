@@ -49,8 +49,8 @@ set(kppp_SRCS
    providerdb.cpp 
    modems.cpp )
 
-qdbus_add_interfaces(kppp_SRCS org.kde.kppp.xml)
-qdbus_add_adaptors(kppp_SRCS org.kde.kppp.xml )
+qt4_add_dbus_interfaces(kppp_SRCS org.kde.kppp.xml)
+qt4_add_dbus_adaptors(kppp_SRCS org.kde.kppp.xml )
 kde4_automoc(${kppp_SRCS})
 
 kde4_add_executable(kppp ${kppp_SRCS})
