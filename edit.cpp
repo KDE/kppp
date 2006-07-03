@@ -1241,7 +1241,7 @@ PhoneNumberDialog::PhoneNumberDialog(QWidget *parent)
   le->setFocus();
   textChanged("");
 
-  enableButtonSeparator(true);
+  showButtonSeparator(true);
 }
 
 
