@@ -69,7 +69,7 @@
 #include "runtests.h"
 #endif
 
-#include <dbus/qdbus.h>
+#include <QtDBus>
 #include "auth.h"
 #include "connect.h"
 #include "docking.h"
