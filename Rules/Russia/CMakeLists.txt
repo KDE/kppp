@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Russia FILES TEMPLATE.ru mtu-intel_standart.rst )
+install( FILES TEMPLATE.ru mtu-intel_standart.rst  DESTINATION ${DATA_INSTALL_DIR}/kppp/Rules/Russia)
 
 
 

@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Uruguay FILES Adinet_cIVA.rst )
+install( FILES Adinet_cIVA.rst  DESTINATION ${DATA_INSTALL_DIR}/kppp/Rules/Uruguay)
 
 
 

@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Provider/Ukraine FILES .directory Adamant IPTelecom NuVse )
+install( FILES .directory Adamant IPTelecom NuVse  DESTINATION ${DATA_INSTALL_DIR}/kppp/Provider/Ukraine)
 
 
 

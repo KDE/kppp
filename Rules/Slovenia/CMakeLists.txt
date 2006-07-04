@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Slovenia FILES omrezje_0880.rst  		omrezje_0889.rst  		stacionarno_omrezje.rst )
+install( FILES omrezje_0880.rst  		omrezje_0889.rst  		stacionarno_omrezje.rst  DESTINATION ${DATA_INSTALL_DIR}/kppp/Rules/Slovenia)
 
 
 

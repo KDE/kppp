@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Provider/Sweden FILES .directory Utfors Tiscali )
+install( FILES .directory Utfors Tiscali  DESTINATION ${DATA_INSTALL_DIR}/kppp/Provider/Sweden)
 
 
 

@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Singapore FILES SingTel_Local.rst )
+install( FILES SingTel_Local.rst  DESTINATION ${DATA_INSTALL_DIR}/kppp/Rules/Singapore)
 
 
 

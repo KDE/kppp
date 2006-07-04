@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Provider/Denmark FILES .directory Get2Net )
+install( FILES .directory Get2Net  DESTINATION ${DATA_INSTALL_DIR}/kppp/Provider/Denmark)
 
 
 

@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Hong_Kong FILES Hong_Kong_Telecom.rst )
+install( FILES Hong_Kong_Telecom.rst  DESTINATION ${DATA_INSTALL_DIR}/kppp/Rules/Hong_Kong)
 
 
 

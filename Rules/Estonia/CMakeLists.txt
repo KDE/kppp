@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Estonia FILES Eesti_Telefon.rst )
+install( FILES Eesti_Telefon.rst  DESTINATION ${DATA_INSTALL_DIR}/kppp/Rules/Estonia)
 
 
 

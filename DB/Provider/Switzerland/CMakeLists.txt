@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Provider/Switzerland FILES .directory Bluewin )
+install( FILES .directory Bluewin  DESTINATION ${DATA_INSTALL_DIR}/kppp/Provider/Switzerland)
 
 
 

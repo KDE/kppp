@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Provider/Slovenia FILES AmisNet Arnes Kiss MojNet SiOL Volja )
+install( FILES AmisNet Arnes Kiss MojNet SiOL Volja  DESTINATION ${DATA_INSTALL_DIR}/kppp/Provider/Slovenia)
 
 
 

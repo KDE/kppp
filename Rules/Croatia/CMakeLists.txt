@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Croatia FILES CARNet.rst )
+install( FILES CARNet.rst  DESTINATION ${DATA_INSTALL_DIR}/kppp/Rules/Croatia)
 
 
 

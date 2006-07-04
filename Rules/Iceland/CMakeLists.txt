@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Iceland FILES Iceland_general.rst )
+install( FILES Iceland_general.rst  DESTINATION ${DATA_INSTALL_DIR}/kppp/Rules/Iceland)
 
 
 

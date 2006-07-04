@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Argentina FILES Argentina_Local.rst Argentina_0610.rst )
+install( FILES Argentina_Local.rst Argentina_0610.rst  DESTINATION ${DATA_INSTALL_DIR}/kppp/Rules/Argentina)
 
 
 

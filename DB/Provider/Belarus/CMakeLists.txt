@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Provider/Belarus FILES .directory AtlantTelecom )
+install( FILES .directory AtlantTelecom  DESTINATION ${DATA_INSTALL_DIR}/kppp/Provider/Belarus)
 
 
 

@@ -52,7 +52,7 @@ add_subdirectory(Yugoslavia)
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Rules FILES TEMPLATE )
+install( FILES TEMPLATE  DESTINATION ${DATA_INSTALL_DIR}/kppp/Rules)
 
 
 

@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Macedonia FILES Macedonia_GenericISP_interurban.rst  	Macedonia_GenericISP_local.rst  	Macedonia_MTnet.rst )
+install( FILES Macedonia_GenericISP_interurban.rst  	Macedonia_GenericISP_local.rst  	Macedonia_MTnet.rst  DESTINATION ${DATA_INSTALL_DIR}/kppp/Rules/Macedonia)
 
 
 

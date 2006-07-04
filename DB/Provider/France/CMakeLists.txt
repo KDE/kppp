@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Provider/France FILES .directory ClubInternetFull  )
+install( FILES .directory ClubInternetFull   DESTINATION ${DATA_INSTALL_DIR}/kppp/Provider/France)
 
 
 

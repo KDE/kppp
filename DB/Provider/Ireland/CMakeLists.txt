@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Provider/Irland FILES .directory Eircom  IOL )
+install( FILES .directory Eircom  IOL  DESTINATION ${DATA_INSTALL_DIR}/kppp/Provider/Irland)
 
 
 

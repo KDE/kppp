@@ -6,7 +6,7 @@ add_subdirectory( Provider )
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Provider FILES  )
+install( FILES   DESTINATION ${DATA_INSTALL_DIR}/kppp/Provider)
 
 
 

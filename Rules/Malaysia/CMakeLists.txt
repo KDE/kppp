@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Malaysia FILES malaysia.rst TMNet_Jaring.rst )
+install( FILES malaysia.rst TMNet_Jaring.rst  DESTINATION ${DATA_INSTALL_DIR}/kppp/Rules/Malaysia)
 
 
 

@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Finland FILES VLP.rst )
+install( FILES VLP.rst  DESTINATION ${DATA_INSTALL_DIR}/kppp/Rules/Finland)
 
 
 

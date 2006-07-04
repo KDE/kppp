@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Luxembourg FILES Local.rst )
+install( FILES Local.rst  DESTINATION ${DATA_INSTALL_DIR}/kppp/Rules/Luxembourg)
 
 
 

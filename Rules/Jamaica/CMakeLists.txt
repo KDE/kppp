@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Jamaica FILES CWJ_InterParish.rst  		CWJ_Local.rst   )
+install( FILES CWJ_InterParish.rst  		CWJ_Local.rst    DESTINATION ${DATA_INSTALL_DIR}/kppp/Rules/Jamaica)
 
 
 

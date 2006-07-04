@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Provider/Portugal FILES .directory OniNet Clix Netc )
+install( FILES .directory OniNet Clix Netc  DESTINATION ${DATA_INSTALL_DIR}/kppp/Provider/Portugal)
 
 
 

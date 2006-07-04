@@ -57,12 +57,12 @@ kde4_add_executable(kppp ${kppp_SRCS})
 
 target_link_libraries(kppp  ${KDE4_KDE3SUPPORT_LIBS} m  )
 
-install_targets(/bin kppp )
+install(TARGETS kppp  DESTINATION ${BIN_INSTALL_DIR} )
 
 
 ########### install files ###############
 
-install_files( ${XDG_APPS_DIR} FILES Kppp.desktop )
+install( FILES Kppp.desktop  DESTINATION ${XDG_APPS_DIR})
 
 
 

@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Provider/Austria/ FILES .directory Simon%032Media )
+install( FILES .directory Simon%032Media  DESTINATION ${DATA_INSTALL_DIR}/kppp/Provider/Austria/)
 
 
 

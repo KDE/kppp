@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Bangladesh FILES ATT00007.rst  		ATT00010.rst )
+install( FILES ATT00007.rst  		ATT00010.rst  DESTINATION ${DATA_INSTALL_DIR}/kppp/Rules/Bangladesh)
 
 
 

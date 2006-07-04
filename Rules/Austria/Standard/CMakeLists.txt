@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Austria/Standard FILES Local.rst  		Long_Distance.rst  		Online.rst                  UTA_easyinternet.rst )
+install( FILES Local.rst  		Long_Distance.rst  		Online.rst                  UTA_easyinternet.rst  DESTINATION ${DATA_INSTALL_DIR}/kppp/Rules/Austria/Standard)
 
 
 

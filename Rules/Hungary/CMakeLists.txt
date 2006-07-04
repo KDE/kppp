@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Rules/Hungary FILES Local.rst  		Local_MATAV.rst  		LocalTop_MATAV.rst  		PapaTel.rst )
+install( FILES Local.rst  		Local_MATAV.rst  		LocalTop_MATAV.rst  		PapaTel.rst  DESTINATION ${DATA_INSTALL_DIR}/kppp/Rules/Hungary)
 
 
 

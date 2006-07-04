@@ -4,7 +4,7 @@
 
 ########### install files ###############
 
-install_files( ${DATA_INSTALL_DIR}/kppp/Provider/Taiwan FILES .directory HiNet SeedNet EraNet )
+install( FILES .directory HiNet SeedNet EraNet  DESTINATION ${DATA_INSTALL_DIR}/kppp/Provider/Taiwan)
 
 
 
