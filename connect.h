@@ -42,7 +42,7 @@
 #include "docking.h"
 #include "loginterm.h"
 
-class OrgKdeKpppInterface;
+class QDBusInterface;
 #define MAXLOOPNEST (MAX_SCRIPT_ENTRIES/2)
 
 class PPPStats;
@@ -152,7 +152,7 @@ private:
 
   PPPStats *stats;
 private:
-    OrgKdeKpppInterface *m_kpppInterface;
+    QDBusInterface *m_kpppInterface;
 };
 
 

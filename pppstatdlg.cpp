@@ -25,6 +25,7 @@
 
 #include <qlayout.h>
 #include <qpainter.h>
+#include <kguiitem.h>
 //Added by qt3to4:
 #include <QPixmap>
 #include <QPaintEvent>

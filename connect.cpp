@@ -109,8 +109,7 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
     stats(st)
 {
   modified_hostname = false;
-  m_kpppInterface =
-         QDBus::sessionBus().findInterface<OrgKdeKpppInterface>("org.kde.kppp", "/Kppp");
+  m_kpppInterface = new QDBusInterface("org.kde.kppp", "/Kppp", "org.kde.kppp.Kppp",QDBus::sessionBus() );
   connect( this, SIGNAL(aboutToConnect()), m_kpppInterface,SIGNAL(aboutToConnect()) );
   connect( this, SIGNAL(connected()), m_kpppInterface,SIGNAL(connected()) );
 
