@@ -31,6 +31,7 @@
 #include <kpushbutton.h>
 #include <kstdguiitem.h>
 #include <kiconloader.h>
+#include <kguiitem.h>
 
 #define F_EXIT     101
 

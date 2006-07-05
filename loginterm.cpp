@@ -24,7 +24,8 @@
  * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "kstdguiitem.h"
+#include <kstdguiitem.h>
+#include <kguiitem.h>
 
 #include "loginterm.h"
 #include "main.h"

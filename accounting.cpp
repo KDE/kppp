@@ -201,7 +201,7 @@ bool AccountingBase::loadCosts() {
 QString AccountingBase::getAccountingFile(const QString &accountname) {
   QString f = "kppp/Rules/";
   f += accountname;
-  QString d = locate("data", f);
+  QString d = KStandardDirs::locate("data", f);
 
   if(d.isNull())
     return "";
@@ -369,7 +369,7 @@ ExecutableAccounting::ExecutableAccounting(PPPStats *st, QObject *parent) :
 }
 
 
-bool ExecutableAccounting::running() const 
+bool ExecutableAccounting::running() const
 {
   return proc && proc->isRunning();
 }

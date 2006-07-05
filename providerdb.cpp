@@ -131,7 +131,7 @@ void ProviderDB::loadProviderInfo() {
   urlEncode(provider);
   QString prov = "Provider/" + loc;
   prov += "/" + provider;
-  QString fname = locate("appdata", prov);
+  QString fname = KStandardDirs::locate("appdata", prov);
   kDebug(5002) << "Providerfile=" << fname << endl;
 
   cfg = new KSimpleConfig(fname, true);
