@@ -33,7 +33,7 @@
  * o handle requests from the parent process with care. They might be forged.
  * o be paranoid and think twice about everything you change.
  */
-
+#include <kdefakes.h>
 #include <config.h>
 #include <config-kppp.h>
 #if defined(__osf__) || defined(__svr4__)

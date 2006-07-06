@@ -38,7 +38,7 @@
  *	- Initial distribution.
  */
 
-
+#include <kdefakes.h>
 #include <config.h>
 
 #include <ctype.h>
