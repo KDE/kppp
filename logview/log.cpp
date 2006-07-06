@@ -37,7 +37,7 @@ Q3ProgressDialog *dlg;
 int loadLogs() {
   int logsize = 0;
 
-  QString logdirname = locateLocal("data", "kppp/Log/");
+  QString logdirname = KStandardDirs::locateLocal("data", "kppp/Log/");
   QDir logdir(logdirname, "*.log");
 
   kDebug(5002) << "logdirname: " << logdirname << endl;
