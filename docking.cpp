@@ -70,35 +70,26 @@ DockWidget::~DockWidget() {
 }
 
 
-void DockWidget::paintEvent (QPaintEvent *) {
-  paintIcon(PPPStats::BytesNone);
-}
-
-
 void DockWidget::paintIcon (int status) {
   // animate modem lights
-
-  const QPixmap *pixmap;
 
   if(isVisible()) {
     switch(status)
       {
       case PPPStats::BytesBoth:
-        pixmap = &dock_both_pixmap;
+        setIcon( dock_both_pixmap );
         break;
       case PPPStats::BytesIn:
-        pixmap = &dock_left_pixmap;
+        setIcon ( dock_left_pixmap );
         break;
       case PPPStats::BytesOut:
-        pixmap = &dock_right_pixmap;
+        setIcon ( dock_right_pixmap );
         break;
       case PPPStats::BytesNone:
       default:
-        pixmap = &dock_none_pixmap;
+        setIcon ( dock_none_pixmap );
         break;
       }
-
-    bitBlt(this, 0, 0, pixmap);
   }
 }
 
