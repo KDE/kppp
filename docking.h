@@ -44,7 +44,6 @@ public:
   ~DockWidget();
 
 protected:
-  void paintEvent(QPaintEvent *e);
   void showEvent(QShowEvent *) { }
 
 private slots:
