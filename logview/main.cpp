@@ -63,7 +63,7 @@ TopWidget::TopWidget() : KMainWindow(0, "") {
   l->setSpacing(5);
 
   td = new QTabWidget(w, "");
-  mw = new MonthlyWidget(td);
+  mw = new MonthlyWidget();
   td->addTab(mw, i18n("Monthly Log"));
   l->addWidget(td);
 
