@@ -39,7 +39,8 @@ ScriptEdit::ScriptEdit( QWidget *parent )
   tl->setSpacing(10);
   tl->setMargin(0);
 
-  st = new QComboBox(this, "st");
+  st = new QComboBox(this);
+  st->setObjectName("st");
   st->addItem("Expect");
   st->addItem("Send");
   st->addItem("Pause (sec)");
