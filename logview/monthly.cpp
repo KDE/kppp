@@ -222,7 +222,8 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
   title->setFont(f);
   title->setFixedHeight(title->sizeHint().height()*2);
 
-  cboConnections = new QComboBox(false, this);            // add a combo box to select connections
+  cboConnections = new QComboBox(this);            // add a combo box to select connections
+  cboConnections->setEditable( false );
   cboConnections->setMaximumWidth(200);                   // a reasonable size
   cboConnections->addItem(i18n("All Connections"));    // default to all connections
   connect(cboConnections, SIGNAL(activated(int)),

@@ -234,7 +234,8 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem)
   label1 = new QLabel(i18n("Modem de&vice:"), this);
   tl->addWidget(label1, 1, 0);
 
-  modemdevice = new QComboBox(false, this);
+  modemdevice = new QComboBox(this);
+  modemdevice->setEditable( false );
   label1->setBuddy(modemdevice);
   // ### deviceExist mechanism not functional right now
   bool deviceExist = false;
@@ -265,7 +266,8 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem)
   label2 = new QLabel(i18n("&Flow control:"), this);
   tl->addWidget(label2, 2, 0);
 
-  flowcontrol = new QComboBox(false, this);
+  flowcontrol = new QComboBox(this);
+  flowcontrol->setEditable( false );
   label2->setBuddy(flowcontrol);
   flowcontrol->addItem(i18n("Hardware [CRTSCTS]")); // sync with pppdata.cpp
   flowcontrol->addItem(i18n("Software [XON/XOFF]"));
@@ -291,7 +293,8 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem)
   labelenter = new QLabel(i18n("&Line termination:"), this);
   tl->addWidget(labelenter, 3, 0);
 
-  enter = new QComboBox(false, this);
+  enter = new QComboBox(this);
+  enter->setEditable( false );
   labelenter->setBuddy(enter);
   enter->addItem("CR");
   enter->addItem("LF");

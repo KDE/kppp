@@ -122,7 +122,8 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   label1 = new QLabel(i18n("C&onnect to: "), this);
   l1->addWidget(label1, 0, 1);
 
-  connectto_c = new QComboBox(false, this);
+  connectto_c = new QComboBox(this);
+  connectto_c->setEditable( false );
   label1->setBuddy(connectto_c);
 
   connect(connectto_c, SIGNAL(activated(int)),
@@ -131,7 +132,8 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   label7 = new QLabel(i18n("Use &modem: "), this);
   // l1->addWidget(label7, 1, 1); (done in resetmodems())
-  modem_c = new QComboBox(false, this);
+  modem_c = new QComboBox(this);
+  modem_c->setEditable( false );
   label7->setBuddy(connectto_c);
   m_bModemCShown = false;
 
