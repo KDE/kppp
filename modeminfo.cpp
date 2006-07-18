@@ -56,7 +56,8 @@ ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
   progressBar = new KProgressBar(this);
   progressBar->setMaximum(8);
 
-  statusBar = new QLabel(this,"sBar");
+  statusBar = new QLabel( this );
+  statusBar->setObjectName( "sBar" );
   statusBar->setFrameStyle(QFrame::Panel|QFrame::Sunken);
   statusBar->setAlignment(Qt::AlignCenter);
 

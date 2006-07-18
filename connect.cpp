@@ -123,7 +123,8 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   l0->setSpacing( 10 );
   tl->addLayout(l0);
   l0->addSpacing(10);
-  messg = new QLabel(this, "messg");
+  messg = new QLabel( this );
+  messg->setObjectName( "messg" );
   messg->setFrameStyle(Q3Frame::Panel|Q3Frame::Sunken);
   messg->setAlignment(Qt::AlignCenter);
   messg->setText(i18n("Unable to create modem lock file."));
