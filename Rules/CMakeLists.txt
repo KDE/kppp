@@ -55,16 +55,3 @@ add_subdirectory(Yugoslavia)
 install( FILES TEMPLATE  DESTINATION ${DATA_INSTALL_DIR}/kppp/Rules)
 
 
-
-
-#original Makefile.am contents follow:
-
-#SUBDIRS = $(AUTODIRS)
-#
-#pkg_DATA = TEMPLATE
-#pkg_SCRIPTS = checkrules
-#
-#pkgdir = $(kde_datadir)/kppp/Rules
-#
-#EXTRA_DIST = $(pkg_DATA)
-#

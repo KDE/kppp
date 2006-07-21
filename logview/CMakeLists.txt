@@ -15,7 +15,7 @@ kde4_automoc(${kppplogview_SRCS})
 
 kde4_add_executable(kppplogview ${kppplogview_SRCS})
 
-target_link_libraries(kppplogview  ${KDE4_KDECORE_LIBS} m kdeui kde3support )
+target_link_libraries(kppplogview  ${KDE4_KDE3SUPPORT_LIBS} m )
 
 install(TARGETS kppplogview  DESTINATION ${BIN_INSTALL_DIR} )
 
