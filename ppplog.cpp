@@ -41,7 +41,7 @@
 
 #include <qdialog.h>
 #include <qregexp.h>
-#include <q3multilineedit.h>
+#include <QTextEdit>
 #include <qlayout.h>
 
 #include <kbuttonbox.h>
@@ -241,10 +241,10 @@ void PPPL_ShowLog() {
   QVBoxLayout *tl = new QVBoxLayout(dlg);
   tl->setSpacing(10);
   tl->setMargin(10);
-  Q3MultiLineEdit *edit = new Q3MultiLineEdit(dlg);
+  QTextEdit *edit = new QTextEdit(dlg);
   edit->setReadOnly(TRUE);
   QLabel *label = new QLabel(i18n("kppp's diagnosis (just guessing):"), dlg);
-  Q3MultiLineEdit *diagnosis = new Q3MultiLineEdit(dlg);
+  QTextEdit *diagnosis = new QTextEdit(dlg);
   diagnosis->setReadOnly(TRUE);
   KButtonBox *bbox = new KButtonBox(dlg);
   bbox->addStretch(1);
