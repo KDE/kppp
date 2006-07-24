@@ -33,11 +33,11 @@
 #include <QMouseEvent>
 #include <QShowEvent>
 #include <QPaintEvent>
-#include <ksystemtray.h>
+#include <ksystemtrayicon.h>
 
 class PPPStats;
 
-class DockWidget : public KSystemTray {
+class DockWidget : public KSystemTrayIcon {
   Q_OBJECT
 public:
   DockWidget(QWidget * parent, const char *name, PPPStats *st);

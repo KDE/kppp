@@ -43,7 +43,7 @@ extern KPPPWidget   *p_kppp;
 DockWidget *DockWidget::dock_widget = 0;
 
 DockWidget::DockWidget(QWidget *parent, const char *name, PPPStats *st)
-  : KSystemTray(parent), stats(st) {
+  : KSystemTrayIcon(parent), stats(st) {
 
   // load pixmaps
   dock_none_pixmap = UserIcon("dock_none");
