@@ -29,7 +29,6 @@
 //Added by qt3to4:
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <kbuttonbox.h>
 #include <kwin.h>
 #include <kapplication.h>
 #include "pppdargs.h"
@@ -45,7 +44,7 @@
 #include <kiconloader.h>
 
 PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
-  : QDialog(parent, name, TRUE)
+  : KDialog(parent)
 {
   setWindowTitle(i18n("Customize pppd Arguments"));
   KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
@@ -96,16 +95,9 @@ PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
 
   l->addSpacing(5);
 
-  KButtonBox *bbox = new KButtonBox(this);
-  bbox->addStretch(1);
-  closebtn = bbox->addButton(KStdGuiItem::ok());
-  connect(closebtn, SIGNAL(clicked()), SLOT(closebutton()));
-  QPushButton *cancel = bbox->addButton(KStdGuiItem::cancel());
-  connect(cancel, SIGNAL(clicked()),
-	  this, SLOT(reject()));
-  bbox->layout();
-  l->addWidget(bbox);
-
+  setButtons(Ok | Cancel);
+  connect(this, SIGNAL(okClicked()), SLOT(closebutton()));
+ 
   setFixedSize(sizeHint());
 
   //load info from gpppdata

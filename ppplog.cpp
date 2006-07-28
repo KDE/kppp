@@ -39,12 +39,11 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
-#include <qdialog.h>
+#include <kdialog.h>
 #include <qregexp.h>
 #include <QTextEdit>
 #include <qlayout.h>
 
-#include <kbuttonbox.h>
 #include <kmessagebox.h>
 
 #include "pppdata.h"
@@ -235,9 +234,10 @@ void PPPL_ShowLog() {
 
   PPPL_AnalyseLog(sl, result);
 
-  QDialog *dlg = new QDialog(0, "", TRUE);
-
+  KDialog *dlg = new KDialog();
+  dlg->setButtons(KDialog::Close | KDialog::Ok);
   dlg->setWindowTitle(i18n("PPP Log"));
+  dlg->setButtonText(KDialog::Ok,i18n("Write to File"));
   QVBoxLayout *tl = new QVBoxLayout(dlg);
   tl->setSpacing(10);
   tl->setMargin(10);
@@ -246,11 +246,6 @@ void PPPL_ShowLog() {
   QLabel *label = new QLabel(i18n("kppp's diagnosis (just guessing):"), dlg);
   QTextEdit *diagnosis = new QTextEdit(dlg);
   diagnosis->setReadOnly(TRUE);
-  KButtonBox *bbox = new KButtonBox(dlg);
-  bbox->addStretch(1);
-  QPushButton *write = bbox->addButton(i18n("Write to File"));
-  QPushButton *close = bbox->addButton(KStdGuiItem::close());
-  bbox->layout();
   edit->setMinimumSize(600, 250);
   label->setMinimumSize(600, 15);
   diagnosis->setMinimumSize(600, 60);
@@ -258,18 +253,12 @@ void PPPL_ShowLog() {
   tl->addWidget(edit, 1);
   tl->addWidget(label);
   tl->addWidget(diagnosis, 1);
-  tl->addWidget(bbox);
   dlg->setFixedSize(dlg->sizeHint());
 
   for(int i = 0; i < sl.count(); i++)
     edit->append(sl.at(i));
   for(int i = 0; i < result.count(); i++)
     diagnosis->append(result.at(i));
-
-  dlg->connect(close, SIGNAL(clicked()),
-	       dlg, SLOT(reject()));
-  dlg->connect(write, SIGNAL(clicked()),
-	       dlg, SLOT(accept()));
 
   if(dlg->exec()) {
     QDir d = QDir::home();

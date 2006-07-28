@@ -36,7 +36,6 @@
 //Added by qt3to4:
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <kbuttonbox.h>
 #include <qlayout.h>
 #include "modemdb.h"
 #include <klocale.h>
@@ -45,8 +44,9 @@
 #include <kconfig.h>
 #include <kstdguiitem.h>
 #include <kguiitem.h>
+#include <kdialog.h>
 
-ModemSelector::ModemSelector(QWidget *parent) : QDialog(parent, 0, true) {
+ModemSelector::ModemSelector(QWidget *parent) : KDialog(parent) {
   // set up widgets and such
   setWindowTitle(i18n("Select Modem Type"));
   QVBoxLayout *tl = new QVBoxLayout(this);
@@ -75,24 +75,14 @@ ModemSelector::ModemSelector(QWidget *parent) : QDialog(parent, 0, true) {
   tl1->addWidget(vendor, 2);
   tl1->addWidget(model, 3);
 
-  KButtonBox *bbox = new KButtonBox(this);
-  bbox->addStretch(1);
-  ok = bbox->addButton(KStdGuiItem::ok());
-  ok->setDefault(true);
-  ok->setEnabled(false);
-  cancel =   bbox->addButton(KStdGuiItem::cancel());
-  bbox->layout();
-  tl->addWidget(bbox);
+  setButtons(Ok|Cancel);
+  enableButton(Ok,false);
   setFixedSize(sizeHint());
 
   // set up modem database
   db = new ModemDatabase();
 
   // set up signal/slots
-  connect(ok, SIGNAL(clicked()),
-	  this, SLOT(reject()));
-  connect(cancel, SIGNAL(clicked()),
-	  this, SLOT(reject()));
   connect(vendor, SIGNAL(highlighted(int)),
 	  this, SLOT(vendorSelected(int)));
   connect(model, SIGNAL(highlighted(int)),
@@ -113,7 +103,7 @@ ModemSelector::~ModemSelector() {
 
 
 void ModemSelector::vendorSelected(int idx) {
-  ok->setEnabled(false);
+  enableButton(Ok,false);
 
   QString name = vendor->text(idx);
   QStringList *models = db->models(name);
@@ -128,7 +118,7 @@ void ModemSelector::vendorSelected(int idx) {
 
 
 void ModemSelector::modelSelected(int) {
-  ok->setEnabled(true);
+  enableButton(Ok,true);
 }
 
 void ModemSelector::selected(int) {

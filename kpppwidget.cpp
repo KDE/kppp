@@ -43,7 +43,6 @@
 #include <QMenu>
 #include <kaboutdata.h>
 #include <kapplication.h>
-#include <kbuttonbox.h>
 #include <kglobalsettings.h>
 #include <kcmdlineargs.h>
 #include <kconfig.h>
@@ -1053,7 +1052,7 @@ void KPPPWidget::showNews() {
    */
   #define QUICKHELP_HINT "Hint_QuickHelp"
   if(gpppdata.readNumConfig(GENERAL_GRP, QUICKHELP_HINT, 0) == 0) {
-    QDialog dlg(0, 0, true);
+    KDialog dlg();
     dlg.setCaption(i18n("Recent Changes in KPPP"));
 
     QVBoxLayout *tl = new QVBoxLayout(&dlg);
@@ -1084,19 +1083,11 @@ void KPPPWidget::showNews() {
     QCheckBox *cb = new QCheckBox(i18n("Do not show this hint again"), &dlg);
     cb->setFixedSize(cb->sizeHint());
 
-    KButtonBox *bbox = new KButtonBox(&dlg);
-    bbox->addStretch(1);
-    QPushButton *ok = bbox->addButton(KStdGuiItem::ok());
-    ok->setDefault(true);
-    dlg.connect(ok, SIGNAL(clicked()),
-		&dlg, SLOT(accept()));
-    bbox->addStretch(1);
-    bbox->layout();
-
+    dlg.setButtons(Ok)
+  
     l2->addWidget(l);
     l2->addWidget(cb);
-    tl->addWidget(bbox);
-
+  
     QString tmp = i18n("This is an example of <b>QuickHelp</b>.\n"
 		       "This window will stay open until you\n"
 		       "click a mouse button or a press a key.\n");

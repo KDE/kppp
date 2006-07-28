@@ -36,7 +36,7 @@
 #include <qregexp.h>
 #include <kapplication.h>
 #include <kiconloader.h>
-#include <kbuttonbox.h>
+#include <kdialogbuttonbox.h>
 #include <klocale.h>
 #include <q3hbox.h>
 #include <kdialog.h>
@@ -897,16 +897,13 @@ ScriptWidget::ScriptWidget( QWidget *parent, bool isnewaccount, const char *name
   tl->addWidget(se);
 
   // insert equal-sized buttons
-  KButtonBox *bbox = new KButtonBox(parent);
-  add = bbox->addButton(i18n("&Add"));
+  KDialogButtonBox *bbox = new KDialogButtonBox(parent);
+  add = bbox->addButton(i18n("&Add"),QDialogButtonBox::ActionRole);
   connect(add, SIGNAL(clicked()), SLOT(addButton()));
-  bbox->addStretch(1);
-  insert = bbox->addButton(i18n("&Insert"));
+  insert = bbox->addButton(i18n("&Insert"),QDialogButtonBox::ActionRole);
   connect(insert, SIGNAL(clicked()), SLOT(insertButton()));
-  bbox->addStretch(1);
-  remove = bbox->addButton(i18n("&Remove"));
+  remove = bbox->addButton(i18n("&Remove"),QDialogButtonBox::ActionRole);
   connect(remove, SIGNAL(clicked()), SLOT(removeButton()));
-  bbox->layout();
   tl->addWidget(bbox);
 
   QHBoxLayout *l12 = new QHBoxLayout(0);

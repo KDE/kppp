@@ -36,7 +36,6 @@
 #include <qmessagebox.h>
 
 #include <kapplication.h>
-#include <kbuttonbox.h>
 #include <kmessagebox.h>
 #include <klocale.h>
 #include <kglobal.h>

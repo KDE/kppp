@@ -30,7 +30,6 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QGridLayout>
-#include <kbuttonbox.h>
 #include <stdlib.h>
 #include <kapplication.h> // for getMiniIcon()
 #include <klocale.h>

@@ -36,7 +36,6 @@
 #include <qmessagebox.h>
 
 #include <kapplication.h>
-#include <kbuttonbox.h>
 #include <kmessagebox.h>
 #include <klocale.h>
 #include <kglobal.h>
@@ -469,7 +468,7 @@ QString AccountWidget::prettyPrintVolume(unsigned int n) {
 // Queries the user what to reset: costs, volume or both
 //
 /////////////////////////////////////////////////////////////////////////////
-QueryReset::QueryReset(QWidget *parent) : QDialog(parent, 0, true) {
+QueryReset::QueryReset(QWidget *parent) : KDialog(parent) {
   KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
   setWindowTitle(i18n("Reset Accounting"));
 
@@ -502,19 +501,7 @@ QueryReset::QueryReset(QWidget *parent) : QDialog(parent, 0, true) {
 
   tl->addWidget(f);
 
-  KButtonBox *bbox = new KButtonBox(this);
-  bbox->addStretch(1);
-  QPushButton *ok = bbox->addButton(KStdGuiItem::ok());
-  ok->setDefault(true);
-  QPushButton *cancel = bbox->addButton(KStdGuiItem::cancel());
-
-  connect(ok, SIGNAL(clicked()),
-	  this, SLOT(accepted()));
-  connect(cancel, SIGNAL(clicked()),
-	  this, SLOT(reject()));
-
-  bbox->layout();
-  tl->addWidget(bbox);
+  setButtons(Ok|Cancel);
 
   // TODO: activate if KGroupBox is fixed
   //  setFixedSize(sizeHint());

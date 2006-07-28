@@ -28,7 +28,7 @@
 #ifndef _PPPDARGS_H_
 #define _PPPDARGS_H_
 
-#include <qdialog.h>
+#include <kdialog.h>
 //Added by qt3to4:
 #include <QLabel>
 
@@ -39,7 +39,7 @@ class QLineEdit;
 class KPushButton;
 
 
-class PPPdArguments : public QDialog {
+class PPPdArguments : public KDialog {
 Q_OBJECT
 public:
   PPPdArguments(QWidget *parent=0, const char *name=0);

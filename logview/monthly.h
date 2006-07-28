@@ -30,11 +30,10 @@
 #include <qlist.h>
 #include <qdatetime.h>
 
-#include <kbuttonbox.h>
-
 class K3ListView;
 class QComboBox;
 class LogListItem;
+class KDialogButtonBox;
 
 class MonthlyWidget : public QWidget {
   Q_OBJECT
@@ -66,7 +65,7 @@ private:
   //int _month, _year;
 
   QComboBox *cboConnections;
-  KButtonBox *bbox;
+  KDialogButtonBox *bbox;
   K3ListView *lv;
   K3ListView *lv2;
   LogListItem* selectionItem;

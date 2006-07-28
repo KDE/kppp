@@ -33,6 +33,7 @@
 //Added by qt3to4:
 #include <QLabel>
 #include "acctselect.h"
+#include <kdialog.h>
 
 class KPageDialog;
 class QCheckBox;
@@ -93,7 +94,7 @@ private:
 };
 
 
-class QueryReset : public QDialog {
+class QueryReset : public KDialog {
   Q_OBJECT
 public:
   QueryReset(QWidget *parent);

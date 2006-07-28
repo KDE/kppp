@@ -29,6 +29,7 @@
 #include <k3listview.h>
 #include <kdebug.h>
 #include <kmessagebox.h>
+#include <kdialogbuttonbox.h>
 
 #include "monthly.h"
 #include "export.h"
@@ -229,13 +230,11 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
   connect(cboConnections, SIGNAL(activated(int)),
 	  this, SLOT(slotConnections(int)));
 
-  bbox = new KButtonBox(this, Qt::Vertical);
-  prev = bbox->addButton(i18n("&Prev Month"));
-  next = bbox->addButton(i18n("&Next Month"));
-  bbox->addStretch(1);
-  today = bbox->addButton(i18n("C&urrent Month"));
-  bbox->addStretch(1);
-  exportBttn = bbox->addButton(i18n("&Export..."));
+  bbox = new KDialogButtonBox(this, Qt::Vertical);
+  prev = bbox->addButton(i18n("&Prev Month"),QDialogButtonBox::ActionRole);
+  next = bbox->addButton(i18n("&Next Month"),QDialogButtonBox::ActionRole);
+  today = bbox->addButton(i18n("C&urrent Month"),QDialogButtonBox::ActionRole);
+  exportBttn = bbox->addButton(i18n("&Export..."),QDialogButtonBox::AcceptRole);
 
   connect(prev, SIGNAL(released()),
 	  this, SLOT(prevMonth()));
@@ -245,9 +244,6 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
 	  this, SLOT(currentMonth()));
   connect(exportBttn, SIGNAL(clicked()),
 	  this, SLOT(exportWizard()));
-
-  bbox->addStretch(8);
-  bbox->layout();
 
   currentMonth();
   layoutWidget();

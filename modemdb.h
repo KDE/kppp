@@ -35,7 +35,7 @@
 #ifndef __MODEMDB__H__
 #define __MODEMDB__H__
 
-#include <qdialog.h>
+#include <kdialog.h>
 #include <qstringlist.h>
 #include <q3dict.h>
 #include <q3ptrlist.h>
@@ -65,7 +65,7 @@ private:
 };
 
 
-class ModemSelector : public QDialog {
+class ModemSelector : public KDialog {
   Q_OBJECT
 public:
   ModemSelector(QWidget *parent = 0);
