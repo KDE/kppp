@@ -75,9 +75,12 @@ MiniTerm::MiniTerm(QWidget *parent, const char *name)
 			   ));
 
   menubar = new KMenuBar(this);
-  menubar->insertItem( i18n("&File"), m_file );
-  menubar->insertItem( i18n("&Modem"), m_options );
-  menubar->insertItem( KStdGuiItem::help().text(), m_help->menu());
+  m_file->setTitle(i18n("&File"));
+  menubar->addMenu( m_file );
+  m_options->setTitle(i18n("&Modem"));
+  menubar->addMenu( m_options );
+  m_help->menu()->setTitle(KStdGuiItem::help().text());
+  menubar->addMenu( m_help->menu());
 
   statusbar = new QLabel(this);
   statusbar->setFrameStyle(Q3Frame::Panel | Q3Frame::Sunken);

@@ -73,7 +73,8 @@ TopWidget::TopWidget() : KMainWindow(0, "") {
     mb = new KMenuBar(this);
     Q3PopupMenu *fm = new Q3PopupMenu;
     fm->insertItem(QIcon(SmallIcon("exit")),KStdGuiItem::quit().text(), F_EXIT);
-    mb->insertItem(i18n("&File"), fm);
+    fm->setTitle(i18n("&File"));
+    mb->addMenu(fm);
 
     mb->setAccel(Qt::CTRL + Qt::Key_Q, F_EXIT);
     connect(mb, SIGNAL(activated(int)),
