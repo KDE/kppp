@@ -500,7 +500,7 @@ ModemWidget2::ModemWidget2(QWidget *parent, const char *name)
   hbl->addWidget(volumeLabel);
   volume = new QSlider(0, 2, 1, gpppdata.volume(), Qt::Horizontal, this);
   volumeLabel->setBuddy(volume);
-  volume->setTickmarks(QSlider::TicksBelow);
+  volume->setTickPosition(QSlider::TicksBelow);
   hbl->addWidget(volume);
 
   l1->addLayout(hbl);
