@@ -57,7 +57,9 @@ kde4_add_executable(kppp ${kppp_SRCS})
 
 target_link_libraries(kppp  ${KDE4_KDE3SUPPORT_LIBS} m  )
 
-install(TARGETS kppp  DESTINATION ${BIN_INSTALL_DIR} )
+#TODO add message about install kppp as setuid 
+MESSAGE(STATUS "Warning: kppp use setuid")
+install(TARGETS kppp PERMISSIONS SETUID OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_EXECUTE GROUP_READ WORLD_EXECUTE WORLD_READ  DESTINATION ${BIN_INSTALL_DIR} )
 
 
 ########### install files ###############
