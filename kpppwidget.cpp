@@ -826,7 +826,7 @@ void KPPPWidget::beginConnect() {
   con->show();
 
   bool show_debug = gpppdata.get_show_log_window();
-  con->debug->setOn(show_debug);	// toggle button
+  con->debug->setChecked(show_debug);	// toggle button
   debugwindow->clear();
   if (!show_debug)
     debugwindow->hide();

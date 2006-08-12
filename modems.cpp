@@ -53,8 +53,10 @@
 void parseargs(char* buf, char** args);
 
 ModemsWidget::ModemsWidget( QWidget *parent, const char *name )
-  : QWidget( parent, name )
+  : QWidget( parent )
 {
+  setObjectName(name);
+
   int min = 0;
   QVBoxLayout *l1 = new QVBoxLayout(parent);
   l1->setSpacing(10);

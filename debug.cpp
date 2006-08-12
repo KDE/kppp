@@ -81,7 +81,7 @@ DebugWidget::DebugWidget(QWidget *parent)
 void DebugWidget::hideEvent(QHideEvent *)
 {
   assert(p_kppp);
-  p_kppp->con->debug->setOn(false);
+  p_kppp->con->debug->setChecked(false);
 }
 
 void DebugWidget::clear() {

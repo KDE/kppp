@@ -101,8 +101,10 @@ void LoginMultiLineEdit::readChar(unsigned char c) {
 
 
 LoginTerm::LoginTerm (QWidget *parent, const char *name)
-  : QDialog(parent, name, FALSE)
+  : QDialog(parent)
 {
+  setObjectName(name);
+
   setWindowTitle(i18n("Login Terminal Window"));
   setMinimumSize(300, 200);
   setMaximumSize(600, 400);

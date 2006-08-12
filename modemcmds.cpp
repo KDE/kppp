@@ -52,6 +52,7 @@
 ModemCommands::ModemCommands(QWidget *parent, const char *name)
   : KDialog(parent)
 {
+    setObjectName(name);
     setCaption( i18n("Edit Modem Commands") );
     setButtons( Ok|Cancel );
     setDefaultButton( Ok );

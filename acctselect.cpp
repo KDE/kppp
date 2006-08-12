@@ -57,9 +57,11 @@
 
 
 AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, const char *name)
-  :  QWidget(parent, name),
+  :  QWidget(parent),
     isnewaccount(_isnewaccount)
 {
+  setObjectName(name);
+
   QVBoxLayout *l1 = new QVBoxLayout(parent);
   l1->setSpacing(KDialog::spacingHint());
   l1->setMargin(0);
@@ -175,7 +177,9 @@ void AccountingSelector::insertDir(QDir d, Q3ListViewItem *root) {
 
 
   // set up filter
-  d.setNameFilter("*.rst");
+  QStringList filters;
+  filters << "*.rst";
+  d.setNameFilters(filters);
   d.setFilter(QDir::Files);
   d.setSorting(QDir::Name);
 
@@ -198,7 +202,7 @@ void AccountingSelector::insertDir(QDir d, Q3ListViewItem *root) {
       continue;
 
     // check if this is the file we should mark
-    QString name = fileNameToName(fi.baseName(true));
+    QString name = fileNameToName(fi.completeBaseName());
     if(root)
       tli = new Q3ListViewItem(root, name);
     else
@@ -217,7 +221,9 @@ void AccountingSelector::insertDir(QDir d, Q3ListViewItem *root) {
 
   // set up a filter for the directories
   d.setFilter(QDir::Dirs);
-  d.setNameFilter("*");
+  filters.clear();
+  filters << "*";
+  d.setNameFilters(filters);
   const QFileInfoList dlist = d.entryInfoList();
   QFileInfoList::const_iterator dit= dlist.begin();
   QFileInfoList::const_iterator ditEnd = dlist.end();

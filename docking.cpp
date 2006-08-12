@@ -45,6 +45,8 @@ DockWidget *DockWidget::dock_widget = 0;
 DockWidget::DockWidget(QWidget *parent, const char *name, PPPStats *st)
   : KSystemTrayIcon(parent), stats(st) {
 
+  setObjectName(name);
+
   // load pixmaps
   dock_none_pixmap = UserIcon("dock_none");
   dock_left_pixmap = UserIcon("dock_left");

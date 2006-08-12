@@ -89,7 +89,7 @@ bool modified_hostname;
 
 
 ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
-  : QWidget(parent, name),
+  : QWidget(parent),
     // initialize some important variables
     myreadbuffer(""),
     main_timer_ID(0),
@@ -108,6 +108,8 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
     dialnumber(0),
     stats(st)
 {
+  setObjectName(name);
+
   modified_hostname = false;
   m_kpppInterface = new QDBusInterface("org.kde.kppp", "/Kppp", "org.kde.kppp.Kppp",QDBus::sessionBus() );
   connect( this, SIGNAL(aboutToConnect()), m_kpppInterface,SIGNAL(aboutToConnect()) );
@@ -142,7 +144,7 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   l1->addStretch(1);
 
   debug = new QPushButton(i18n("&Log"), this);
-  debug->setToggleButton(true);
+  debug->setCheckable(true);
   connect(debug, SIGNAL(clicked()), SIGNAL(toggleDebugWindow()));
 
   cancel = new KPushButton(KStdGuiItem::cancel(), this);
@@ -1392,7 +1394,7 @@ void auto_hostname() {
   old_hostname=tmp_str; // copy to QString
 
   if (!p_kppp->stats->local_ip_address.isEmpty() && gpppdata.autoname()) {
-    local_ip.s_addr=inet_addr(p_kppp->stats->local_ip_address.ascii());
+    local_ip.s_addr=inet_addr(p_kppp->stats->local_ip_address.toAscii());
     hostname_entry=gethostbyaddr((const char *)&local_ip,sizeof(in_addr),AF_INET);
 
     if (hostname_entry != 0L) {

@@ -66,7 +66,7 @@ bool PPPData::open() {
                        "The superuser might have to change its ownership "
                        "by issuing the following command in your home directory:\n"
                        "chown {YourUsername} .kde/share/config/kppprc"),
-			 kapp->name());
+			 kapp->objectName());
     return false;
   }
 

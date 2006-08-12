@@ -38,9 +38,9 @@
 
 extern PPPData gpppdata;
 
-ConWindow::ConWindow(QWidget *parent, const char *name,QWidget *mainwidget,
+ConWindow::ConWindow(QWidget *parent, const char *name, QWidget *mainwidget,
 		     PPPStats *st)
-  : QWidget(parent, name, 0),
+  : QWidget(parent),
     minutes(0),
     seconds(0),
     hours(0),
@@ -50,6 +50,7 @@ ConWindow::ConWindow(QWidget *parent, const char *name,QWidget *mainwidget,
     accountingEnabled(false),
     volumeAccountingEnabled(false)
 {
+  setObjectName(name);
   info1 = new QLabel(i18n("Connected at:"), this);
   info2 = new QLabel("", this);
 
