@@ -115,8 +115,8 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   l1 = new QGridLayout();
   tl->addLayout(l1);
-  l1->addColSpacing(0, 10);
-  l1->addColSpacing(3, 10);
+  l1->addItem(new QSpacerItem(10, 0), 0, 0);
+  l1->addItem(new QSpacerItem(10, 0), 0, 3);
   l1->setColumnStretch(1, 3);
   l1->setColumnStretch(2, 4);
 

@@ -53,8 +53,10 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
-  : QWidget(parent, name)
+  : QWidget(parent)
 {
+  setObjectName(name);
+
   QVBoxLayout *tl = new QVBoxLayout(parent);
   tl->setSpacing(KDialog::spacingHint());
   tl->setMargin(0);
@@ -455,8 +457,10 @@ bool ModemWidget::save()
 
 
 ModemWidget2::ModemWidget2(QWidget *parent, const char *name)
-  : QWidget(parent, name)
+  : QWidget(parent)
 {
+  setObjectName(name);
+
   QVBoxLayout *l1 = new QVBoxLayout(this);
   l1->setSpacing(KDialog::spacingHint());
   l1->setMargin(0);
@@ -498,7 +502,11 @@ ModemWidget2::ModemWidget2(QWidget *parent, const char *name)
 
   QLabel *volumeLabel = new QLabel(i18n("Modem &volume:"), this);
   hbl->addWidget(volumeLabel);
-  volume = new QSlider(0, 2, 1, gpppdata.volume(), Qt::Horizontal, this);
+  volume = new QSlider(Qt::Horizontal, this);
+  volume->setMinimum(0);
+  volume->setMaximum(2);
+  volume->setPageStep(1);
+  volume->setValue(gpppdata.volume());
   volumeLabel->setBuddy(volume);
   volume->setTickPosition(QSlider::TicksBelow);
   hbl->addWidget(volume);

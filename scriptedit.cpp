@@ -58,7 +58,8 @@ ScriptEdit::ScriptEdit( QWidget *parent )
   st->addItem("SendNoEcho");
   connect(st, SIGNAL(activated(int)), SLOT(setType(int)));
 
-  se = new QLineEdit(this, "se");
+  se = new QLineEdit(this);
+  se->setObjectName("se"); // oh yes, signor :-)
   se->setGeometry(120, 5, 140, 25);
   se->setMaxLength(50);
   connect(se, SIGNAL(returnPressed()), SLOT(seReturnPressed()));

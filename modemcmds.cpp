@@ -81,8 +81,12 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   lpreinitslider = new QLabel("MMMM", dummyWidget);
   FORMATSLIDERLABEL(lpreinitslider);
 
-  preinitslider = new QSlider(0, 300, 1, 0,
-                                       Qt::Horizontal, dummyWidget);
+  preinitslider = new QSlider(Qt::Horizontal, dummyWidget);
+  preinitslider->setMinimum(0);
+  preinitslider->setMaximum(300);
+  preinitslider->setPageStep(1);
+  preinitslider->setValue(0);
+                                       
   preinitslider->setFixedHeight(preinitslider->sizeHint().height());
   connect(preinitslider, SIGNAL(valueChanged(int)),
 	  lpreinitslider, SLOT(setNum(int)));
@@ -105,8 +109,12 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   l1->addLayout(l3, row, 2);
   linitslider = new QLabel("MMMM", dummyWidget);
   FORMATSLIDERLABEL(linitslider);
-  initslider = new QSlider(1, 300, 1, 0,
-				Qt::Horizontal, dummyWidget);
+  initslider = new QSlider(Qt::Horizontal, dummyWidget);
+  initslider->setMinimum(1);
+  initslider->setMaximum(300);
+  initslider->setPageStep(1);
+  initslider->setValue(1); // was zero before the Qt4 port.
+				
   initslider->setFixedHeight(initslider->sizeHint().height());
   connect(initslider, SIGNAL(valueChanged(int)),
 	  linitslider, SLOT(setNum(int)));
@@ -121,8 +129,12 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   l1->addLayout(l4, row, 2);
   ldurationslider = new QLabel("MMMM", dummyWidget);
   FORMATSLIDERLABEL(ldurationslider);
-  durationslider = new QSlider(1, 255, 1, 0,
-				Qt::Horizontal, dummyWidget);
+  durationslider = new QSlider(Qt::Horizontal, dummyWidget);
+  durationslider->setMinimum(1);
+  durationslider->setMaximum(255);
+  durationslider->setPageStep(1);
+  durationslider->setValue(1); // was 0 before the Qt4 port
+				
   durationslider->setFixedHeight(durationslider->sizeHint().height());
   connect(durationslider, SIGNAL(valueChanged(int)),
 	  ldurationslider, SLOT(setNum(int)));
@@ -237,8 +249,12 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   lslider = new QLabel("MMMM", dummyWidget);
   FORMATSLIDERLABEL(lslider);
 
-  slider = new QSlider(0, 255, 1, 0,
-				Qt::Horizontal, dummyWidget);
+  slider = new QSlider(Qt::Horizontal, dummyWidget);
+  slider->setMinimum(0);
+  slider->setMaximum(255);
+  slider->setPageStep(1);
+  slider->setValue(0);
+				
   slider->setFixedHeight(slider->sizeHint().height());
   connect(slider, SIGNAL(valueChanged(int)),
 	  lslider, SLOT(setNum(int)));
@@ -267,8 +283,8 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
 
   initstr[0]->setFocus();
 
-  l1->addColSpacing(0, 10);
-  l1->addColSpacing(3, 10);
+  l1->addItem(new QSpacerItem(10,0), 0, 0);
+  l1->addItem(new QSpacerItem(10,0), 0, 3);
   l1->addItem(new QSpacerItem(0, 5), 0, 0);
   l1->addItem(new QSpacerItem(0, 5), GRIDROWS, 0);
 

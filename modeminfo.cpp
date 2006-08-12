@@ -44,8 +44,11 @@
 #include <kiconloader.h>
 
 ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
-  : QDialog(parent, name,TRUE, Qt::WStyle_Customize|Qt::WStyle_NormalBorder)
+  : QDialog(parent)
 {
+  setObjectName(name);
+  setModal(true);
+  setWindowFlags(Qt::WStyle_Customize|Qt::WStyle_NormalBorder);
   setWindowTitle(i18n("ATI Query"));
   KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
 
@@ -252,8 +255,11 @@ void ModemTransfer::closeEvent( QCloseEvent *e ) {
 
 
 ModemInfo::ModemInfo(QWidget *parent, const char* name)
-  : QDialog(parent, name, TRUE, Qt::WStyle_Customize|Qt::WStyle_NormalBorder)
+  : QDialog(parent)
 {
+  setObjectName(name);
+  setModal(true);
+  setWindowFlags(Qt::WStyle_Customize|Qt::WStyle_NormalBorder);
   QString label_text;
 
   setWindowTitle(i18n("Modem Query Results"));

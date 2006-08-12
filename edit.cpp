@@ -51,8 +51,6 @@
 DialWidget::DialWidget( QWidget *parent, bool isnewaccount )
   : QWidget(parent)
 {
-  const int GRIDROWS = 8;
-
   QGridLayout *tl = new QGridLayout(this );
   tl->setSpacing( KDialog::spacingHint() );
 
@@ -437,8 +435,9 @@ bool ExecWidget::save() {
 //
 /////////////////////////////////////////////////////////////////////////////
 IPWidget::IPWidget( QWidget *parent, bool isnewaccount, const char *name )
-  : QWidget(parent, name)
+  : QWidget(parent)
 {
+  setObjectName(name);
   QVBoxLayout *topLayout = new QVBoxLayout(parent);
   topLayout->setSpacing(KDialog::spacingHint());
 
@@ -887,8 +886,9 @@ void GatewayWidget::hitGatewaySelect( int i ) {
 
 
 ScriptWidget::ScriptWidget( QWidget *parent, bool isnewaccount, const char *name )
-  : QWidget(parent, name)
+  : QWidget(parent)
 {
+  setObjectName(name);
   QVBoxLayout *tl = new QVBoxLayout(parent);
   tl->setSpacing(KDialog::spacingHint());
   tl->setMargin(0);
@@ -1097,7 +1097,7 @@ void ScriptWidget::addButton() {
   //get the scrollbar adjusted, and scroll the list so we can see what
   //we're adding to
   adjustScrollBar();
-  slb->setValue(slb->maxValue());
+  slb->setValue(slb->maximum());
 
   //clear the text in the entry box
   se->setText("");

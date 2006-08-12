@@ -33,8 +33,10 @@
 #include <kglobalsettings.h>
 #include "pwentry.h"
 
+#warning A null parent is a weird choice. Any reason?
 PWEntry::PWEntry( QWidget *parent, const char *name )
-	: QWidget(NULL, name) {
+	: QWidget(NULL) {
+   setObjectName(name);
 
    if(parent){
 
@@ -54,7 +56,8 @@ PWEntry::PWEntry( QWidget *parent, const char *name )
    
    setFocusPolicy( Qt::StrongFocus );
    
-   pw = new QLineEdit( this, "le" );
+   pw = new QLineEdit( this );
+   pw->setObjectName( "le" );
    pw->setEchoMode( QLineEdit::Password ); 
    connect( pw, SIGNAL(returnPressed()), this, SLOT(hide()) );
 
