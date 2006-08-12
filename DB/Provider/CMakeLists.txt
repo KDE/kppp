@@ -17,18 +17,3 @@ add_subdirectory( Switzerland )
 add_subdirectory( Belarus ) 
 add_subdirectory( France ) 
 add_subdirectory( Ireland ) 
-
-
-
-
-########### install files ###############
-
-
-
-
-
-#original Makefile.am contents follow:
-
-#SUBDIRS = Austria Denmark Germany Netherlands New_Zealand Norway Portugal \
-#	  United_Kingdom Taiwan Slovenia Sweden Czech_Republic Yugoslavia Ukraine \
-#	Switzerland Belarus France Ireland
