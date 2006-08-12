@@ -55,8 +55,10 @@
 extern PPPData gpppdata;
 
 MiniTerm::MiniTerm(QWidget *parent, const char *name)
-  : QDialog(parent, name, true)
+  : QDialog(parent)
 {
+  setObjectName(name);
+  setModal(true);
   setWindowTitle(i18n("Kppp Mini-Terminal"));
   KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
 

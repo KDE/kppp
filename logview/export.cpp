@@ -166,7 +166,7 @@ Export::~Export()
 }
 
 bool Export::openFile() {
-  file.setName(filename);
+  file.setFileName(filename);
   return file.open(QIODevice::WriteOnly);
 }
 
@@ -224,7 +224,7 @@ HTMLExport::HTMLExport(const QString &filename, const QString &date)
   buffer = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n";
   buffer.append("<html>\n<head>\n  <title>"+title+"</title>\n");
   buffer.append(QLatin1String("  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=")
-                + QTextCodec::codecForLocale()->mimeName() +
+                + QTextCodec::codecForLocale()->name() +
                 QLatin1String("\">"));
   buffer.append("\n</head>\n<body>\n<h1>"+title+"</h1>\n\n");
   buffer.append("<table width=\"100%\" border=\"1\">\n");

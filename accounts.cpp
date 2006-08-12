@@ -54,8 +54,9 @@
 void parseargs(char* buf, char** args);
 
 AccountWidget::AccountWidget( QWidget *parent, const char *name )
-  : QWidget( parent, name )
+  : QWidget( parent )
 {
+  setObjectName( name );
   int min = 0;
   QVBoxLayout *l1 = new QVBoxLayout(parent);
   l1->setSpacing(10);
@@ -137,7 +138,8 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   vollabel->setEnabled(FALSE);
   l121->addWidget(vollabel);
 
-  voledit = new QLineEdit(parent,"voledit");
+  voledit = new QLineEdit(parent);
+  voledit->setObjectName( "voledit" );
   voledit->setFocusPolicy(Qt::NoFocus);
   voledit->setFixedHeight(voledit->sizeHint().height());
   voledit->setEnabled(FALSE);

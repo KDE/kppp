@@ -186,7 +186,7 @@ void RuleSet::addRule(RULE r) {
 bool RuleSet::parseEntry(RULE &ret, QString s, int year) {
   if(s.contains(QRegExp("^[0-9]+/[0-9]+$"))) {
     int d, m;
-    sscanf(s.ascii(), "%d/%d", &m, &d);
+    sscanf(s.toAscii(), "%d/%d", &m, &d);
     ret.type = 1;
     ret.date.from = QDate(year, m, d);
     ret.date.until = QDate(year, m, d);
@@ -195,7 +195,7 @@ bool RuleSet::parseEntry(RULE &ret, QString s, int year) {
 
   if(s.contains(QRegExp("^[0-9]+\\.[0-9]+$"))) {
     int d, m;
-    sscanf(s.ascii(), "%d.%d", &d, &m);
+    sscanf(s.toAscii(), "%d.%d", &d, &m);
     ret.type = 1;
     ret.date.from = QDate(year, m, d);
     ret.date.until = QDate(year, m, d);
@@ -203,7 +203,7 @@ bool RuleSet::parseEntry(RULE &ret, QString s, int year) {
   }
 
   if(s.right(3) == "day") {
-    int d = dayNameToInt(s.ascii());
+    int d = dayNameToInt(s.toAscii());
     if(d != -1) {
       ret.type = 2;
       ret.weekday.from = d;
@@ -301,7 +301,7 @@ bool RuleSet::parseTime(QTime &t1, QTime &t2, QString s) {
     return TRUE;
   } else {
     int t1m, t1h, t2m, t2h;
-    if(sscanf(s.ascii(), "%d:%d..%d:%d", &t1h, &t1m, &t2h, &t2m) == 4) {
+    if(sscanf(s.toAscii(), "%d:%d..%d:%d", &t1h, &t1m, &t2h, &t2m) == 4) {
       t1.setHMS(t1h, t1m, 0);
       t2.setHMS(t2h, t2m, 0);
       return TRUE;
@@ -312,7 +312,7 @@ bool RuleSet::parseTime(QTime &t1, QTime &t2, QString s) {
 
 bool RuleSet::parseRate(double &costs, double &len, double &after, QString s) {
   after = 0;
-  int fields = sscanf(s.ascii(), "%lf,%lf,%lf", &costs, &len, &after);
+  int fields = sscanf(s.toAscii(), "%lf,%lf,%lf", &costs, &len, &after);
   return (fields == 2) || (fields == 3);
 }
 
@@ -542,7 +542,7 @@ int RuleSet::checkRuleFile(const QString &rulefile) {
 
   QFile fl(rulefile);
   if(!fl.exists()) {
-    fprintf(stderr, i18n("kppp: rulefile \"%s\" not found\n").toLocal8Bit(), rulefile.local8Bit().data());
+    fprintf(stderr, i18n("kppp: rulefile \"%s\" not found\n").toLocal8Bit(), rulefile.toLocal8Bit().data());
     return 1;
   }
 

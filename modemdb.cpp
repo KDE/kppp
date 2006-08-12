@@ -178,7 +178,7 @@ void ModemDatabase::loadModem(const QString &key, CharDict &dict) {
   //  e = it->current();
   while(!it.key().isNull()) {
     if(dict.find(it.key()) == 0) {
-      dict.insert(it.key(), new QString(it.data()));
+      dict.insert(it.key(), new QString(it.value()));
     }
     it++;
   }

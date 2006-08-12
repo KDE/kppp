@@ -83,13 +83,15 @@
 extern KPPPWidget *p_kppp;
 
 KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
-  : QWidget(parent, name)
+  : QWidget(parent)
   , acct(0)
   , m_bCmdlAccount (false)
   , m_bCmdlModem (false)
 {
     KpppAdaptor *kpppAdaptor = new KpppAdaptor(this);
     QDBus::sessionBus().registerObject("/Kppp", this);
+
+    setObjectName( name );
 
     connect( this, SIGNAL(sig_aboutToConnect()), kpppAdaptor, SIGNAL(aboutToConnect()) );
     connect( this, SIGNAL(sig_aboutToDisconnect()), kpppAdaptor, SIGNAL(aboutToDisconnect()) );
@@ -554,8 +556,8 @@ void KPPPWidget::resetmodems() {
       l1->addWidget(modem_c, 1, 2);
       m_bModemCShown = true;
   } else if (count <= 1 && m_bModemCShown){
-      l1->remove(label7);
-      l1->remove(modem_c);
+      l1->removeWidget(label7);
+      l1->removeWidget(modem_c);
       m_bModemCShown = false;
   }
   label7->setVisible(m_bModemCShown);
