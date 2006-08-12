@@ -55,11 +55,13 @@ extern PPPData gpppdata;
 
 PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
 			 PPPStats *st)
-  : QWidget(parent, name, 0),
+  : QWidget(parent),
     stats(st)
 {
   int i;
   max = 1024;
+
+  setObjectName(name);
 
   setWindowTitle(i18n("kppp Statistics"));
   KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
