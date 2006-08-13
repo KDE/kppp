@@ -460,7 +460,8 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
 	pausing = true;
 
-	pausetimer->start(gpppdata.busyWait()*1000, true);
+	pausetimer->setSingleShot(true);
+	pausetimer->start(gpppdata.busyWait()*1000);
 	timeout_timer->stop();
       }
 
@@ -493,7 +494,8 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
 	  pausing = true;
 
-	  pausetimer->start(gpppdata.busyWait()*1000, true);
+	  pausetimer->setSingleShot(true);
+	  pausetimer->start(gpppdata.busyWait()*1000);
 	  timeout_timer->stop();
         }
 
@@ -646,7 +648,8 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
 	pausing = true;
 
-	pausetimer->start(scriptArgument.toInt()*1000, true);
+	pausetimer->setSingleShot(true);
+	pausetimer->start(scriptArgument.toInt()*1000);
 	timeout_timer->stop();
 
 	scriptindex++;
@@ -1190,7 +1193,8 @@ void ConnectWidget::if_waiting_slot() {
       return;
     }
 
-    if_timer->start(100, TRUE); // single shot
+    if_timer->setSingleShot(true);
+    if_timer->start(100);
     return;
   }
 

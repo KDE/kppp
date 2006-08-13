@@ -235,7 +235,7 @@ int main( int argc, char **argv ) {
   // make sure that nobody can read the password from the
   // config file
   QString configFile = KGlobal::dirs()->saveLocation("config")
-    + QString(kapp->name()) + "rc";
+    + kapp->objectName() + "rc";
   if(access(QFile::encodeName(configFile), F_OK) == 0)
     chmod(QFile::encodeName(configFile), S_IRUSR | S_IWUSR);
 

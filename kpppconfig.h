@@ -89,7 +89,7 @@
 #define MAX_DNS_ENTRIES 5
 
 // Maximum size of the command executing pppd
-const unsigned int MAX_CMDLEN = 2024;
+const int MAX_CMDLEN = 2024;
 
 // Define the maximum number of arguments passed to the pppd daemon
 #define MAX_PPPD_ARGUMENTS 20
