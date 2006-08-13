@@ -870,7 +870,8 @@ void KPPPWidget::disconnect() {
   //  kapp->processEvents();
 
   // set the timer to call delayedDisconnect() in DISCONNECT_DELAY ms
-  disconnectTimer->start(DISCONNECT_DELAY, true);
+  disconnectTimer->setSingleShot(true);
+  disconnectTimer->start(DISCONNECT_DELAY);
 }
 
 void KPPPWidget::delayedDisconnect() {
