@@ -8,7 +8,9 @@ add_subdirectory( icons )
 add_subdirectory( logview ) 
 add_subdirectory( Rules ) 
 add_subdirectory( DB ) 
-
+if(KDE4_ENABLE_FPIE)
+    set ( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${KDE4_CXX_FPIE_FLAGS}")
+endif(KDE4_ENABLE_FPIE)
 
 
 
@@ -55,8 +57,11 @@ kde4_automoc(${kppp_SRCS})
 
 kde4_add_executable(kppp ${kppp_SRCS})
 
-target_link_libraries(kppp  ${KDE4_KDE3SUPPORT_LIBS} m  )
-
+if(KDE4_ENABLE_FPIE)
+   target_link_libraries(kppp  ${KDE4_KDE3SUPPORT_LIBS} m  ${KDE4_PIE_LDFLAGS})
+else(KDE4_ENABLE_FPIE)
+   target_link_libraries(kppp  ${KDE4_KDE3SUPPORT_LIBS} m  )
+endif(KDE4_ENABLE_FPIE)
 #TODO add message about install kppp as setuid 
 MESSAGE(STATUS "Warning: kppp use setuid")
 install(TARGETS kppp PERMISSIONS SETUID OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_EXECUTE GROUP_READ WORLD_EXECUTE WORLD_READ  DESTINATION ${BIN_INSTALL_DIR} )
