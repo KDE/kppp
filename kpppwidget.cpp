@@ -89,7 +89,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   , m_bCmdlModem (false)
 {
     KpppAdaptor *kpppAdaptor = new KpppAdaptor(this);
-    QDBus::sessionBus().registerObject("/Kppp", this);
+    QDBusConnection::sessionBus().registerObject("/Kppp", this);
 
     setObjectName( name );
 
