@@ -131,7 +131,7 @@ names and their applicable phone numbers, so you select the phone number to be
 used with an alias, for security purposes.</para>
 
 <para>For each line, choose the criteria from the drop down list on the left of
-the dialog, and type in the action in the text box on it's right.  Choose the
+the dialog, and type in the action in the text box on its right.  Choose the
 <guibutton>Add</guibutton> to add each line to the script.  You can use
 <guibutton>Insert</guibutton> to add a line into the middle of the script, and
 <guibutton>Remove</guibutton> to delete a line if you made a mistake.</para>

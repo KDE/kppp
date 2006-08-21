@@ -74,7 +74,7 @@ each line of commands.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><command>Z</command></term>
-<listitem><para>Resets the modem to it's default state</para></listitem>
+<listitem><para>Resets the modem to its default state</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><command>,</command> (a comma)</term>
