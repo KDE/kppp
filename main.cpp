@@ -302,9 +302,6 @@ int main( int argc, char **argv ) {
 
   (void)new DockWidget(p_kppp->con_win, "dockw", p_kppp->stats);
 
-  a.setMainWidget(&kppp);
-  a.setTopWidget(&kppp);
-
   // we really don't want to die accidentally, since that would leave the
   // modem connected. If you really really want to kill me you must send
   // me a SIGKILL.

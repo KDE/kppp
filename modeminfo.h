@@ -2,9 +2,7 @@
  *
  *            kPPP: A front end for pppd for the KDE project
  *
- * $Id$
- * 
- * Copyright (C) 1997 Bernd Johannes Wuebben 
+ * Copyright (C) 1997 Bernd Johannes Wuebben
  * wuebben@math.cornell.edu
  *
  *
@@ -25,8 +23,8 @@
  */
 
 
-#ifndef _MODEMINFO_H_
-#define _MODEMINFO_H_
+#ifndef MODEMINFO_H
+#define MODEMINFO_H
 
 #include <qdialog.h>
 #include <qlineedit.h>
@@ -36,7 +34,7 @@
 #include <qtimer.h>
 //Added by qt3to4:
 #include <QCloseEvent>
-#include <kprogressbar.h>
+#include <qprogressbar.h>
 
 const int NUM_OF_ATI = 8;
 
@@ -61,11 +59,11 @@ protected:
   void closeEvent(QCloseEvent *e);
 
 private:
-  int 	step;
+  int step;
   QString readbuffer;
 
   QPushButton *cancel;
-  KProgressBar *progressBar;
+  QProgressBar *progressBar;
   QLabel *statusBar;
 
   QTimer *timeout_timer;

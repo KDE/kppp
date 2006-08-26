@@ -1,8 +1,6 @@
 /*
  *            kPPP: A front end for pppd for the KDE project
  *
- * $Id$
- *
  * Copyright (C) 1997 Bernd Johannes Wuebben
  *                    wuebben@math.cornell.edu
  *
@@ -56,7 +54,7 @@ ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
   tl->setSpacing(10);
   tl->setMargin(10);
 
-  progressBar = new KProgressBar(this);
+  progressBar = new QProgressBar(this);
   progressBar->setMaximum(8);
 
   statusBar = new QLabel( this );
@@ -100,7 +98,8 @@ ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
   scripttimer = new QTimer(this);
   connect(scripttimer, SIGNAL(timeout()), SLOT(do_script()));
 
-  timeout_timer->start(15000,TRUE); // 15 secs single shot
+  timeout_timer->setSingleShot(true);
+  timeout_timer->start(15000); // 15 secs
   QTimer::singleShot(500, this, SLOT(init()));
 
 }
@@ -185,7 +184,7 @@ void ModemTransfer::do_script() {
   case 0:
     readtty();
     statusBar->setText("ATI...");
-    progressBar->advance(1);
+    progressBar->setValue(progressBar->value() + 1);
     Modem::modem->writeLine("ATI\n");
     break;
 
@@ -200,7 +199,7 @@ void ModemTransfer::do_script() {
     msg.sprintf("ATI %d ...", step);
     query.sprintf("ATI%d\n", step);
     statusBar->setText(msg);
-    progressBar->advance(1);
+    progressBar->setValue(progressBar->value() + 1);
     Modem::modem->writeLine(query.toLocal8Bit());
     break;
 
