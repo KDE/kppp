@@ -63,7 +63,7 @@ private:
   QString nameToFileName(QString);
 
 private slots:
-  void openURL(const QString &);
+  void openUrl(const QString &);
   void enableItems(bool);
   void slotSelectionChanged(Q3ListViewItem* i);
 

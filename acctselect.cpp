@@ -81,7 +81,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   KUrlLabel *up = new KUrlLabel(parent);
   up->setText(i18n("Check for rule updates"));
   up->setUrl("http://developer.kde.org/~kppp/rules.html");
-  connect(up, SIGNAL(leftClickedURL(const QString&)), SLOT(openURL(const QString&)));
+  connect(up, SIGNAL(leftClickedURL(const QString&)), SLOT(openUrl(const QString&)));
 
   l1->addWidget(up, 1);
 
@@ -338,7 +338,7 @@ bool AccountingSelector::save() {
   return true;
 }
 
-void AccountingSelector::openURL(const QString &url) {
+void AccountingSelector::openUrl(const QString &url) {
   new KRun( KUrl( url ),this);
 }
 
