@@ -51,6 +51,7 @@ Name[bn]=কে-পি-পি-পি
 Name[eo]=Interretkonektilo
 Name[hi]=केपीपीपी
 Name[sv]=Kppp
+Name[zh_TW]=KPPP 撥號工具
 MimeType=
 DocPath=kppp/index.html
 Exec=kppp %i %m
