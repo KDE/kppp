@@ -673,7 +673,7 @@ void KPPPWidget::sigPPPDDied() {
 	    }
 	}
 
-	if(KMessageBox::warningYesNo(0, msg, i18n("Error"), KStdGuiItem::ok(), i18n("&Details")) == KMessageBox::No)
+	if(KMessageBox::warningYesNo(0, msg, i18n("Error"), KStdGuiItem::ok(), KGuiItem(i18n("&Details"))) == KMessageBox::No)
 	  PPPL_ShowLog();
       } else { /* reconnect on disconnect */
         if(gpppdata.waitCallback())
