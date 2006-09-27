@@ -290,9 +290,9 @@ void Accounting::slotStart() {
     start_time = time(0);
     QString s;
     s = timet2qstring(start_time);
-    s += ":";
+    s += ':';
     s += gpppdata.accname();
-    s += ":";
+    s += ':';
     s += rules.currencySymbol();
 
     logMessage(s, TRUE);
@@ -449,9 +449,9 @@ void ExecutableAccounting::slotStart() {
 
   time_t start_time = time(0);
   s = timet2qstring(start_time);
-  s += ":";
+  s += ':';
   s += gpppdata.accname();
-  s += ":";
+  s += ':';
   s += currency;
 
   logMessage(s, TRUE);

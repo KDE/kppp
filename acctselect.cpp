@@ -300,7 +300,7 @@ void AccountingSelector::enableItems(bool enabled) {
     Q3ListViewItem* i = tl->currentItem();
     QString s;
     while(i) {
-      s = "/" + i->text(0) + s;
+      s = '/' + i->text(0) + s;
       i = i->parent();
     }
     selected->setText(s.mid(1));

@@ -615,7 +615,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	  scriptarg = scriptArgument;
 	else {
 	  for(int i = 0; i < scriptArgument.length(); i++)
-	    scriptarg += "*";
+	    scriptarg += '*';
 	}
 	QString bm = i18n("Sending %1", scriptarg);
 
@@ -1272,20 +1272,20 @@ bool ConnectWidget::execppp() {
   //  command += " ";
   //  command += gpppdata.modemDevice();
 
-  command += " " + gpppdata.speed();
+  command += ' ' + gpppdata.speed();
 
   command += " -detach";
 
   if(gpppdata.ipaddr() != "0.0.0.0" ||
      gpppdata.gateway() != "0.0.0.0") {
     if(gpppdata.ipaddr() != "0.0.0.0") {
-      command += " ";
+      command += ' ';
       command += gpppdata.ipaddr();
-      command +=  ":";
+      command += ':';
     }
     else {
-      command += " ";
-      command += ":";
+      command += ' ';
+      command += ':';
     }
 
     if(gpppdata.gateway() != "0.0.0.0")
@@ -1317,7 +1317,7 @@ bool ConnectWidget::execppp() {
         it != arglist.end();
         ++it )
   {
-    command += " " + *it;
+    command += ' ' + *it;
   }
 
   // Callback settings
@@ -1458,7 +1458,7 @@ void add_domain(const QString &domain) {
 	  write(fd, tmp, tmp.length());
 	}
 	else {
-	  Q3CString tmp = resolv[j].toLocal8Bit() + "\n";
+	  Q3CString tmp = resolv[j].toLocal8Bit() + '\n';
 	  write(fd, tmp, tmp.length());
 	}
       }
@@ -1538,7 +1538,7 @@ void removedns() {
 	  write(fd, "\n", 1);
 	}
 	else {
-	  Q3CString tmp = resolv[j].toLocal8Bit() + "\n";
+	  Q3CString tmp = resolv[j].toLocal8Bit() + '\n';
 	  write(fd, tmp, tmp.length());
 	}
       }

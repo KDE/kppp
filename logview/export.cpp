@@ -132,9 +132,9 @@ void ExportWizard::getFilename() {
   if ( i == -1 )
       return;
   // prepare filter: e.g.: HTML (*.html *.HTML)
-  QString filter = "*." + ExportFormats[i].ext + " *." + ExportFormats[i].ext.toUpper() + "|" +
+  QString filter = "*." + ExportFormats[i].ext + " *." + ExportFormats[i].ext.toUpper() + '|' +
                    i18n(ExportFormats[i].name.toUtf8()) + " (*." + ExportFormats[i].ext + " *." +
-                   ExportFormats[i].ext.toUpper() + ")";
+                   ExportFormats[i].ext.toUpper() + ')';
 
   filename = KFileDialog::getSaveFileName(date + "." + ExportFormats[i].ext, filter, 0, i18n("Please Choose File"));
   if (filename.isEmpty()) // no file selected
@@ -205,7 +205,7 @@ void CSVExport::addDataline(const QString &a, const QString &b,
           e + separator +
           f + separator +
           g + separator +
-          h + separator + "\n";
+          h + separator + '\n';
 }
 
 void CSVExport::addEmptyLine() {

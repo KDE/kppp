@@ -460,7 +460,7 @@ QString AccountWidget::prettyPrintVolume(unsigned int n) {
     n1 = n1 / 1024.0;
 
   QString s = KGlobal::locale()->formatNumber( n1, idx==0 ? 0 : 1 );
-  s += " " + quant[idx];
+  s += ' ' + quant[idx];
   return s;
 }
 

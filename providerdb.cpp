@@ -130,7 +130,7 @@ void ProviderDB::loadProviderInfo() {
   QString provider = page3->lb->text(page3->lb->currentItem());
   urlEncode(provider);
   QString prov = "Provider/" + loc;
-  prov += "/" + provider;
+  prov += '/' + provider;
   QString fname = KStandardDirs::locate("appdata", prov);
   kDebug(5002) << "Providerfile=" << fname << endl;
 

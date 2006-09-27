@@ -233,7 +233,7 @@ bool DialWidget::save() {
     QString number = "";
     for(uint i = 0; i < numbers->count(); i++) {
       if(i != 0)
-	number += ":";
+	number += ':';
       number += numbers->text(i);
     }
 
