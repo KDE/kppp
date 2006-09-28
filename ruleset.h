@@ -33,7 +33,7 @@
 #include <QVector>
 // this structure is used to save
 // accounting rules
-typedef struct RULE {
+typedef struct {
   int type;
   double costs;
   double len;
@@ -45,7 +45,7 @@ typedef struct RULE {
   struct {
     int from, until;
   } weekday;
-};
+} RULE;
 
 // this class is used for loading and parsing of rules
 class RuleSet {
