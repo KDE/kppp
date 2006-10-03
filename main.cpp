@@ -60,7 +60,7 @@
 #include "version.h"
 #include "requester.h"
 
-#include <X11/Xlib.h>
+//#include <X11/Xlib.h>
 //Added by qt3to4:
 #include <QEvent>
 
