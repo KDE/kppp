@@ -238,12 +238,12 @@ void AccountWidget::resetClicked(){
   QueryReset dlg(this);
   int what = dlg.exec();
 
-  if(what && QueryReset::COSTS) {
+  if((what & QueryReset::COSTS)) {
     emit resetCosts(accountlist_l->text(accountlist_l->currentItem()));
     costedit->setText("0");
   }
 
-  if(what && QueryReset::VOLUME) {
+  if((what & QueryReset::VOLUME)) {
     emit resetVolume(accountlist_l->text(accountlist_l->currentItem()));
     voledit->setText(prettyPrintVolume(0));
   }
