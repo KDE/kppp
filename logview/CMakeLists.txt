@@ -11,7 +11,7 @@ set(kppplogview_SRCS
    monthly.cpp 
    export.cpp )
 
-kde4_automoc(kppplogview ${kppplogview_SRCS})
+kde4_automoc(${kppplogview_SRCS})
 
 kde4_add_executable(kppplogview ${kppplogview_SRCS})
 
