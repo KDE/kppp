@@ -13,11 +13,3 @@ add_subdirectory( Standard )
 
 
 
-#original Makefile.am contents follow:
-
-#SUBDIRS =	Business_1 \
-#		Business_2 \
-#		Minimum \
-#		Standard
-#
-##		Business_3 

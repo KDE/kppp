@@ -9,10 +9,3 @@ install( FILES South_Afrika.rst South_Afrika_Justin.rst  DESTINATION ${DATA_INST
 
 
 
-#original Makefile.am contents follow:
-
-#pkg_DATA = South_Afrika.rst South_Afrika_Justin.rst
-#
-#pkgdir = $(kde_datadir)/kppp/Rules/South_Afrika
-#
-#EXTRA_DIST = $(pkg_DATA)

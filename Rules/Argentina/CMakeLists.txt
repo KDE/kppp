@@ -9,13 +9,3 @@ install( FILES Argentina_Local.rst Argentina_0610.rst  DESTINATION ${DATA_INSTAL
 
 
 
-#original Makefile.am contents follow:
-
-#pkg_DATA = Argentina_Local.rst Argentina_0610.rst
-#
-#pkgdir = $(kde_datadir)/kppp/Rules/Argentina
-#
-#EXTRA_DIST = $(pkg_DATA)
-#
-#
-#
