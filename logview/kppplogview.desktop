@@ -11,5 +11,5 @@ Icon=kppp
 Path=
 Type=Application
 Terminal=false
-X-DCOP-ServiceType=Multi
+X-DBUS-StartupType=Multi
 Categories=Qt;KDE;Network;X-KDE-More;
