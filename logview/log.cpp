@@ -23,7 +23,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include <q3progressdialog.h>
+#include <QProgressDialog>
 #include <qdir.h>
 
 #include <kapplication.h>
@@ -32,7 +32,7 @@
 #include <kdebug.h>
 
 Q3PtrList<LogInfo> logList;
-Q3ProgressDialog *dlg;
+QProgressDialog *dlg;
 
 int loadLogs() {
   int logsize = 0;
@@ -54,10 +54,10 @@ int loadLogs() {
     ++it;
   }
 
-  dlg = new Q3ProgressDialog(i18n("Loading log files"),
+  dlg = new QProgressDialog(i18n("Loading log files"),
 			     QString::null,
-			     logsize,0, 0);
-  dlg->setProgress(0);
+			     0,logsize,0, 0);
+  dlg->setValue(0);
 
   // load logs
   list = logdir.entryInfoList();
@@ -95,7 +95,7 @@ int loadLog(QString fname) {
     if(slen < 10)
       continue;
     
-    dlg->setProgress(dlg->progress() + slen);
+    dlg->setValue(dlg->value() + slen);
     kapp->processEvents();
 
     LogInfo *li = new LogInfo(buffer);    
