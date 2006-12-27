@@ -474,7 +474,7 @@ void MonthlyWidget::exportWizard() {
     return;
   }
   if (QFile::exists(wizard->filename)) {  // overwrite?
-    if (KMessageBox::Continue!=KMessageBox::warningContinueCancel(0, i18n("A document with this name already exists."), i18n("Overwrite file?"), KStdGuiItem::overwrite() /*, true*/)) { // no
+    if (KMessageBox::Continue!=KMessageBox::warningContinueCancel(0, i18n("A document with this name already exists."), i18n("Overwrite file?"), KStandardGuiItem::overwrite() /*, true*/)) { // no
       return;
     }
   }

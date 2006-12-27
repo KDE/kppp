@@ -56,7 +56,7 @@
 #include <khelpmenu.h>
 #include <kpushbutton.h>
 #include <kguiitem.h>
-#include <kstdguiitem.h>
+#include <KStandardGuiItem>
 
 #include <stdlib.h>
 #include <errno.h>
@@ -210,7 +210,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   tl->addLayout(l2);
 
   int minw = 0;
-  quit_b = new KPushButton(KStdGuiItem::quit(), this);
+  quit_b = new KPushButton(KStandardGuiItem::quit(), this);
   connect( quit_b, SIGNAL(clicked()), SLOT(quitbutton()));
   if(quit_b->sizeHint().width() > minw)
       minw = quit_b->sizeHint().width();
@@ -223,7 +223,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   if(gpppdata.access() != KConfig::ReadWrite)
     setup_b->setEnabled(false);
 
-  help_b = new KPushButton(KStdGuiItem::help(), this);
+  help_b = new KPushButton(KStandardGuiItem::help(), this);
   connect( help_b, SIGNAL(clicked()), SLOT(helpbutton()));
 
   KHelpMenu *helpMenu = new KHelpMenu(this, KGlobal::instance()->aboutData(), true);
@@ -673,7 +673,7 @@ void KPPPWidget::sigPPPDDied() {
 	    }
 	}
 
-	if(KMessageBox::warningYesNo(0, msg, i18n("Error"), KStdGuiItem::ok(), KGuiItem(i18n("&Details"))) == KMessageBox::No)
+	if(KMessageBox::warningYesNo(0, msg, i18n("Error"), KStandardGuiItem::ok(), KGuiItem(i18n("&Details"))) == KMessageBox::No)
 	  PPPL_ShowLog();
       } else { /* reconnect on disconnect */
         if(gpppdata.waitCallback())
@@ -917,7 +917,7 @@ void KPPPWidget::quitbutton() {
   if(gpppdata.pppdRunning()) {
     int ok = KMessageBox::warningContinueCancel(this,
 			    i18n("Exiting kPPP will close your PPP Session."),
-			    i18n("Quit kPPP?"), KStdGuiItem::quit());
+			    i18n("Quit kPPP?"), KStandardGuiItem::quit());
     if(ok == KMessageBox::Continue) {
       Requester::rq->killPPPDaemon();
 

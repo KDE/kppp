@@ -147,7 +147,7 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   debug->setCheckable(true);
   connect(debug, SIGNAL(clicked()), SIGNAL(toggleDebugWindow()));
 
-  cancel = new KPushButton(KStdGuiItem::cancel(), this);
+  cancel = new KPushButton(KStandardGuiItem::cancel(), this);
   cancel->setFocus();
   connect(cancel, SIGNAL(clicked()), SLOT(cancelbutton()));
 

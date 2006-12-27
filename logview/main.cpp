@@ -29,7 +29,7 @@
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>
 #include <kpushbutton.h>
-#include <kstdguiitem.h>
+#include <KStandardGuiItem>
 #include <kiconloader.h>
 #include <kguiitem.h>
 
@@ -72,7 +72,7 @@ TopWidget::TopWidget() : KMainWindow(0, "") {
     // create menu
     mb = new KMenuBar(this);
     Q3PopupMenu *fm = new Q3PopupMenu;
-    fm->insertItem(QIcon(SmallIcon("exit")),KStdGuiItem::quit().text(), F_EXIT);
+    fm->insertItem(QIcon(SmallIcon("exit")),KStandardGuiItem::quit().text(), F_EXIT);
     fm->setTitle(i18n("&File"));
     mb->addMenu(fm);
 
@@ -81,7 +81,7 @@ TopWidget::TopWidget() : KMainWindow(0, "") {
 	    this, SLOT(menuCallback(int)));
   } else {
     mb = 0;
-    QPushButton *but = new KPushButton(KStdGuiItem::close(),w);
+    QPushButton *but = new KPushButton(KStandardGuiItem::close(),w);
     QHBoxLayout *lh = new QHBoxLayout();
     l->addItem(lh);
     lh->addStretch(10);

@@ -44,7 +44,7 @@
 #include <qlineedit.h>
 #include <qtimer.h>
 #include <kpushbutton.h>
-#include <kstdguiitem.h>
+#include <KStandardGuiItem>
 
 #include "pppdata.h"
 #include "pppstatdlg.h"
@@ -184,7 +184,7 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
     graph->setBackgroundColor(bg);
   }
 
-  cancelbutton = new KPushButton(KStdGuiItem::close(),this);
+  cancelbutton = new KPushButton(KStandardGuiItem::close(),this);
   cancelbutton->setFocus();
   connect(cancelbutton, SIGNAL(clicked()), this,SLOT(cancel()));
   cancelbutton->setFixedHeight(cancelbutton->sizeHint().height());

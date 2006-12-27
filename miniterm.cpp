@@ -38,7 +38,7 @@
 #include <kapplication.h>
 #include <kmenubar.h>
 #include <kicon.h>
-#include <kstdguiitem.h>
+#include <KStandardGuiItem>
 #include <kguiitem.h>
 #include <qlayout.h>
 #include <qlabel.h>
@@ -81,7 +81,7 @@ MiniTerm::MiniTerm(QWidget *parent, const char *name)
   menubar->addMenu( m_file );
   m_options->setTitle(i18n("&Modem"));
   menubar->addMenu( m_options );
-  m_help->menu()->setTitle(KStdGuiItem::help().text());
+  m_help->menu()->setTitle(KStandardGuiItem::help().text());
   menubar->addMenu( m_help->menu());
 
   statusbar = new QLabel(this);

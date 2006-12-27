@@ -42,7 +42,7 @@
 #include <qpushbutton.h>
 #include <q3listbox.h>
 #include <kconfig.h>
-#include <kstdguiitem.h>
+#include <KStandardGuiItem>
 #include <kguiitem.h>
 #include <kdialog.h>
 

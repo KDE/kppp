@@ -24,7 +24,7 @@
  * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <kstdguiitem.h>
+#include <KStandardGuiItem>
 #include <kguiitem.h>
 
 #include "loginterm.h"
@@ -126,11 +126,11 @@ LoginTerm::LoginTerm (QWidget *parent, const char *name)
   text_window->setFocus();
   vgr->addWidget(text_window, 0, 0);
 
-  cancel_b = new KPushButton(KStdGuiItem::cancel(), this);
+  cancel_b = new KPushButton(KStandardGuiItem::cancel(), this);
   cancel_b->setFixedHeight(25);
   connect(cancel_b, SIGNAL(clicked()), SLOT(cancelbutton()));
 
-  continue_b = new KPushButton(KStdGuiItem::cont(), this);
+  continue_b = new KPushButton(KStandardGuiItem::cont(), this);
   continue_b->setFixedHeight(25);
   connect(continue_b, SIGNAL(clicked()), SLOT(continuebutton()));
 

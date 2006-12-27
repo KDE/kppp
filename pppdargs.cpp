@@ -38,9 +38,9 @@
 #include <qpushbutton.h>
 #include <q3listbox.h>
 #include <qlabel.h>
-#include <kstdguiitem.h>
+#include <KStandardGuiItem>
 #include <kpushbutton.h>
-#include <kstdguiitem.h>
+#include <KStandardGuiItem>
 #include <kiconloader.h>
 
 PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
@@ -91,7 +91,7 @@ PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
   connect(remove, SIGNAL(clicked()), SLOT(removebutton()));
   l2->addWidget(remove);
 
-  defaults = new KPushButton(KStdGuiItem::defaults(), this);
+  defaults = new KPushButton(KStandardGuiItem::defaults(), this);
   connect(defaults, SIGNAL(clicked()), SLOT(defaultsbutton()));
   l2->addWidget(defaults);
 

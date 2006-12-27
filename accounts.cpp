@@ -41,7 +41,7 @@
 #include <kglobal.h>
 #include <kwin.h>
 #include <kpagedialog.h>
-#include <kstdguiitem.h>
+#include <KStandardGuiItem>
 //#include <qvgroupbox.h>
 #include <QBoxLayout>
 #include <kiconloader.h>
@@ -332,7 +332,7 @@ void AccountWidget::deleteaccount() {
   QString s = i18n("Are you sure you want to delete\nthe account \"%1\"?",
      accountlist_l->text(accountlist_l->currentItem()));
 
-  if(KMessageBox::warningYesNo(this, s, i18n("Confirm"), KGuiItem(i18n("Delete"), "editdelete"), KStdGuiItem::cancel()) != KMessageBox::Yes)
+  if(KMessageBox::warningYesNo(this, s, i18n("Confirm"), KGuiItem(i18n("Delete"), "editdelete"), KStandardGuiItem::cancel()) != KMessageBox::Yes)
     return;
 
   if(gpppdata.deleteAccount(accountlist_l->text(accountlist_l->currentItem())))
