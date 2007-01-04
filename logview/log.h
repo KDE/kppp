@@ -35,6 +35,6 @@ public:
 extern Q3PtrList<LogInfo> logList;
 
 int loadLogs();
-int loadLog(QString);
+int loadLog(const QString&);
 
 #endif

@@ -250,8 +250,7 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
 }
 
 void MonthlyWidget::layoutWidget() {
-  if(tl)
-    delete tl;
+  delete tl;
 
   tl = new QGridLayout(this );
   tl->setMargin( 11 );

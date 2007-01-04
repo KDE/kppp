@@ -75,7 +75,7 @@ int loadLogs() {
   return retval;
 }
 
-int loadLog(QString fname) {
+int loadLog(const QString &fname) {
   FILE *f;
   int warning=0;
 
@@ -131,3 +131,4 @@ int QLogList::compareItems(Item a, Item b) {
   else
     return 0;
 }
+
