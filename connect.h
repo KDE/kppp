@@ -42,7 +42,6 @@
 #include "docking.h"
 #include "loginterm.h"
 
-class QDBusInterface;
 #define MAXLOOPNEST (MAX_SCRIPT_ENTRIES/2)
 
 class PPPStats;
@@ -151,8 +150,6 @@ private:
   int dialnumber; // the current number to dial
 
   PPPStats *stats;
-private:
-    QDBusInterface *m_kpppInterface;
 };
 
 

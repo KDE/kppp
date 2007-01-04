@@ -111,9 +111,11 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   setObjectName(name);
 
   modified_hostname = false;
-  m_kpppInterface = new QDBusInterface("org.kde.kppp", "/Kppp", "org.kde.kppp.Kppp",QDBusConnection::sessionBus() );
-  connect( this, SIGNAL(aboutToConnect()), m_kpppInterface,SIGNAL(aboutToConnect()) );
-  connect( this, SIGNAL(connected()), m_kpppInterface,SIGNAL(connected()) );
+
+  QDBusConnection dbus = QDBusConnection::sessionBus();
+  dbus.connect(QString(), "/Kppp", "org.kde.kppp", "aboutToConnect", this, SLOT(aboutToConnect()));
+  dbus.connect(QString(), "/Kppp", "org.kde.kppp", "connected", this, SLOT(connect()));
+
 
   QVBoxLayout *tl = new QVBoxLayout(this);
   tl->setSpacing(10);
@@ -185,7 +187,6 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
 
 
 ConnectWidget::~ConnectWidget() {
-    delete m_kpppInterface;
 }
 
 
