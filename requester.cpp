@@ -230,7 +230,9 @@ int Requester::openSysLog() {
 
 
 bool Requester::setSecret(int method, const QString &name, const QString &password) {
+#ifdef __GNUC__
 #warning check if QString != 0 means using isNull or isEmpty
+#endif
   assert(!name.isNull());
   assert(!password.isNull());
 

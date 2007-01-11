@@ -358,7 +358,9 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   if(!m_bCmdlAccount)
     showNews();
 #endif
+#ifdef __GNUC__
 #warning "kde4: port to dbus"
+#endif
 #if 0
   // attach to the DCOP server, if possible
   if (!kapp->dcopClient()->attach())

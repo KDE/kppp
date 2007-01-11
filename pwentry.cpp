@@ -33,7 +33,9 @@
 #include <kglobalsettings.h>
 #include "pwentry.h"
 
+#ifdef __GNUC__
 #warning A null parent is a weird choice. Any reason?
+#endif
 PWEntry::PWEntry( QWidget *parent, const char *name )
 	: QWidget(NULL) {
    setObjectName(name);
