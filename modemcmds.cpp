@@ -328,6 +328,8 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
 
 	// Save the data, so if it not exist we save the default
 	gpppdata.save();
+	connect(this,SIGNAL(okClicked()),this,SLOT(slotOk()));
+	connect(this,SIGNAL(cancelClicked()),this,SLOT(slotCancel()));
 }
 
 
