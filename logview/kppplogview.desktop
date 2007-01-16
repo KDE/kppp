@@ -1,8 +1,10 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KPPPLogview
+Name[el]=Προβολή καταγραφής KPPP
 Name[x-test]=xxKPPPLogviewxx
 GenericName=Internet Dial-Up Tool Log Viewer
+GenericName[el]=Προβολή καταγραφής εργαλείου σύνδεσης μέσω τηλεφώνου στο διαδίκτυο
 GenericName[fr]=Afficheur de l'historique des connexion internet par modem
 GenericName[x-test]=xxInternet Dial-Up Tool Log Viewerxx
 MimeType=

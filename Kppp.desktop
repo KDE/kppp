@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 GenericName=Internet Dial-Up Tool
+GenericName[el]=Εργαλείο σύνδεσης μέσω τηλεφώνου στο διαδίκτυο
 GenericName[fr]=Connexion internet par modem
 GenericName[x-test]=xxInternet Dial-Up Toolxx
 Name=KPPP
