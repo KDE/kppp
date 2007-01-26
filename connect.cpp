@@ -24,7 +24,7 @@
  * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <config.h>
+#include <config-kppp.h>
 
 #include <qlayout.h>
 #include <qregexp.h>
@@ -38,6 +38,7 @@
 #include <QCloseEvent>
 
 #include <kapplication.h>
+#include <kdefakes.h> // gethostname
 #include <kdebug.h>
 #include <klocale.h>
 #include <kmessagebox.h>

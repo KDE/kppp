@@ -39,7 +39,7 @@
  */
 
 #include <kdefakes.h>
-#include <config.h>
+#include <config-kppp.h>
 
 #include <ctype.h>
 #include <errno.h>
@@ -56,8 +56,6 @@
 #include <netinet/in.h>
 #include <net/ppp_defs.h>
 
-#include "config.h"
-#include "config-kppp.h"
 #include "pppstats.h"
 
 #ifndef STREAMS

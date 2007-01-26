@@ -40,7 +40,7 @@
 #include <klocale.h>
 #include <kdebug.h>
 #include <kcmdlineargs.h>
-#include <config.h>
+#include <config-kppp.h>
 
 static sigjmp_buf jmp_buffer;
 

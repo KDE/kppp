@@ -18,16 +18,10 @@
  * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
 #include "loginfo.h"
 #include <stdlib.h>
 
-#ifdef HAVE_STRING_H
 #include <string.h>
-#endif
 
 #include <kdebug.h>
 
@@ -131,7 +125,7 @@ void LogInfo::parse(Q3CString s) {
     case 6:
       _bytes_in = token.toLong();
       break;
-      
+
     case 7:
       _bytes_out = token.toLong();
       break;
@@ -151,7 +145,7 @@ void LogInfo::parse(Q3CString s) {
 
 
 int LogInfo::duration() const {
-  if( _until - _from < 0) 
+  if( _until - _from < 0)
     return 0;
   else
     return _until - _from;

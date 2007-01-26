@@ -33,7 +33,7 @@
 #define __EXTENSIONS__
 #endif
 
-#include <config.h>
+#include <config-kppp.h>
 
 #ifdef HAVE_SYS_PARAM_H
 #include <sys/param.h>

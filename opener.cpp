@@ -34,8 +34,8 @@
  * o be paranoid and think twice about everything you change.
  */
 #include <kdefakes.h>
-#include <config.h>
 #include <config-kppp.h>
+
 #if defined(__osf__) || defined(__svr4__)
 #define _POSIX_PII_SOCKET
 extern "C" int sethostname(char *name, int name_len);
@@ -61,10 +61,6 @@ extern "C" int _Precvmsg(int, void*, int);
 
 #ifdef __FreeBSD__
 #  include <sys/linker.h>  // for kldload
-#endif
-
-#ifdef HAVE_CONFIG_H
-#  include <config.h>
 #endif
 
 #ifndef HAVE_NET_IF_PPP_H

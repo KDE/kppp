@@ -5,7 +5,7 @@
  *
  *              Copyright (C) 1997 Bernd Johannes Wuebben
  *                      wuebben@math.cornell.edu
- * 
+ *
  * This file was added by Harri Porten <porten@tu-harburg.de>
  *
  *
@@ -35,7 +35,7 @@
 
 #include <qsocketnotifier.h>
 
-#include <config.h>
+#include <config-kppp.h>
 
 class KCmdLineArgs;
 
@@ -54,7 +54,7 @@ public:
   bool writeLine(const char *);
   bool dataMode() const { return data_mode; }
   void setDataMode(bool set) { data_mode = set; }
-  const QString modemMessage();  
+  const QString modemMessage();
   speed_t modemspeed();
   static QString parseModemSpeed(const QString &);
   void notify(const QObject *, const char *);
@@ -73,7 +73,7 @@ signals:
 private slots:
   void startNotifier();
   void stopNotifier();
-  void readtty(int);  
+  void readtty(int);
 
 private:
   void escape_to_command_mode();

@@ -1,5 +1,9 @@
 project(kppp)
 
+check_include_files(sys/param.h HAVE_SYS_PARAM_H)
+check_include_files(net/if_ppp.h HAVE_NET_IF_PPP_H)
+check_include_files(linux/if_ppp.h HAVE_LINUX_IF_PPP_H)
+
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config-kppp.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kppp.h )
 
 
