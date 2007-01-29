@@ -226,7 +226,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   help_b = new KPushButton(KStandardGuiItem::help(), this);
   connect( help_b, SIGNAL(clicked()), SLOT(helpbutton()));
 
-  KHelpMenu *helpMenu = new KHelpMenu(this, KGlobal::instance()->aboutData(), true);
+  KHelpMenu *helpMenu = new KHelpMenu(this, KGlobal::mainComponent().aboutData(), true);
   help_b->setPopup((Q3PopupMenu*)helpMenu->menu());
 #if 0 //After move kdelibs trunk to kdelibs-snapshot
   help_b->setMenu(helpMenu->menu());

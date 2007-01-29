@@ -34,6 +34,7 @@
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qcolor.h>
+#include <kconfig.h>
 
 #include "kpppconfig.h"
 
@@ -491,7 +492,7 @@ public:
 
 private:
   QString passwd;
-  KConfig* config;                       // configuration object
+  KSharedConfig::Ptr config;                       // configuration object
   int accounthighcount;                  // index of highest account
   int caccount;                          // index of the current account
 	int modemhighcount;                    // index of highest modem
