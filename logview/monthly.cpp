@@ -386,11 +386,11 @@ void MonthlyWidget::plotMonth() {
     QString s_costs(KGlobal::locale()->formatMoney(costs, QString::null, 2));
 
     selectionItem =  new LogListItem(0, lv2,
-			   i18np("Selection (%n connection)", "Selection (%n connections)", 0),
+			   i18np("Selection (%1 connection)", "Selection (%1 connections)", 0),
 			   QString::null, QString::null, QString::null,
 			   QString::null, QString::null, QString::null, QString::null);
     (void) new LogListItem(0, lv2,
-			   i18np("%n connection", "%n connections", count),
+			   i18np("%1 connection", "%1 connections", count),
 			   s_duration, s_costs, _bin, _bout, QString::null, QString::null, QString::null);
 
 	const KCalendarSystem * calendar = KGlobal::locale()->calendar();
@@ -627,7 +627,7 @@ void MonthlyWidget::exportWizard() {
 
     // call export methods
     exportIFace->addEmptyLine();
-    exportIFace->addDataline(i18np("%n connection", "%n connections", count), QString::null, QString::null, QString::null, s_duration,
+    exportIFace->addDataline(i18np("%1 connection", "%1 connections", count), QString::null, QString::null, QString::null, s_duration,
 			     s_costs, _bin, _bout);
     exportIFace->setFinishCode();
 
@@ -716,7 +716,7 @@ void MonthlyWidget::slotSelectionChanged()
                     s_duration);
 
       QString s_costs(KGlobal::locale()->formatMoney(costs, QString::null, 2));
-      selectionItem->setText(0, i18np("Selection (%n connection)", "Selection (%n connections)", count));
+      selectionItem->setText(0, i18np("Selection (%1 connection)", "Selection (%1 connections)", count));
       selectionItem->setText(1, s_duration);
       selectionItem->setText(2, s_costs);
       selectionItem->setText(3, _bin);
