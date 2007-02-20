@@ -34,7 +34,7 @@
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qcolor.h>
-#include <kconfig.h>
+#include <ksharedconfig.h>
 
 #include "kpppconfig.h"
 

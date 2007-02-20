@@ -40,7 +40,7 @@
 
 class QLineEdit;
 class Q3ListBox;
-class KSimpleConfig;
+class KConfig;
 
 class PDB_Intro : public QWidget {
   Q_OBJECT
@@ -129,7 +129,7 @@ public slots:
 
 private:
   void loadProviderInfo();
-  KSimpleConfig *cfg;
+  KConfig *cfg;
 
   PDB_Intro *page1;
   PDB_Country *page2;

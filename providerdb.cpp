@@ -45,8 +45,8 @@
 #include "pppdata.h"
 #include <q3listbox.h>
 #include <qlineedit.h>
-#include <ksimpleconfig.h>
-
+#include <kconfig.h>
+#include <kdesktopfile.h>
 
 #define UNENCODED_CHARS "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_"
 
@@ -134,7 +134,7 @@ void ProviderDB::loadProviderInfo() {
   QString fname = KStandardDirs::locate("appdata", prov);
   kDebug(5002) << "Providerfile=" << fname << endl;
 
-  cfg = new KSimpleConfig(fname, true);
+  cfg = new KConfig(fname, KConfig::OnlyLocal);
 }
 
 
@@ -234,9 +234,8 @@ PDB_Country::PDB_Country(QWidget *parent) : QWidget(parent) {
         QString dirFile(fi.absoluteFilePath()+"/.directory");
         QString entryName;
         if(QFile::exists(dirFile)){
-          KSimpleConfig config(dirFile);
-          config.setDesktopGroup();
-          entryName = config.readEntry("Name");
+          KDesktopFile config(dirFile);
+          entryName = config.readName();
         }
         if (entryName.isNull()) entryName = fi.fileName();
 	countries.insert(entryName, fi.fileName());
