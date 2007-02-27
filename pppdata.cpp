@@ -1434,7 +1434,7 @@ void PPPData::graphingOptions(bool &enable,
 bool PPPData::graphingEnabled() {
   if(config) {
     config->setGroup(GRAPH_GRP);
-    return config->readEntry(GENABLED, QVariant(true)).toBool();
+    return config->readEntry(GENABLED, true);
   }
   else return true;
 }
