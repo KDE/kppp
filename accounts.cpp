@@ -332,7 +332,7 @@ void AccountWidget::deleteaccount() {
   QString s = i18n("Are you sure you want to delete\nthe account \"%1\"?",
      accountlist_l->text(accountlist_l->currentItem()));
 
-  if(KMessageBox::warningYesNo(this, s, i18n("Confirm"), KGuiItem(i18n("Delete"), "editdelete"), KStandardGuiItem::cancel()) != KMessageBox::Yes)
+  if(KMessageBox::warningYesNo(this, s, i18n("Confirm"), KGuiItem(i18n("Delete"), "edit-delete"), KStandardGuiItem::cancel()) != KMessageBox::Yes)
     return;
 
   if(gpppdata.deleteAccount(accountlist_l->text(accountlist_l->currentItem())))

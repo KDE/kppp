@@ -63,7 +63,7 @@ MiniTerm::MiniTerm(QWidget *parent, const char *name)
   KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
 
   m_file = new QMenu(this);
-  m_file->addAction( SmallIcon("fileclose"), i18n("&Close"), this, SLOT(cancelbutton()) );
+  m_file->addAction( SmallIcon("window-close"), i18n("&Close"), this, SLOT(cancelbutton()) );
   m_options = new QMenu(this);
   m_options->addAction(i18n("&Reset Modem"),this,SLOT(resetModem()));
   m_help =
@@ -114,9 +114,9 @@ MiniTerm::~MiniTerm() {
 void MiniTerm::setupToolbar() {
   toolbar = new KToolBar( this );
 
-  toolbar->addAction( KIcon("exit"), i18n("Close MiniTerm"), this, SLOT(cancelbutton()));
-  toolbar->addAction( KIcon("back"), i18n("Reset Modem"), this, SLOT(resetModem()));
-  toolbar->addAction( KIcon("help"), i18n("Help"), this, SLOT(help()));
+  toolbar->addAction( KIcon("application-exit"), i18n("Close MiniTerm"), this, SLOT(cancelbutton()));
+  toolbar->addAction( KIcon("go-previous"), i18n("Reset Modem"), this, SLOT(resetModem()));
+  toolbar->addAction( KIcon("help-contents"), i18n("Help"), this, SLOT(help()));
 
   toolbar->setMovable(false);
 }

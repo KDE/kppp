@@ -72,7 +72,7 @@ TopWidget::TopWidget() : KMainWindow(0, "") {
     // create menu
     mb = new KMenuBar(this);
     Q3PopupMenu *fm = new Q3PopupMenu;
-    fm->insertItem(QIcon(SmallIcon("exit")),KStandardGuiItem::quit().text(), F_EXIT);
+    fm->insertItem(QIcon(SmallIcon("application-exit")),KStandardGuiItem::quit().text(), F_EXIT);
     fm->setTitle(i18n("&File"));
     mb->addMenu(fm);
 
