@@ -489,14 +489,14 @@ int PPPData::newmodem() {
 
 int PPPData::copymodem(int i) {
 
-  config->setGroup(cmodemgroup);
+  KConfigGroup group = config->group(cmodemgroup);
 
   if(modemhighcount >= MAX_MODEMS)
     return -1;
 
   setModemByIndex(i);
 
-  QMap <QString, QString> map = config->entryMap(cmodemgroup);
+  QMap <QString, QString> map = group.entryMap();
   QMap <QString, QString>::ConstIterator it = map.begin();
 
   QString newname = i18n("%1_copy", modname());
@@ -504,8 +504,8 @@ int PPPData::copymodem(int i) {
   newmodem();
 
   while (it != map.end()) {
-	config->setGroup(cmodemgroup);
-    config->writeEntry(it.key(), *it);
+	group = config->group(cmodemgroup);
+    group.writeEntry(it.key(), *it);
     it++;
   }
 
@@ -1399,12 +1399,12 @@ void PPPData::setGraphingOptions(bool enable,
 				 QColor out)
 {
   if(config) {
-    config->setGroup(GRAPH_GRP);
-    config->writeEntry(GENABLED, enable);
-    config->writeEntry(GCOLOR_BG, bg);
-    config->writeEntry(GCOLOR_TEXT, text);
-    config->writeEntry(GCOLOR_IN, in);
-    config->writeEntry(GCOLOR_OUT, out);
+    KConfigGroup group = config->group(GRAPH_GRP);
+    group.writeEntry(GENABLED, enable);
+    group.writeEntry(GCOLOR_BG, bg);
+    group.writeEntry(GCOLOR_TEXT, text);
+    group.writeEntry(GCOLOR_IN, in);
+    group.writeEntry(GCOLOR_OUT, out);
   }
 }
 
@@ -1417,16 +1417,16 @@ void PPPData::graphingOptions(bool &enable,
   QColor c;
 
   if(config) {
-    config->setGroup(GRAPH_GRP);
-    enable = config->readEntry(GENABLED,true);
+    KConfigGroup group = config->group(GRAPH_GRP);
+    enable = group.readEntry(GENABLED,true);
     c = Qt::white;
-    bg = config->readEntry(GCOLOR_BG, c);
+    bg = group.readEntry(GCOLOR_BG, c);
     c = Qt::black;
-    text = config->readEntry(GCOLOR_TEXT, c);
+    text = group.readEntry(GCOLOR_TEXT, c);
     c = Qt::blue;
-    in = config->readEntry(GCOLOR_IN, c);
+    in = group.readEntry(GCOLOR_IN, c);
     c = Qt::red;
-    out = config->readEntry(GCOLOR_OUT, c);
+    out = group.readEntry(GCOLOR_OUT, c);
   }
 }
 
