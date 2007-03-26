@@ -29,7 +29,7 @@
 #include <qobject.h>
 //Added by qt3to4:
 #include <QTimerEvent>
-#include <kprocess.h>
+#include <k3process.h>
 #include "ruleset.h"
 
 class PPPStats;
@@ -131,13 +131,13 @@ public slots:
   virtual void slotStop();
 
 private slots:
-  void gotData(KProcess *proc, char *buffer, int buflen);
+  void gotData(K3Process *proc, char *buffer, int buflen);
 
 signals:
   void changed(QString total, QString session);
 
 private:
-  KProcess *proc;
+  K3Process *proc;
   QString currency;
   QString provider;
   PPPStats *stats;
