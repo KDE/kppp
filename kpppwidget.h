@@ -73,7 +73,7 @@ public:
   virtual bool eventFilter(QObject *, QEvent *);
 
   void setQuitOnDisconnect (bool b);
-  bool quitOnDisconnect () {return m_bQuitOnDisconnect;};
+  bool quitOnDisconnect () {return m_bQuitOnDisconnect;}
 
 private slots:
   void newdefaultaccount(int);
@@ -103,7 +103,7 @@ public slots:
   void startAccounting();
   void stopAccounting();
   void showStats();
-  bool isConnected() const {return connected;};
+  bool isConnected() const {return connected;}
 signals:
   void begin_connect();
   void cmdl_start();

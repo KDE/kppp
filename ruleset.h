@@ -54,7 +54,7 @@ public:
   RuleSet();
 
   /// gcc needs a destructor (otherwise compiler error)
-  ~RuleSet() {};
+  ~RuleSet() {}
 
   /// returns the name of the ruleset
   QString name() const;

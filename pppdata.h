@@ -169,7 +169,7 @@ class KConfig;
 class PPPData {
 public:
   PPPData();
-  ~PPPData() {};
+  ~PPPData() {}
 
   enum { NumInitStrings = 2 };
 

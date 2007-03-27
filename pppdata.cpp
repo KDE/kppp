@@ -168,8 +168,7 @@ QString PPPData::readConfig(const QString &group, const QString &key,
                             const QString &defvalue = "")
 {
   if (config) {
-    config->setGroup(group);
-    return config->readEntry(key, defvalue);
+    return config->group(group).readEntry(key, defvalue);
   } else
     return defvalue;
 }
@@ -178,8 +177,7 @@ QString PPPData::readConfig(const QString &group, const QString &key,
 int PPPData::readNumConfig(const QString &group, const QString &key,
 			   int defvalue) {
   if (config) {
-    config->setGroup(group);
-    return config->readEntry(key, defvalue);
+    return config->group(group).readEntry(key, defvalue);
   } else
     return defvalue;
 
@@ -190,8 +188,7 @@ bool PPPData::readListConfig(const QString &group, const QString &key,
                              QStringList &list, char sep) {
   list.clear();
   if (config) {
-    config->setGroup(group);
-    list = config->readEntry(key, QStringList(),sep);
+    list = config->group(group).readEntry(key, QStringList(),sep);
     return true;
   } else
     return false;
@@ -201,16 +198,14 @@ bool PPPData::readListConfig(const QString &group, const QString &key,
 void PPPData::writeConfig(const QString &group, const QString &key,
 			  const QString &value) {
   if (config) {
-    config->setGroup(group);
-    config->writeEntry(key, value);
+    config->group(group).writeEntry(key, value);
   }
 }
 
 
 void PPPData::writeConfig(const QString &group, const QString &key, int value) {
   if (config) {
-    config->setGroup(group);
-    config->writeEntry(key, value);
+    config->group(group).writeEntry(key, value);
   }
 }
 
@@ -218,8 +213,7 @@ void PPPData::writeConfig(const QString &group, const QString &key, int value) {
 void PPPData::writeListConfig(const QString &group, const QString &key,
                               QStringList &list, char sep) {
   if (config) {
-    config->setGroup(group);
-    config->writeEntry(key, list, sep);
+    config->group(group).writeEntry(key, list, sep);
   }
 }
 

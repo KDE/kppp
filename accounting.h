@@ -48,12 +48,12 @@ public:
   virtual double total() const;
   virtual double session() const;
 
-  virtual bool running() const { return false; };
+  virtual bool running() const { return false; }
   virtual bool loadRuleSet(const QString & name) = 0;
 
 public slots:
-  virtual void slotStart() {};
-  virtual void slotStop() {};
+  virtual void slotStart() {}
+  virtual void slotStop() {}
 
 signals:
   void changed(QString total, QString session);
