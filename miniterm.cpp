@@ -26,7 +26,7 @@
 #include <sys/ioctl.h>
 #include <termios.h>
 #include <sys/types.h>
-#include <kwin.h>
+#include <kwm.h>
 #include <khelpmenu.h>
 #include <kiconloader.h>
 #include "pppdata.h"
@@ -60,7 +60,7 @@ MiniTerm::MiniTerm(QWidget *parent, const char *name)
   setObjectName(name);
   setModal(true);
   setWindowTitle(i18n("Kppp Mini-Terminal"));
-  KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
+  KWM::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
 
   m_file = new QMenu(this);
   m_file->addAction( SmallIcon("window-close"), i18n("&Close"), this, SLOT(cancelbutton()) );

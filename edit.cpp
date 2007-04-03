@@ -40,7 +40,7 @@
 #include <klocale.h>
 #include <q3hbox.h>
 #include <kdialog.h>
-#include <kwin.h>
+#include <kwm.h>
 
 #include "edit.h"
 #include "pppdata.h"
@@ -1218,7 +1218,7 @@ PhoneNumberDialog::PhoneNumberDialog(QWidget *parent)
     setButtons( Ok|Cancel );
     setDefaultButton( Ok );
     setModal( true );
-  KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
+  KWM::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
 
   QWidget *hbox = new QWidget(this);
   QHBoxLayout *hboxLayout2 = new QHBoxLayout(hbox);

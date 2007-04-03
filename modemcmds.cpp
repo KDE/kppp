@@ -35,7 +35,7 @@
 #include <klocale.h>
 #include "modemcmds.h"
 #include "pppdata.h"
-#include <kwin.h>
+#include <kwm.h>
 #include <Q3Frame>
 #include <q3groupbox.h>
 #include <qlineedit.h>
@@ -57,7 +57,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
     setButtons( Ok|Cancel );
     setDefaultButton( Ok );
     setModal( true );
-  KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
+  KWM::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
   QWidget *dummyWidget = new QWidget(this);
   setMainWidget(dummyWidget);
 

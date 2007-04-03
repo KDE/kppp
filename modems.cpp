@@ -39,7 +39,7 @@
 #include <kmessagebox.h>
 #include <klocale.h>
 #include <kglobal.h>
-#include <kwin.h>
+#include <kwm.h>
 #include <kpagedialog.h>
 #include <kiconloader.h>
 
@@ -218,7 +218,7 @@ int ModemsWidget::doTab(){
   tabWindow->setButtons( KDialog::Ok|KDialog::Cancel );
   tabWindow->setDefaultButton( KDialog::Ok );
   tabWindow->setFaceType( KPageDialog::Tabbed );
-  KWin::setIcons(tabWindow->winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
+  KWM::setIcons(tabWindow->winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
   bool isnewmodem;
 
   if(gpppdata.modname().isEmpty()) {

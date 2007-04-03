@@ -34,7 +34,7 @@
 #include <QEvent>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <kwin.h>
+#include <kwm.h>
 #include <kiconloader.h>
 #include <kapplication.h>
 #include <klocale.h>
@@ -64,7 +64,7 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
   setObjectName(name);
 
   setWindowTitle(i18n("kppp Statistics"));
-  KWin::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
+  KWM::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
 
   QVBoxLayout *tl = new QVBoxLayout(this);
   tl->setSpacing(10);
@@ -433,7 +433,7 @@ void PPPStatsDlg::update_data() {
 
 
 void PPPStatsDlg::toCurrentDesktop() {
-  KWin::setOnDesktop(winId(), KWin::currentDesktop());
+  KWM::setOnDesktop(winId(), KWM::currentDesktop());
 }
 
 #include "pppstatdlg.moc"

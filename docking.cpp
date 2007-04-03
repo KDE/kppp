@@ -24,7 +24,7 @@
  * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <kwin.h>
+#include <kwm.h>
 #include <klocale.h>
 #include <kiconloader.h>
 #include <kmenu.h>
@@ -137,7 +137,7 @@ void DockWidget::toggle_window_state() {
       p_kppp->con_win->hide();
     else {
       p_kppp->con_win->show();
-      KWin::activateWindow(p_kppp->con_win->winId());
+      KWM::activateWindow(p_kppp->con_win->winId());
     }
   }
 }
