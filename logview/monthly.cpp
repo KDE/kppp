@@ -594,7 +594,7 @@ void MonthlyWidget::exportWizard() {
 	costsMonth(costs, costs);
 	QString m_costs(KGlobal::locale()->formatMoney(costs, QString::null, 2));
 
-	QString datetime = KGlobal::locale()->formatDateTime( QDateTime::currentDateTime(), true);
+	QString datetime = KGlobal::locale()->formatDateTime( QDateTime::currentDateTime(), KLocale::ShortDate);
 
 	exportIFace->addEmptyLine();
 	exportIFace->addDataline(i18n("Monthly estimates (%1)", datetime),
