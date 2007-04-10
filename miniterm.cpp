@@ -43,7 +43,7 @@
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qtimer.h>
-#include <q3popupmenu.h>
+#include <QMenu>
 //Added by qt3to4:
 #include <QVBoxLayout>
 #include <Q3Frame>
