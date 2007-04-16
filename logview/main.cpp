@@ -48,7 +48,7 @@ static KCmdLineOptions option[] =
 };
 
 
-TopWidget::TopWidget() : KMainWindow(0, "") {
+TopWidget::TopWidget() : KXmlGuiWindow(0) {
   // Check command line args for "-kppp"
 
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
