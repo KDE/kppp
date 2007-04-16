@@ -24,9 +24,9 @@
 #include <stdio.h>
 
 #include <QProgressDialog>
+#include <QApplication>
 #include <qdir.h>
 
-#include <kapplication.h>
 #include <klocale.h>
 #include <kstandarddirs.h>
 #include <kdebug.h>
@@ -96,7 +96,7 @@ int loadLog(const QString &fname) {
       continue;
     
     dlg->setValue(dlg->value() + slen);
-    kapp->processEvents();
+    qApp->processEvents();
 
     LogInfo *li = new LogInfo(buffer);    
     if(li->error()) {

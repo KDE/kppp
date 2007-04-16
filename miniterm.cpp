@@ -35,10 +35,10 @@
 #include <klocale.h>
 #include <kmenu.h>
 #include <kglobalsettings.h>
-#include <kapplication.h>
 #include <kmenubar.h>
 #include <kicon.h>
 #include <KStandardGuiItem>
+#include <kapplication.h>
 #include <kguiitem.h>
 #include <qlayout.h>
 #include <qlabel.h>
@@ -125,7 +125,7 @@ void MiniTerm::setupToolbar() {
 void MiniTerm::init() {
   inittimer->stop();
   statusbar->setText(i18n("Initializing Modem"));
-  kapp->processEvents();
+  qApp->processEvents();
 
   int lock = Modem::modem->lockdevice();
   if (lock == 1) {
@@ -153,8 +153,8 @@ void MiniTerm::init() {
       statusbar->setText(i18n("Modem Ready"));
       terminal->setFocus();
 
-      kapp->processEvents();
-      kapp->processEvents();
+      qApp->processEvents();
+      qApp->processEvents();
 
       Modem::modem->notify(this, SLOT(readChar(unsigned char)));
       return;
@@ -192,7 +192,7 @@ void MiniTerm::cancelbutton() {
   Modem::modem->stop();
 
   statusbar->setText(i18n("Hanging up..."));
-  kapp->processEvents();
+  qApp->processEvents();
   KApplication::flush();
 
   Modem::modem->hangup();
@@ -207,7 +207,7 @@ void MiniTerm::cancelbutton() {
 void MiniTerm::resetModem() {
   statusbar->setText(i18n("Resetting Modem"));
   terminal->newLine();
-  kapp->processEvents();
+  qApp->processEvents();
   KApplication::flush();
 
   Modem::modem->hangup();

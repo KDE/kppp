@@ -29,8 +29,8 @@
 //Added by qt3to4:
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QApplication>
 #include <kwm.h>
-#include <kapplication.h>
 #include "pppdargs.h"
 #include "pppdata.h"
 #include <klocale.h>

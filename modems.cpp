@@ -34,8 +34,7 @@
 #include <q3tabdialog.h>
 
 #include <qmessagebox.h>
-
-#include <kapplication.h>
+#include <QApplication>
 #include <kmessagebox.h>
 #include <klocale.h>
 #include <kglobal.h>

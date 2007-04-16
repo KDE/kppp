@@ -42,7 +42,6 @@
 
 #include <QMenu>
 #include <kaboutdata.h>
-#include <kapplication.h>
 #include <kglobalsettings.h>
 #include <kcmdlineargs.h>
 #include <kconfig.h>
@@ -52,6 +51,7 @@
 #include <kmessagebox.h>
 #include <kseparator.h>
 #include <kstandarddirs.h>
+#include <kapplication.h>
 #include <kwm.h>
 #include <khelpmenu.h>
 #include <kpushbutton.h>
@@ -854,13 +854,13 @@ void KPPPWidget::disconnect() {
   if (!gpppdata.command_before_disconnect().isEmpty()) {
     con->setMsg(i18n("Executing command before disconnection."));
 
-    kapp->processEvents();
+    qApp->processEvents();
     QApplication::flush();
     pid_t id = execute_command(gpppdata.command_before_disconnect());
     int i, status;
 
     do {
-      kapp->processEvents();
+      qApp->processEvents();
       i = waitpid(id, &status, WNOHANG);
       usleep(500000);
     } while (i == 0 && errno == 0);
@@ -869,7 +869,7 @@ void KPPPWidget::disconnect() {
   con->setMsg(i18n("Announcing disconnection."));
 
   // this is no longer necessary since I'm delaying disconnection usign a QTimer
-  //  kapp->processEvents();
+  //  qApp->processEvents();
 
   // set the timer to call delayedDisconnect() in DISCONNECT_DELAY ms
   disconnectTimer->setSingleShot(true);
@@ -938,7 +938,7 @@ void KPPPWidget::quitbutton() {
       gpppdata.setStoredPassword("");
   }
   gpppdata.save();
-  kapp->quit();
+  qApp->quit();
 }
 
 

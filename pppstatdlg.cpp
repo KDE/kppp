@@ -34,9 +34,9 @@
 #include <QEvent>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QApplication>
 #include <kwm.h>
 #include <kiconloader.h>
-#include <kapplication.h>
 #include <klocale.h>
 #include <qlabel.h>
 #include <q3frame.h>

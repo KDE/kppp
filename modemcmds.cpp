@@ -31,12 +31,12 @@
 #include <QHBoxLayout>
 #include <QGridLayout>
 #include <stdlib.h>
-#include <kapplication.h> // for getMiniIcon()
 #include <klocale.h>
 #include "modemcmds.h"
 #include "pppdata.h"
 #include <kwm.h>
 #include <Q3Frame>
+#include <QApplication>
 #include <q3groupbox.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>

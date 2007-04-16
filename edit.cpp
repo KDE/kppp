@@ -31,14 +31,13 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QApplication>
 #include <kmessagebox.h>
 
 #include <qregexp.h>
-#include <kapplication.h>
 #include <kiconloader.h>
 #include <kdialogbuttonbox.h>
 #include <klocale.h>
-#include <q3hbox.h>
 #include <kdialog.h>
 #include <kwm.h>
 

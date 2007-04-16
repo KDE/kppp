@@ -37,12 +37,12 @@
 #include <Q3CString>
 #include <QCloseEvent>
 
-#include <kapplication.h>
 #include <kdefakes.h> // gethostname
 #include <kdebug.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kpushbutton.h>
+#include <kapplication.h>
 
 #include <unistd.h>
 #include <stdlib.h>
@@ -168,7 +168,7 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   pausetimer = new QTimer(this);
   connect(pausetimer, SIGNAL(timeout()), SLOT(pause()));
 
-  kapp->processEvents();
+  qApp->processEvents();
 
   timeout_timer = new QTimer(this);
   connect(timeout_timer, SIGNAL(timeout()), SLOT(script_timed_out()));
@@ -236,7 +236,7 @@ void ConnectWidget::init() {
   QString tit = i18n("Connecting to: %1", gpppdata.accname());
   setWindowTitle(tit);
 
-  kapp->processEvents();
+  qApp->processEvents();
 
   // signal other applications that we are about to get connected
   emit aboutToConnect();
@@ -245,13 +245,13 @@ void ConnectWidget::init() {
     messg->setText(i18n("Running pre-startup command..."));
     emit debugMessage(i18n("Running pre-startup command..."));
 
-    kapp->processEvents();
+    qApp->processEvents();
     QApplication::flush();
     pid_t id = execute_command(gpppdata.command_before_connect());
     int i, status;
 
     do {
-      kapp->processEvents();
+      qApp->processEvents();
       i = waitpid(id, &status, WNOHANG);
       usleep(100000);
     } while (i == 0 && errno == 0);
@@ -273,10 +273,10 @@ void ConnectWidget::init() {
 
   if(Modem::modem->opentty()) {
     messg->setText(Modem::modem->modemMessage());
-    kapp->processEvents();
+    qApp->processEvents();
     if(Modem::modem->hangup()) {
 
-      kapp->processEvents();
+      qApp->processEvents();
 
       semaphore = false;
 
@@ -963,7 +963,7 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 	messg->setText("");
 	p_kppp->quit_b->setFocus();
 	p_kppp->show();
-	kapp->processEvents();
+	qApp->processEvents();
 	Modem::modem->hangup();
 	emit stopAccounting();
 	p_kppp->con_win->stopClock();
@@ -1088,7 +1088,7 @@ void ConnectWidget::cancelbutton() {
   Requester::rq->removeSecret(AUTH_CHAP);
   removedns();
 
-  kapp->processEvents();
+  qApp->processEvents();
 
   Requester::rq->killPPPDaemon();
   Modem::modem->hangup();

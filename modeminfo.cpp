@@ -32,9 +32,9 @@
 #include <QHBoxLayout>
 #include <QGridLayout>
 #include <QCloseEvent>
+#include <QApplication>
 #include <kwm.h>
 #include <kmessagebox.h>
-#include <kapplication.h>
 #include <kpushbutton.h>
 #include "modeminfo.h"
 #include "modem.h"
@@ -134,7 +134,7 @@ void ModemTransfer::time_out_slot() {
 
 void ModemTransfer::init() {
 
-  kapp->processEvents();
+  qApp->processEvents();
 
   int lock = Modem::modem->lockdevice();
   if (lock == 1) {
@@ -156,9 +156,9 @@ void ModemTransfer::init() {
       Modem::modem->writeLine("ATE0Q1V1"); // E0 don't echo the commands I send ...
 
       statusBar->setText(i18n("Modem Ready"));
-      kapp->processEvents();
+      qApp->processEvents();
       usleep(100000);  // wait 0.1 secs
-      kapp->processEvents();
+      qApp->processEvents();
       scripttimer->start(1000);	 	// this one does the ati query
 
       // clear modem buffer
@@ -237,7 +237,7 @@ void ModemTransfer::cancelbutton() {
   timeout_timer->stop();
 
   statusBar->setText(i18n("One moment please..."));
-  kapp->processEvents();
+  qApp->processEvents();
 
   Modem::modem->hangup();
 
