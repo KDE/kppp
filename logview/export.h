@@ -29,7 +29,7 @@
 #include <qlabel.h>
 #include <q3listbox.h>
 #include <qlineedit.h>
-#include <qtooltip.h>
+
 
 #include <k3wizard.h>
 #include <klocale.h>
