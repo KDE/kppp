@@ -33,7 +33,7 @@
 #include <QGridLayout>
 #include <QCloseEvent>
 #include <QApplication>
-#include <kwm.h>
+#include <kwindowsystem.h>
 #include <kmessagebox.h>
 #include <kpushbutton.h>
 #include "modeminfo.h"
@@ -48,7 +48,7 @@ ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
   setModal(true);
   setWindowFlags(Qt::WStyle_Customize|Qt::WStyle_NormalBorder);
   setWindowTitle(i18n("ATI Query"));
-  KWM::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
+  KWindowSystem::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
 
   QVBoxLayout *tl = new QVBoxLayout(this);
   tl->setSpacing(10);
@@ -262,7 +262,7 @@ ModemInfo::ModemInfo(QWidget *parent, const char* name)
   QString label_text;
 
   setWindowTitle(i18n("Modem Query Results"));
-  KWM::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
+  KWindowSystem::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
 
   QVBoxLayout *tl = new QVBoxLayout(this);
   tl->setSpacing(10);

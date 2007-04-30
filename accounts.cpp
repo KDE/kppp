@@ -38,7 +38,7 @@
 #include <kmessagebox.h>
 #include <klocale.h>
 #include <kglobal.h>
-#include <kwm.h>
+#include <kwindowsystem.h>
 #include <kpagedialog.h>
 #include <KStandardGuiItem>
 //#include <qvgroupbox.h>
@@ -351,7 +351,7 @@ int AccountWidget::doTab(){
   tabWindow->setButtons( KDialog::Ok|KDialog::Cancel );
   tabWindow->setDefaultButton( KDialog::Ok );
   tabWindow->setModal( true );
-  KWM::setIcons(tabWindow->winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
+  KWindowSystem::setIcons(tabWindow->winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
   bool isnewaccount;
 
   if(gpppdata.accname().isEmpty()) {
@@ -470,7 +470,7 @@ QString AccountWidget::prettyPrintVolume(unsigned int n) {
 //
 /////////////////////////////////////////////////////////////////////////////
 QueryReset::QueryReset(QWidget *parent) : KDialog(parent) {
-  KWM::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
+  KWindowSystem::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
   setWindowTitle(i18n("Reset Accounting"));
 
   QVBoxLayout *tl = new QVBoxLayout(this);

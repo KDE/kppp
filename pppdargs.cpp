@@ -30,7 +30,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QApplication>
-#include <kwm.h>
+#include <kwindowsystem.h>
 #include "pppdargs.h"
 #include "pppdata.h"
 #include <klocale.h>
@@ -49,7 +49,7 @@ PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
   setObjectName(name);
 
   setWindowTitle(i18n("Customize pppd Arguments"));
-  KWM::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
+  KWindowSystem::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
   QVBoxLayout *l = new QVBoxLayout(this);
   l->setSpacing(10);
   l->setMargin(10);
