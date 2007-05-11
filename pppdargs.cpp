@@ -49,8 +49,10 @@ PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
   setObjectName(name);
 
   setWindowTitle(i18n("Customize pppd Arguments"));
+  QWidget *widget = new QWidget(this);
+  setMainWidget(widget);
   KWindowSystem::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
-  QVBoxLayout *l = new QVBoxLayout(this);
+  QVBoxLayout *l = new QVBoxLayout(widget);
   l->setSpacing(10);
   l->setMargin(10);
   QHBoxLayout *tl = new QHBoxLayout();
@@ -65,10 +67,10 @@ PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
   l11->setSpacing( 10 );
   l1->addLayout(l11);
 
-  argument_label = new QLabel(i18n("Arg&ument:"), this);
+  argument_label = new QLabel(i18n("Arg&ument:"), widget);
   l11->addWidget(argument_label);
 
-  argument = new QLineEdit(this);
+  argument = new QLineEdit(widget);
   argument_label->setBuddy(argument);
   connect(argument, SIGNAL(returnPressed()),
 	  SLOT(addbutton()));
@@ -76,22 +78,22 @@ PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
   connect(argument, SIGNAL(textChanged(const QString &)),
 	  this, SLOT(textChanged(const QString &)));
 
-  arguments = new Q3ListBox(this);
+  arguments = new Q3ListBox(widget);
   arguments->setMinimumSize(1, fontMetrics().lineSpacing()*10);
   connect(arguments, SIGNAL(highlighted(int)),
 	  this, SLOT(itemSelected(int)));
   l1->addWidget(arguments, 1);
 
-  add = new QPushButton(i18n("&Add"), this);
+  add = new QPushButton(i18n("&Add"), widget);
   connect(add, SIGNAL(clicked()), SLOT(addbutton()));
   l2->addWidget(add);
   l2->addStretch(1);
 
-  remove = new QPushButton(i18n("&Remove"), this);
+  remove = new QPushButton(i18n("&Remove"), widget);
   connect(remove, SIGNAL(clicked()), SLOT(removebutton()));
   l2->addWidget(remove);
 
-  defaults = new KPushButton(KStandardGuiItem::defaults(), this);
+  defaults = new KPushButton(KStandardGuiItem::defaults(), widget);
   connect(defaults, SIGNAL(clicked()), SLOT(defaultsbutton()));
   l2->addWidget(defaults);
 
