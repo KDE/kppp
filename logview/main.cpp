@@ -21,7 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <kapplication.h>
-#include <q3popupmenu.h>
+#include <QMenu>
 #include "log.h"
 #include "monthly.h"
 #include "main.h"
@@ -32,9 +32,6 @@
 #include <KStandardGuiItem>
 #include <kiconloader.h>
 #include <kguiitem.h>
-
-#define F_EXIT     101
-
 
 static const char description[] =
 	I18N_NOOP("KPPP log viewer");
@@ -58,28 +55,27 @@ TopWidget::TopWidget() : KXmlGuiWindow(0) {
   setCaption(i18n("KPPP Log Viewer"));
 
   w = new QWidget(this);
-
   QBoxLayout *l = new QVBoxLayout(w);
   l->setSpacing(5);
 
   td = new QTabWidget(w, "");
   mw = new MonthlyWidget();
   td->addTab(mw, i18n("Monthly Log"));
-  l->addWidget(td);
 
   // remove buttons
   if(!kpppmode) {
     // create menu
-    mb = new KMenuBar(this);
-    Q3PopupMenu *fm = new Q3PopupMenu;
-    fm->insertItem(QIcon(SmallIcon("application-exit")),KStandardGuiItem::quit().text(), F_EXIT);
+    mb = new KMenuBar;
+    l->addWidget(mb);
+    l->addWidget(td);
+    QMenu *fm = new QMenu;
+    QAction *action = fm->addAction(QIcon(SmallIcon("application-exit")), KStandardGuiItem::quit().text());
+    action->setShortcut(Qt::CTRL + Qt::Key_Q);
+    connect(action,SIGNAL(triggered()), this, SLOT(slotExit()));
     fm->setTitle(i18n("&File"));
     mb->addMenu(fm);
-
-    mb->setAccel(Qt::CTRL + Qt::Key_Q, F_EXIT);
-    connect(mb, SIGNAL(activated(int)),
-	    this, SLOT(menuCallback(int)));
   } else {
+    l->addWidget(td);
     mb = 0;
     QPushButton *but = new KPushButton(KStandardGuiItem::close(),w);
     QHBoxLayout *lh = new QHBoxLayout();
@@ -99,12 +95,8 @@ TopWidget::TopWidget() : KXmlGuiWindow(0) {
 TopWidget::~TopWidget() {
 }
 
-void TopWidget::menuCallback(int id) {
-  switch(id) {
-  case F_EXIT:
+void TopWidget::slotExit(){
     exit(0);
-    break;
-  }
 }
 
 int main(int argc, char **argv) {

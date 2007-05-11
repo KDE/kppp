@@ -33,7 +33,7 @@ public:
   ~TopWidget();
 
 private slots:
-  void menuCallback(int);
+  void slotExit();
 
 private:
   MonthlyWidget *mw;
