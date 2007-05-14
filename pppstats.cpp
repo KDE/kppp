@@ -70,7 +70,7 @@
    #include <linux/if.h>
    #include <linux/if_ppp.h>
   #endif
-//  #else
+ #else
   #include <net/if.h>
   #include <net/if_ppp.h>
  #endif
