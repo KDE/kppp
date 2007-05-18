@@ -473,15 +473,20 @@ QueryReset::QueryReset(QWidget *parent) : KDialog(parent) {
   KWindowSystem::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
   setWindowTitle(i18n("Reset Accounting"));
 
-  QVBoxLayout *tl = new QVBoxLayout(this);
-  tl->setSpacing(10);
-  tl->setMargin(10);
-  Q3GroupBox *f = new Q3GroupBox(1, Qt::Horizontal,i18n("What to Reset"), this);
+  QWidget *w = new QWidget(this);
+  setMainWidget(w);
+  QVBoxLayout *tl = new QVBoxLayout;
+  w->setLayout(tl);
+  tl->setSpacing(0);
+  tl->setMargin(0);
+  
+  QGroupBox *f = new QGroupBox(i18n("What to Reset"));
+  tl->addWidget(f);
 
-  QVBoxLayout *l1 = new QVBoxLayout(parent);
-  l1->setSpacing(10);
-  l1->setMargin(10);
-  costs = new QCheckBox(i18n("Reset the accumulated p&hone costs"), f);
+  QVBoxLayout *l1 = new QVBoxLayout;
+  f->setLayout(l1);
+
+  costs = new QCheckBox(i18n("Reset the accumulated p&hone costs"));
   costs->setChecked(true);
   l1->addWidget(costs);
   costs->setWhatsThis( i18n("Check this to set the phone costs\n"
