@@ -64,10 +64,13 @@ static void formatDuration(int seconds, QString &result) {
   QString sec;
   sec.sprintf("%02d", seconds%60);
   if(seconds < 60)
+    // xgettext: no-c-format
     result = i18n("%1s", sec);
   else if(seconds < 3600)
+    // xgettext: no-c-format
     result = i18n("%1m %2s", seconds/60, sec);
   else
+    // xgettext: no-c-format
     result = i18n("%1h %2m %3s",
          seconds/3600,
          (seconds % 3600)/60,
@@ -85,10 +88,13 @@ static void formatDurationMonth(int seconds, QString &result) {
 	QString sec;
 	sec.sprintf("%02d", seconds%60);
 	if(seconds < 60)
+		// xgettext: no-c-format
 		result = i18n("%1s", sec);
 	else if(seconds < 3600)
+		// xgettext: no-c-format
 		result = i18n("%1m %2s", seconds/60, sec);
 	else
+		// xgettext: no-c-format
 		result = i18n("%1h %2m %3s",
 			 seconds/3600,
 			 (seconds % 3600)/60,
