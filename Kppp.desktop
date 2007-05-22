@@ -67,4 +67,4 @@ Type=Application
 Terminal=false
 X-KDE-StartupNotify=true
 X-DCOP-ServiceType=Multi
-Categories=Qt;KDE;Network;
+Categories=Qt;KDE;Network;Dialup;

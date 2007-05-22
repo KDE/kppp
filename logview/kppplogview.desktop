@@ -73,4 +73,4 @@ Path=
 Type=Application
 Terminal=false
 X-DCOP-ServiceType=Multi
-Categories=Qt;KDE;Network;X-KDE-More;
+Categories=Qt;KDE;Network;X-KDE-More;Dialup;
