@@ -30,7 +30,8 @@
 #include "kpppconfig.h"
 #include <qobject.h>
 
-#ifdef __FreeBSD__
+#ifdef Q_OS_BSD4
+#include <sys/types.h>
 #include <sys/socket.h>
 #include <net/if.h>
 #include <net/if_ppp.h>
