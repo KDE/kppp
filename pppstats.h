@@ -30,6 +30,12 @@
 #include "kpppconfig.h"
 #include <qobject.h>
 
+#ifdef __FreeBSD__
+#include <sys/socket.h>
+#include <net/if.h>
+#include <net/if_ppp.h>
+#endif
+
 class QTimer;
 
 class PPPStats : public QObject {
