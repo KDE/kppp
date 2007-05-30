@@ -61,4 +61,4 @@ Type=Application
 Terminal=false
 X-KDE-StartupNotify=true
 X-DBUS-StartupType=Multi
-Categories=Qt;KDE;Network;
+Categories=Qt;KDE;Network;Dialup;

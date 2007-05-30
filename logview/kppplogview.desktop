@@ -65,4 +65,4 @@ Path=
 Type=Application
 Terminal=false
 X-DBUS-StartupType=Multi
-Categories=Qt;KDE;Network;X-KDE-More;
+Categories=Qt;KDE;Network;X-KDE-More;Dialup;
