@@ -40,7 +40,6 @@
 
 class QLineEdit;
 class QLabel;
-class QPushButton;
 class Q3GroupBox;
 
 class ModemCommands : public KDialog {

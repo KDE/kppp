@@ -38,7 +38,6 @@
 
 #include "kpppconfig.h"
 
-class KConfig;
 
 // string lengths
 

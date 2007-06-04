@@ -36,9 +36,7 @@
 #include "acctselect.h"
 
 class KPageDialog;
-class QCheckBox;
 class QLineEdit;
-class Q3TabDialog;
 class DialWidget;
 class ScriptWidget;
 class IPWidget;

@@ -46,7 +46,6 @@
 class GeneralWidget;
 class ModemsWidget;
 class ModemWidget;
-class ModemWidget2;
 class GraphSetup;
 class AboutWidget;
 class PPPStats;
