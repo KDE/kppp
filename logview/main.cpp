@@ -38,12 +38,6 @@ static const char description[] =
 
 static const char version[] = "v0.0.2";
 
-static KCmdLineOptions option[] =
-{
-   { "kppp", I18N_NOOP("Run in KPPP mode"), 0 },
-   KCmdLineLastOption
-};
-
 
 TopWidget::TopWidget() : KXmlGuiWindow(0) {
   // Check command line args for "-kppp"
@@ -100,13 +94,18 @@ void TopWidget::slotExit(){
 }
 
 int main(int argc, char **argv) {
-  KAboutData aboutData("kppplogview", I18N_NOOP("KPPP Log Viewer"),
-    version, description, KAboutData::License_GPL,
-    I18N_NOOP("(c) 1999-2002, The KPPP Developers"));
-  aboutData.addAuthor("Bernd Wuebben",0, "wuebben@kde.org");
-  aboutData.addAuthor("Mario Weilguni",0, "");
-  aboutData.addAuthor("Harri Porten",0, "porten@kde.org");
+  KAboutData aboutData("kppplogview", 0, ki18n("KPPP Log Viewer"),
+    version, ki18n(description), KAboutData::License_GPL,
+    ki18n("(c) 1999-2002, The KPPP Developers"));
+  aboutData.addAuthor(ki18n("Bernd Wuebben"),KLocalizedString(), "wuebben@kde.org");
+  aboutData.addAuthor(ki18n("Mario Weilguni"));
+  aboutData.addAuthor(ki18n("Harri Porten"),KLocalizedString(), "porten@kde.org");
   KCmdLineArgs::init(argc, argv, &aboutData);
+
+
+  KCmdLineOptions option;
+
+  option.add("kppp", ki18n("Run in KPPP mode"));
 
   KCmdLineArgs::addCmdLineOptions( option );
 

@@ -67,18 +67,6 @@
 static const char description[] =
 	I18N_NOOP("A dialer and front-end to pppd");
 
-static const KCmdLineOptions options[] =
-{
-   { "c <account_name>", I18N_NOOP("Connect using 'account_name'"), 0 },
-   { "m <modem_name>", I18N_NOOP("Connect using 'modem_name'"), 0 },
-   { "k", I18N_NOOP("Terminate an existing connection"), 0 },
-   { "q", I18N_NOOP("Quit after end of connection"), 0 },
-   { "r <rule_file>", I18N_NOOP("Check syntax of rule_file"), 0 },
-   { "T", I18N_NOOP("Enable test-mode"), 0 },
-   { "dev <device_name>", I18N_NOOP("Use the specified device"), 0 },
-   KCmdLineLastOption
-};
-
 
 KPPPWidget*	p_kppp;
 
@@ -202,14 +190,23 @@ int main( int argc, char **argv ) {
 
   (void) new Requester(sockets[0]);
 
-  KAboutData aboutData("kppp", I18N_NOOP("KPPP"),
-    KPPPVERSION, description, KAboutData::License_GPL,
-    I18N_NOOP("(c) 1999-2002, The KPPP Developers"));
-  aboutData.addAuthor("Harri Porten", I18N_NOOP("Current maintainer"), "porten@kde.org");
-  aboutData.addAuthor("Bernd Wuebben", I18N_NOOP("Original author"), "wuebben@kde.org");
-  aboutData.addAuthor("Mario Weilguni",0, "");
+  KAboutData aboutData("kppp", 0, ki18n("KPPP"),
+    KPPPVERSION, ki18n(description), KAboutData::License_GPL,
+    ki18n("(c) 1999-2002, The KPPP Developers"));
+  aboutData.addAuthor(ki18n("Harri Porten"), ki18n("Current maintainer"), "porten@kde.org");
+  aboutData.addAuthor(ki18n("Bernd Wuebben"), ki18n("Original author"), "wuebben@kde.org");
+  aboutData.addAuthor(ki18n("Mario Weilguni"));
 
   KCmdLineArgs::init( argc, argv, &aboutData );
+
+  KCmdLineOptions options;
+  options.add("c <account_name>", ki18n("Connect using 'account_name'"));
+  options.add("m <modem_name>", ki18n("Connect using 'modem_name'"));
+  options.add("k", ki18n("Terminate an existing connection"));
+  options.add("q", ki18n("Quit after end of connection"));
+  options.add("r <rule_file>", ki18n("Check syntax of rule_file"));
+  options.add("T", ki18n("Enable test-mode"));
+  options.add("dev <device_name>", ki18n("Use the specified device"));
   KCmdLineArgs::addCmdLineOptions( options );
 
 
