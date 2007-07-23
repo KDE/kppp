@@ -72,6 +72,6 @@ install(TARGETS kppp PERMISSIONS SETUID OWNER_EXECUTE OWNER_WRITE OWNER_READ GRO
 
 
 ########### install files ###############
-install( FILES org.kde.kppp.xml DESTINATION ${DBUS_INTERFACES_DIR} ) 
-install( FILES Kppp.desktop  DESTINATION ${XDG_APPS_DIR})
+install( FILES org.kde.kppp.xml DESTINATION ${DBUS_INTERFACES_INSTALL_DIR} ) 
+install( FILES Kppp.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR})
 
