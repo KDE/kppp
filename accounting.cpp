@@ -247,8 +247,9 @@ void Accounting::timerEvent(QTimerEvent *t) {
     // duration
     if((newCosts != _lastcosts) || (newLen != _lastlen)) {
 
-      kDebug(5002).form("SWITCHING RULES, new costs = %0.2f, new len = %0.2f\n",
-	     newCosts, newLen);
+      kDebug(5002) << "SWITCHING RULES, new costs = "
+                   << fixed << qSetRealNumberPrecision(2) << newCosts
+                   << "new len = " << newLen;
 
       killTimer(acct_timer_id);
       if(newLen > 0)
