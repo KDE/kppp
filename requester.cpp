@@ -130,7 +130,7 @@ int Requester::recvFD() {
 #else
     fd = *((int *) control.cmsg.cmsg_data);
 #endif
-    kDebug(5002) << "response.status: " << response.status << endl;
+    kDebug(5002) << "response.status: " << response.status;
     assert(response.status <= 0);
     if(response.status < 0)
       return response.status;
@@ -155,16 +155,16 @@ bool Requester::recvResponse() {
 
   iov.iov_base = IOV_BASE_CAST &response;
   iov.iov_len = sizeof(struct ResponseHeader);
-  kDebug(5002) << "recvResponse(): waiting for message" << endl;
+  kDebug(5002) << "recvResponse(): waiting for message";
   len = recvmsg(socket, &msg, flags);
-  kDebug(5002) << "recvResponse(): received message" << endl;
+  kDebug(5002) << "recvResponse(): received message";
   if (len <= 0) {
     if (errno == EINTR)
-      kDebug(5002) << "Interrupted system call. Continuing." << endl;
+      kDebug(5002) << "Interrupted system call. Continuing.";
     else
       perror("recvmsg failed");
   } else {
-    kDebug(5002) << "response.status: " << response.status << endl;
+    kDebug(5002) << "response.status: " << response.status;
   }
 
   lastStatus = response.status;
@@ -344,9 +344,9 @@ bool Requester::sendRequest(struct RequestHeader *request, int len) {
   msg.msg_iovlen = 1;
   msg.msg_control = 0L;
   msg.msg_controllen = 0;
-  kDebug(5002) << "sendRequest: trying to send msg type " << request->type << endl;
+  kDebug(5002) << "sendRequest: trying to send msg type " << request->type;
   sendmsg(socket, &msg, 0);
-  kDebug(5002) << "sendRequest: sent message" << endl;
+  kDebug(5002) << "sendRequest: sent message";
 
   return true;
 }
@@ -364,5 +364,5 @@ int Requester::indexDevice(const QString &dev) {
 
 
 void recv_timeout(int) {
-  kDebug(5002) << "timeout()" << endl;
+  kDebug(5002) << "timeout()";
 }

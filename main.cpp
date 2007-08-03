@@ -97,8 +97,8 @@ extern "C" {
       unlockdevice();*/
 
     XGetErrorText( dpy, err->error_code, errstr, 256 );
-    kFatal() << "X Error: " << errstr << endl;
-    kFatal() << "Major opcode: " << err->request_code << endl;
+    kFatal() << "X Error: " << errstr;
+    kFatal() << "Major opcode: " << err->request_code;
     exit(256);
     return 0;
   }
@@ -115,7 +115,7 @@ extern "C" {
       Modem::modem->unlockdevice();
       return 0;
     } else{
-      kFatal() << "Fatal IO error: client killed" << endl;
+      kFatal() << "Fatal IO error: client killed";
       exit(256);
       return 0;
     }
@@ -219,7 +219,7 @@ int main( int argc, char **argv ) {
   // open configuration file
   gpppdata.open();
 
-  kDebug(5002) << "helperPid: " << (int) helperPid << endl;
+  kDebug(5002) << "helperPid: " << (int) helperPid;
 
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
@@ -264,7 +264,7 @@ int main( int argc, char **argv ) {
 
     QString s = argv[2];
     urlEncode(s);
-    kDebug(5002) << s << endl;
+    kDebug(5002) << s;
 
     remove_pidfile();
     return 0;
@@ -325,7 +325,7 @@ pid_t execute_command (const QString & cmd) {
 
   pid_t id;
 
-  kDebug(5002) << "Executing command: " << command << endl;
+  kDebug(5002) << "Executing command: " << command;
 
   QApplication::flush();
   if((id = fork()) == 0) {
@@ -369,7 +369,7 @@ pid_t create_pidfile() {
       return -1;
     pidstr[sz] = '\0';
 
-    kDebug(5002) << "found kppp.pid containing: " << pidstr << endl;
+    kDebug(5002) << "found kppp.pid containing: " << pidstr;
 
     // non-empty file ?
     if (sz > 0) {
@@ -385,7 +385,7 @@ pid_t create_pidfile() {
         return oldpid;
     }
 
-    kDebug(5002) << "pidfile is stale\n" << endl;
+    kDebug(5002) << "pidfile is stale\n";
     remove_pidfile();
   }
 

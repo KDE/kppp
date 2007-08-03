@@ -319,12 +319,12 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 
   if(!m_strCmdlAccount.isEmpty()) {
     m_bCmdlAccount = true;
-    kDebug(5002) << "cmdl_account: " << m_bCmdlAccount << endl;
+    kDebug(5002) << "cmdl_account: " << m_bCmdlAccount;
   }
 
   if(!m_strCmdlModem.isEmpty()) {
     m_bCmdlModem = true;
-    kDebug(5002) << "cmdl_modem: " << m_bCmdlModem << endl;
+    kDebug(5002) << "cmdl_modem: " << m_bCmdlModem;
   }
 
   if(m_bCmdlModem){
@@ -364,7 +364,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 #if 0
   // attach to the DCOP server, if possible
   if (!kapp->dcopClient()->attach())
-    kDebug(5002) << "Error: Could not connect to the DCOP server" << endl;
+    kDebug(5002) << "Error: Could not connect to the DCOP server";
   else
     kapp->dcopClient()->registerAs(kapp->name(), true);
 #endif
@@ -383,7 +383,7 @@ bool KPPPWidget::eventFilter(QObject *o, QEvent *e) {
   if(e->type() == QEvent::User) {
     switch(((SignalEvent*)e)->sigType()) {
     case SIGINT:
-      kDebug(5002) << "Received a SIGINT" << endl;
+      kDebug(5002) << "Received a SIGINT";
       interruptConnection();
       break;
     case SIGCHLD:
@@ -608,13 +608,13 @@ void KPPPWidget::interruptConnection() {
 }
 
 void KPPPWidget::sigPPPDDied() {
-  kDebug(5002) << "Received a SIGUSR1" << endl;
+  kDebug(5002) << "Received a SIGUSR1";
 
     // if we are not connected pppdpid is -1 so have have to check for that
     // in the followin line to make sure that we don't raise a false alarm
     // such as would be the case when the log file viewer exits.
     if(gpppdata.pppdRunning() || gpppdata.pppdError()) {
-      kDebug(5002) << "It was pppd that died" << endl;
+      kDebug(5002) << "It was pppd that died";
 
       // when we killpppd() on Cancel in ConnectWidget
       // we set pppid to -1 so we won't
@@ -630,7 +630,7 @@ void KPPPWidget::sigPPPDDied() {
       disconnectTimer->stop();
       // signal other applications that we are disconnected now
       emit  sig_disconnected();
-      kDebug(5002) << "Executing command on disconnect since pppd has died." << endl;
+      kDebug(5002) << "Executing command on disconnect since pppd has died.";
       QApplication::flush();
       execute_command(gpppdata.command_on_disconnect());
 
@@ -679,9 +679,9 @@ void KPPPWidget::sigPPPDDied() {
 	  PPPL_ShowLog();
       } else { /* reconnect on disconnect */
         if(gpppdata.waitCallback())
-          kDebug(5002) << "Waiting for callback... " << endl;
+          kDebug(5002) << "Waiting for callback... ";
         else
-          kDebug(5002) << "Trying to reconnect... " << endl;
+          kDebug(5002) << "Trying to reconnect... ";
 
         if(gpppdata.authMethod() == AUTH_PAP ||
 	   gpppdata.authMethod() == AUTH_CHAP ||
@@ -703,10 +703,10 @@ void KPPPWidget::sigPPPDDied() {
 
 
 void KPPPWidget::sigChld() {
-  kDebug(5002) << "sigchld()" << endl;
+  kDebug(5002) << "sigchld()";
   //  pid_t id = wait(0L);
   //  if(id == helperPid && helperPid != -1) {
-  //    kDebug(5002) << "It was the setuid child that died" << endl;
+  //    kDebug(5002) << "It was the setuid child that died";
  // helperPid = -1;
     QString msg = i18n("kppp's helper process just died.\n"
                        "Since further execution would be pointless, "
@@ -951,7 +951,7 @@ void KPPPWidget::startAccounting() {
   // volume accounting
   stats->totalbytes = 0;
 
-  kDebug(5002) << "AcctEnabled: " << gpppdata.AcctEnabled() << endl;
+  kDebug(5002) << "AcctEnabled: " << gpppdata.AcctEnabled();
 
   // load the ruleset
   if(!gpppdata.AcctEnabled())
