@@ -217,7 +217,7 @@ void PPPL_ShowLog() {
 				     "that pppd was started without the \"debug\" option.\n"
 				     "Without this option it's difficult to find out PPP "
 				     "problems, so you should turn on the debug option.\n"
-				     "Shall I turn it on now?"), QString::null, KGuiItem(i18n("Restart pppd")), KGuiItem(i18n("Do Not Restart")));	//krazy:exclude=nullstrassign for old broken gcc
+				     "Shall I turn it on now?"), QString(), KGuiItem(i18n("Restart pppd")), KGuiItem(i18n("Do Not Restart")));
 
     if(result == KMessageBox::Yes) {
       gpppdata.setPPPDebug(TRUE);

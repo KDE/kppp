@@ -389,15 +389,15 @@ void MonthlyWidget::plotMonth() {
     formatDuration(duration,
                    s_duration);
 
-    QString s_costs(KGlobal::locale()->formatMoney(costs, QString::null, 2));	//krazy:exclude=nullstrassign for old broken gcc
+    QString s_costs(KGlobal::locale()->formatMoney(costs, QString(), 2));
 
     selectionItem =  new LogListItem(0, lv2,
 			   i18np("Selection (%1 connection)", "Selection (%1 connections)", 0),
-			   QString::null, QString::null, QString::null,	//krazy:exclude=nullstrassign for old broken gcc
-			   QString::null, QString::null, QString::null, QString::null);	//krazy:exclude=nullstrassign for old broken gcc
+			   QString(), QString(), QString(),
+			   QString(), QString(), QString(), QString());
     (void) new LogListItem(0, lv2,
 			   i18np("%1 connection", "%1 connections", count),
-			   s_duration, s_costs, _bin, _bout, QString::null, QString::null, QString::null);	//krazy:exclude=nullstrassign for old broken gcc
+			   s_duration, s_costs, _bin, _bout, QString(), QString(), QString());
 
 	const KCalendarSystem * calendar = KGlobal::locale()->calendar();
 
@@ -419,11 +419,11 @@ void MonthlyWidget::plotMonth() {
     formatDurationMonth(duration, m_duration);
 
 	costsMonth(costs, costs);
-    QString m_costs(KGlobal::locale()->formatMoney(costs, QString::null, 2));	//krazy:exclude=nullstrassign for old broken gcc
+    QString m_costs(KGlobal::locale()->formatMoney(costs, QString(), 2));
 
     (void) new Q3ListViewItem(lv2, selectionItem,
 			   i18n("Monthly estimates"), m_duration, m_costs, m_bin, m_bout,
-			   QString::null, QString::null, QString::null);	//krazy:exclude=nullstrassign for old broken gcc
+			   QString(), QString(), QString());
 	}
   }
 
@@ -598,13 +598,13 @@ void MonthlyWidget::exportWizard() {
 	formatDurationMonth(duration, m_duration);
 
 	costsMonth(costs, costs);
-	QString m_costs(KGlobal::locale()->formatMoney(costs, QString::null, 2));	//krazy:exclude=nullstrassign for old broken gcc
+	QString m_costs(KGlobal::locale()->formatMoney(costs, QString(), 2));
 
 	QString datetime = KGlobal::locale()->formatDateTime( QDateTime::currentDateTime(), KLocale::ShortDate);
 
 	exportIFace->addEmptyLine();
 	exportIFace->addDataline(i18n("Monthly estimates (%1)", datetime),
-		QString::null, QString::null, QString::null, m_duration, m_costs, m_bin, m_bout);	//krazy:exclude=nullstrassign for old broken gcc
+		QString(), QString(), QString(), m_duration, m_costs, m_bin, m_bout);
 	}
 
   if(count) {
@@ -629,11 +629,11 @@ void MonthlyWidget::exportWizard() {
     formatDuration(duration,
                    s_duration);
 
-    QString s_costs(KGlobal::locale()->formatMoney(costs, QString::null, 2));	//krazy:exclude=nullstrassign for old broken gcc
+    QString s_costs(KGlobal::locale()->formatMoney(costs, QString(), 2));
 
     // call export methods
     exportIFace->addEmptyLine();
-    exportIFace->addDataline(i18np("%1 connection", "%1 connections", count), QString::null, QString::null, QString::null, s_duration,	//krazy:exclude=nullstrassign for old broken gcc
+    exportIFace->addDataline(i18np("%1 connection", "%1 connections", count), QString(), QString(), QString(), s_duration,
 			     s_costs, _bin, _bout);
     exportIFace->setFinishCode();
 
@@ -721,7 +721,7 @@ void MonthlyWidget::slotSelectionChanged()
       formatDuration(duration,
                     s_duration);
 
-      QString s_costs(KGlobal::locale()->formatMoney(costs, QString::null, 2));	//krazy:exclude=nullstrassign for old broken gcc
+      QString s_costs(KGlobal::locale()->formatMoney(costs, QString(), 2));
       selectionItem->setText(0, i18np("Selection (%1 connection)", "Selection (%1 connections)", count));
       selectionItem->setText(1, s_duration);
       selectionItem->setText(2, s_costs);

@@ -55,7 +55,7 @@ int loadLogs() {
   }
 
   dlg = new QProgressDialog(i18n("Loading log files"),
-			     QString::null,	//krazy:exclude=nullstrassign for old broken gcc
+			     QString(),
 			     0,logsize,0, 0);
   dlg->setValue(0);
 
