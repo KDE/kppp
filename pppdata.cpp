@@ -95,7 +95,7 @@ bool PPPData::open() {
   // So we copy the old [Modem] to the new [Modem0]
   if(modemhighcount < 0 && defaultModem().isEmpty() && config->hasGroup("Modem"))
   {
-  	config->setGroup("Modem");
+	KConfigGroup cg( config , "Modem");
 
     QMap <QString, QString> map = config->entryMap("Modem");
     QMap <QString, QString>::ConstIterator it = map.begin();
@@ -103,8 +103,8 @@ bool PPPData::open() {
     newmodem();
 
     while (it != map.end()) {
-	  config->setGroup(cmodemgroup);
-      config->writeEntry(it.key(), *it);
+	  KConfigGroup cg2( config , cmodemgroup);
+      cg2.writeEntry(it.key(), *it);
       it++;
     }
 
@@ -422,7 +422,7 @@ bool PPPData::deleteModem() {
   map = config->entryMap(cmodemgroup);
   it = map.begin();
   while (it != map.end()) {
-    config->writeEntry(it.key(), "");
+    config->group(cmodemgroup).writeEntry(it.key(), "");
     it++;
   }
 
@@ -432,9 +432,9 @@ bool PPPData::deleteModem() {
     map = config->entryMap(cmodemgroup);
     it = map.begin();
     setModemByIndex(i-1);
-    config->setGroup(cmodemgroup);
+	KConfigGroup cg(config, cmodemgroup);
     while (it != map.end()) {
-      config->writeEntry(it.key(), *it);
+      cg.writeEntry(it.key(), *it);
       it++;
     }
   }
@@ -443,9 +443,9 @@ bool PPPData::deleteModem() {
   setModemByIndex(modemhighcount);
   map = config->entryMap(cmodemgroup);
   it = map.begin();
-  config->setGroup(cmodemgroup);
+  KConfigGroup cg2(config, cmodemgroup);
   while (!it.key().isNull()) {
-    config->writeEntry(it.key(), "");
+    cg2.writeEntry(it.key(), "");
     it++;
   }
 
@@ -949,8 +949,9 @@ bool PPPData::deleteAccount() {
   // set all entries of the current account to ""
   map = config->entryMap(caccountgroup);
   it = map.begin();
+  KConfigGroup cg(config,caccountgroup);
   while (it != map.end()) {
-    config->writeEntry(it.key(), "");
+    cg.writeEntry(it.key(), "");
     ++it;
   }
 
@@ -960,9 +961,9 @@ bool PPPData::deleteAccount() {
     map = config->entryMap(caccountgroup);
     it = map.begin();
     setAccountByIndex(i-1);
-    config->setGroup(caccountgroup);
+	KConfigGroup cg2(config,caccountgroup);
     while (it != map.end()) {
-      config->writeEntry(it.key(), *it);
+      cg2.writeEntry(it.key(), *it);
       ++it;
     }
   }
@@ -971,9 +972,9 @@ bool PPPData::deleteAccount() {
   setAccountByIndex(accounthighcount);
   map = config->entryMap(caccountgroup);
   it = map.begin();
-  config->setGroup(caccountgroup);
+  KConfigGroup cg3(config,caccountgroup);
   while (it != map.end() && !it.key().isNull()) {
-    config->writeEntry(it.key(), "");
+    cg3.writeEntry(it.key(), "");
     ++it;
   }
 
@@ -1011,8 +1012,6 @@ int PPPData::newaccount() {
 
 int PPPData::copyaccount(int i) {
 
-  config->setGroup(caccountgroup);
-
   if(accounthighcount >= MAX_ACCOUNTS)
     return -1;
 
@@ -1026,8 +1025,8 @@ int PPPData::copyaccount(int i) {
   newaccount();
 
   while (it != map.end()) {
-    config->setGroup(caccountgroup);
-    config->writeEntry(it.key(), *it);
+	KConfigGroup cg2 ( config, caccountgroup);
+    cg2.writeEntry(it.key(), *it);
     it++;
   }
 
@@ -1427,8 +1426,7 @@ void PPPData::graphingOptions(bool &enable,
 
 bool PPPData::graphingEnabled() {
   if(config) {
-    config->setGroup(GRAPH_GRP);
-    return config->readEntry(GENABLED, true);
+    return config->group(GRAPH_GRP).readEntry(GENABLED, true);
   }
   else return true;
 }

@@ -207,7 +207,7 @@ void ModemDatabase::load() {
   QStringList list = modemDB->groupList();
   QStringList::Iterator it = list.begin();
   while(it != list.end()) {
-    modemDB->setGroup(*it);
+	KConfigGroup cg ( modemDB, *it);
     CharDict *c = new CharDict;
     c->setAutoDelete(true);
     loadModem(*it, *c);
@@ -223,7 +223,7 @@ void ModemDatabase::load() {
     modems.append(c);
 
     if(modemDB->hasKey("Vendor")) {
-      QString vendor = modemDB->readEntry("Vendor");
+      QString vendor = cg.readEntry("Vendor");
       if(lvendors->indexOf(vendor) == -1)
 	lvendors->append(vendor);
     }
