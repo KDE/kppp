@@ -115,13 +115,13 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   l12->addLayout(l121);
   l121->addStretch(1);
   costlabel = new QLabel(i18n("Phone costs:"), parent);
-  costlabel->setEnabled(FALSE);
+  costlabel->setEnabled(false);
   l121->addWidget(costlabel);
 
   costedit = new QLineEdit(parent);
   costedit->setFocusPolicy(Qt::NoFocus);
   costedit->setFixedHeight(costedit->sizeHint().height());
-  costedit->setEnabled(FALSE);
+  costedit->setEnabled(false);
   l121->addWidget(costedit);
   l121->addStretch(1);
   QString tmp = i18n("<p>This shows the accumulated phone costs\n"
@@ -134,14 +134,14 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
   costedit->setWhatsThis( tmp);
 
   vollabel = new QLabel(i18n("Volume:"), parent);
-  vollabel->setEnabled(FALSE);
+  vollabel->setEnabled(false);
   l121->addWidget(vollabel);
 
   voledit = new QLineEdit(parent);
   voledit->setObjectName( "voledit" );
   voledit->setFocusPolicy(Qt::NoFocus);
   voledit->setFixedHeight(voledit->sizeHint().height());
-  voledit->setEnabled(FALSE);
+  voledit->setEnabled(false);
   l121->addWidget(voledit);
   tmp = i18n("<p>This shows the number of bytes transferred\n"
 	     "for the selected account (not for all of your\n"
@@ -159,7 +159,7 @@ AccountWidget::AccountWidget( QWidget *parent, const char *name )
 
   l122->addStretch(1);
   reset = new QPushButton(i18n("&Reset..."), parent);
-  reset->setEnabled(FALSE);
+  reset->setEnabled(false);
   connect(reset, SIGNAL(clicked()),
 	  this, SLOT(resetClicked()));
   l122->addWidget(reset);
@@ -192,24 +192,24 @@ void AccountWidget::slotListBoxSelect(int idx) {
   if(idx!=-1) {
     QString account = gpppdata.accname();
     gpppdata.setAccountByIndex(accountlist_l->currentItem());
-    reset->setEnabled(TRUE);
-    costlabel->setEnabled(TRUE);
-    costedit->setEnabled(TRUE);
+    reset->setEnabled(true);
+    costlabel->setEnabled(true);
+    costedit->setEnabled(true);
     costedit->setText(AccountingBase::getCosts(accountlist_l->text(accountlist_l->currentItem())));
 
-    vollabel->setEnabled(TRUE);
-    voledit->setEnabled(TRUE);
+    vollabel->setEnabled(true);
+    voledit->setEnabled(true);
     int bytes = gpppdata.totalBytes();
     voledit->setText(prettyPrintVolume(bytes));
     gpppdata.setAccount(account);
  } else{
-    reset->setEnabled(FALSE);
-    costlabel->setEnabled(FALSE);
+    reset->setEnabled(false);
+    costlabel->setEnabled(false);
     costedit->setText("");
-    costedit->setEnabled(FALSE);
-    vollabel->setEnabled(FALSE);
+    costedit->setEnabled(false);
+    vollabel->setEnabled(false);
     voledit->setText("");
-    voledit->setEnabled(FALSE);
+    voledit->setEnabled(false);
   }
 }
 

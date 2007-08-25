@@ -276,7 +276,7 @@ void MyTerm::myreturn() {
 
 
 void MyTerm::mynewline() {
-  Q3MultiLineEdit::end(FALSE);
+  Q3MultiLineEdit::end(false);
   Q3MultiLineEdit::newLine();
 }
 

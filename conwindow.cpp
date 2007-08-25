@@ -282,7 +282,7 @@ void ConWindow::timeclick() {
   // volume accounting
   if(volumeAccountingEnabled) {
 
-    volinfo->setEnabled(TRUE);
+    volinfo->setEnabled(true);
     int bytes = gpppdata.totalBytes();
     volinfo->setText(prettyPrintVolume(bytes));
   }

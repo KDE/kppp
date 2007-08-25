@@ -176,9 +176,9 @@ bool AccountingBase::saveCosts() {
     gpppdata.setTotalCosts(val);
     gpppdata.save();
 
-    return TRUE;
+    return true;
   } else
-    return FALSE;
+    return false;
 }
 
 
@@ -194,7 +194,7 @@ bool AccountingBase::loadCosts() {
       _total = 0.0;
   }
 
-  return TRUE;
+  return true;
 }
 
 
@@ -296,7 +296,7 @@ void Accounting::slotStart() {
     s += ':';
     s += rules.currencySymbol();
 
-    logMessage(s, TRUE);
+    logMessage(s, true);
   }
 }
 
@@ -317,7 +317,7 @@ void Accounting::slotStop() {
 	      stats->ibytes,
 	      stats->obytes);
 
-    logMessage(s, FALSE);
+    logMessage(s, false);
     saveCosts();
   }
 }
@@ -327,7 +327,7 @@ bool Accounting::loadRuleSet(const QString & name) {
 
   if (name.isEmpty()) {
     rules.load(""); // delete old rules
-    return TRUE;
+    return true;
   }
 
   QString d = AccountingBase::getAccountingFile(name);
@@ -339,7 +339,7 @@ bool Accounting::loadRuleSet(const QString & name) {
      return (bool)(ret == 0);
    }
 
- return FALSE;
+ return false;
 }
 
 
@@ -455,7 +455,7 @@ void ExecutableAccounting::slotStart() {
   s += ':';
   s += currency;
 
-  logMessage(s, TRUE);
+  logMessage(s, true);
 }
 
 
@@ -473,10 +473,9 @@ void ExecutableAccounting::slotStop() {
 	      stats->ibytes,
 	      stats->obytes);
 
-    logMessage(s, FALSE);
+    logMessage(s, false);
     saveCosts();
   }
 }
 
 #include "accounting.moc"
-

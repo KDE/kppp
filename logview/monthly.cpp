@@ -225,7 +225,7 @@ MonthlyWidget::MonthlyWidget(QWidget *parent) :
   title = new QLabel("X", this);
   QFont f = title->font();
   f.setPointSize(f.pointSize() + 2);
-  f.setBold(TRUE);
+  f.setBold(true);
   title->setFont(f);
   title->setFixedHeight(title->sizeHint().height()*2);
 
@@ -268,7 +268,7 @@ void MonthlyWidget::layoutWidget() {
   l->setText(i18n("Statistics:"));
   QFont f2 = l->font();
   f2.setPointSize(f2.pointSize() + 1);
-  f2.setBold(TRUE);
+  f2.setBold(true);
   l->setFont(f2);
   l->setFixedHeight(l->sizeHint().height());
   l->setAlignment( Qt::AlignLeft );

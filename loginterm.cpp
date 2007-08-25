@@ -67,7 +67,7 @@ void LoginMultiLineEdit::mynewline() {
     insertPlainText(QString("\n"));
 
 #if 0
-  Q3MultiLineEdit::end(FALSE);
+  Q3MultiLineEdit::end(false);
   Q3MultiLineEdit::newLine();
 #endif
     p_kppp->debugwindow->addChar('\n');

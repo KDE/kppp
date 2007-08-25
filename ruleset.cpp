@@ -190,7 +190,7 @@ bool RuleSet::parseEntry(RULE &ret, QString s, int year) {
     ret.type = 1;
     ret.date.from = QDate(year, m, d);
     ret.date.until = QDate(year, m, d);
-    return TRUE;
+    return true;
   }
 
   if(s.contains(QRegExp("^[0-9]+\\.[0-9]+$"))) {
@@ -199,7 +199,7 @@ bool RuleSet::parseEntry(RULE &ret, QString s, int year) {
     ret.type = 1;
     ret.date.from = QDate(year, m, d);
     ret.date.until = QDate(year, m, d);
-    return TRUE;
+    return true;
   }
 
   if(s.right(3) == "day") {
@@ -208,14 +208,14 @@ bool RuleSet::parseEntry(RULE &ret, QString s, int year) {
       ret.type = 2;
       ret.weekday.from = d;
       ret.weekday.until = d;
-      return TRUE;
+      return true;
     }
   }
 
   if(s.left(6) == "easter") {
     QDate d = get_easter(year);
     int off;
-    bool ok = TRUE;
+    bool ok = true;
     QString val = s.mid(6, 1000);
     if(val.isEmpty())
       off = 0;
@@ -227,12 +227,12 @@ bool RuleSet::parseEntry(RULE &ret, QString s, int year) {
       ret.type = 1;
       ret.date.from = d;
       ret.date.until = d;
-      return TRUE;
+      return true;
     }
   }
 
   ret.type = 0;
-  return FALSE;
+  return false;
 }
 
 
@@ -277,11 +277,11 @@ bool RuleSet::parseEntries(QString s, int year,
 	    r.weekday.until = rr.weekday.from;
 	  }
 	} else
-	  return FALSE;
+	  return false;
       }
     } else
       if(!parseEntry(r, token, year))
-	return FALSE;
+	return false;
 
     r.costs = costs;
     r.len = len;
@@ -291,22 +291,22 @@ bool RuleSet::parseEntries(QString s, int year,
     addRule(r);
   }
 
-  return TRUE;
+  return true;
 }
 
 bool RuleSet::parseTime(QTime &t1, QTime &t2, QString s) {
   if(s.isEmpty()) {
     t1 = midnight();
     t2 = beforeMidnight();
-    return TRUE;
+    return true;
   } else {
     int t1m, t1h, t2m, t2h;
     if(sscanf(s.toAscii(), "%d:%d..%d:%d", &t1h, &t1m, &t2h, &t2m) == 4) {
       t1.setHMS(t1h, t1m, 0);
       t2.setHMS(t2h, t2m, 0);
-      return TRUE;
+      return true;
     } else
-      return FALSE;
+      return false;
   }
 }
 
@@ -329,17 +329,17 @@ bool RuleSet::parseLine(const QString &s) {
 
     double after;
     if(!parseRate(flat_init_costs, flat_init_duration, after, token))
-      return FALSE;
+      return false;
 
     //printf("COST %f DURATION %f\n",flat_init_costs,flat_init_duration);
 
     if(! (flat_init_costs >= 0.0) )
-      return FALSE;
+      return false;
     if(! (flat_init_duration >= 0.0))
-      return FALSE;
+      return false;
 
     have_flat_init_costs = true;
-    return TRUE;
+    return true;
   }
 
 
@@ -349,7 +349,7 @@ bool RuleSet::parseLine(const QString &s) {
 			  s.indexOf(")use")-s.indexOf("between(") - 8);
     QTime t1, t2;
     if(!parseTime(t1, t2, token))
-      return FALSE;
+      return false;
 
     // parse the rate fields
     token = s.mid(s.indexOf("use(") + 4,
@@ -358,16 +358,16 @@ bool RuleSet::parseLine(const QString &s) {
     double len;
     double after;
     if(!parseRate(costs, len, after, token))
-      return FALSE;
+      return false;
 
     // parse the days
     token = s.mid(s.indexOf("on(") + 3,
 		  s.indexOf(")betw")-s.indexOf("on(") - 3);
     if(!parseEntries(token, QDate::currentDate().year(),
 		     t1, t2, costs, len, after))
-      return FALSE;
+      return false;
 
-    return TRUE;
+    return true;
   }
 
   // check for the name
@@ -382,7 +382,7 @@ bool RuleSet::parseLine(const QString &s) {
     QString token = s.mid(9, s.length() - 10);
     double after;
     if(parseRate(default_costs, default_len, after, token))
-      return TRUE;
+      return true;
   }
 
   // check for "minimum costs"
@@ -396,7 +396,7 @@ bool RuleSet::parseLine(const QString &s) {
   // check currency settings
   if(s.startsWith("currency_symbol=")) {
      _currency_symbol = s.mid(16);
-     return TRUE;
+     return true;
   }
 
   if(s.contains(QRegExp("currency_digits=.*"))) {
@@ -408,7 +408,7 @@ bool RuleSet::parseLine(const QString &s) {
 
   // "currency_position" is deprecated so we'll simply ignore it
   if(s.contains(QRegExp("currency_position=.*")))
-    return TRUE;
+    return true;
 
   // check per connection fee
   if(s.contains(QRegExp("per_connection="))) {
@@ -418,7 +418,7 @@ bool RuleSet::parseLine(const QString &s) {
     return ok;
   }
 
-  return FALSE;
+  return false;
 }
 
 void RuleSet::setStartTime(QDateTime dt){

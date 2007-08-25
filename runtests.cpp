@@ -191,7 +191,7 @@ int runTests() {
 
   // Test pre-1: check if the user is allowed to dial-out
   if(access("/etc/kppp.allow", R_OK) == 0 && getuid() != 0) {
-    bool access = FALSE;
+    bool access = false;
     FILE *f;
     if((f = fopen("/etc/kppp.allow", "r")) != NULL) {
       char buf[2048]; // safe
@@ -204,7 +204,7 @@ int runTests() {
 	    continue;
 
 	  if((uid_t)uidFromName(QFile::encodeName(s)) == getuid()) {
-	    access = TRUE;
+	    access = true;
 	    fclose(f);
 	    f = NULL;
 	  }

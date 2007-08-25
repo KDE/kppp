@@ -290,7 +290,7 @@ ModemInfo::ModemInfo(QWidget *parent, const char* name)
 
   QHBoxLayout *l2 = new QHBoxLayout;
   QPushButton *ok = new KPushButton(KStandardGuiItem::close(), this);
-  ok->setDefault(TRUE);
+  ok->setDefault(true);
   ok->setFocus();
 
   tl->addLayout(l2);

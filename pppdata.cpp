@@ -315,7 +315,7 @@ void PPPData::set_show_log_window(bool set) {
 
 
 bool PPPData::automatic_redial() {
-  return (bool) readNumConfig(GENERAL_GRP, AUTOREDIAL_KEY, FALSE);
+  return (bool) readNumConfig(GENERAL_GRP, AUTOREDIAL_KEY, false);
 }
 
 
@@ -325,7 +325,7 @@ void PPPData::set_automatic_redial(bool set) {
 
 
 bool PPPData::get_iconify_on_connect() {
-  return (bool) readNumConfig(GENERAL_GRP, ICONIFY_ON_CONNECT_KEY, TRUE);
+  return (bool) readNumConfig(GENERAL_GRP, ICONIFY_ON_CONNECT_KEY, true);
 }
 
 

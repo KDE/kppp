@@ -100,72 +100,72 @@ void ScriptEdit::setType(int i) {
   switch(i) {
   case Expect:
     se->setText("");
-    se->setEnabled(TRUE);
+    se->setEnabled(true);
     break;
 
   case Send:
     se->setText("");
-    se->setEnabled(TRUE);
+    se->setEnabled(true);
     break;
 
   case Pause:
     se->setText("");
-    se->setEnabled(TRUE);
+    se->setEnabled(true);
     break;
 
   case Hangup:
     se->setText("");
-    se->setEnabled(FALSE);
+    se->setEnabled(false);
     break;
 
   case Answer:
     se->setText("");
-    se->setEnabled(FALSE);
+    se->setEnabled(false);
     break;
 
   case Timeout:
     se->setText("");
-    se->setEnabled(TRUE);
+    se->setEnabled(true);
     break;
 
   case Password:
     se->setText("");
-    se->setEnabled(TRUE);
+    se->setEnabled(true);
     break;
 
   case ID:
     se->setText("");
-    se->setEnabled(TRUE);
+    se->setEnabled(true);
     break;
 
   case Prompt:
     se->setText("");
-    se->setEnabled(TRUE);
+    se->setEnabled(true);
     break;
 
   case PWPrompt:
     se->setText("");
-    se->setEnabled(TRUE);
+    se->setEnabled(true);
     break;
 
   case LoopStart:
     se->setText("");
-    se->setEnabled(TRUE);
+    se->setEnabled(true);
     break;
 
   case LoopEnd:
     se->setText("");
-    se->setEnabled(TRUE);
+    se->setEnabled(true);
     break;
 
   case Scan:
     se->setText("");
-    se->setEnabled(TRUE);
+    se->setEnabled(true);
     break;
 
   case Save:
     se->setText("password");
-    se->setEnabled(FALSE);
+    se->setEnabled(false);
     break;
 
   default: break;
@@ -173,8 +173,3 @@ void ScriptEdit::setType(int i) {
 }
 
 #include "scriptedit.moc"
-
-
-
-
-

@@ -59,7 +59,7 @@ signals:
   void changed(QString total, QString session);
 
 protected:
-  void logMessage(QString, bool = FALSE);
+  void logMessage(QString, bool = false);
   bool saveCosts();
   bool loadCosts();
 

@@ -220,7 +220,7 @@ void PPPL_ShowLog() {
 				     "Shall I turn it on now?"), QString(), KGuiItem(i18n("Restart pppd")), KGuiItem(i18n("Do Not Restart")));
 
     if(result == KMessageBox::Yes) {
-      gpppdata.setPPPDebug(TRUE);
+      gpppdata.setPPPDebug(true);
       KMessageBox::information(0,
 		       i18n("The \"debug\" option has been added. You "
 			    "should now try to reconnect. If that fails "
@@ -242,10 +242,10 @@ void PPPL_ShowLog() {
   tl->setSpacing(10);
   tl->setMargin(10);
   QTextEdit *edit = new QTextEdit(dlg);
-  edit->setReadOnly(TRUE);
+  edit->setReadOnly(true);
   QLabel *label = new QLabel(i18n("kppp's diagnosis (just guessing):"), dlg);
   QTextEdit *diagnosis = new QTextEdit(dlg);
-  diagnosis->setReadOnly(TRUE);
+  diagnosis->setReadOnly(true);
   edit->setMinimumSize(600, 250);
   label->setMinimumSize(600, 15);
   diagnosis->setMinimumSize(600, 60);

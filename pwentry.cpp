@@ -63,7 +63,7 @@ PWEntry::PWEntry( QWidget *parent, const char *name )
    pw->setEchoMode( QLineEdit::Password ); 
    connect( pw, SIGNAL(returnPressed()), this, SLOT(hide()) );
 
-   isconsumed = TRUE;
+   isconsumed = true;
 }
 
 QString PWEntry::text() { return (pw->text()); }
@@ -103,7 +103,7 @@ void PWEntry::resizeEvent(QResizeEvent* ){
 void PWEntry::show() {
 
     pw->setText("");
-    isconsumed = FALSE;
+    isconsumed = false;
     QWidget::show();
 }
 
@@ -112,7 +112,7 @@ bool PWEntry::Consumed() {
 }
 
 void PWEntry::setConsumed() {
-    isconsumed = TRUE;
+    isconsumed = true;
 }
 
 void PWEntry::hide() {
