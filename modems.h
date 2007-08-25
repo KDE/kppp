@@ -46,7 +46,7 @@ class GatewayWidget;
 class ModemsWidget : public QWidget {
   Q_OBJECT
 public:
-  ModemsWidget( QWidget *parent=0, const char *name=0 );
+  explicit ModemsWidget( QWidget *parent=0, const char *name=0 );
   ~ModemsWidget() {}
 
 private slots:

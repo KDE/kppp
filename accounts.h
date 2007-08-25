@@ -47,7 +47,7 @@ class GatewayWidget;
 class AccountWidget : public QWidget {
   Q_OBJECT
 public:
-  AccountWidget( QWidget *parent=0, const char *name=0 );
+  explicit AccountWidget( QWidget *parent=0, const char *name=0 );
   ~AccountWidget() {}
 
 private slots:

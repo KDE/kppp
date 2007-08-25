@@ -50,7 +50,7 @@ class Q3ListViewItem;
 class AccountingSelector : public QWidget {
   Q_OBJECT
 public:
-  AccountingSelector(QWidget *parent = 0, bool _isnewaccount = false, const char *name = 0);
+  explicit AccountingSelector(QWidget *parent = 0, bool _isnewaccount = false, const char *name = 0);
   ~AccountingSelector() {}
 
   bool save();

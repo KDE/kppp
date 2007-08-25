@@ -42,7 +42,7 @@ class KPushButton;
 class PPPdArguments : public KDialog {
 Q_OBJECT
 public:
-  PPPdArguments(QWidget *parent=0, const char *name=0);
+  explicit PPPdArguments(QWidget *parent=0, const char *name=0);
   ~PPPdArguments() {}
 
 private slots:

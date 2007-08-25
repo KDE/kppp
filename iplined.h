@@ -29,9 +29,11 @@
 
 #include <krestrictedline.h>
 
-class IPLineEdit : public KRestrictedLine {
+class IPLineEdit : public KRestrictedLine
+{
+
 public:
-  IPLineEdit( QWidget *parent=0, const char *name=0 );
+  explicit IPLineEdit( QWidget *parent=0, const char *name=0 );
   ~IPLineEdit() {}
 
   virtual QSize sizeHint() const;

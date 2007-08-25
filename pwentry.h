@@ -35,13 +35,13 @@
 #include <QFocusEvent>
 #include <QResizeEvent>
 
-class PWEntry : public QWidget {
-
+class PWEntry : public QWidget
+{
 	Q_OBJECT
 
 public:
 
-   PWEntry( QWidget *parent=0,  const char *name=0 );   
+   explicit PWEntry( QWidget *parent=0,  const char *name=0 );   
    bool Consumed();
    void setConsumed();
    QString text();

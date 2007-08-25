@@ -51,7 +51,7 @@ class QLabel;
 class MyTerm : public Q3MultiLineEdit {
   Q_OBJECT
 public:
-  MyTerm(QWidget *parent=0, const char *name=0);
+  explicit MyTerm(QWidget *parent=0, const char *name=0);
 
   void keyPressEvent (QKeyEvent*);
   void insertChar(unsigned char c);
@@ -67,7 +67,7 @@ class MiniTerm : public QDialog {
   Q_OBJECT
 public:
 
-  MiniTerm(QWidget *parent=0, const char *name=0);
+  explicit MiniTerm(QWidget *parent=0, const char *name=0);
   ~MiniTerm();
 
   void closeEvent( QCloseEvent *e );

@@ -65,7 +65,7 @@ class KPPPWidget : public QWidget {
   Q_OBJECT
 public:
 
-  KPPPWidget( QWidget *parent=0, const char *name=0 );
+  explicit KPPPWidget( QWidget *parent=0, const char *name=0 );
   ~KPPPWidget();
 
   void setPW_Edit(const QString &);

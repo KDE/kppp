@@ -121,7 +121,7 @@ private:
 class ExecutableAccounting : public AccountingBase {
   Q_OBJECT
 public:
-  ExecutableAccounting(PPPStats *st, QObject *parent = 0);
+  explicit ExecutableAccounting(PPPStats *st, QObject *parent = 0);
 
   virtual bool loadRuleSet(const QString & );
   virtual bool running() const;

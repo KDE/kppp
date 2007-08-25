@@ -48,7 +48,7 @@ Q_OBJECT
 
 public:
 
-  ModemCommands(QWidget *parent=0, const char *name=0);
+  explicit ModemCommands(QWidget *parent=0, const char *name=0);
   ~ModemCommands() {}
 
 private slots:

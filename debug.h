@@ -38,7 +38,7 @@
 class myMultiEdit : public Q3MultiLineEdit {
 public:
 
-  myMultiEdit(QWidget *parent=0, const char *name=0);
+  explicit myMultiEdit(QWidget *parent=0, const char *name=0);
 
   void newLine();
 };

@@ -49,7 +49,7 @@ class IPLineEdit;
 class DialWidget : public QWidget {
   Q_OBJECT
 public:
-  DialWidget( QWidget *parent=0, bool isnewaccount = true);
+  explicit DialWidget( QWidget *parent=0, bool isnewaccount = true);
   ~DialWidget() {}
 
 public slots:
@@ -91,7 +91,7 @@ private:
 class ExecWidget : public QWidget {
   Q_OBJECT
 public:
-  ExecWidget(QWidget *parent=0, bool isnewaccount=true);
+  explicit ExecWidget(QWidget *parent=0, bool isnewaccount=true);
 
 public slots:
   bool save();
@@ -114,7 +114,7 @@ private:
 class IPWidget : public QWidget {
   Q_OBJECT
 public:
-  IPWidget( QWidget *parent=0, bool isnewaccount = true, const char *name=0 );
+  explicit IPWidget( QWidget *parent=0, bool isnewaccount = true, const char *name=0 );
   ~IPWidget() {}
 
 public slots:
@@ -144,7 +144,7 @@ private:
 class DNSWidget : public QWidget {
   Q_OBJECT
 public:
-  DNSWidget( QWidget *parent=0, bool isnewaccount = true );
+  explicit DNSWidget( QWidget *parent=0, bool isnewaccount = true );
   ~DNSWidget() {}
 
 public slots:
@@ -176,7 +176,7 @@ private:
 class GatewayWidget : public QWidget {
   Q_OBJECT
 public:
-  GatewayWidget( QWidget *parent=0, bool isnewaccount = true );
+  explicit GatewayWidget( QWidget *parent=0, bool isnewaccount = true );
   ~GatewayWidget() {}
 
 public slots:
@@ -200,7 +200,7 @@ private:
 class ScriptWidget : public QWidget {
   Q_OBJECT
 public:
-  ScriptWidget( QWidget *parent=0, bool isnewaccount = true, const char *name=0 );
+  explicit ScriptWidget( QWidget *parent=0, bool isnewaccount = true, const char *name=0 );
   ~ScriptWidget() {}
 
 public slots:

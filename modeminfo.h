@@ -42,7 +42,7 @@ const int NUM_OF_ATI = 8;
 class ModemTransfer : public QDialog {
   Q_OBJECT
 public:
-  ModemTransfer(QWidget *parent=0, const char *name=0);
+  explicit ModemTransfer(QWidget *parent=0, const char *name=0);
   
 public slots:
   void init();
@@ -75,7 +75,7 @@ private:
 class ModemInfo : public QDialog {
   Q_OBJECT
 public:
-  ModemInfo(QWidget *parent=0, const char *name=0);
+  explicit ModemInfo(QWidget *parent=0, const char *name=0);
 
 public:
   void setAtiString(int num, QString s);
