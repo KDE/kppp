@@ -40,7 +40,6 @@
 #include <qlabel.h>
 #include <KStandardGuiItem>
 #include <kpushbutton.h>
-#include <KStandardGuiItem>
 #include <kiconloader.h>
 
 PPPdArguments::PPPdArguments(QWidget *parent, const char *name)

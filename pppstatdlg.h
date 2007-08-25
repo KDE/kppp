@@ -22,9 +22,8 @@
  * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef _PPPSTATSDLG_H_
-#define _PPPSTATSDLG_H_
-
+#ifndef PPPSTATDLG_H
+#define PPPSTATDLG_H
 
 #include <qdialog.h>
 #include <qevent.h>
@@ -133,4 +132,4 @@ private:
   QColor bg, text, in, out;
 };
 
-#endif
+#endif // PPPSTATDLG_H
