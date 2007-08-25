@@ -341,7 +341,7 @@ void ConWindow::closeEvent( QCloseEvent *e ){
 }
 
 
-void ConWindow::slotAccounting(QString total, QString session) {
+void ConWindow::slotAccounting(const QString &total, const QString &session) {
   total_bill->setText(total);
   session_bill->setText(session);
 }

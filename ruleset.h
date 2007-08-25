@@ -76,7 +76,7 @@ public:
   QString currencyString(double val) const;
 
   /// sets the start time -- must be called when the connection has bee established
-  void setStartTime(QDateTime dt);
+  void setStartTime(const QDateTime &dt);
 
   /// returns the "per-connection" costs
   double perConnectionCosts() const;
@@ -87,7 +87,7 @@ public:
   double minimumCosts() const;
 
   /// returns the currently valid rule settings
-  void getActiveRule(QDateTime dt, double connect_time, double &costs, double &len);
+  void getActiveRule(const QDateTime &dt, double connect_time, double &costs, double &len);
 
   /// checks if a rulefile is ok (no parse errors...)
   static int checkRuleFile(const QString &);

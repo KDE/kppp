@@ -61,7 +61,7 @@ public:
   void accounting(bool); // show/ hide accounting info
 
 public slots:
-  void slotAccounting(QString, QString);
+  void slotAccounting(const QString &, const QString &);
 
 private:
   QLabel *info1;

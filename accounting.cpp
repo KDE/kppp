@@ -124,7 +124,7 @@ void AccountingBase::resetVolume(const QString & accountname){
 }
 
 
-void AccountingBase::logMessage(QString s, bool newline) {
+void AccountingBase::logMessage(const QString &s, bool newline) {
   int old_umask = umask(0077);
 
   QFile f(LogFileName);

@@ -78,7 +78,7 @@ public:
   explicit ModemInfo(QWidget *parent=0, const char *name=0);
 
 public:
-  void setAtiString(int num, QString s);
+  void setAtiString(int num, const QString &s);
 
 private:
   QLabel *ati_label[NUM_OF_ATI];

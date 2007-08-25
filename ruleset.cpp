@@ -421,13 +421,13 @@ bool RuleSet::parseLine(const QString &s) {
   return false;
 }
 
-void RuleSet::setStartTime(QDateTime dt){
+void RuleSet::setStartTime(const QDateTime &dt){
 
   starttime = dt;
 
 }
 
-void RuleSet::getActiveRule(QDateTime dt, double connect_time, double &costs, double &len) {
+void RuleSet::getActiveRule(const QDateTime &dt, double connect_time, double &costs, double &len) {
   // use default costs first
   costs = default_costs;
   len = default_len;

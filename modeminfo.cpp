@@ -303,7 +303,7 @@ ModemInfo::ModemInfo(QWidget *parent, const char* name)
 }
 
 
-void ModemInfo::setAtiString(int i, QString s) {
+void ModemInfo::setAtiString(int i, const QString &s) {
   if(i < NUM_OF_ATI)
     ati_label_result[i]->setText(s);
 }
