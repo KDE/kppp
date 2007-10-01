@@ -351,7 +351,7 @@ int AccountWidget::doTab(){
   tabWindow->setButtons( KDialog::Ok|KDialog::Cancel );
   tabWindow->setDefaultButton( KDialog::Ok );
   tabWindow->setModal( true );
-  KWindowSystem::setIcons(tabWindow->winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
+  KWindowSystem::setIcons(tabWindow->winId(), qApp->windowIcon().pixmap(IconSize(KIconLoader::Desktop),IconSize(KIconLoader::Desktop)), qApp->windowIcon().pixmap(IconSize(KIconLoader::Small),IconSize(KIconLoader::Small)));
   bool isnewaccount;
 
   if(gpppdata.accname().isEmpty()) {
@@ -470,7 +470,7 @@ QString AccountWidget::prettyPrintVolume(unsigned int n) {
 //
 /////////////////////////////////////////////////////////////////////////////
 QueryReset::QueryReset(QWidget *parent) : KDialog(parent) {
-  KWindowSystem::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
+  KWindowSystem::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(KIconLoader::Desktop),IconSize(KIconLoader::Desktop)), qApp->windowIcon().pixmap(IconSize(KIconLoader::Small),IconSize(KIconLoader::Small)));
   setWindowTitle(i18n("Reset Accounting"));
 
   QWidget *w = new QWidget(this);

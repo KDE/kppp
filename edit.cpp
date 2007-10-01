@@ -1217,7 +1217,7 @@ PhoneNumberDialog::PhoneNumberDialog(QWidget *parent)
     setButtons( Ok|Cancel );
     setDefaultButton( Ok );
     setModal( true );
-  KWindowSystem::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
+  KWindowSystem::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(KIconLoader::Desktop),IconSize(KIconLoader::Desktop)), qApp->windowIcon().pixmap(IconSize(KIconLoader::Small),IconSize(KIconLoader::Small)));
 
   QWidget *hbox = new QWidget(this);
   QHBoxLayout *hboxLayout2 = new QHBoxLayout(hbox);

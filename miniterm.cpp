@@ -60,7 +60,7 @@ MiniTerm::MiniTerm(QWidget *parent, const char *name)
   setObjectName(name);
   setModal(true);
   setWindowTitle(i18n("Kppp Mini-Terminal"));
-  KWindowSystem::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
+  KWindowSystem::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(KIconLoader::Desktop),IconSize(KIconLoader::Desktop)), qApp->windowIcon().pixmap(IconSize(KIconLoader::Small),IconSize(KIconLoader::Small)));
 
   m_file = new QMenu(this);
   m_file->addAction( SmallIcon("window-close"), i18n("&Close"), this, SLOT(cancelbutton()) );

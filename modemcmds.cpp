@@ -57,7 +57,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
     setButtons( Ok|Cancel );
     setDefaultButton( Ok );
     setModal( true );
-  KWindowSystem::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
+  KWindowSystem::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(KIconLoader::Desktop),IconSize(KIconLoader::Desktop)), qApp->windowIcon().pixmap(IconSize(KIconLoader::Small),IconSize(KIconLoader::Small)));
   QWidget *dummyWidget = new QWidget(this);
   setMainWidget(dummyWidget);
 

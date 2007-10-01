@@ -50,7 +50,7 @@ PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
   setWindowTitle(i18n("Customize pppd Arguments"));
   QWidget *widget = new QWidget(this);
   setMainWidget(widget);
-  KWindowSystem::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(K3Icon::Desktop),IconSize(K3Icon::Desktop)), qApp->windowIcon().pixmap(IconSize(K3Icon::Small),IconSize(K3Icon::Small)));
+  KWindowSystem::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(KIconLoader::Desktop),IconSize(KIconLoader::Desktop)), qApp->windowIcon().pixmap(IconSize(KIconLoader::Small),IconSize(KIconLoader::Small)));
   QVBoxLayout *l = new QVBoxLayout(widget);
   l->setSpacing(10);
   l->setMargin(10);
