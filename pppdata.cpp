@@ -29,6 +29,7 @@
 #include "devices.h"
 #include <klocale.h>
 #include <kconfig.h>
+#include <kconfiggroup.h>
 #include <kmessagebox.h>
 #include <kapplication.h>
 #include <kglobalsettings.h>
@@ -71,8 +72,6 @@ bool PPPData::open() {
   }
 
   // don't expand shell variables
-  config->setDollarExpansion(false);
-
   accounthighcount = readNumConfig(GENERAL_GRP, NUMACCOUNTS_KEY, 0) - 1;
 
   if (accounthighcount > MAX_ACCOUNTS)

@@ -167,7 +167,6 @@ void ModemDatabase::loadModem(const QString &key, CharDict &dict) {
   QMap <QString, QString> map;
   QMap <QString, QString>::Iterator it;
   //  KEntryMapConstIterator e;
-  KEntry e;
   map = modemDB->entryMap(key);
   it = map.begin();
 
@@ -222,7 +221,7 @@ void ModemDatabase::load() {
     }
     modems.append(c);
 
-    if(modemDB->hasKey("Vendor")) {
+    if(cg.hasKey("Vendor")) {
       QString vendor = cg.readEntry("Vendor");
       if(lvendors->indexOf(vendor) == -1)
 	lvendors->append(vendor);
