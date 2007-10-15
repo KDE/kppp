@@ -37,7 +37,7 @@
 #include <qlabel.h>
 //Added by qt3to4:
 #include <QVBoxLayout>
-#include <Q3Frame>
+#include <QFrame>
 #include <QHBoxLayout>
 #include <kurllabel.h>
 #include <qlayout.h>
@@ -91,7 +91,7 @@ AccountingSelector::AccountingSelector(QWidget *parent, bool _isnewaccount, cons
   l1->addLayout(l11);
   QLabel *lsel = new QLabel(i18n("Selected:"), parent);
   selected = new QLabel(parent);
-  selected->setFrameStyle(Q3Frame::Sunken | Q3Frame::WinPanel);
+  selected->setFrameStyle(QFrame::Sunken | QFrame::WinPanel);
   selected->setLineWidth(1);
   selected->setFixedHeight(selected->sizeHint().height() + 16);
   l11->addWidget(lsel, 0);
