@@ -32,7 +32,7 @@
 #include <q3groupbox.h>
 #include <qpushbutton.h>
 //Added by qt3to4:
-#include <Q3Frame>
+#include <QFrame>
 #include <kcolorbutton.h>
 
 class QSlider;
@@ -103,7 +103,7 @@ private:
   QPushButton 	*modemcmds;
   QPushButton 	*modeminfo_button;
   QPushButton 	*terminal_button;
-  Q3Frame 	*fline;
+  QFrame 	*fline;
   QCheckBox     *waitfordt;
   KIntNumInput 	*busywait;
   QCheckBox 	*chkbox1;

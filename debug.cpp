@@ -29,7 +29,7 @@
 //Added by qt3to4:
 #include <QHideEvent>
 #include <QLabel>
-#include <Q3Frame>
+#include <QFrame>
 #include <QResizeEvent>
 
 extern KPPPWidget *p_kppp;
@@ -58,7 +58,7 @@ DebugWidget::DebugWidget(QWidget *parent)
   statuslabel = new QLabel(QString(), this );
   statuslabel->setObjectName("statuslabel");
 
-  statuslabel->setFrameStyle( Q3Frame::Panel | Q3Frame::Sunken );
+  statuslabel->setFrameStyle( QFrame::Panel | QFrame::Sunken );
   statuslabel->setAlignment( Qt::AlignLeft|Qt::AlignVCenter );
   statuslabel->setGeometry(2, 307, 400, 20);
   //statusPageLabel->setFont( KGlobalSettings::generalFont() );

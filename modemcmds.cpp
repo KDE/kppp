@@ -35,7 +35,7 @@
 #include "modemcmds.h"
 #include "pppdata.h"
 #include <kwindowsystem.h>
-#include <Q3Frame>
+#include <QFrame>
 #include <QApplication>
 #include <q3groupbox.h>
 #include <qlineedit.h>
@@ -47,7 +47,7 @@
 #define ADJUSTEDIT(e) e->setText("XXXXXXXXqy"); e->setMinimumSize(e->sizeHint()); e->setFixedHeight(e->sizeHint().height()); e->setText(""); e->setMaxLength(MODEMSTR_SIZE);
 
 // a little trick to make the label look like a disabled lineedit
-#define FORMATSLIDERLABEL(l) l->setFixedWidth(l->sizeHint().width()); l->setFixedHeight(QLineEdit(dummyWidget).sizeHint().height()); l->setAlignment(Qt::AlignCenter); l->setFrameStyle(Q3Frame::WinPanel|Q3Frame::Sunken); l->setLineWidth(2);
+#define FORMATSLIDERLABEL(l) l->setFixedWidth(l->sizeHint().width()); l->setFixedHeight(QLineEdit(dummyWidget).sizeHint().height()); l->setAlignment(Qt::AlignCenter); l->setFrameStyle(QFrame::WinPanel|QFrame::Sunken); l->setLineWidth(2);
 
 ModemCommands::ModemCommands(QWidget *parent, const char *name)
   : KDialog(parent)

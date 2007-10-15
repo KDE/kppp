@@ -31,7 +31,7 @@
 #include <qpushbutton.h>
 //Added by qt3to4:
 #include <QHideEvent>
-#include <Q3Frame>
+#include <QFrame>
 #include <QResizeEvent>
 
 
@@ -62,7 +62,7 @@ protected:
 
 private:
   void enter();
-  Q3Frame *fline;
+  QFrame *fline;
   QPushButton *dismiss;
   myMultiEdit *text_window;
 

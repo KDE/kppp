@@ -46,7 +46,7 @@
 #include <QMenu>
 //Added by qt3to4:
 #include <QVBoxLayout>
-#include <Q3Frame>
+#include <QFrame>
 #include <QKeyEvent>
 #include <QCloseEvent>
 #include <ktoolinvocation.h>
@@ -85,7 +85,7 @@ MiniTerm::MiniTerm(QWidget *parent, const char *name)
   menubar->addMenu( m_help->menu());
 
   statusbar = new QLabel(this);
-  statusbar->setFrameStyle(Q3Frame::Panel | Q3Frame::Sunken);
+  statusbar->setFrameStyle(QFrame::Panel | QFrame::Sunken);
 
   terminal = new MyTerm(this, "term");
 

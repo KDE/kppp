@@ -32,7 +32,7 @@
 #include <QLabel>
 #include <QTimerEvent>
 #include <QVBoxLayout>
-#include <Q3Frame>
+#include <QFrame>
 #include <QHBoxLayout>
 #include <Q3CString>
 #include <QCloseEvent>
@@ -130,7 +130,7 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   l0->addSpacing(10);
   messg = new QLabel( this );
   messg->setObjectName( "messg" );
-  messg->setFrameStyle(Q3Frame::Panel|Q3Frame::Sunken);
+  messg->setFrameStyle(QFrame::Panel|QFrame::Sunken);
   messg->setAlignment(Qt::AlignCenter);
   messg->setText(i18n("Unable to create modem lock file."));
   messg->setMinimumHeight(messg->sizeHint().height() + 5);

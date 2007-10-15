@@ -30,12 +30,11 @@
 #include <qpixmap.h>
 //Added by qt3to4:
 #include <QLabel>
-#include <Q3Frame>
+#include <QFrame>
 #include <QPaintEvent>
 #include <QCloseEvent>
 
 class QLabel;
-class Q3Frame;
 class Q3GroupBox;
 class QLineEdit;
 class QTimer;
@@ -121,7 +120,7 @@ private:
   Q3GroupBox    *box;
 
   // graph widget
-  Q3Frame *graph;
+  QFrame *graph;
   int bin[MAX_GRAPH_WIDTH];
   int bout[MAX_GRAPH_WIDTH];
   int bin_last;

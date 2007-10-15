@@ -30,7 +30,7 @@
 //Added by qt3to4:
 #include <QLabel>
 #include <QVBoxLayout>
-#include <Q3Frame>
+#include <QFrame>
 #include <QHBoxLayout>
 #include <QGridLayout>
 
@@ -70,7 +70,7 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
   if(version == "0.0.0")
     version = "unknown";
   label = new QLabel(version, parent);
-  label->setFrameStyle(Q3Frame::StyledPanel | Q3Frame::Sunken);
+  label->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
   hbox->addWidget(label);
 
   KIntNumInput *pppdTimeout = new KIntNumInput(gpppdata.pppdTimeout(), parent);

@@ -73,7 +73,7 @@ private:
   int seconds;
   int hours;
   int days;
-  Q3Frame *fline;
+  QFrame *fline;
   QLabel *timelabel1;
   QLabel *timelabel2;
   QLabel *total_bill, *total_bill_l;

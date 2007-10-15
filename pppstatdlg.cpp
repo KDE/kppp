@@ -123,12 +123,12 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
     labela1[i] = new QLabel(this);
 
     labela2[i] = new QLabel(this);
-    labela2[i]->setFrameStyle(Q3Frame::WinPanel | Q3Frame::Sunken);
+    labela2[i]->setFrameStyle(QFrame::WinPanel | QFrame::Sunken);
 
     labelb1[i] = new QLabel(this);
 
     labelb2[i] = new QLabel(this);
-    labelb2[i]->setFrameStyle(Q3Frame::WinPanel | Q3Frame::Sunken);
+    labelb2[i]->setFrameStyle(QFrame::WinPanel | QFrame::Sunken);
  }
 
   labela1[0]->setText(i18n("bytes in"));
@@ -176,8 +176,8 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
 
     gpppdata.graphingOptions(dummy, bg, text, in, out);
 
-    graph = new Q3Frame(this);
-    graph->setFrameStyle(Q3Frame::Box | Q3Frame::Sunken);
+    graph = new QFrame(this);
+    graph->setFrameStyle(QFrame::Box | QFrame::Sunken);
     l1->addMultiCellWidget(graph, 2, 2, 1, 2);
     graph->setMinimumWidth(300);
     graph->setFixedHeight(76+4);
