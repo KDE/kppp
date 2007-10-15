@@ -37,7 +37,6 @@
 #include <QKeyEvent>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <Q3PopupMenu>
 #include <kpagedialog.h>
 
 #include <QMenu>
@@ -227,10 +226,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   connect( help_b, SIGNAL(clicked()), SLOT(helpbutton()));
 
   KHelpMenu *helpMenu = new KHelpMenu(this, KGlobal::mainComponent().aboutData(), true);
-  help_b->setPopup((Q3PopupMenu*)helpMenu->menu());
-#if 0 //After move kdelibs trunk to kdelibs-snapshot
-  help_b->setMenu(helpMenu->menu());
-#endif
+  help_b->setPopup((QMenu*)helpMenu->menu());
   if(help_b->sizeHint().width() > minw)
       minw = help_b->sizeHint().width();
 
