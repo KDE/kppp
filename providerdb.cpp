@@ -134,7 +134,7 @@ void ProviderDB::loadProviderInfo() {
   QString fname = KStandardDirs::locate("appdata", prov);
   kDebug(5002) << "Providerfile=" << fname;
 
-  cfg = new KConfig(fname, KConfig::OnlyLocal);
+  cfg = new KConfig(fname, KConfig::SimpleConfig);
 }
 
 

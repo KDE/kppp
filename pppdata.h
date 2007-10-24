@@ -181,12 +181,10 @@ public:
   // function to read/write date to configuration file
   QString readConfig(const QString &, const QString &, const QString &);
   int readNumConfig(const QString &, const QString &, int);
-  bool readListConfig(const QString &, const QString &,
-                      QStringList &, char sep = ',');
+  bool readListConfig(const QString &, const QString &, QStringList &);
   void writeConfig(const QString &, const QString &, const QString &);
   void writeConfig(const QString &, const QString &, int);
-  void writeListConfig(const QString &, const QString &,
-                       QStringList &, char sep = ',');
+  void writeListConfig(const QString &, const QString &, QStringList &);
 
   // return the current account group
   QString currentAccountGroup() { return caccountgroup; }

@@ -60,7 +60,7 @@ bool PPPData::open() {
 
   config = KGlobal::config();
 
-  if (config->getConfigState() == KConfig::NoAccess) {
+  if (config->accessMode() == KConfig::NoAccess) {
     KMessageBox::error(0L,
                        i18n("The application-specific config file could not "
                        "be opened in either read-write or read-only mode.\n"
@@ -148,7 +148,7 @@ void PPPData::save() {
 void PPPData::cancel() {
 
   if (config) {
-    config->rollback();
+    config->markAsClean();
     config->reparseConfiguration();
   }
 
@@ -158,7 +158,7 @@ void PPPData::cancel() {
 // currently differentiates between READWRITE and NONE only
 int PPPData::access() const {
 
-  return config->getConfigState();
+  return config->accessMode();
 }
 
 
@@ -184,10 +184,10 @@ int PPPData::readNumConfig(const QString &group, const QString &key,
 
 
 bool PPPData::readListConfig(const QString &group, const QString &key,
-                             QStringList &list, char sep) {
+                             QStringList &list) {
   list.clear();
   if (config) {
-    list = config->group(group).readEntry(key, QStringList(),sep);
+    list = config->group(group).readEntry(key, QStringList());
     return true;
   } else
     return false;
@@ -210,9 +210,9 @@ void PPPData::writeConfig(const QString &group, const QString &key, int value) {
 
 
 void PPPData::writeListConfig(const QString &group, const QString &key,
-                              QStringList &list, char sep) {
+                              QStringList &list) {
   if (config) {
-    config->group(group).writeEntry(key, list, sep);
+    config->group(group).writeEntry(key, list);
   }
 }
 
@@ -1052,10 +1052,8 @@ void PPPData::setAccname(const QString &n) {
 
 #define SEPARATOR_CHAR ':'
 QStringList &PPPData::phonenumbers() {
-
-  readListConfig(caccountgroup, PHONENUMBER_KEY, phonelist, SEPARATOR_CHAR);
+  phonelist = readConfig(caccountgroup, PHONENUMBER_KEY).split(SEPARATOR_CHAR);
   return phonelist;
-
 }
 
 
