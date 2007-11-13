@@ -103,8 +103,8 @@ bool ConWindow::event(QEvent *e) {
 
 QString ConWindow::prettyPrintVolume(unsigned int n) {
   int idx = 0;
-  const QString quant[] = {i18n("Byte"), i18n("KB"),
-		   i18n("MB"), i18n("GB"), QString()};
+  const QString quant[] = {i18n("Byte"), i18n("KiB"),
+		   i18n("MiB"), i18n("GiB"), QString()};
 
   float n1 = n;
   while(n >= 1024 && !quant[idx].isNull()) {
