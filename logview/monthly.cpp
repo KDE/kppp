@@ -39,9 +39,9 @@ static void formatBytes(int bytes, QString &result) {
   if(bytes < 1024)
     result.setNum(bytes);
   else if(bytes < 1024*1024)
-    result = i18n("%1 KB", KGlobal::locale()->formatNumber((float)bytes / 1024.0, 1));
+    result = i18n("%1 KiB", KGlobal::locale()->formatNumber((float)bytes / 1024.0, 1));
   else
-    result = i18n("%1 MB", KGlobal::locale()->formatNumber((float)bytes / 1024.0 / 1024.0, 1));
+    result = i18n("%1 MiB", KGlobal::locale()->formatNumber((float)bytes / 1024.0 / 1024.0, 1));
 }
 
 static void formatBytesMonth(int bytes, QString &result) {
@@ -55,9 +55,9 @@ static void formatBytesMonth(int bytes, QString &result) {
   if(bytes < 1024)
     result.setNum(bytes);
   else if(bytes < 1024*1024)
-    result = i18n("%1 KB", KGlobal::locale()->formatNumber((float)bytes / 1024.0, 1));
+    result = i18n("%1 KiB", KGlobal::locale()->formatNumber((float)bytes / 1024.0, 1));
   else
-    result = i18n("%1 MB", KGlobal::locale()->formatNumber((float)bytes / 1024.0 / 1024.0, 1));
+    result = i18n("%1 MiB", KGlobal::locale()->formatNumber((float)bytes / 1024.0 / 1024.0, 1));
 }
 
 static void formatDuration(int seconds, QString &result) {
