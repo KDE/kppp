@@ -1,5 +1,4 @@
 [Desktop Entry]
-Encoding=UTF-8
 Name=KPPPLogview
 Name[de]=KPPP-Protokoll-Betrachter
 Name[el]=Προβολή καταγραφής KPPP
@@ -67,7 +66,6 @@ GenericName[zh_TW]=Internet 撥號工具紀錄檢視器
 MimeType=
 Exec=kppplogview
 Icon=kppp
-Path=
 Type=Application
 Terminal=false
 X-DBUS-StartupType=Multi

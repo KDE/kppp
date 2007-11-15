@@ -1,5 +1,4 @@
 [Desktop Entry]
-Encoding=UTF-8
 GenericName=Internet Dial-Up Tool
 GenericName[bg]=Включване в Интернет
 GenericName[ca]=Eina per a la connexió telefònica a Internet
@@ -60,7 +59,6 @@ MimeType=
 X-DocPath=kppp/index.html
 Exec=kppp
 Icon=kppp
-Path=
 Type=Application
 Terminal=false
 X-KDE-StartupNotify=true
