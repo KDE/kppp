@@ -75,14 +75,15 @@ void LoginMultiLineEdit::mynewline() {
 
 
 void LoginMultiLineEdit::keyPressEvent(QKeyEvent *k) {
-  unsigned char c = (unsigned char) k->ascii();
+  if (k->key() == 0 || k->key() == Qt::Key_unknown) return;
 
-  if ((int)c == 0) return;
-
-  if((int)c == 13)
+  if(k->key() == Qt::Key_Enter || k->key() == Qt::Key_Return)
     Modem::modem->writeLine("");
-  else
-    Modem::modem->writeChar(c);
+  else {
+    QByteArray ascii = k->text().toAscii();
+    if (ascii.size() > 0)
+        Modem::modem->writeChar(ascii[0]);
+  }
 }
 
 

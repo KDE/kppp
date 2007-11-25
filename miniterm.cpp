@@ -235,13 +235,15 @@ MyTerm::MyTerm(QWidget *parent, const char* name)
 
 void MyTerm::keyPressEvent(QKeyEvent *k) {
   // ignore meta keys
-  if (k->ascii() == 0)
+  if (k->key() == 0 || k->key() == Qt::Key_unknown)
     return;
 
-  if(k->ascii() == 13)
+  if(k->key() == Qt::Key_Enter || k->key() == Qt::Key_Return)
     myreturn();
 
-  Modem::modem->writeChar((unsigned char) k->ascii());
+  QByteArray ascii = k->text().toAscii();
+  if (ascii.size() > 0)
+    Modem::modem->writeChar((unsigned char) ascii[0]);
 }
 
 
