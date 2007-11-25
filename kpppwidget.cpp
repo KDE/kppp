@@ -270,7 +270,6 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   debugwindow = new DebugWidget(0);
   debugwindow->setObjectName( "debugwindow" );
   KWindowSystem::setIcons(debugwindow->winId(), qApp->windowIcon().pixmap(IconSize(KIconLoader::Desktop),IconSize(KIconLoader::Desktop)), qApp->windowIcon().pixmap(IconSize(KIconLoader::Small),IconSize(KIconLoader::Small)));
-  debugwindow->hide();
 
   // load up the accounts combo box
 
@@ -1085,10 +1084,10 @@ void KPPPWidget::showNews() {
     cb->setFixedSize(cb->sizeHint());
 
     dlg.setButtons(Ok)
-  
+
     l2->addWidget(l);
     l2->addWidget(cb);
-  
+
     QString tmp = i18n("This is an example of <b>QuickHelp</b>.\n"
 		       "This window will stay open until you\n"
 		       "click a mouse button or a press a key.\n");
