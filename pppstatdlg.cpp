@@ -71,7 +71,7 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
   QGridLayout *l1 = new QGridLayout();
   tl->addLayout(l1, 1);
   box = new Q3GroupBox(i18n("Statistics"), this);
-  l1->addMultiCellWidget(box, 0, 3, 0, 3);
+  l1->addWidget(box, 0, 0, 4, 4);
   l1->addItem(new QSpacerItem(0, fontMetrics().lineSpacing() - 10), 0, 0);
   l1->setRowStretch(1, 1);
   l1->setColumnStretch(1, 1);
@@ -178,10 +178,13 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
 
     graph = new QLabel(this);
     graph->setFrameStyle(QFrame::Box | QFrame::Sunken);
-    l1->addMultiCellWidget(graph, 2, 2, 1, 2);
+    l1->addWidget(graph, 2, 1, 1, 2);
     graph->setMinimumWidth(300);
     graph->setFixedHeight(76+4);
-    graph->setBackgroundColor(bg);
+
+    QPalette palette;
+    palette.setColor(graph->backgroundRole(), bg);
+    graph->setPalette(palette);
   }
 
   cancelbutton = new KPushButton(KStandardGuiItem::close(),this);
@@ -258,7 +261,7 @@ void PPPStatsDlg::paintGraph() {
 
   QPixmap pm(graph->width() - 4, graph->height() - 4);
   QPainter p;
-  pm.fill(graph->backgroundColor());
+  pm.fill(graph->palette().color(graph->backgroundRole()));
   p.begin(&pm);
 
   int x;
@@ -304,7 +307,7 @@ void PPPStatsDlg::paintGraph() {
   QString s = i18n("%1 (max. %2) kb/sec",
 		 KGlobal::locale()->formatNumber((float)last_max / 1024.0, 1),
 		 KGlobal::locale()->formatNumber((float)max / 1024.0, 1));
-  p.drawText(0, 0, pm.width(), 2*8, Qt::AlignRight|Qt::AlignVCenter, s, -1, &r);
+  p.drawText(0, 0, pm.width(), 2*8, Qt::AlignRight|Qt::AlignVCenter, s, &r);
   p.drawLine(0, 8, r.left() - 8, 8);
 
   p.end();

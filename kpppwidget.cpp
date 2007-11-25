@@ -226,7 +226,7 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   connect( help_b, SIGNAL(clicked()), SLOT(helpbutton()));
 
   KHelpMenu *helpMenu = new KHelpMenu(this, KGlobal::mainComponent().aboutData(), true);
-  help_b->setPopup((QMenu*)helpMenu->menu());
+  help_b->setMenu((QMenu*)helpMenu->menu());
   if(help_b->sizeHint().width() > minw)
       minw = help_b->sizeHint().width();
 
@@ -397,7 +397,7 @@ bool KPPPWidget::eventFilter(QObject *o, QEvent *e) {
 
 void KPPPWidget::prepareSetupDialog() {
   if(tabWindow == 0) {
-    tabWindow = new KPageDialog( kapp->mainWidget());
+    tabWindow = new KPageDialog( this );
     tabWindow->setCaption( i18n("KPPP Configuration") );
     tabWindow->setButtons( KDialog::Ok|KDialog::Cancel );
     tabWindow->setDefaultButton(  KDialog::Ok );

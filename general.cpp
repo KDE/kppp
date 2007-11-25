@@ -75,7 +75,8 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
 
   KIntNumInput *pppdTimeout = new KIntNumInput(gpppdata.pppdTimeout(), parent);
   pppdTimeout->setLabel(i18n("pppd &timeout:"));
-  pppdTimeout->setRange(1, TIMEOUT_SIZE, 5, true);
+  pppdTimeout->setRange(1, TIMEOUT_SIZE, 5);
+  pppdTimeout->setSliderEnabled(true);
   pppdTimeout->setSuffix(i18n(" sec"));
   connect(pppdTimeout, SIGNAL(valueChanged(int)),
           SLOT(pppdtimeoutchanged(int)));
@@ -379,7 +380,7 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem)
   modemlockfile->setChecked(gpppdata.modemLockFile());
 /*  connect(modemlockfile, SIGNAL(toggled(bool)),
           SLOT(modemlockfilechanged(bool)));*/
-  tl->addMultiCellWidget(modemlockfile, 5, 5, 0, 1);
+  tl->addWidget(modemlockfile, 5, 0, 1, 2);
   //  l12->addStretch(1);
   modemlockfile->setWhatsThis(
 		  i18n("<p>To prevent other programs from accessing the\n"
@@ -400,7 +401,7 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem)
   modemtimeout->setSuffix(i18n(" sec"));
 /*  connect(modemtimeout, SIGNAL(valueChanged(int)),
 	  SLOT(modemtimeoutchanged(int)));*/
-  tl->addMultiCellWidget(modemtimeout, 6, 6, 0, 1);
+  tl->addWidget(modemtimeout, 6, 0, 1, 2);
 
   modemtimeout->setWhatsThis(
                   i18n("This specifies how long <i>kppp</i> waits for a\n"
@@ -491,7 +492,8 @@ ModemWidget2::ModemWidget2(QWidget *parent, const char *name)
 
   busywait = new KIntNumInput(gpppdata.busyWait(), this);
   busywait->setLabel(i18n("B&usy wait:"));
-  busywait->setRange(0, 300, 5, true);
+  busywait->setRange(0, 300, 5);
+  busywait->setSliderEnabled(true);
   busywait->setSuffix(i18n(" sec"));
  // connect(busywait, SIGNAL(valueChanged(int)), SLOT(busywaitchanged(int)));
   l1->addWidget(busywait);

@@ -88,9 +88,9 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount )
   del = new QPushButton(i18n("&Remove"), this);
 
   up = new QPushButton(this);
-  up->setIconSet(BarIconSet("go-up"));
+  up->setIcon(KIcon("go-up"));
   down = new QPushButton(this);
-  down->setIconSet(BarIconSet("go-down"));
+  down->setIcon(KIcon("go-down"));
   lpn1->addWidget(add);
   lpn1->addWidget(del);
   lpn1->addStretch(1);
@@ -145,7 +145,7 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount )
 
   store_password = new QCheckBox(i18n("Store &password"), this);
   store_password->setChecked(true);
-  tl->addMultiCellWidget(store_password, 4, 4, 0, 1, Qt::AlignRight);
+  tl->addWidget(store_password, 4, 0, 1, 2, Qt::AlignRight);
   store_password->setWhatsThis(
 		  i18n("<p>When this is turned on, your ISP password\n"
 		       "will be saved in <i>kppp</i>'s config file, so\n"
@@ -186,7 +186,7 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount )
 
   pppdargs = new QPushButton(i18n("Customize &pppd Arguments..."), this);
   connect(pppdargs, SIGNAL(clicked()), SLOT(pppdargsbutton()));
-  tl->addMultiCellWidget(pppdargs, 7, 7, 0, 1, Qt::AlignCenter);
+  tl->addWidget(pppdargs, 7, 0, 1, 2, Qt::AlignCenter);
 
   // Set defaults if editing an existing connection
   if(!isnewaccount) {
@@ -712,7 +712,7 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount )
 "&Disable existing DNS servers during connection"),
 				     this);
   exdnsdisabled_toggle->setChecked(gpppdata.exDNSDisabled());
-  tl->addMultiCellWidget(exdnsdisabled_toggle, 6, 6, 0, 1, Qt::AlignCenter);
+  tl->addWidget(exdnsdisabled_toggle, 6, 0, 1, 2, Qt::AlignCenter);
   exdnsdisabled_toggle->setWhatsThis(
 		  i18n("<p>When this option is selected, all DNS\n"
 		       "servers specified in <tt>/etc/resolv.conf</tt> are\n"
@@ -914,7 +914,7 @@ ScriptWidget::ScriptWidget( QWidget *parent, bool isnewaccount, const char *name
   connect(remove, SIGNAL(clicked()), SLOT(removeButton()));
   tl->addWidget(bbox);
 
-  QHBoxLayout *l12 = new QHBoxLayout(0);
+  QHBoxLayout *l12 = new QHBoxLayout;
   tl->addLayout(l12);
   stl = new Q3ListBox(parent);
   stl->setVScrollBarMode( Q3ScrollView::AlwaysOff );

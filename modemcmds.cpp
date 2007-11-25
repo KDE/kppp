@@ -73,7 +73,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   QGridLayout *l1 = new QGridLayout();
   tl->addLayout(l1);
   box = new Q3GroupBox(dummyWidget, "box");
-  l1->addMultiCellWidget(box, row++, GRIDROWS, 0, 3);
+  l1->addWidget(box, row++, 0, GRIDROWS + 1, 4);
 
   // put slider and label into a separate H-Box
   QHBoxLayout *l2 = new QHBoxLayout;
@@ -86,7 +86,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   preinitslider->setMaximum(300);
   preinitslider->setPageStep(1);
   preinitslider->setValue(0);
-                                       
+
   preinitslider->setFixedHeight(preinitslider->sizeHint().height());
   connect(preinitslider, SIGNAL(valueChanged(int)),
 	  lpreinitslider, SLOT(setNum(int)));
@@ -114,7 +114,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   initslider->setMaximum(300);
   initslider->setPageStep(1);
   initslider->setValue(1); // was zero before the Qt4 port.
-				
+
   initslider->setFixedHeight(initslider->sizeHint().height());
   connect(initslider, SIGNAL(valueChanged(int)),
 	  linitslider, SLOT(setNum(int)));
@@ -134,7 +134,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   durationslider->setMaximum(255);
   durationslider->setPageStep(1);
   durationslider->setValue(1); // was 0 before the Qt4 port
-				
+
   durationslider->setFixedHeight(durationslider->sizeHint().height());
   connect(durationslider, SIGNAL(valueChanged(int)),
 	  ldurationslider, SLOT(setNum(int)));
@@ -254,7 +254,7 @@ ModemCommands::ModemCommands(QWidget *parent, const char *name)
   slider->setMaximum(255);
   slider->setPageStep(1);
   slider->setValue(0);
-				
+
   slider->setFixedHeight(slider->sizeHint().height());
   connect(slider, SIGNAL(valueChanged(int)),
 	  lslider, SLOT(setNum(int)));
