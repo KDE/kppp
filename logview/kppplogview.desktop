@@ -2,7 +2,6 @@
 Name=KPPPLogview
 Name[de]=KPPP-Protokoll-Betrachter
 Name[el]=Προβολή καταγραφής KPPP
-Name[eo]=PPP-protokolorigardilo
 Name[fa]=نمای ثبت KPPP
 Name[he]=KPPP תצוגת רישום
 Name[is]=KPPP annálaskoðari
@@ -26,6 +25,7 @@ GenericName[cs]=Prohlížeč záznamů připojení přes vytáčenou linku
 GenericName[da]=Internet-opkaldsværktøj-logviser
 GenericName[de]=Protokoll-Betrachter für die Einwahl ins Internet
 GenericName[el]=Προβολή καταγραφής εργαλείου σύνδεσης μέσω τηλεφώνου στο διαδίκτυο
+GenericName[eo]=Raporta vidilo por telefona interreto
 GenericName[es]=Visor del registro de conexión telefónica a Internet
 GenericName[et]=Interneti sissehelistamise rakenduse logide näitaja
 GenericName[eu]=Internet markatzaile tresnaren erregistroaren ikusgailua
