@@ -53,6 +53,8 @@ DockWidget::DockWidget(QWidget *parent, const char *name, PPPStats *st)
   dock_right_pixmap = UserIcon("dock_right");
   dock_both_pixmap = UserIcon("dock_both");
 
+  setIcon(dock_none_pixmap);
+
   // popup menu for right mouse button
   popup_m = contextMenu();
   toggleID = popup_m->insertItem(i18n("Restore"),
