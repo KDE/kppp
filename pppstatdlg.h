@@ -58,7 +58,6 @@ public:
 protected:
 
   void closeEvent( QCloseEvent *e );
-  void paintEvent (QPaintEvent *e) ;
   bool event( QEvent *e );
 
 public slots:
@@ -120,7 +119,7 @@ private:
   Q3GroupBox    *box;
 
   // graph widget
-  QFrame *graph;
+  QLabel *graph;
   int bin[MAX_GRAPH_WIDTH];
   int bout[MAX_GRAPH_WIDTH];
   int bin_last;

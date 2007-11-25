@@ -176,7 +176,7 @@ PPPStatsDlg::PPPStatsDlg(QWidget *parent, const char *name, QWidget *,
 
     gpppdata.graphingOptions(dummy, bg, text, in, out);
 
-    graph = new QFrame(this);
+    graph = new QLabel(this);
     graph->setFrameStyle(QFrame::Box | QFrame::Sunken);
     l1->addMultiCellWidget(graph, 2, 2, 1, 2);
     graph->setMinimumWidth(300);
@@ -308,7 +308,7 @@ void PPPStatsDlg::paintGraph() {
   p.drawLine(0, 8, r.left() - 8, 8);
 
   p.end();
-  bitBlt(graph, 2, 2, &pm, 0, 0, pm.width(), pm.height());
+  graph->setPixmap(pm);
 }
 
 void PPPStatsDlg::updateGraph() {
@@ -326,16 +326,7 @@ void PPPStatsDlg::updateGraph() {
   paintGraph();
 }
 
-
-void PPPStatsDlg::paintEvent (QPaintEvent *) {
-  paintIcon(PPPStats::BytesNone); // correct ?
-  if(gpppdata.graphingEnabled())
-    paintGraph();
-}
-
-
 void PPPStatsDlg::paintIcon(int status) {
-
   const QPixmap *pixmap;
 
   switch(status)
@@ -355,7 +346,7 @@ void PPPStatsDlg::paintIcon(int status) {
       break;
     }
 
-  bitBlt(pixmap_l, 0, 0, pixmap);
+  pixmap_l->setPixmap(*pixmap);
 
   update_data();
 }
