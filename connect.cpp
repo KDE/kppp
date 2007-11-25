@@ -320,16 +320,19 @@ void ConnectWidget::timerEvent(QTimerEvent *) {
 
     QString initStr = gpppdata.modemInitStr(substate);
     if (!initStr.isEmpty()) {
-	// send a carriage return and then wait a bit so that the modem will
-	// let us issue commands.
-	if(gpppdata.modemPreInitDelay() > 0) {
-	    usleep(gpppdata.modemPreInitDelay() * 5000);
-	    writeline("");
-	    usleep(gpppdata.modemPreInitDelay() * 5000);
-	}
-	setExpect(gpppdata.modemInitResp());
-	writeline(initStr);
-	usleep(gpppdata.modemInitDelay() * 10000); // 0.01 - 3.0 sec
+      timeout_timer->stop();
+
+      // send a carriage return and then wait a bit so that the modem will
+      // let us issue commands.
+      if(gpppdata.modemPreInitDelay() > 0) {
+        usleep(gpppdata.modemPreInitDelay() * 5000);
+        writeline("");
+        usleep(gpppdata.modemPreInitDelay() * 5000);
+      }
+      setExpect(gpppdata.modemInitResp());
+      writeline(initStr);
+      timeout_timer->start(gpppdata.modemTimeout()*1000);
+      usleep(gpppdata.modemInitDelay() * 10000); // 0.01 - 3.0 sec
     }
 
     substate++;
