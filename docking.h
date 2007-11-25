@@ -46,10 +46,6 @@ public:
 protected:
   void showEvent(QShowEvent *) { }
 
-private slots:
-  void toggle_window_state();
-  void mousePressEvent(QMouseEvent *e);
-
 public slots:
   void paintIcon(int);
   void take_stats();
@@ -59,7 +55,6 @@ public:
   static DockWidget *dock_widget;
 
 private:
-  int toggleID;
   PPPStats *stats;
 
   QMenu *popup_m;

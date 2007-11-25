@@ -24,6 +24,7 @@
  * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include <kactioncollection.h>
 #include <kwindowsystem.h>
 #include <klocale.h>
 #include <kiconloader.h>
@@ -57,11 +58,15 @@ DockWidget::DockWidget(QWidget *parent, const char *name, PPPStats *st)
 
   // popup menu for right mouse button
   popup_m = contextMenu();
-  toggleID = popup_m->insertItem(i18n("Restore"),
-				 this, SLOT(toggle_window_state()));
-  popup_m->insertItem(i18n("Details"), p_kppp, SLOT(showStats()));
-  popup_m->insertSeparator();
-  popup_m->insertItem(i18n("Disconnect"), p_kppp, SLOT(disconnect()));
+  popup_m->addAction(i18n("Details"), p_kppp, SLOT(showStats()));
+  popup_m->addSeparator();
+  popup_m->addAction(i18n("Disconnect"), p_kppp, SLOT(disconnect()));
+  // TODO see if we can rather connect the quit action to the
+  // main window's quit handling, bypassing KSystemTrayIcon::maybeQuit
+  QAction *quit =
+    actionCollection()->action(KStandardAction::name(KStandardAction::Quit));
+  if (quit != 0)
+    quit->setVisible(false);
   // connect to stats for little modem animation
   connect(stats, SIGNAL(statsChanged(int)), SLOT(paintIcon(int)));
 
@@ -108,40 +113,6 @@ void DockWidget::take_stats() {
 
 void DockWidget::stop_stats() {
   stats->stop();
-}
-
-
-void DockWidget::mousePressEvent(QMouseEvent *e) {
-  // open/close connect-window on right mouse button
-  if ( e->button() == Qt::LeftButton ) {
-    toggle_window_state();
-  }
-
-  // open popup menu on left mouse button
-  if ( e->button() == Qt::RightButton ) {
-    QString text;
-    if(p_kppp->con_win->isVisible())
-      text = i18n("Minimize");
-    else
-      text = i18n("Restore");
-
-    popup_m->changeItem(toggleID, text);
-    popup_m->popup(e->globalPos());
-    popup_m->exec();
-  }
-}
-
-
-void DockWidget::toggle_window_state() {
-  // restore/hide connect-window
-  if(p_kppp != 0L)  {
-    if (p_kppp->con_win->isVisible())
-      p_kppp->con_win->hide();
-    else {
-      p_kppp->con_win->show();
-      KWindowSystem::activateWindow(p_kppp->con_win->winId());
-    }
-  }
 }
 
 #include "docking.moc"
