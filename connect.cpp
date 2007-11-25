@@ -70,7 +70,6 @@
 #include "runtests.h"
 #endif
 
-#include <QtDBus>
 #include "auth.h"
 #include "connect.h"
 #include "docking.h"
@@ -112,11 +111,6 @@ ConnectWidget::ConnectWidget(QWidget *parent, const char *name, PPPStats *st)
   setObjectName(name);
 
   modified_hostname = false;
-
-  QDBusConnection dbus = QDBusConnection::sessionBus();
-  dbus.connect(QString(), "/Kppp", "org.kde.kppp", "aboutToConnect", this, SLOT(aboutToConnect()));
-  dbus.connect(QString(), "/Kppp", "org.kde.kppp", "connected", this, SLOT(connect()));
-
 
   QVBoxLayout *tl = new QVBoxLayout(this);
   tl->setSpacing(10);

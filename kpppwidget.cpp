@@ -299,6 +299,8 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
 	  this, SLOT(saveMyself()));
   connect(KApplication::kApplication(), SIGNAL(aboutToQuit()),
 	  this, SLOT(shutDown()));
+  connect(con, SIGNAL(aboutToConnect()), this, SIGNAL(sig_aboutToConnect()));
+  connect(con, SIGNAL(connected()),      this, SIGNAL(sig_connected()));
 
   debugwindow->setGeometry(desk.center().x()+190, desk.center().y()-55,
 			   debugwindow->width(),debugwindow->height());
@@ -352,16 +354,6 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   // keep user informed about recent changes
   if(!m_bCmdlAccount)
     showNews();
-#endif
-#ifdef __GNUC__
-#warning "kde4: port to dbus"
-#endif
-#if 0
-  // attach to the DCOP server, if possible
-  if (!kapp->dcopClient()->attach())
-    kDebug(5002) << "Error: Could not connect to the DCOP server";
-  else
-    kapp->dcopClient()->registerAs(kapp->name(), true);
 #endif
   // this timer will delay the actual disconnection DISCONNECTION_DELAY ms
   // to give applications time to shutdown, logout, whatever..
