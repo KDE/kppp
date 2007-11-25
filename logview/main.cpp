@@ -52,7 +52,7 @@ TopWidget::TopWidget() : KXmlGuiWindow(0) {
   QBoxLayout *l = new QVBoxLayout(w);
   l->setSpacing(5);
 
-  td = new QTabWidget(w, "");
+  td = new QTabWidget(w);
   mw = new MonthlyWidget();
   td->addTab(mw, i18n("Monthly Log"));
 
@@ -115,7 +115,6 @@ int main(int argc, char **argv) {
 
   TopWidget *w = new TopWidget;
   w->show();
-  a.setMainWidget(w);
 
   return a.exec();
 }

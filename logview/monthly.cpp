@@ -274,8 +274,8 @@ void MonthlyWidget::layoutWidget() {
   l->setAlignment( Qt::AlignLeft );
   tl->addWidget(l, 5, 0);
   tl->addWidget(bbox, 1, 2);
-  tl->addMultiCellWidget(lv, 1, 4, 0, 1);
-  tl->addMultiCellWidget(lv2, 6, 6, 0, 1);
+  tl->addWidget(lv, 1, 0, 4, 2);
+  tl->addWidget(lv2, 6, 0, 1, 2);
 
   tl->activate();
 }
