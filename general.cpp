@@ -217,6 +217,11 @@ void GeneralWidget::pppdtimeoutchanged(int n) {
 ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem)
   : QWidget(parent)
 {
+  QVBoxLayout *topLayout = new QVBoxLayout(parent);
+  topLayout->setSpacing(KDialog::spacingHint());
+  topLayout->setMargin(0);
+  topLayout->addWidget(this);
+
   QGridLayout *tl = new QGridLayout(this );
   tl->setSpacing( KDialog::spacingHint() );
 
@@ -460,6 +465,11 @@ ModemWidget2::ModemWidget2(QWidget *parent, const char *name)
   : QWidget(parent)
 {
   setObjectName(name);
+
+  QVBoxLayout *topLayout = new QVBoxLayout(parent);
+  topLayout->setSpacing(KDialog::spacingHint());
+  topLayout->setMargin(0);
+  topLayout->addWidget(this);
 
   QVBoxLayout *l1 = new QVBoxLayout(this);
   l1->setSpacing(KDialog::spacingHint());

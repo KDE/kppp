@@ -50,6 +50,10 @@
 DialWidget::DialWidget( QWidget *parent, bool isnewaccount )
   : QWidget(parent)
 {
+  QVBoxLayout *topLayout = new QVBoxLayout(parent);
+  topLayout->setSpacing(KDialog::spacingHint());
+  topLayout->addWidget(this);
+
   QGridLayout *tl = new QGridLayout(this );
   tl->setSpacing( KDialog::spacingHint() );
 
@@ -593,6 +597,10 @@ void IPWidget::hitIPSelect( int i ) {
 DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount )
   : QWidget(parent)
 {
+  QVBoxLayout *topLayout = new QVBoxLayout(parent);
+  topLayout->setSpacing(KDialog::spacingHint());
+  topLayout->addWidget(this);
+
   //  box = new QGroupBox(this);
   QGridLayout *tl = new QGridLayout(this );
   tl->setSpacing( KDialog::spacingHint() );
@@ -826,9 +834,10 @@ GatewayWidget::GatewayWidget( QWidget *parent, bool isnewaccount )
 
   QWidget *gateBox = new QWidget(box);
   QHBoxLayout *hboxLayout1 = new QHBoxLayout(gateBox);
-  gateBox->setLayout(hboxLayout1);
   gate_label = new QLabel(i18n("Gateway &IP address:"), gateBox);
+  hboxLayout1->addWidget(gate_label);
   gatewayaddr = new IPLineEdit(gateBox);
+  hboxLayout1->addWidget(gatewayaddr);
   gate_label->setBuddy(gatewayaddr);
 
   defaultroute = new QCheckBox(i18n("&Assign the default route to this gateway"),
