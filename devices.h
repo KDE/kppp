@@ -42,6 +42,10 @@ static const char *devices[] = {
   "/dev/ttyS2",
   "/dev/ttyS3",
   "/dev/ttyS4",
+  "/dev/noz0",             /* 3G/UMTS modems using nozomi driver */
+  "/dev/noz1",
+  "/dev/noz2",
+  "/dev/noz3",
 #ifdef ISDNSUPPORT
   "/dev/ttyI0",
   "/dev/ttyI1",
@@ -63,7 +67,7 @@ static const char *devices[] = {
   "/dev/ttyUSB0",
   "/dev/ttyUSB1",
   "/dev/ttyUSB2",
-  "/dev/ttyUSB3",  
+  "/dev/ttyUSB3",
   "/dev/usb/tts/0",          /* USB stuff modems with devfs*/
   "/dev/usb/tts/1",
   "/dev/usb/tts/2",
@@ -79,7 +83,7 @@ static const char *devices[] = {
   "/dev/ttySL0",           /* necessary for slmodem driver http://www.smlink.com*/
   "/dev/ttySL1",
   "/dev/ttySL2",
-  "/dev/ttySL3",  
+  "/dev/ttySL3",
   "/dev/ttySHSF0",
   "/dev/ttySHSF1",
   "/dev/ttySHSF2",
