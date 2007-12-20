@@ -30,9 +30,7 @@
 
 #include <qpixmap.h>
 //Added by qt3to4:
-#include <QMouseEvent>
 #include <QShowEvent>
-#include <QPaintEvent>
 #include <ksystemtrayicon.h>
 
 class PPPStats;

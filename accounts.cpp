@@ -42,7 +42,6 @@
 #include <kpagedialog.h>
 #include <KStandardGuiItem>
 //#include <qvgroupbox.h>
-#include <QBoxLayout>
 #include <kiconloader.h>
 #include "pppdata.h"
 #include "accounts.h"

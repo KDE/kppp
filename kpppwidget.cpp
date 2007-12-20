@@ -23,7 +23,6 @@
  */
 
 #include "kpppwidget.h"
-#include <QtDBus>
 #include <qapplication.h>
 #include <qcombobox.h>
 #include <qdir.h>

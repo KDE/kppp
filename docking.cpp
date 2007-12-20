@@ -34,9 +34,6 @@
 #include "main.h"
 #include "pppstats.h"
 //Added by qt3to4:
-#include <QPixmap>
-#include <QMouseEvent>
-#include <QPaintEvent>
 
 extern KPPPWidget   *p_kppp;
 
