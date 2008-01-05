@@ -409,7 +409,6 @@ bool PPPData::isUniqueModname(const QString &n) {
   return true;
 }
 
-
 bool PPPData::deleteModem() {
   if(cmodem < 0)
     return false;
@@ -441,13 +440,16 @@ bool PPPData::deleteModem() {
   // make sure the top modem is cleared
   setModemByIndex(modemhighcount);
   map = config->entryMap(cmodemgroup);
-  it = map.begin();
-  KConfigGroup cg2(config, cmodemgroup);
-  while (!it.key().isNull()) {
-    cg2.writeEntry(it.key(), "");
-    it++;
+  if( !map.isEmpty())
+  {
+    it = map.begin();
+    KConfigGroup cg2(config, cmodemgroup);
+    while (!it.key().isEmpty()) {
+      if(!it.key().isEmpty())
+         cg2.writeEntry(it.key(), "");
+      it++;
+    }
   }
-
   modemhighcount--;
   if(cmodem > modemhighcount)
     cmodem = modemhighcount;
