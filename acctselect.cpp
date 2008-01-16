@@ -32,16 +32,13 @@
 //
 //---------------------------------------------------------------------------
 
-
+#define QT3_SUPPORT
+#include <q3listview.h>
+#undef QT3_SUPPORT
 #include <qcombobox.h>
 #include <qlabel.h>
-//Added by qt3to4:
-#include <QVBoxLayout>
-#include <QFrame>
-#include <QHBoxLayout>
 #include <kurllabel.h>
 #include <qlayout.h>
-#include <q3listview.h>
 #include <qdir.h>
 #include <qregexp.h>
 #include <qmatrix.h>

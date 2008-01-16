@@ -46,7 +46,6 @@ ModemTransfer::ModemTransfer(QWidget *parent, const char *name)
 {
   setObjectName(name);
   setModal(true);
-  setWindowFlags(Qt::WStyle_Customize|Qt::WStyle_NormalBorder);
   setWindowTitle(i18n("ATI Query"));
   KWindowSystem::setIcons(winId(), qApp->windowIcon().pixmap(IconSize(KIconLoader::Desktop),IconSize(KIconLoader::Desktop)), qApp->windowIcon().pixmap(IconSize(KIconLoader::Small),IconSize(KIconLoader::Small)));
 
@@ -258,7 +257,6 @@ ModemInfo::ModemInfo(QWidget *parent, const char* name)
 {
   setObjectName(name);
   setModal(true);
-  setWindowFlags(Qt::WStyle_Customize|Qt::WStyle_NormalBorder);
   QString label_text;
 
   setWindowTitle(i18n("Modem Query Results"));
