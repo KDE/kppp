@@ -11,7 +11,11 @@ AC_TRY_LINK([
 #endif
 #include <unistd.h>
 #include <arpa/inet.h>
+#ifdef __DragonFly__
+#include <net/ppp_layer/ppp_defs.h>
+#else
 #include <net/ppp_defs.h>
+#endif
 #include <netinet/in.h>
 
 #ifdef __svr4__
@@ -27,6 +31,8 @@ AC_TRY_LINK([
 
     #if defined(linux)
       #include <linux/if_ppp.h>
+    #elif defined(__DragonFly__)
+      #include <net/ppp/if_ppp.h>
     #else
       #include <net/if_ppp.h>                /* BSD, NeXT, etc. */
     #endif
