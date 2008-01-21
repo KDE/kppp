@@ -54,7 +54,11 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <netinet/in.h>
+#ifdef __DragonFly__
+#include <net/ppp_layer/ppp_defs.h>
+#else
 #include <net/ppp_defs.h>
+#endif
 
 #include "pppstats.h"
 
@@ -69,6 +73,9 @@
   #ifdef HAVE_LINUX_IF_PPP_H
    #include <linux/if.h>
    #include <linux/if_ppp.h>
+  #elif defined(__DragonFly__)
+   #include <net/if.h>
+   #include <net/ppp/if_ppp.h>
   #endif
  #else
   #include <net/if.h>
