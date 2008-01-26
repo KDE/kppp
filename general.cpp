@@ -86,7 +86,6 @@ GeneralWidget::GeneralWidget( QWidget *parent, const char *name)
 		     "If no connection is made in this time frame,\n"
 		     "<i>kppp</i> will give up and kill pppd.");
   pppdTimeout->setWhatsThis(tmp);
-  label->setBuddy(pppdTimeout);
 
   tl->addSpacing(10);
 
