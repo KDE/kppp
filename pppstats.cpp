@@ -92,6 +92,13 @@
 
 #endif	/* STREAMS */
 
+#if defined __OpenBSD__
+ #include <sys/socket.h>
+ #include <net/if.h>
+ #include <net/if_ppp.h>
+ #include <sys/sockio.h>
+#endif
+ 
 #include <qtimer.h>
 #include <kdebug.h>
 
