@@ -147,21 +147,21 @@ permissions do the following:</para>
 file?</para></question>
 
 <answer><para>This in most instances means that you have installed &kppp;
-without SETUID bit on while you, the person executing &kppp;, doesn't have write
+without setuid bit on while you, the person executing &kppp;, doesn't have write
 access to the lock file folder which by default is <filename
 class="directory">/var/lock</filename>. This for example is the case on &RedHat;
 systems. Check the modem dialog for the precise location you have chosen. The
-solution is easy -- either run &kppp; SETUID if you can afford to, or give
+solution is easy -- either run &kppp; setuid if you can afford to, or give
 regular users write access to <filename class="directory">/var/lock</filename>
 or create a modem group that will have access to the <filename
 class="directory">/var/lock</filename> file.</para></answer>
 </qandaentry>
 
 <qandaentry>
-<question><para>Why is &kppp; installed with the SETUID bit
+<question><para>Why is &kppp; installed with the setuid bit
 on?</para></question>
 
-<answer><para>para>There is no need for the SETUID bit, if you know a bit of
+<answer><para>para>There is no need for the setuid bit, if you know a bit of
 &UNIX; systems administration. Simply create a <systemitem>modem</systemitem>
 group, add all users that you want to give access to the modem to that group and
 make the modem device read/writable for that group. Also if you want
