@@ -187,17 +187,13 @@ interest for further information about the <acronym>ppp</acronym> protocol,
 <application>pppd</application> and networking in general:</para>
 
 <itemizedlist>
-<listitem><para>The &Linux; &PPP; &FAQ;: <ulink
-	url="http://metalab.unc.edu/mdw/FAQ/PPP-FAQ.html">
-http://metalab.unc.edu/mdw/FAQ/PPP-FAQ.html</ulink></para></listitem>
+<listitem><para>The &Linux; &PPP; &FAQ;: <ulink 
+url="http://metalab.unc.edu/mdw/FAQ/PPP-FAQ.html" /></para></listitem>
 <listitem><para>The &Linux; &PPP; HOWTO: <ulink
-url="http://metalab.unc.edu/mdw/HOWTO/PPP-HOWTO.html">
-http://metalab.unc.edu/mdw/HOWTO/PPP-HOWTO.html</ulink></para></listitem>
-<listitem><para><ulink url="http://www.thoughtport.com:8080/PPP/index.html">
-http://www.thoughtport.com:8080/PPP/index.html</ulink></para></listitem>
+url="http://metalab.unc.edu/mdw/HOWTO/PPP-HOWTO.html" /></para></listitem>
+<listitem><para><ulink url="http://www.thoughtport.com:8080/PPP/index.html" /></para></listitem>
 <listitem><para>The Network Administrators' Guide: <ulink
-url="http://metalab.unc.edu/mdw/LDP/nag/nag.html">
-http://metalab.unc.edu/mdw/LDP/nag/nag.html</ulink></para></listitem>
+url="http://metalab.unc.edu/mdw/LDP/nag/nag.html" /></para></listitem>
 </itemizedlist>
 
 <sect2 id="preparing-linux-for-ppp">
@@ -207,7 +203,7 @@ http://metalab.unc.edu/mdw/LDP/nag/nag.html</ulink></para></listitem>
 your kernel must have ppp support compiled in.  If this is not the case, get
 yourself the latest version of <application>pppd</application> from any of the
 popular &Linux; archives (such as <ulink
-url="ftp://sunsite.unc.edu/pub/Linux/system/Network/serial/ppp/">ftp://sunsite.unc.edu/pub/Linux/system/Network/serial/ppp/</ulink>,
+	url="ftp://sunsite.unc.edu/pub/Linux/system/Network/serial/ppp/" />,
 and recompile your kernel with <acronym>ppp</acronym> support enabled.</para>
 
 <para>Don't fret, since this sounds a lot scarier than it actually is.  Don't
@@ -219,10 +215,10 @@ this:</para>
 
 <informalexample>
 <screen><computeroutput>
-PPP: version 2.3.0 (demand dialing)
+&PPP;: version 2.3.0 (demand dialing)
 TCP compression code copyright 1989 Regents of the University of California
-PPP Dynamic channel allocation code copyright 1995 Caldera, Inc.
-PPP line discipline registered
+&PPP; Dynamic channel allocation code copyright 1995 Caldera, Inc.
+&PPP; line discipline registered
 </computeroutput></screen>
 </informalexample>
 
