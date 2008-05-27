@@ -14,7 +14,7 @@ kde4_add_executable(kppplogview ${kppplogview_SRCS})
 
 target_link_libraries(kppplogview  ${KDE4_KDE3SUPPORT_LIBS} m )
 
-install(TARGETS kppplogview  DESTINATION ${BIN_INSTALL_DIR} )
+install(TARGETS kppplogview  ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 
 ########### install files ###############
