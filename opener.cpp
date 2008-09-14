@@ -195,8 +195,8 @@ void Opener::mainLoop() {
 	Debug("Opener: received OpenLock\n");
 	MY_ASSERT(len == sizeof(struct OpenLockRequest));
 	flags = request.lock.flags;
-	MY_ASSERT(flags == O_RDONLY || flags == O_WRONLY|O_TRUNC|O_CREAT);
-	if(flags == O_WRONLY|O_TRUNC|O_CREAT)
+	MY_ASSERT(flags == O_RDONLY || flags == (O_WRONLY|O_TRUNC|O_CREAT));
+	if(flags == (O_WRONLY|O_TRUNC|O_CREAT))
 	  mode = 0644;
 	else
 	  mode = 0;
