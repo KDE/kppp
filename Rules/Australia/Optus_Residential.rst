@@ -5,7 +5,7 @@
 # so, remove all comments and add your own. This will allow
 # other users to check your ruleset more easily.
 # 
-# Please sign the the tarif file with your name an email address
+# Please sign the tarif file with your name and email address
 # so that I can contact you if necessary.
 #
 # NOTE: the rules in this rule set do not make much sense and
