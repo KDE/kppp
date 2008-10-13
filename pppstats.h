@@ -33,9 +33,17 @@
 #ifdef Q_OS_BSD4
 #include <sys/types.h>
 #include <sys/socket.h>
+#ifdef __DragonFly__
+#include <net/ppp_layer/ppp_defs.h>
+#else
 #include <net/ppp_defs.h>
+#endif
 #include <net/if.h>
+#ifdef __DragonFly__
+#include <net/ppp/if_ppp.h>
+#else
 #include <net/if_ppp.h>
+#endif
 #endif
 
 class QTimer;
