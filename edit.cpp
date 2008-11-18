@@ -50,6 +50,7 @@
 DialWidget::DialWidget( QWidget *parent, bool isnewaccount )
   : QWidget(parent)
 {
+  parent->setMinimumWidth(440);
   QVBoxLayout *topLayout = new QVBoxLayout(parent);
   topLayout->setSpacing(KDialog::spacingHint());
   topLayout->addWidget(this);
