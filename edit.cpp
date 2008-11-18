@@ -1235,11 +1235,13 @@ PhoneNumberDialog::PhoneNumberDialog(QWidget *parent)
   setMainWidget(hbox);
 
   hboxLayout2->setSpacing(KDialog::spacingHint());
+  
+  QLabel *lbl_le = new QLabel(i18n("Enter a phone number:"));
+  hboxLayout2->addWidget(lbl_le);
 
-  new QLabel(i18n("Enter a phone number:"), hbox);
-
-  le = newLineEdit(14, hbox);
+  QLineEdit *le = new QLineEdit;
   le->setMinimumWidth(125);
+  hboxLayout2->addWidget(le);
 
   connect(le, SIGNAL(textChanged(const QString &)),
 	  this, SLOT(textChanged(const QString &)));
