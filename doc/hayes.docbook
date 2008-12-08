@@ -57,7 +57,7 @@ example, <command>S7=60</command> instructs your computer to <quote>Set register
 </variablelist>
 
 <note><para>Although most commands are defined by a letter-number combination
-(<command>L0</command>, <command>L1</command> &etc;), the user of a zero is
+(<command>L0</command>, <command>L1</command> &etc;), the use of a zero is
 optional.  In this example, <command>L0</command> is the same as a plain
 <command>L</command>.  Keep this in mind when reading the table
 below!</para></note>
@@ -81,7 +81,7 @@ each line of commands.</para></listitem>
 <listitem><para>makes your software pause for a second. You can use more than
 one <command>,</command> in a row. For example, <command>,,,,</command> tells
 the software to pause four seconds. (The duration of the pause is governed by
-the setting of register <varname>S8</varname>.</para></listitem>
+the setting of register <varname>S8</varname>.)</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><command>^M</command></term>
@@ -152,7 +152,7 @@ This is a control code that most communication software translates as
 	 <varlistentry>
 	  <term><command>,</command></term>
 	  <listitem><para>Pause for the time specified in register
-	  <varname>S8</varname> (usually 2 seconds</para></listitem>
+	  <varname>S8</varname> (usually 2 seconds)</para></listitem>
 	 </varlistentry>
 	 <varlistentry>
 	  <term><command>;</command></term>
@@ -161,7 +161,7 @@ This is a control code that most communication software translates as
 	 <varlistentry>
 	  <term><command>!</command></term>
 	  <listitem><para>Flash switch-hook (Hang up for a half second, as in
-	  transferring a call.</para></listitem>
+	  transferring a call.)</para></listitem>
 	 </varlistentry>
 	 <varlistentry>
 	  <term><command>L</command></term>
@@ -302,7 +302,7 @@ This is a control code that most communication software translates as
        <entry><anchor id="hayes-basic-x1"/><command>X1</command></entry>
        <entry></entry>
        <entry>Usually adds connection speed to basic result codes (&eg;
-       <computeroutput>CONNECT 1200</computeroutput></entry>
+       <computeroutput>CONNECT 1200</computeroutput>)</entry>
       </row>
       <row>
        <entry><command>X2</command></entry>
@@ -326,7 +326,7 @@ This is a control code that most communication software translates as
        <entry>Reset modem to stored configuration. Use <command>Z0</command>,
 	<command>Z1</command> &etc; for multiple profiles.  This is the same as
 	<command>&amp;F</command> for factory default on modems without
-       <acronym>NVRAM</acronym> (non voltaile memory)</entry>
+       <acronym>NVRAM</acronym> (non-volatile memory)</entry>
       </row>
      </tbody>
     </tgroup>
@@ -376,25 +376,25 @@ This is a control code that most communication software translates as
       </row>
       <row>
        <entry><command>&amp;D0</command> or <command>&amp;D</command></entry>
-       <entry>Data Terminal Ready (<acronym>DTR</acronym></entry>
+       <entry>Data Terminal Ready (<acronym>DTR</acronym>)</entry>
        <entry>Signal ignored (This is modem specific, you must see your manual
        for information on this one!)</entry>
       </row>
       <row>
        <entry><command>&amp;D1</command></entry>
-       <entry>Data Terminal Ready (<acronym>DTR</acronym></entry>
+       <entry>Data Terminal Ready (<acronym>DTR</acronym>)</entry>
        <entry>If <acronym>DTR</acronym> goes from On to Off the modem goes into
        command mode (Some modems only)</entry>
       </row>
       <row>
        <entry><command>&amp;D2</command></entry>
-       <entry>Data Terminal Ready (<acronym>DTR</acronym></entry>
+       <entry>Data Terminal Ready (<acronym>DTR</acronym>)</entry>
        <entry>Some modems hang up on <acronym>DTR</acronym> On to Off transition
        (This is the usual preferred default)</entry>
       </row>
       <row>
        <entry><command>&amp;D3</command></entry>
-       <entry>Data Terminal Ready (<acronym>DTR</acronym></entry>
+       <entry>Data Terminal Ready (<acronym>DTR</acronym>)</entry>
        <entry>Hang up, reset the modem, and return to command mode upon
        <acronym>DTR</acronym></entry>
       </row>
@@ -406,7 +406,7 @@ This is a control code that most communication software translates as
        <command>&amp;F1</command>-<command>&amp;F3</command> settings can vary
        among modems, and they may actually be the cause of connection
        problems. (Since you never know exactly what Brand X's
-       <command>&amp;F2</command> really changes.</para><para>On the other hand,
+       <command>&amp;F2</command> really changes.)</para><para>On the other hand,
        it pays to try out the other options below; many people's problems can be
        solved by replacing a complicated init string with a simple
        <command>&amp;F2</command> or the like. However, if you're building an
@@ -540,7 +540,7 @@ This is a control code that most communication software translates as
        <entry><command>&amp;V0</command> or <command>&amp;V1</command></entry>
        <entry>View active</entry>
        <entry>(and often stored) configuration profile settings (or
-       <command>ATI4</command></entry>
+       <command>ATI4</command>)</entry>
       </row>
       <row>
        <entry><command>&amp;W0</command> or <command>&amp;W</command></entry>
@@ -822,7 +822,7 @@ reliable connection. Again, this is the mode that most modems use.</para>
        <entry>2-255 seconds</entry>
        <entry>2</entry>
        <entry>Dial tone wait time (blind dialing, see <link
-       linkend="hayes-basic-x1">X<replaceable>n</replaceable></link></entry>
+       linkend="hayes-basic-x1">X<replaceable>n</replaceable></link>)</entry>
       </row>
      <row>
        <entry><anchor id="hayes-s7"/><varname>S7</varname></entry>

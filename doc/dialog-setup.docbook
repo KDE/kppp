@@ -114,7 +114,7 @@ you have more than one account, each name must be unique.</para>
 <para>Specify the phone number to dial.  You can use characters such as
 <quote>-</quote> to make the number more legible.  If you concatenate a series
 of numbers separated by a colon (&eg;
-<userinput>1111111:2222222:3333333</userinput>, &kppp; will try these numbers one
+<userinput>1111111:2222222:3333333</userinput>), &kppp; will try these numbers one
 after the other whenever it receives a busy signal.  You can use the
 <guibutton>Add</guibutton> button to add another number,
 <guibutton>Remove</guibutton> to remove a number from the list, and the
@@ -730,7 +730,7 @@ curiosity.</para>
 <title>What type of volume accounting should I select?</title>
 
 <para>That depends mainly on your provider.  Many of them only count how many
-megabytes you download from the Internet,and ignore how much you send.  In that
+megabytes you download from the Internet, and ignore how much you send.  In that
 case you should choose <guilabel>Bytes In</guilabel>.  If you have to pay for
 both, you should choose <guilabel>Bytes In and Out</guilabel>.  <guilabel>Bytes
 Out</guilabel> is really only here for completeness, as we're not aware of any
