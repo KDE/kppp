@@ -161,7 +161,7 @@ class="directory">/var/lock</filename> file.</para></answer>
 <question><para>Why is &kppp; installed with the setuid bit
 on?</para></question>
 
-<answer><para>para>There is no need for the setuid bit, if you know a bit of
+<answer><para>There is no need for the setuid bit, if you know a bit of
 &UNIX; systems administration. Simply create a <systemitem>modem</systemitem>
 group, add all users that you want to give access to the modem to that group and
 make the modem device read/writable for that group. Also if you want
