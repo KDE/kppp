@@ -139,25 +139,29 @@ void ProviderDB::loadProviderInfo() {
 
 
 void ProviderDB::accept() {
-  QRegExp re_username("%USERNAME%");
-  QRegExp re_password("%PASSWORD%");
+  QString usernamePlaceholder="%USERNAME%";
+  QString passwordPlaceholder="%PASSWORD%";
+  QString username=page4->username();
+  QString password=page4->password();
 
-  QMap <QString, QString> map(cfg->entryMap("<default>"));
-  QMap <QString, QString>::Iterator it(map.begin());
+  QMap <QString, QString> map=cfg->entryMap("<default>");
+  QMap <QString, QString>::Iterator it=map.begin();
   while(it != map.end()) {
     QString key = it.key();
     QString value = *it;
-    if(value.contains(re_username))
-      value.replace(re_username, page4->username());
-
-    if(value.contains(re_password))
-      value.replace(re_password, page4->password());
+    value.replace(usernamePlaceholder,username);
+    value.replace(passwordPlaceholder,password);
 
     gpppdata.writeConfig(gpppdata.currentAccountGroup(), key, value);
 
     if(key == "Name")
       gpppdata.setAccname(value);
     ++it;
+  }
+  
+  map=cfg->entryMap(MODEM_GRP);
+  for(it=map.begin(); it!=map.end(); ++it) {
+    gpppdata.writeConfig(gpppdata.currentModemGroup(), it.key(), *it);
   }
 
   gpppdata.writeConfig(gpppdata.currentAccountGroup(), "DialPrefix", page5->prefix());
@@ -189,6 +193,8 @@ PDB_Intro::PDB_Intro(QWidget *parent) : QWidget(parent) {
 //
 /////////////////////////////////////////////////////////////////////////////
 PDB_Country::PDB_Country(QWidget *parent) : QWidget(parent) {
+  //TODO when ported to MVC -- preselect country
+
   QLabel *l = new QLabel(i18n("Select the location where you plan to use this\n"
 			    "account from the list below. If your country or\n"
 			    "location is not listed, you have to create the\n"
@@ -306,8 +312,7 @@ void PDB_Provider::setDir(const QString &_dir) {
     dir = _dir;
 
     QString dir1 = KGlobal::dirs()->findDirs("appdata", "Provider").first();
-    QRegExp re1(" ");
-    dir = dir.replace(re1, "_");
+    dir = dir.replace(' ', "_");
     dir1 += dir;
 
     QDir d(dir1);
@@ -321,7 +326,6 @@ void PDB_Provider::setDir(const QString &_dir) {
     QFileInfo fi;
 
     // traverse the list and insert into the widget
-    QRegExp re("_");
     while(it != itEnd) {
       fi = *it;
       QString fname = fi.fileName();
@@ -455,7 +459,7 @@ PDB_Finished::PDB_Finished(QWidget *parent) : QWidget(parent) {
   tl->addStretch(1);
 }
 
-
+//BEGIN pseudo percentencoding routines
 void urlDecode(QString &s) {
   QString s1;
 
@@ -486,7 +490,7 @@ void urlEncode(QString &s) {
   }
   s = s1;
 }
-
+//END pseudo percentencoding routines
 
 #include "providerdb.moc"
 

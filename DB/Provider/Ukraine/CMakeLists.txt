@@ -1,1 +1,1 @@
-install( FILES .directory Adamant IPTelecom NuVse  DESTINATION ${DATA_INSTALL_DIR}/kppp/Provider/Ukraine)
+install( FILES .directory Adamant IPTelecom NuVse LifeEDGE  DESTINATION ${DATA_INSTALL_DIR}/kppp/Provider/Ukraine)

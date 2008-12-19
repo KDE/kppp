@@ -1,0 +1,12 @@
+# KDE Config File
+Name=LifeEDGE
+Phonenumber=*99#
+Password=1
+Username=1
+Speed=460800
+VolumeAccountingEnabled=3
+StorePassword=1
+Authentication=1
+
+[Modem]
+InitString1=AT+CGDCONT=1,"IP","internet"
