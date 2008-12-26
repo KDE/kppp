@@ -345,7 +345,9 @@ ModemWidget::ModemWidget(QWidget *parent, bool isnewmodem)
     "38400",
     "19200",
     "9600",
+    "4800",
     "2400",
+    "1200",
     0};
 
   for(int k = 0; baudrates[k]; k++)
