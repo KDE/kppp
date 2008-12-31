@@ -97,11 +97,11 @@ bool PPPData::open() {
 	KConfigGroup cg( config , "Modem");
 
     QMap <QString, QString> map = config->entryMap("Modem");
-    QMap <QString, QString>::ConstIterator it = map.begin();
+    QMap <QString, QString>::ConstIterator it = map.constBegin();
 
     newmodem();
 
-    while (it != map.end()) {
+    while (it != map.constEnd()) {
 	  KConfigGroup cg2( config , cmodemgroup);
       cg2.writeEntry(it.key(), *it);
       it++;
@@ -492,13 +492,13 @@ int PPPData::copymodem(int i) {
   setModemByIndex(i);
 
   QMap <QString, QString> map = group.entryMap();
-  QMap <QString, QString>::ConstIterator it = map.begin();
+  QMap <QString, QString>::ConstIterator it = map.constBegin();
 
   QString newname = i18n("%1_copy", modname());
 
   newmodem();
 
-  while (it != map.end()) {
+  while (it != map.constEnd()) {
 	group = config->group(cmodemgroup);
     group.writeEntry(it.key(), *it);
     it++;
@@ -1019,13 +1019,13 @@ int PPPData::copyaccount(int i) {
   setAccountByIndex(i);
 
   QMap <QString, QString> map = config->entryMap(caccountgroup);
-  QMap <QString, QString>::ConstIterator it = map.begin();
+  QMap <QString, QString>::ConstIterator it = map.constBegin();
 
   QString newname = i18n("%1_copy", accname());
 
   newaccount();
 
-  while (it != map.end()) {
+  while (it != map.constEnd()) {
 	KConfigGroup cg2 ( config, caccountgroup);
     cg2.writeEntry(it.key(), *it);
     it++;

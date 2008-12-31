@@ -269,9 +269,9 @@ void AccountingSelector::setupTreeWidget() {
   tl->setRootIsDecorated(true);
 
   // look in ~/.kde/share/apps/kppp/Rules and $KDEDIR/share/apps/kppp/Rules
-  QStringList dirs = KGlobal::dirs()->resourceDirs("appdata");
-  for (QStringList::ConstIterator it = dirs.begin();
-       it != dirs.end(); it++) {
+  const QStringList dirs = KGlobal::dirs()->resourceDirs("appdata");
+  for (QStringList::ConstIterator it = dirs.constBegin();
+       it != dirs.constEnd(); it++) {
     insertDir(QDir((*it) + "Rules"), 0);
   }
 

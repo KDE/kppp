@@ -202,8 +202,8 @@ void PPPL_ShowLog() {
   bool foundLCP = gpppdata.getPPPDebug();
   QString lcp = QLatin1String("[LCP");
   QString conn = QLatin1String("Connect:");
-  QStringList::ConstIterator it = sl.begin();
-  for( ; it != sl.end(); it++) {
+  QStringList::ConstIterator it = sl.constBegin();
+  for( ; it != sl.constEnd(); it++) {
     if((*it).indexOf(lcp) >= 0) {
       foundLCP = true;
       break;

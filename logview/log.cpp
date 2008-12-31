@@ -44,8 +44,8 @@ int loadLogs() {
   
   // get log file size
   QFileInfoList list = logdir.entryInfoList();
-  QFileInfoList::const_iterator it = list.begin();
-  QFileInfoList::const_iterator itEnd = list.end();
+  QFileInfoList::const_iterator it = list.constBegin();
+  QFileInfoList::const_iterator itEnd = list.constEnd();
   QFileInfo fi;
 
   while (it != itEnd) {

@@ -248,8 +248,8 @@ PDB_Country::PDB_Country(QWidget *parent) : QWidget(parent) {
       }
     }
     // insert sorted entries into list box and string list
-    QMap<QString, QString>::const_iterator mit = countries.begin();
-    QMap<QString, QString>::const_iterator mend = countries.end();
+    QMap<QString, QString>::const_iterator mit = countries.constBegin();
+    QMap<QString, QString>::const_iterator mend = countries.constEnd();
     while(mit != mend) {
         lb->insertItem(mit.key());
         list->append(*mit);
