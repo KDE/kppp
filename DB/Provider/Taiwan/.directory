@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=Taiwan
+Name[ar]=تايوان
 Name[bg]=Тайван
 Name[el]=Ταϊβάν
 Name[eo]=Tajvano
@@ -14,6 +15,7 @@ Name[km]=តៃវ៉ាន់
 Name[ko]=대만
 Name[lt]=Taivanis
 Name[lv]=Taivāna
+Name[ml]=തായ്‌വാന്‍
 Name[ne]=ताइवान
 Name[pa]=ਤਾਈਵਾਨ
 Name[pl]=Tajwan
@@ -21,6 +23,8 @@ Name[pt]=Formosa
 Name[ru]=Тайвань
 Name[sk]=Tajvan
 Name[sl]=Tajvan
+Name[sr]=Тајван
+Name[sr@latin]=Tajvan
 Name[tr]=Tayvan
 Name[uk]=Тайвань
 Name[vi]=Đài Loan

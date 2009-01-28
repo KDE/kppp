@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=United Kingdom
+Name[ar]=المملكة المتحدة
 Name[bg]=Обединеното кралство
 Name[ca]=Regne Unit
 Name[cs]=Velká Británie
@@ -23,6 +24,7 @@ Name[km]=ចក្រ​ភព​អង់គ្លេស
 Name[ko]=영국
 Name[lt]=Jungtinė Karalystė
 Name[lv]=Lielbritānija
+Name[ml]=യുണൈറ്റഡ് കിങ്ഡം
 Name[nb]=Storbritannia
 Name[nds]=Grootbritannien
 Name[ne]=संयुक्त अधिराज्य
@@ -37,6 +39,8 @@ Name[ro]=Marea Britanie
 Name[ru]=Великобритания
 Name[sk]=Spojené kráľovstvo
 Name[sl]=Velika Britanija
+Name[sr]=Уједињено Краљевство
+Name[sr@latin]=Ujedinjeno Kraljevstvo
 Name[sv]=Storbritannien
 Name[tr]=Birleşik Kırallık
 Name[uk]=Об'єднане Королівство

@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=France
+Name[ar]=فرنسا
 Name[bg]=Франция
 Name[ca]=França
 Name[cs]=Francie
@@ -24,6 +25,7 @@ Name[ko]=프랑스
 Name[ku]=Fransa
 Name[lt]=Prancūzija
 Name[lv]=Francija
+Name[ml]=ഫ്രാന്‍സ്
 Name[nb]=Frankrike
 Name[nds]=Frankriek
 Name[ne]=फ्रान्स
@@ -38,6 +40,8 @@ Name[ro]=Franța
 Name[ru]=Франция
 Name[sk]=Francúzsko
 Name[sl]=Francija
+Name[sr]=Француска
+Name[sr@latin]=Francuska
 Name[sv]=Frankrike
 Name[tr]=Fransa
 Name[uk]=Франція

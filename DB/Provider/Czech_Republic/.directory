@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=Czechia
+Name[ar]=التشيك
 Name[bg]=Чехия
 Name[ca]=Txèquia
 Name[cs]=Česko
@@ -21,6 +22,7 @@ Name[km]=ឆេក
 Name[ko]=체코
 Name[lt]=Čekija
 Name[lv]=Čehija
+Name[ml]=ചെക്യ
 Name[nb]=Tsjekkia
 Name[nds]=Tschechien
 Name[ne]=चेकिया
@@ -34,6 +36,8 @@ Name[ro]=Cehia
 Name[ru]=Чехия
 Name[sk]=Česko
 Name[sl]=Češka
+Name[sr]=Чешка
+Name[sr@latin]=Češka
 Name[sv]=Tjeckien
 Name[tr]=Çek Cumhuriyeti
 Name[uk]=Чехія

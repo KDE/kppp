@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=Denmark
+Name[ar]=الدنمارك
 Name[bg]=Дания
 Name[ca]=Dinamarca
 Name[cs]=Dánsko
@@ -24,6 +25,7 @@ Name[km]=ដាណឺម៉ាក
 Name[ko]=덴마크
 Name[lt]=Danija
 Name[lv]=Dānija
+Name[ml]=ഡെന്‍മാര്‍ക്ക്
 Name[nb]=Danmark
 Name[nds]=Dänmark
 Name[ne]=डेन्मार्क
@@ -38,6 +40,8 @@ Name[ro]=Danemarca
 Name[ru]=Дания
 Name[sk]=Dánsko
 Name[sl]=Danska
+Name[sr]=Данска
+Name[sr@latin]=Danska
 Name[sv]=Danmark
 Name[tr]=Danimarka
 Name[uk]=Данія

@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=Ukraine
+Name[ar]=أوكرانيا
 Name[bg]=Украйна
 Name[ca]=Ucraïna
 Name[cs]=Ukrajina
@@ -20,6 +21,7 @@ Name[km]=អ៊ុយក្រែន
 Name[ko]=우크라이나
 Name[lt]=Ukraina
 Name[lv]=Ukraina
+Name[ml]=ഉക്രൈന്‍
 Name[nb]=Ukraina
 Name[ne]=युक्रेन
 Name[nl]=Oekraïne
@@ -33,6 +35,8 @@ Name[ro]=Ucraina
 Name[ru]=Украина
 Name[sk]=Ukrajina
 Name[sl]=Ukrajina
+Name[sr]=Украјина
+Name[sr@latin]=Ukrajina
 Name[sv]=Ukraina
 Name[tr]=Ukrayna
 Name[uk]=Україна
