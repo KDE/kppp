@@ -1239,7 +1239,7 @@ PhoneNumberDialog::PhoneNumberDialog(QWidget *parent)
   QLabel *lbl_le = new QLabel(i18n("Enter a phone number:"));
   hboxLayout2->addWidget(lbl_le);
 
-  QLineEdit *le = new QLineEdit;
+  le = new QLineEdit();
   le->setMinimumWidth(125);
   hboxLayout2->addWidget(le);
 
