@@ -81,7 +81,8 @@ DebugWidget::DebugWidget(QWidget *parent)
 void DebugWidget::hideEvent(QHideEvent *)
 {
   assert(p_kppp);
-  p_kppp->con->debug->setChecked(false);
+  //This causes a crash when launching kppp -c <connection name> BKO176028 
+  //p_kppp->con->debug->setChecked(false);
 }
 
 void DebugWidget::clear() {
