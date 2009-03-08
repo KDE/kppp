@@ -215,9 +215,9 @@ void PPPL_ShowLog() {
     int result = KMessageBox::warningYesNo(0,
 				i18n("KPPP could not prepare a PPP log. It is very likely "
 				     "that pppd was started without the \"debug\" option.\n"
-				     "Without this option it's difficult to find out PPP "
-				     "problems, so you should turn on the debug option.\n"
-				     "Shall I turn it on now?"), QString(), KGuiItem(i18n("Restart pppd")), KGuiItem(i18n("Do Not Restart")));
+				     "Without this option it is difficult to find out PPP "
+				     "problems, so in general the debug option should be used.\n"
+				     "Enable debug now, and restart pppd?"), QString(), KGuiItem(i18n("Restart pppd")), KGuiItem(i18n("Do Not Restart")));
 
     if(result == KMessageBox::Yes) {
       gpppdata.setPPPDebug(true);

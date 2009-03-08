@@ -250,8 +250,8 @@ int runTests() {
       stat(f, &st);
       if(st.st_uid != 0 || (st.st_mode & S_ISUID) == 0) {
 	KMessageBox::error(0,
-                     i18n("You do not have sufficient permission to run\n"
-                          "%1\n."
+                     i18n("You do not have sufficient permission to run:\n"
+                          "%1\n"
                           "Please make sure that kppp is owned by root "
                           "and has the SUID bit set.", f));
         warning++;
