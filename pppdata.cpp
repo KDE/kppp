@@ -444,7 +444,7 @@ bool PPPData::deleteModem() {
   {
     it = map.begin();
     KConfigGroup cg2(config, cmodemgroup);
-    while (!it.key().isEmpty()) {
+    while (it !=map.end() &&  !it.key().isEmpty()) {
       if(!it.key().isEmpty())
          cg2.writeEntry(it.key(), "");
       it++;
