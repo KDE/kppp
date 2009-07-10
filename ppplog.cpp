@@ -172,7 +172,7 @@ void PPPL_AnalyseLog(QStringList &list, QStringList &result) {
       if(!str.isEmpty()) {
         msg = i18n("Notice that the remote system has sent the following"
                          " message:\n\"%1\"\nThis may give you a hint why the"
-                         " the connection has failed.", str);
+                         " connection has failed.", str);
         result.append(msg);
       }
     }
