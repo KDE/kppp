@@ -41,9 +41,9 @@ public:
   QString currency() const;
   double sessionCosts() const;
   double totalCosts() const;
-  int bytesIn() const;
-  int bytesOut() const;
-  int bytes() const;
+  long int bytesIn() const;
+  long int bytesOut() const;
+  long int bytes() const;
 
 #ifdef MYDEBUG
   void dump();
