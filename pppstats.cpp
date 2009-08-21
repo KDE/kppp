@@ -92,7 +92,7 @@
 
 #endif	/* STREAMS */
 
-#if defined __OpenBSD__
+#if defined(__OpenBSD__) || defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
  #include <sys/socket.h>
  #include <net/if.h>
  #include <net/if_ppp.h>
