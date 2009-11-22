@@ -54,7 +54,7 @@ ModemSelector::ModemSelector(QWidget *parent) : KDialog(parent) {
   tl->setMargin(10);
   QLabel *l1 = new QLabel(i18n("To set up your modem, first choose its vendor in the "
 			       "list to the left, and then select the model from the "
-			       "right list. If you don't know which modem you have, "
+			       "right list. If you do not know which modem you have, "
 			       "you can try out one of the \"Generic\" modems."),
 			this);
   l1->setAlignment(Qt::AlignLeft);

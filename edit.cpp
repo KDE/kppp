@@ -138,7 +138,7 @@ DialWidget::DialWidget( QWidget *parent, bool isnewaccount )
 	     "unsure, contact your ISP.\n"
 	     "\n"
 	     "If you can choose between PAP and CHAP,\n"
-	     "choose CHAP, because it's much safer. If you don't know\n"
+	     "choose CHAP, because it is much safer. If you do not know\n"
 	     "whether PAP or CHAP is right, choose PAP/CHAP.");
 
   auth_l->setWhatsThis(tmp);
@@ -470,7 +470,7 @@ IPWidget::IPWidget( QWidget *parent, bool isnewaccount, const char *name )
   staticadd_rb->setWhatsThis(
 		  i18n("Select this option when your computer has a\n"
 		       "fixed internet address (IP). Most computers\n"
-		       "don't have this, so you should probably select\n"
+		       "do not have one, so you should probably select\n"
 		       "dynamic IP addressing unless you know what you\n"
 		       "are doing."));
 
@@ -555,11 +555,11 @@ void IPWidget::autoname_t(bool on) {
     KMessageBox::information(this,
 			 i18n("Selecting this option might cause some weird "
 			      "problems with the X-server and applications "
-			      "while kppp is connected. Don't use it until "
-			      "you know what you are doing!\n"
+			      "while kppp is connected. Do not use it unless "
+			      "you know what you are doing.\n"
 			      "For more information take a look at the "
-			      "handbook (or help) in the section \"Frequently "
-			      "asked questions\"."),
+			      "handbook (or help) in the \"Frequently "
+			      "asked questions\" section."),
 			 i18n("Warning"));
     was_warned = true;
   }

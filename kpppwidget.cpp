@@ -1060,11 +1060,11 @@ void KPPPWidget::showNews() {
     l1->addLayout(l2);
 
     QLabel *l = new QLabel(i18n("From version 1.4.8 on, kppp has a new feature\n"
-			      "called \"Quickhelp\". It's similar to a tooltip,\n"
+			      "called \"Quickhelp\". It is similar to a tooltip,\n"
 			      "but you can activate it whenever you want.\n"
 			      "\n"
-			      "To activate it, simply click on a control like\n"
-			      "a button or a label with the right mouse button.\n"
+			      "To activate it, simply click on a control (like\n"
+			      "a button or a label) with the right mouse button.\n"
 			      "If the item supports Quickhelp, a popup menu\n"
 			      "will appear leading to Quickhelp.\n"
 			      "\n"
