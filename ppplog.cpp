@@ -45,6 +45,7 @@
 #include <qlayout.h>
 
 #include <kmessagebox.h>
+#include <kvbox.h>
 
 #include "pppdata.h"
 #include "requester.h"
@@ -238,22 +239,18 @@ void PPPL_ShowLog() {
   dlg->setButtons(KDialog::Close | KDialog::Ok);
   dlg->setWindowTitle(i18n("PPP Log"));
   dlg->setButtonText(KDialog::Ok,i18n("Write to File"));
-  QVBoxLayout *tl = new QVBoxLayout(dlg);
-  tl->setSpacing(10);
-  tl->setMargin(10);
-  QTextEdit *edit = new QTextEdit(dlg);
+
+  KVBox* v = new KVBox(dlg);
+  QTextEdit *edit = new QTextEdit(v);
   edit->setReadOnly(true);
-  QLabel *label = new QLabel(i18n("kppp's diagnosis (just guessing):"), dlg);
-  QTextEdit *diagnosis = new QTextEdit(dlg);
+  QLabel *label = new QLabel(i18n("kppp's diagnosis (just guessing):"), v);
+  QTextEdit *diagnosis = new QTextEdit(v);
   diagnosis->setReadOnly(true);
   edit->setMinimumSize(600, 250);
   label->setMinimumSize(600, 15);
   diagnosis->setMinimumSize(600, 60);
 
-  tl->addWidget(edit, 1);
-  tl->addWidget(label);
-  tl->addWidget(diagnosis, 1);
-  dlg->setFixedSize(dlg->sizeHint());
+  dlg->setMainWidget(v);
 
   for(int i = 0; i < sl.count(); i++)
     edit->append(sl.at(i));
