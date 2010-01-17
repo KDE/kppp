@@ -1,6 +1,7 @@
 [Desktop Entry]
 GenericName=Internet Dial-Up Tool
 GenericName[ar]=أداة إنترنت طلب هاتفي
+GenericName[ast]=Ferramienta de conexón telefónica a Internet
 GenericName[bg]=Включване в Интернет
 GenericName[bn]=ইন্টারনেট ডায়াল-আপ সরঞ্জাম
 GenericName[ca]=Eina per a la connexió telefònica a Internet
@@ -64,6 +65,7 @@ GenericName[zh_TW]=Internet 撥號工具
 Name=KPPP
 Name[af]=Kppp
 Name[ar]=برنامج اتصال كيدي
+Name[ast]=KPPP
 Name[bg]=KPPP
 Name[bn]=কে-পি-পি-পি
 Name[br]=KPPP
