@@ -1,8 +1,10 @@
 [Desktop Entry]
 Name=Ireland
 Name[ar]=إيرلندا
+Name[ast]=Irlanda
 Name[bg]=Ирландия
 Name[ca]=Irlanda
+Name[ca@valencia]=Irlanda
 Name[cs]=Irsko
 Name[da]=Irland
 Name[de]=Irland
@@ -46,6 +48,8 @@ Name[ru]=Ирландия
 Name[sk]=Írsko
 Name[sl]=Irska
 Name[sr]=Ирска
+Name[sr@ijekavian]=Ирска
+Name[sr@ijekavianlatin]=Irska
 Name[sr@latin]=Irska
 Name[sv]=Irland
 Name[tr]=İrlanda

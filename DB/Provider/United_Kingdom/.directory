@@ -1,8 +1,10 @@
 [Desktop Entry]
 Name=United Kingdom
 Name[ar]=المملكة المتحدة
+Name[ast]=Reinu Xuníu
 Name[bg]=Обединеното кралство
 Name[ca]=Regne Unit
+Name[ca@valencia]=Regne Unit
 Name[cs]=Velká Británie
 Name[da]=Storbritannien
 Name[de]=Vereinigtes Königreich
@@ -45,6 +47,8 @@ Name[ru]=Великобритания
 Name[sk]=Veľká Británia
 Name[sl]=Velika Britanija
 Name[sr]=Уједињено Краљевство
+Name[sr@ijekavian]=Уједињено Краљевство
+Name[sr@ijekavianlatin]=Ujedinjeno Kraljevstvo
 Name[sr@latin]=Ujedinjeno Kraljevstvo
 Name[sv]=Storbritannien
 Name[tr]=Birleşik Kırallık

@@ -1,8 +1,10 @@
 [Desktop Entry]
 Name=Austria
 Name[ar]=النّمسا
+Name[ast]=Austria
 Name[bg]=Австрия
 Name[ca]=Àustria
+Name[ca@valencia]=Àustria
 Name[cs]=Rakousko
 Name[da]=Østrig
 Name[de]=Österreich
@@ -46,6 +48,8 @@ Name[ru]=Австрия
 Name[sk]=Rakúsko
 Name[sl]=Avstrija
 Name[sr]=Аустрија
+Name[sr@ijekavian]=Аустрија
+Name[sr@ijekavianlatin]=Austrija
 Name[sr@latin]=Austrija
 Name[sv]=Österrike
 Name[tr]=Avusturya

@@ -1,8 +1,10 @@
 [Desktop Entry]
 Name=Slovenia
 Name[ar]=سلوفينيا
+Name[ast]=Eslovenia
 Name[bg]=Словения
 Name[ca]=Eslovènia
+Name[ca@valencia]=Eslovènia
 Name[cs]=Slovinsko
 Name[da]=Slovenien
 Name[de]=Slowenien
@@ -45,6 +47,8 @@ Name[ru]=Словения
 Name[sk]=Slovinsko
 Name[sl]=Slovenija
 Name[sr]=Словенија
+Name[sr@ijekavian]=Словенија
+Name[sr@ijekavianlatin]=Slovenija
 Name[sr@latin]=Slovenija
 Name[sv]=Slovenien
 Name[tr]=Slovenya

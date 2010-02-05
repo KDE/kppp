@@ -1,8 +1,10 @@
 [Desktop Entry]
 Name=Switzerland
 Name[ar]=سويسرا
+Name[ast]=Suiza
 Name[bg]=Швейцария
 Name[ca]=Suïssa
+Name[ca@valencia]=Suïssa
 Name[cs]=Švýcarsko
 Name[da]=Schweiz
 Name[de]=Schweiz
@@ -45,6 +47,8 @@ Name[ru]=Швейцария
 Name[sk]=Švajčiarsko
 Name[sl]=Švica
 Name[sr]=Швајцарска
+Name[sr@ijekavian]=Швајцарска
+Name[sr@ijekavianlatin]=Švajcarska
 Name[sr@latin]=Švajcarska
 Name[sv]=Schweiz
 Name[tr]=İsviçre

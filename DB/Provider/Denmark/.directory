@@ -1,8 +1,10 @@
 [Desktop Entry]
 Name=Denmark
 Name[ar]=الدنمارك
+Name[ast]=Dinamarca
 Name[bg]=Дания
 Name[ca]=Dinamarca
+Name[ca@valencia]=Dinamarca
 Name[cs]=Dánsko
 Name[da]=Danmark
 Name[de]=Dänemark
@@ -46,6 +48,8 @@ Name[ru]=Дания
 Name[sk]=Dánsko
 Name[sl]=Danska
 Name[sr]=Данска
+Name[sr@ijekavian]=Данска
+Name[sr@ijekavianlatin]=Danska
 Name[sr@latin]=Danska
 Name[sv]=Danmark
 Name[tr]=Danimarka

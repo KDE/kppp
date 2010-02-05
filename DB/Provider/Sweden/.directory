@@ -1,8 +1,10 @@
 [Desktop Entry]
 Name=Sweden
 Name[ar]=السويد
+Name[ast]=Suecia
 Name[bg]=Швеция
 Name[ca]=Suècia
+Name[ca@valencia]=Suècia
 Name[cs]=Švédsko
 Name[da]=Sverige
 Name[de]=Schweden
@@ -46,6 +48,8 @@ Name[ru]=Швеция
 Name[sk]=Švédsko
 Name[sl]=Švedska
 Name[sr]=Шведска
+Name[sr@ijekavian]=Шведска
+Name[sr@ijekavianlatin]=Švedska
 Name[sr@latin]=Švedska
 Name[sv]=Sverige
 Name[tr]=İsveç
