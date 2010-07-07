@@ -175,7 +175,7 @@ bool PPPStats::ifIsUp() {
   bool is_up;
   struct ifreq ifr;
 
-#if defined(__svr4__ )
+#if defined(__SVR4)
   usleep(1000000); // Needed for Solaris ?!
 #endif
 

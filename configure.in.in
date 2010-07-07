@@ -5,7 +5,7 @@ AC_MSG_CHECKING(if kppp's headers are installed)
 AC_LANG_SAVE
 AC_LANG_CPLUSPLUS
 AC_TRY_LINK([
-#if defined(__osf__) || defined(__svr4__)
+#if defined(__osf__) || defined(__SVR4)
   #define _POSIX_PII_SOCKET
   extern "C" int sethostname(char *name, int name_len);
 #endif
@@ -18,7 +18,7 @@ AC_TRY_LINK([
 #endif
 #include <netinet/in.h>
 
-#ifdef __svr4__
+#ifdef __SVR4
   #include <sys/stropts.h>
   #include <net/pppio.h>		/* SVR4, Solaris 2, etc. */
 

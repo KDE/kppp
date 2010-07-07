@@ -88,7 +88,7 @@ static const char *devices[] = {
   "/dev/ttySHSF1",
   "/dev/ttySHSF2",
   "/dev/ttySHSF3",  /* necessary for conexant modem which use hsfserial commercial module */
-#elif defined(__svr4__)
+#elif defined(__SVR4)
   "/dev/cua/a",
   "/dev/cua/b",
   "/dev/ttya",

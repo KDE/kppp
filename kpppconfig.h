@@ -26,7 +26,7 @@
 #ifndef _KPPPCONFIG_H_
 #define _KPPPCONFIG_H_
 
-#if defined(__svr4__)
+#if defined(__SVR4)
 #define STREAMS
 #define _XOPEN_SOURCE 1
 #define _XOPEN_SOURCE_EXTENDED 1
