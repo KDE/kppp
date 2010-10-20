@@ -19,4 +19,4 @@ install(TARGETS kppplogview  ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 ########### install files ###############
 
-install( FILES kppplogview.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR})
+install( PROGRAMS kppplogview.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR})
