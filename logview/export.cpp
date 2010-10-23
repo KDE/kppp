@@ -42,7 +42,7 @@ ExportFormats [] = {
     { 2, I18N_NOOP("HTML"),
       I18N_NOOP("Export to a HTML Page.<p></p>Can be used for easy exchange over the <i>Internet</i>."),
       "html" },
-    { 0, 0, 0, 0 }  /* !! don't forget !! */
+    { 0, QString(), QString(), QString() }  /* !! don't forget !! */
 };
 
 
