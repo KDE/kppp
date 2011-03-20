@@ -10,6 +10,11 @@
 # define MY_SCM_RIGHTS SCM_RIGHTS
 #endif
 
+// sethostname is not defined in unistd.h on S10, but is in libc
+#if defined(SOLARIS10)
+extern "C" int sethostname(char *name, int name_len);
+#endif
+
 // ### add by bhughes - FreeBSD defines 'BSD' in sys/param.h
 #include <sys/param.h>
 
