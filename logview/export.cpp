@@ -136,7 +136,7 @@ void ExportWizard::getFilename() {
                    i18n(ExportFormats[i].name.toUtf8()) + " (*." + ExportFormats[i].ext + " *." +
                    ExportFormats[i].ext.toUpper() + ')';
 
-  filename = KFileDialog::getSaveFileName(date + '.' + ExportFormats[i].ext, filter, 0, i18n("Please Choose File"));
+  filename = KFileDialog::getSaveFileName(QString(date + '.' + ExportFormats[i].ext), filter, 0, i18n("Please Choose File"));
   if (filename.isEmpty()) // no file selected
     return;
   fnLine->setText(filename);
