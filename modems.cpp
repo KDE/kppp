@@ -241,7 +241,7 @@ int ModemsWidget::doTab(){
   tabWindow->addPage( pageItem );
 
   modem2 = new ModemWidget2(frame);
-  connect ( modem1->connectName(), SIGNAL(textChanged ( const QString & )), this, SLOT(modemNameChanged(const QString & )));
+  connect ( modem1->connectName(), SIGNAL(textChanged(QString)), this, SLOT(modemNameChanged(QString)));
 
   modemNameChanged(modem1->connectName()->text());
   int result = 0;

@@ -444,8 +444,8 @@ void ExecutableAccounting::slotStart() {
   QString s_total;
   s_total.sprintf("%0.8f", total());
   *proc << s << s_total;
-  connect(proc, SIGNAL(receivedStdout(K3Process *, char *, int)),
-	  this, SLOT(gotData(K3Process *, char *, int)));
+  connect(proc, SIGNAL(receivedStdout(K3Process*,char*,int)),
+	  this, SLOT(gotData(K3Process*,char*,int)));
   proc->start();
 
   time_t start_time = time(0);

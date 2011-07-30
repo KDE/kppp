@@ -284,8 +284,8 @@ KPPPWidget::KPPPWidget( QWidget *parent, const char *name )
   // connect the ConnectWidgets various signals
   connect(con, SIGNAL(closeDebugWindow()),
 	  debugwindow, SLOT(hide()));
-  connect(con, SIGNAL(debugMessage(const QString &)),
-	  debugwindow, SLOT(statusLabel(const QString &)));
+  connect(con, SIGNAL(debugMessage(QString)),
+	  debugwindow, SLOT(statusLabel(QString)));
   connect(con, SIGNAL(toggleDebugWindow()),
 	  debugwindow, SLOT(toggleVisibility()));
   connect(con, SIGNAL(debugPutChar(unsigned char)),
@@ -413,10 +413,10 @@ void KPPPWidget::prepareSetupDialog() {
     accounts = new AccountWidget(frame);
     connect(accounts, SIGNAL(resetaccounts()),
 	    this, SLOT(resetaccounts()));
-    connect(accounts, SIGNAL(resetCosts(const QString &)),
-	    this, SLOT(resetCosts(const QString &)));
-    connect(accounts, SIGNAL(resetVolume(const QString &)),
-	    this, SLOT(resetVolume(const QString &)));
+    connect(accounts, SIGNAL(resetCosts(QString)),
+	    this, SLOT(resetCosts(QString)));
+    connect(accounts, SIGNAL(resetVolume(QString)),
+	    this, SLOT(resetVolume(QString)));
 
 
     frame = new QFrame();
@@ -511,11 +511,11 @@ void KPPPWidget::resetaccounts() {
 	PW_Edit->setText(gpppdata.storedPassword());
     }
 
-  connect(ID_Edit, SIGNAL(textChanged(const QString &)),
- 	  this, SLOT(usernameChanged(const QString &)));
+  connect(ID_Edit, SIGNAL(textChanged(QString)),
+ 	  this, SLOT(usernameChanged(QString)));
 
-  connect(PW_Edit, SIGNAL(textChanged(const QString &)),
- 	  this, SLOT(passwordChanged(const QString &)));
+  connect(PW_Edit, SIGNAL(textChanged(QString)),
+ 	  this, SLOT(passwordChanged(QString)));
 
   if (ID_Edit->text().isEmpty())
       ID_Edit->setFocus();
@@ -950,8 +950,8 @@ void KPPPWidget::startAccounting() {
     //    acct = new ExecutableAccounting(this);
 
   // connect to the accounting object
-  connect(acct, SIGNAL(changed(QString, QString)),
-	  con_win, SLOT(slotAccounting(QString, QString)));
+  connect(acct, SIGNAL(changed(QString,QString)),
+	  con_win, SLOT(slotAccounting(QString,QString)));
 
   if(!acct->loadRuleSet(gpppdata.accountingFile())) {
     QString s= i18n("Can not load the accounting "

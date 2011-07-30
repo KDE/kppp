@@ -680,14 +680,14 @@ GraphSetup::GraphSetup(QWidget *parent) :
   tl->addStretch();
 
   connect(enable_check, SIGNAL(toggled(bool)), this, SLOT(enableToggled(bool)));
-  connect(bg_color, SIGNAL(changed(const QColor &)),
-	  SLOT(colorChanged(const QColor&)));
-  connect(text_color, SIGNAL(changed(const QColor &)),
-	  SLOT(colorChanged(const QColor&)));
-  connect(in_color, SIGNAL(changed(const QColor &)),
-	  SLOT(colorChanged(const QColor&)));
-  connect(out_color, SIGNAL(changed(const QColor &)),
-	  SLOT(colorChanged(const QColor&)));
+  connect(bg_color, SIGNAL(changed(QColor)),
+	  SLOT(colorChanged(QColor)));
+  connect(text_color, SIGNAL(changed(QColor)),
+	  SLOT(colorChanged(QColor)));
+  connect(in_color, SIGNAL(changed(QColor)),
+	  SLOT(colorChanged(QColor)));
+  connect(out_color, SIGNAL(changed(QColor)),
+	  SLOT(colorChanged(QColor)));
 
   tl->activate();
 

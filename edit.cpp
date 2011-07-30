@@ -653,8 +653,8 @@ DNSWidget::DNSWidget( QWidget *parent, bool isnewaccount )
   dns_label->setBuddy(dnsipaddr);
   connect(dnsipaddr, SIGNAL(returnPressed()),
 	  SLOT(adddns()));
-  connect(dnsipaddr, SIGNAL(textChanged(const QString &)),
-	  SLOT(DNS_Edit_Changed(const QString &)));
+  connect(dnsipaddr, SIGNAL(textChanged(QString)),
+	  SLOT(DNS_Edit_Changed(QString)));
   l2->addWidget(dnsipaddr, 1);
   l2->addStretch(1);
   tmp = i18n("<p>Allows you to specify a new DNS server to be\n"
@@ -1243,8 +1243,8 @@ PhoneNumberDialog::PhoneNumberDialog(QWidget *parent)
   le->setMinimumWidth(125);
   hboxLayout2->addWidget(le);
 
-  connect(le, SIGNAL(textChanged(const QString &)),
-	  this, SLOT(textChanged(const QString &)));
+  connect(le, SIGNAL(textChanged(QString)),
+	  this, SLOT(textChanged(QString)));
 
   le->setFocus();
   textChanged("");

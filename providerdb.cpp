@@ -369,13 +369,13 @@ PDB_UserInfo::PDB_UserInfo(QWidget *parent) : QWidget(parent) {
   l = new QLabel(i18n("Password:"), this);
   l1->addWidget(l, 1, 0);
   _username = newLineEdit(24, this);
-  connect(_username, SIGNAL(textChanged(const QString &)),
-	  this, SLOT(textChanged(const QString &)));
+  connect(_username, SIGNAL(textChanged(QString)),
+	  this, SLOT(textChanged(QString)));
   l1->addWidget(_username, 0, 1);
   _password = newLineEdit(24, this);
   _password->setEchoMode(QLineEdit::Password);
-  connect(_password, SIGNAL(textChanged(const QString &)),
-	  this, SLOT(textChanged(const QString &)));
+  connect(_password, SIGNAL(textChanged(QString)),
+	  this, SLOT(textChanged(QString)));
   l1->addWidget(_password, 1, 1);
   tl->activate();
 }

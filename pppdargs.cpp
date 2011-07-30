@@ -74,8 +74,8 @@ PPPdArguments::PPPdArguments(QWidget *parent, const char *name)
   connect(argument, SIGNAL(returnPressed()),
 	  SLOT(addbutton()));
   l11->addWidget(argument);
-  connect(argument, SIGNAL(textChanged(const QString &)),
-	  this, SLOT(textChanged(const QString &)));
+  connect(argument, SIGNAL(textChanged(QString)),
+	  this, SLOT(textChanged(QString)));
 
   arguments = new Q3ListBox(widget);
   arguments->setMinimumSize(1, fontMetrics().lineSpacing()*10);
