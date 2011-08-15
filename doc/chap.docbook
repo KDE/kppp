@@ -78,7 +78,7 @@ to be sure, please check.</para>
 <para>Start &kppp;</para>
 </step>
 <step>
-<para>Click <guibutton>Setup</guibutton></para>
+<para>Click <guibutton>Configure</guibutton></para>
 </step>
 <step>
 <para>Choose the account you want to use <acronym>PAP</acronym> with and click
@@ -160,7 +160,7 @@ you probably want to make sure that <filename>/etc/ppp/options</filename> is
 empty, and you don't want to create a login script either.</para>
 
 <para>In the &kppp; settings dialog, at the bottom of the
-<guilabel>Dial</guilabel> tab, is a <guibutton>pppd arguments</guibutton>
+<guilabel>Dial</guilabel> tab, is a <guibutton>Customize pppd Arguments</guibutton>
 button.  This brings up an editing dialog.  Here you can enter values that will
 be sent to <application>pppd</application> as command line arguments, and in the
 case of multiple value arguments, you need to enter each value as a separate

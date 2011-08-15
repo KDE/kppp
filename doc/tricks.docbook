@@ -10,8 +10,9 @@ not equal, so your mileage may vary.</para>
 
 <para>A Modem session allows you to interact with the modem directly. You type
 commands, and it will respond. To obtain a modem session, when no connection is
-active, go into <guibutton>Setup</guibutton>, then <guilabel>Modem</guilabel>
-<guibutton>Terminal</guibutton> dialog. This will open a window for interactive
+active, go into <guibutton>Configure</guibutton>, selcet to edit a modem and then 
+click the <guibutton>Terminal</guibutton> button on the <guilabel>Modem</guilabel> tab. 
+This will open a window for interactive
 configuration of the modem. Try typing
 <userinput><command>ATZ</command></userinput> (which resets your modem) Your
 should get an OK response. Use
@@ -22,7 +23,6 @@ to end the session.</para>
 
 <sect1 id="modem-profiles">
 <title>Modem Profiles</title>
-					
 <para>One reason you might want to send the modem commands directly is if you
 have a set of modem configurations you want to keep, and not have to specify for
 every connection. A good way to do that is via modem profiles. Modems can have
@@ -38,8 +38,8 @@ change via <command>ATZ<replaceable>n</replaceable></command> (where
 <replaceable>n</replaceable> is the profile number). Make the changes you want,
 then save it with <command>AT&amp;W<replaceable>n</replaceable></command>. To
 have kppp use the profile you want, change the modem initialization string
-(<guibutton>Setup</guibutton> <guilabel>Modem</guilabel> <guibutton>Modem
-Commands</guibutton> <guilabel>Initialization String</guilabel>.) For example
+(<guibutton>Modem Commands</guibutton> <guilabel>Initialization String</guilabel>
+on the <guilabel>Modem</guilabel> tab.) For example
 <command>ATZ1</command> will have the kppp reset the modem and use stored
 profile #1.</para>
 

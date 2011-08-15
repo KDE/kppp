@@ -337,8 +337,7 @@ transmission this is definitely a hardware issue!</para>
 <para>You can obtain some information about your serial port with
 <userinput><command>setserial</command> <option>-a
 <replaceable>/dev/ttySx</replaceable></option></userinput> and check for interrupt
-conflicts with other components of your system.  The &kcontrol; module
-<guilabel>Information</guilabel> might also be of help here.</para></answer>
+conflicts with other components of your system.</para></answer>
 </qandaentry>
 
 <qandaentry>
