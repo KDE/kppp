@@ -10,7 +10,7 @@ not equal, so your mileage may vary.</para>
 
 <para>A Modem session allows you to interact with the modem directly. You type
 commands, and it will respond. To obtain a modem session, when no connection is
-active, go into <guibutton>Configure</guibutton>, selcet to edit a modem and then 
+active, go into <guibutton>Configure</guibutton>, select to edit a modem and then 
 click the <guibutton>Terminal</guibutton> button on the <guilabel>Modem</guilabel> tab. 
 This will open a window for interactive
 configuration of the modem. Try typing

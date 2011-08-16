@@ -28,7 +28,7 @@ about to do now.</para>
 
 <para>Click the <guibutton>Configure</guibutton> button to open the <guilabel>&kppp; 
 Configuration</guilabel> dialog. On the <guilabel>Accounts</guilabel> tab select 
-<guilabel>New</guilabel> to begin setting up a new
+<guilabel>New...</guilabel> to begin setting up a new
 Internet connection.</para>
 
 <para>The dialog will offer you three choices, <guibutton>Wizard</guibutton>,
