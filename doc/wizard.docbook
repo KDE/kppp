@@ -7,7 +7,7 @@
 <para>You can start the wizard from &kppp;'s initial screen.  Start &kppp; from
 your <guimenu>K</guimenu> menu, where you will find its entry in the
 <guisubmenu>Internet</guisubmenu> as <guimenuitem>Internet
-Dialer</guimenuitem>.</para>
+Dial-Up Tool</guimenuitem>.</para>
 
 <para>The following dialog will appear:</para>
 
@@ -26,32 +26,27 @@ Dialer</guimenuitem>.</para>
 <para>It will probably not have any entries to begin with, and that's what we're
 about to do now.</para>
 
-<para>Click the <guibutton>Setup</guibutton> button to begin setting up a new
+<para>Click the <guibutton>Configure</guibutton> button to open the <guilabel>&kppp; 
+Configuration</guilabel> dialog. On the <guilabel>Accounts</guilabel> tab select 
+<guilabel>New...</guilabel> to begin setting up a new
 Internet connection.</para>
 
-<para>The wizard will offer you three choices, <guibutton>Wizard</guibutton>,
-<guibutton>Dialog Setup</guibutton> and <guibutton>Cancel</guibutton></para>
+<para>The dialog will offer you three choices, <guibutton>Wizard</guibutton>,
+<guibutton>Manual Setup</guibutton> and <guibutton>Cancel</guibutton></para>
 
 <screenshot>
-<screeninfo>The wizard asks you what you want to do...</screeninfo>
+<screeninfo>The dialog asks you what you want to do...</screeninfo>
 <mediaobject>
 <imageobject>
 <imagedata fileref="kppp-wizard.png" format="PNG"/>
 </imageobject>
-<textobject><phrase>The wizard asks you what you want to
+<textobject><phrase>The dialog asks you what you want to
 do...</phrase></textobject>
-<caption><para>The wizard asks you what you want to do</para></caption>
+<caption><para>The dialog asks you what you want to do</para></caption>
 </mediaobject>
 </screenshot>
 
 <variablelist>
-<varlistentry>
-<term><guibutton>Cancel</guibutton></term>
-<listitem><para>Choose this if you really don't want to be setting up a new
-account right now. The message box will go away, and you will be left with the
-dialer screen as before.</para></listitem>
-</varlistentry>
-
 <varlistentry>
 <term><guibutton>Wizard</guibutton></term>
 <listitem><para>If you have a fairly standard modem, and use one of the larger
@@ -61,11 +56,18 @@ to set up the connection manually.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><guibutton>Dialog Setup</guibutton></term>
+<term><guibutton>Manual Setup</guibutton></term>
 <listitem><para>If you don't succeed with the Wizard, or you just want to do
 things yourself, choose this.  The wizard currently is only useful for a small
 subset of countries and Internet Providers.</para>
 </listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guibutton>Cancel</guibutton></term>
+<listitem><para>Choose this if you really don't want to be setting up a new
+account right now. The message box will go away, and you will be left with the
+dialer screen as before.</para></listitem>
 </varlistentry>
 </variablelist>
 

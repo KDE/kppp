@@ -40,8 +40,8 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2001-06-11</date>
-<releaseinfo>1.01.00</releaseinfo>
+<date>2011-08-15</date>
+<releaseinfo>2.4.0 (&kde; 4.7)</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -85,21 +85,21 @@ internet.</para>
 
 </chapter>
 
-&getting-online;
+&getting-online; <!-- 4.7 -->
 
-&wizard;
+&wizard; <!-- 4.7 -->
 
-&dialog-setup;
+&dialog-setup; <!-- 4.7 -->
 
-&global-settings;
+&global-settings; <!-- 4.7 -->
 
 &security;
 
-&chap-and-pap;
+&chap-and-pap; <!-- 4.7 -->
 
-&tricks;
+&tricks; <!-- 4.7 -->
 
-&callback;
+&callback;<!-- removed dead links for 4.7 -->
 
 &kppp-faq;
 
@@ -187,13 +187,17 @@ interest for further information about the <acronym>ppp</acronym> protocol,
 <application>pppd</application> and networking in general:</para>
 
 <itemizedlist>
+<!-- dead link
 <listitem><para>The &Linux; &PPP; &FAQ;: <ulink 
 url="http://metalab.unc.edu/mdw/FAQ/PPP-FAQ.html" /></para></listitem>
+-->
 <listitem><para>The &Linux; &PPP; HOWTO: <ulink
-url="http://metalab.unc.edu/mdw/HOWTO/PPP-HOWTO.html" /></para></listitem>
+url="http://tldp.org/HOWTO/PPP-HOWTO/" /></para></listitem>
+<!-- dead link
 <listitem><para><ulink url="http://www.thoughtport.com:8080/PPP/index.html" /></para></listitem>
+-->
 <listitem><para>The Network Administrators' Guide: <ulink
-url="http://metalab.unc.edu/mdw/LDP/nag/nag.html" /></para></listitem>
+url="http://tldp.org/LDP/nag/nag.html" /></para></listitem>
 </itemizedlist>
 
 <sect2 id="preparing-linux-for-ppp">
@@ -203,7 +207,7 @@ url="http://metalab.unc.edu/mdw/LDP/nag/nag.html" /></para></listitem>
 your kernel must have ppp support compiled in.  If this is not the case, get
 yourself the latest version of <application>pppd</application> from any of the
 popular &Linux; archives (such as <ulink
-	url="ftp://sunsite.unc.edu/pub/Linux/system/Network/serial/ppp/" />,
+	url="ftp://sunsite.unc.edu/pub/Linux/system/network/serial/ppp/" />,
 and recompile your kernel with <acronym>ppp</acronym> support enabled.</para>
 
 <para>Don't fret, since this sounds a lot scarier than it actually is.  Don't

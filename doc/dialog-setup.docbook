@@ -26,10 +26,12 @@ Dialer</guimenuitem>.</para>
 <para>It will probably not have any entries to begin with, and that's what we're
 about to do now.</para>
 
-<para>Click the <guibutton>Setup</guibutton> button to begin setting up a new
+<para>Click the <guibutton>Configure</guibutton> button to open the <guilabel>&kppp; 
+Configuration</guilabel> dialog. On the <guilabel>Accounts</guilabel> tab select 
+<guilabel>New...</guilabel> to begin setting up a new
 Internet connection.</para>
 
-<para>This time, choose <guilabel>Dialog setup</guilabel> and you'll see the
+<para>This time, choose <guilabel>Manual Setup</guilabel> and you'll see the
 following Dialog appear:</para>
 
 <screenshot>
@@ -82,7 +84,7 @@ linkend="account-accounting"><guilabel>Accounting</guilabel></link></para>
 described in the following sections.</para>
 
 <sect1 id="account-dial">
-<title>The <guilabel>Dial</guilabel> tab</title>
+<title>The Dial tab</title>
 
 <screenshot>
 <screeninfo>The Accounts <guilabel>Dial</guilabel> tab</screeninfo>
@@ -138,6 +140,10 @@ log into the server.  Check with your provider for more information.  Use of
 sessions.</para>
 </listitem>
 </varlistentry>
+<!-- missing
+Callback type None, Administrator-defined, User-defined
+Callback number
+ -->
 <varlistentry>
 <term><guibutton>Customize pppd arguments...</guibutton></term>
 <listitem>
@@ -153,7 +159,7 @@ doing, you should probably restrain yourself from tinkering with these.</para>
 </sect1>
 
 <sect1 id="account-ip">
-<title>The <guilabel>IP</guilabel> tab</title>
+<title>The IP tab</title>
 
 <screenshot>
 <screeninfo>The Accounts <guilabel>IP</guilabel> tab</screeninfo>
@@ -216,7 +222,7 @@ open any more <acronym>GUI</acronym> programs.</para>
 </sect1>
 
 <sect1 id="account-gateway">
-<title>The <guilabel>Gateway</guilabel> tab</title>
+<title>The Gateway tab</title>
 
 <screenshot>
 <screeninfo>The Accounts <guilabel>Gateway</guilabel> tab</screeninfo>
@@ -258,7 +264,7 @@ default.</para>
 </sect1>
 
 <sect1 id="account-dns">
-<title>The <guilabel>DNS</guilabel> tab</title>
+<title>The DNS tab</title>
 
 <screenshot>
 <screeninfo>The Accounts <guilabel>DNS</guilabel> tab</screeninfo>
@@ -324,7 +330,7 @@ remains up.</para>
 </sect1>
 
 <sect1 id="account-login-script">
-<title>The <guilabel>Login Script</guilabel> tab</title>
+<title>The Login Script tab</title>
 
 <screenshot>
 <screeninfo>The Accounts <guilabel>Login Script</guilabel> tab</screeninfo>
@@ -383,7 +389,7 @@ Currently the only valid register is <varname>password</varname>.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><guilabel>Pause</guilabel></term>
+<term><guilabel>Pause (sec)</guilabel></term>
 <listitem>
 <para>Pause for the specified number of seconds.</para>
 </listitem>
@@ -401,7 +407,7 @@ Currently the only valid register is <varname>password</varname>.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><guilabel>Timeout</guilabel></term>
+<term><guilabel>Timeout (sec)</guilabel></term>
 <listitem>
 <para>Change the default timeout to the specified number of seconds dynamically
 during the script.  You can change the timeout several times during script
@@ -606,7 +612,7 @@ keywords.</para>
 </sect1>
 
 <sect1 id="account-execute">
-<title>The <guilabel>Execute</guilabel> tab</title>
+<title>The Execute tab</title>
 
 <screenshot>
 <screeninfo>The Accounts <guilabel>Execute</guilabel> tab</screeninfo>
@@ -672,7 +678,7 @@ you have disconnected.</para>
 </sect1>
 
 <sect1 id="account-accounting">
-<title>The <guilabel>Accounting</guilabel> tab</title>
+<title>The Accounting tab</title>
 
 <screenshot>
 <screeninfo>The Accounts <guilabel>Accounting</guilabel> tab</screeninfo>
