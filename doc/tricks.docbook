@@ -10,7 +10,7 @@ not equal, so your mileage may vary.</para>
 
 <para>A Modem session allows you to interact with the modem directly. You type
 commands, and it will respond. To obtain a modem session, when no connection is
-active, go into <guibutton>Configure</guibutton>, select to edit a modem and then 
+active, open the <guilabel>Configure &kppp;</guilabel> dialog, select to edit a modem and then 
 click the <guibutton>Terminal</guibutton> button on the <guilabel>Modem</guilabel> tab. 
 This will open a window for interactive
 configuration of the modem. Try typing
@@ -39,7 +39,7 @@ change via <command>ATZ<replaceable>n</replaceable></command> (where
 then save it with <command>AT&amp;W<replaceable>n</replaceable></command>. To
 have kppp use the profile you want, change the modem initialization string
 (<guibutton>Modem Commands</guibutton> <guilabel>Initialization String</guilabel>
-on the <guilabel>Modem</guilabel> tab.) For example
+on the <guilabel>Modem</guilabel> tab). For example
 <command>ATZ1</command> will have the kppp reset the modem and use stored
 profile #1.</para>
 
