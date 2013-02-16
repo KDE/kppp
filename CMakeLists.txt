@@ -38,6 +38,7 @@ add_subdirectory( icons )
 add_subdirectory( logview ) 
 add_subdirectory( Rules ) 
 add_subdirectory( DB ) 
+add_subdirectory( doc )
 
 ########### next target ###############
 
