@@ -84,7 +84,7 @@ currency_digits=2
 per_connection=0.0
 
 
-# minimum costs per per connection. If the costs of a phone
+# minimum costs per connection. If the costs of a phone
 # call are less than this value, this value is used instead
 minimum_costs=0.0
 
