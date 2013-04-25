@@ -11,7 +11,7 @@ Silence!</para>
 prepares the modem for communications, setting such features as dialing mode,
 waits, detection of the busy signal and many other settings. Newer modem
 communications programs reset the initializations string for you according to
-which menu options you select, which features you enable, &etc;.</para>
+which menu options you select, which features you enable, &etc;</para>
 
 <para>For many years Hayes modems have been the standard. As the field of modem
 manufactures has grown, most have adhered at least loosely to the Hayes
