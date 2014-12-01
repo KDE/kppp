@@ -146,7 +146,6 @@ Name[x-test]=xxKPPPxx
 Name[zh_CN]=KPPP
 Name[zh_HK]=KPPP
 Name[zh_TW]=網路連線_KPPP
-MimeType=
 X-DocPath=kppp/index.html
 Exec=kppp
 Icon=kppp
