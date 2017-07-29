@@ -61,8 +61,8 @@ int loadLogs() {
 
   // load logs
   list = logdir.entryInfoList();
-  QFileInfoListIterator it1 = list.begin();
-  QFileInfoListIterator it1End = list.end();
+  QFileInfoList::iterator it1 = list.begin();
+  QFileInfoList::iterator it1End = list.end();
 
   int retval = 0;
   while (it1 != it1End) {
